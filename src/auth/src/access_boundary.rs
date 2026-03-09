@@ -20,9 +20,19 @@ use crate::credentials::{
 use crate::errors::CredentialsError;
 use crate::mds::client::Client as MDSClient;
 use crate::{Result, errors};
+use google_cloud_gax::Result as GaxResult;
+use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
+use google_cloud_gax::error::Error as GaxError;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyArg, RetryPolicyExt};
+use google_cloud_gax::retry_throttler::{
+    AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
+};
 use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::Client;
 use std::clone::Clone;
+use std::error::Error;
 use std::fmt::Debug;
 use std::sync::{Arc, OnceLock};
 use tokio::sync::watch;
@@ -326,7 +336,7 @@ where
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
         match self.url.as_ref() {
-            Some(url) => fetch_access_boundary(self.credentials.as_ref(), url).await,
+            Some(url) => fetch_access_boundary(self.credentials.clone(), url.clone()).await,
             None => Ok(None), // No URL means no access boundary
         }
     }
@@ -361,7 +371,7 @@ where
 
         let url = self.url.get().unwrap().to_string();
 
-        fetch_access_boundary(self.credentials.as_ref(), &url).await
+        fetch_access_boundary(self.credentials.clone(), url).await
     }
 }
 
@@ -373,11 +383,73 @@ struct AllowedLocationsResponse {
     encoded_locations: String,
 }
 
-async fn fetch_access_boundary<T>(credentials: &T, url: &str) -> Result<Option<String>>
+async fn fetch_access_boundary<T>(credentials: Arc<T>, url: String) -> Result<Option<String>>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    let headers = credentials.headers(Extensions::new()).await?;
+    let resp = fetch_access_boundary_with_retry(credentials, url)
+        .await
+        .map_err(|e| {
+            let is_transient = e
+                .source()
+                .and_then(|s| s.downcast_ref::<CredentialsError>())
+                .is_some_and(|cred_error| cred_error.is_transient());
+            CredentialsError::new(is_transient, "failed to fetch access boundary", e)
+        })?;
+
+    if !resp.encoded_locations.is_empty() {
+        return Ok(Some(resp.encoded_locations));
+    }
+
+    Ok(None)
+}
+
+async fn fetch_access_boundary_with_retry<T>(
+    credentials: Arc<T>,
+    url: String,
+) -> GaxResult<AllowedLocationsResponse>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    let client = Client::new();
+    let sleep = async |d| tokio::time::sleep(d).await;
+
+    let retry_policy: RetryPolicyArg = Aip194Strict.with_time_limit(Duration::from_secs(60)).into();
+    let backoff_policy: BackoffPolicyArg = ExponentialBackoff::default().into();
+    let backoff_policy: Arc<dyn BackoffPolicy> = backoff_policy.into();
+    let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
+    let retry_throttler: SharedRetryThrottler = retry_throttler.into();
+
+    retry_loop(
+        async move |d| {
+            let headers = credentials
+                .headers(Extensions::new())
+                .await
+                .map_err(GaxError::authentication)?;
+
+            let attempt = fetch_access_boundary_call(&client, &url, headers);
+            match d {
+                Some(timeout) => match tokio::time::timeout(timeout, attempt).await {
+                    Ok(r) => r,
+                    Err(e) => Err(GaxError::timeout(e)),
+                },
+                None => attempt.await,
+            }
+        },
+        sleep,
+        true, // fetch access boundary is idempotent
+        retry_throttler,
+        retry_policy.into(),
+        backoff_policy,
+    )
+    .await
+}
+
+async fn fetch_access_boundary_call(
+    client: &Client,
+    url: &str,
+    headers: CacheableResource<HeaderMap>,
+) -> GaxResult<AllowedLocationsResponse> {
     let headers = match headers {
         CacheableResource::New { data, .. } => data,
         CacheableResource::NotModified => {
@@ -385,33 +457,24 @@ where
         }
     };
 
-    let client = Client::new();
-
-    // TODO(#4186): add retries
     let resp = client
         .get(url)
         .headers(headers)
         .send()
         .await
-        .map_err(|e| CredentialsError::from_msg(true, e.to_string()))?;
+        .map_err(GaxError::io)?;
 
-    if !resp.status().is_success() {
-        return Err(CredentialsError::from_msg(
-            true,
-            format!("Failed to fetch access boundary: {}", resp.status()),
-        ));
+    let status = resp.status();
+    if !status.is_success() {
+        let err_headers = resp.headers().clone();
+        let err_payload = resp
+            .bytes()
+            .await
+            .map_err(|e| GaxError::transport(err_headers.clone(), e))?;
+        return Err(GaxError::http(status.as_u16(), err_headers, err_payload));
     }
 
-    let response: AllowedLocationsResponse = resp
-        .json()
-        .await
-        .map_err(|e| CredentialsError::from_msg(true, e.to_string()))?;
-
-    if !response.encoded_locations.is_empty() {
-        return Ok(Some(response.encoded_locations));
-    }
-
-    Ok(None)
+    resp.json().await.map_err(GaxError::io)
 }
 
 async fn refresh_task<T>(provider: T, tx_header: watch::Sender<Option<BoundaryValue>>)
@@ -493,7 +556,7 @@ pub(crate) mod tests {
     use crate::mds::MDS_DEFAULT_URI;
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
-    use httptest::{Expectation, Server, matchers::*, responders::*};
+    use httptest::{Expectation, Server, cycle, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serde_json::json;
     use serial_test::{parallel, serial};
@@ -688,7 +751,7 @@ pub(crate) mod tests {
         });
         let url = server.url("/allowedLocations").to_string();
 
-        let val = fetch_access_boundary(&mock, &url).await?;
+        let val = fetch_access_boundary(Arc::new(mock), url).await?;
         assert!(val.is_none(), "{val:?}");
 
         Ok(())
@@ -700,11 +763,12 @@ pub(crate) mod tests {
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path("GET", "/allowedLocations"))
+                .times(1..)
                 .respond_with(status_code(503)),
         );
 
         let mut mock = MockCredentials::new();
-        mock.expect_headers().return_once(|_extensions| {
+        mock.expect_headers().returning(|_extensions| {
             let headers = HeaderMap::from_iter([(
                 AUTHORIZATION,
                 HeaderValue::from_static("Bearer test-token"),
@@ -717,23 +781,23 @@ pub(crate) mod tests {
 
         let url = server.url("/allowedLocations").to_string();
 
-        let result = fetch_access_boundary(&mock, &url).await;
+        let result = fetch_access_boundary(Arc::new(mock), url).await;
         let err = result.unwrap_err();
-        assert!(err.is_transient(), "{err:?}");
+        assert!(!err.is_transient(), "{err:?}");
     }
 
     #[tokio::test]
     #[parallel]
     async fn test_fetch_access_boundary_token_error() {
         let mut mock = MockCredentials::new();
-        mock.expect_headers().return_once(|_extensions| {
+        mock.expect_headers().returning(|_extensions| {
             Err(CredentialsError::from_msg(
                 false,
                 "invalid creds".to_string(),
             ))
         });
 
-        let result = fetch_access_boundary(&mock, "http://localhost").await;
+        let result = fetch_access_boundary(Arc::new(mock), "http://localhost".to_string()).await;
         let err = result.unwrap_err();
         assert!(!err.is_transient(), "{err:?}");
     }
@@ -1049,6 +1113,50 @@ pub(crate) mod tests {
             tag4, tag5,
             "Same token and boundary should result in same ETags"
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_fetch_access_boundary_retry() -> TestResult {
+        let server = Server::run();
+
+        let invalid_res = http::Response::builder()
+            .version(http::Version::HTTP_3) // unsupported version
+            .status(204)
+            .body(Vec::new())
+            .unwrap();
+
+        server.expect(
+            Expectation::matching(request::method_path("GET", "/allowedLocations"))
+                .times(3)
+                .respond_with(cycle![
+                    invalid_res, // forces i/o error
+                    status_code(503).body("try-again"),
+                    json_encoded(json!({
+                        "encodedLocations": "0x123",
+                        "locations": ["us-east1"]
+                    }))
+                ]),
+        );
+
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().returning(|_extensions| {
+            let headers = HeaderMap::from_iter([(
+                AUTHORIZATION,
+                HeaderValue::from_static("Bearer test-token"),
+            )]);
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: headers,
+            })
+        });
+
+        let url = server.url("/allowedLocations").to_string();
+
+        let val = fetch_access_boundary(Arc::new(mock), url).await?;
+        assert_eq!(val.as_deref(), Some("0x123"));
 
         Ok(())
     }

@@ -52,18 +52,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/cloudExadataInfrastructures",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/cloudExadataInfrastructures", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -116,20 +114,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/cloudExadataInfrastructures/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudExadataInfrastructures/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -180,18 +176,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/cloudExadataInfrastructures",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/cloudExadataInfrastructures", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[(
@@ -245,20 +239,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/cloudExadataInfrastructures/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudExadataInfrastructures/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -311,18 +303,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/cloudVmClusters",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/cloudVmClusters", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -374,20 +364,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/cloudVmClusters/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -438,18 +426,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/cloudVmClusters",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/cloudVmClusters", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("cloudVmClusterId", &req.cloud_vm_cluster_id)]);
@@ -500,20 +486,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/cloudVmClusters/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -566,18 +550,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/entitlements",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/entitlements", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -628,20 +610,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/dbServers",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/cloudExadataInfrastructures/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudExadataInfrastructures/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dbServers", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -694,20 +674,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/dbNodes",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/cloudVmClusters/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dbNodes", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -716,20 +694,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/dbNodes",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exadbVmClusters/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exadbVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dbNodes", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -799,18 +775,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/giVersions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/giVersions", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -862,20 +836,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/minorVersions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/giVersions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/giVersions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/minorVersions", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -929,18 +901,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/dbSystemShapes",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dbSystemShapes", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -992,18 +962,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/autonomousDatabases",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/autonomousDatabases", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1056,20 +1024,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/autonomousDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/autonomousDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1120,18 +1086,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/autonomousDatabases",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/autonomousDatabases", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
@@ -1183,23 +1147,21 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.autonomous_database.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/autonomousDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_autonomous_database_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.autonomous_database.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/autonomousDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_autonomous_database_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1266,20 +1228,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/autonomousDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/autonomousDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1331,20 +1291,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:restore",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/autonomousDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/autonomousDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:restore", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1395,20 +1353,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:generateWallet",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/autonomousDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/autonomousDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:generateWallet", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1459,18 +1415,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/autonomousDbVersions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/autonomousDbVersions", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1521,18 +1475,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/autonomousDatabaseCharacterSets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/autonomousDatabaseCharacterSets", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1584,18 +1536,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/autonomousDatabaseBackups",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/autonomousDatabaseBackups", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1647,20 +1597,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:stop",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/autonomousDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/autonomousDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:stop", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1711,20 +1659,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:start",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/autonomousDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/autonomousDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:start", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1775,20 +1721,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:restart",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/autonomousDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/autonomousDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:restart", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1839,20 +1783,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:switchover",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/autonomousDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/autonomousDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:switchover", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1903,20 +1845,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:failover",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/autonomousDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/autonomousDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:failover", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1967,18 +1907,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/odbNetworks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/odbNetworks", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2031,20 +1969,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/odbNetworks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbNetworks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2095,18 +2031,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/odbNetworks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/odbNetworks", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("odbNetworkId", &req.odb_network_id)]);
@@ -2157,20 +2091,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/odbNetworks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbNetworks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -2222,20 +2154,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/odbSubnets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/odbNetworks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbNetworks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/odbSubnets", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2290,22 +2220,20 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/odbNetworks/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/odbSubnets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbNetworks/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbSubnets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2358,20 +2286,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/odbSubnets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/odbNetworks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbNetworks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/odbSubnets", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("odbSubnetId", &req.odb_subnet_id)]);
@@ -2424,22 +2350,20 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/odbNetworks/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/odbSubnets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbNetworks/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbSubnets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -2493,18 +2417,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/exadbVmClusters",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/exadbVmClusters", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2557,20 +2479,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exadbVmClusters/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exadbVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2621,18 +2541,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/exadbVmClusters",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/exadbVmClusters", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("exadbVmClusterId", &req.exadb_vm_cluster_id)]);
@@ -2683,20 +2601,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exadbVmClusters/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exadbVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -2748,23 +2664,21 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.exadb_vm_cluster.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exadbVmClusters/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_exadb_vm_cluster_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.exadb_vm_cluster.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exadbVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_exadb_vm_cluster_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2831,20 +2745,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:removeVirtualMachine",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exadbVmClusters/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exadbVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:removeVirtualMachine", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -2895,18 +2807,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/exascaleDbStorageVaults",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/exascaleDbStorageVaults", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2959,20 +2869,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exascaleDbStorageVaults/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exascaleDbStorageVaults/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -3023,18 +2931,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/exascaleDbStorageVaults",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/exascaleDbStorageVaults", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[(
@@ -3088,20 +2994,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exascaleDbStorageVaults/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exascaleDbStorageVaults/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -3153,18 +3057,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/dbSystemInitialStorageSizes",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dbSystemInitialStorageSizes", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3215,18 +3117,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/databases",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/databases", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3278,20 +3178,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/databases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/databases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -3342,18 +3240,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/pluggableDatabases",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/pluggableDatabases", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3405,20 +3301,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/pluggableDatabases/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/pluggableDatabases/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -3469,18 +3363,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/dbSystems",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dbSystems", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3533,20 +3425,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dbSystems/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dbSystems/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -3597,18 +3487,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/dbSystems",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dbSystems", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("dbSystemId", &req.db_system_id)]);
@@ -3659,20 +3547,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/dbSystems/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dbSystems/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -3724,18 +3610,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/dbVersions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dbVersions", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3787,18 +3671,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/databaseCharacterSets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/databaseCharacterSets", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3850,13 +3732,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/locations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -3903,18 +3783,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -3963,18 +3841,16 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -4028,20 +3904,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -4092,20 +3966,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -4162,20 +4034,18 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);

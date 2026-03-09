@@ -52,18 +52,16 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/connections",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/connections", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -116,20 +114,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -180,18 +176,16 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/connections",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/connections", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("connectionId", &req.connection_id)]);
@@ -243,23 +237,21 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.connection.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_connection_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.connection.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_connection_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -328,20 +320,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -395,20 +385,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/gitRepositoryLinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/gitRepositoryLinks", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
@@ -463,22 +451,20 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/gitRepositoryLinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gitRepositoryLinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -534,20 +520,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/gitRepositoryLinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/gitRepositoryLinks", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -602,22 +586,20 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/gitRepositoryLinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gitRepositoryLinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -670,24 +652,22 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:fetchReadWriteToken",
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.git_repository_link)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/gitRepositoryLinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_git_repository_link = try_match(
+                    Some(&req)
+                        .map(|m| &m.git_repository_link)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gitRepositoryLinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:fetchReadWriteToken", var_git_repository_link,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -742,24 +722,22 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:fetchReadToken",
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.git_repository_link)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/gitRepositoryLinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_git_repository_link = try_match(
+                    Some(&req)
+                        .map(|m| &m.git_repository_link)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gitRepositoryLinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:fetchReadToken", var_git_repository_link,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -814,20 +792,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:fetchLinkableGitRepositories",
-                    try_match(
-                        Some(&req).map(|m| &m.connection).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_connection = try_match(
+                    Some(&req).map(|m| &m.connection).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:fetchLinkableGitRepositories", var_connection,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -880,20 +856,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:fetchGitHubInstallations",
-                    try_match(
-                        Some(&req).map(|m| &m.connection).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_connection = try_match(
+                    Some(&req).map(|m| &m.connection).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:fetchGitHubInstallations", var_connection,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -944,24 +918,22 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:fetchGitRefs",
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.git_repository_link)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/connections/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/gitRepositoryLinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_git_repository_link = try_match(
+                    Some(&req)
+                        .map(|m| &m.git_repository_link)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/connections/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gitRepositoryLinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:fetchGitRefs", var_git_repository_link,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("refType", &req.ref_type)]);
@@ -1019,18 +991,16 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/accountConnectors",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/accountConnectors", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1083,20 +1053,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accountConnectors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accountConnectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1147,18 +1115,16 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/accountConnectors",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/accountConnectors", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("accountConnectorId", &req.account_connector_id)]);
@@ -1210,23 +1176,21 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.account_connector.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accountConnectors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_account_connector_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.account_connector.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accountConnectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_account_connector_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1295,20 +1259,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accountConnectors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accountConnectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1363,20 +1325,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/users:fetchAccessToken",
-                    try_match(
-                        Some(&req).map(|m| &m.account_connector).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accountConnectors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_account_connector = try_match(
+                    Some(&req).map(|m| &m.account_connector).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accountConnectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/users:fetchAccessToken", var_account_connector,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1427,20 +1387,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/users",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accountConnectors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accountConnectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/users", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1495,22 +1453,20 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accountConnectors/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/users/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accountConnectors/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/users/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -1566,20 +1522,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/users:fetchSelf",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accountConnectors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accountConnectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/users:fetchSelf", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1630,20 +1584,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/users:deleteSelf",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accountConnectors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accountConnectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/users:deleteSelf", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -1694,20 +1646,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/users:startOAuthFlow",
-                    try_match(
-                        Some(&req).map(|m| &m.account_connector).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accountConnectors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_account_connector = try_match(
+                    Some(&req).map(|m| &m.account_connector).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accountConnectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/users:startOAuthFlow", var_account_connector,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1758,20 +1708,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/users:finishOAuthFlow",
-                    try_match(
-                        Some(&req).map(|m| &m.account_connector).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accountConnectors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_account_connector = try_match(
+                    Some(&req).map(|m| &m.account_connector).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accountConnectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/users:finishOAuthFlow", var_account_connector,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -1842,13 +1790,11 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/locations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1895,18 +1841,16 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1955,18 +1899,16 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2020,20 +1962,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2084,20 +2024,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -2154,20 +2092,18 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -2261,18 +2197,16 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/insightsConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/insightsConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2325,18 +2259,16 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/insightsConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/insightsConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("insightsConfigId", &req.insights_config_id)]);
@@ -2387,20 +2319,18 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/insightsConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/insightsConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2451,23 +2381,21 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.insights_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/insightsConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_insights_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.insights_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/insightsConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_insights_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -2524,20 +2452,18 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/insightsConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/insightsConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -2591,22 +2517,20 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/insightsConfigs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/deploymentEvents/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/insightsConfigs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/deploymentEvents/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2659,20 +2583,18 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/deploymentEvents",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/insightsConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/insightsConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/deploymentEvents", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2726,13 +2648,11 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/locations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2779,18 +2699,16 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2839,18 +2757,16 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2904,20 +2820,18 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2968,20 +2882,18 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -3038,20 +2950,18 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);

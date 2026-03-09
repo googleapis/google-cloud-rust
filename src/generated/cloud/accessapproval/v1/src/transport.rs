@@ -52,13 +52,11 @@ impl super::stub::AccessApproval for AccessApproval {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/approvalRequests",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/approvalRequests", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -68,13 +66,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/approvalRequests",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/approvalRequests", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -84,13 +80,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/approvalRequests",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/approvalRequests", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -157,54 +151,48 @@ impl super::stub::AccessApproval for AccessApproval {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -283,54 +271,48 @@ impl super::stub::AccessApproval for AccessApproval {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:approve",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:approve", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:approve",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:approve", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:approve",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:approve", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -409,54 +391,48 @@ impl super::stub::AccessApproval for AccessApproval {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:dismiss",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:dismiss", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:dismiss",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:dismiss", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:dismiss",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:dismiss", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -535,54 +511,48 @@ impl super::stub::AccessApproval for AccessApproval {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:invalidate",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:invalidate", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:invalidate",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:invalidate", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:invalidate",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/approvalRequests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/approvalRequests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:invalidate", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -661,51 +631,45 @@ impl super::stub::AccessApproval for AccessApproval {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accessApprovalSettings")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accessApprovalSettings"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accessApprovalSettings")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accessApprovalSettings"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accessApprovalSettings")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accessApprovalSettings"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -781,20 +745,18 @@ impl super::stub::AccessApproval for AccessApproval {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.settings.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accessApprovalSettings")
-                        ]
-                    )?,
-                );
+                let var_settings_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.settings.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accessApprovalSettings"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_settings_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -813,20 +775,18 @@ impl super::stub::AccessApproval for AccessApproval {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.settings.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accessApprovalSettings")
-                        ]
-                    )?,
-                );
+                let var_settings_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.settings.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accessApprovalSettings"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_settings_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -845,20 +805,18 @@ impl super::stub::AccessApproval for AccessApproval {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.settings.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accessApprovalSettings")
-                        ]
-                    )?,
-                );
+                let var_settings_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.settings.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accessApprovalSettings"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_settings_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -955,51 +913,45 @@ impl super::stub::AccessApproval for AccessApproval {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accessApprovalSettings")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accessApprovalSettings"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accessApprovalSettings")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accessApprovalSettings"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/accessApprovalSettings")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accessApprovalSettings"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -1081,51 +1033,45 @@ impl super::stub::AccessApproval for AccessApproval {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/serviceAccount")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serviceAccount"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/serviceAccount")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serviceAccount"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/serviceAccount")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serviceAccount"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);

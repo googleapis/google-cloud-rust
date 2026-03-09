@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
-/// let client = Audit::builder().build().await?;
-/// // use `client` to make requests to the Cloud Security Compliance API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Audit::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_framework_audits()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -355,10 +362,20 @@ impl Audit {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
-/// let client = CmEnrollmentService::builder().build().await?;
-/// // use `client` to make requests to the Cloud Security Compliance API.
+/// # extern crate wkt as google_cloud_wkt;
+/// use google_cloud_wkt::FieldMask;
+/// use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = CmEnrollmentService::builder().build().await?;
+///     let name = "name_value";
+///     let response = client.update_cm_enrollment()
+///         .set_cm_enrollment(
+///             CmEnrollment::new().set_name(name)/* set fields */
+///         )
+///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -650,10 +667,17 @@ impl CmEnrollmentService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
-/// let client = Config::builder().build().await?;
-/// // use `client` to make requests to the Cloud Security Compliance API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Config::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_frameworks()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1167,10 +1191,17 @@ impl Config {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
-/// let client = Deployment::builder().build().await?;
-/// // use `client` to make requests to the Cloud Security Compliance API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Deployment::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_framework_deployments()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1567,10 +1598,17 @@ impl Deployment {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
-/// let client = Monitoring::builder().build().await?;
-/// // use `client` to make requests to the Cloud Security Compliance API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Monitoring::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_framework_compliance_summaries()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

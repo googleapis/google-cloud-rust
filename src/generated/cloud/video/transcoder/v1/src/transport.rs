@@ -52,18 +52,16 @@ impl super::stub::TranscoderService for TranscoderService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/jobs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/jobs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -112,18 +110,16 @@ impl super::stub::TranscoderService for TranscoderService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/jobs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/jobs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -176,20 +172,18 @@ impl super::stub::TranscoderService for TranscoderService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/jobs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/jobs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -240,20 +234,18 @@ impl super::stub::TranscoderService for TranscoderService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/jobs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/jobs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
@@ -311,18 +303,16 @@ impl super::stub::TranscoderService for TranscoderService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/jobTemplates",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/jobTemplates", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("jobTemplateId", &req.job_template_id)]);
@@ -372,18 +362,16 @@ impl super::stub::TranscoderService for TranscoderService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/jobTemplates",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/jobTemplates", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -436,20 +424,18 @@ impl super::stub::TranscoderService for TranscoderService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/jobTemplates/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/jobTemplates/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -500,20 +486,18 @@ impl super::stub::TranscoderService for TranscoderService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/jobTemplates/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/jobTemplates/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);

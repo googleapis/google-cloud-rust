@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
-/// let client = CloudQuotas::builder().build().await?;
-/// // use `client` to make requests to the Cloud Quotas API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = CloudQuotas::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_quota_infos()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

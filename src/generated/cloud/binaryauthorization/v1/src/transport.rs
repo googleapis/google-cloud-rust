@@ -52,17 +52,15 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/policy")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/policy"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -110,20 +108,18 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.policy.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/policy")
-                        ]
-                    )?,
-                );
+                let var_policy_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.policy.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/policy"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_policy_name,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
@@ -174,13 +170,11 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/attestors",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/attestors", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("attestorId", &req.attestor_id)]);
@@ -225,18 +219,16 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/attestors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/attestors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -285,21 +277,19 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.attestor.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/attestors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_attestor_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.attestor.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/attestors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_attestor_name,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
@@ -351,13 +341,11 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/attestors",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/attestors", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -403,18 +391,16 @@ impl super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/attestors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/attestors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -492,17 +478,15 @@ impl super::stub::SystemPolicyV1 for SystemPolicyV1 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/policy")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/policy"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -573,18 +557,16 @@ impl super::stub::ValidationHelperV1 for ValidationHelperV1 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:validateAttestationOccurrence",
-                    try_match(
-                        Some(&req).map(|m| &m.attestor).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/attestors/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_attestor = try_match(
+                    Some(&req).map(|m| &m.attestor).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/attestors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:validateAttestationOccurrence", var_attestor,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);

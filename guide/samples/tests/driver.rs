@@ -14,277 +14,154 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
-    use google_cloud_gax::error::rpc::{Code, StatusDetails};
-    use google_cloud_secretmanager_v1::client::SecretManagerService;
-    use rand::{RngExt, distr::Alphanumeric};
-
-    const SECRET_ID_LENGTH: usize = 32;
+    use google_cloud_test_utils::errors::anydump;
 
     #[tokio::test(flavor = "multi_thread")]
     async fn authentication() -> anyhow::Result<()> {
-        let Err(err) = user_guide_samples::authentication::adc::sample().await else {
-            return Ok(());
-        };
-        // When the credentials lack a quota project the service returns this
-        // error.
-        let Some(StatusDetails::ErrorInfo(_)) = err
-            .downcast_ref::<google_cloud_gax::error::Error>()
-            .and_then(|s| s.status())
-            .filter(|s| s.code == Code::PermissionDenied)
-            .and_then(|s| {
-                // Must have a StatusDetails::ErrorInfo(_) in the details.
-                s.details.iter().find(
-                    // ErrorInfo.reason can be treated as an enum. Testing its
-                    // value programmatically is fine.
-                    |d| matches!(d, StatusDetails::ErrorInfo(i) if i.reason == "SERVICE_DISABLED"),
-                )
-            })
-        else {
-            return Err(err);
-        };
-        eprintln!("ignoring error: {err:?}");
-        Ok(())
+        user_guide_samples::authentication::drive_adc()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn id_token() -> anyhow::Result<()> {
-        use google_cloud_auth::credentials::idtoken::Builder;
-        use httptest::{Expectation, Server, matchers::*, responders::*};
-        const AUDIENCE: &str = "https://my-service.a.run.app";
-
-        let credentials = match Builder::new(AUDIENCE).build() {
-            Ok(c) => c,
-            Err(e) if e.is_not_supported() => {
-                eprintln!("ADC credentials type not supported for idtoken credentials: {e:?}");
-                return Ok(());
-            }
-            Err(e) => return Err(e.into()),
-        };
-
-        let id_token =
-            user_guide_samples::authentication::request_id_token::sample(AUDIENCE).await?;
-        user_guide_samples::authentication::verify_id_token::sample(&id_token, AUDIENCE).await?;
-
-        // Create a server so the `api_call_with_id_token()` example has
-        // a valid URL to call upon.
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("GET", "/"),
-                request::headers(contains(("authorization", format!("Bearer {}", id_token)))),
-            ])
-            .respond_with(status_code(200)),
-        );
-
-        let target_url = server.url("/").to_string();
-
-        user_guide_samples::authentication::request_id_token::api_call_with_id_token(
-            &target_url,
-            &credentials,
-        )
-        .await?;
-        Ok(())
+        user_guide_samples::authentication::drive_id_token()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn endpoint() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         let region = std::env::var("GOOGLE_CLOUD_TEST_REGION").unwrap_or("us-central1".to_string());
-        user_guide_samples::endpoint::default::sample(&project_id).await?;
-        user_guide_samples::endpoint::regional::sample(&project_id, &region).await?;
+        user_guide_samples::endpoint::default::sample(&project_id)
+            .await
+            .inspect_err(anydump)?;
+        user_guide_samples::endpoint::regional::sample(&project_id, &region)
+            .await
+            .inspect_err(anydump)?;
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn gemini_text_prompt() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::gemini::text_prompt::sample(&project_id).await
+        user_guide_samples::gemini::text_prompt::sample(&project_id)
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn gemini_prompt_and_image() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::gemini::prompt_and_image::sample(&project_id).await
+        user_guide_samples::gemini::prompt_and_image::sample(&project_id)
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn logging() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::logging::sample(&project_id).await?;
-        Ok(())
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn pagination_iterate_pages() -> user_guide_samples::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::pagination::paginator_iterate_pages::sample(&project_id).await
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn pagination_iterate_items() -> user_guide_samples::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::pagination::paginator_iterate_items::sample(&project_id).await
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn pagination_stream_pages() -> user_guide_samples::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::pagination::paginator_stream_pages::sample(&project_id).await
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn pagination_stream_items() -> user_guide_samples::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::pagination::paginator_stream_items::sample(&project_id).await
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn pagination_page_token() -> user_guide_samples::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::pagination::pagination_page_token::sample(&project_id).await
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn retry_policies_client() -> user_guide_samples::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::retry_policies::client_retry::sample(&project_id).await
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn retry_policies_client_full() -> user_guide_samples::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::retry_policies::client_retry_full::sample(&project_id).await
-    }
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn retry_policies_request() -> user_guide_samples::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        let secret_id: String = rand::rng()
-            .sample_iter(&Alphanumeric)
-            .take(SECRET_ID_LENGTH)
-            .map(char::from)
-            .collect();
-
-        let client = SecretManagerService::builder().build().await?;
-        // The sample will delete this secret. If that fails, the cleanup step
-        // for the integration tests will garbage collect it in a couple of
-        // days.
-        let _ = user_guide_samples::error_handling::create_secret::create_secret(
-            &client,
-            &project_id,
-            &secret_id,
-        )
-        .await?;
-        user_guide_samples::retry_policies::request_retry::sample(&client, &project_id, &secret_id)
+        user_guide_samples::logging::sample(&project_id)
             .await
+            .inspect_err(anydump)
     }
 
-    #[tokio::test]
-    async fn error_handling_found() -> user_guide_samples::Result<()> {
-        use google_cloud_gax::retry_policy::AlwaysRetry;
-        use google_cloud_gax::retry_policy::RetryPolicyExt;
-        use std::time::Duration;
-
+    #[tokio::test(flavor = "multi_thread")]
+    async fn pagination_iterate_pages() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        let secret_id: String = rand::rng()
-            .sample_iter(&Alphanumeric)
-            .take(SECRET_ID_LENGTH)
-            .map(char::from)
-            .collect();
-
-        let client = SecretManagerService::builder()
-            .with_retry_policy(
-                AlwaysRetry
-                    .with_attempt_limit(5)
-                    .with_time_limit(Duration::from_secs(15)),
-            )
-            .build()
-            .await?;
-        // The secret is immediately deleted. If that fails, the cleanup step
-        // for the integration tests will garbage collect it in a couple of
-        // days.
-        let _ = user_guide_samples::error_handling::create_secret::create_secret(
-            &client,
-            &project_id,
-            &secret_id,
-        )
-        .await?;
-        let version = user_guide_samples::error_handling::update_secret::sample(
-            &project_id,
-            &secret_id,
-            "The quick brown fox jumps over the lazy dog".into(),
-        )
-        .await?;
-        let _ = client
-            .destroy_secret_version()
-            .set_name(&version.name)
-            .send()
-            .await?;
-        client
-            .delete_secret()
-            .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
-            .send()
-            .await?;
-        Ok(())
+        user_guide_samples::pagination::paginator_iterate_pages::sample(&project_id)
+            .await
+            .inspect_err(anydump)
     }
 
-    #[tokio::test]
-    async fn error_handling_not_found() -> user_guide_samples::Result<()> {
-        use google_cloud_gax::retry_policy::AlwaysRetry;
-        use google_cloud_gax::retry_policy::RetryPolicyExt;
-        use google_cloud_secretmanager_v1 as sm;
-        use std::time::Duration;
-
+    #[tokio::test(flavor = "multi_thread")]
+    async fn pagination_iterate_items() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        let secret_id: String = rand::rng()
-            .sample_iter(&Alphanumeric)
-            .take(SECRET_ID_LENGTH)
-            .map(char::from)
-            .collect();
+        user_guide_samples::pagination::paginator_iterate_items::sample(&project_id)
+            .await
+            .inspect_err(anydump)
+    }
 
-        let version = user_guide_samples::error_handling::update_secret::sample(
-            &project_id,
-            &secret_id,
-            "The quick brown fox jumps over the lazy dog".into(),
-        )
-        .await?;
+    #[tokio::test(flavor = "multi_thread")]
+    async fn pagination_stream_pages() -> anyhow::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::pagination::paginator_stream_pages::sample(&project_id)
+            .await
+            .inspect_err(anydump)
+    }
 
-        let client = sm::client::SecretManagerService::builder()
-            .with_retry_policy(
-                AlwaysRetry
-                    .with_attempt_limit(5)
-                    .with_time_limit(Duration::from_secs(15)),
-            )
-            .build()
-            .await?;
-        let _ = client
-            .destroy_secret_version()
-            .set_name(&version.name)
-            .send()
-            .await?;
-        client
-            .delete_secret()
-            .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
-            .send()
-            .await?;
-        Ok(())
+    #[tokio::test(flavor = "multi_thread")]
+    async fn pagination_stream_items() -> anyhow::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::pagination::paginator_stream_items::sample(&project_id)
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn pagination_page_token() -> anyhow::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::pagination::pagination_page_token::sample(&project_id)
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn retry_policies_client() -> anyhow::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::retry_policies::client_retry::sample(&project_id)
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn retry_policies_client_full() -> anyhow::Result<()> {
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+        user_guide_samples::retry_policies::client_retry_full::sample(&project_id)
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn retry_policies_request() -> anyhow::Result<()> {
+        user_guide_samples::retry_policies::drive_request_retry()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test]
-    async fn examine_error_details() -> user_guide_samples::Result<()> {
-        user_guide_samples::examine_error_details::sample().await?;
-        Ok(())
+    async fn error_handling_found() -> anyhow::Result<()> {
+        user_guide_samples::error_handling::drive_update_secret()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test]
-    async fn binding_fail() -> user_guide_samples::Result<()> {
-        user_guide_samples::binding_errors::binding_fail::sample().await?;
-        Ok(())
+    async fn error_handling_not_found() -> anyhow::Result<()> {
+        user_guide_samples::error_handling::drive_update_secret_not_found()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test]
-    async fn binding_success() -> user_guide_samples::Result<()> {
-        user_guide_samples::binding_errors::binding_success::sample().await?;
-        Ok(())
+    async fn examine_error_details() -> anyhow::Result<()> {
+        user_guide_samples::examine_error_details::sample()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
+    async fn binding_fail() -> anyhow::Result<()> {
+        user_guide_samples::binding_errors::binding_fail::sample()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test]
+    async fn binding_success() -> anyhow::Result<()> {
+        user_guide_samples::binding_errors::binding_success::sample()
+            .await
+            .inspect_err(anydump)
     }
 }

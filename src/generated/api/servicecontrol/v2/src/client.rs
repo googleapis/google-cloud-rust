@@ -20,10 +20,13 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
-/// let client = ServiceController::builder().build().await?;
-/// // use `client` to make requests to the Service Control API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ServiceController::builder().build().await?;
+///     let response = client.check()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///

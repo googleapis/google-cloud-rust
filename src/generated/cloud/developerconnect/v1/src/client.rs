@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
-/// let client = DeveloperConnect::builder().build().await?;
-/// // use `client` to make requests to the Developer Connect API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DeveloperConnect::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_connections()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -957,10 +964,17 @@ impl DeveloperConnect {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
-/// let client = InsightsConfigService::builder().build().await?;
-/// // use `client` to make requests to the Developer Connect API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = InsightsConfigService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_insights_configs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

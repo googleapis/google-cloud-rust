@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::builder::StreamingPull;
+use super::builder::Subscribe;
 use super::client_builder::ClientBuilder;
 use super::transport::Transport;
 use crate::ClientBuilderResult as BuilderResult;
@@ -28,7 +28,7 @@ use std::sync::Arc;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let client = Subscriber::builder().build().await?;
 /// let mut stream = client
-///     .stream("projects/my-project/subscriptions/my-subscription")
+///     .subscribe("projects/my-project/subscriptions/my-subscription")
 ///     .build();
 /// while let Some((m, h)) = stream.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
@@ -130,7 +130,7 @@ impl Subscriber {
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
     /// let mut stream = client
-    ///     .stream("projects/my-project/subscriptions/my-subscription")
+    ///     .subscribe("projects/my-project/subscriptions/my-subscription")
     ///     .build();
     /// while let Some((m, h)) = stream.next().await.transpose()? {
     ///     println!("Received message m={m:?}");
@@ -140,11 +140,11 @@ impl Subscriber {
     /// ```
     ///
     /// [subscription]: https://docs.cloud.google.com/pubsub/docs/subscription-overview
-    pub fn stream<T>(&self, subscription: T) -> StreamingPull
+    pub fn subscribe<T>(&self, subscription: T) -> Subscribe
     where
         T: Into<String>,
     {
-        StreamingPull::new(
+        Subscribe::new(
             self.inner.clone(),
             subscription.into(),
             self.client_id.clone(),
@@ -189,7 +189,7 @@ mod tests {
             .build()
             .await?;
         let err = client
-            .stream("projects/p/subscriptions/s")
+            .subscribe("projects/p/subscriptions/s")
             .build()
             .next()
             .await
@@ -228,7 +228,7 @@ mod tests {
             .await?;
         assert_eq!(client.grpc_subchannel_count, 8);
 
-        let builder = client.stream("projects/p/subscriptions/s");
+        let builder = client.subscribe("projects/p/subscriptions/s");
         assert_eq!(builder.grpc_subchannel_count, 8);
 
         Ok(())

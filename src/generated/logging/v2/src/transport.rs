@@ -52,91 +52,81 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/logs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_log_name = try_match(
+                    Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/logs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_log_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/logs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_log_name = try_match(
+                    Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/logs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_log_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/logs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_log_name = try_match(
+                    Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/logs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_log_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/logs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_log_name = try_match(
+                    Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/logs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_log_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/logs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_log_name = try_match(
+                    Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/logs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_log_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -362,17 +352,15 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/logs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/logs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -385,13 +373,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/logs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/logs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -404,13 +390,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/logs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/logs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -423,13 +407,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/logs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/logs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -442,16 +424,14 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/logs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/logs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -464,22 +444,20 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/logs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/logs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -492,22 +470,20 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/logs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/logs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -520,22 +496,20 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/logs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/logs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -548,22 +522,20 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/logs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/logs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -736,19 +708,17 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -760,18 +730,16 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -783,18 +751,16 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -806,18 +772,16 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -829,18 +793,16 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -955,101 +917,91 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1169,101 +1121,91 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1412,19 +1354,17 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -1433,18 +1373,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -1453,18 +1391,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -1473,18 +1409,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -1493,18 +1427,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -1616,101 +1548,91 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1830,19 +1752,17 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets:createAsync",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets:createAsync", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
@@ -1850,18 +1770,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets:createAsync",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets:createAsync", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
@@ -1869,18 +1787,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets:createAsync",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets:createAsync", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
@@ -1888,18 +1804,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets:createAsync",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets:createAsync", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
@@ -1907,18 +1821,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets:createAsync",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets:createAsync", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
@@ -2029,21 +1941,19 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:updateAsync",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:updateAsync", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
@@ -2062,20 +1972,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:updateAsync",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:updateAsync", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
@@ -2094,20 +2002,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:updateAsync",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:updateAsync", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
@@ -2126,20 +2032,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:updateAsync",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:updateAsync", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
@@ -2158,20 +2062,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:updateAsync",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:updateAsync", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
@@ -2303,19 +2205,17 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
@@ -2323,18 +2223,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
@@ -2342,18 +2240,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
@@ -2361,18 +2257,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
@@ -2380,18 +2274,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/buckets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/buckets", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
@@ -2502,21 +2394,19 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2535,20 +2425,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2567,20 +2455,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2599,20 +2485,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2631,20 +2515,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2776,101 +2658,91 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -2996,101 +2868,91 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:undelete",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:undelete", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:undelete",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:undelete", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:undelete",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:undelete", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:undelete",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:undelete", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:undelete",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:undelete", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -3216,21 +3078,19 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/views",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/views", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3239,20 +3099,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/views",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/views", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3261,20 +3119,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/views",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/views", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3283,20 +3139,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/views",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/views", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3305,20 +3159,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/views",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/views", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3440,111 +3292,101 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -3674,21 +3516,19 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/views",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/views", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("viewId", &req.view_id)]);
@@ -3696,20 +3536,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/views",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/views", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("viewId", &req.view_id)]);
@@ -3717,20 +3555,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/views",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/views", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("viewId", &req.view_id)]);
@@ -3738,20 +3574,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/views",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/views", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("viewId", &req.view_id)]);
@@ -3759,20 +3593,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/views",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/views", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("viewId", &req.view_id)]);
@@ -3893,23 +3725,21 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3928,22 +3758,20 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3962,22 +3790,20 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3996,22 +3822,20 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4030,22 +3854,20 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4187,111 +4009,101 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/views/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/views/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -4427,17 +4239,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/sinks", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -4446,13 +4256,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/sinks", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -4461,13 +4269,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/sinks", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -4476,13 +4282,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/sinks", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -4491,16 +4295,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/sinks", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -4593,91 +4395,81 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -4787,17 +4579,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/sinks", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
@@ -4806,13 +4596,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/sinks", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
@@ -4821,13 +4609,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/sinks", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
@@ -4836,13 +4622,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/sinks", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
@@ -4851,16 +4635,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sinks",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/sinks", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
@@ -4953,19 +4735,17 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = (|| {
@@ -4986,18 +4766,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PUT)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = (|| {
@@ -5018,18 +4796,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PUT)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = (|| {
@@ -5050,18 +4826,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PUT)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = (|| {
@@ -5082,18 +4856,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PUT)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = (|| {
@@ -5114,18 +4886,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PUT)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5146,18 +4916,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5178,18 +4946,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5210,18 +4976,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5405,91 +5169,81 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sinks/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_sink_name = try_match(
+                    Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sinks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_sink_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -5605,21 +5359,19 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/links",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/links", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("linkId", &req.link_id)]);
@@ -5627,20 +5379,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/links",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/links", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("linkId", &req.link_id)]);
@@ -5648,20 +5398,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/links",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/links", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("linkId", &req.link_id)]);
@@ -5669,20 +5417,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/links",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/links", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("linkId", &req.link_id)]);
@@ -5690,20 +5436,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/links",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/links", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("linkId", &req.link_id)]);
@@ -5824,111 +5568,101 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/links/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/links/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/links/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/links/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/links/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/links/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/links/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/links/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/links/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/links/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -6058,21 +5792,19 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/links",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/links", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -6081,20 +5813,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/links",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/links", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -6103,20 +5833,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/links",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/links", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -6125,20 +5853,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/links",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/links", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -6147,20 +5873,18 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/links",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/links", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -6282,111 +6006,101 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/links/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/links/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/links/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/links/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/links/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/links/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/links/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/links/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/buckets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/links/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/links/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -6516,17 +6230,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/exclusions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/exclusions", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -6535,13 +6247,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/exclusions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/exclusions", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -6550,13 +6260,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/exclusions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/exclusions", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -6565,13 +6273,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/exclusions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/exclusions", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -6580,16 +6286,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/exclusions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/exclusions", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -6682,91 +6386,81 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -6876,72 +6570,62 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/exclusions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/exclusions", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/exclusions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/exclusions", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/exclusions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/exclusions", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/exclusions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/exclusions", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/exclusions",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/exclusions", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -7032,19 +6716,17 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7063,18 +6745,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7093,18 +6773,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7123,18 +6801,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7153,18 +6829,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7286,91 +6960,81 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/exclusions/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exclusions/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -7486,72 +7150,62 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/cmekSettings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/cmekSettings", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/cmekSettings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/cmekSettings", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/cmekSettings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/cmekSettings", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/cmekSettings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/cmekSettings", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/cmekSettings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/cmekSettings", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -7642,17 +7296,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/cmekSettings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/cmekSettings", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7671,13 +7323,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/cmekSettings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/cmekSettings", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7747,72 +7397,62 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/settings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/settings", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/settings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/settings", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/settings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/settings", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/settings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/settings", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/settings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/settings", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -7903,17 +7543,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/settings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/settings", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7932,13 +7570,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/settings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/settings", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7957,13 +7593,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/settings",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/settings", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -8079,19 +7713,17 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -8103,18 +7735,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -8126,18 +7756,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -8149,18 +7777,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -8172,18 +7798,16 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -8298,101 +7922,91 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -8512,101 +8126,91 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -8769,13 +8373,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/metrics",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/metrics", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -8821,18 +8423,16 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.metric_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/metrics/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_metric_name = try_match(
+                    Some(&req).map(|m| &m.metric_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/metrics/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_metric_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -8881,13 +8481,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/metrics",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/metrics", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -8931,18 +8529,16 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.metric_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/metrics/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_metric_name = try_match(
+                    Some(&req).map(|m| &m.metric_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/metrics/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_metric_name,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
@@ -8991,18 +8587,16 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.metric_name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/metrics/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_metric_name = try_match(
+                    Some(&req).map(|m| &m.metric_name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/metrics/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_metric_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -9057,19 +8651,17 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9081,18 +8673,16 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9104,18 +8694,16 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9127,18 +8715,16 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9150,18 +8736,16 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9276,101 +8860,91 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -9490,101 +9064,91 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("billingAccounts/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("billingAccounts/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);

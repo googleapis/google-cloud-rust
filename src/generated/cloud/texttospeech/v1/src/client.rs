@@ -20,10 +20,13 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
-/// let client = TextToSpeech::builder().build().await?;
-/// // use `client` to make requests to the Cloud Text-to-Speech API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = TextToSpeech::builder().build().await?;
+///     let response = client.list_voices()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -211,10 +214,14 @@ impl TextToSpeech {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
-/// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
-/// // use `client` to make requests to the Cloud Text-to-Speech API.
+/// use google_cloud_lro::Poller;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
+///     let response = client.synthesize_long_audio()
+///         /* set fields */
+///         .poller().until_done().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///

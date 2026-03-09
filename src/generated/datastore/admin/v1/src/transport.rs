@@ -52,13 +52,11 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}:export",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}:export", var_project_id,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -102,13 +100,11 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}:import",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}:import", var_project_id,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -152,13 +148,11 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/indexes",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/indexes", var_project_id,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -202,17 +196,15 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/indexes/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.index_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_index_id = try_match(
+                    Some(&req).map(|m| &m.index_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/indexes/{}", var_project_id, var_index_id,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -262,17 +254,15 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/indexes/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.index_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_index_id = try_match(
+                    Some(&req).map(|m| &m.index_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/indexes/{}", var_project_id, var_index_id,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -322,13 +312,11 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/indexes",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/indexes", var_project_id,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -375,13 +363,11 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -430,18 +416,16 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -490,18 +474,16 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -556,18 +538,16 @@ impl super::stub::DatastoreAdmin for DatastoreAdmin {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);

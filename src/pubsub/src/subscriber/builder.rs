@@ -21,7 +21,7 @@ const MIB: i64 = 1024 * 1024;
 pub use super::client_builder::ClientBuilder;
 
 /// Builder for the `client::Subscriber::streaming_pull` method.
-pub struct StreamingPull {
+pub struct Subscribe {
     pub(super) inner: Arc<Transport>,
     pub(super) subscription: String,
     pub(super) client_id: String,
@@ -31,7 +31,7 @@ pub struct StreamingPull {
     pub(super) max_outstanding_bytes: i64,
 }
 
-impl StreamingPull {
+impl Subscribe {
     pub(super) fn new(
         inner: Arc<Transport>,
         subscription: String,
@@ -59,7 +59,7 @@ impl StreamingPull {
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
     /// let mut stream = client
-    ///     .stream("projects/my-project/subscriptions/my-subscription")
+    ///     .subscribe("projects/my-project/subscriptions/my-subscription")
     ///     .build();
     /// while let Some((m, h)) = stream.next().await.transpose()? {
     ///     println!("Received message m={m:?}");
@@ -92,7 +92,7 @@ impl StreamingPull {
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
-    /// let stream = client.stream("projects/my-project/subscriptions/my-subscription")
+    /// let stream = client.subscribe("projects/my-project/subscriptions/my-subscription")
     ///     .set_ack_deadline_seconds(20)
     ///     .build();
     /// # Ok(()) }
@@ -119,7 +119,7 @@ impl StreamingPull {
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
-    /// let stream = client.stream("projects/my-project/subscriptions/my-subscription")
+    /// let stream = client.subscribe("projects/my-project/subscriptions/my-subscription")
     ///     .set_max_outstanding_messages(2000)
     ///     .build();
     /// # Ok(()) }
@@ -147,7 +147,7 @@ impl StreamingPull {
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
     /// const MIB: i64 = 1024 * 1024;
-    /// let stream = client.stream("projects/my-project/subscriptions/my-subscription")
+    /// let stream = client.subscribe("projects/my-project/subscriptions/my-subscription")
     ///     .set_max_outstanding_bytes(200 * MIB)
     ///     .build();
     /// # Ok(()) }
@@ -175,7 +175,7 @@ mod tests {
 
     #[tokio::test]
     async fn reasonable_defaults() -> anyhow::Result<()> {
-        let builder = StreamingPull::new(
+        let builder = Subscribe::new(
             test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             "client-id".to_string(),
@@ -203,7 +203,7 @@ mod tests {
 
     #[tokio::test]
     async fn options() -> anyhow::Result<()> {
-        let builder = StreamingPull::new(
+        let builder = Subscribe::new(
             test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             "client-id".to_string(),

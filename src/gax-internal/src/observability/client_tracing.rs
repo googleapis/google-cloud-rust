@@ -19,57 +19,6 @@ use google_cloud_gax::error::Error;
 use opentelemetry_semantic_conventions::trace as otel_trace;
 use tracing::Span;
 
-/// Creates a new tracing span for a client request.
-///
-/// This span represents the logical request operation and is used to track
-/// the overall duration and status of the request, including retries.
-///
-/// # Example
-///
-/// ```
-/// let span = client_request_span!("client::Client", "upload_chunk", &HIDDEN_DETAIL);
-/// # use google_cloud_gax_internal::client_request_span;
-/// # use google_cloud_gax_internal::options::InstrumentationClientInfo;
-/// # lazy_static::lazy_static! { static ref HIDDEN_DETAIL: InstrumentationClientInfo = {
-/// #     InstrumentationClientInfo::default()
-/// # };
-/// # }
-/// ```
-#[macro_export]
-macro_rules! client_request_span {
-    ($client:expr, $method:expr, $info:expr) => {{
-        use $crate::observability::attributes::keys::*;
-        use $crate::observability::attributes::{
-            GCP_CLIENT_LANGUAGE_RUST, GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL,
-            RPC_SYSTEM_HTTP, otel_status_codes::UNSET,
-        };
-        tracing::info_span!(
-            "client_request",
-            "gax.client.span" = true, // Marker field
-            { OTEL_NAME } = concat!(env!("CARGO_CRATE_NAME"), "::", $client, "::", $method),
-            { OTEL_KIND } = OTEL_KIND_INTERNAL,
-            { RPC_SYSTEM } = RPC_SYSTEM_HTTP, // Default to HTTP, can be overridden
-            { RPC_SERVICE } = $info.service_name,
-            { RPC_METHOD } = $method,
-            { GCP_CLIENT_SERVICE } = $info.service_name,
-            { GCP_CLIENT_VERSION } = $info.client_version,
-            { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
-            { GCP_CLIENT_ARTIFACT } = $info.client_artifact,
-            { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
-            // Fields to be recorded later
-            { OTEL_STATUS_CODE } = UNSET,
-            { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty,
-            { ERROR_TYPE } = ::tracing::field::Empty,
-            { SERVER_ADDRESS } = ::tracing::field::Empty,
-            { SERVER_PORT } = ::tracing::field::Empty,
-            { URL_FULL } = ::tracing::field::Empty,
-            { HTTP_REQUEST_METHOD } = ::tracing::field::Empty,
-            { HTTP_RESPONSE_STATUS_CODE } = ::tracing::field::Empty,
-            { HTTP_REQUEST_RESEND_COUNT } = ::tracing::field::Empty,
-        )
-    }};
-}
-
 /// This trait simplifies the implementation of tracing.
 ///
 /// # Example

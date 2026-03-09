@@ -5,7 +5,7 @@
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Sensitive Data Protection (DLP)",
+    "name_pretty": "Sensitive Data Protection (DLP) API",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

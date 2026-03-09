@@ -23,7 +23,7 @@ pub async fn sample(
     client: &SecretManagerService,
     project_id: &str,
     secret_id: &str,
-) -> crate::Result<()> {
+) -> anyhow::Result<()> {
     // [START rust_request_retry_request] ANCHOR: request-retry-request
     client
         .delete_secret()

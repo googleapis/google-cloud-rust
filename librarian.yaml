@@ -13,7 +13,7 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.4-0.20260227165934-e799a3e235e3
+version: v0.8.4-0.20260308144746-c8a4cb903c10
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
@@ -128,7 +128,6 @@ libraries:
     roots:
       - src/wkt/tests/protos
     skip_release: true
-    veneer: true
     rust:
       modules:
         - disabled_rustdoc_warnings: []
@@ -186,6 +185,7 @@ libraries:
         - vertex-rag-data-service
         - vertex-rag-service
         - vizier-service
+      quickstart_service_override: PredictionService
   - name: google-cloud-aiplatform-v1-schema-predict-instance
     version: 1.0.0
     copyright_year: "2025"
@@ -445,7 +445,6 @@ libraries:
     version: 1.7.0
     copyright_year: "2025"
     output: src/auth
-    veneer: true
   - name: google-cloud-backupdr-v1
     version: 1.7.0
     copyright_year: "2025"
@@ -474,7 +473,6 @@ libraries:
     copyright_year: "2025"
     output: src/bigquery
     skip_release: true
-    veneer: true
   - name: google-cloud-bigquery-analyticshub-v1
     version: 1.7.0
     copyright_year: "2025"
@@ -506,7 +504,6 @@ libraries:
     copyright_year: "2025"
     output: src/bigtable
     skip_release: true
-    veneer: true
   - name: google-cloud-bigtable-admin-v2
     version: 1.7.0
     apis:
@@ -594,6 +591,7 @@ libraries:
             method_id: .google.cloud.compute.v1.globalOperations.get
           - prefix: compute/v1/
             method_id: .google.cloud.compute.v1.globalOrganizationOperations.get
+      quickstart_service_override: Instances
   - name: google-cloud-confidentialcomputing-v1
     version: 1.6.0
     copyright_year: "2025"
@@ -643,7 +641,6 @@ libraries:
     copyright_year: "2025"
     output: src/datastore
     skip_release: true
-    veneer: true
   - name: google-cloud-datastore-admin-v1
     version: 1.7.0
     apis:
@@ -792,7 +789,6 @@ libraries:
     copyright_year: "2025"
     output: src/firestore
     skip_release: true
-    veneer: true
     rust:
       modules:
         - module_path: crate::generated::gapic::model
@@ -832,12 +828,10 @@ libraries:
     version: 1.8.0
     copyright_year: "2025"
     output: src/gax
-    veneer: true
   - name: google-cloud-gax-internal
     version: 0.7.10
     copyright_year: "2025"
     output: src/gax-internal
-    veneer: true
     rust:
       modules:
         - module_path: google_cloud_rpc::model
@@ -1044,7 +1038,6 @@ libraries:
     version: 1.3.1
     copyright_year: "2025"
     output: src/lro
-    veneer: true
   - name: google-cloud-lustre-v1
     version: 1.7.0
     copyright_year: "2025"
@@ -1202,7 +1195,6 @@ libraries:
     version: 0.32.4-preview
     copyright_year: "2025"
     output: src/pubsub
-    veneer: true
     rust:
       modules:
         - included_ids:
@@ -1373,7 +1365,6 @@ libraries:
     copyright_year: "2026"
     output: src/spanner
     skip_release: true
-    veneer: true
     rust:
       modules:
         - module_path: crate::generated::gapic_dataplane::model
@@ -1444,11 +1435,11 @@ libraries:
       pagination_overrides:
         - id: .google.cloud.sql.v1.SqlInstancesService.List
           item_field: items
+      quickstart_service_override: SqlInstancesService
   - name: google-cloud-storage
     version: 1.9.0
     copyright_year: "2025"
     output: src/storage
-    veneer: true
     rust:
       modules:
         - module_path: crate::generated::gapic_control::model
@@ -1565,8 +1556,8 @@ libraries:
         - language: rust_storage
           output: src/storage/src/control/generated
           specification_format: none
-          api_path: ""
-          template: ""
+          api_path: google/storage/v2
+          template: prost
   - name: google-cloud-storagebatchoperations-v1
     version: 1.7.0
     copyright_year: "2025"
@@ -1596,7 +1587,6 @@ libraries:
     copyright_year: "2025"
     output: src/test-utils
     skip_release: true
-    veneer: true
   - name: google-cloud-texttospeech-v1
     version: 1.8.0
     copyright_year: "2025"
@@ -1668,7 +1658,6 @@ libraries:
     output: src/wkt
     roots:
       - protobuf-src
-    veneer: true
     rust:
       modules:
         - include_list: api.proto,source_context.proto,type.proto,descriptor.proto
@@ -1695,14 +1684,12 @@ libraries:
     copyright_year: "2025"
     output: src/gax-internal/grpc-server
     skip_release: true
-    veneer: true
   - name: protojson-conformance
     copyright_year: "2025"
     output: tests/protojson-conformance
     roots:
       - conformance
     skip_release: true
-    veneer: true
     rust:
       modules:
         - include_list: conformance.proto
@@ -1732,12 +1719,10 @@ libraries:
     copyright_year: "2025"
     output: src/pubsub/grpc-mock
     skip_release: true
-    veneer: true
   - name: pubsub-samples
     copyright_year: "2025"
     output: src/pubsub/examples
     skip_release: true
-    veneer: true
   - name: secretmanager-openapi-v1
     version: 1.0.0
     apis:
@@ -1752,24 +1737,19 @@ libraries:
     copyright_year: "2025"
     output: src/storage/grpc-mock
     skip_release: true
-    veneer: true
   - name: storage-random
     copyright_year: "2025"
     output: src/storage/benchmarks/random
     skip_release: true
-    veneer: true
   - name: storage-samples
     copyright_year: "2025"
     output: src/storage/examples
     skip_release: true
-    veneer: true
   - name: storage-scenarios
     copyright_year: "2025"
     output: src/storage/tests/scenarios
     skip_release: true
-    veneer: true
   - name: storage-w1r3
     copyright_year: "2025"
     output: src/storage/benchmarks/w1r3
     skip_release: true
-    veneer: true

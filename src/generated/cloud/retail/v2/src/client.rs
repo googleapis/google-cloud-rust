@@ -20,10 +20,14 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::AnalyticsService;
-/// let client = AnalyticsService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// use google_cloud_lro::Poller;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = AnalyticsService::builder().build().await?;
+///     let response = client.export_analytics_metrics()
+///         /* set fields */
+///         .poller().until_done().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -208,10 +212,17 @@ impl AnalyticsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::CatalogService;
-/// let client = CatalogService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = CatalogService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_catalogs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -695,10 +706,14 @@ impl CatalogService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::CompletionService;
-/// let client = CompletionService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// use google_cloud_lro::Poller;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = CompletionService::builder().build().await?;
+///     let response = client.import_completion_data()
+///         /* set fields */
+///         .poller().until_done().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -913,10 +928,17 @@ impl CompletionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ControlService;
-/// let client = ControlService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ControlService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_controls()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1196,10 +1218,16 @@ impl ControlService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ConversationalSearchService;
-/// let client = ConversationalSearchService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ConversationalSearchService::builder().build().await?;
+///     let mut list = client.list_operations()
+///         /* set fields */
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1352,10 +1380,13 @@ impl ConversationalSearchService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
-/// let client = GenerativeQuestionService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = GenerativeQuestionService::builder().build().await?;
+///     let response = client.update_generative_questions_feature_config()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -1626,10 +1657,17 @@ impl GenerativeQuestionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ModelService;
-/// let client = ModelService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ModelService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_models()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1984,10 +2022,13 @@ impl ModelService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::PredictionService;
-/// let client = PredictionService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = PredictionService::builder().build().await?;
+///     let response = client.predict()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -2155,10 +2196,17 @@ impl PredictionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ProductService;
-/// let client = ProductService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ProductService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_products()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -2886,10 +2934,16 @@ impl ProductService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::SearchService;
-/// let client = SearchService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SearchService::builder().build().await?;
+///     let mut list = client.search()
+///         /* set fields */
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -3065,10 +3119,17 @@ impl SearchService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ServingConfigService;
-/// let client = ServingConfigService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ServingConfigService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_serving_configs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -3396,10 +3457,13 @@ impl ServingConfigService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::UserEventService;
-/// let client = UserEventService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI Search for commerce API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = UserEventService::builder().build().await?;
+///     let response = client.write_user_event()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///

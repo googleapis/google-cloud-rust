@@ -14,8 +14,12 @@
 
 #[cfg(google_cloud_unstable_tracing)]
 mod storage_tracing {
+    use google_cloud_test_utils::errors::anydump;
+
     #[tokio::test]
     async fn success_testlayer() -> anyhow::Result<()> {
-        integration_tests_o11y::storage_tracing::success_testlayer().await
+        integration_tests_o11y::storage_tracing::success_testlayer()
+            .await
+            .inspect_err(anydump)
     }
 }

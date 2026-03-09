@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
-/// let client = ReachabilityService::builder().build().await?;
-/// // use `client` to make requests to the Network Management API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ReachabilityService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_connectivity_tests()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -565,10 +572,17 @@ impl ReachabilityService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
-/// let client = VpcFlowLogsService::builder().build().await?;
-/// // use `client` to make requests to the Network Management API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = VpcFlowLogsService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_vpc_flow_logs_configs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1118,10 +1132,17 @@ impl VpcFlowLogsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
-/// let client = OrganizationVpcFlowLogsService::builder().build().await?;
-/// // use `client` to make requests to the Network Management API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = OrganizationVpcFlowLogsService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_vpc_flow_logs_configs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

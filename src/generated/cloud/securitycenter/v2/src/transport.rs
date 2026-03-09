@@ -52,31 +52,27 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/resourceValueConfigs:batchCreate",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/resourceValueConfigs:batchCreate", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/resourceValueConfigs:batchCreate",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/resourceValueConfigs:batchCreate", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -135,93 +131,81 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:bulkMute",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/findings:bulkMute", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:bulkMute",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings:bulkMute", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:bulkMute",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/findings:bulkMute", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:bulkMute",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings:bulkMute", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:bulkMute",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/findings:bulkMute", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:bulkMute",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings:bulkMute", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -330,18 +314,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/bigQueryExports",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/bigQueryExports", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bigQueryExportId", &req.big_query_export_id)]);
@@ -349,18 +331,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/bigQueryExports",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/bigQueryExports", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bigQueryExportId", &req.big_query_export_id)]);
@@ -368,18 +348,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/bigQueryExports",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/bigQueryExports", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bigQueryExportId", &req.big_query_export_id)]);
@@ -459,20 +437,18 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("findingId", &req.finding_id)]);
@@ -480,18 +456,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("findingId", &req.finding_id)]);
@@ -558,18 +532,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("muteConfigId", &req.mute_config_id)]);
@@ -577,18 +549,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("muteConfigId", &req.mute_config_id)]);
@@ -596,18 +566,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("muteConfigId", &req.mute_config_id)]);
@@ -615,13 +583,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("muteConfigId", &req.mute_config_id)]);
@@ -629,13 +595,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("muteConfigId", &req.mute_config_id)]);
@@ -643,13 +607,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("muteConfigId", &req.mute_config_id)]);
@@ -759,18 +721,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/notificationConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/notificationConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("configId", &req.config_id)]);
@@ -778,18 +738,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/notificationConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/notificationConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("configId", &req.config_id)]);
@@ -797,18 +755,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/notificationConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/notificationConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("configId", &req.config_id)]);
@@ -888,13 +844,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sources",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/sources", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -938,60 +892,54 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/bigQueryExports/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/bigQueryExports/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/bigQueryExports/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/bigQueryExports/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/bigQueryExports/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/bigQueryExports/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -1082,114 +1030,102 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -1325,60 +1261,54 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/notificationConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/notificationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/notificationConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/notificationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/notificationConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/notificationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -1469,38 +1399,34 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/resourceValueConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/resourceValueConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/resourceValueConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/resourceValueConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -1572,60 +1498,54 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/bigQueryExports/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/bigQueryExports/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/bigQueryExports/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/bigQueryExports/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/bigQueryExports/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/bigQueryExports/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1710,38 +1630,34 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1807,42 +1723,38 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/valuedResources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/valuedResources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/valuedResources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/valuedResources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1912,18 +1824,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:getIamPolicy", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1972,114 +1882,102 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2209,60 +2107,54 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/notificationConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/notificationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/notificationConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/notificationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/notificationConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/notificationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2347,38 +2239,34 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/resourceValueConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/resourceValueConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/resourceValueConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/resourceValueConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2444,18 +2332,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2504,114 +2390,102 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:group",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings:group", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:group",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings:group", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:group",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings:group", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:group",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings:group", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:group",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings:group", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings:group",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings:group", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -2741,18 +2615,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/attackPaths",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/attackPaths", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2762,13 +2634,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/attackPaths",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/attackPaths", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2778,20 +2648,18 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/attackPaths",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/valuedResources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/valuedResources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/attackPaths", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2801,22 +2669,20 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/attackPaths",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/valuedResources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/valuedResources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/attackPaths", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2826,20 +2692,18 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/attackPaths",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/attackExposureResults/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/attackExposureResults/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/attackPaths", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2849,22 +2713,20 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/attackPaths",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/attackExposureResults/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/attackExposureResults/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/attackPaths", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2998,18 +2860,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/bigQueryExports",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/bigQueryExports", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3018,18 +2878,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/bigQueryExports",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/bigQueryExports", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3038,18 +2896,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/bigQueryExports",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/bigQueryExports", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3130,18 +2986,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -3164,20 +3018,18 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -3200,18 +3052,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -3234,20 +3084,18 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -3270,18 +3118,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -3304,20 +3150,18 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/findings",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/findings", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -3463,13 +3307,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3478,18 +3320,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3498,13 +3338,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3513,18 +3351,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3533,13 +3369,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3548,18 +3382,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/muteConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/muteConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3670,18 +3502,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/notificationConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/notificationConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3690,18 +3520,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/notificationConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/notificationConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3710,18 +3538,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/notificationConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/notificationConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3802,13 +3628,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/resourceValueConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/resourceValueConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3817,18 +3641,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/resourceValueConfigs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/resourceValueConfigs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3889,13 +3711,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sources",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/sources", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3904,13 +3724,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sources",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("folders/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("folders/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/sources", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3919,13 +3737,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/sources",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/sources", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3991,18 +3807,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/valuedResources",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/valuedResources", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -4013,20 +3827,18 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/valuedResources",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/simulations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/attackExposureResults/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/simulations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/attackExposureResults/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}/valuedResources", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -4037,13 +3849,11 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}/valuedResources",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v2/{}/valuedResources", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -4123,126 +3933,114 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setState",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setState", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setState",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setState", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setState",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setState", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setState",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setState", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setState",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setState", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setState",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setState", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -4384,18 +4182,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setIamPolicy", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -4444,126 +4240,114 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setMute",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setMute", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setMute",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setMute", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setMute",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setMute", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setMute",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setMute", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setMute",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setMute", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:setMute",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:setMute", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -4705,18 +4489,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:testIamPermissions", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -4765,23 +4547,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.big_query_export.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/bigQueryExports/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_big_query_export_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.big_query_export.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/bigQueryExports/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_big_query_export_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4800,23 +4580,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.big_query_export.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/bigQueryExports/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_big_query_export_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.big_query_export.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/bigQueryExports/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_big_query_export_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4835,23 +4613,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.big_query_export.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/bigQueryExports/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_big_query_export_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.big_query_export.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/bigQueryExports/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_big_query_export_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4957,25 +4733,23 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.external_system.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/externalSystems/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_external_system_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.external_system.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/externalSystems/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_external_system_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4994,27 +4768,25 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.external_system.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/externalSystems/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_external_system_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.external_system.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/externalSystems/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_external_system_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5033,25 +4805,23 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.external_system.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/externalSystems/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_external_system_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.external_system.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/externalSystems/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_external_system_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5070,27 +4840,25 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.external_system.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/externalSystems/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_external_system_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.external_system.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/externalSystems/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_external_system_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5109,25 +4877,23 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.external_system.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/externalSystems/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_external_system_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.external_system.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/externalSystems/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_external_system_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5146,27 +4912,25 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.external_system.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/externalSystems/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_external_system_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.external_system.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/externalSystems/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_external_system_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5350,23 +5114,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.finding.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_finding_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.finding.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_finding_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5385,25 +5147,23 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.finding.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_finding_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.finding.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_finding_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5422,23 +5182,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.finding.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_finding_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.finding.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_finding_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5457,25 +5215,23 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.finding.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_finding_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.finding.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_finding_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5494,23 +5250,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.finding.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_finding_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.finding.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_finding_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5529,25 +5283,23 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.finding.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_finding_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.finding.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_finding_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5719,21 +5471,19 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.mute_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_mute_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.mute_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_mute_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5752,23 +5502,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.mute_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_mute_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.mute_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_mute_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5787,21 +5535,19 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.mute_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_mute_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.mute_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_mute_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5820,23 +5566,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.mute_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_mute_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.mute_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_mute_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5855,21 +5599,19 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.mute_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_mute_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.mute_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_mute_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5888,23 +5630,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.mute_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/muteConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_mute_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.mute_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/muteConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_mute_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6064,23 +5804,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.notification_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/notificationConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_notification_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.notification_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/notificationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_notification_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6099,23 +5837,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.notification_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/notificationConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_notification_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.notification_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/notificationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_notification_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6134,23 +5870,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.notification_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/notificationConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_notification_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.notification_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/notificationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_notification_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6256,21 +5990,19 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.resource_value_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/resourceValueConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource_value_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.resource_value_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/resourceValueConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_resource_value_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6289,23 +6021,21 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.resource_value_config.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/resourceValueConfigs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource_value_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.resource_value_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/resourceValueConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_resource_value_config_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6389,24 +6119,22 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.security_marks.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/securityMarks")
-                        ]
-                    )?,
-                );
+                let var_security_marks_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_marks.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityMarks"),
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_security_marks_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6425,22 +6153,20 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.security_marks.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/assets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/securityMarks")
-                        ]
-                    )?,
-                );
+                let var_security_marks_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_marks.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/assets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityMarks"),
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_security_marks_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6459,26 +6185,24 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.security_marks.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/securityMarks")
-                        ]
-                    )?,
-                );
+                let var_security_marks_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_marks.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityMarks"),
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_security_marks_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6497,24 +6221,22 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.security_marks.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/securityMarks")
-                        ]
-                    )?,
-                );
+                let var_security_marks_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_marks.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityMarks"),
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_security_marks_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6533,22 +6255,20 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.security_marks.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/assets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/securityMarks")
-                        ]
-                    )?,
-                );
+                let var_security_marks_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_marks.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/assets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityMarks"),
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_security_marks_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6567,26 +6287,24 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.security_marks.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("folders/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/securityMarks")
-                        ]
-                    )?,
-                );
+                let var_security_marks_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_marks.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("folders/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityMarks"),
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_security_marks_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6605,24 +6323,22 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.security_marks.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/securityMarks")
-                        ]
-                    )?,
-                );
+                let var_security_marks_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_marks.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityMarks"),
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_security_marks_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6641,22 +6357,20 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.security_marks.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/assets/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/securityMarks")
-                        ]
-                    )?,
-                );
+                let var_security_marks_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_marks.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/assets/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityMarks"),
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_security_marks_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6675,26 +6389,24 @@ impl super::stub::SecurityCenter for SecurityCenter {
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.security_marks.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/findings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/securityMarks")
-                        ]
-                    )?,
-                );
+                let var_security_marks_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_marks.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/findings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityMarks"),
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_security_marks_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6929,21 +6641,19 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.source.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sources/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_source_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.source.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sources/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_source_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7007,17 +6717,15 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations"),
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -7070,18 +6778,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -7130,18 +6836,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -7196,18 +6900,16 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v2/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("organizations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v2/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);

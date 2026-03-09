@@ -56,6 +56,17 @@ impl Leases {
         self.under_lease.insert(ack_id, info);
     }
 
+    /// Forward the result of an ack to the application
+    pub fn confirm(&mut self, ack_id: String, result: AckResult) {
+        let Some(info) = self.under_lease.remove(&ack_id) else {
+            // We already reported an error for this message, either because
+            // it's lease expired, or because the server reported a failure in
+            // an attempt to extend its lease.
+            return;
+        };
+        let _ = info.result_tx.send(result);
+    }
+
     /// Process an ack from the application
     pub fn ack(&mut self, ack_id: String) {
         let Some(ExactlyOnceInfo { pending, .. }) = self.under_lease.get_mut(&ack_id) else {
@@ -300,6 +311,42 @@ mod tests {
         assert!(ack_id.pending, "{ack_id:?}");
     }
 
+    #[tokio::test]
+    async fn confirm() -> anyhow::Result<()> {
+        let mut leases = Leases::default();
+
+        let (result_tx, result_rx) = channel();
+        leases.add(
+            test_id(1),
+            ExactlyOnceInfo {
+                receive_time: Instant::now() - Duration::from_secs(3),
+                result_tx,
+                pending: false,
+            },
+        );
+        assert_eq!(
+            TestLeases {
+                under_lease: vec![test_id(1)],
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+
+        leases.confirm(test_id(1), Ok(()));
+        result_rx.await??;
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+
+        Ok(())
+    }
+
     #[test]
     fn ack_out_of_lease_ignored() {
         let mut leases = Leases::default();
@@ -336,6 +383,29 @@ mod tests {
         );
 
         leases.nack(test_id(1));
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+    }
+
+    #[test]
+    fn confirm_out_of_lease() {
+        let mut leases = Leases::default();
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+
+        leases.confirm(test_id(1), Ok(()));
         assert_eq!(
             TestLeases {
                 under_lease: Vec::new(),

@@ -52,13 +52,11 @@ impl super::stub::TraceService for TraceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/traces",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/traces", var_project_id,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -129,17 +127,15 @@ impl super::stub::TraceService for TraceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/traces/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.trace_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_trace_id = try_match(
+                    Some(&req).map(|m| &m.trace_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/traces/{}", var_project_id, var_trace_id,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -189,13 +185,11 @@ impl super::stub::TraceService for TraceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/traces",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/traces", var_project_id,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);

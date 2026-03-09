@@ -59,7 +59,8 @@
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
-/// Types related to publishing messages.
+/// Types related to publishing messages with a [Publisher][client::Publisher]
+/// client.
 pub mod publisher;
 #[allow(dead_code)] // TODO(#3964) - implementation in progress...
 /// Types related to receiving messages with a [Subscriber][client::Subscriber]
@@ -90,7 +91,7 @@ pub mod builder {
     /// Request and client builders for the [Subscriber][crate::client::Subscriber] client.
     pub mod subscriber {
         pub use crate::subscriber::builder::ClientBuilder;
-        pub use crate::subscriber::builder::StreamingPull;
+        pub use crate::subscriber::builder::Subscribe;
     }
     /// Request and client builders for the [SubscriptionAdmin][crate::client::SubscriptionAdmin] client.
     pub use crate::generated::gapic::builder::subscription_admin;
@@ -151,7 +152,7 @@ pub mod model {
 ///
 /// // Start a message stream from a subscription.
 /// let mut stream = client
-///     .stream("projects/my-project/subscriptions/my-subscription")
+///     .subscribe("projects/my-project/subscriptions/my-subscription")
 ///     .build();
 ///
 /// // Receive messages from the stream.
@@ -165,6 +166,7 @@ pub mod model {
 /// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
+    pub use crate::publisher::client::BasePublisher;
     pub use crate::publisher::client::Publisher;
     pub use crate::subscriber::client::Subscriber;
 }

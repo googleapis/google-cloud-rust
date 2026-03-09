@@ -37,7 +37,7 @@ Start the program and use different files for `stdout` vs. `stderr`:
 ```shell
 TS=$(date +%s); cargo run --release --package storage-w1r3 -- \
     --bucket-name ${BUCKET_NAME} --max-object-size 128KiB --task-count=4 \
-    --min-sample-count=1000  >bm-${TS}.txt 2>bm-${TS}.log </dev/null &
+    >bm-${TS}.txt 2>bm-${TS}.log </dev/null &
 ```
 
 Wait for the program to finish.

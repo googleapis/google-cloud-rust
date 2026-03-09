@@ -20,10 +20,13 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Compliance;
-/// let client = Compliance::builder().build().await?;
-/// // use `client` to make requests to the Client Libraries Showcase API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Compliance::builder().build().await?;
+///     let response = client.repeat_data_body()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -545,10 +548,13 @@ impl Compliance {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Echo;
-/// let client = Echo::builder().build().await?;
-/// // use `client` to make requests to the Client Libraries Showcase API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Echo::builder().build().await?;
+///     let response = client.echo()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -1059,10 +1065,14 @@ impl Echo {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Identity;
-/// let client = Identity::builder().build().await?;
-/// // use `client` to make requests to the Client Libraries Showcase API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Identity::builder().build().await?;
+///     let name = "name_value";
+///     let response = client.get_user()
+///         .set_name(name)
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -1472,10 +1482,17 @@ impl Identity {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Messaging;
-/// let client = Messaging::builder().build().await?;
-/// // use `client` to make requests to the Client Libraries Showcase API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Messaging::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_blurbs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -2036,10 +2053,14 @@ impl Messaging {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::SequenceService;
-/// let client = SequenceService::builder().build().await?;
-/// // use `client` to make requests to the Client Libraries Showcase API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SequenceService::builder().build().await?;
+///     let name = "name_value";
+///     let response = client.get_sequence_report()
+///         .set_name(name)
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -2447,10 +2468,17 @@ impl SequenceService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Testing;
-/// let client = Testing::builder().build().await?;
-/// // use `client` to make requests to the Client Libraries Showcase API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Testing::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_tests()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

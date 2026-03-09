@@ -27,7 +27,34 @@ pub async fn run() -> anyhow::Result<()> {
     // Create a trace with a number of interesting spans from the
     // `google-cloud-storage` client.
     let trace_id = send_trace(&project_id).await?;
-    let trace = wait_for_trace(&project_id, &trace_id).await?;
+    let required = BTreeSet::from_iter([
+        ROOT_SPAN_NAME,
+        "google.storage.v2.Storage/ListBuckets",
+        "create_bucket",
+        "google.storage.v2.Storage/CreateBucket",
+        "google_cloud_storage::client::Storage::write_object",
+        "POST /upload/storage/v1/b/{bucket}/o",
+        "PUT /upload/storage/v1/b/{bucket}/o",
+        // These appear in the spans, but the test does not worry about entries
+        // with the same name
+        //   "google_cloud_storage::client::Storage::write_object",
+        //   "POST /upload/storage/v1/b/{bucket}/o",
+        "google_cloud_storage::client::Storage::read_object",
+        "GET /storage/v1/b/{bucket}/o/{object}",
+        "google_cloud_storage::client::Storage::open_object",
+        "google.storage.v2.Storage/BidiReadObject",
+        "get_bucket",
+        "google.storage.v2.Storage/GetBucket",
+        "list_objects",
+        "google.storage.v2.Storage/ListObjects",
+        "delete_object",
+        "google.storage.v2.Storage/DeleteObject",
+        "list_anywhere_caches",
+        "google.storage.control.v2.StorageControl/ListAnywhereCaches",
+        "delete_bucket",
+        "google.storage.v2.Storage/DeleteBucket",
+    ]);
+    let trace = wait_for_trace(&project_id, &trace_id, &required).await?;
 
     // Verify the expected spans appear in the trace:
     let span_names = trace
@@ -35,23 +62,8 @@ pub async fn run() -> anyhow::Result<()> {
         .iter()
         .map(|s| s.name.as_str())
         .collect::<BTreeSet<_>>();
-    let required = BTreeSet::from_iter([
-        ROOT_SPAN_NAME,
-        "list_buckets",
-        "create_bucket",
-        "get_bucket",
-        "list_objects",
-        "delete_object",
-        "list_anywhere_caches",
-        "delete_bucket",
-        "google_cloud_storage::client::Storage::read_object",
-        "google_cloud_storage::client::Storage::write_object",
-        "google_cloud_storage::client::Storage::open_object",
-    ]);
     let missing = required.difference(&span_names).collect::<Vec<_>>();
-    // Sometimes a few traces are not delivered and are reported as "missing":
-    //   https://github.com/user-attachments/assets/7a534f6c-930e-4f97-b840-2ed01de2095e
-    assert!(missing.len() <= 2, "missing={missing:?}\n\n{trace:?}",);
+    assert!(missing.is_empty(), "missing={missing:?}\n\n{trace:?}",);
 
     Ok(())
 }
@@ -69,10 +81,9 @@ async fn send_trace(project_id: &str) -> anyhow::Result<String> {
         .span_context()
         .trace_id()
         .to_string();
-    {
-        let _enter = root_span.entered();
-        let _ = client_library_operations().await;
-    }
+
+    use tracing::Instrument;
+    let _ = client_library_operations().instrument(root_span).await;
 
     println!(
         "View generated trace in Console: https://console.cloud.google.com/traces/explorer;traceId={}?project={}",

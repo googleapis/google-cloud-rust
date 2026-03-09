@@ -14,8 +14,12 @@
 
 #[cfg(all(test, feature = "run-integration-tests", google_cloud_unstable_tracing))]
 mod telemetry {
+    use google_cloud_test_utils::errors::anydump;
+
     #[tokio::test(flavor = "multi_thread")]
     async fn showcase() -> anyhow::Result<()> {
-        integration_tests_o11y::e2e::showcase::run().await
+        integration_tests_o11y::e2e::showcase::run()
+            .await
+            .inspect_err(anydump)
     }
 }

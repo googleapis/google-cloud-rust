@@ -52,13 +52,11 @@ impl super::stub::QuotaController for QuotaController {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/services/{}:allocateQuota",
-                    try_match(
-                        Some(&req).map(|m| &m.service_name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_service_name = try_match(
+                    Some(&req).map(|m| &m.service_name).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/services/{}:allocateQuota", var_service_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -125,13 +123,11 @@ impl super::stub::ServiceController for ServiceController {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/services/{}:check",
-                    try_match(
-                        Some(&req).map(|m| &m.service_name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_service_name = try_match(
+                    Some(&req).map(|m| &m.service_name).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/services/{}:check", var_service_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -175,13 +171,11 @@ impl super::stub::ServiceController for ServiceController {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/services/{}:report",
-                    try_match(
-                        Some(&req).map(|m| &m.service_name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_service_name = try_match(
+                    Some(&req).map(|m| &m.service_name).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/services/{}:report", var_service_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);

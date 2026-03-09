@@ -42,29 +42,30 @@ pub async fn run() -> anyhow::Result<()> {
     // 3. Generate Trace
     // Start a root span
     let root_span = tracing::info_span!("e2e_root", "otel.name" = ROOT_SPAN_NAME);
-    let trace_id = {
-        let _enter = root_span.enter();
-        let trace_id = root_span
-            .context()
-            .span()
-            .span_context()
-            .trace_id()
-            .to_string();
+    let trace_id = root_span
+        .context()
+        .span()
+        .span_context()
+        .trace_id()
+        .to_string();
 
-        // Initialize showcase client pointing to local mock server
-        let client = Echo::builder()
-            .with_endpoint(format!("http://{}", echo_server.addr()))
-            .with_credentials(Anonymous::new().build())
-            .with_tracing()
-            .build()
-            .await?;
+    // Initialize showcase client pointing to local mock server
+    let client = Echo::builder()
+        .with_endpoint(format!("http://{}", echo_server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .with_tracing()
+        .build()
+        .await?;
 
-        // Make the API call
-        // This will generate child spans within the library
-        let _ = client.echo().set_content("test").send().await?;
-
-        trace_id
-    };
+    // Make the API call
+    // This will generate child spans within the library
+    use tracing::Instrument;
+    let _ = client
+        .echo()
+        .set_content("test")
+        .send()
+        .instrument(root_span.clone())
+        .await?;
     // explicitly drop the span to end it
     drop(root_span);
 
@@ -79,7 +80,11 @@ pub async fn run() -> anyhow::Result<()> {
     }
 
     // 5. Verify (Poll Cloud Trace API)
-    let trace = wait_for_trace(&project_id, &trace_id).await?;
+    let required = BTreeSet::from_iter([
+        ROOT_SPAN_NAME,
+        "google_cloud_showcase_v1beta1::client::Echo::echo",
+    ]);
+    let trace = wait_for_trace(&project_id, &trace_id, &required).await?;
 
     // Verify the expected spans appear in the trace:
     let span_names = trace
@@ -87,10 +92,6 @@ pub async fn run() -> anyhow::Result<()> {
         .iter()
         .map(|s| s.name.as_str())
         .collect::<BTreeSet<_>>();
-    let required = BTreeSet::from_iter([
-        ROOT_SPAN_NAME,
-        "google_cloud_showcase_v1beta1::client::Echo::echo",
-    ]);
     let missing = required.difference(&span_names).collect::<Vec<_>>();
     assert!(missing.is_empty(), "missing={missing:?}\n\n{trace:?}",);
 

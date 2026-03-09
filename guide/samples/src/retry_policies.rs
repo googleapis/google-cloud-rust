@@ -17,3 +17,20 @@
 pub mod client_retry;
 pub mod client_retry_full;
 pub mod request_retry;
+
+use google_cloud_secretmanager_v1::client::SecretManagerService;
+use google_cloud_test_utils::resource_names::random_secret_id;
+use google_cloud_test_utils::runtime_config::project_id;
+
+pub async fn drive_request_retry() -> anyhow::Result<()> {
+    let project_id = project_id()?;
+    let secret_id = random_secret_id();
+
+    let client = SecretManagerService::builder().build().await?;
+    // The sample will delete this secret. If that fails, the cleanup step
+    // for the integration tests will garbage collect it in a couple of
+    // days.
+    let _ = crate::error_handling::create_secret::create_secret(&client, &project_id, &secret_id)
+        .await?;
+    request_retry::sample(&client, &project_id, &secret_id).await
+}
