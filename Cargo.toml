@@ -395,7 +395,7 @@ tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
 tracing-subscriber    = { default-features = false, version = "0.3.22" }
 url                   = { default-features = false, version = "2.4" }
-uuid                  = { default-features = false, version = "1.10", features = ["v4"] }
+uuid                  = { default-features = false, version = "1.22", features = ["v4"] }
 
 opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0" }
 opentelemetry-appender-tracing     = { default-features = false, version = "0.31.0" }
