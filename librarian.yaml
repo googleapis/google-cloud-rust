@@ -1340,9 +1340,6 @@ libraries:
   - name: google-cloud-securitycenter-v2
     version: 1.7.0
     copyright_year: "2025"
-  - name: google-cloud-securitycentermanagement-v1
-    copyright_year: "2026"
-    rust: {}
   - name: google-cloud-securityposture-v1
     version: 1.7.0
     copyright_year: "2025"
