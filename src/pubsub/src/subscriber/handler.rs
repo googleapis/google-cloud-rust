@@ -248,15 +248,12 @@ impl ExactlyOnce {
     /// }
     /// ```
     ///
-    /// If the result is `Ok`, the message is guaranteed not to be delivered
-    /// again. You can safely delete any state associated with the message.
+    /// If the result is an `Ok`, the message is guaranteed not to be delivered
+    /// again.
     ///
-    /// Errors may trigger message redelivery. You should refer to the specific
-    /// error type to determine if redelivery is guaranteed.
-    ///
-    /// If no redelivery occurs a sufficient interval after an error, the
-    /// acknowledgement likely succeeded. At this point, you can garbage collect
-    /// any state associated with the message.
+    /// If the result is an `Err`, the message may be redelivered, but this is
+    /// not guaranteed. If no redelivery occurs a sufficient interval after an
+    /// error, the acknowledgement likely succeeded.
     pub async fn confirmed_ack(mut self) -> AckResult {
         let inner = self.inner.take().expect("handler impl is always some");
         inner.confirmed_ack().await
