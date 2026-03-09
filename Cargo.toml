@@ -423,7 +423,7 @@ tracing = { default-features = false, version = "0.1.44", features = ["attribute
 aws-lc-rs = { default-features = false, version = "1.16.1" }
 
 # Test packages
-anyhow            = { default-features = false, version = "1.0.101", features = ["std"] }
+anyhow            = { default-features = false, version = "1.0.102", features = ["std"] }
 axum              = { default-features = false, version = "0.8" }
 flate2            = { default-features = false, version = "1.1.9" }
 hmac              = { default-features = false, version = "0.12.1" }
