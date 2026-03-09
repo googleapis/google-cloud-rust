@@ -83,7 +83,7 @@ pub(super) enum Action {
 ///
 /// ## Exactly-once delivery
 ///
-/// If your subscription has [exactly-once delivery] enabled, you need to
+/// If your subscription has [exactly-once delivery] enabled, you should
 /// destructure this enum into its [`Handler::ExactlyOnce`] branch.
 ///
 /// Only when `ExactlyOnce::confirmed_ack()` returns `Ok` can you be certain
@@ -235,7 +235,7 @@ impl ExactlyOnce {
         }
     }
 
-    /// Acknowledge the message associated with this handler.
+    /// Strongly acknowledge the message associated with this handler.
     ///
     /// ```
     /// use google_cloud_pubsub::model::Message;

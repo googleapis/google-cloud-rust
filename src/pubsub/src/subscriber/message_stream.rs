@@ -147,15 +147,6 @@ impl MessageStream {
 
     /// Returns the next message received on this subscription.
     ///
-    /// Returns the message data along with a [Handler] for acknowledging (ack) the message.
-    /// Dropping the [Handler] without acknowledging it will reject (nack) the message.
-    ///
-    /// If the underlying stream encounters a permanent error, an `Error` is
-    /// returned instead.
-    ///
-    /// `None` represents the end of a stream, but in practice, the stream stays
-    /// open until it is cancelled or encounters a permanent error.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::subscriber::MessageStream;
@@ -166,6 +157,15 @@ impl MessageStream {
     /// }
     /// # Ok(()) }
     /// ```
+    ///
+    /// Returns the message data along with a [Handler] to acknowledge (ack) the
+    /// message.
+    ///
+    /// If the underlying stream encounters a permanent error, an `Error` is
+    /// returned instead.
+    ///
+    /// `None` represents the end of a stream, but in practice, the stream stays
+    /// open until it is cancelled or encounters a permanent error.
     pub async fn next(&mut self) -> Option<Result<(Message, Handler)>> {
         loop {
             // Serve a message if we have one ready.
