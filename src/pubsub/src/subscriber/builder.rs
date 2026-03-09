@@ -15,6 +15,7 @@
 use super::MessageStream;
 use super::transport::Transport;
 use std::sync::Arc;
+use std::time::Duration;
 
 const MIB: i64 = 1024 * 1024;
 
@@ -71,34 +72,36 @@ impl Subscribe {
         MessageStream::new(self)
     }
 
-    /// Sets the ack deadline to use for the stream.
+    /// Sets the maximum duration to extend lease deadlines by.
     ///
-    /// This value represents how long the application has to ack an
-    /// incoming message. If the handler is dropped without being acked,
-    /// it is nacked. Note that this value is independent of the
-    /// configured on the server-side subscription.
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// # use std::time::Duration;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let client = Subscriber::builder().build().await?;
+    /// let stream = client.subscribe("projects/my-project/subscriptions/my-subscription")
+    ///     .set_max_deadline_extension(Duration::from_secs(20))
+    ///     .build();
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The client extends lease deadlines by at most this amount.
     ///
     /// If the server does not hear back from the client within this deadline
     /// (e.g. if an application crashes), it will resend any unacknowledged
     /// messages to another subscriber.
     ///
+    /// Note that this value is independent of the ack deadline configured on
+    /// the subscription.
+    ///
     /// The minimum deadline you can specify is 10 seconds. The maximum deadline
-    /// you can specify is 600 seconds (10 minutes).
+    /// you can specify is 10 minutes. The client clamps the supplied value to
+    /// this range.
     ///
     /// The default value is 10 seconds.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_pubsub::client::Subscriber;
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// # let client = Subscriber::builder().build().await?;
-    /// let stream = client.subscribe("projects/my-project/subscriptions/my-subscription")
-    ///     .set_ack_deadline_seconds(20)
-    ///     .build();
-    /// # Ok(()) }
-    /// ```
-    pub fn set_ack_deadline_seconds<T: Into<i32>>(mut self, v: T) -> Self {
-        self.ack_deadline_seconds = v.into();
+    pub fn set_max_deadline_extension<T: Into<Duration>>(mut self, v: T) -> Self {
+        self.ack_deadline_seconds = v.into().as_secs().clamp(10, 600) as i32;
         self
     }
 
@@ -163,6 +166,7 @@ mod tests {
     use super::*;
     use gaxi::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use test_case::test_case;
 
     const KIB: i64 = 1024;
 
@@ -207,19 +211,36 @@ mod tests {
             test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             "client-id".to_string(),
-            1_usize,
+            2_usize,
         )
-        .set_ack_deadline_seconds(20)
+        .set_max_deadline_extension(Duration::from_secs(20))
         .set_max_outstanding_messages(12345)
         .set_max_outstanding_bytes(6789 * KIB);
         assert_eq!(
             builder.subscription,
             "projects/my-project/subscriptions/my-subscription"
         );
-        assert_eq!(builder.grpc_subchannel_count, 1);
+        assert_eq!(builder.grpc_subchannel_count, 2);
         assert_eq!(builder.ack_deadline_seconds, 20);
         assert_eq!(builder.max_outstanding_messages, 12345);
         assert_eq!(builder.max_outstanding_bytes, 6789 * KIB);
+
+        Ok(())
+    }
+
+    #[test_case(Duration::ZERO, 10)]
+    #[test_case(Duration::from_secs(42), 42)]
+    #[test_case(Duration::from_secs(4200), 600)]
+    #[tokio::test]
+    async fn clamp_ack_deadline(v: Duration, want: i32) -> anyhow::Result<()> {
+        let builder = Subscribe::new(
+            test_inner().await?,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            "client-id".to_string(),
+            1_usize,
+        )
+        .set_max_deadline_extension(v);
+        assert_eq!(builder.ack_deadline_seconds, want);
 
         Ok(())
     }
