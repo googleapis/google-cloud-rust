@@ -162,7 +162,6 @@ mod tests {
     // This is in the middle of the [0.5, 1.0) bucket defined in `boundaries`.
     const DELAY: Duration = Duration::from_millis(750);
 
-    #[ignore = "TODO(#4916) - disabled because it is flaky"]
     #[tokio::test(start_paused = true)]
     async fn global_record_error() -> anyhow::Result<()> {
         let metric = DurationMetric::new(&TEST_INFO);
