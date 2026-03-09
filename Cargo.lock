@@ -3142,6 +3142,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-hypercomputecluster-v1"
+version = "0.0.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-iam-admin-v1"
 version = "1.6.0"
 dependencies = [
