@@ -77,6 +77,40 @@ use std::sync::Arc;
 ///   [Application Default Credentials]. Applications using custom
 ///   authentication may need to override this default.
 ///
+/// # Maximizing throughput
+///
+/// To maximize throughput, you will want to create multiple streams, serviced
+/// by multiple gRPC channels. You may also want to increase the maximum
+/// outstanding bytes and/or messages.
+///
+/// From our testing with 1kB sized messages, we saw good throughput creating 2
+/// streams per CPU, using a client with 1 gRPC channel per CPU.
+///
+/// ```
+/// # use google_cloud_pubsub::client::Subscriber;
+/// # async fn sample() -> anyhow::Result<()> {
+/// let cpus = std::thread::available_parallelism()?.get();
+/// let client = Subscriber::builder()
+///     .with_grpc_subchannel_count(cpus)
+///     .build()
+///     .await?;
+/// for _ in 0..2 * cpus {
+///     let mut stream = client
+///         .subscribe("projects/my-project/subscriptions/my-subscription")
+///         .set_max_outstanding_messages(0)
+///         .set_max_outstanding_bytes(4_000_000_000_i64)
+///         .build();
+///     tokio::spawn(async move {
+///         while let Some((m, h)) = stream.next().await.transpose()? {
+///             println!("Received message={m:?}");
+///             h.ack();
+///         }
+///         Ok::<(), anyhow::Error>(())
+///     });
+/// }
+/// # Ok(()) }
+/// ```
+///
 /// # Pooling and Cloning
 ///
 /// `Subscriber` holds a connection pool internally, it is advised to
