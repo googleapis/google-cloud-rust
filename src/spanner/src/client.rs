@@ -18,6 +18,12 @@ use gaxi::options::{ClientConfig, Credentials};
 
 pub use crate::database_client::DatabaseClient;
 pub use crate::from_value::{ConvertError, FromValue};
+pub use crate::read_only_transaction::SingleUseReadOnlyTransaction;
+pub use crate::read_only_transaction::SingleUseReadOnlyTransactionBuilder;
+pub use crate::result_set::ResultSet;
+pub use crate::row::Row;
+pub use crate::statement::Statement;
+pub use crate::timestamp_bound::TimestampBound;
 pub use crate::to_value::ToValue;
 pub use crate::types::{Type, TypeCode};
 pub use crate::value::{Kind, Value};
@@ -64,7 +70,24 @@ pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory
 #[allow(dead_code)]
 impl Spanner {
     pub fn builder() -> ClientBuilder {
-        google_cloud_gax::client_builder::internal::new_builder(Factory)
+        let mut builder = google_cloud_gax::client_builder::internal::new_builder(Factory);
+        // The Spanner client should automatically use the Spanner emulator if the
+        // SPANNER_EMULATOR_HOST environment variable is set.
+        if let Ok(endpoint) = std::env::var("SPANNER_EMULATOR_HOST") {
+            if !endpoint.is_empty() {
+                // Determine if we need to prefix the endpoint with a scheme
+                let full_endpoint = if endpoint.starts_with("http") {
+                    endpoint
+                } else {
+                    format!("http://{}", endpoint)
+                };
+
+                builder = builder.with_endpoint(full_endpoint).with_credentials(
+                    google_cloud_auth::credentials::anonymous::Builder::new().build(),
+                );
+            }
+        }
+        builder
     }
 
     /// Returns a new [DatabaseClientBuilder](crate::database_client::DatabaseClientBuilder) for

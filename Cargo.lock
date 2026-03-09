@@ -6120,6 +6120,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "integration-tests-spanner"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-lro",
+ "google-cloud-spanner",
+ "reqwest 0.13.2",
+ "serde_json",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "integration-tests-storage"
 version = "0.0.0"
 dependencies = [
