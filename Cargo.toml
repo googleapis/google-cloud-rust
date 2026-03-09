@@ -374,7 +374,7 @@ opentelemetry_sdk     = { default-features = false, version = "0.31" }
 opentelemetry-otlp    = { default-features = false, version = "0.31" }
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
-pin-project           = { default-features = false, version = "1.0.11" }
+pin-project           = { default-features = false, version = "1.1.11" }
 rand                  = { default-features = false, version = "0.10" }
 p256                  = { default-features = false, version = "0.13" }
 rust_decimal          = { default-features = false, version = "1.33.1", features = ["std"] }
