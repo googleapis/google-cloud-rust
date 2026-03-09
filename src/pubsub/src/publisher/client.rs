@@ -37,7 +37,31 @@ pub use super::base_publisher::BasePublisher;
 /// # Ok(()) }
 /// ```
 ///
-/// [cloud pub/sub]: https://docs.cloud.google.com/pubsub/docs/overview
+/// # Configuration
+///
+/// To configure `Publisher` use the `with_*` methods in the type returned
+/// by [builder()][Publisher::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://pubsub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: crate::builder::publisher::PublisherBuilder::with_endpoint
+/// [with_credentials()]: crate::builder::publisher::PublisherBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Publisher` holds a connection pool internally, it is advised to
+/// create one and then reuse it. You do not need to wrap `Publisher` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it.
 #[derive(Debug, Clone)]
 pub struct Publisher {
     #[allow(dead_code)]
