@@ -1712,7 +1712,7 @@ libraries:
         - include_list: conformance.proto
           module_path: crate::generated::gapic::model
           output: tests/protojson-conformance/src/generated/protos
-          root_name: conformance-root
+          root_name: conformance
           api_path: conformance
           template: prost
         - generate_setter_samples: "false"
