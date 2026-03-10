@@ -37,7 +37,31 @@ pub use super::base_publisher::BasePublisher;
 /// # Ok(()) }
 /// ```
 ///
-/// [cloud pub/sub]: https://docs.cloud.google.com/pubsub/docs/overview
+/// # Configuration
+///
+/// To configure `Publisher` use the `with_*` methods in the type returned
+/// by [builder()][Publisher::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://pubsub.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: crate::builder::publisher::PublisherBuilder::with_endpoint
+/// [with_credentials()]: crate::builder::publisher::PublisherBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Publisher` holds a connection pool internally, it is advised to
+/// create one and then reuse it. You do not need to wrap `Publisher` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it.
 #[derive(Debug, Clone)]
 pub struct Publisher {
     #[allow(dead_code)]
@@ -90,42 +114,30 @@ impl Publisher {
         crate::publisher::PublishFuture { rx }
     }
 
-    /// Flushes all outstanding messages.
-    ///
-    /// This method sends any messages that have been published but not yet sent,
-    /// regardless of the configured batching options (`delay_threshold`, etc.).
-    ///
-    /// This method is `async` and returns only after all publish attempts for the
-    /// messages in the snapshot have completed. A "completed" attempt means the
-    /// message has either been successfully sent, or has failed permanently after
-    /// exhausting any applicable retry policies.
-    ///
-    /// After flush()` returns, the final result of each individual publish
-    /// operation (i.e., a success with a message ID or a terminal error) will
-    /// be available on its corresponding [PublishFuture](crate::publisher::PublishFuture).
-    ///
-    /// Messages published after `flush()` is called will be buffered for a
-    /// subsequent batch and are not included in this flush operation.
-    ///
-    /// # Example
+    /// Flushes all buffered messages across all ordering keys, sending them immediately.
     ///
     /// ```
     /// # use google_cloud_pubsub::model::Message;
     /// # async fn sample(publisher: google_cloud_pubsub::client::Publisher) -> anyhow::Result<()> {
-    /// // Publish some messages. They will be buffered according to batching options.
-    /// let handle1 = publisher.publish(Message::new().set_data("foo"));
-    /// let handle2 = publisher.publish(Message::new().set_data("bar"));
-    ///
-    /// // Flush ensures that these messages are sent immediately and waits for
-    /// // the send to complete.
+    /// let _handle = publisher.publish(Message::new().set_data("event"));
+    /// // Ensures the message above is sent without needing to track its future.
     /// publisher.flush().await;
-    ///
-    /// // The results for handle1 and handle2 are available.
-    /// let id1 = handle1.await?;
-    /// let id2 = handle2.await?;
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// This method bypasses configured batching delays and returns only after all
+    /// messages buffered at the time of the call have reached a terminal state
+    /// (success or permanent failure).
+    ///
+    /// ### Recommendations
+    ///
+    /// *   For most use cases, we recommend you `.await`
+    ///     the [`PublishFuture`][crate::publisher::PublishFuture] returned by
+    ///     [`publish`][Self::publish] to retrieve message IDs and handle
+    ///     specific errors.
+    /// *   Use `flush()` as a convenience during application shutdown to
+    ///     ensure the client attempts to send all outstanding data.
     pub async fn flush(&self) {
         let (tx, rx) = oneshot::channel();
         if self.tx.send(ToDispatcher::Flush(tx)).is_ok() {

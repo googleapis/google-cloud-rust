@@ -147,15 +147,6 @@ impl MessageStream {
 
     /// Returns the next message received on this subscription.
     ///
-    /// Returns the message data along with a [Handler] for acknowledging (ack) the message.
-    /// Dropping the [Handler] without acknowledging it will reject (nack) the message.
-    ///
-    /// If the underlying stream encounters a permanent error, an `Error` is
-    /// returned instead.
-    ///
-    /// `None` represents the end of a stream, but in practice, the stream stays
-    /// open until it is cancelled or encounters a permanent error.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::subscriber::MessageStream;
@@ -166,6 +157,15 @@ impl MessageStream {
     /// }
     /// # Ok(()) }
     /// ```
+    ///
+    /// Returns the message data along with a [Handler] to acknowledge (ack) the
+    /// message.
+    ///
+    /// If the underlying stream encounters a permanent error, an `Error` is
+    /// returned instead.
+    ///
+    /// `None` represents the end of a stream, but in practice, the stream stays
+    /// open until it is cancelled or encounters a permanent error.
     pub async fn next(&mut self) -> Option<Result<(Message, Handler)>> {
         loop {
             // Serve a message if we have one ready.
@@ -199,7 +199,17 @@ impl MessageStream {
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    /// Converts the `MessageStream` to a [Stream][futures::Stream].
+    /// Converts the `MessageStream` to a [`futures::Stream`].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::MessageStream;
+    /// # async fn sample(stream: MessageStream) -> anyhow::Result<()> {
+    /// use futures::TryStreamExt;
+    /// let mut stream = stream.into_stream();
+    /// while let Some((m, h)) = stream.try_next().await? { /* ... */ }
+    /// # Ok(()) }
+    /// ```
     pub fn into_stream(self) -> impl futures::Stream<Item = Result<(Message, Handler)>> + Unpin {
         use futures::stream::unfold;
         Box::pin(unfold(Some(self), move |state| async move {
@@ -428,7 +438,7 @@ mod tests {
         let client = test_client(endpoint).await?;
         let _ = client
             .subscribe("projects/p/subscriptions/s")
-            .set_ack_deadline_seconds(20)
+            .set_max_deadline_extension(Duration::from_secs(20))
             .set_max_outstanding_messages(2000)
             .set_max_outstanding_bytes(200 * MIB)
             .build()

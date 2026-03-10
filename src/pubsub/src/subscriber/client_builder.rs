@@ -105,7 +105,7 @@ impl ClientBuilder {
     /// # async fn sample() -> anyhow::Result<()> {
     /// let count = std::thread::available_parallelism()?.get();
     /// let client = Subscriber::builder()
-    ///     .with_grpc_subchannel_count(std::cmp::max(1, count))
+    ///     .with_grpc_subchannel_count(count)
     ///     .build()
     ///     .await?;
     /// # Ok(()) }
@@ -115,9 +115,9 @@ impl ClientBuilder {
     /// demuxed over a single HTTP/2 connection (often called a *subchannel* in
     /// gRPC).
     ///
-    /// Consider using more subchannels if your application makes many
-    /// concurrent requests. Consider using fewer subchannels if your
-    /// application needs the file descriptors for other purposes.
+    /// Consider using more subchannels if your application opens many message
+    /// streams. Consider using fewer subchannels if your application needs the
+    /// file descriptors for other purposes.
     pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
         self.config.grpc_subchannel_count = Some(v);
         self

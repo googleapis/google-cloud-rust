@@ -177,11 +177,10 @@ mod tests {
     use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
     use opentelemetry::trace::{Status as TraceStatus, TraceContextExt};
     use opentelemetry::{TraceId, Value};
-    use opentelemetry_sdk::logs::{InMemoryLogExporter, SdkLoggerProvider};
     use opentelemetry_sdk::trace::SpanData;
     use std::collections::BTreeSet;
     use std::future::ready;
-    use tracing::subscriber::DefaultGuard;
+    use std::sync::Arc;
     use tracing_opentelemetry::OpenTelemetrySpanExt;
 
     // The tests run serially because the tracing subscriber is global, yuck.
@@ -196,7 +195,10 @@ mod tests {
             { ERROR_TYPE } = ::tracing::field::Empty,
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty
         );
-        let metric = DurationMetric::new(&TEST_INFO);
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(providers.metric_provider.clone()),
+        );
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         let future = ready(Ok::<String, Error>("hello world".to_string()));
@@ -236,10 +238,13 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn poll_err_disabled_span() -> anyhow::Result<()> {
-        let (exporter, provider, _guard) = init_logger();
+        let providers = SignalProviders::new();
 
         let span = Span::none();
-        let metric = DurationMetric::new(&TEST_INFO);
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(providers.metric_provider.clone()),
+        );
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         let future = ready(Err::<String, Error>(not_found()));
@@ -250,8 +255,8 @@ mod tests {
             "{result:?}"
         );
 
-        provider.force_flush()?;
-        let captured = exporter.get_emitted_logs()?;
+        providers.force_flush()?;
+        let captured = providers.logs_exporter.get_emitted_logs()?;
         let record = captured
             .iter()
             .find(|r| r.record.target().is_some_and(|v| v == TARGET))
@@ -275,7 +280,10 @@ mod tests {
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty
         );
         let trace_id = trace_id(&span);
-        let metric = DurationMetric::new(&TEST_INFO);
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(providers.metric_provider.clone()),
+        );
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         let future = ready(Err::<String, Error>(not_found()));
@@ -332,7 +340,10 @@ mod tests {
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty
         );
         let trace_id = trace_id(&span);
-        let metric = DurationMetric::new(&TEST_INFO);
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(providers.metric_provider.clone()),
+        );
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         let future = ready(Err::<String, Error>(http_too_many_requests()));
@@ -414,15 +425,6 @@ mod tests {
 
     fn trace_id(span: &Span) -> TraceId {
         span.context().span().span_context().trace_id()
-    }
-
-    fn init_logger() -> (InMemoryLogExporter, SdkLoggerProvider, DefaultGuard) {
-        let providers = SignalProviders::new();
-        (
-            providers.logs_exporter,
-            providers.logs_provider,
-            providers.guard,
-        )
     }
 
     fn not_found() -> Error {

@@ -83,7 +83,7 @@ pub(super) enum Action {
 ///
 /// ## Exactly-once delivery
 ///
-/// If your subscription has [exactly-once delivery] enabled, you need to
+/// If your subscription has [exactly-once delivery] enabled, you should
 /// destructure this enum into its [`Handler::ExactlyOnce`] branch.
 ///
 /// Only when `ExactlyOnce::confirmed_ack()` returns `Ok` can you be certain
@@ -235,7 +235,7 @@ impl ExactlyOnce {
         }
     }
 
-    /// Acknowledge the message associated with this handler.
+    /// Strongly acknowledge the message associated with this handler.
     ///
     /// ```
     /// use google_cloud_pubsub::model::Message;
@@ -248,15 +248,12 @@ impl ExactlyOnce {
     /// }
     /// ```
     ///
-    /// If the result is `Ok`, the message is guaranteed not to be delivered
-    /// again. You can safely delete any state associated with the message.
+    /// If the result is an `Ok`, the message is guaranteed not to be delivered
+    /// again.
     ///
-    /// Errors may trigger message redelivery. You should refer to the specific
-    /// error type to determine if redelivery is guaranteed.
-    ///
-    /// If no redelivery occurs a sufficient interval after an error, the
-    /// acknowledgement likely succeeded. At this point, you can garbage collect
-    /// any state associated with the message.
+    /// If the result is an `Err`, the message may be redelivered, but this is
+    /// not guaranteed. If no redelivery occurs a sufficient interval after an
+    /// error, the acknowledgement likely succeeded.
     pub async fn confirmed_ack(mut self) -> AckResult {
         let inner = self.inner.take().expect("handler impl is always some");
         inner.confirmed_ack().await

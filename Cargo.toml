@@ -165,6 +165,7 @@ members = [
   "src/generated/cloud/gkemulticloud/v1",
   "src/generated/cloud/gkerecommender/v1",
   "src/generated/cloud/gsuiteaddons/v1",
+  "src/generated/cloud/hypercomputecluster/v1",
   "src/generated/cloud/iap/v1",
   "src/generated/cloud/ids/v1",
   "src/generated/cloud/kms/inventory/v1",
@@ -233,6 +234,7 @@ members = [
   "src/generated/cloud/timeseriesinsights/v1",
   "src/generated/cloud/tpu/v2",
   "src/generated/cloud/translate/v3",
+  "src/generated/cloud/vectorsearch/v1",
   "src/generated/cloud/video/livestream/v1",
   "src/generated/cloud/video/stitcher/v1",
   "src/generated/cloud/video/transcoder/v1",
@@ -358,7 +360,7 @@ async-trait           = { default-features = false, version = "0.1.85" }
 base64                = { default-features = false, version = "0.22", features = ["std"] }
 bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
 cargo_metadata        = { default-features = false, version = "0.23" }
-chrono                = { default-features = false, version = "0.4.43" }
+chrono                = { default-features = false, version = "0.4.44" }
 crates_io_api         = { default-features = false, version = "0.12" }
 clap                  = { default-features = false, version = "4" }
 crc32c                = { default-features = false, version = "0.6.8" }
@@ -376,7 +378,7 @@ opentelemetry_sdk     = { default-features = false, version = "0.31" }
 opentelemetry-otlp    = { default-features = false, version = "0.31" }
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
-pin-project           = { default-features = false, version = "1.0.11" }
+pin-project           = { default-features = false, version = "1.1.11" }
 rand                  = { default-features = false, version = "0.10" }
 p256                  = { default-features = false, version = "0.13" }
 rust_decimal          = { default-features = false, version = "1.33.1", features = ["std"] }
@@ -389,7 +391,7 @@ serde_with            = { default-features = false, version = "3", features = ["
 sha2                  = { default-features = false, version = "0.10.6" }
 thiserror             = { default-features = false, version = "2.0.12" }
 time                  = { default-features = false, version = "0.3.45" }
-tokio                 = { default-features = false, version = "1.45.1" }
+tokio                 = { default-features = false, version = "1.47.0" }
 tokio-metrics         = { default-features = false, version = "0.4.9" }
 tokio-util            = { default-features = false, version = "0.7.18" }
 toml_edit             = { default-features = false, version = "0.25" }
@@ -397,7 +399,7 @@ tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
 tracing-subscriber    = { default-features = false, version = "0.3.22" }
 url                   = { default-features = false, version = "2.4" }
-uuid                  = { default-features = false, version = "1.10", features = ["v4"] }
+uuid                  = { default-features = false, version = "1.22", features = ["v4"] }
 
 opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0" }
 opentelemetry-appender-tracing     = { default-features = false, version = "0.31.0" }
@@ -417,7 +419,8 @@ tonic-prost-build = { default-features = false, version = "0.14.5" }
 # WARNING: When this changes to 0.6 we need to bump the google-cloud-gax-internal major version.
 tower = { default-features = false, version = "0.5.2", features = ["util"] }
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
-tracing = { default-features = false, version = "0.1.44", features = ["attributes"] }
+tracing       = { default-features = false, version = "0.1.44", features = ["attributes"] }
+tracing-serde = { default-features = false, version = "0.2" }
 
 # Some of our direct dependencies fail to declare the minimum version
 # requirements correctly. Force a higher version so we can test our own minimum
@@ -425,7 +428,7 @@ tracing = { default-features = false, version = "0.1.44", features = ["attribute
 aws-lc-rs = { default-features = false, version = "1.16.1" }
 
 # Test packages
-anyhow            = { default-features = false, version = "1.0.101", features = ["std"] }
+anyhow            = { default-features = false, version = "1.0.102", features = ["std"] }
 axum              = { default-features = false, version = "0.8" }
 flate2            = { default-features = false, version = "1.1.9" }
 hmac              = { default-features = false, version = "0.12.1" }

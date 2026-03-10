@@ -918,6 +918,9 @@ libraries:
         - name: google-cloud-apps-script-type-slides
           package: google-cloud-apps-script-type-slides
           source: google.apps.script.type.slides
+  - name: google-cloud-hypercomputecluster-v1
+    copyright_year: "2026"
+    rust: {}
   - name: google-cloud-iam-admin-v1
     version: 1.6.0
     apis:
@@ -1622,6 +1625,9 @@ libraries:
     copyright_year: "2024"
     rust:
       package_name_override: google-cloud-type
+  - name: google-cloud-vectorsearch-v1
+    copyright_year: "2026"
+    rust: {}
   - name: google-cloud-video-livestream-v1
     version: 1.7.0
     copyright_year: "2025"
@@ -1706,7 +1712,7 @@ libraries:
         - include_list: conformance.proto
           module_path: crate::generated::gapic::model
           output: tests/protojson-conformance/src/generated/protos
-          root_name: conformance-root
+          root_name: conformance
           api_path: conformance
           template: prost
         - generate_setter_samples: "false"
