@@ -205,8 +205,8 @@ impl MessageStream {
     /// ```
     /// # use google_cloud_pubsub::subscriber::MessageStream;
     /// # async fn sample(stream: MessageStream) -> anyhow::Result<()> {
-    /// use futures::Stream::TryStreamExt;
-    /// let stream = stream.into_stream();
+    /// use futures::TryStreamExt;
+    /// let mut stream = stream.into_stream();
     /// while let Some((m, h)) = stream.try_next().await? { /* ... */ }
     /// # Ok(()) }
     /// ```
