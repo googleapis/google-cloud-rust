@@ -300,16 +300,8 @@ async fn check_metrics(
             .await
             .inspect_err(|e| tracing::info!("error fetching metric: {e:?}"));
 
-        let Some(response) = response.ok() else {
-            continue;
-        };
-        let contains_resource = response.time_series.iter().any(|ts| {
-            ts.resource
-                .as_ref()
-                .is_some_and(|r| r.labels.get("node_id") == Some(&node_id))
-        });
-        if contains_resource {
-            found = Some(response);
+        found = response.ok();
+        if found.is_some() {
             break;
         }
     }
@@ -318,11 +310,6 @@ async fn check_metrics(
     let metrics = found
         .time_series
         .iter()
-        .filter(|ts| {
-            ts.resource
-                .as_ref()
-                .is_some_and(|r| r.labels.get("node_id") == Some(&node_id))
-        })
         .filter_map(|ts| ts.metric.as_ref())
         .collect::<Vec<_>>();
 
