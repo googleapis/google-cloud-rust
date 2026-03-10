@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{set_up_tracer_provider, wait_for_trace};
+use super::{new_credentials, set_up_providers, wait_for_trace};
 use crate::Anonymous;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::runtime_config::project_id;
@@ -20,6 +20,7 @@ use httptest::{Expectation, Server, matchers::*, responders::status_code};
 use opentelemetry::trace::TraceContextExt;
 use std::collections::BTreeSet;
 use tracing_opentelemetry::OpenTelemetrySpanExt;
+use uuid::Uuid;
 
 const ROOT_SPAN_NAME: &str = "e2e-showcase-test";
 
@@ -37,7 +38,15 @@ pub async fn run() -> anyhow::Result<()> {
     // 2. Setup Telemetry (Real Google Cloud Destination)
     // This requires GOOGLE_CLOUD_PROJECT to be set.
     let project_id = project_id()?;
-    let provider = set_up_tracer_provider(&project_id).await?;
+    let id = Uuid::new_v4();
+    let credentials = new_credentials(&project_id).await?;
+    let (provider, _meter_provider, _) = set_up_providers(
+        &project_id,
+        ROOT_SPAN_NAME,
+        id.to_string(),
+        credentials.clone(),
+    )
+    .await?;
 
     // 3. Generate Trace
     // Start a root span

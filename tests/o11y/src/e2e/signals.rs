@@ -12,13 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::resource_detector::TestResourceDetector;
-use super::wait_for_trace;
+use super::Buffer;
+use super::{new_credentials, set_up_providers, wait_for_trace};
 use crate::Anonymous;
-use crate::otlp::logs::EventFormatter;
-use crate::otlp::metrics::Builder as MeterProviderBuilder;
-use crate::otlp::trace::Builder as TracerProviderBuilder;
-use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
+use google_cloud_auth::credentials::Credentials;
 use google_cloud_gax::retry_policy::NeverRetry;
 use google_cloud_monitoring_v3::client::MetricService;
 use google_cloud_monitoring_v3::model::TimeInterval;
@@ -29,19 +26,11 @@ use httptest::responders::{delay_and_then, status_code};
 use httptest::{Expectation, Server, matchers::*};
 use opentelemetry::TraceId;
 use opentelemetry::trace::TraceContextExt;
-use opentelemetry_sdk::metrics::SdkMeterProvider;
-use opentelemetry_sdk::trace::SdkTracerProvider;
 use rand::RngExt;
-use std::io::Write;
-use std::sync::{Arc, Mutex};
 use std::time::SystemTime;
 use std::{collections::BTreeSet, time::Duration};
 use tracing::Instrument;
-use tracing::level_filters::LevelFilter;
 use tracing_opentelemetry::OpenTelemetrySpanExt;
-use tracing_subscriber::Layer;
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::layer::SubscriberExt;
 use uuid::Uuid;
 
 const ROOT_SPAN_NAME: &str = "e2e-showcase-test";
@@ -49,9 +38,15 @@ const ROOT_SPAN_NAME: &str = "e2e-showcase-test";
 pub async fn run() -> anyhow::Result<()> {
     let project_id = project_id()?;
     let id = Uuid::new_v4();
-    let credentials = CredentialsBuilder::default().build()?;
-    let (tracer_provider, meter_provider, buffer) =
-        configure_providers(&project_id, id, credentials.clone()).await?;
+    let credentials = new_credentials(&project_id).await?;
+
+    let (tracer_provider, meter_provider, buffer) = set_up_providers(
+        &project_id,
+        ROOT_SPAN_NAME,
+        id.to_string(),
+        credentials.clone(),
+    )
+    .await?;
 
     // Setup a Mock Server so the showcase client can work. In this test we do a fizzbuzz-type thing:
     // - About 3% of the calls fail with 404.
@@ -78,53 +73,9 @@ pub async fn run() -> anyhow::Result<()> {
     // Verify the traces, logs and metrics match the expected values.
     check_traces(&project_id, trace_id).await?;
     check_logs(&project_id, buffer, trace_id)?;
-    check_metrics(&project_id, id, credentials.clone()).await?;
+    check_metrics(&project_id, id, credentials).await?;
 
     Ok(())
-}
-
-async fn configure_providers(
-    project_id: &str,
-    test_id: Uuid,
-    credentials: Credentials,
-) -> anyhow::Result<(SdkTracerProvider, SdkMeterProvider, Buffer)> {
-    let detector = TestResourceDetector::new(test_id.to_string().as_str());
-    let tracer_provider = TracerProviderBuilder::new(project_id, ROOT_SPAN_NAME)
-        .with_credentials(credentials.clone())
-        .with_detector(detector.clone())
-        .build()
-        .await?;
-    let meter_provider = MeterProviderBuilder::new(project_id, ROOT_SPAN_NAME)
-        .with_credentials(credentials.clone())
-        .with_detector(detector.clone())
-        .build()
-        .await?;
-    let formatter = EventFormatter::new(project_id);
-    // Creates a buffer to capture the error messages.
-    // - `tracing_subscriber::fmt::layer().with_writer()` requests `MakeWriter`.
-    // - Any function that returns a `std::io::Writer` is a `MakeWriter`.
-    // - `Buffer` implements the `std::io::Write` trait.
-    let buffer = Buffer::new();
-    let make_writer = {
-        let shared = buffer.clone();
-        move || shared.clone()
-    };
-    tracing::subscriber::set_global_default(
-        tracing_subscriber::Registry::default()
-            .with(
-                tracing_subscriber::fmt::layer()
-                    .with_span_events(FmtSpan::NONE)
-                    .with_level(true)
-                    .with_thread_ids(true)
-                    .with_writer(make_writer)
-                    .event_format(formatter.clone())
-                    .with_filter(LevelFilter::ERROR),
-            )
-            .with(crate::tracing::layer(tracer_provider.clone())),
-    )?;
-    opentelemetry::global::set_tracer_provider(tracer_provider.clone());
-    opentelemetry::global::set_meter_provider(meter_provider.clone());
-    Ok((tracer_provider, meter_provider, buffer))
 }
 
 fn configure_mock_server() -> Server {
@@ -333,29 +284,4 @@ async fn check_metrics(
         })
         .unwrap_or_else(|| panic!("missing metrics with 200 status: {metrics:?}"));
     Ok(())
-}
-
-#[derive(Clone, Debug)]
-struct Buffer(Arc<Mutex<Vec<u8>>>);
-
-impl Buffer {
-    pub fn new() -> Self {
-        Self(Arc::new(Mutex::new(Vec::new())))
-    }
-    pub fn captured(&self) -> Vec<u8> {
-        let guard = self.0.lock().expect("never poisoned");
-        guard.clone()
-    }
-}
-
-impl Write for Buffer {
-    fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
-        let mut guard = self.0.lock().expect("never poisoned");
-        guard.extend_from_slice(buf);
-        Ok(buf.len())
-    }
-
-    fn flush(&mut self) -> std::io::Result<()> {
-        Ok(())
-    }
 }
