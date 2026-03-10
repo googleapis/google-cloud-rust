@@ -144,6 +144,38 @@ where
         this
     }
 
+    /// Enables computation of CRC32C checksums.
+    ///
+    /// CRC32C checksums are checked by default.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let builder =  client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .enable_crc32c_checksum(false);
+    /// let mut reader = builder
+    ///     .send()
+    ///     .await?;
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = reader.next().await.transpose()? {
+    ///     contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", contents);
+    /// # Ok(()) }
+    /// ```
+    pub fn enable_crc32c_checksum(self, v: bool) -> Self {
+        let mut this = self;
+        if !v {
+            this.options.checksum.crc32c = None;
+        } else if this.options.checksum.crc32c.is_none() {
+            this.options.checksum.crc32c =
+                Some(crate::storage::checksum::details::Crc32c::default());
+        }
+        this
+    }
+
     /// If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
     pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
@@ -932,6 +964,45 @@ mod tests {
             ),
             "err={err:?}"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_disabled_crc32c_check() -> Result {
+        // Calculate and serialize the incorrect crc32c checksum
+        let u = crc32c::crc32c("goodbye world".as_bytes());
+        let value = base64::prelude::BASE64_STANDARD.encode(u.to_be_bytes());
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .body("hello world")
+                    .append_header("x-goog-hash", format!("crc32c={value}"))
+                    .append_header("x-goog-generation", 123456),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let mut response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .enable_crc32c_checksum(false)
+            .send()
+            .await?;
+        let mut got = Vec::new();
+        while let Some(b) = response.next().await.transpose()? {
+            got.extend_from_slice(&b);
+        }
+        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
+
         Ok(())
     }
 
