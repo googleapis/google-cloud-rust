@@ -2,10 +2,12 @@
     "api_id": "edgecontainer.googleapis.com",
     "api_shortname": "edgecontainer",
     "client_documentation": "https://docs.rs/google-cloud-edgecontainer-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-edgecontainer-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Distributed Cloud Edge Container API",
+    "name": "edgecontainer",
+    "name_pretty": "Distributed Cloud Edge Container",
+    "product_documentation": "https://cloud.google.com/distributed-cloud/edge",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

@@ -1,11 +1,15 @@
 {
+    "api_description": "Enables consumers to procure products served by Cloud Marketplace platform",
     "api_id": "cloudcommerceconsumerprocurement.googleapis.com",
     "api_shortname": "cloudcommerceconsumerprocurement",
     "client_documentation": "https://docs.rs/google-cloud-commerce-consumer-procurement-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-commerce-consumer-procurement-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1396141",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Commerce Consumer Procurement API",
+    "name": "cloudcommerceconsumerprocurement",
+    "name_pretty": "Cloud Commerce Consumer Procurement",
+    "product_documentation": "https://cloud.google.com/marketplace/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

@@ -1,11 +1,13 @@
 {
+    "api_description": "Accesses the NoSQL document database built for automatic scaling, high\nperformance, and ease of application development.",
     "api_id": "firestore.googleapis.com",
     "api_shortname": "firestore",
     "client_documentation": "https://docs.rs/google-cloud-firestore-admin-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-firestore-admin-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Firestore API",
+    "name": "firestore",
+    "name_pretty": "Cloud Firestore",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

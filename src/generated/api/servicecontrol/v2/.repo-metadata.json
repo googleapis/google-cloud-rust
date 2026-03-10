@@ -1,11 +1,14 @@
 {
+    "api_description": "Provides admission control and telemetry reporting for services integrated\nwith Service Infrastructure.",
     "api_id": "servicecontrol.googleapis.com",
     "api_shortname": "servicecontrol",
     "client_documentation": "https://docs.rs/google-cloud-api-servicecontrol-v2/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-api-servicecontrol-v2",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Service Control API",
+    "name": "servicecontrol",
+    "name_pretty": "Service Control",
+    "product_documentation": "https://cloud.google.com/service-infrastructure/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

@@ -1,11 +1,14 @@
 {
+    "api_description": "Security Posture is a comprehensive framework of policy sets that empowers organizations to define, assess early, deploy, and monitor their security measures in a unified way and helps simplify governance and reduces administrative toil.",
     "api_id": "securityposture.googleapis.com",
     "api_shortname": "securityposture",
     "client_documentation": "https://docs.rs/google-cloud-securityposture-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-securityposture-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=936838\u0026template=1502786",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Security Posture API",
+    "name": "securityposture",
+    "name_pretty": "Security Posture",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

@@ -1,11 +1,14 @@
 {
+    "api_description": "Exchange data and analytics assets securely and efficiently.",
     "api_id": "analyticshub.googleapis.com",
     "api_shortname": "analyticshub",
     "client_documentation": "https://docs.rs/google-cloud-bigquery-analyticshub-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-bigquery-analyticshub-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Analytics Hub API",
+    "name": "analyticshub",
+    "name_pretty": "Analytics Hub",
+    "product_documentation": "https://cloud.google.com/analytics-hub",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

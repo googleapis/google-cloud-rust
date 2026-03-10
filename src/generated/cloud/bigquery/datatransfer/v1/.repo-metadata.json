@@ -1,11 +1,15 @@
 {
+    "api_description": "Schedule queries or transfer external data from SaaS applications to Google\nBigQuery on a regular basis.",
     "api_id": "bigquerydatatransfer.googleapis.com",
     "api_shortname": "bigquerydatatransfer",
     "client_documentation": "https://docs.rs/google-cloud-bigquery-datatransfer-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-bigquery-datatransfer-v1",
+    "issue_tracker": "https://issuetracker.google.com/savedsearches/559654",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "BigQuery Data Transfer API",
+    "name": "bigquerydatatransfer",
+    "name_pretty": "BigQuery Data Transfer",
+    "product_documentation": "https://cloud.google.com/bigquery/transfer/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

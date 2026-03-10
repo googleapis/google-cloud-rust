@@ -1,11 +1,15 @@
 {
+    "api_description": "Cloud Spanner is a managed, mission-critical, globally consistent and\nscalable relational database service.",
     "api_id": "spanner.googleapis.com",
     "api_shortname": "spanner",
     "client_documentation": "https://docs.rs/google-cloud-spanner-admin-database-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-spanner-admin-database-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=190851\u0026template=0",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Spanner API",
+    "name": "spanner",
+    "name_pretty": "Cloud Spanner",
+    "product_documentation": "https://cloud.google.com/spanner/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

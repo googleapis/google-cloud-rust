@@ -1,11 +1,15 @@
 {
+    "api_description": "License Manager is a tool to manage and track third-party licenses on\nGoogle Cloud.",
     "api_id": "licensemanager.googleapis.com",
     "api_shortname": "licensemanager",
     "client_documentation": "https://docs.rs/google-cloud-licensemanager-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-licensemanager-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1659587",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "License Manager API",
+    "name": "licensemanager",
+    "name_pretty": "License Manager",
+    "product_documentation": "https://cloud.google.com/compute/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

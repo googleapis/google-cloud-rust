@@ -1,11 +1,15 @@
 {
+    "api_description": "The Public Certificate Authority API may be used to create and manage ACME\nexternal account binding keys associated with Google Trust Services'\npublicly trusted certificate authority.",
     "api_id": "publicca.googleapis.com",
     "api_shortname": "publicca",
     "client_documentation": "https://docs.rs/google-cloud-security-publicca-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-security-publicca-v1",
+    "issue_tracker": "https://cloud.google.com/certificate-manager/docs/getting-support",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Public Certificate Authority API",
+    "name": "publicca",
+    "name_pretty": "Public Certificate Authority",
+    "product_documentation": "https://cloud.google.com/certificate-manager/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

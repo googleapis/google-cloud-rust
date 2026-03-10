@@ -11,9 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 language: rust
-version: v0.8.4-0.20260308144746-c8a4cb903c10
+version: v0.8.4-0.20260310152958-01b39a00ca8a
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6

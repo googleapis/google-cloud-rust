@@ -1,11 +1,13 @@
 {
+    "api_description": "Defines types and an abstract service to handle long-running operations.\n\n[Long-running operations] are a common pattern to handle methods that may take a\nsignificant amount of time to execute. Many Google APIs return an `Operation`\nmessage (defined in this crate) that are roughly analogous to a future. The\noperation will eventually complete, though it may still return an error on\ncompletion. The client libraries provide helpers to simplify polling of these\noperations.\n\n\u003e This crate used to contain a different implementation, with a different\n\u003e surface. [@yoshidan](https://github.com/yoshidan) generously donated the crate\n\u003e name to Google. Their crate continues to live as [gcloud-longrunning].\n\n[Long-running operations]: https://google.aip.dev/151\n[gcloud-longrunning]: https://crates.io/crates/gcloud-longrunning",
     "api_id": "longrunning.googleapis.com",
     "api_shortname": "longrunning",
     "client_documentation": "https://docs.rs/google-cloud-longrunning/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-longrunning",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Long Running Operations API",
+    "name": "longrunning",
+    "name_pretty": "Long Running Operations",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

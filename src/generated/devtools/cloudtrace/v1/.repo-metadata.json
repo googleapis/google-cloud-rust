@@ -1,11 +1,15 @@
 {
+    "api_description": "Sends application trace data to Stackdriver Trace for viewing. Trace data\nis collected for all App Engine applications by default. Trace data from\nother applications can be provided using this API. This library is used to\ninteract with the Trace API directly. If you are looking to instrument\nyour application for Stackdriver Trace, we recommend using OpenTelemetry.",
     "api_id": "cloudtrace.googleapis.com",
     "api_shortname": "cloudtrace",
     "client_documentation": "https://docs.rs/google-cloud-trace-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-trace-v1",
+    "issue_tracker": "https://issuetracker.google.com/savedsearches/559776",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Trace API",
+    "name": "cloudtrace",
+    "name_pretty": "Cloud Trace",
+    "product_documentation": "https://cloud.google.com/trace/docs",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

@@ -2,10 +2,13 @@
     "api_id": "financialservices.googleapis.com",
     "api_shortname": "financialservices",
     "client_documentation": "https://docs.rs/google-cloud-financialservices-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-financialservices-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=933093",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Financial Services API",
+    "name": "financialservices",
+    "name_pretty": "Financial Services",
+    "product_documentation": "https://cloud.google.com/financial-services/anti-money-laundering/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

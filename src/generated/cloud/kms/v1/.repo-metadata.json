@@ -1,11 +1,15 @@
 {
+    "api_description": "Manages keys and performs cryptographic operations in a central cloud\nservice, for direct use by other cloud resources and applications.",
     "api_id": "cloudkms.googleapis.com",
     "api_shortname": "cloudkms",
     "client_documentation": "https://docs.rs/google-cloud-kms-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-kms-v1",
+    "issue_tracker": "https://issuetracker.google.com/savedsearches/5264932",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Key Management Service (KMS) API",
+    "name": "cloudkms",
+    "name_pretty": "Cloud Key Management Service (KMS)",
+    "product_documentation": "https://cloud.google.com/kms",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

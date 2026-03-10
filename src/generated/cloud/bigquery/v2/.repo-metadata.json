@@ -1,11 +1,13 @@
 {
+    "api_description": "A data platform for customers to create, manage, share and query data.",
     "api_id": "bigquery.googleapis.com",
     "api_shortname": "bigquery",
     "client_documentation": "https://docs.rs/google-cloud-bigquery-v2/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-bigquery-v2",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "BigQuery API",
+    "name": "bigquery",
+    "name_pretty": "BigQuery",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

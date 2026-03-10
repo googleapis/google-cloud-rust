@@ -1,11 +1,14 @@
 {
+    "api_description": "Build event-driven applications on Google Cloud Platform.",
     "api_id": "eventarc.googleapis.com",
     "api_shortname": "eventarc",
     "client_documentation": "https://docs.rs/google-cloud-eventarc-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-eventarc-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Eventarc API",
+    "name": "eventarc",
+    "name_pretty": "Eventarc",
+    "product_documentation": "https://cloud.google.com/eventarc/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

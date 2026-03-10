@@ -1,11 +1,15 @@
 {
+    "api_description": "The BigLake API provides access to BigLake Metastore, a serverless, fully\nmanaged, and highly available metastore for open-source data that can be\nused for querying Apache Iceberg tables in BigQuery.",
     "api_id": "biglake.googleapis.com",
     "api_shortname": "biglake",
     "client_documentation": "https://docs.rs/google-cloud-biglake-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-biglake-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=187149\u0026template=1019829",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "BigLake API",
+    "name": "biglake",
+    "name_pretty": "BigLake",
+    "product_documentation": "https://cloud.google.com/bigquery/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }
