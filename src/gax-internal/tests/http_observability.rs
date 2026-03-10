@@ -515,7 +515,7 @@ mod tests {
             (otel_trace::SERVER_PORT, (server_addr.port() as i64).into()),
             (otel_trace::URL_FULL, format!("{}/test", server_url).into()),
             (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
-            (OTEL_STATUS_CODE, "OK".into()),
+            (OTEL_STATUS_CODE, "UNSET".into()),
             ("gax.client.span", true.into()),
         ]
         .into_iter()

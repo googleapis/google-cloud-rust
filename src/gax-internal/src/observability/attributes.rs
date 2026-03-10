@@ -126,10 +126,9 @@ pub mod error_type_values {
     pub const UNKNOWN: &str = "UNKNOWN";
 }
 
+// There is no OK constant because in practice an instrumented library should never use it.
 /// Values for the OpenTelemetry `otel.status_code` attribute.
 pub mod otel_status_codes {
-    /// The operation has been validated by an Application developer or Operator to have completed successfully.
-    pub const OK: &str = "OK";
     /// The operation contains an error.
     pub const ERROR: &str = "ERROR";
     /// The default status.
