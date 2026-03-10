@@ -25,16 +25,16 @@ license.workspace = true
 run-integration-tests = []
 
 [dependencies]
-anyhow.workspace                       = true
-google-cloud-auth                      = { workspace = true, features = ["default"] }
-google-cloud-gax                       = { workspace = true }
-google-cloud-lro                       = { workspace = true }
-google-cloud-spanner                   = { workspace = true, features = [] }
-tokio.workspace                        = true
-tracing.workspace                      = true
+anyhow.workspace     = true
+google-cloud-auth    = { workspace = true, features = ["default"] }
+google-cloud-gax     = { workspace = true }
+google-cloud-lro     = { workspace = true }
+google-cloud-spanner = { workspace = true, features = [] }
+tokio.workspace      = true
+tracing.workspace    = true
 
 [dev-dependencies]
-reqwest = { workspace = true, features = ["json"] }
+reqwest    = { workspace = true, features = ["json"] }
 serde_json = { workspace = true }
 
 [lints]

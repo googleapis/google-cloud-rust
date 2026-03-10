@@ -62,7 +62,7 @@ impl SingleUseReadOnlyTransactionBuilder {
     /// When reading data in Spanner in a read-only transaction, you can set a timestamp bound,
     /// which tells Spanner how to choose a timestamp at which to read the data.
     ///
-    /// See https://docs.cloud.google.com/spanner/docs/timestamp-bounds for more information.
+    /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds> for more information.
     pub fn with_timestamp_bound(mut self, bound: TimestampBound) -> Self {
         self.timestamp_bound = Some(bound);
         self

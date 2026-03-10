@@ -64,7 +64,7 @@ mod spanner {
             }
         });
         let res = client
-            .post(&format!(
+            .post(format!(
                 "{}/v1/projects/{}/instances",
                 rest_endpoint, PROJECT_ID
             ))
@@ -83,7 +83,7 @@ mod spanner {
             "createStatement": format!("CREATE DATABASE `{}`", DATABASE_ID)
         });
         let res = client
-            .post(&format!(
+            .post(format!(
                 "{}/v1/projects/{}/instances/{}/databases",
                 rest_endpoint, PROJECT_ID, INSTANCE_ID
             ))
@@ -225,7 +225,7 @@ ORDER BY col_int64
                     assert_eq!(raw_values[0].as_string(), "1"); // INT64 is encoded as string
                     assert_eq!(raw_values[1].as_f64(), 1.0);
                     assert_eq!(raw_values[2].as_f64(), 1.0); // FLOAT32 is encoded as f64
-                    assert_eq!(raw_values[3].as_bool(), true);
+                    assert!(raw_values[3].as_bool());
                     assert_eq!(raw_values[4].as_string(), "One");
                     assert_eq!(raw_values[5].as_string(), "T25l"); // Base64 'One'
                     assert_eq!(raw_values[6].as_string(), "{\"value\":1}"); // JSON
@@ -240,7 +240,7 @@ ORDER BY col_int64
                     assert_eq!(raw_values[12].as_list().len(), 1);
                     assert_eq!(raw_values[12].as_list().get(0).unwrap().as_f64(), 1.0);
                     assert_eq!(raw_values[13].as_list().len(), 1);
-                    assert_eq!(raw_values[13].as_list().get(0).unwrap().as_bool(), true);
+                    assert!(raw_values[13].as_list().get(0).unwrap().as_bool());
                     assert_eq!(raw_values[14].as_list().len(), 1);
                     assert_eq!(raw_values[14].as_list().get(0).unwrap().as_string(), "One");
                     assert_eq!(raw_values[15].as_list().len(), 1);
@@ -268,7 +268,7 @@ ORDER BY col_int64
                     assert_eq!(raw_values[0].as_string(), "2");
                     assert_eq!(raw_values[1].as_f64(), 2.0);
                     assert_eq!(raw_values[2].as_f64(), 2.0);
-                    assert_eq!(raw_values[3].as_bool(), false);
+                    assert!(!raw_values[3].as_bool());
                     assert_eq!(raw_values[4].as_string(), "Two");
                     assert_eq!(raw_values[5].as_string(), "VHdv"); // Base64 'Two'
                     assert_eq!(raw_values[6].as_string(), "{\"value\":2}");
@@ -286,8 +286,8 @@ ORDER BY col_int64
                     assert_eq!(raw_values[12].as_list().get(0).unwrap().as_f64(), 2.0);
                     assert_eq!(raw_values[12].as_list().get(1).unwrap().as_f64(), 3.0);
                     assert_eq!(raw_values[13].as_list().len(), 2);
-                    assert_eq!(raw_values[13].as_list().get(0).unwrap().as_bool(), false);
-                    assert_eq!(raw_values[13].as_list().get(1).unwrap().as_bool(), true);
+                    assert!(!raw_values[13].as_list().get(0).unwrap().as_bool());
+                    assert!(raw_values[13].as_list().get(1).unwrap().as_bool());
                     assert_eq!(raw_values[14].as_list().len(), 2);
                     assert_eq!(raw_values[14].as_list().get(0).unwrap().as_string(), "Two");
                     assert_eq!(

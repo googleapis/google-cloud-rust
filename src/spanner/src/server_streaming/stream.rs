@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(dead_code)]
+
 use crate::google::spanner::v1::BatchWriteResponse;
 use crate::google::spanner::v1::PartialResultSet;
 use gaxi::grpc::from_status::to_gax_error;
