@@ -132,11 +132,11 @@ fn configure_mock_server() -> Server {
     let respond = || {
         const DELAY: Duration = Duration::from_millis(50);
         match rand::rng().random_range(0..1000) {
-            n if n == 37 * 31 => delay_and_then(DELAY, status_code(404)),
-            n if n % 37 == 0 => {
+            n if n % 29 == 0 && n % 31 == 0 => delay_and_then(DELAY, status_code(404)),
+            n if n % 31 == 0 => {
                 delay_and_then(DELAY, status_code(200).body(r#"{"content": "test"}"#))
             }
-            n if n % 31 == 0 => delay_and_then(Duration::ZERO, status_code(404)),
+            n if n % 29 == 0 => delay_and_then(Duration::ZERO, status_code(404)),
             _ => delay_and_then(
                 Duration::ZERO,
                 status_code(200).body(r#"{"content": "test"}"#),
@@ -156,7 +156,7 @@ fn configure_mock_server() -> Server {
 
 async fn run_test_iterations(project_id: &str, client: Echo) -> anyhow::Result<TraceId> {
     let mut trace_id = None;
-    for _ in 0..1_000 {
+    for _ in 0..2_000 {
         let root_span = tracing::info_span!("e2e_root", "otel.name" = ROOT_SPAN_NAME);
         let tid = root_span.context().span().span_context().trace_id();
 
@@ -181,8 +181,6 @@ async fn run_test_iterations(project_id: &str, client: Echo) -> anyhow::Result<T
             // Already have a trace
             (Err(_), Some(_)) => (),
         }
-        // Rate limit the client.
-        tokio::time::sleep(Duration::from_millis(3)).await;
     }
     trace_id.ok_or_else(|| anyhow::anyhow!("no trace id created during test"))
 }
@@ -227,7 +225,7 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
     let timestamp = got.remove("timestamp");
     // This needs to be exist and be a string, the contents are hard/impossible to verify.
     assert!(
-        got.remove("logging.googleapis.com/span")
+        got.remove("logging.googleapis.com/spanId")
             .is_some_and(|v| v.as_str().is_some()),
         "{value:?}"
     );
@@ -295,7 +293,7 @@ async fn check_metrics(
             .set_name(format!("projects/{project_id}"))
             .set_interval(TimeInterval::new().set_end_time(end).set_start_time(start))
             .set_filter(
-                r#"metric.type = "workload.googleapis.com/test.client.duration""#.to_string(),
+                format!(r#"metric.type = "workload.googleapis.com/test.client.duration" AND resource.labels.node_id = "{node_id}""#),
             )
             .set_order_by("timestamp desc")
             .send()

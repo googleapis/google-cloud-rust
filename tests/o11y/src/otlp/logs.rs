@@ -135,7 +135,8 @@ where
                         "logging.googleapis.com/trace",
                         &format!("projects/{}/traces/{tid}", self.project_id),
                     )?;
-                    serializer.serialize_entry("logging.googleapis.com/span", &sid.to_string())?;
+                    serializer
+                        .serialize_entry("logging.googleapis.com/spanId", &sid.to_string())?;
                     serializer.serialize_entry("logging.googleapis.com/trace_sampled", &sampled)?;
                 }
                 (None, sampled) => {
