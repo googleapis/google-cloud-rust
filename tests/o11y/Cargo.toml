@@ -44,7 +44,6 @@ google-cloud-monitoring-v3    = { workspace = true, features = ["default"] }
 http.workspace                = true
 httptest.workspace            = true
 opentelemetry                 = { workspace = true, features = ["logs", "metrics", "trace"] }
-opentelemetry_sdk             = { workspace = true, features = ["logs", "metrics", "rt-tokio", "spec_unstable_metrics_views", "trace"] }
 opentelemetry-proto           = { workspace = true, features = ["gen-tonic", "logs", "metrics", "trace"] }
 thiserror.workspace           = true
 rand.workspace                = true
@@ -65,6 +64,10 @@ uuid                          = { workspace = true, features = ["v4"] }
 [dependencies.opentelemetry-otlp]
 workspace = true
 features  = ["grpc-tonic", "internal-logs", "logs", "metrics", "tls", "tls-roots", "trace"]
+
+[dependencies.opentelemetry_sdk]
+workspace = true
+features  = ["logs", "metrics", "rt-tokio", "spec_unstable_metrics_views", "trace"]
 
 [dev-dependencies]
 opentelemetry_sdk = { workspace = true, features = ["testing"] }
