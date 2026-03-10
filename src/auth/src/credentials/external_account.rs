@@ -706,7 +706,7 @@ impl Builder {
         self
     }
 
-    #[cfg(test)]
+    #[cfg(all(test, google_cloud_unstable_trusted_boundaries))]
     fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
         self.iam_endpoint_override = iam_endpoint_override;
         self
@@ -1441,7 +1441,6 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
     use crate::constants::{
         ACCESS_TOKEN_TYPE, DEFAULT_SCOPE, JWT_TOKEN_TYPE, TOKEN_EXCHANGE_GRANT_TYPE,
     };
@@ -1449,8 +1448,8 @@ mod tests {
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     };
     use crate::credentials::tests::{
-        find_source_error, get_access_boundary_from_headers, get_mock_auth_retry_policy,
-        get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
+        find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
+        get_mock_retry_throttler, get_token_from_headers,
     };
     use crate::errors::{CredentialsError, SubjectTokenProviderError};
     use httptest::{
@@ -2309,7 +2308,9 @@ mod tests {
     )]
     #[tokio::test]
     #[cfg(google_cloud_unstable_trusted_boundaries)]
-    async fn e2e_access_boundary(audience: &str, iam_path: &str) -> TestResult {
+    async fn e2e_access_boundary(audience: &str, iam_path: &str) -> anyhow::Result<()> {
+        use crate::credentials::tests::get_access_boundary_from_headers;
+
         let audience = audience.to_string();
         let iam_path = iam_path.to_string();
 

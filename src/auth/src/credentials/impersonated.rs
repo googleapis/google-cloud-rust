@@ -882,9 +882,7 @@ struct GenerateAccessTokenResponse {
 mod tests {
     use super::*;
     use crate::credentials::service_account::ServiceAccountKey;
-    use crate::credentials::tests::{
-        PKCS8_PK, get_access_boundary_from_headers, get_token_from_headers,
-    };
+    use crate::credentials::tests::PKCS8_PK;
     use crate::credentials::tests::{
         find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
         get_mock_retry_throttler,
@@ -2319,6 +2317,7 @@ mod tests {
     #[parallel]
     #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn e2e_access_boundary() -> TestResult {
+        use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path("POST", "/token"))

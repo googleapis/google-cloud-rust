@@ -266,7 +266,7 @@ impl Builder {
         self
     }
 
-    #[cfg(test)]
+    #[cfg(all(test, google_cloud_unstable_trusted_boundaries))]
     fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
         self.iam_endpoint_override = iam_endpoint_override;
         self
@@ -622,14 +622,11 @@ mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
-        PKCS8_PK, b64_decode_to_json, get_access_boundary_from_headers, get_headers_from_cache,
-        get_token_from_headers,
+        PKCS8_PK, b64_decode_to_json, get_headers_from_cache, get_token_from_headers,
     };
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
-    use httptest::responders::json_encoded;
-    use httptest::{Expectation, Server, matchers::*};
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::LineEnding;
     use serde_json::Value;
@@ -1056,6 +1053,11 @@ mod tests {
     #[parallel]
     #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn e2e_access_boundary() -> TestResult {
+        use crate::credentials::tests::get_access_boundary_from_headers;
+        use httptest::responders::json_encoded;
+        use httptest::{Expectation, Server, matchers::*};
+        use serde_json::Value;
+
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
         let email = service_account_key["client_email"].as_str().unwrap();

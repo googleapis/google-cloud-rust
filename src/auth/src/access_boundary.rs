@@ -631,14 +631,12 @@ pub(crate) mod tests {
     use super::*;
     use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
     use crate::credentials::{AccessToken, EntityTag};
-    use crate::mds::MDS_DEFAULT_URI;
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, cycle, matchers::*, responders::*};
     use serde_json::json;
     use serial_test::parallel;
     use test_case::test_case;
-    use tokio::sync::Mutex;
 
     type TestResult = anyhow::Result<()>;
 
@@ -753,6 +751,8 @@ pub(crate) mod tests {
     #[parallel]
     #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn test_fetch_access_boundary_mds_success() -> TestResult {
+        use crate::mds::MDS_DEFAULT_URI;
+
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path(
@@ -1049,6 +1049,7 @@ pub(crate) mod tests {
 
     #[tokio::test(start_paused = true)]
     #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn test_entity_tag_caching_behavior() -> TestResult {
         let mut mock_creds = MockCredentials::new();
         let latest_token_etag = Arc::new(std::sync::RwLock::new(EntityTag::new()));
@@ -1079,7 +1080,7 @@ pub(crate) mod tests {
         let creds = CredentialsWithAccessBoundary {
             credentials: Arc::new(mock_creds),
             access_boundary: Arc::new(access_boundary),
-            cache: Arc::new(Mutex::new(EntityTagCache::new())),
+            cache: Arc::new(tokio::sync::Mutex::new(EntityTagCache::new())),
         };
 
         // First call - no tag yet

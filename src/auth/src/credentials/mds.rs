@@ -474,7 +474,6 @@ mod tests {
     use super::*;
     use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::tests::get_access_boundary_from_headers;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
         get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
@@ -1008,6 +1007,7 @@ mod tests {
         let mdsc = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
+            .without_access_boundary()
             .build()?;
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
@@ -1037,6 +1037,7 @@ mod tests {
         let mdsc = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
+            .without_access_boundary()
             .build()?;
 
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
@@ -1067,6 +1068,7 @@ mod tests {
         let mdsc = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
+            .without_access_boundary()
             .build()?;
 
         let e = mdsc.headers(Extensions::new()).await.err().unwrap();
@@ -1133,6 +1135,8 @@ mod tests {
     #[parallel]
     #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn e2e_access_boundary() -> TestResult {
+        use crate::credentials::tests::get_access_boundary_from_headers;
+
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/token")),])
