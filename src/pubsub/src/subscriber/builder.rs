@@ -81,7 +81,7 @@ impl Subscribe {
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
     /// let stream = client.subscribe("projects/my-project/subscriptions/my-subscription")
-    ///     .set_max_deadline_extension(Duration::from_secs(20))
+    ///     .set_max_lease_extension(Duration::from_secs(20))
     ///     .build();
     /// # Ok(()) }
     /// ```
@@ -100,7 +100,7 @@ impl Subscribe {
     /// this range.
     ///
     /// The default value is 10 seconds.
-    pub fn set_max_deadline_extension<T: Into<Duration>>(mut self, v: T) -> Self {
+    pub fn set_max_lease_extension<T: Into<Duration>>(mut self, v: T) -> Self {
         self.ack_deadline_seconds = v.into().as_secs().clamp(10, 600) as i32;
         self
     }
@@ -215,7 +215,7 @@ mod tests {
             "client-id".to_string(),
             2_usize,
         )
-        .set_max_deadline_extension(Duration::from_secs(20))
+        .set_max_lease_extension(Duration::from_secs(20))
         .set_max_outstanding_messages(12345)
         .set_max_outstanding_bytes(6789 * KIB);
         assert_eq!(
@@ -241,7 +241,7 @@ mod tests {
             "client-id".to_string(),
             1_usize,
         )
-        .set_max_deadline_extension(v);
+        .set_max_lease_extension(v);
         assert_eq!(builder.ack_deadline_seconds, want);
 
         Ok(())
