@@ -35,7 +35,7 @@
 #[derive(Clone, Debug, PartialEq)]
 pub struct Statement {
     pub sql: String,
-    // TODO: Add support for query parameters.
+    // TODO(#4970): Add support for query parameters.
 }
 
 impl Statement {

@@ -148,7 +148,7 @@ impl ResultSet {
 }
 
 fn internal_error(message: &str) -> crate::Error {
-    crate::Error::deser(message)
+    crate::Error::deser(crate::error::SpannerInternalError::new(message))
 }
 
 /// Merges two values from successive `PartialResultSet`s into a single value.

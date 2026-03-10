@@ -48,6 +48,7 @@ pub(crate) mod to_value;
 pub(crate) mod types;
 pub(crate) mod value;
 
+pub(crate) mod error;
 mod status;
 
 #[allow(dead_code)]

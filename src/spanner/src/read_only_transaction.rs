@@ -153,7 +153,7 @@ impl SingleUseReadOnlyTransaction {
         let stream = self
             .client
             .spanner
-            // TODO: make request options configurable
+            // TODO(#4972): make request options configurable
             .execute_streaming_sql(request, crate::RequestOptions::default())
             .send()
             .await?;

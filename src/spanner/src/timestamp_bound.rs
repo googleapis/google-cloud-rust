@@ -39,21 +39,27 @@ impl TimestampBound {
     /// Returns a strong timestamp bound. Strong reads are guaranteed to see the
     /// effects of all transactions that have committed before the start of the read.
     ///
-    /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#strong> for more information.
+    /// See [timestamp_bound_strong] for more information.
+    ///
+    /// [timestamp_bound_strong]: https://docs.cloud.google.com/spanner/docs/timestamp-bounds#strong
     pub fn strong() -> Self {
         Self(ReadOnlyTimestampBound::Strong(true))
     }
 
     /// Returns a timestamp bound for an exact timestamp. The data will be read as it was at the given timestamp.
     ///
-    /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness> for more information.
+    /// See [timestamp_bound_exact_staleness] for more information.
+    ///
+    /// [timestamp_bound_exact_staleness]: https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness
     pub fn read_timestamp(timestamp: OffsetDateTime) -> Self {
         Self::try_read_timestamp(timestamp).expect("timestamp out of range")
     }
 
     /// Returns a timestamp bound for an exact timestamp, returning an error if the timestamp is out of range.
     ///
-    /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness> for more information.
+    /// See [timestamp_bound_exact_staleness] for more information.
+    ///
+    /// [timestamp_bound_exact_staleness]: https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness
     pub fn try_read_timestamp(
         timestamp: OffsetDateTime,
     ) -> Result<Self, crate::client::TimestampError> {
@@ -66,14 +72,18 @@ impl TimestampBound {
     /// Returns a timestamp bound for a minimum read timestamp. The data will be read as it was at the
     /// given timestamp or later.
     ///
-    /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness> for more information.
+    /// See [timestamp_bound_bounded_staleness] for more information.
+    ///
+    /// [timestamp_bound_bounded_staleness]: https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness
     pub fn min_read_timestamp(timestamp: OffsetDateTime) -> Self {
         Self::try_min_read_timestamp(timestamp).expect("timestamp out of range")
     }
 
     /// Returns a timestamp bound for a minimum read timestamp, returning an error if the timestamp is out of range.
     ///
-    /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness> for more information.
+    /// See [timestamp_bound_bounded_staleness] for more information.
+    ///
+    /// [timestamp_bound_bounded_staleness]: https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness
     pub fn try_min_read_timestamp(
         timestamp: OffsetDateTime,
     ) -> Result<Self, crate::client::TimestampError> {
@@ -86,14 +96,18 @@ impl TimestampBound {
     /// Returns a timestamp bound for an exact staleness. The data will be read as it was at the given timestamp
     /// calculated by the current server time minus the given duration.
     ///
-    /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness> for more information.
+    /// See [timestamp_bound_exact_staleness] for more information.
+    ///
+    /// [timestamp_bound_exact_staleness]: https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness
     pub fn exact_staleness(duration: Duration) -> Self {
         Self::try_exact_staleness(duration).expect("duration out of range")
     }
 
     /// Returns a timestamp bound for an exact staleness, returning an error if the duration is out of range.
     ///
-    /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness> for more information.
+    /// See [timestamp_bound_exact_staleness] for more information.
+    ///
+    /// [timestamp_bound_exact_staleness]: https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness
     pub fn try_exact_staleness(duration: Duration) -> Result<Self, crate::client::DurationError> {
         let duration = wkt::Duration::try_from(duration)?;
         Ok(Self(ReadOnlyTimestampBound::ExactStaleness(Box::new(
@@ -104,14 +118,18 @@ impl TimestampBound {
     /// Returns a timestamp bound for a maximum staleness. The data will be read as it was at the
     /// current server time minus the given duration or later.
     ///
-    /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness> for more information.
+    /// See [timestamp_bound_bounded_staleness] for more information.
+    ///
+    /// [timestamp_bound_bounded_staleness]: https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness
     pub fn max_staleness(duration: Duration) -> Self {
         Self::try_max_staleness(duration).expect("duration out of range")
     }
 
     /// Returns a timestamp bound for a maximum staleness, returning an error if the duration is out of range.
     ///
-    /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness> for more information.
+    /// See [timestamp_bound_bounded_staleness] for more information.
+    ///
+    /// [timestamp_bound_bounded_staleness]: https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness
     pub fn try_max_staleness(duration: Duration) -> Result<Self, crate::client::DurationError> {
         let duration = wkt::Duration::try_from(duration)?;
         Ok(Self(ReadOnlyTimestampBound::MaxStaleness(Box::new(

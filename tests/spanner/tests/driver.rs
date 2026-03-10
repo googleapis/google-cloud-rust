@@ -44,7 +44,7 @@ mod spanner {
     // Provisions the Spanner Emulator with a test instance and database.
     // ALREADY_EXISTS errors that are returned when creating an instance or database are ignored.
     async fn provision_emulator(endpoint: &str) {
-        // TODO: Re-write this to use the admin clients once those also support the Emulator.
+        // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
         let rest_endpoint = endpoint.replace("9010", "9020");
         let rest_endpoint =
             if rest_endpoint.starts_with("http://") || rest_endpoint.starts_with("https://") {
