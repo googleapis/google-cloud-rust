@@ -567,6 +567,13 @@ mod tests {
             ))
             .respond_with(json_encoded(response)),
         );
+        server.expect(
+            Expectation::matching(request::path(
+                "/computeMetadata/v1/instance/service-accounts/default/email",
+            ))
+            .times(0..)
+            .respond_with(status_code(200).body("some-client-email")),
+        ); // access boundaries might have enough time to fetch email
 
         let test_quota_project = "test-quota-project";
         let mdcs = MdsBuilder::default()

@@ -158,6 +158,7 @@ pub struct Builder {
     lifetime: Option<Duration>,
     retry_builder: RetryTokenProviderBuilder,
     iam_endpoint_override: Option<String>,
+    is_access_boundary_enabled: bool,
 }
 
 impl Builder {
@@ -178,6 +179,7 @@ impl Builder {
             lifetime: None,
             retry_builder: RetryTokenProviderBuilder::default(),
             iam_endpoint_override: None,
+            is_access_boundary_enabled: true,
         }
     }
 
@@ -208,6 +210,7 @@ impl Builder {
             lifetime: None,
             retry_builder: RetryTokenProviderBuilder::default(),
             iam_endpoint_override: None,
+            is_access_boundary_enabled: true,
         }
     }
 
@@ -436,6 +439,12 @@ impl Builder {
         self
     }
 
+    #[cfg(test)]
+    fn without_access_boundary(mut self) -> Self {
+        self.is_access_boundary_enabled = false;
+        self
+    }
+
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
     ///
     /// # Example
@@ -484,6 +493,7 @@ impl Builder {
     fn build_credentials(
         self,
     ) -> BuildResult<CredentialsWithAccessBoundary<ImpersonatedServiceAccount<TokenCache>>> {
+        let is_access_boundary_enabled = self.is_access_boundary_enabled;
         let service_account_impersonation_url = self.resolve_impersonation_url()?;
         let client_email = extract_client_email(&service_account_impersonation_url)?;
         let iam_endpoint_override = self.iam_endpoint_override.clone();
@@ -496,6 +506,10 @@ impl Builder {
             token_provider: TokenCache::new(token_provider),
             quota_project_id,
         };
+
+        if !is_access_boundary_enabled {
+            return Ok(CredentialsWithAccessBoundary::new_no_op(creds));
+        }
 
         Ok(CredentialsWithAccessBoundary::new(
             creds,
@@ -867,22 +881,19 @@ struct GenerateAccessTokenResponse {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
     use crate::credentials::service_account::ServiceAccountKey;
-    use crate::credentials::tests::{
-        PKCS8_PK, get_access_boundary_from_headers, get_token_from_headers,
-    };
+    use crate::credentials::tests::PKCS8_PK;
     use crate::credentials::tests::{
         find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
         get_mock_retry_throttler,
     };
     use crate::errors::CredentialsError;
+    use base64::{Engine, prelude::BASE64_STANDARD};
     use httptest::cycle;
     use httptest::{Expectation, Server, matchers::*, responders::*};
-    use scoped_env::ScopedEnv;
     use serde_json::Value;
     use serde_json::json;
-    use serial_test::{parallel, serial};
+    use serial_test::parallel;
 
     type TestResult = anyhow::Result<()>;
 
@@ -2156,8 +2167,6 @@ mod tests {
     #[tokio::test]
     #[parallel]
     async fn test_impersonated_remote_signer() -> TestResult {
-        use base64::{Engine, prelude::BASE64_STANDARD};
-
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path("POST", "/token"))
@@ -2229,6 +2238,7 @@ mod tests {
             let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
             let signer = builder
                 .maybe_iam_endpoint_override(Some(iam_endpoint))
+                .without_access_boundary()
                 .build_signer()?;
 
             let client_email = signer.client_email().await?;
@@ -2304,9 +2314,10 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial]
+    #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn e2e_access_boundary() -> TestResult {
-        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+        use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path("POST", "/token"))

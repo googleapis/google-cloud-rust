@@ -121,7 +121,7 @@ where
 ///
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
 /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
-#[derive(Debug, Default)]
+#[derive(Debug)]
 pub struct Builder {
     endpoint: Option<String>,
     quota_project_id: Option<String>,
@@ -129,6 +129,21 @@ pub struct Builder {
     created_by_adc: bool,
     retry_builder: RetryTokenProviderBuilder,
     iam_endpoint_override: Option<String>,
+    is_access_boundary_enabled: bool,
+}
+
+impl Default for Builder {
+    fn default() -> Self {
+        Self {
+            endpoint: None,
+            quota_project_id: None,
+            scopes: None,
+            created_by_adc: false,
+            retry_builder: RetryTokenProviderBuilder::default(),
+            iam_endpoint_override: None,
+            is_access_boundary_enabled: true,
+        }
+    }
 }
 
 impl Builder {
@@ -251,6 +266,12 @@ impl Builder {
         self
     }
 
+    #[cfg(test)]
+    fn without_access_boundary(mut self) -> Self {
+        self.is_access_boundary_enabled = false;
+        self
+    }
+
     // This method is used to build mds credentials from ADC
     pub(crate) fn from_adc() -> Self {
         Self {
@@ -297,11 +318,15 @@ impl Builder {
         self,
     ) -> BuildResult<CredentialsWithAccessBoundary<MDSCredentials<TokenCache>>> {
         let iam_endpoint = self.iam_endpoint_override.clone();
+        let is_access_boundary_enabled = self.is_access_boundary_enabled;
         let mds_client = MDSClient::new(self.endpoint.clone());
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
             token_provider: TokenCache::new(self.build_token_provider()),
         };
+        if !is_access_boundary_enabled {
+            return Ok(CredentialsWithAccessBoundary::new_no_op(mdsc));
+        }
         Ok(CredentialsWithAccessBoundary::new_for_mds(
             mdsc,
             mds_client,
@@ -447,10 +472,8 @@ impl TokenProvider for MDSAccessTokenProvider {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
     use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::tests::get_access_boundary_from_headers;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
         get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
@@ -631,6 +654,7 @@ mod tests {
 
         let creds = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
+            .without_access_boundary()
             .build_access_token_credentials()
             .unwrap();
 
@@ -768,6 +792,7 @@ mod tests {
         let _e = ScopedEnv::set(GCE_METADATA_HOST_ENV_VAR, &addr);
         let mdsc = Builder::default()
             .with_scopes(["scope1", "scope2"])
+            .without_access_boundary()
             .build()
             .unwrap();
         let headers = mdsc.headers(Extensions::new()).await.unwrap();
@@ -802,6 +827,7 @@ mod tests {
             .with_scopes(["scope1", "scope2"])
             .with_endpoint(format!("http://{}", server.addr()))
             .with_quota_project_id("test-project")
+            .without_access_boundary()
             .build()?;
 
         let headers = get_headers_from_cache(mdsc.headers(Extensions::new()).await.unwrap())?;
@@ -950,6 +976,7 @@ mod tests {
         let mdsc = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
+            .without_access_boundary()
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
@@ -980,6 +1007,7 @@ mod tests {
         let mdsc = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
+            .without_access_boundary()
             .build()?;
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
@@ -1009,6 +1037,7 @@ mod tests {
         let mdsc = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
+            .without_access_boundary()
             .build()?;
 
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
@@ -1039,6 +1068,7 @@ mod tests {
         let mdsc = Builder::default()
             .with_endpoint(format!("http://{}", server.addr()))
             .with_scopes(scopes)
+            .without_access_boundary()
             .build()?;
 
         let e = mdsc.headers(Extensions::new()).await.err().unwrap();
@@ -1089,6 +1119,7 @@ mod tests {
         let signer = Builder::default()
             .with_endpoint(&endpoint)
             .maybe_iam_endpoint_override(Some(endpoint))
+            .without_access_boundary()
             .build_signer()?;
 
         let client_email = signer.client_email().await?;
@@ -1101,9 +1132,10 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial]
+    #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn e2e_access_boundary() -> TestResult {
-        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+        use crate::credentials::tests::get_access_boundary_from_headers;
 
         let server = Server::run();
         server.expect(

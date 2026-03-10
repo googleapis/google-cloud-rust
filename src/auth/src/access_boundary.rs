@@ -38,7 +38,6 @@ use std::sync::{Arc, OnceLock};
 use tokio::sync::{Mutex, watch};
 use tokio::time::{Duration, Instant, sleep};
 
-pub(crate) const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
 #[allow(dead_code)]
@@ -91,6 +90,11 @@ impl AccessBoundary {
         Self { rx_header }
     }
 
+    pub(crate) fn new_no_op() -> Self {
+        let (_, rx_header) = watch::channel((None, EntityTag::new()));
+        Self { rx_header }
+    }
+
     #[cfg(test)]
     // only used for testing
     pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
@@ -103,10 +107,14 @@ impl AccessBoundary {
     }
 
     fn is_enabled() -> bool {
-        std::env::var(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR)
-            .map(|v| v.to_lowercase())
-            .map(|v| v == "true" || v == "1")
-            .unwrap_or(false)
+        #[cfg(google_cloud_unstable_trusted_boundaries)]
+        {
+            true
+        }
+        #[cfg(not(google_cloud_unstable_trusted_boundaries))]
+        {
+            false
+        }
     }
 
     pub(crate) fn header_value(&self) -> Option<String> {
@@ -263,6 +271,14 @@ where
         }
     }
 
+    pub(crate) fn new_no_op(credentials: T) -> Self {
+        Self {
+            credentials: Arc::new(credentials),
+            access_boundary: Arc::new(AccessBoundary::new_no_op()),
+            cache: Arc::new(Mutex::new(EntityTagCache::new())),
+        }
+    }
+
     #[cfg(test)]
     pub(crate) async fn wait_for_boundary(&self) {
         let mut rx = self.access_boundary.rx_header.clone();
@@ -311,6 +327,10 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        if !AccessBoundary::is_enabled() {
+            return self.credentials.headers(extensions).await;
+        }
+
         let tag = extensions.get::<EntityTag>();
         let mut guard = self.cache.lock().await;
 
@@ -611,15 +631,12 @@ pub(crate) mod tests {
     use super::*;
     use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
     use crate::credentials::{AccessToken, EntityTag};
-    use crate::mds::MDS_DEFAULT_URI;
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, cycle, matchers::*, responders::*};
-    use scoped_env::ScopedEnv;
     use serde_json::json;
-    use serial_test::{parallel, serial};
+    use serial_test::parallel;
     use test_case::test_case;
-    use tokio::sync::Mutex;
 
     type TestResult = anyhow::Result<()>;
 
@@ -684,9 +701,9 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    #[serial]
+    #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn test_fetch_access_boundary_success() -> TestResult {
-        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path("GET", "/allowedLocations")).respond_with(
@@ -731,9 +748,11 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    #[serial]
+    #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn test_fetch_access_boundary_mds_success() -> TestResult {
-        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+        use crate::mds::MDS_DEFAULT_URI;
+
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path(
@@ -862,10 +881,8 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    #[serial]
+    #[parallel]
     async fn test_access_boundary_new_disabled() -> TestResult {
-        let _env = ScopedEnv::remove(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR);
-
         let mut mock = MockCredentials::new();
         mock.expect_headers().return_once(|_extensions| {
             let headers = HeaderMap::from_iter([(
@@ -912,33 +929,6 @@ pub(crate) mod tests {
         let _ = tx.send((None, EntityTag::new()));
         let val = access_boundary.header_value();
         assert!(val.is_none(), "{val:?}");
-    }
-
-    #[test_case(Some("true"), true; "with_true")]
-    #[test_case(Some("TRUE"), true; "with_true_uppercase")]
-    #[test_case(Some("1"), true; "with_one")]
-    #[test_case(Some("false"), false; "with_false")]
-    #[test_case(Some("0"), false; "with_zero")]
-    #[test_case(None, false; "with_none")]
-    #[serial]
-    #[tokio::test]
-    async fn test_is_regional_access_boundaries_enabled(
-        env_val: Option<&str>,
-        expected: bool,
-    ) -> TestResult {
-        let _env = match env_val {
-            Some(val) => ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, val),
-            None => ScopedEnv::remove(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR),
-        };
-        assert_eq!(
-            AccessBoundary::is_enabled(),
-            expected,
-            "Failed on case: env_val={:?}, expected={}",
-            env_val,
-            expected
-        );
-
-        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
@@ -1059,6 +1049,7 @@ pub(crate) mod tests {
 
     #[tokio::test(start_paused = true)]
     #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn test_entity_tag_caching_behavior() -> TestResult {
         let mut mock_creds = MockCredentials::new();
         let latest_token_etag = Arc::new(std::sync::RwLock::new(EntityTag::new()));
@@ -1089,7 +1080,7 @@ pub(crate) mod tests {
         let creds = CredentialsWithAccessBoundary {
             credentials: Arc::new(mock_creds),
             access_boundary: Arc::new(access_boundary),
-            cache: Arc::new(Mutex::new(EntityTagCache::new())),
+            cache: Arc::new(tokio::sync::Mutex::new(EntityTagCache::new())),
         };
 
         // First call - no tag yet

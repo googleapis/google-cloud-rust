@@ -706,7 +706,7 @@ impl Builder {
         self
     }
 
-    #[cfg(test)]
+    #[cfg(all(test, google_cloud_unstable_trusted_boundaries))]
     fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
         self.iam_endpoint_override = iam_endpoint_override;
         self
@@ -1441,8 +1441,6 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-    use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
     use crate::constants::{
         ACCESS_TOKEN_TYPE, DEFAULT_SCOPE, JWT_TOKEN_TYPE, TOKEN_EXCHANGE_GRANT_TYPE,
     };
@@ -1450,8 +1448,8 @@ mod tests {
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     };
     use crate::credentials::tests::{
-        find_source_error, get_access_boundary_from_headers, get_mock_auth_retry_policy,
-        get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
+        find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
+        get_mock_retry_throttler, get_token_from_headers,
     };
     use crate::errors::{CredentialsError, SubjectTokenProviderError};
     use httptest::{
@@ -1459,9 +1457,7 @@ mod tests {
         matchers::{all_of, contains, request, url_decoded},
         responders::{json_encoded, status_code},
     };
-    use scoped_env::ScopedEnv;
     use serde_json::*;
-    use serial_test::serial;
     use std::collections::HashMap;
     use std::error::Error;
     use std::fmt;
@@ -2310,10 +2306,10 @@ mod tests {
         "/v1/locations/global/workforcePools/my-pool/allowedLocations";
         "workforce_pool"
     )]
-    #[serial]
     #[tokio::test]
-    async fn e2e_access_boundary(audience: &str, iam_path: &str) -> TestResult {
-        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
+    async fn e2e_access_boundary(audience: &str, iam_path: &str) -> anyhow::Result<()> {
+        use crate::credentials::tests::get_access_boundary_from_headers;
 
         let audience = audience.to_string();
         let iam_path = iam_path.to_string();
