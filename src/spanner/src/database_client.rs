@@ -53,7 +53,7 @@ impl DatabaseClient {
     /// Returns a builder for a single-use read-only transaction.
     ///
     /// # Example
-    /// ```rust,no_run
+    /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;

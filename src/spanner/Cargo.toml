@@ -45,7 +45,8 @@ serde_with.workspace  = true
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["formatting", "macros", "parsing"] }
 tracing.workspace     = true
-wkt.workspace         = true
+url.workspace         = true
+wkt                   = { workspace = true, features = ["time"] }
 
 [dev-dependencies]
 anyhow.workspace            = true

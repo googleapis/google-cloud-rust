@@ -15,7 +15,7 @@
 /// A SQL statement for execution on Spanner.
 ///
 /// # Example
-/// ```rust,no_run
+/// ```
 /// # use google_cloud_spanner::client::Spanner;
 /// # use google_cloud_spanner::client::Statement;
 /// # async fn test_doc() -> Result<(), google_cloud_spanner::Error> {

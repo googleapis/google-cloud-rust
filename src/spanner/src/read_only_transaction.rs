@@ -23,7 +23,7 @@ use crate::timestamp_bound::TimestampBound;
 /// A builder for [SingleUseReadOnlyTransaction].
 ///
 /// # Example
-/// ```rust,no_run
+/// ```
 /// # use google_cloud_spanner::client::Spanner;
 /// # use google_cloud_spanner::client::TimestampBound;
 /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
@@ -50,7 +50,7 @@ impl SingleUseReadOnlyTransactionBuilder {
     /// Sets the timestamp bound for the read-only transaction.
     ///
     /// # Example
-    /// ```rust,no_run
+    /// ```
     /// # use google_cloud_spanner::client::Spanner;
     /// # use google_cloud_spanner::client::TimestampBound;
     /// # async fn set_bound(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
@@ -72,7 +72,7 @@ impl SingleUseReadOnlyTransactionBuilder {
     ///
     /// # Example
     ///
-    /// ```rust,no_run
+    /// ```
     /// # use google_cloud_spanner::client::Spanner;
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -104,7 +104,7 @@ impl SingleUseReadOnlyTransactionBuilder {
 /// efficient way to execute a single query or read operation.
 ///
 /// # Example
-/// ```rust,no_run
+/// ```
 /// # use google_cloud_spanner::client::Spanner;
 /// # use google_cloud_spanner::client::Statement;
 /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
@@ -123,7 +123,7 @@ impl SingleUseReadOnlyTransaction {
     /// Executes a query.
     ///
     /// # Example
-    /// ```rust,no_run
+    /// ```
     /// # use google_cloud_spanner::client::Spanner;
     /// # use google_cloud_spanner::client::Statement;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {

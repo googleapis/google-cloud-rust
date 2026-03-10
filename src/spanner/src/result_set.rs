@@ -19,7 +19,7 @@ use std::collections::VecDeque;
 /// `ResultSet` contains the rows of a query result.
 ///
 /// # Example
-/// ```rust,no_run
+/// ```
 /// # use google_cloud_spanner::client::{ResultSet, Row};
 /// # async fn process_result_set(mut rs: ResultSet) -> Result<(), google_cloud_spanner::Error> {
 /// while let Some(row) = rs.next().await {
@@ -55,18 +55,17 @@ impl ResultSet {
     /// Fetches the next row from the result set.
     ///
     /// # Example
-    /// ```rust,no_run
+    /// ```
     /// # use google_cloud_spanner::client::{ResultSet, Row};
     /// # async fn fetch_next(mut rs: ResultSet) -> Result<(), google_cloud_spanner::Error> {
-    /// if let Some(row) = rs.next().await {
-    ///     let row: Row = row?;
+    /// if let Some(row) = rs.next().await.transpose()? {
     ///     // Process the row
     /// }
     /// # Ok(())
     /// # }
     /// ```
     ///
-    /// Returns `None` when all rows have been returned.
+    /// Returns `None` when all rows have been retrieved.
     pub async fn next(&mut self) -> Option<crate::Result<Row>> {
         if let Some(row) = self.ready_rows.pop_front() {
             return Some(Ok(row));
@@ -78,18 +77,21 @@ impl ResultSet {
                 Err(e) => return Some(Err(e)),
             };
 
-            if self.metadata.is_none() {
-                if let Some(metadata) = prs.metadata {
-                    self.column_count = metadata
-                        .row_type
-                        .as_ref()
-                        .map(|rt| rt.fields.len())
-                        .unwrap_or(0);
-                    self.metadata = Some(metadata);
-                } else {
+            match (self.metadata.as_ref(), prs.metadata) {
+                (Some(_), None) => {}
+                (None, None) => {
                     return Some(Err(internal_error(
                         "First PartialResultSet did not contain metadata",
                     )));
+                }
+                (Some(_), Some(_)) => {
+                    return Some(Err(internal_error(
+                        "Additional metadata after first result set",
+                    )));
+                }
+                (None, Some(m)) => {
+                    self.column_count = m.row_type.as_ref().map(|rt| rt.fields.len()).unwrap_or(0);
+                    self.metadata = Some(m);
                 }
             }
 
@@ -146,11 +148,7 @@ impl ResultSet {
 }
 
 fn internal_error(message: &str) -> crate::Error {
-    crate::Error::service(
-        google_cloud_gax::error::rpc::Status::default()
-            .set_code(google_cloud_gax::error::rpc::Code::Internal as i32)
-            .set_message(message.to_string()),
-    )
+    crate::Error::deser(message)
 }
 
 /// Merges two values from successive `PartialResultSet`s into a single value.

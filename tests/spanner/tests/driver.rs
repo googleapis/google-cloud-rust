@@ -99,13 +99,13 @@ mod spanner {
     }
 
     #[tokio::test]
-    async fn test_simple_query() {
+    async fn test_simple_query() -> Result<(), Box<dyn std::error::Error>> {
         // For now, we only support integration tests on the Spanner Emulator.
         let endpoint = match get_emulator_host() {
             Some(host) => host,
             None => {
                 println!("Skipping emulator E2E test as SPANNER_EMULATOR_HOST is not set");
-                return;
+                return Ok(());
             }
         };
 
@@ -203,138 +203,148 @@ ORDER BY col_int64
             .await
             .expect("Failed to execute query");
 
-        let mut count = 0;
-        while let Some(row_result) = rs.next().await {
-            let row = row_result.expect("Failed to fetch next row");
-            count += 1;
-
-            let raw_values = row.raw_values();
-            assert_eq!(raw_values.len(), 20, "Row should have exactly 20 columns");
-
-            match count {
-                1 => {
-                    // Assert NULL row
-                    // Spanner sorts NULLs first.
-                    assert!(
-                        raw_values.iter().all(|v| v.kind() == Kind::Null),
-                        "Expected all columns to be NULL"
-                    );
-                }
-                2 => {
-                    // Assert row 1
-                    assert_eq!(raw_values[0].as_string(), "1"); // INT64 is encoded as string
-                    assert_eq!(raw_values[1].as_f64(), 1.0);
-                    assert_eq!(raw_values[2].as_f64(), 1.0); // FLOAT32 is encoded as f64
-                    assert!(raw_values[3].as_bool());
-                    assert_eq!(raw_values[4].as_string(), "One");
-                    assert_eq!(raw_values[5].as_string(), "T25l"); // Base64 'One'
-                    assert_eq!(raw_values[6].as_string(), "{\"value\":1}"); // JSON
-                    assert_eq!(raw_values[7].as_string(), "1"); // NUMERIC is encoded as string
-                    assert_eq!(raw_values[8].as_string(), "2026-03-09");
-                    assert_eq!(raw_values[9].as_string(), "2026-03-09T16:20:00Z");
-
-                    assert_eq!(raw_values[10].as_list().len(), 1);
-                    assert_eq!(raw_values[10].as_list().get(0).unwrap().as_string(), "1");
-                    assert_eq!(raw_values[11].as_list().len(), 1);
-                    assert_eq!(raw_values[11].as_list().get(0).unwrap().as_f64(), 1.0);
-                    assert_eq!(raw_values[12].as_list().len(), 1);
-                    assert_eq!(raw_values[12].as_list().get(0).unwrap().as_f64(), 1.0);
-                    assert_eq!(raw_values[13].as_list().len(), 1);
-                    assert!(raw_values[13].as_list().get(0).unwrap().as_bool());
-                    assert_eq!(raw_values[14].as_list().len(), 1);
-                    assert_eq!(raw_values[14].as_list().get(0).unwrap().as_string(), "One");
-                    assert_eq!(raw_values[15].as_list().len(), 1);
-                    assert_eq!(raw_values[15].as_list().get(0).unwrap().as_string(), "T25l");
-                    assert_eq!(raw_values[16].as_list().len(), 1);
-                    assert_eq!(
-                        raw_values[16].as_list().get(0).unwrap().as_string(),
-                        "{\"value\":1}"
-                    );
-                    assert_eq!(raw_values[17].as_list().len(), 1);
-                    assert_eq!(raw_values[17].as_list().get(0).unwrap().as_string(), "1");
-                    assert_eq!(raw_values[18].as_list().len(), 1);
-                    assert_eq!(
-                        raw_values[18].as_list().get(0).unwrap().as_string(),
-                        "2026-03-09"
-                    );
-                    assert_eq!(raw_values[19].as_list().len(), 1);
-                    assert_eq!(
-                        raw_values[19].as_list().get(0).unwrap().as_string(),
-                        "2026-03-09T16:20:00Z"
-                    );
-                }
-                3 => {
-                    // Assert row 2
-                    assert_eq!(raw_values[0].as_string(), "2");
-                    assert_eq!(raw_values[1].as_f64(), 2.0);
-                    assert_eq!(raw_values[2].as_f64(), 2.0);
-                    assert!(!raw_values[3].as_bool());
-                    assert_eq!(raw_values[4].as_string(), "Two");
-                    assert_eq!(raw_values[5].as_string(), "VHdv"); // Base64 'Two'
-                    assert_eq!(raw_values[6].as_string(), "{\"value\":2}");
-                    assert_eq!(raw_values[7].as_string(), "2");
-                    assert_eq!(raw_values[8].as_string(), "2026-03-10");
-                    assert_eq!(raw_values[9].as_string(), "2026-03-10T16:20:00Z");
-
-                    assert_eq!(raw_values[10].as_list().len(), 2);
-                    assert_eq!(raw_values[10].as_list().get(0).unwrap().as_string(), "2");
-                    assert_eq!(raw_values[10].as_list().get(1).unwrap().as_string(), "3");
-                    assert_eq!(raw_values[11].as_list().len(), 2);
-                    assert_eq!(raw_values[11].as_list().get(0).unwrap().as_f64(), 2.0);
-                    assert_eq!(raw_values[11].as_list().get(1).unwrap().as_f64(), 3.0);
-                    assert_eq!(raw_values[12].as_list().len(), 2);
-                    assert_eq!(raw_values[12].as_list().get(0).unwrap().as_f64(), 2.0);
-                    assert_eq!(raw_values[12].as_list().get(1).unwrap().as_f64(), 3.0);
-                    assert_eq!(raw_values[13].as_list().len(), 2);
-                    assert!(!raw_values[13].as_list().get(0).unwrap().as_bool());
-                    assert!(raw_values[13].as_list().get(1).unwrap().as_bool());
-                    assert_eq!(raw_values[14].as_list().len(), 2);
-                    assert_eq!(raw_values[14].as_list().get(0).unwrap().as_string(), "Two");
-                    assert_eq!(
-                        raw_values[14].as_list().get(1).unwrap().as_string(),
-                        "Three"
-                    );
-                    assert_eq!(raw_values[15].as_list().len(), 2);
-                    assert_eq!(raw_values[15].as_list().get(0).unwrap().as_string(), "VHdv");
-                    assert_eq!(
-                        raw_values[15].as_list().get(1).unwrap().as_string(),
-                        "VGhyZWU="
-                    );
-                    assert_eq!(raw_values[16].as_list().len(), 2);
-                    assert_eq!(
-                        raw_values[16].as_list().get(0).unwrap().as_string(),
-                        "{\"value\":2}"
-                    );
-                    assert_eq!(
-                        raw_values[16].as_list().get(1).unwrap().as_string(),
-                        "{\"value\":3}"
-                    );
-                    assert_eq!(raw_values[17].as_list().len(), 2);
-                    assert_eq!(raw_values[17].as_list().get(0).unwrap().as_string(), "2");
-                    assert_eq!(raw_values[17].as_list().get(1).unwrap().as_string(), "3");
-                    assert_eq!(raw_values[18].as_list().len(), 2);
-                    assert_eq!(
-                        raw_values[18].as_list().get(0).unwrap().as_string(),
-                        "2026-03-10"
-                    );
-                    assert_eq!(
-                        raw_values[18].as_list().get(1).unwrap().as_string(),
-                        "2026-03-11"
-                    );
-                    assert_eq!(raw_values[19].as_list().len(), 2);
-                    assert_eq!(
-                        raw_values[19].as_list().get(0).unwrap().as_string(),
-                        "2026-03-10T16:20:00Z"
-                    );
-                    assert_eq!(
-                        raw_values[19].as_list().get(1).unwrap().as_string(),
-                        "2026-03-11T16:20:00Z"
-                    );
-                }
-                _ => panic!("Unexpected number of rows"),
-            }
+        let mut rows = Vec::new();
+        while let Some(row) = rs.next().await.transpose()? {
+            rows.push(row);
         }
 
-        assert_eq!(count, 3, "Expected exactly 3 rows to be returned");
+        let (row1, row2, row3) = match &rows[..] {
+            [r1, r2, r3] => (r1, r2, r3),
+            _ => panic!(
+                "unexpected number of rows, got={}, want=3\n{rows:?}",
+                rows.len()
+            ),
+        };
+
+        // Spanner sorts NULLs first.
+        verify_null_row(row1);
+        verify_row_1(row2);
+        verify_row_2(row3);
+
+        Ok(())
+    }
+
+    fn verify_null_row(row: &google_cloud_spanner::client::Row) {
+        let raw_values = row.raw_values();
+        assert_eq!(raw_values.len(), 20, "Row should have exactly 20 columns");
+        assert!(
+            raw_values.iter().all(|v| v.kind() == Kind::Null),
+            "Expected all columns to be NULL"
+        );
+    }
+
+    fn verify_row_1(row: &google_cloud_spanner::client::Row) {
+        let raw_values = row.raw_values();
+        assert_eq!(raw_values.len(), 20, "Row should have exactly 20 columns");
+        assert_eq!(raw_values[0].as_string(), "1"); // INT64 is encoded as string
+        assert_eq!(raw_values[1].as_f64(), 1.0);
+        assert_eq!(raw_values[2].as_f64(), 1.0); // FLOAT32 is encoded as f64
+        assert!(raw_values[3].as_bool());
+        assert_eq!(raw_values[4].as_string(), "One");
+        assert_eq!(raw_values[5].as_string(), "T25l"); // Base64 'One'
+        assert_eq!(raw_values[6].as_string(), "{\"value\":1}"); // JSON
+        assert_eq!(raw_values[7].as_string(), "1"); // NUMERIC is encoded as string
+        assert_eq!(raw_values[8].as_string(), "2026-03-09");
+        assert_eq!(raw_values[9].as_string(), "2026-03-09T16:20:00Z");
+
+        assert_eq!(raw_values[10].as_list().len(), 1);
+        assert_eq!(raw_values[10].as_list().get(0).unwrap().as_string(), "1");
+        assert_eq!(raw_values[11].as_list().len(), 1);
+        assert_eq!(raw_values[11].as_list().get(0).unwrap().as_f64(), 1.0);
+        assert_eq!(raw_values[12].as_list().len(), 1);
+        assert_eq!(raw_values[12].as_list().get(0).unwrap().as_f64(), 1.0);
+        assert_eq!(raw_values[13].as_list().len(), 1);
+        assert!(raw_values[13].as_list().get(0).unwrap().as_bool());
+        assert_eq!(raw_values[14].as_list().len(), 1);
+        assert_eq!(raw_values[14].as_list().get(0).unwrap().as_string(), "One");
+        assert_eq!(raw_values[15].as_list().len(), 1);
+        assert_eq!(raw_values[15].as_list().get(0).unwrap().as_string(), "T25l");
+        assert_eq!(raw_values[16].as_list().len(), 1);
+        assert_eq!(
+            raw_values[16].as_list().get(0).unwrap().as_string(),
+            "{\"value\":1}"
+        );
+        assert_eq!(raw_values[17].as_list().len(), 1);
+        assert_eq!(raw_values[17].as_list().get(0).unwrap().as_string(), "1");
+        assert_eq!(raw_values[18].as_list().len(), 1);
+        assert_eq!(
+            raw_values[18].as_list().get(0).unwrap().as_string(),
+            "2026-03-09"
+        );
+        assert_eq!(raw_values[19].as_list().len(), 1);
+        assert_eq!(
+            raw_values[19].as_list().get(0).unwrap().as_string(),
+            "2026-03-09T16:20:00Z"
+        );
+    }
+
+    fn verify_row_2(row: &google_cloud_spanner::client::Row) {
+        let raw_values = row.raw_values();
+        assert_eq!(raw_values.len(), 20, "Row should have exactly 20 columns");
+        assert_eq!(raw_values[0].as_string(), "2");
+        assert_eq!(raw_values[1].as_f64(), 2.0);
+        assert_eq!(raw_values[2].as_f64(), 2.0);
+        assert!(!raw_values[3].as_bool());
+        assert_eq!(raw_values[4].as_string(), "Two");
+        assert_eq!(raw_values[5].as_string(), "VHdv"); // Base64 'Two'
+        assert_eq!(raw_values[6].as_string(), "{\"value\":2}");
+        assert_eq!(raw_values[7].as_string(), "2");
+        assert_eq!(raw_values[8].as_string(), "2026-03-10");
+        assert_eq!(raw_values[9].as_string(), "2026-03-10T16:20:00Z");
+
+        assert_eq!(raw_values[10].as_list().len(), 2);
+        assert_eq!(raw_values[10].as_list().get(0).unwrap().as_string(), "2");
+        assert_eq!(raw_values[10].as_list().get(1).unwrap().as_string(), "3");
+        assert_eq!(raw_values[11].as_list().len(), 2);
+        assert_eq!(raw_values[11].as_list().get(0).unwrap().as_f64(), 2.0);
+        assert_eq!(raw_values[11].as_list().get(1).unwrap().as_f64(), 3.0);
+        assert_eq!(raw_values[12].as_list().len(), 2);
+        assert_eq!(raw_values[12].as_list().get(0).unwrap().as_f64(), 2.0);
+        assert_eq!(raw_values[12].as_list().get(1).unwrap().as_f64(), 3.0);
+        assert_eq!(raw_values[13].as_list().len(), 2);
+        assert!(!raw_values[13].as_list().get(0).unwrap().as_bool());
+        assert!(raw_values[13].as_list().get(1).unwrap().as_bool());
+        assert_eq!(raw_values[14].as_list().len(), 2);
+        assert_eq!(raw_values[14].as_list().get(0).unwrap().as_string(), "Two");
+        assert_eq!(
+            raw_values[14].as_list().get(1).unwrap().as_string(),
+            "Three"
+        );
+        assert_eq!(raw_values[15].as_list().len(), 2);
+        assert_eq!(raw_values[15].as_list().get(0).unwrap().as_string(), "VHdv");
+        assert_eq!(
+            raw_values[15].as_list().get(1).unwrap().as_string(),
+            "VGhyZWU="
+        );
+        assert_eq!(raw_values[16].as_list().len(), 2);
+        assert_eq!(
+            raw_values[16].as_list().get(0).unwrap().as_string(),
+            "{\"value\":2}"
+        );
+        assert_eq!(
+            raw_values[16].as_list().get(1).unwrap().as_string(),
+            "{\"value\":3}"
+        );
+        assert_eq!(raw_values[17].as_list().len(), 2);
+        assert_eq!(raw_values[17].as_list().get(0).unwrap().as_string(), "2");
+        assert_eq!(raw_values[17].as_list().get(1).unwrap().as_string(), "3");
+        assert_eq!(raw_values[18].as_list().len(), 2);
+        assert_eq!(
+            raw_values[18].as_list().get(0).unwrap().as_string(),
+            "2026-03-10"
+        );
+        assert_eq!(
+            raw_values[18].as_list().get(1).unwrap().as_string(),
+            "2026-03-11"
+        );
+        assert_eq!(raw_values[19].as_list().len(), 2);
+        assert_eq!(
+            raw_values[19].as_list().get(0).unwrap().as_string(),
+            "2026-03-10T16:20:00Z"
+        );
+        assert_eq!(
+            raw_values[19].as_list().get(1).unwrap().as_string(),
+            "2026-03-11T16:20:00Z"
+        );
     }
 }

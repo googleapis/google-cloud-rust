@@ -27,6 +27,7 @@ pub use crate::timestamp_bound::TimestampBound;
 pub use crate::to_value::ToValue;
 pub use crate::types::{Type, TypeCode};
 pub use crate::value::{Kind, Value};
+pub use wkt::{DurationError, TimestampError};
 
 /// A client for the [Spanner] API.
 ///
@@ -67,27 +68,32 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
 /// A builder for the Spanner client.
 pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory, Credentials>;
 
+fn parse_emulator_endpoint(endpoint: &str) -> String {
+    match url::Url::parse(endpoint) {
+        Ok(url) if url.has_host() => endpoint.to_string(),
+        _ => format!("http://{}", endpoint),
+    }
+}
+
 #[allow(dead_code)]
 impl Spanner {
     pub fn builder() -> ClientBuilder {
-        let mut builder = google_cloud_gax::client_builder::internal::new_builder(Factory);
+        let builder = google_cloud_gax::client_builder::internal::new_builder(Factory);
         // The Spanner client should automatically use the Spanner emulator if the
         // SPANNER_EMULATOR_HOST environment variable is set.
-        if let Ok(endpoint) = std::env::var("SPANNER_EMULATOR_HOST") {
-            if !endpoint.is_empty() {
-                // Determine if we need to prefix the endpoint with a scheme
-                let full_endpoint = if endpoint.starts_with("http") {
-                    endpoint
-                } else {
-                    format!("http://{}", endpoint)
-                };
+        let Some(endpoint) = std::env::var("SPANNER_EMULATOR_HOST")
+            .ok()
+            .filter(|s| !s.is_empty())
+        else {
+            return builder;
+        };
 
-                builder = builder.with_endpoint(full_endpoint).with_credentials(
-                    google_cloud_auth::credentials::anonymous::Builder::new().build(),
-                );
-            }
-        }
+        // Determine if we need to prefix the endpoint with a scheme
+        let full_endpoint = parse_emulator_endpoint(&endpoint);
+
         builder
+            .with_endpoint(full_endpoint)
+            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
     }
 
     /// Returns a new [DatabaseClientBuilder](crate::database_client::DatabaseClientBuilder) for
@@ -780,6 +786,34 @@ mod tests {
         assert_eq!(
             err.status().unwrap().code,
             google_cloud_gax::error::rpc::Code::Internal
+        );
+    }
+
+    #[test]
+    fn test_parse_emulator_endpoint() {
+        assert_eq!(
+            super::parse_emulator_endpoint("localhost:9010"),
+            "http://localhost:9010"
+        );
+        assert_eq!(
+            super::parse_emulator_endpoint("spanner-emulator:9010"),
+            "http://spanner-emulator:9010"
+        );
+        assert_eq!(
+            super::parse_emulator_endpoint("http://localhost:9010"),
+            "http://localhost:9010"
+        );
+        assert_eq!(
+            super::parse_emulator_endpoint("https://localhost:9010"),
+            "https://localhost:9010"
+        );
+        assert_eq!(
+            super::parse_emulator_endpoint("grpc://localhost:9010"),
+            "grpc://localhost:9010"
+        );
+        assert_eq!(
+            super::parse_emulator_endpoint("http_localhost:9010"),
+            "http://http_localhost:9010"
         );
     }
 }

@@ -19,7 +19,7 @@ use time::OffsetDateTime;
 /// Use a timestamp bound to specify how to choose a timestamp at which a query should read data.
 ///
 /// # Example
-/// ```rust,no_run
+/// ```
 /// # use google_cloud_spanner::client::Spanner;
 /// # use google_cloud_spanner::client::TimestampBound;
 /// # async fn test_doc() -> Result<(), google_cloud_spanner::Error> {
@@ -54,11 +54,10 @@ impl TimestampBound {
     /// Returns a timestamp bound for an exact timestamp, returning an error if the timestamp is out of range.
     ///
     /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness> for more information.
-    pub fn try_read_timestamp(timestamp: OffsetDateTime) -> crate::Result<Self> {
-        let seconds = timestamp.unix_timestamp();
-        let nanos = timestamp.nanosecond();
-        let timestamp = wkt::Timestamp::new(seconds, nanos as i32)
-            .map_err(|e| crate::Error::binding(format!("timestamp out of range: {}", e)))?;
+    pub fn try_read_timestamp(
+        timestamp: OffsetDateTime,
+    ) -> Result<Self, crate::client::TimestampError> {
+        let timestamp = wkt::Timestamp::try_from(timestamp)?;
         Ok(Self(ReadOnlyTimestampBound::ReadTimestamp(Box::new(
             timestamp,
         ))))
@@ -75,11 +74,10 @@ impl TimestampBound {
     /// Returns a timestamp bound for a minimum read timestamp, returning an error if the timestamp is out of range.
     ///
     /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness> for more information.
-    pub fn try_min_read_timestamp(timestamp: OffsetDateTime) -> crate::Result<Self> {
-        let seconds = timestamp.unix_timestamp();
-        let nanos = timestamp.nanosecond();
-        let timestamp = wkt::Timestamp::new(seconds, nanos as i32)
-            .map_err(|e| crate::Error::binding(format!("timestamp out of range: {}", e)))?;
+    pub fn try_min_read_timestamp(
+        timestamp: OffsetDateTime,
+    ) -> Result<Self, crate::client::TimestampError> {
+        let timestamp = wkt::Timestamp::try_from(timestamp)?;
         Ok(Self(ReadOnlyTimestampBound::MinReadTimestamp(Box::new(
             timestamp,
         ))))
@@ -96,9 +94,8 @@ impl TimestampBound {
     /// Returns a timestamp bound for an exact staleness, returning an error if the duration is out of range.
     ///
     /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#exact_staleness> for more information.
-    pub fn try_exact_staleness(duration: Duration) -> crate::Result<Self> {
-        let duration = wkt::Duration::try_from(duration)
-            .map_err(|e| crate::Error::binding(format!("duration out of range: {}", e)))?;
+    pub fn try_exact_staleness(duration: Duration) -> Result<Self, crate::client::DurationError> {
+        let duration = wkt::Duration::try_from(duration)?;
         Ok(Self(ReadOnlyTimestampBound::ExactStaleness(Box::new(
             duration,
         ))))
@@ -115,9 +112,8 @@ impl TimestampBound {
     /// Returns a timestamp bound for a maximum staleness, returning an error if the duration is out of range.
     ///
     /// See <https://docs.cloud.google.com/spanner/docs/timestamp-bounds#bounded_staleness> for more information.
-    pub fn try_max_staleness(duration: Duration) -> crate::Result<Self> {
-        let duration = wkt::Duration::try_from(duration)
-            .map_err(|e| crate::Error::binding(format!("duration out of range: {}", e)))?;
+    pub fn try_max_staleness(duration: Duration) -> Result<Self, crate::client::DurationError> {
+        let duration = wkt::Duration::try_from(duration)?;
         Ok(Self(ReadOnlyTimestampBound::MaxStaleness(Box::new(
             duration,
         ))))
