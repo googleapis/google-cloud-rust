@@ -1442,7 +1442,6 @@ where
 mod tests {
     use super::*;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-    use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
     use crate::constants::{
         ACCESS_TOKEN_TYPE, DEFAULT_SCOPE, JWT_TOKEN_TYPE, TOKEN_EXCHANGE_GRANT_TYPE,
     };
@@ -1459,9 +1458,7 @@ mod tests {
         matchers::{all_of, contains, request, url_decoded},
         responders::{json_encoded, status_code},
     };
-    use scoped_env::ScopedEnv;
     use serde_json::*;
-    use serial_test::serial;
     use std::collections::HashMap;
     use std::error::Error;
     use std::fmt;
@@ -2310,11 +2307,9 @@ mod tests {
         "/v1/locations/global/workforcePools/my-pool/allowedLocations";
         "workforce_pool"
     )]
-    #[serial]
     #[tokio::test]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn e2e_access_boundary(audience: &str, iam_path: &str) -> TestResult {
-        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
-
         let audience = audience.to_string();
         let iam_path = iam_path.to_string();
 
