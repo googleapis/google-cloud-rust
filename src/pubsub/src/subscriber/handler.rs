@@ -254,7 +254,7 @@ impl ExactlyOnce {
     /// If the result is an `Err`, the message may be redelivered, but this is
     /// not guaranteed. If no redelivery occurs a sufficient interval after an
     /// error, the acknowledgement likely succeeded.
-    pub async fn confirmed_ack(mut self) -> AckResult {
+    pub async fn confirmed_ack(mut self) -> std::result::Result<(), AckError> {
         let inner = self.inner.take().expect("handler impl is always some");
         inner.confirmed_ack().await
     }
@@ -307,7 +307,7 @@ impl ExactlyOnceImpl {
 }
 
 /// The result of a confirmed acknowledgement.
-pub type AckResult = std::result::Result<(), AckError>;
+pub(super) type AckResult = std::result::Result<(), AckError>;
 
 #[cfg(test)]
 mod tests {
