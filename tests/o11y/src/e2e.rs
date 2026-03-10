@@ -15,6 +15,7 @@
 pub mod metrics;
 pub mod resource_detector;
 pub mod showcase;
+pub mod signals;
 pub mod storage;
 
 use super::otlp::metrics::Builder as MeterProviderBuilder;

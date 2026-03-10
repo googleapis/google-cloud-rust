@@ -6064,6 +6064,7 @@ dependencies = [
  "tower",
  "tracing",
  "tracing-opentelemetry",
+ "tracing-serde",
  "tracing-subscriber",
  "uuid",
 ]
@@ -8686,6 +8687,16 @@ dependencies = [
  "tracing-core",
  "tracing-subscriber",
  "web-time",
+]
+
+[[package]]
+name = "tracing-serde"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "704b1aeb7be0d0a84fc9828cae51dab5970fee5088f83d1dd7ee6f6246fc6ff1"
+dependencies = [
+ "serde",
+ "tracing-core",
 ]
 
 [[package]]
