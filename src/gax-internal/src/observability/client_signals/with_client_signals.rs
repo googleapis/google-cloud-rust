@@ -117,10 +117,7 @@ where
         // Record the metric and log the value in the context of the span.
         let span = span.entered();
         match &output {
-            Ok(_) => {
-                span.record(OTEL_STATUS_CODE, otel_status_codes::OK);
-                this.metric.record_ok(&this.start)
-            }
+            Ok(_) => this.metric.record_ok(&this.start),
             Err(error) => {
                 let error_type = ErrorType::from_gax_error(error);
                 tracing::record_all!(
@@ -191,7 +188,7 @@ mod tests {
         let span = tracing::info_span!(
             "client_request",
             // Fields to be recorded later
-            { OTEL_STATUS_CODE } = ::tracing::field::Empty,
+            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
             { ERROR_TYPE } = ::tracing::field::Empty,
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty
         );
@@ -225,7 +222,7 @@ mod tests {
         };
         // The tracing-opentelemetry subscriber converts `otel.status_code` and
         // `otel.status_description` into `span.status`.
-        assert_eq!(span.status, TraceStatus::Ok);
+        assert_eq!(span.status, TraceStatus::Unset);
         check_span(span, trace_id, &[]);
         let found = span
             .attributes
@@ -275,7 +272,7 @@ mod tests {
         let span = tracing::info_span!(
             "client_request",
             // Fields to be recorded later
-            { OTEL_STATUS_CODE } = ::tracing::field::Empty,
+            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
             { ERROR_TYPE } = ::tracing::field::Empty,
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty
         );
@@ -335,7 +332,7 @@ mod tests {
         let span = tracing::info_span!(
             "client_request",
             // Fields to be recorded later
-            { OTEL_STATUS_CODE } = ::tracing::field::Empty,
+            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
             { ERROR_TYPE } = ::tracing::field::Empty,
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty
         );

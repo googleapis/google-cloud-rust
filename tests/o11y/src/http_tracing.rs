@@ -203,7 +203,7 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
             "google-cloud-showcase-v1beta1".into(),
         ),
         ("gcp.client.language", "rust".into()),
-        ("otel.status_code", "OK".into()),
+        ("otel.status_code", "UNSET".into()),
         ("gax.client.span", true.into()),
         ("http.response.status_code", 200_i64.into()),
         ("http.request.method", "POST".into()),
