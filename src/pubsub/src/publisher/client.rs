@@ -98,6 +98,7 @@ impl Publisher {
     /// let message_id = publisher.publish(Message::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
+    #[must_use = "ignoring the publish result may lead to undetected delivery failures"]
     pub fn publish(&self, msg: crate::model::Message) -> crate::publisher::PublishFuture {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
@@ -515,7 +516,8 @@ mod tests {
             Message::new().set_data("world"),
         ];
         for msg in messages {
-            publisher.publish(msg.clone());
+            let handle = publisher.publish(msg.clone());
+            drop(handle);
         }
 
         publisher.flush().await;
@@ -626,13 +628,13 @@ mod tests {
         // Validate without ordering key.
         let handle = publisher.publish(Message::new().set_data("hello"));
         // Publish a second message to trigger send on threshold.
-        publisher.publish(Message::new().set_data("world"));
+        let _handle = publisher.publish(Message::new().set_data("world"));
         assert_eq!(handle.await?, "hello");
 
         // Validate with ordering key.
         let handle = publisher.publish(Message::new().set_data("hello").set_ordering_key("key"));
         // Publish a second message to trigger send on threshold.
-        publisher.publish(Message::new().set_data("world").set_ordering_key("key"));
+        let _handle = publisher.publish(Message::new().set_data("world").set_ordering_key("key"));
         assert_eq!(handle.await?, "hello");
 
         Ok(())
