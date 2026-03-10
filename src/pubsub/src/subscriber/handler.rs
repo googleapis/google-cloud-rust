@@ -229,7 +229,7 @@ impl ExactlyOnce {
     ///
     /// Note that the acknowledgement is best effort. The message may still be
     /// redelivered to this client, or another client.
-    pub fn ack(mut self) {
+    pub(crate) fn ack(mut self) {
         if let Some(inner) = self.inner.take() {
             inner.ack();
         }
