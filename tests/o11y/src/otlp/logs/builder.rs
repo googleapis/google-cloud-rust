@@ -180,8 +180,7 @@ mod tests {
             .await
             .expect("failed to build provider");
 
-        // 3. Create a counter and record a value, later we will verify the
-        //    request includes this counter.
+        // 3. Emit a log record to the provider, we will verify the details in the request.
         const NAME: &str = "experimental-gcp.client.request.error";
         let mut want = [
             ("gcp.client.service", "storage"),
