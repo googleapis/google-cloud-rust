@@ -12,165 +12,65 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use opentelemetry::{SpanId, TraceId};
-use serde::Serializer;
-use serde::ser::SerializeMap;
-use serde_json::Serializer as JsonSerializer;
-use std::fmt::Result as FmtResult;
-use tracing::{Event, Subscriber};
-use tracing_opentelemetry::OtelData;
-use tracing_serde::AsSerde;
-use tracing_serde::fields::AsMap;
-use tracing_subscriber::fmt::format::{FormatEvent, Writer};
-use tracing_subscriber::fmt::{FmtContext, FormatFields};
-use tracing_subscriber::registry::LookupSpan;
+//! This module contains types to export OpenTelemetry logs to Google Cloud Logging.
+//!
+//! When your application is deployed to an environment running the Google Cloud [Ops Agent] we
+//! recommend that you configure the [tracing] framework to use [EventFormatter]. This will output
+//! your log messages in the format that Ops Agent requires, and Ops Agent will forward them to
+//! Cloud Logging. Ops Agent is available on [Cloud Run], [GKE], and [GCE].
+//!
+//! If Ops Agent is not available, consider using [Builder] and configure the [tracing] framework
+//! and [opentelemetry] to directly send your logs to Cloud Logging.
+//!
+//! # Example: use the Ops Agent
+//! ```
+//! use integration_tests_o11y::otlp::logs::EventFormatter;
+//! use tracing::subscriber;
+//! use tracing_subscriber::fmt;
+//! use tracing_subscriber::fmt::format::FmtSpan;
+//! use tracing_subscriber::layer::SubscriberExt;
+//! use tracing_subscriber::{EnvFilter, Layer, Registry};
+//!
+//! let formatter = EventFormatter::new("my-project-id");
+//! tracing::subscriber::set_global_default(
+//!     Registry::default().with(
+//!         fmt::layer()
+//!             .with_span_events(FmtSpan::NONE)
+//!             .with_level(true)
+//!             .with_thread_ids(true)
+//!             .event_format(formatter)
+//!             .with_filter(EnvFilter::from_default_env())),
+//! );
+//! ```
+//!
+//! # Example: without an Ops Agent running
+//! ```
+//! use integration_tests_o11y::otlp::logs::Builder;
+//! use opentelemetry_sdk::logs::SdkLoggerProvider;
+//! use opentelemetry::global;
+//! use opentelemetry_appender_tracing::layer::OpenTelemetryTracingBridge;
+//! use tracing_subscriber::prelude::*;
+//! # async fn example() -> anyhow::Result<()> {
+//! // Near the beginning of your `main()` function
+//! let provider: SdkLoggerProvider = Builder::new("my-project", "my-service")
+//!     .build()
+//!     .await?;
+//! let otel_layer = OpenTelemetryTracingBridge::new(&provider);
+//! tracing_subscriber::registry()
+//!     .with(otel_layer)
+//!     // maybe add other layers
+//!     // .with(...)
+//!     .init();
+//! # Ok(()) }
+//! ```
+//!
+//! [GCE]: https://cloud.google.com/compute
+//! [GKE]: https://cloud.google.com/gke
+//! [Cloud Run]: https://cloud.google.com/run
+//! [Ops Agent]: https://docs.cloud.google.com/logging/docs/agent/ops-agent
 
-/// Format [tracing] events into the format consumed by the Google Cloud [Ops Agent].
-///
-/// # Example
-/// ```
-/// use integration_tests_o11y::otlp::logs::EventFormatter;
-/// use tracing::subscriber;
-/// use tracing_subscriber::fmt;
-/// use tracing_subscriber::fmt::format::FmtSpan;
-/// use tracing_subscriber::layer::SubscriberExt;
-/// use tracing_subscriber::{EnvFilter, Layer, Registry};
-///
-/// let formatter = EventFormatter::new("my-project-id");
-/// tracing::subscriber::set_global_default(
-///     Registry::default().with(
-///         fmt::layer()
-///             .with_span_events(FmtSpan::NONE)
-///             .with_level(true)
-///             .with_thread_ids(true)
-///             .event_format(formatter)
-///             .with_filter(EnvFilter::from_default_env())),
-/// );
-/// ```
-///
-/// When deploying applications to Google Cloud environments, such as [GKE], [Cloud Run], or [GCE],
-/// applications can use the Ops Agent to forward their logs to [Cloud Logging]. If the logs are
-/// formatted as JSON objects, the Ops Agent can extract annotations to correctly tag the severity
-/// of the message, and link the message to the span active when the message was generated.
-///
-/// This formatter creates structured logs for [tracing] events. The structured logs connect the
-/// log entries to the corresponding spans and traces, though these must be uploaded separately.
-///
-/// [GCE]: https://cloud.google.com/compute
-/// [GKE]: https://cloud.google.com/gke
-/// [Cloud Run]: https://cloud.google.com/run
-/// [tracing]: https://docs.rs/tracing
-/// [Ops Agent]: https://docs.cloud.google.com/logging/docs/agent/ops-agent
-#[derive(Clone, Debug)]
-pub struct EventFormatter {
-    project_id: String,
-}
+mod builder;
+mod event_formatter;
 
-impl EventFormatter {
-    /// Creates a new instance, assuming all spans and traces are sent to `project_id`.
-    pub fn new<V>(project_id: V) -> Self
-    where
-        V: Into<String>,
-    {
-        Self {
-            project_id: project_id.into(),
-        }
-    }
-
-    pub fn trace_info<S, N>(
-        &self,
-        ctx: &FmtContext<'_, S, N>,
-        event: &Event<'_>,
-    ) -> (Option<(TraceId, SpanId)>, bool)
-    where
-        S: Subscriber + for<'a> LookupSpan<'a>,
-        N: for<'a> FormatFields<'a> + 'static,
-    {
-        use opentelemetry::trace::TraceContextExt;
-        use tracing_opentelemetry::OpenTelemetrySpanExt;
-        if let Some((Some(tid), Some(sid))) = ctx.lookup_current().and_then(|span| {
-            span.extensions()
-                .get::<OtelData>()
-                .map(|data| (data.trace_id(), data.span_id()))
-        }) {
-            return (Some((tid, sid)), tid != TraceId::INVALID);
-        }
-        if event.is_contextual() {
-            let current = tracing::Span::current();
-            let tid = current.context().span().span_context().trace_id();
-            let sid = current.context().span().span_context().span_id();
-            return (Some((tid, sid)), tid != TraceId::INVALID);
-        }
-        (None, false)
-    }
-}
-
-impl<S, N> FormatEvent<S, N> for EventFormatter
-where
-    S: Subscriber + for<'a> LookupSpan<'a>,
-    N: for<'a> FormatFields<'a> + 'static,
-{
-    fn format_event(
-        &self,
-        ctx: &FmtContext<'_, S, N>,
-        mut writer: Writer<'_>,
-        event: &Event<'_>,
-    ) -> FmtResult
-    where
-        S: Subscriber + for<'a> LookupSpan<'a>,
-        N: for<'a> FormatFields<'a> + 'static,
-    {
-        let meta = event.metadata();
-
-        let mut visit = || {
-            let mut serializer = JsonSerializer::new(WriteAdaptor::new(&mut writer));
-            let mut serializer = serializer.serialize_map(None)?;
-            serializer.serialize_entry("timestamp", &chrono::Utc::now().to_rfc3339())?;
-            serializer.serialize_entry("severity", &meta.level().as_serde())?;
-            serializer.serialize_entry("fields", &event.field_map())?;
-            serializer.serialize_entry("target", meta.target())?;
-            match self.trace_info(ctx, event) {
-                (Some((tid, sid)), sampled) => {
-                    serializer.serialize_entry(
-                        "logging.googleapis.com/trace",
-                        &format!("projects/{}/traces/{tid}", self.project_id),
-                    )?;
-                    serializer
-                        .serialize_entry("logging.googleapis.com/spanId", &sid.to_string())?;
-                    serializer.serialize_entry("logging.googleapis.com/trace_sampled", &sampled)?;
-                }
-                (None, sampled) => {
-                    serializer.serialize_entry("logging.googleapis.com/trace_sampled", &sampled)?;
-                }
-            };
-            serializer.end()
-        };
-        visit().map_err(|_| std::fmt::Error)?;
-        writeln!(writer)
-    }
-}
-
-/// Make a `std::fmt::write` look like a `std::io::Write` so we can use it as the destination of a
-/// `serde_json::Serializer`.
-struct WriteAdaptor<'a> {
-    fmt_write: &'a mut dyn std::fmt::Write,
-}
-
-impl<'a> WriteAdaptor<'a> {
-    pub fn new(fmt_write: &'a mut dyn std::fmt::Write) -> Self {
-        Self { fmt_write }
-    }
-}
-
-impl<'a> std::io::Write for WriteAdaptor<'a> {
-    fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
-        let s = std::str::from_utf8(buf)
-            .map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))?;
-        self.fmt_write.write_str(s).map_err(std::io::Error::other)?;
-        Ok(s.len())
-    }
-
-    fn flush(&mut self) -> std::io::Result<()> {
-        Ok(())
-    }
-}
+pub use builder::Builder;
+pub use event_formatter::EventFormatter;

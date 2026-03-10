@@ -6046,6 +6046,7 @@ dependencies = [
  "http",
  "httptest",
  "opentelemetry",
+ "opentelemetry-appender-tracing",
  "opentelemetry-otlp",
  "opentelemetry-proto",
  "opentelemetry_sdk",

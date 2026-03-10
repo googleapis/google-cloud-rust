@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use opentelemetry_proto::tonic::collector::logs::v1::{
+    ExportLogsServiceRequest as LogsRequest, ExportLogsServiceResponse,
+    logs_service_server::{LogsService, LogsServiceServer},
+};
 use opentelemetry_proto::tonic::collector::metrics::v1::{
     ExportMetricsServiceRequest as MetricsRequest, ExportMetricsServiceResponse,
     metrics_service_server::{MetricsService, MetricsServiceServer},
@@ -28,6 +32,7 @@ use std::sync::{Arc, Mutex};
 pub struct MockCollector {
     pub traces: Arc<Mutex<Vec<tonic::Request<TraceRequest>>>>,
     pub metrics: Arc<Mutex<Vec<tonic::Request<MetricsRequest>>>>,
+    pub logs: Arc<Mutex<Vec<tonic::Request<LogsRequest>>>>,
 }
 
 #[tonic::async_trait]
@@ -56,6 +61,19 @@ impl MetricsService for MockCollector {
     }
 }
 
+#[tonic::async_trait]
+impl LogsService for MockCollector {
+    async fn export(
+        &self,
+        request: Request<LogsRequest>,
+    ) -> Result<Response<ExportLogsServiceResponse>, Status> {
+        self.logs.lock().unwrap().push(request);
+        Ok(Response::new(ExportLogsServiceResponse {
+            partial_success: None,
+        }))
+    }
+}
+
 impl MockCollector {
     pub async fn start(&self) -> String {
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
@@ -67,6 +85,7 @@ impl MockCollector {
             tonic::transport::Server::builder()
                 .add_service(TraceServiceServer::new(this.clone()))
                 .add_service(MetricsServiceServer::new(this.clone()))
+                .add_service(LogsServiceServer::new(this.clone()))
                 .serve_with_incoming(tokio_stream::wrappers::TcpListenerStream::new(listener))
                 .await
                 .unwrap()
