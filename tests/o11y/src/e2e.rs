@@ -142,7 +142,7 @@ pub async fn set_up_providers(
         // This function necessarily uses `tracing::global`. Running more than one test per
         // process introduces flakes. Even if we use some kind of "Once*" to initialize the
         // globals, we still need to call `flush_provider()` and that fails if called too often.
-        panic!("Only one test per process can use `configure_providers()`.");
+        panic!("Only one test per process can use `set_up_providers()`.");
     }
     let detector = TestResourceDetector::new(test_id.to_string().as_str());
     let tracer_provider = TracerProviderBuilder::new(project_id, service_name)
