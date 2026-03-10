@@ -164,7 +164,6 @@ members = [
   "src/generated/cloud/gkemulticloud/v1",
   "src/generated/cloud/gkerecommender/v1",
   "src/generated/cloud/gsuiteaddons/v1",
-  "src/generated/cloud/hypercomputecluster/v1",
   "src/generated/cloud/iap/v1",
   "src/generated/cloud/ids/v1",
   "src/generated/cloud/kms/inventory/v1",
