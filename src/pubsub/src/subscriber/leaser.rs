@@ -150,11 +150,9 @@ where
             .map(|id| {
                 (
                     id,
-                    shared_result.clone().map_err(|source| AckError::Rpc {
-                        // TODO(#4804): capture error details
-                        details: None,
-                        source,
-                    }),
+                    shared_result
+                        .clone()
+                        .map_err(|source| AckError::Rpc { source }),
                 )
             })
             .collect();
