@@ -1,11 +1,14 @@
 {
+    "api_description": "Manages Apache Airflow environments on Google Cloud Platform.",
     "api_id": "composer.googleapis.com",
     "api_shortname": "composer",
     "client_documentation": "https://docs.rs/google-cloud-orchestration-airflow-service-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-orchestration-airflow-service-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Composer API",
+    "name": "composer",
+    "name_pretty": "Cloud Composer",
+    "product_documentation": "https://cloud.google.com/composer/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

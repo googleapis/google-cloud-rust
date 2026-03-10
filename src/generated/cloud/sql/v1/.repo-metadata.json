@@ -1,11 +1,13 @@
 {
+    "api_description": "API for Cloud SQL database instance management",
     "api_id": "sqladmin.googleapis.com",
     "api_shortname": "sqladmin",
     "client_documentation": "https://docs.rs/google-cloud-sql-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-sql-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud SQL Admin API",
+    "name": "sqladmin",
+    "name_pretty": "Cloud SQL Admin",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

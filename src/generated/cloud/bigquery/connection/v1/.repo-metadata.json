@@ -1,11 +1,14 @@
 {
+    "api_description": "Allows users to manage BigQuery connections to external data sources.",
     "api_id": "bigqueryconnection.googleapis.com",
     "api_shortname": "bigqueryconnection",
     "client_documentation": "https://docs.rs/google-cloud-bigquery-connection-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-bigquery-connection-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "BigQuery Connection API",
+    "name": "bigqueryconnection",
+    "name_pretty": "BigQuery Connection",
+    "product_documentation": "https://cloud.google.com/bigquery/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

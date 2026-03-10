@@ -2,10 +2,13 @@
     "api_id": "apihub.googleapis.com",
     "api_shortname": "apihub",
     "client_documentation": "https://docs.rs/google-cloud-apihub-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-apihub-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1447560",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "API hub API",
+    "name": "apihub",
+    "name_pretty": "API hub",
+    "product_documentation": "https://cloud.google.com/apigee/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

@@ -1,11 +1,14 @@
 {
+    "api_description": "Google Service Management allows service producers to publish their\nservices on Google Cloud Platform so that they can be discovered and used\nby service consumers.",
     "api_id": "servicemanagement.googleapis.com",
     "api_shortname": "servicemanagement",
     "client_documentation": "https://docs.rs/google-cloud-api-servicemanagement-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-api-servicemanagement-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Service Management API",
+    "name": "servicemanagement",
+    "name_pretty": "Service Management",
+    "product_documentation": "https://cloud.google.com/service-infrastructure/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

@@ -1,11 +1,15 @@
 {
+    "api_description": "Manages your Cloud Monitoring data and configurations. Most projects must\nbe associated with a Workspace, with a few exceptions as noted on the\nindividual method pages. The table entries below are presented in\nalphabetical order, not in order of common use. For explanations of the\nconcepts found in the table entries, read the [Cloud Monitoring\ndocumentation](https://cloud.google.com/monitoring/docs).",
     "api_id": "monitoring.googleapis.com",
     "api_shortname": "monitoring",
     "client_documentation": "https://docs.rs/google-cloud-monitoring-metricsscope-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-monitoring-metricsscope-v1",
+    "issue_tracker": "https://issuetracker.google.com/savedsearches/559785",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Monitoring API",
+    "name": "monitoring",
+    "name_pretty": "Cloud Monitoring",
+    "product_documentation": "https://cloud.google.com/monitoring/docs",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

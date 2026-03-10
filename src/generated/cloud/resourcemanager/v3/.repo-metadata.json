@@ -1,11 +1,15 @@
 {
+    "api_description": "Creates, reads, and updates metadata for Google Cloud Platform resource\ncontainers.",
     "api_id": "cloudresourcemanager.googleapis.com",
     "api_shortname": "cloudresourcemanager",
     "client_documentation": "https://docs.rs/google-cloud-resourcemanager-v3/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-resourcemanager-v3",
+    "issue_tracker": "https://issuetracker.google.com/savedsearches/559757",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Resource Manager API",
+    "name": "cloudresourcemanager",
+    "name_pretty": "Cloud Resource Manager",
+    "product_documentation": "https://cloud.google.com/resource-manager",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

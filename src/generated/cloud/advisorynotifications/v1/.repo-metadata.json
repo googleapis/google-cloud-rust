@@ -1,11 +1,15 @@
 {
+    "api_description": "An API for accessing Advisory Notifications in Google Cloud",
     "api_id": "advisorynotifications.googleapis.com",
     "api_shortname": "advisorynotifications",
     "client_documentation": "https://docs.rs/google-cloud-advisorynotifications-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-advisorynotifications-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1009495",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Advisory Notifications API",
+    "name": "advisorynotifications",
+    "name_pretty": "Advisory Notifications",
+    "product_documentation": "https://cloud.google.com/advisory-notifications/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

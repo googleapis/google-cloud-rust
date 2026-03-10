@@ -16,7 +16,7 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-/// Implements a client for the Cloud DNS API.
+/// Implements a client for the Cloud DNS.
 ///
 /// # Example
 /// ```
@@ -185,7 +185,7 @@ impl Changes {
     }
 }
 
-/// Implements a client for the Cloud DNS API.
+/// Implements a client for the Cloud DNS.
 ///
 /// # Example
 /// ```
@@ -334,7 +334,7 @@ impl DnsKeys {
     }
 }
 
-/// Implements a client for the Cloud DNS API.
+/// Implements a client for the Cloud DNS.
 ///
 /// # Example
 /// ```
@@ -484,7 +484,7 @@ impl ManagedZoneOperations {
     }
 }
 
-/// Implements a client for the Cloud DNS API.
+/// Implements a client for the Cloud DNS.
 ///
 /// # Example
 /// ```
@@ -784,7 +784,7 @@ impl ManagedZones {
     }
 }
 
-/// Implements a client for the Cloud DNS API.
+/// Implements a client for the Cloud DNS.
 ///
 /// # Example
 /// ```
@@ -1012,7 +1012,7 @@ impl Policies {
     }
 }
 
-/// Implements a client for the Cloud DNS API.
+/// Implements a client for the Cloud DNS.
 ///
 /// # Example
 /// ```
@@ -1138,7 +1138,7 @@ impl Projects {
     }
 }
 
-/// Implements a client for the Cloud DNS API.
+/// Implements a client for the Cloud DNS.
 ///
 /// # Example
 /// ```
@@ -1348,7 +1348,7 @@ impl ResourceRecordSets {
     }
 }
 
-/// Implements a client for the Cloud DNS API.
+/// Implements a client for the Cloud DNS.
 ///
 /// # Example
 /// ```
@@ -1577,7 +1577,7 @@ impl ResponsePolicies {
     }
 }
 
-/// Implements a client for the Cloud DNS API.
+/// Implements a client for the Cloud DNS.
 ///
 /// # Example
 /// ```

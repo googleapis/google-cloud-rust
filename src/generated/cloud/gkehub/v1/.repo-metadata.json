@@ -2,10 +2,12 @@
     "api_id": "gkehub.googleapis.com",
     "api_shortname": "gkehub",
     "client_documentation": "https://docs.rs/google-cloud-gkehub-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-gkehub-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "GKE Hub API",
+    "name": "gkehub",
+    "name_pretty": "GKE Hub",
+    "product_documentation": "https://cloud.google.com/anthos/gke/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

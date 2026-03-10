@@ -2,10 +2,13 @@
     "api_id": "parallelstore.googleapis.com",
     "api_shortname": "parallelstore",
     "client_documentation": "https://docs.rs/google-cloud-parallelstore-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-parallelstore-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1181190",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Parallelstore API",
+    "name": "parallelstore",
+    "name_pretty": "Parallelstore",
+    "product_documentation": "https://cloud.google.com/parallelstore?hl=en",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }
