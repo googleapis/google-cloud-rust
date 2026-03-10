@@ -62,12 +62,9 @@ pub enum AckError {
     LeaseExpired,
 
     /// The underlying RPC failed.
-    #[error("the acknowledgement failed{}. RPC error: {source}",
-        .details.as_ref().map(|m| format!(", with the server reporting: {m}")).unwrap_or_default())]
+    #[non_exhaustive]
+    #[error("the acknowledgement failed. RPC error: {source}")]
     Rpc {
-        /// Extra details from the server on why the acknowledgement failed.
-        details: Option<String>,
-
         /// The error returned by the service for the acknowledge request.
         #[source]
         source: Arc<Error>,
@@ -97,19 +94,8 @@ mod tests {
     use google_cloud_gax::error::rpc::{Code, Status};
 
     #[test]
-    fn ack_error_rpc_with_details_debug() {
+    fn ack_error_rpc_debug() {
         let e = AckError::Rpc {
-            details: Some("PERMANENT_FAILURE_INVALID_ACK_ID".to_string()),
-            source: Arc::new(Error::service(Status::default().set_code(Code::Unknown))),
-        };
-        let fmt = format!("{e}");
-        assert!(fmt.contains("acknowledgement failed, with the server reporting: PERMANENT_FAILURE_INVALID_ACK_ID."), "{fmt}");
-    }
-
-    #[test]
-    fn ack_error_rpc_without_details_debug() {
-        let e = AckError::Rpc {
-            details: None,
             source: Arc::new(Error::service(
                 Status::default()
                     .set_code(Code::FailedPrecondition)
