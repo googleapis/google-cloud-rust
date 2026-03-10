@@ -21,9 +21,9 @@ use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig;
 use opentelemetry_otlp::{WithExportConfig, WithTonicConfig};
 use opentelemetry_sdk::logs::SdkLoggerProvider;
 
-/// Creates a `SdkMeterProvider` optimized for Google Cloud Monitoring.
+/// Creates a `SdkLoggerProvider` optimized for Google Logging.
 ///
-/// This builder creates a `SdkMeterProvider` configured to export metrics via
+/// This builder creates a `SdkLoggerProvider` configured to export logs via
 /// the Google Cloud Telemetry API (`telemetry.googleapis.com`) using the OTLP
 /// gRPC protocol. It automatically handles authentication by injecting OAuth2
 /// tokens into every request.
@@ -35,16 +35,27 @@ use opentelemetry_sdk::logs::SdkLoggerProvider;
 ///   The application can override the default using credentials from the
 ///   `google-cloud-auth` crate.
 /// - **Resource Attributes:** sets `gcp.project_id` and `service.name` as
-///   required by Cloud Monitoring.
+///   required by Cloud Logging.
 ///
 /// # Example
 /// ```
-/// use opentelemetry_sdk::resource::Resource;
-/// use integration_tests_o11y::otlp::metrics::Builder;
+/// use integration_tests_o11y::otlp::logs::Builder;
+/// use opentelemetry_sdk::logs::SdkLoggerProvider;
+/// use opentelemetry::global;
+/// use opentelemetry_appender_tracing::layer::OpenTelemetryTracingBridge;
+/// use tracing_subscriber::prelude::*;
+/// use tracing::level_filters::LevelFilter;
 /// # async fn example() -> anyhow::Result<()> {
-/// let provider = Builder::new("my-project", "my-service")
+/// // Near the beginning of your `main()` function
+/// let provider: SdkLoggerProvider = Builder::new("my-project", "my-service")
 ///     .build()
 ///     .await?;
+/// let otel_layer = OpenTelemetryTracingBridge::new(&provider);
+/// tracing_subscriber::registry()
+///     .with(otel_layer.with_filter(LevelFilter::INFO))
+///     // maybe add other layers
+///     // .with(...)
+///     .init();
 /// # Ok(()) }
 /// ```
 pub struct Builder {
