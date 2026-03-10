@@ -21,7 +21,7 @@ const MIB: i64 = 1024 * 1024;
 
 pub use super::client_builder::ClientBuilder;
 
-/// Builder for the `client::Subscriber::streaming_pull` method.
+/// Builder for the [`client::Subscriber::subscribe`][crate::client::Subscriber::subscribe] method.
 pub struct Subscribe {
     pub(super) inner: Arc<Transport>,
     pub(super) subscription: String,
@@ -52,9 +52,6 @@ impl Subscribe {
 
     /// Creates a new stream to receive messages from the subscription.
     ///
-    /// Note that the underlying connection with the server is lazy-initialized.
-    /// It is not established until `MessageStream::next()` is called.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
@@ -68,6 +65,9 @@ impl Subscribe {
     /// }
     /// # Ok(()) }
     /// ```
+    ///
+    /// Note that the underlying connection with the server is lazy-initialized.
+    /// It is not established until [`MessageStream::next()`] is called.
     pub fn build(self) -> MessageStream {
         MessageStream::new(self)
     }
@@ -107,16 +107,6 @@ impl Subscribe {
 
     /// Flow control settings for the maximum number of outstanding messages.
     ///
-    /// The server will stop sending messages to a client when this many
-    /// messages are outstanding (i.e. that have not been acked).
-    ///
-    /// The server resumes sending messages when the outstanding message count
-    /// drops below this value.
-    ///
-    /// Use a value <= 0 to set no limit on the number of outstanding messages.
-    ///
-    /// The default value is 1000 messages.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
@@ -127,22 +117,23 @@ impl Subscribe {
     ///     .build();
     /// # Ok(()) }
     /// ```
+    ///
+    /// The server will stop sending messages to a client when this many
+    /// messages are outstanding (i.e. that have not been acked). The server
+    /// resumes sending messages when the outstanding message count drops below
+    /// this value.
+    ///
+    /// The limit applies per-stream. It is not a global limit.
+    ///
+    /// Use a value <= 0 to set no limit on the number of outstanding messages.
+    ///
+    /// The default value is 1000 messages.
     pub fn set_max_outstanding_messages<T: Into<i64>>(mut self, v: T) -> Self {
         self.max_outstanding_messages = v.into();
         self
     }
 
     /// Flow control settings for the maximum number of outstanding bytes.
-    ///
-    /// The server will stop sending messages to a client when this many bytes
-    /// of messages are outstanding (i.e. that have not been acked).
-    ///
-    /// The server resumes sending messages when the outstanding byte count
-    /// drops below this value.
-    ///
-    /// Use a value <= 0 to set no limit on the number of outstanding bytes.
-    ///
-    /// The default value is 100 MiB.
     ///
     /// # Example
     /// ```
@@ -155,6 +146,17 @@ impl Subscribe {
     ///     .build();
     /// # Ok(()) }
     /// ```
+    ///
+    /// The server will stop sending messages to a client when this many bytes
+    /// of messages are outstanding (i.e. that have not been acked). The server
+    /// resumes sending messages when the outstanding byte count drops below
+    /// this value.
+    ///
+    /// The limit applies per-stream. It is not a global limit.
+    ///
+    /// Use a value <= 0 to set no limit on the number of outstanding bytes.
+    ///
+    /// The default value is 100 MiB.
     pub fn set_max_outstanding_bytes<T: Into<i64>>(mut self, v: T) -> Self {
         self.max_outstanding_bytes = v.into();
         self
