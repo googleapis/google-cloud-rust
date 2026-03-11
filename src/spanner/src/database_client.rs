@@ -14,6 +14,7 @@
 
 use crate::client::Spanner;
 use crate::model::Session;
+use crate::read_only_transaction::SingleUseReadOnlyTransactionBuilder;
 use std::sync::Arc;
 
 /// A client for interacting with a specific Spanner database.
@@ -46,6 +47,24 @@ pub struct DatabaseClient {
     pub(crate) spanner: Spanner,
     #[allow(dead_code)]
     pub(crate) session: Arc<Session>,
+}
+
+impl DatabaseClient {
+    /// Returns a builder for a single-use read-only transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let tx = db_client.single_use().build();
+    /// let mut rs = tx.execute_query(Statement::new("SELECT 1")).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn single_use(&self) -> SingleUseReadOnlyTransactionBuilder {
+        SingleUseReadOnlyTransactionBuilder::new(self.clone())
+    }
 }
 
 /// A builder for [DatabaseClient].

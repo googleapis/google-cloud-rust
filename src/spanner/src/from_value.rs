@@ -110,7 +110,7 @@ impl FromValue for Decimal {
     fn from_value(value: &Value, type_: &Type) -> Result<Self, ConvertError> {
         if type_.code() != TypeCode::Numeric {
             return Err(ConvertError::KindMismatch {
-                want: crate::value::Kind::String, // TODO: This feels wrong, TypeCode vs Kind
+                want: crate::value::Kind::String,
                 got: value.kind(),
             });
         }
