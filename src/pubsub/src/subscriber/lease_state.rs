@@ -1015,7 +1015,7 @@ pub(super) mod tests {
             state.add(test_id(over_half_full + i), at_least_once_info());
             state.process(Nack(test_id(over_half_full + i)));
         }
-        for i in CONFIRM_ACK_OFFSET..(CONFIRM_ACK_OFFSET+over_half_full) {
+        for i in CONFIRM_ACK_OFFSET..(CONFIRM_ACK_OFFSET + over_half_full) {
             state.add(test_id(i), exactly_once_info());
             state.process(ExactlyOnceAck(test_id(i)));
 
