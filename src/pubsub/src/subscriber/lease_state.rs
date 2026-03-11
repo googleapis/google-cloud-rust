@@ -139,8 +139,6 @@ where
     /// statement.
     pub(super) async fn next_event(&mut self) -> LeaseEvent {
         if self.leases.needs_flush() || self.eo_leases.needs_flush() {
-            // This flushes both leases and eo_leases. This can be updated so
-            // that the [leases, eo_leases] are flushed independently.
             return LeaseEvent::Flush;
         }
 
@@ -748,90 +746,6 @@ pub(super) mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn ack_out_of_lease() {
-        let mock = MockLeaser::new();
-        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: Vec::new(),
-                to_nack: Vec::new(),
-            },
-            state.leases
-        );
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: Vec::new(),
-                to_nack: Vec::new(),
-            },
-            state.eo_leases
-        );
-
-        state.process(Ack(test_id(1)));
-        state.process(ExactlyOnceAck(test_id(101)));
-        // At least once includes acks that are not under lease management.
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: vec![test_id(1)],
-                to_nack: Vec::new(),
-            },
-            state.leases
-        );
-        // Exactly once ignores acks that are not under lease management.
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: Vec::new(),
-                to_nack: Vec::new(),
-            },
-            state.eo_leases
-        );
-    }
-
-    #[tokio::test(start_paused = true)]
-    async fn nack_out_of_lease_ignored() {
-        let mock = MockLeaser::new();
-        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: Vec::new(),
-                to_nack: Vec::new(),
-            },
-            state.leases
-        );
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: Vec::new(),
-                to_nack: Vec::new(),
-            },
-            state.eo_leases
-        );
-
-        state.process(Nack(test_id(1)));
-        state.process(ExactlyOnceAck(test_id(101)));
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: Vec::new(),
-                to_nack: Vec::new(),
-            },
-            state.leases
-        );
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: Vec::new(),
-                to_nack: Vec::new(),
-            },
-            state.eo_leases
-        );
-    }
-
-    #[tokio::test(start_paused = true)]
     async fn lease_events_timing() {
         let start = Instant::now();
 
@@ -873,23 +787,16 @@ pub(super) mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn limit_size_of_ack_batch() {
+    async fn limit_size_of_ack_batch_at_least_once() {
         let start = Instant::now();
 
         const FLUSH_START: Duration = Duration::from_secs(1);
-        const CONFIRM_ACK_OFFSET: i32 = MAX_IDS_PER_RPC * 2;
 
         let mut mock = MockLeaser::new();
         mock.expect_ack()
             .times(1)
             .withf(|v| sorted(v) == test_ids(0..MAX_IDS_PER_RPC))
             .returning(|_| ());
-        mock.expect_confirmed_ack()
-            .times(1)
-            .withf(|v| {
-                sorted(v) == test_ids(CONFIRM_ACK_OFFSET..(CONFIRM_ACK_OFFSET + MAX_IDS_PER_RPC))
-            })
-            .returning(|_| ());
         let options = LeaseOptions {
             flush_start: FLUSH_START,
             flush_period: Duration::from_secs(100),
@@ -903,16 +810,7 @@ pub(super) mod tests {
             state.add(test_id(i), at_least_once_info());
             state.process(Ack(test_id(i)));
         }
-        // With 2500 pending acks, the batch is full. We should flush it now.
-        assert_eq!(state.next_event().await, LeaseEvent::Flush);
-        assert_eq!(start.elapsed(), Duration::ZERO);
-        state.flush().await;
-
-        // With 2500 pending confirmed acks, the batch is full. We should flush it now.
-        for i in CONFIRM_ACK_OFFSET..(CONFIRM_ACK_OFFSET + MAX_IDS_PER_RPC) {
-            state.add(test_id(i), exactly_once_info());
-            state.process(ExactlyOnceAck(test_id(i)));
-        }
+        // With MAX_IDS_PER_RPC pending acks, the batch is full. We should flush it now.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), Duration::ZERO);
         state.flush().await;
@@ -922,9 +820,41 @@ pub(super) mod tests {
             state.add(test_id(i), at_least_once_info());
             state.process(Ack(test_id(i)));
         }
-        for i in
-            (CONFIRM_ACK_OFFSET + MAX_IDS_PER_RPC)..(CONFIRM_ACK_OFFSET + (2 * MAX_IDS_PER_RPC) - 1)
-        {
+        assert_eq!(state.next_event().await, LeaseEvent::Flush);
+        assert_eq!(start.elapsed(), FLUSH_START);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn limit_size_of_ack_batch_exactly_once() {
+        let start = Instant::now();
+
+        const FLUSH_START: Duration = Duration::from_secs(1);
+
+        let mut mock = MockLeaser::new();
+        mock.expect_confirmed_ack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..MAX_IDS_PER_RPC))
+            .returning(|_| ());
+        let options = LeaseOptions {
+            flush_start: FLUSH_START,
+            flush_period: Duration::from_secs(100),
+            extend_start: Duration::from_secs(100),
+            extend_period: Duration::from_secs(100),
+            ..Default::default()
+        };
+        let mut state = LeaseState::new(Arc::new(mock), options);
+
+        // With MAX_IDS_PER_RPC pending confirmed acks, the batch is full. We should flush it now.
+        for i in 0..MAX_IDS_PER_RPC {
+            state.add(test_id(i), exactly_once_info());
+            state.process(ExactlyOnceAck(test_id(i)));
+        }
+        assert_eq!(state.next_event().await, LeaseEvent::Flush);
+        assert_eq!(start.elapsed(), Duration::ZERO);
+        state.flush().await;
+
+        // With the batch is not full. The next event should occur on the interval timer.
+        for i in MAX_IDS_PER_RPC..(2 * MAX_IDS_PER_RPC - 1) {
             state.add(test_id(i), exactly_once_info());
             state.process(ExactlyOnceAck(test_id(i)));
         }
@@ -933,20 +863,15 @@ pub(super) mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn limit_size_of_nack_batch() {
+    async fn limit_size_of_nack_batch_at_least_once() {
         let start = Instant::now();
 
         const FLUSH_START: Duration = Duration::from_secs(1);
-        const CONFIRM_ACK_OFFSET: i32 = MAX_IDS_PER_RPC * 2;
 
         let mut mock = MockLeaser::new();
         mock.expect_nack()
-            .times(2)
-            .withf(|v| {
-                sorted(v) == test_ids(0..MAX_IDS_PER_RPC)
-                    || sorted(v)
-                        == test_ids(CONFIRM_ACK_OFFSET..(CONFIRM_ACK_OFFSET + MAX_IDS_PER_RPC))
-            })
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..MAX_IDS_PER_RPC))
             .returning(|_| ());
         let options = LeaseOptions {
             flush_start: FLUSH_START,
@@ -961,16 +886,7 @@ pub(super) mod tests {
             state.add(test_id(i), at_least_once_info());
             state.process(Nack(test_id(i)));
         }
-        // With 2500 pending nacks, the batch is full. We should flush it now.
-        assert_eq!(state.next_event().await, LeaseEvent::Flush);
-        assert_eq!(start.elapsed(), Duration::ZERO);
-        state.flush().await;
-
-        for i in CONFIRM_ACK_OFFSET..(CONFIRM_ACK_OFFSET + MAX_IDS_PER_RPC) {
-            state.add(test_id(i), exactly_once_info());
-            state.process(ExactlyOnceNack(test_id(i)));
-        }
-        // With 2500 pending nacks for exactly once leases, the batch is full. We should flush it now.
+        // With MAX_IDS_PER_RPC pending nacks, the batch is full. We should flush it now.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), Duration::ZERO);
         state.flush().await;
@@ -980,9 +896,42 @@ pub(super) mod tests {
             state.add(test_id(i), at_least_once_info());
             state.process(Nack(test_id(i)));
         }
-        for i in
-            (CONFIRM_ACK_OFFSET + MAX_IDS_PER_RPC)..(CONFIRM_ACK_OFFSET + (2 * MAX_IDS_PER_RPC) - 1)
-        {
+
+        assert_eq!(state.next_event().await, LeaseEvent::Flush);
+        assert_eq!(start.elapsed(), FLUSH_START);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn limit_size_of_nack_batch_exactly_once() {
+        let start = Instant::now();
+
+        const FLUSH_START: Duration = Duration::from_secs(1);
+
+        let mut mock = MockLeaser::new();
+        mock.expect_nack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..MAX_IDS_PER_RPC))
+            .returning(|_| ());
+        let options = LeaseOptions {
+            flush_start: FLUSH_START,
+            flush_period: Duration::from_secs(100),
+            extend_start: Duration::from_secs(100),
+            extend_period: Duration::from_secs(100),
+            ..Default::default()
+        };
+        let mut state = LeaseState::new(Arc::new(mock), options);
+
+        for i in 0..MAX_IDS_PER_RPC {
+            state.add(test_id(i), exactly_once_info());
+            state.process(ExactlyOnceNack(test_id(i)));
+        }
+        // With MAX_IDS_PER_RPC pending nacks for exactly once leases, the batch is full. We should flush it now.
+        assert_eq!(state.next_event().await, LeaseEvent::Flush);
+        assert_eq!(start.elapsed(), Duration::ZERO);
+        state.flush().await;
+
+        // With the batch is not full. The next event should occur on the interval timer.
+        for i in MAX_IDS_PER_RPC..(2 * MAX_IDS_PER_RPC - 1) {
             state.add(test_id(i), exactly_once_info());
             state.process(ExactlyOnceNack(test_id(i)));
         }
@@ -991,11 +940,10 @@ pub(super) mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn ack_and_nack_batches_are_independent() {
+    async fn ack_and_nack_batches_are_independent_at_least_once() {
         let start = Instant::now();
 
         const FLUSH_START: Duration = Duration::from_secs(1);
-        const CONFIRM_ACK_OFFSET: i32 = MAX_IDS_PER_RPC * 2;
 
         let mock = MockLeaser::new();
         let options = LeaseOptions {
@@ -1015,7 +963,32 @@ pub(super) mod tests {
             state.add(test_id(over_half_full + i), at_least_once_info());
             state.process(Nack(test_id(over_half_full + i)));
         }
-        for i in CONFIRM_ACK_OFFSET..(CONFIRM_ACK_OFFSET + over_half_full) {
+
+        // While there are more than `MAX_IDS_PER_RPC` total messages under
+        // lease management, neither the ack batch nor the nack batch are full.
+        // The next event should occur on the interval timer.
+        assert_eq!(state.next_event().await, LeaseEvent::Flush);
+        assert_eq!(start.elapsed(), FLUSH_START);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn ack_and_nack_batches_are_independent_exactly_once() {
+        let start = Instant::now();
+
+        const FLUSH_START: Duration = Duration::from_secs(1);
+
+        let mock = MockLeaser::new();
+        let options = LeaseOptions {
+            flush_start: FLUSH_START,
+            flush_period: Duration::from_secs(100),
+            extend_start: Duration::from_secs(100),
+            extend_period: Duration::from_secs(100),
+            ..Default::default()
+        };
+        let mut state = LeaseState::new(Arc::new(mock), options);
+
+        let over_half_full = MAX_IDS_PER_RPC / 2 + 100;
+        for i in 0..over_half_full {
             state.add(test_id(i), exactly_once_info());
             state.process(ExactlyOnceAck(test_id(i)));
 
@@ -1023,9 +996,8 @@ pub(super) mod tests {
             state.process(ExactlyOnceNack(test_id(over_half_full + i)));
         }
 
-        // For both at least once and exactly once lease under management, there
-        // are more than MAX_IDS_PER_RPC total message. However, the ack,
-        // confirmed ack, and nack batches are not full.
+        // While there are more than `MAX_IDS_PER_RPC` total messages under
+        // lease management, neither the ack batch nor the nack batch are full.
         // The next event should occur on the interval timer.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), FLUSH_START);
