@@ -13,9 +13,11 @@
 // limitations under the License.
 
 use super::MessageStream;
+use super::ShutdownToken;
 use super::transport::Transport;
 use std::sync::Arc;
 use std::time::Duration;
+use tokio_util::sync::CancellationToken;
 
 const MIB: i64 = 1024 * 1024;
 
@@ -30,6 +32,7 @@ pub struct Subscribe {
     pub(super) ack_deadline_seconds: i32,
     pub(super) max_outstanding_messages: i64,
     pub(super) max_outstanding_bytes: i64,
+    pub(super) shutdown: CancellationToken,
 }
 
 impl Subscribe {
@@ -47,6 +50,7 @@ impl Subscribe {
             ack_deadline_seconds: 10,
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
+            shutdown: CancellationToken::new(),
         }
     }
 
@@ -161,6 +165,26 @@ impl Subscribe {
         self.max_outstanding_bytes = v.into();
         self
     }
+
+    /// Supplies a token to signal a stream shutdown.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// # use google_cloud_pubsub::subscriber::ShutdownToken;
+    /// # use std::time::Duration;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let client = Subscriber::builder().build().await?;
+    /// let token = ShutdownToken::new();
+    /// let stream = client.subscribe("projects/my-project/subscriptions/my-subscription")
+    ///     .set_shutdown_token(token)
+    ///     .build();
+    /// # Ok(()) }
+    /// ```
+    pub fn set_shutdown_token(mut self, token: ShutdownToken) -> Self {
+        self.shutdown = token.inner;
+        self
+    }
 }
 
 #[cfg(test)]
@@ -243,6 +267,21 @@ mod tests {
         )
         .set_max_lease_extension(v);
         assert_eq!(builder.ack_deadline_seconds, want);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn shutdown_token() -> anyhow::Result<()> {
+        let token = ShutdownToken::new();
+        let builder = Subscribe::new(
+            test_inner().await?,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            "client-id".to_string(),
+            2_usize,
+        )
+        .set_shutdown_token(token.clone());
+        assert!(!builder.shutdown.is_cancelled(), "{:?}", builder.shutdown);
 
         Ok(())
     }

@@ -15,6 +15,7 @@
 pub mod handler;
 
 pub use message_stream::MessageStream;
+pub use shutdown::ShutdownToken;
 
 pub(super) mod builder;
 pub(super) mod client;

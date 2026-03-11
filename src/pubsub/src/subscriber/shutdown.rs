@@ -42,7 +42,7 @@ use tokio_util::sync::CancellationToken;
 /// [`ShutdownToken::shutdown()`].
 #[derive(Clone, Debug)]
 pub struct ShutdownToken {
-    inner: CancellationToken,
+    pub(super) inner: CancellationToken,
 }
 
 impl ShutdownToken {
