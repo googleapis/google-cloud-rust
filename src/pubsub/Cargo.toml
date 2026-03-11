@@ -63,6 +63,7 @@ unstable-stream         = []
 [dev-dependencies]
 anyhow.workspace                   = true
 mockall.workspace                  = true
+parameterized.workspace            = true
 rand.workspace                     = true
 test-case.workspace                = true
 tokio-test.workspace               = true
