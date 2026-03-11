@@ -37,10 +37,12 @@ use tokio_util::sync::CancellationToken;
 /// Conceptually, this is a [`CancellationToken`]. In fact, it is implemented by
 /// one.
 ///
-/// Provide a clone of this token to [`Subscribe::set_shutdown_token`] when
-/// creating a message stream. Signal a shutdown by calling
+/// Provide a clone of this token to [`Subscribe::set_shutdown_token`][setter]
+/// when creating a message stream. Signal a shutdown by calling
 /// [`ShutdownToken::shutdown()`].
-#[derive(Clone, Debug)]
+///
+/// [setter]: crate::builder::subscriber::Subscribe::set_shutdown_token
+#[derive(Clone, Debug, Default)]
 pub struct ShutdownToken {
     pub(super) inner: CancellationToken,
 }
@@ -48,9 +50,7 @@ pub struct ShutdownToken {
 impl ShutdownToken {
     /// Create a shutdown token.
     pub fn new() -> Self {
-        Self {
-            inner: CancellationToken::new(),
-        }
+        Self::default()
     }
 
     /// Signal a shutdown of a stream.
