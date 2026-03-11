@@ -1194,7 +1194,7 @@ libraries:
     rust:
       package_name_override: google-cloud-profiler-v2
   - name: google-cloud-pubsub
-    version: 0.32.4-preview
+    version: 0.33.0
     copyright_year: "2025"
     output: src/pubsub
     rust:
