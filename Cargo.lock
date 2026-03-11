@@ -4204,7 +4204,6 @@ dependencies = [
  "http",
  "lazy_static",
  "mockall",
- "parameterized",
  "prost",
  "prost-types",
  "pubsub-grpc-mock",
@@ -6724,28 +6723,6 @@ dependencies = [
  "elliptic-curve",
  "primeorder",
  "sha2",
-]
-
-[[package]]
-name = "parameterized"
-version = "2.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "502433373749b48ce909bc70124593d055347640417cf88518bac794171bcef8"
-dependencies = [
- "parameterized-macro",
-]
-
-[[package]]
-name = "parameterized-macro"
-version = "3.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6510c182b2c8ab147c6ee557784009379f07dc1c388f2731603730a727c9b665"
-dependencies = [
- "fnv",
- "indexmap 2.11.4",
- "proc-macro2",
- "quote",
- "syn 2.0.117",
 ]
 
 [[package]]

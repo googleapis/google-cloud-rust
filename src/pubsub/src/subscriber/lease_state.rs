@@ -248,10 +248,10 @@ pub(super) mod tests {
     use super::super::leaser::tests::MockLeaser;
     use super::Action::{Ack, ExactlyOnceAck, ExactlyOnceNack, Nack};
     use super::*;
-    use parameterized::parameterized;
     use std::collections::HashMap;
     use std::collections::HashSet;
     use std::sync::Arc;
+    use test_case::test_case;
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::sync::oneshot::channel;
     use tokio::time::interval;
@@ -1004,11 +1004,9 @@ pub(super) mod tests {
         assert_eq!(start.elapsed(), FLUSH_START);
     }
 
-    #[parameterized(lease_info_factory = {
-        super::at_least_once_info,
-        super::exactly_once_info,
-    })]
-    #[parameterized_macro(tokio::test(start_paused = true))]
+    #[test_case(super::at_least_once_info)]
+    #[test_case(super::exactly_once_info)]
+    #[tokio::test(start_paused = true)]
     async fn limit_size_of_extends(lease_info_factory: fn() -> LeaseInfo) -> anyhow::Result<()> {
         const NUM_BATCHES: i32 = 5;
 
@@ -1054,11 +1052,9 @@ pub(super) mod tests {
         Ok(())
     }
 
-    #[parameterized(lease_info_factory = {
-        super::at_least_once_info,
-        super::exactly_once_info,
-    })]
-    #[parameterized_macro(tokio::test(start_paused = true))]
+    #[test_case(super::at_least_once_info)]
+    #[test_case(super::exactly_once_info)]
+    #[tokio::test(start_paused = true)]
     async fn message_expiration(lease_info_factory: fn() -> LeaseInfo) -> anyhow::Result<()> {
         const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(300);
         const DELTA: Duration = Duration::from_secs(1);
