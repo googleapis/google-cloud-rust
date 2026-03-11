@@ -139,16 +139,6 @@ where
         }
     }
 
-    // TODO(#3964) - delete, in favor of process.
-    pub(super) fn ack(&mut self, ack_id: String) {
-        self.process(Action::Ack(ack_id));
-    }
-
-    // TODO(#3964) - delete, in favor of process.
-    pub(super) fn nack(&mut self, ack_id: String) {
-        self.process(Action::Nack(ack_id));
-    }
-
     /// Process an action from the application.
     pub(super) fn process(&mut self, action: Action) {
         match action {
@@ -206,6 +196,7 @@ where
 #[cfg(test)]
 pub(super) mod tests {
     use super::super::leaser::tests::MockLeaser;
+    use super::Action::{Ack, Nack};
     use super::*;
     use std::collections::HashSet;
     use std::sync::Arc;
@@ -292,7 +283,7 @@ pub(super) mod tests {
             state.leases
         );
 
-        state.ack(test_id(1));
+        state.process(Ack(test_id(1)));
         assert_eq!(
             TestLeases {
                 under_lease: vec![test_id(2), test_id(3)],
@@ -302,7 +293,7 @@ pub(super) mod tests {
             state.leases
         );
 
-        state.nack(test_id(2));
+        state.process(Nack(test_id(2)));
         assert_eq!(
             TestLeases {
                 under_lease: vec![test_id(3)],
@@ -322,7 +313,7 @@ pub(super) mod tests {
             state.leases
         );
 
-        state.ack(test_id(4));
+        state.process(Ack(test_id(4)));
         assert_eq!(
             TestLeases {
                 under_lease: vec![test_id(3)],
@@ -332,7 +323,7 @@ pub(super) mod tests {
             state.leases
         );
 
-        state.nack(test_id(3));
+        state.process(Nack(test_id(3)));
         assert_eq!(
             TestLeases {
                 under_lease: Vec::new(),
@@ -371,10 +362,10 @@ pub(super) mod tests {
             state.add(test_id(i), test_info());
         }
         for i in 0..10 {
-            state.ack(test_id(i));
+            state.process(Ack(test_id(i)));
         }
         for i in 10..20 {
-            state.nack(test_id(i));
+            state.process(Nack(test_id(i)));
         }
         assert_eq!(
             TestLeases {
@@ -437,13 +428,13 @@ pub(super) mod tests {
 
         // Ack the first 5 messages. We should not extend these leases.
         for i in 0..5 {
-            state.ack(test_id(i));
+            state.process(Ack(test_id(i)));
         }
         state.extend().await;
 
         // Nack the next 5 messages. We should not extend these leases.
         for i in 5..10 {
-            state.nack(test_id(i));
+            state.process(Nack(test_id(i)));
         }
         state.extend().await;
     }
@@ -465,10 +456,10 @@ pub(super) mod tests {
             state.add(test_id(i), test_info());
         }
         for i in 0..10 {
-            state.ack(test_id(i));
+            state.process(Ack(test_id(i)));
         }
         for i in 10..20 {
-            state.nack(test_id(i));
+            state.process(Nack(test_id(i)));
         }
         state.shutdown().await;
     }
@@ -486,7 +477,7 @@ pub(super) mod tests {
             state.leases
         );
 
-        state.ack(test_id(1));
+        state.process(Ack(test_id(1)));
         assert_eq!(
             TestLeases {
                 under_lease: Vec::new(),
@@ -510,7 +501,7 @@ pub(super) mod tests {
             state.leases
         );
 
-        state.nack(test_id(1));
+        state.process(Nack(test_id(1)));
         assert_eq!(
             TestLeases {
                 under_lease: Vec::new(),
@@ -584,7 +575,7 @@ pub(super) mod tests {
 
         for i in 0..MAX_IDS_PER_RPC {
             state.add(test_id(i), test_info());
-            state.ack(test_id(i));
+            state.process(Ack(test_id(i)));
         }
         // With 2500 pending acks, the batch is full. We should flush it now.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
@@ -595,7 +586,7 @@ pub(super) mod tests {
         // occur on the interval timer.
         for i in MAX_IDS_PER_RPC..MAX_IDS_PER_RPC + 1000 {
             state.add(test_id(i), test_info());
-            state.ack(test_id(i));
+            state.process(Ack(test_id(i)));
         }
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), FLUSH_START);
@@ -623,7 +614,7 @@ pub(super) mod tests {
 
         for i in 0..MAX_IDS_PER_RPC {
             state.add(test_id(i), test_info());
-            state.nack(test_id(i));
+            state.process(Nack(test_id(i)));
         }
         // With 2500 pending nacks, the batch is full. We should flush it now.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
@@ -634,7 +625,7 @@ pub(super) mod tests {
         // occur on the interval timer.
         for i in MAX_IDS_PER_RPC..MAX_IDS_PER_RPC + 1000 {
             state.add(test_id(i), test_info());
-            state.nack(test_id(i));
+            state.process(Nack(test_id(i)));
         }
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), FLUSH_START);
@@ -659,10 +650,10 @@ pub(super) mod tests {
         let over_half_full = MAX_IDS_PER_RPC / 2 + 100;
         for i in 0..over_half_full {
             state.add(test_id(i), test_info());
-            state.ack(test_id(i));
+            state.process(Ack(test_id(i)));
 
             state.add(test_id(over_half_full + i), test_info());
-            state.nack(test_id(over_half_full + i));
+            state.process(Nack(test_id(over_half_full + i)));
         }
 
         // While there are more than `MAX_IDS_PER_RPC` total messages under
