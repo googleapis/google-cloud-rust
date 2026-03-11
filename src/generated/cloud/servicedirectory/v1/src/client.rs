@@ -50,14 +50,14 @@
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::lookup_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::lookup_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::lookup_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `LookupService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `LookupService` in
+/// create one and reuse it. You do not need to wrap `LookupService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -246,14 +246,14 @@ impl LookupService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::registration_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::registration_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::registration_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `RegistrationService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `RegistrationService` in
+/// create one and reuse it. You do not need to wrap `RegistrationService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]

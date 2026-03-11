@@ -872,7 +872,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -881,9 +881,10 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -893,9 +894,10 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -910,9 +912,10 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -922,9 +925,10 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -977,14 +981,14 @@ impl super::stub::Compliance for Compliance {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -1008,7 +1012,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1017,6 +1021,7 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1031,7 +1036,7 @@ impl super::stub::Compliance for Compliance {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1041,6 +1046,7 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1055,7 +1061,7 @@ impl super::stub::Compliance for Compliance {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1070,6 +1076,7 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1084,7 +1091,7 @@ impl super::stub::Compliance for Compliance {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1094,6 +1101,7 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1108,7 +1116,7 @@ impl super::stub::Compliance for Compliance {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1161,14 +1169,14 @@ impl super::stub::Compliance for Compliance {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -1192,7 +1200,7 @@ impl super::stub::Compliance for Compliance {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1201,9 +1209,10 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1213,9 +1222,10 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1230,9 +1240,10 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1242,9 +1253,10 @@ impl super::stub::Compliance for Compliance {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1297,14 +1309,14 @@ impl super::stub::Compliance for Compliance {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -2079,7 +2091,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2088,9 +2100,10 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2100,9 +2113,10 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2117,9 +2131,10 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2129,9 +2144,10 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2184,14 +2200,14 @@ impl super::stub::Echo for Echo {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -2215,7 +2231,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2224,6 +2240,7 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2238,7 +2255,7 @@ impl super::stub::Echo for Echo {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2248,6 +2265,7 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2262,7 +2280,7 @@ impl super::stub::Echo for Echo {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2277,6 +2295,7 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2291,7 +2310,7 @@ impl super::stub::Echo for Echo {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2301,6 +2320,7 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2315,7 +2335,7 @@ impl super::stub::Echo for Echo {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2368,14 +2388,14 @@ impl super::stub::Echo for Echo {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -2399,7 +2419,7 @@ impl super::stub::Echo for Echo {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2408,9 +2428,10 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2420,9 +2441,10 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2437,9 +2459,10 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2449,9 +2472,10 @@ impl super::stub::Echo for Echo {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2504,14 +2528,14 @@ impl super::stub::Echo for Echo {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -2862,7 +2886,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2871,9 +2895,10 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2891,14 +2916,14 @@ impl super::stub::Identity for Identity {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -2994,7 +3019,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3003,9 +3028,10 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3023,14 +3049,14 @@ impl super::stub::Identity for Identity {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -3225,7 +3251,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -3234,9 +3260,10 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3246,9 +3273,10 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3263,9 +3291,10 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3275,9 +3304,10 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3330,14 +3360,14 @@ impl super::stub::Identity for Identity {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -3361,7 +3391,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -3370,6 +3400,7 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3384,7 +3415,7 @@ impl super::stub::Identity for Identity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3394,6 +3425,7 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3408,7 +3440,7 @@ impl super::stub::Identity for Identity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3423,6 +3455,7 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3437,7 +3470,7 @@ impl super::stub::Identity for Identity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3447,6 +3480,7 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3461,7 +3495,7 @@ impl super::stub::Identity for Identity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3514,14 +3548,14 @@ impl super::stub::Identity for Identity {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -3545,7 +3579,7 @@ impl super::stub::Identity for Identity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -3554,9 +3588,10 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3566,9 +3601,10 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3583,9 +3619,10 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3595,9 +3632,10 @@ impl super::stub::Identity for Identity {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3650,14 +3688,14 @@ impl super::stub::Identity for Identity {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -3994,7 +4032,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4003,9 +4041,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4023,14 +4062,14 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4126,7 +4165,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4135,9 +4174,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4155,14 +4195,14 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4236,7 +4276,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4245,9 +4285,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
+                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4261,9 +4302,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
+                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4295,15 +4337,14 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.parent))
-                .or(req.blurb.as_ref().map(|s| &s.user))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4327,7 +4368,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4341,9 +4382,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4358,9 +4400,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4398,14 +4441,14 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4536,13 +4579,7 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(req.blurb.as_ref().map(|s| &s.user))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4567,7 +4604,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4581,9 +4618,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4598,9 +4636,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4638,14 +4677,14 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4675,7 +4714,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4684,11 +4723,12 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
+                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4702,11 +4742,12 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
+                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4738,14 +4779,14 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.parent))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4769,7 +4810,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4778,9 +4819,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs:search", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs:search";
 
+                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4794,12 +4836,13 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs:search", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs:search";
 
+                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4831,14 +4874,14 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.parent))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4983,7 +5026,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4992,9 +5035,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5004,9 +5048,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5021,9 +5066,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5033,9 +5079,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5088,14 +5135,14 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -5119,7 +5166,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -5128,6 +5175,7 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5142,7 +5190,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5152,6 +5200,7 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5166,7 +5215,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5181,6 +5230,7 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5195,7 +5245,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5205,6 +5255,7 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5219,7 +5270,7 @@ impl super::stub::Messaging for Messaging {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5272,14 +5323,14 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -5303,7 +5354,7 @@ impl super::stub::Messaging for Messaging {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -5312,9 +5363,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5324,9 +5376,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5341,9 +5394,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5353,9 +5407,10 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5408,14 +5463,14 @@ impl super::stub::Messaging for Messaging {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -5808,7 +5863,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5821,9 +5876,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5845,14 +5901,14 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -5876,7 +5932,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5889,9 +5945,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5913,14 +5970,14 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -5944,7 +6001,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5953,9 +6010,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5973,14 +6031,14 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -6131,7 +6189,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -6140,9 +6198,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6152,9 +6211,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6169,9 +6229,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6181,9 +6242,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6236,14 +6298,14 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -6267,7 +6329,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -6276,6 +6338,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -6290,7 +6353,7 @@ impl super::stub::SequenceService for SequenceService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6300,6 +6363,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -6314,7 +6378,7 @@ impl super::stub::SequenceService for SequenceService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6329,6 +6393,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -6343,7 +6408,7 @@ impl super::stub::SequenceService for SequenceService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6353,6 +6418,7 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -6367,7 +6433,7 @@ impl super::stub::SequenceService for SequenceService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6420,14 +6486,14 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -6451,7 +6517,7 @@ impl super::stub::SequenceService for SequenceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -6460,9 +6526,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6472,9 +6539,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6489,9 +6557,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6501,9 +6570,10 @@ impl super::stub::SequenceService for SequenceService {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6556,14 +6626,14 @@ impl super::stub::SequenceService for SequenceService {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -6900,7 +6970,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6909,9 +6979,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6929,14 +7000,14 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7004,7 +7075,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7013,9 +7084,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7033,14 +7105,14 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7070,7 +7142,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7079,9 +7151,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:report", var_name,);
                 let path_template = "/v1beta1/{name}:report";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7099,14 +7172,14 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7130,7 +7203,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7139,11 +7212,12 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}/tests", var_parent,);
                 let path_template = "/v1beta1/{parent}/tests";
 
+                let resource_name = format!("//localhost:7469/{}/tests", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7161,14 +7235,14 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.parent))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7192,7 +7266,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7206,9 +7280,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7231,14 +7306,14 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7268,7 +7343,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7282,6 +7357,7 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:check", var_name,);
                 let path_template = "/v1beta1/{name}:check";
 
+                let resource_name = format!("//localhost:7469/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("answer", &req.answer)]);
                 let builder = req
@@ -7289,7 +7365,7 @@ impl super::stub::Testing for Testing {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("answers", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7312,14 +7388,14 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.name))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7464,7 +7540,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7473,9 +7549,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7485,9 +7562,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7502,9 +7580,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7514,9 +7593,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7569,14 +7649,14 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7600,7 +7680,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7609,6 +7689,7 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7623,7 +7704,7 @@ impl super::stub::Testing for Testing {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7633,6 +7714,7 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7647,7 +7729,7 @@ impl super::stub::Testing for Testing {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7662,6 +7744,7 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7676,7 +7759,7 @@ impl super::stub::Testing for Testing {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7686,6 +7769,7 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7700,7 +7784,7 @@ impl super::stub::Testing for Testing {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7753,14 +7837,14 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7784,7 +7868,7 @@ impl super::stub::Testing for Testing {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7793,9 +7877,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7805,9 +7890,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7822,9 +7908,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7834,9 +7921,10 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//localhost:7469/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7889,14 +7977,14 @@ impl super::stub::Testing for Testing {
             })??;
         #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            use google_cloud_gax::options::internal::ResourceName;
             use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            let options = Option::<&String>::None
-                .or(Some(&req.resource))
-                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
-                .into_iter()
-                .fold(options, |options, v| options.insert_extension(v));
             options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,

@@ -50,14 +50,14 @@
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::applications::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::applications::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::applications::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `Applications` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Applications` in
+/// create one and reuse it. You do not need to wrap `Applications` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -339,14 +339,14 @@ impl Applications {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::services::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::services::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::services::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `Services` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Services` in
+/// create one and reuse it. You do not need to wrap `Services` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -599,14 +599,14 @@ impl Services {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::versions::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::versions::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::versions::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `Versions` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Versions` in
+/// create one and reuse it. You do not need to wrap `Versions` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -928,14 +928,14 @@ impl Versions {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::instances::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::instances::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::instances::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `Instances` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Instances` in
+/// create one and reuse it. You do not need to wrap `Instances` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -1218,14 +1218,14 @@ impl Instances {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::firewall::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::firewall::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::firewall::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `Firewall` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Firewall` in
+/// create one and reuse it. You do not need to wrap `Firewall` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -1502,14 +1502,14 @@ impl Firewall {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::authorized_domains::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::authorized_domains::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::authorized_domains::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `AuthorizedDomains` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `AuthorizedDomains` in
+/// create one and reuse it. You do not need to wrap `AuthorizedDomains` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -1685,14 +1685,14 @@ impl AuthorizedDomains {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::authorized_certificates::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::authorized_certificates::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::authorized_certificates::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `AuthorizedCertificates` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `AuthorizedCertificates` in
+/// create one and reuse it. You do not need to wrap `AuthorizedCertificates` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -1964,14 +1964,14 @@ impl AuthorizedCertificates {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::domain_mappings::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::domain_mappings::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::domain_mappings::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `DomainMappings` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `DomainMappings` in
+/// create one and reuse it. You do not need to wrap `DomainMappings` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]

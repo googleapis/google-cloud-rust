@@ -56,14 +56,14 @@
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::folders::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::folders::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::folders::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `Folders` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Folders` in
+/// create one and reuse it. You do not need to wrap `Folders` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -587,14 +587,14 @@ impl Folders {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::organizations::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::organizations::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::organizations::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `Organizations` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Organizations` in
+/// create one and reuse it. You do not need to wrap `Organizations` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -842,14 +842,14 @@ impl Organizations {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::projects::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::projects::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::projects::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `Projects` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Projects` in
+/// create one and reuse it. You do not need to wrap `Projects` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -1392,14 +1392,14 @@ impl Projects {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::tag_bindings::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::tag_bindings::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::tag_bindings::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `TagBindings` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `TagBindings` in
+/// create one and reuse it. You do not need to wrap `TagBindings` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -1640,14 +1640,14 @@ impl TagBindings {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::tag_holds::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::tag_holds::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::tag_holds::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `TagHolds` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `TagHolds` in
+/// create one and reuse it. You do not need to wrap `TagHolds` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -1861,14 +1861,14 @@ impl TagHolds {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::tag_keys::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::tag_keys::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::tag_keys::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `TagKeys` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `TagKeys` in
+/// create one and reuse it. You do not need to wrap `TagKeys` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -2235,14 +2235,14 @@ impl TagKeys {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::tag_values::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::tag_values::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::tag_values::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `TagValues` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `TagValues` in
+/// create one and reuse it. You do not need to wrap `TagValues` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
