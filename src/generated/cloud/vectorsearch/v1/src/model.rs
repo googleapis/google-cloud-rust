@@ -679,9 +679,6 @@ pub mod search_hint {
         /// `projects/{project}/locations/{location}/collections/{collection}/indexes/{index}`
         pub name: std::string::String,
 
-        /// The parameters for the index.
-        pub params: std::option::Option<crate::model::search_hint::index_hint::Params>,
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -701,144 +698,11 @@ pub mod search_hint {
             self.name = v.into();
             self
         }
-
-        /// Sets the value of [params][crate::model::search_hint::IndexHint::params].
-        ///
-        /// Note that all the setters affecting `params` are mutually
-        /// exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_vectorsearch_v1::model::search_hint::IndexHint;
-        /// use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
-        /// let x = IndexHint::new().set_params(Some(
-        ///     google_cloud_vectorsearch_v1::model::search_hint::index_hint::Params::DenseScannParams(DenseScannParams::default().into())));
-        /// ```
-        pub fn set_params<
-            T: std::convert::Into<std::option::Option<crate::model::search_hint::index_hint::Params>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.params = v.into();
-            self
-        }
-
-        /// The value of [params][crate::model::search_hint::IndexHint::params]
-        /// if it holds a `DenseScannParams`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn dense_scann_params(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::search_hint::index_hint::DenseScannParams>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.params.as_ref().and_then(|v| match v {
-                crate::model::search_hint::index_hint::Params::DenseScannParams(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// Sets the value of [params][crate::model::search_hint::IndexHint::params]
-        /// to hold a `DenseScannParams`.
-        ///
-        /// Note that all the setters affecting `params` are
-        /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_vectorsearch_v1::model::search_hint::IndexHint;
-        /// use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
-        /// let x = IndexHint::new().set_dense_scann_params(DenseScannParams::default()/* use setters */);
-        /// assert!(x.dense_scann_params().is_some());
-        /// ```
-        pub fn set_dense_scann_params<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::search_hint::index_hint::DenseScannParams>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.params = std::option::Option::Some(
-                crate::model::search_hint::index_hint::Params::DenseScannParams(v.into()),
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for IndexHint {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.vectorsearch.v1.SearchHint.IndexHint"
-        }
-    }
-
-    /// Defines additional types related to [IndexHint].
-    pub mod index_hint {
-        #[allow(unused_imports)]
-        use super::*;
-
-        /// Parameters for dense ScaNN.
-        #[derive(Clone, Default, PartialEq)]
-        #[non_exhaustive]
-        pub struct DenseScannParams {
-            /// Optional. Dense ANN param overrides to control recall and latency.
-            /// The percentage of leaves to search, in the range [0, 100].
-            pub search_leaves_pct: i32,
-
-            /// Optional. The number of initial candidates. Must be a positive integer
-            /// (> 0).
-            pub initial_candidate_count: i32,
-
-            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-        }
-
-        impl DenseScannParams {
-            pub fn new() -> Self {
-                std::default::Default::default()
-            }
-
-            /// Sets the value of [search_leaves_pct][crate::model::search_hint::index_hint::DenseScannParams::search_leaves_pct].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
-            /// let x = DenseScannParams::new().set_search_leaves_pct(42);
-            /// ```
-            pub fn set_search_leaves_pct<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                self.search_leaves_pct = v.into();
-                self
-            }
-
-            /// Sets the value of [initial_candidate_count][crate::model::search_hint::index_hint::DenseScannParams::initial_candidate_count].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
-            /// let x = DenseScannParams::new().set_initial_candidate_count(42);
-            /// ```
-            pub fn set_initial_candidate_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                self.initial_candidate_count = v.into();
-                self
-            }
-        }
-
-        impl wkt::message::Message for DenseScannParams {
-            fn typename() -> &'static str {
-                "type.googleapis.com/google.cloud.vectorsearch.v1.SearchHint.IndexHint.DenseScannParams"
-            }
-        }
-
-        /// The parameters for the index.
-        #[derive(Clone, Debug, PartialEq)]
-        #[non_exhaustive]
-        pub enum Params {
-            /// Optional. Dense ScaNN parameters.
-            DenseScannParams(
-                std::boxed::Box<crate::model::search_hint::index_hint::DenseScannParams>,
-            ),
         }
     }
 
@@ -5933,12 +5797,15 @@ pub mod dedicated_infrastructure {
     #[non_exhaustive]
     pub struct AutoscalingSpec {
         /// Optional. The minimum number of replicas. If not set or set to `0`,
-        /// defaults to `2`. Must be >= `2` and <= `1000`.
+        /// defaults to `2`. Must be >= `1` and <= `1000`.
         pub min_replica_count: i32,
 
-        /// Optional. The maximum number of replicas. If not set or set to `0`,
-        /// defaults to the greater of `min_replica_count` and `5`. Must be >=
+        /// Optional. The maximum number of replicas.  Must be >=
         /// `min_replica_count` and <= `1000`.
+        /// For the v1beta version, if not set or set to `0`, defaults to
+        /// the greater of `min_replica_count` and `5`.
+        /// For all other versions, if not set or set to `0`, defaults to
+        /// the greater of `min_replica_count` and `2`.
         pub max_replica_count: i32,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

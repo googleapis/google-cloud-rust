@@ -2546,6 +2546,12 @@ impl serde::ser::Serialize for super::process_options::LayoutConfig {
         if !wkt::internal::is_default(&self.return_bounding_boxes) {
             state.serialize_entry("returnBoundingBoxes", &self.return_bounding_boxes)?;
         }
+        if !wkt::internal::is_default(&self.enable_image_annotation) {
+            state.serialize_entry("enableImageAnnotation", &self.enable_image_annotation)?;
+        }
+        if !wkt::internal::is_default(&self.enable_table_annotation) {
+            state.serialize_entry("enableTableAnnotation", &self.enable_table_annotation)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -4119,6 +4119,10 @@ pub struct Subscription {
     /// subscription, this field is used to configure it.
     pub cloud_storage_config: std::option::Option<crate::model::CloudStorageConfig>,
 
+    /// Optional. If delivery to Bigtable is used with this subscription, this
+    /// field is used to configure it.
+    pub bigtable_config: std::option::Option<crate::model::BigtableConfig>,
+
     /// Optional. The approximate amount of time (on a best-effort basis) Pub/Sub
     /// waits for the subscriber to acknowledge receipt before resending the
     /// message. In the interval after the message is delivered and before it is
@@ -4379,6 +4383,39 @@ impl Subscription {
         T: std::convert::Into<crate::model::CloudStorageConfig>,
     {
         self.cloud_storage_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [bigtable_config][crate::model::Subscription::bigtable_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::BigtableConfig;
+    /// let x = Subscription::new().set_bigtable_config(BigtableConfig::default()/* use setters */);
+    /// ```
+    pub fn set_bigtable_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BigtableConfig>,
+    {
+        self.bigtable_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [bigtable_config][crate::model::Subscription::bigtable_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::BigtableConfig;
+    /// let x = Subscription::new().set_or_clear_bigtable_config(Some(BigtableConfig::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_bigtable_config(None::<BigtableConfig>);
+    /// ```
+    pub fn set_or_clear_bigtable_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BigtableConfig>,
+    {
+        self.bigtable_config = v.map(|x| x.into());
         self
     }
 
@@ -5914,6 +5951,323 @@ pub mod big_query_config {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.pubsub.v1.BigQueryConfig.State",
+            ))
+        }
+    }
+}
+
+/// Configuration for a Bigtable subscription. The Pub/Sub message will be
+/// written to a Bigtable row as follows:
+///
+/// - row key: subscription name and message ID delimited by #.
+/// - columns: message bytes written to a single column family "data" with an
+///   empty-string column qualifier.
+/// - cell timestamp: the message publish timestamp.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BigtableConfig {
+    /// Optional. The unique name of the table to write messages to.
+    ///
+    /// Values are of the form
+    /// `projects/<project>/instances/<instance>/tables/<table>`.
+    pub table: std::string::String,
+
+    /// Optional. The app profile to use for the Bigtable writes. If not specified,
+    /// the "default" application profile will be used. The app profile must use
+    /// single-cluster routing.
+    pub app_profile_id: std::string::String,
+
+    /// Optional. The service account to use to write to Bigtable. The subscription
+    /// creator or updater that specifies this field must have
+    /// `iam.serviceAccounts.actAs` permission on the service account. If not
+    /// specified, the Pub/Sub [service
+    /// agent](https://cloud.google.com/iam/docs/service-agents),
+    /// service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com, is used.
+    pub service_account_email: std::string::String,
+
+    /// Optional. When true, write the subscription name, message_id, publish_time,
+    /// attributes, and ordering_key to additional columns in the table under the
+    /// pubsub_metadata column family. The subscription name, message_id, and
+    /// publish_time fields are put in their own columns while all other message
+    /// properties (other than data) are written to a JSON object in the attributes
+    /// column.
+    pub write_metadata: bool,
+
+    /// Output only. An output-only field that indicates whether or not the
+    /// subscription can receive messages.
+    pub state: crate::model::bigtable_config::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BigtableConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [table][crate::model::BigtableConfig::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigtableConfig;
+    /// let x = BigtableConfig::new().set_table("example");
+    /// ```
+    pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.table = v.into();
+        self
+    }
+
+    /// Sets the value of [app_profile_id][crate::model::BigtableConfig::app_profile_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigtableConfig;
+    /// let x = BigtableConfig::new().set_app_profile_id("example");
+    /// ```
+    pub fn set_app_profile_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.app_profile_id = v.into();
+        self
+    }
+
+    /// Sets the value of [service_account_email][crate::model::BigtableConfig::service_account_email].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigtableConfig;
+    /// let x = BigtableConfig::new().set_service_account_email("example");
+    /// ```
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_account_email = v.into();
+        self
+    }
+
+    /// Sets the value of [write_metadata][crate::model::BigtableConfig::write_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigtableConfig;
+    /// let x = BigtableConfig::new().set_write_metadata(true);
+    /// ```
+    pub fn set_write_metadata<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.write_metadata = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::BigtableConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigtableConfig;
+    /// use google_cloud_pubsub::model::bigtable_config::State;
+    /// let x0 = BigtableConfig::new().set_state(State::Active);
+    /// let x1 = BigtableConfig::new().set_state(State::NotFound);
+    /// let x2 = BigtableConfig::new().set_state(State::AppProfileMisconfigured);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::bigtable_config::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BigtableConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.BigtableConfig"
+    }
+}
+
+/// Defines additional types related to [BigtableConfig].
+pub mod bigtable_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Possible states for a Bigtable subscription.
+    /// Note: more states could be added in the future. Please code accordingly.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// The subscription can actively send messages to Bigtable.
+        Active,
+        /// Cannot write to Bigtable because the instance, table, or app profile
+        /// does not exist.
+        NotFound,
+        /// Cannot write to Bigtable because the app profile is not configured for
+        /// single-cluster routing.
+        AppProfileMisconfigured,
+        /// Cannot write to Bigtable because of permission denied errors.
+        /// This can happen if:
+        ///
+        /// - The Pub/Sub service agent has not been granted the
+        ///   [appropriate Bigtable IAM permission
+        ///   bigtable.tables.mutateRows]({$universe.dns_names.final_documentation_domain}/bigtable/docs/access-control#permissions)
+        /// - The bigtable.googleapis.com API is not enabled for the project
+        ///   ([instructions]({$universe.dns_names.final_documentation_domain}/service-usage/docs/enable-disable))
+        PermissionDenied,
+        /// Cannot write to Bigtable because of a missing column family ("data") or
+        /// if there is no structured row key for the subscription name + message ID.
+        SchemaMismatch,
+        /// Cannot write to the destination because enforce_in_transit is set to true
+        /// and the destination locations are not in the allowed regions.
+        InTransitLocationRestriction,
+        /// Cannot write to Bigtable because the table is not in the same location as
+        /// where Vertex AI models used in `message_transform`s are deployed.
+        VertexAiLocationRestriction,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::NotFound => std::option::Option::Some(2),
+                Self::AppProfileMisconfigured => std::option::Option::Some(3),
+                Self::PermissionDenied => std::option::Option::Some(4),
+                Self::SchemaMismatch => std::option::Option::Some(5),
+                Self::InTransitLocationRestriction => std::option::Option::Some(6),
+                Self::VertexAiLocationRestriction => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::NotFound => std::option::Option::Some("NOT_FOUND"),
+                Self::AppProfileMisconfigured => {
+                    std::option::Option::Some("APP_PROFILE_MISCONFIGURED")
+                }
+                Self::PermissionDenied => std::option::Option::Some("PERMISSION_DENIED"),
+                Self::SchemaMismatch => std::option::Option::Some("SCHEMA_MISMATCH"),
+                Self::InTransitLocationRestriction => {
+                    std::option::Option::Some("IN_TRANSIT_LOCATION_RESTRICTION")
+                }
+                Self::VertexAiLocationRestriction => {
+                    std::option::Option::Some("VERTEX_AI_LOCATION_RESTRICTION")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::NotFound,
+                3 => Self::AppProfileMisconfigured,
+                4 => Self::PermissionDenied,
+                5 => Self::SchemaMismatch,
+                6 => Self::InTransitLocationRestriction,
+                7 => Self::VertexAiLocationRestriction,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "NOT_FOUND" => Self::NotFound,
+                "APP_PROFILE_MISCONFIGURED" => Self::AppProfileMisconfigured,
+                "PERMISSION_DENIED" => Self::PermissionDenied,
+                "SCHEMA_MISMATCH" => Self::SchemaMismatch,
+                "IN_TRANSIT_LOCATION_RESTRICTION" => Self::InTransitLocationRestriction,
+                "VERTEX_AI_LOCATION_RESTRICTION" => Self::VertexAiLocationRestriction,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::NotFound => serializer.serialize_i32(2),
+                Self::AppProfileMisconfigured => serializer.serialize_i32(3),
+                Self::PermissionDenied => serializer.serialize_i32(4),
+                Self::SchemaMismatch => serializer.serialize_i32(5),
+                Self::InTransitLocationRestriction => serializer.serialize_i32(6),
+                Self::VertexAiLocationRestriction => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.pubsub.v1.BigtableConfig.State",
             ))
         }
     }

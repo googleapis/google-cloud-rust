@@ -2854,6 +2854,9 @@ pub struct Cluster {
     /// ```
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. Configuration for Dataplex integration.
+    pub dataplex_config: std::option::Option<crate::model::cluster::DataplexConfig>,
+
     /// In case of an imported cluster, this field contains information about the
     /// source this cluster was imported from.
     pub source: std::option::Option<crate::model::cluster::Source>,
@@ -3644,6 +3647,39 @@ impl Cluster {
         self
     }
 
+    /// Sets the value of [dataplex_config][crate::model::Cluster::dataplex_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_v1::model::Cluster;
+    /// use google_cloud_alloydb_v1::model::cluster::DataplexConfig;
+    /// let x = Cluster::new().set_dataplex_config(DataplexConfig::default()/* use setters */);
+    /// ```
+    pub fn set_dataplex_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::DataplexConfig>,
+    {
+        self.dataplex_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dataplex_config][crate::model::Cluster::dataplex_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_v1::model::Cluster;
+    /// use google_cloud_alloydb_v1::model::cluster::DataplexConfig;
+    /// let x = Cluster::new().set_or_clear_dataplex_config(Some(DataplexConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_dataplex_config(None::<DataplexConfig>);
+    /// ```
+    pub fn set_or_clear_dataplex_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cluster::DataplexConfig>,
+    {
+        self.dataplex_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [source][crate::model::Cluster::source].
     ///
     /// Note that all the setters affecting `source` are mutually
@@ -4153,6 +4189,42 @@ pub mod cluster {
     impl wkt::message::Message for TrialMetadata {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.alloydb.v1.Cluster.TrialMetadata"
+        }
+    }
+
+    /// Configuration for Dataplex integration.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DataplexConfig {
+        /// Dataplex is enabled by default for resources such as clusters and
+        /// instances. This flag controls the integration of AlloyDB PG
+        /// resources (like databases, schemas, and tables) with Dataplex."
+        pub enabled: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DataplexConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::cluster::DataplexConfig::enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_alloydb_v1::model::cluster::DataplexConfig;
+        /// let x = DataplexConfig::new().set_enabled(true);
+        /// ```
+        pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enabled = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DataplexConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.Cluster.DataplexConfig"
         }
     }
 

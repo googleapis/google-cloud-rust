@@ -10270,6 +10270,166 @@ impl RegionCommitments {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::RegionCompositeHealthChecks;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = RegionCompositeHealthChecks::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionCompositeHealthChecks` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionCompositeHealthChecks` use the `with_*` methods in the type returned
+/// by [builder()][RegionCompositeHealthChecks::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_composite_health_checks::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_composite_health_checks::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionCompositeHealthChecks` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `RegionCompositeHealthChecks` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-composite-health-checks")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-composite-health-checks")))]
+#[derive(Clone, Debug)]
+pub struct RegionCompositeHealthChecks {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionCompositeHealthChecks>,
+}
+
+#[cfg(feature = "region-composite-health-checks")]
+impl RegionCompositeHealthChecks {
+    /// Returns a builder for [RegionCompositeHealthChecks].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::RegionCompositeHealthChecks;
+    /// let client = RegionCompositeHealthChecks::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::region_composite_health_checks::ClientBuilder {
+        crate::new_client_builder(super::builder::region_composite_health_checks::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionCompositeHealthChecks + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::RegionCompositeHealthChecks>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionCompositeHealthChecks> {
+        super::transport::RegionCompositeHealthChecks::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionCompositeHealthChecks> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionCompositeHealthChecks::new)
+    }
+
+    /// Retrieves the list of all CompositeHealthCheck resources (all
+    /// regional) available to the specified project.
+    ///
+    /// To prevent failure, it is recommended that you set the
+    /// `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(
+        &self,
+    ) -> super::builder::region_composite_health_checks::AggregatedList {
+        super::builder::region_composite_health_checks::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Deletes the specified CompositeHealthCheck in the given region
+    pub fn delete(&self) -> super::builder::region_composite_health_checks::Delete {
+        super::builder::region_composite_health_checks::Delete::new(self.inner.clone())
+    }
+
+    /// Returns the specified CompositeHealthCheck resource in the given region.
+    pub fn get(&self) -> super::builder::region_composite_health_checks::Get {
+        super::builder::region_composite_health_checks::Get::new(self.inner.clone())
+    }
+
+    /// Create a CompositeHealthCheck in the specified project in the given region
+    /// using the parameters that are included in the request.
+    pub fn insert(&self) -> super::builder::region_composite_health_checks::Insert {
+        super::builder::region_composite_health_checks::Insert::new(self.inner.clone())
+    }
+
+    /// Lists the CompositeHealthChecks for a project in the given region.
+    pub fn list(&self) -> super::builder::region_composite_health_checks::List {
+        super::builder::region_composite_health_checks::List::new(self.inner.clone())
+    }
+
+    /// Updates the specified regional CompositeHealthCheck resource
+    /// with the data included in the request.  This method supportsPATCH
+    /// semantics and uses theJSON merge
+    /// patch format and processing rules.
+    pub fn patch(&self) -> super::builder::region_composite_health_checks::Patch {
+        super::builder::region_composite_health_checks::Patch::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::region_composite_health_checks::TestIamPermissions {
+        super::builder::region_composite_health_checks::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::region_composite_health_checks::GetOperation {
+        super::builder::region_composite_health_checks::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::RegionDiskTypes;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = RegionDiskTypes::builder().build().await?;
@@ -10870,6 +11030,15 @@ impl RegionHealthCheckServices {
             .map(super::tracing::RegionHealthCheckServices::new)
     }
 
+    /// Retrieves the list of all HealthCheckService resources,
+    /// regional and global, available to the specified project.
+    ///
+    /// To prevent failure, it is recommended that you set the
+    /// `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::region_health_check_services::AggregatedList {
+        super::builder::region_health_check_services::AggregatedList::new(self.inner.clone())
+    }
+
     /// Deletes the specified regional HealthCheckService.
     pub fn delete(&self) -> super::builder::region_health_check_services::Delete {
         super::builder::region_health_check_services::Delete::new(self.inner.clone())
@@ -11063,6 +11232,163 @@ impl RegionHealthChecks {
     /// Retrieves the specified region-specific Operations resource.
     pub fn get_operation(&self) -> super::builder::region_health_checks::GetOperation {
         super::builder::region_health_checks::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::RegionHealthSources;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = RegionHealthSources::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionHealthSources` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionHealthSources` use the `with_*` methods in the type returned
+/// by [builder()][RegionHealthSources::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_health_sources::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_health_sources::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionHealthSources` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `RegionHealthSources` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-health-sources")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-health-sources")))]
+#[derive(Clone, Debug)]
+pub struct RegionHealthSources {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionHealthSources>,
+}
+
+#[cfg(feature = "region-health-sources")]
+impl RegionHealthSources {
+    /// Returns a builder for [RegionHealthSources].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::RegionHealthSources;
+    /// let client = RegionHealthSources::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::region_health_sources::ClientBuilder {
+        crate::new_client_builder(super::builder::region_health_sources::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionHealthSources + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RegionHealthSources>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionHealthSources> {
+        super::transport::RegionHealthSources::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionHealthSources> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionHealthSources::new)
+    }
+
+    /// Retrieves the list of all HealthSource resources (all
+    /// regional) available to the specified project.
+    ///
+    /// To prevent failure, Google recommends that you set the
+    /// `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::region_health_sources::AggregatedList {
+        super::builder::region_health_sources::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Deletes the specified HealthSource in the given region
+    pub fn delete(&self) -> super::builder::region_health_sources::Delete {
+        super::builder::region_health_sources::Delete::new(self.inner.clone())
+    }
+
+    /// Returns the specified HealthSource resource in the given region.
+    pub fn get(&self) -> super::builder::region_health_sources::Get {
+        super::builder::region_health_sources::Get::new(self.inner.clone())
+    }
+
+    /// Create a HealthSource in the specified project in the given region
+    /// using the parameters that are included in the request.
+    pub fn insert(&self) -> super::builder::region_health_sources::Insert {
+        super::builder::region_health_sources::Insert::new(self.inner.clone())
+    }
+
+    /// Lists the HealthSources for a project in the given region.
+    pub fn list(&self) -> super::builder::region_health_sources::List {
+        super::builder::region_health_sources::List::new(self.inner.clone())
+    }
+
+    /// Updates the specified regional HealthSource resource
+    /// with the data included in the request.  This method supportsPATCH
+    /// semantics and uses theJSON merge
+    /// patch format and processing rules.
+    pub fn patch(&self) -> super::builder::region_health_sources::Patch {
+        super::builder::region_health_sources::Patch::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::region_health_sources::TestIamPermissions {
+        super::builder::region_health_sources::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::region_health_sources::GetOperation {
+        super::builder::region_health_sources::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -12564,6 +12890,12 @@ impl RegionNotificationEndpoints {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RegionNotificationEndpoints::new)
+    }
+
+    /// Retrieves the list of all NotificationEndpoint resources,
+    /// regional and global, available to the specified project.
+    pub fn aggregated_list(&self) -> super::builder::region_notification_endpoints::AggregatedList {
+        super::builder::region_notification_endpoints::AggregatedList::new(self.inner.clone())
     }
 
     /// Deletes the specified NotificationEndpoint in the given region
@@ -14301,6 +14633,11 @@ impl ReservationSlots {
         super::builder::reservation_slots::Get::new(self.inner.clone())
     }
 
+    /// Allows customers to get SBOM versions of a reservation slot.
+    pub fn get_version(&self) -> super::builder::reservation_slots::GetVersion {
+        super::builder::reservation_slots::GetVersion::new(self.inner.clone())
+    }
+
     /// Retrieves a list of reservation slots under a single reservation.
     pub fn list(&self) -> super::builder::reservation_slots::List {
         super::builder::reservation_slots::List::new(self.inner.clone())
@@ -14432,6 +14769,11 @@ impl ReservationSubBlocks {
     /// policy or resource exists.
     pub fn get_iam_policy(&self) -> super::builder::reservation_sub_blocks::GetIamPolicy {
         super::builder::reservation_sub_blocks::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Allows customers to get SBOM versions of a reservation subBlock.
+    pub fn get_version(&self) -> super::builder::reservation_sub_blocks::GetVersion {
+        super::builder::reservation_sub_blocks::GetVersion::new(self.inner.clone())
     }
 
     /// Retrieves a list of reservation subBlocks under a single reservation.

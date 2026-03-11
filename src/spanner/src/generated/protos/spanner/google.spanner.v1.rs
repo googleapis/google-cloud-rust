@@ -506,343 +506,6 @@ impl ::prost::Name for ChangeStreamRecord {
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TransactionOptions {
-    #[prost(bool, tag = "5")]
-    pub exclude_txn_from_change_streams: bool,
-    #[prost(enumeration = "transaction_options::IsolationLevel", tag = "6")]
-    pub isolation_level: i32,
-    #[prost(oneof = "transaction_options::Mode", tags = "1, 3, 2")]
-    pub mode: ::core::option::Option<transaction_options::Mode>,
-}
-/// Nested message and enum types in `TransactionOptions`.
-pub mod transaction_options {
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ReadWrite {
-        #[prost(enumeration = "read_write::ReadLockMode", tag = "1")]
-        pub read_lock_mode: i32,
-        #[prost(bytes = "bytes", tag = "2")]
-        pub multiplexed_session_previous_transaction_id: ::prost::bytes::Bytes,
-    }
-    /// Nested message and enum types in `ReadWrite`.
-    pub mod read_write {
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum ReadLockMode {
-            Unspecified = 0,
-            Pessimistic = 1,
-            Optimistic = 2,
-        }
-        impl ReadLockMode {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    Self::Unspecified => "READ_LOCK_MODE_UNSPECIFIED",
-                    Self::Pessimistic => "PESSIMISTIC",
-                    Self::Optimistic => "OPTIMISTIC",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "READ_LOCK_MODE_UNSPECIFIED" => Some(Self::Unspecified),
-                    "PESSIMISTIC" => Some(Self::Pessimistic),
-                    "OPTIMISTIC" => Some(Self::Optimistic),
-                    _ => None,
-                }
-            }
-        }
-    }
-    impl ::prost::Name for ReadWrite {
-        const NAME: &'static str = "ReadWrite";
-        const PACKAGE: &'static str = "google.spanner.v1";
-        fn full_name() -> ::prost::alloc::string::String {
-            "google.spanner.v1.TransactionOptions.ReadWrite".into()
-        }
-        fn type_url() -> ::prost::alloc::string::String {
-            "type.googleapis.com/google.spanner.v1.TransactionOptions.ReadWrite".into()
-        }
-    }
-    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
-    pub struct PartitionedDml {}
-    impl ::prost::Name for PartitionedDml {
-        const NAME: &'static str = "PartitionedDml";
-        const PACKAGE: &'static str = "google.spanner.v1";
-        fn full_name() -> ::prost::alloc::string::String {
-            "google.spanner.v1.TransactionOptions.PartitionedDml".into()
-        }
-        fn type_url() -> ::prost::alloc::string::String {
-            "type.googleapis.com/google.spanner.v1.TransactionOptions.PartitionedDml"
-                .into()
-        }
-    }
-    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
-    pub struct ReadOnly {
-        #[prost(bool, tag = "6")]
-        pub return_read_timestamp: bool,
-        #[prost(oneof = "read_only::TimestampBound", tags = "1, 2, 3, 4, 5")]
-        pub timestamp_bound: ::core::option::Option<read_only::TimestampBound>,
-    }
-    /// Nested message and enum types in `ReadOnly`.
-    pub mod read_only {
-        #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
-        pub enum TimestampBound {
-            #[prost(bool, tag = "1")]
-            Strong(bool),
-            #[prost(message, tag = "2")]
-            MinReadTimestamp(::prost_types::Timestamp),
-            #[prost(message, tag = "3")]
-            MaxStaleness(::prost_types::Duration),
-            #[prost(message, tag = "4")]
-            ReadTimestamp(::prost_types::Timestamp),
-            #[prost(message, tag = "5")]
-            ExactStaleness(::prost_types::Duration),
-        }
-    }
-    impl ::prost::Name for ReadOnly {
-        const NAME: &'static str = "ReadOnly";
-        const PACKAGE: &'static str = "google.spanner.v1";
-        fn full_name() -> ::prost::alloc::string::String {
-            "google.spanner.v1.TransactionOptions.ReadOnly".into()
-        }
-        fn type_url() -> ::prost::alloc::string::String {
-            "type.googleapis.com/google.spanner.v1.TransactionOptions.ReadOnly".into()
-        }
-    }
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum IsolationLevel {
-        Unspecified = 0,
-        Serializable = 1,
-        RepeatableRead = 2,
-    }
-    impl IsolationLevel {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Self::Unspecified => "ISOLATION_LEVEL_UNSPECIFIED",
-                Self::Serializable => "SERIALIZABLE",
-                Self::RepeatableRead => "REPEATABLE_READ",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "ISOLATION_LEVEL_UNSPECIFIED" => Some(Self::Unspecified),
-                "SERIALIZABLE" => Some(Self::Serializable),
-                "REPEATABLE_READ" => Some(Self::RepeatableRead),
-                _ => None,
-            }
-        }
-    }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Mode {
-        #[prost(message, tag = "1")]
-        ReadWrite(ReadWrite),
-        #[prost(message, tag = "3")]
-        PartitionedDml(PartitionedDml),
-        #[prost(message, tag = "2")]
-        ReadOnly(ReadOnly),
-    }
-}
-impl ::prost::Name for TransactionOptions {
-    const NAME: &'static str = "TransactionOptions";
-    const PACKAGE: &'static str = "google.spanner.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "google.spanner.v1.TransactionOptions".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "type.googleapis.com/google.spanner.v1.TransactionOptions".into()
-    }
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Transaction {
-    #[prost(bytes = "bytes", tag = "1")]
-    pub id: ::prost::bytes::Bytes,
-    #[prost(message, optional, tag = "2")]
-    pub read_timestamp: ::core::option::Option<::prost_types::Timestamp>,
-    #[prost(message, optional, tag = "3")]
-    pub precommit_token: ::core::option::Option<MultiplexedSessionPrecommitToken>,
-}
-impl ::prost::Name for Transaction {
-    const NAME: &'static str = "Transaction";
-    const PACKAGE: &'static str = "google.spanner.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "google.spanner.v1.Transaction".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "type.googleapis.com/google.spanner.v1.Transaction".into()
-    }
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TransactionSelector {
-    #[prost(oneof = "transaction_selector::Selector", tags = "1, 2, 3")]
-    pub selector: ::core::option::Option<transaction_selector::Selector>,
-}
-/// Nested message and enum types in `TransactionSelector`.
-pub mod transaction_selector {
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Selector {
-        #[prost(message, tag = "1")]
-        SingleUse(super::TransactionOptions),
-        #[prost(bytes, tag = "2")]
-        Id(::prost::bytes::Bytes),
-        #[prost(message, tag = "3")]
-        Begin(super::TransactionOptions),
-    }
-}
-impl ::prost::Name for TransactionSelector {
-    const NAME: &'static str = "TransactionSelector";
-    const PACKAGE: &'static str = "google.spanner.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "google.spanner.v1.TransactionSelector".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "type.googleapis.com/google.spanner.v1.TransactionSelector".into()
-    }
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MultiplexedSessionPrecommitToken {
-    #[prost(bytes = "bytes", tag = "1")]
-    pub precommit_token: ::prost::bytes::Bytes,
-    #[prost(int32, tag = "2")]
-    pub seq_num: i32,
-}
-impl ::prost::Name for MultiplexedSessionPrecommitToken {
-    const NAME: &'static str = "MultiplexedSessionPrecommitToken";
-    const PACKAGE: &'static str = "google.spanner.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "google.spanner.v1.MultiplexedSessionPrecommitToken".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "type.googleapis.com/google.spanner.v1.MultiplexedSessionPrecommitToken".into()
-    }
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CommitResponse {
-    #[prost(message, optional, tag = "1")]
-    pub commit_timestamp: ::core::option::Option<::prost_types::Timestamp>,
-    #[prost(message, optional, tag = "2")]
-    pub commit_stats: ::core::option::Option<commit_response::CommitStats>,
-    #[prost(message, optional, tag = "5")]
-    pub snapshot_timestamp: ::core::option::Option<::prost_types::Timestamp>,
-    #[prost(oneof = "commit_response::MultiplexedSessionRetry", tags = "4")]
-    pub multiplexed_session_retry: ::core::option::Option<
-        commit_response::MultiplexedSessionRetry,
-    >,
-}
-/// Nested message and enum types in `CommitResponse`.
-pub mod commit_response {
-    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
-    pub struct CommitStats {
-        #[prost(int64, tag = "1")]
-        pub mutation_count: i64,
-    }
-    impl ::prost::Name for CommitStats {
-        const NAME: &'static str = "CommitStats";
-        const PACKAGE: &'static str = "google.spanner.v1";
-        fn full_name() -> ::prost::alloc::string::String {
-            "google.spanner.v1.CommitResponse.CommitStats".into()
-        }
-        fn type_url() -> ::prost::alloc::string::String {
-            "type.googleapis.com/google.spanner.v1.CommitResponse.CommitStats".into()
-        }
-    }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum MultiplexedSessionRetry {
-        #[prost(message, tag = "4")]
-        PrecommitToken(super::MultiplexedSessionPrecommitToken),
-    }
-}
-impl ::prost::Name for CommitResponse {
-    const NAME: &'static str = "CommitResponse";
-    const PACKAGE: &'static str = "google.spanner.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "google.spanner.v1.CommitResponse".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "type.googleapis.com/google.spanner.v1.CommitResponse".into()
-    }
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct KeyRange {
-    #[prost(oneof = "key_range::StartKeyType", tags = "1, 2")]
-    pub start_key_type: ::core::option::Option<key_range::StartKeyType>,
-    #[prost(oneof = "key_range::EndKeyType", tags = "3, 4")]
-    pub end_key_type: ::core::option::Option<key_range::EndKeyType>,
-}
-/// Nested message and enum types in `KeyRange`.
-pub mod key_range {
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum StartKeyType {
-        #[prost(message, tag = "1")]
-        StartClosed(::prost_types::ListValue),
-        #[prost(message, tag = "2")]
-        StartOpen(::prost_types::ListValue),
-    }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum EndKeyType {
-        #[prost(message, tag = "3")]
-        EndClosed(::prost_types::ListValue),
-        #[prost(message, tag = "4")]
-        EndOpen(::prost_types::ListValue),
-    }
-}
-impl ::prost::Name for KeyRange {
-    const NAME: &'static str = "KeyRange";
-    const PACKAGE: &'static str = "google.spanner.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "google.spanner.v1.KeyRange".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "type.googleapis.com/google.spanner.v1.KeyRange".into()
-    }
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct KeySet {
-    #[prost(message, repeated, tag = "1")]
-    pub keys: ::prost::alloc::vec::Vec<::prost_types::ListValue>,
-    #[prost(message, repeated, tag = "2")]
-    pub ranges: ::prost::alloc::vec::Vec<KeyRange>,
-    #[prost(bool, tag = "3")]
-    pub all: bool,
-}
-impl ::prost::Name for KeySet {
-    const NAME: &'static str = "KeySet";
-    const PACKAGE: &'static str = "google.spanner.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "google.spanner.v1.KeySet".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "type.googleapis.com/google.spanner.v1.KeySet".into()
-    }
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Range {
     #[prost(bytes = "bytes", tag = "1")]
     pub start_key: ::prost::bytes::Bytes,
@@ -1191,6 +854,347 @@ impl ::prost::Name for RoutingHint {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.spanner.v1.RoutingHint".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TransactionOptions {
+    #[prost(bool, tag = "5")]
+    pub exclude_txn_from_change_streams: bool,
+    #[prost(enumeration = "transaction_options::IsolationLevel", tag = "6")]
+    pub isolation_level: i32,
+    #[prost(oneof = "transaction_options::Mode", tags = "1, 3, 2")]
+    pub mode: ::core::option::Option<transaction_options::Mode>,
+}
+/// Nested message and enum types in `TransactionOptions`.
+pub mod transaction_options {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ReadWrite {
+        #[prost(enumeration = "read_write::ReadLockMode", tag = "1")]
+        pub read_lock_mode: i32,
+        #[prost(bytes = "bytes", tag = "2")]
+        pub multiplexed_session_previous_transaction_id: ::prost::bytes::Bytes,
+    }
+    /// Nested message and enum types in `ReadWrite`.
+    pub mod read_write {
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum ReadLockMode {
+            Unspecified = 0,
+            Pessimistic = 1,
+            Optimistic = 2,
+        }
+        impl ReadLockMode {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "READ_LOCK_MODE_UNSPECIFIED",
+                    Self::Pessimistic => "PESSIMISTIC",
+                    Self::Optimistic => "OPTIMISTIC",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "READ_LOCK_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "PESSIMISTIC" => Some(Self::Pessimistic),
+                    "OPTIMISTIC" => Some(Self::Optimistic),
+                    _ => None,
+                }
+            }
+        }
+    }
+    impl ::prost::Name for ReadWrite {
+        const NAME: &'static str = "ReadWrite";
+        const PACKAGE: &'static str = "google.spanner.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.spanner.v1.TransactionOptions.ReadWrite".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.spanner.v1.TransactionOptions.ReadWrite".into()
+        }
+    }
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct PartitionedDml {}
+    impl ::prost::Name for PartitionedDml {
+        const NAME: &'static str = "PartitionedDml";
+        const PACKAGE: &'static str = "google.spanner.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.spanner.v1.TransactionOptions.PartitionedDml".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.spanner.v1.TransactionOptions.PartitionedDml"
+                .into()
+        }
+    }
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct ReadOnly {
+        #[prost(bool, tag = "6")]
+        pub return_read_timestamp: bool,
+        #[prost(oneof = "read_only::TimestampBound", tags = "1, 2, 3, 4, 5")]
+        pub timestamp_bound: ::core::option::Option<read_only::TimestampBound>,
+    }
+    /// Nested message and enum types in `ReadOnly`.
+    pub mod read_only {
+        #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+        pub enum TimestampBound {
+            #[prost(bool, tag = "1")]
+            Strong(bool),
+            #[prost(message, tag = "2")]
+            MinReadTimestamp(::prost_types::Timestamp),
+            #[prost(message, tag = "3")]
+            MaxStaleness(::prost_types::Duration),
+            #[prost(message, tag = "4")]
+            ReadTimestamp(::prost_types::Timestamp),
+            #[prost(message, tag = "5")]
+            ExactStaleness(::prost_types::Duration),
+        }
+    }
+    impl ::prost::Name for ReadOnly {
+        const NAME: &'static str = "ReadOnly";
+        const PACKAGE: &'static str = "google.spanner.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.spanner.v1.TransactionOptions.ReadOnly".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.spanner.v1.TransactionOptions.ReadOnly".into()
+        }
+    }
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum IsolationLevel {
+        Unspecified = 0,
+        Serializable = 1,
+        RepeatableRead = 2,
+    }
+    impl IsolationLevel {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "ISOLATION_LEVEL_UNSPECIFIED",
+                Self::Serializable => "SERIALIZABLE",
+                Self::RepeatableRead => "REPEATABLE_READ",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ISOLATION_LEVEL_UNSPECIFIED" => Some(Self::Unspecified),
+                "SERIALIZABLE" => Some(Self::Serializable),
+                "REPEATABLE_READ" => Some(Self::RepeatableRead),
+                _ => None,
+            }
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Mode {
+        #[prost(message, tag = "1")]
+        ReadWrite(ReadWrite),
+        #[prost(message, tag = "3")]
+        PartitionedDml(PartitionedDml),
+        #[prost(message, tag = "2")]
+        ReadOnly(ReadOnly),
+    }
+}
+impl ::prost::Name for TransactionOptions {
+    const NAME: &'static str = "TransactionOptions";
+    const PACKAGE: &'static str = "google.spanner.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.spanner.v1.TransactionOptions".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.spanner.v1.TransactionOptions".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Transaction {
+    #[prost(bytes = "bytes", tag = "1")]
+    pub id: ::prost::bytes::Bytes,
+    #[prost(message, optional, tag = "2")]
+    pub read_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "3")]
+    pub precommit_token: ::core::option::Option<MultiplexedSessionPrecommitToken>,
+    #[prost(message, optional, tag = "5")]
+    pub cache_update: ::core::option::Option<CacheUpdate>,
+}
+impl ::prost::Name for Transaction {
+    const NAME: &'static str = "Transaction";
+    const PACKAGE: &'static str = "google.spanner.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.spanner.v1.Transaction".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.spanner.v1.Transaction".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TransactionSelector {
+    #[prost(oneof = "transaction_selector::Selector", tags = "1, 2, 3")]
+    pub selector: ::core::option::Option<transaction_selector::Selector>,
+}
+/// Nested message and enum types in `TransactionSelector`.
+pub mod transaction_selector {
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Selector {
+        #[prost(message, tag = "1")]
+        SingleUse(super::TransactionOptions),
+        #[prost(bytes, tag = "2")]
+        Id(::prost::bytes::Bytes),
+        #[prost(message, tag = "3")]
+        Begin(super::TransactionOptions),
+    }
+}
+impl ::prost::Name for TransactionSelector {
+    const NAME: &'static str = "TransactionSelector";
+    const PACKAGE: &'static str = "google.spanner.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.spanner.v1.TransactionSelector".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.spanner.v1.TransactionSelector".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MultiplexedSessionPrecommitToken {
+    #[prost(bytes = "bytes", tag = "1")]
+    pub precommit_token: ::prost::bytes::Bytes,
+    #[prost(int32, tag = "2")]
+    pub seq_num: i32,
+}
+impl ::prost::Name for MultiplexedSessionPrecommitToken {
+    const NAME: &'static str = "MultiplexedSessionPrecommitToken";
+    const PACKAGE: &'static str = "google.spanner.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.spanner.v1.MultiplexedSessionPrecommitToken".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.spanner.v1.MultiplexedSessionPrecommitToken".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CommitResponse {
+    #[prost(message, optional, tag = "1")]
+    pub commit_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "2")]
+    pub commit_stats: ::core::option::Option<commit_response::CommitStats>,
+    #[prost(message, optional, tag = "5")]
+    pub snapshot_timestamp: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "6")]
+    pub cache_update: ::core::option::Option<CacheUpdate>,
+    #[prost(oneof = "commit_response::MultiplexedSessionRetry", tags = "4")]
+    pub multiplexed_session_retry: ::core::option::Option<
+        commit_response::MultiplexedSessionRetry,
+    >,
+}
+/// Nested message and enum types in `CommitResponse`.
+pub mod commit_response {
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct CommitStats {
+        #[prost(int64, tag = "1")]
+        pub mutation_count: i64,
+    }
+    impl ::prost::Name for CommitStats {
+        const NAME: &'static str = "CommitStats";
+        const PACKAGE: &'static str = "google.spanner.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.spanner.v1.CommitResponse.CommitStats".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.spanner.v1.CommitResponse.CommitStats".into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum MultiplexedSessionRetry {
+        #[prost(message, tag = "4")]
+        PrecommitToken(super::MultiplexedSessionPrecommitToken),
+    }
+}
+impl ::prost::Name for CommitResponse {
+    const NAME: &'static str = "CommitResponse";
+    const PACKAGE: &'static str = "google.spanner.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.spanner.v1.CommitResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.spanner.v1.CommitResponse".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct KeyRange {
+    #[prost(oneof = "key_range::StartKeyType", tags = "1, 2")]
+    pub start_key_type: ::core::option::Option<key_range::StartKeyType>,
+    #[prost(oneof = "key_range::EndKeyType", tags = "3, 4")]
+    pub end_key_type: ::core::option::Option<key_range::EndKeyType>,
+}
+/// Nested message and enum types in `KeyRange`.
+pub mod key_range {
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum StartKeyType {
+        #[prost(message, tag = "1")]
+        StartClosed(::prost_types::ListValue),
+        #[prost(message, tag = "2")]
+        StartOpen(::prost_types::ListValue),
+    }
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum EndKeyType {
+        #[prost(message, tag = "3")]
+        EndClosed(::prost_types::ListValue),
+        #[prost(message, tag = "4")]
+        EndOpen(::prost_types::ListValue),
+    }
+}
+impl ::prost::Name for KeyRange {
+    const NAME: &'static str = "KeyRange";
+    const PACKAGE: &'static str = "google.spanner.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.spanner.v1.KeyRange".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.spanner.v1.KeyRange".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct KeySet {
+    #[prost(message, repeated, tag = "1")]
+    pub keys: ::prost::alloc::vec::Vec<::prost_types::ListValue>,
+    #[prost(message, repeated, tag = "2")]
+    pub ranges: ::prost::alloc::vec::Vec<KeyRange>,
+    #[prost(bool, tag = "3")]
+    pub all: bool,
+}
+impl ::prost::Name for KeySet {
+    const NAME: &'static str = "KeySet";
+    const PACKAGE: &'static str = "google.spanner.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.spanner.v1.KeySet".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.spanner.v1.KeySet".into()
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2324,6 +2328,8 @@ pub struct BeginTransactionRequest {
     pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(message, optional, tag = "4")]
     pub mutation_key: ::core::option::Option<Mutation>,
+    #[prost(message, optional, tag = "5")]
+    pub routing_hint: ::core::option::Option<RoutingHint>,
 }
 impl ::prost::Name for BeginTransactionRequest {
     const NAME: &'static str = "BeginTransactionRequest";
@@ -2349,6 +2355,8 @@ pub struct CommitRequest {
     pub request_options: ::core::option::Option<RequestOptions>,
     #[prost(message, optional, tag = "9")]
     pub precommit_token: ::core::option::Option<MultiplexedSessionPrecommitToken>,
+    #[prost(message, optional, tag = "10")]
+    pub routing_hint: ::core::option::Option<RoutingHint>,
     #[prost(oneof = "commit_request::Transaction", tags = "2, 3")]
     pub transaction: ::core::option::Option<commit_request::Transaction>,
 }

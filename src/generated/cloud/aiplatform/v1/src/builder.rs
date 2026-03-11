@@ -53850,6 +53850,12 @@ pub mod session_service {
             self.0.request.session = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [session_id][crate::model::CreateSessionRequest::session_id].
+        pub fn set_session_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.session_id = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -63099,6 +63105,248 @@ pub mod vertex_rag_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for CorroborateContent {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [VertexRagService::ask_contexts][crate::client::VertexRagService::ask_contexts] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::AskContexts;
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> AskContexts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AskContexts(RequestBuilder<crate::model::AskContextsRequest>);
+
+    impl AskContexts {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VertexRagService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::AskContextsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AskContextsResponse> {
+            (*self.0.stub)
+                .ask_contexts(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::AskContextsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [query][crate::model::AskContextsRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RagQuery>,
+        {
+            self.0.request.query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query][crate::model::AskContextsRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RagQuery>,
+        {
+            self.0.request.query = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [tools][crate::model::AskContextsRequest::tools].
+        pub fn set_tools<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Tool>,
+        {
+            use std::iter::Iterator;
+            self.0.request.tools = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for AskContexts {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [VertexRagService::async_retrieve_contexts][crate::client::VertexRagService::async_retrieve_contexts] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::AsyncRetrieveContexts;
+    /// # async fn sample() -> google_cloud_aiplatform_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> AsyncRetrieveContexts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AsyncRetrieveContexts(RequestBuilder<crate::model::AsyncRetrieveContextsRequest>);
+
+    impl AsyncRetrieveContexts {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VertexRagService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::AsyncRetrieveContextsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [async_retrieve_contexts][crate::client::VertexRagService::async_retrieve_contexts].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .async_retrieve_contexts(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `async_retrieve_contexts`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::AsyncRetrieveContextsResponse,
+            crate::model::AsyncRetrieveContextsOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::AsyncRetrieveContextsResponse,
+                crate::model::AsyncRetrieveContextsOperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::AsyncRetrieveContextsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [query][crate::model::AsyncRetrieveContextsRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RagQuery>,
+        {
+            self.0.request.query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query][crate::model::AsyncRetrieveContextsRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RagQuery>,
+        {
+            self.0.request.query = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [tools][crate::model::AsyncRetrieveContextsRequest::tools].
+        pub fn set_tools<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Tool>,
+        {
+            use std::iter::Iterator;
+            self.0.request.tools = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for AsyncRetrieveContexts {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

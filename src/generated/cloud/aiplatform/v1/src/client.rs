@@ -16875,6 +16875,7 @@ impl SessionService {
     /// ) -> Result<()> {
     ///     let response = client.create_session()
     ///         .set_parent(parent)
+    ///         .set_session_id("session_id_value")
     ///         .set_session(
     ///             Session::new()/* set fields */
     ///         )
@@ -19702,6 +19703,59 @@ impl VertexRagService {
     /// ```
     pub fn corroborate_content(&self) -> super::builder::vertex_rag_service::CorroborateContent {
         super::builder::vertex_rag_service::CorroborateContent::new(self.inner.clone())
+    }
+
+    /// Agentic Retrieval Ask API for RAG.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.ask_contexts()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn ask_contexts(&self) -> super::builder::vertex_rag_service::AskContexts {
+        super::builder::vertex_rag_service::AskContexts::new(self.inner.clone())
+    }
+
+    /// Asynchronous API to retrieves relevant contexts for a query.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.async_retrieve_contexts()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn async_retrieve_contexts(
+        &self,
+    ) -> super::builder::vertex_rag_service::AsyncRetrieveContexts {
+        super::builder::vertex_rag_service::AsyncRetrieveContexts::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
