@@ -186,7 +186,7 @@ impl MessageStream {
             _ = shutdown.cancelled() => None,
             n = self.next_impl() => n,
         };
-        if matches!(next, None | Some(Err(_))) {
+        if next.is_none() {
             // Permanently close the stream, and drop messages that we haven't delivered to the
             // application yet.
             self.stream = Some(StreamState::Failed);
