@@ -13,31 +13,16 @@
 // limitations under the License.
 
 use super::super::handler::AckResult;
+use super::ExactlyOnceInfo;
 use super::MAX_IDS_PER_RPC;
 use crate::error::AckError;
 use std::collections::HashMap;
-use tokio::sync::oneshot::Sender;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant};
 
 // TODO(#4868) - mention alternative shutdown options, when implemented.
 const NACK_SHUTDOWN_ERROR: &str =
     "subscriber is configured to nack all pending messages on shutdown.";
-
-#[derive(Debug)]
-pub(super) struct ExactlyOnceInfo {
-    receive_time: Instant,
-    result_tx: Sender<AckResult>,
-    // If true, we are currently trying to ack this message.
-    //
-    // We need to continue to extend these leases because the exactly-once
-    // confirmed ack retry loop can take arbitrarily long.
-    //
-    // The client will not expire leases in this state. The server will
-    // report if a lease has expired. We do not want to mask a success with
-    // a `LeaseExpired` error.
-    pending: bool,
-}
 
 /// Leases for messages with exactly-once delivery semantics.
 #[derive(Debug, Default)]
