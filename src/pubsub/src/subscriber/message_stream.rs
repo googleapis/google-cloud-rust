@@ -24,6 +24,8 @@ use super::transport::Transport;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use crate::model::Message;
 use crate::{Error, Result};
+use futures::FutureExt;
+use futures::future::{BoxFuture, Shared};
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use google_cloud_gax::retry_result::RetryResult;
@@ -87,10 +89,8 @@ pub struct MessageStream {
 
     /// A handle on the lease loop task.
     ///
-    /// We hold onto this handle so we can await pending lease operations. While awaiting pending
-    /// lease operations is useful for setting expectations in our unit tests, it is not that
-    /// helpful to applications in practice.
-    _lease_loop: tokio::task::JoinHandle<()>,
+    /// This future is ready when the lease loop shutdown completes.
+    lease_loop: Shared<BoxFuture<'static, ()>>,
 
     /// A token that can detect a shutdown from the application.
     shutdown: CancellationToken,
@@ -122,10 +122,11 @@ impl MessageStream {
             builder.grpc_subchannel_count,
         );
         let LeaseLoop {
-            handle: _lease_loop,
+            handle,
             message_tx,
             ack_tx,
         } = LeaseLoop::new(leaser, LeaseOptions::default());
+        let lease_loop = handle.map(|_| ()).boxed().shared();
 
         let initial_req = StreamingPullRequest {
             subscription,
@@ -146,7 +147,7 @@ impl MessageStream {
             pool: VecDeque::new(),
             message_tx,
             ack_tx,
-            _lease_loop,
+            lease_loop,
             shutdown,
         }
     }
@@ -181,14 +182,26 @@ impl MessageStream {
         // parts of the struct needed by `next_impl` from the CancellationToken.
         let shutdown = self.shutdown.clone();
         let next = tokio::select! {
+            biased;
             _ = shutdown.cancelled() => None,
             n = self.next_impl() => n,
         };
-        if next.is_none() {
+        if matches!(next, None | Some(Err(_))) {
             // Permanently close the stream, and drop messages that we haven't delivered to the
             // application yet.
             self.stream = Some(StreamState::Failed);
             self.pool.clear();
+
+            // Signal a shutdown to the lease management background task by
+            // dropping the message sender associated with the lease loop.
+            // TODO : do something better than this hack.
+            self.message_tx = {
+                let (tx, _) = unbounded_channel();
+                tx
+            };
+
+            // Await the shutdown
+            self.lease_loop.clone().await;
         }
         next
     }
@@ -323,23 +336,6 @@ impl MessageStream {
             ));
         }
         Some(Ok(()))
-    }
-
-    #[cfg(test)]
-    /// Close the stream, awaiting all pending acks and nacks.
-    ///
-    /// This is a useful method for setting clean test expectations.
-    async fn close(self) -> anyhow::Result<()> {
-        // Shutdown the stream and its keepalive task.
-        drop(self.stream);
-
-        // Signal a shutdown to the lease management background task.
-        drop(self.message_tx);
-
-        // Wait for the lease management task to complete.
-        self._lease_loop.await?;
-
-        Ok(())
     }
 }
 
@@ -528,9 +524,6 @@ mod tests {
         let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
 
-        // Wait for the stream to join its background tasks.
-        stream.close().await?;
-
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
         assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
@@ -601,7 +594,8 @@ mod tests {
         tokio::time::advance(Duration::from_secs(10)).await;
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await?;
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Shutdown should end the stream, got {end:?}");
 
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
@@ -767,15 +761,14 @@ mod tests {
             assert_eq!(h.ack_id(), test_id(i));
             handlers.push(h);
         }
-        let end = stream.next().await.transpose()?;
-        assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Advance the clock 10s, which is the default stream ack deadline. In
         // this time, we should attempt at least one lease extension RPC.
         tokio::time::advance(Duration::from_secs(10)).await;
 
-        // Close the stream, to make sure pending operations complete.
-        stream.close().await?;
+        // Perform a read which closes the stream.
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Verify at least one lease extension attempt was made.
         let extend_req = extend_rx.try_recv()?;
@@ -1081,9 +1074,6 @@ mod tests {
         let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
 
-        // Wait for the stream to join its background tasks.
-        stream.close().await?;
-
         // Verify the acks went through.
         let mut got = Vec::new();
         while let Ok(ack_req) = ack_rx.try_recv() {
@@ -1154,9 +1144,6 @@ mod tests {
             google_cloud_gax::error::rpc::Code::FailedPrecondition
         );
         assert_eq!(status.message, "fail");
-
-        // Wait for the stream to join its background tasks.
-        stream.close().await?;
 
         // Verify the acks went through.
         let mut got = Vec::new();
@@ -1295,9 +1282,6 @@ mod tests {
         token.shutdown();
         let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Shutdown should end the stream, got {end:?}");
-
-        // Wait for the stream to join its background tasks.
-        stream.close().await?;
 
         Ok(())
     }
