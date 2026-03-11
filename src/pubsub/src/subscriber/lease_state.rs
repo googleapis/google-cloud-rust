@@ -235,7 +235,7 @@ where
         // TODO(#4869) - default shutdown behavior needs to be more clearly defined.
         // Currently, evict returns NACK_SHUTDOWN_ERROR for all exactly once
         // leases. This includes the to_ack leases. Specifically,
-        // the leases that has been acknowledged by the application but not yet
+        // the leases that have been acknowledged by the application but not yet
         // flushed. Therefore, we do not need to flush those leases.
         let (_, to_nack) = self.eo_leases.drain();
         if !to_nack.is_empty() {
