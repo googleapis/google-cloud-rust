@@ -91,7 +91,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::lease_state::tests::{sorted, test_id, test_ids, test_info};
+    use super::super::lease_state::tests::{at_least_once_info, sorted, test_id, test_ids};
     use super::super::leaser::tests::MockLeaser;
     use super::*;
     use google_cloud_test_macros::tokio_test_no_panics;
@@ -102,7 +102,7 @@ mod tests {
     fn test_message(id: i32) -> NewMessage {
         NewMessage {
             ack_id: test_id(id),
-            lease_info: test_info(),
+            lease_info: at_least_once_info(),
         }
     }
 
