@@ -74,11 +74,13 @@
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-commitments",
+    feature = "region-composite-health-checks",
     feature = "region-disk-types",
     feature = "region-disks",
     feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
+    feature = "region-health-sources",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -7500,6 +7502,118 @@ where
     }
 }
 
+/// Implements a [RegionCompositeHealthChecks](super::stub::RegionCompositeHealthChecks) decorator for logging and tracing.
+#[cfg(feature = "region-composite-health-checks")]
+#[derive(Clone, Debug)]
+pub struct RegionCompositeHealthChecks<T>
+where
+    T: super::stub::RegionCompositeHealthChecks + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+#[cfg(feature = "region-composite-health-checks")]
+impl<T> RegionCompositeHealthChecks<T>
+where
+    T: super::stub::RegionCompositeHealthChecks + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(feature = "region-composite-health-checks")]
+impl<T> super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks<T>
+where
+    T: super::stub::RegionCompositeHealthChecks + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_composite_health_checks::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CompositeHealthCheckAggregatedList>> {
+        self.inner.aggregated_list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete(
+        &self,
+        req: crate::model::region_composite_health_checks::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.delete(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get(
+        &self,
+        req: crate::model::region_composite_health_checks::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CompositeHealthCheck>> {
+        self.inner.get(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn insert(
+        &self,
+        req: crate::model::region_composite_health_checks::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.insert(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list(
+        &self,
+        req: crate::model::region_composite_health_checks::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CompositeHealthCheckList>> {
+        self.inner.list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn patch(
+        &self,
+        req: crate::model::region_composite_health_checks::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.patch(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_composite_health_checks::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
 /// Implements a [RegionDiskTypes](super::stub::RegionDiskTypes) decorator for logging and tracing.
 #[cfg(feature = "region-disk-types")]
 #[derive(Clone, Debug)]
@@ -7884,6 +7998,15 @@ where
     T: super::stub::RegionHealthCheckServices + std::fmt::Debug + Send + Sync,
 {
     #[tracing::instrument(ret)]
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_health_check_services::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthCheckServiceAggregatedList>> {
+        self.inner.aggregated_list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn delete(
         &self,
         req: crate::model::region_health_check_services::DeleteRequest,
@@ -8047,6 +8170,118 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [RegionHealthSources](super::stub::RegionHealthSources) decorator for logging and tracing.
+#[cfg(feature = "region-health-sources")]
+#[derive(Clone, Debug)]
+pub struct RegionHealthSources<T>
+where
+    T: super::stub::RegionHealthSources + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+#[cfg(feature = "region-health-sources")]
+impl<T> RegionHealthSources<T>
+where
+    T: super::stub::RegionHealthSources + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(feature = "region-health-sources")]
+impl<T> super::stub::RegionHealthSources for RegionHealthSources<T>
+where
+    T: super::stub::RegionHealthSources + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_health_sources::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthSourceAggregatedList>> {
+        self.inner.aggregated_list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete(
+        &self,
+        req: crate::model::region_health_sources::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.delete(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get(
+        &self,
+        req: crate::model::region_health_sources::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthSource>> {
+        self.inner.get(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn insert(
+        &self,
+        req: crate::model::region_health_sources::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.insert(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list(
+        &self,
+        req: crate::model::region_health_sources::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthSourceList>> {
+        self.inner.list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn patch(
+        &self,
+        req: crate::model::region_health_sources::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.patch(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_health_sources::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -9030,6 +9265,15 @@ impl<T> super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints
 where
     T: super::stub::RegionNotificationEndpoints + std::fmt::Debug + Send + Sync,
 {
+    #[tracing::instrument(ret)]
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_notification_endpoints::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::NotificationEndpointAggregatedList>> {
+        self.inner.aggregated_list(req, options).await
+    }
+
     #[tracing::instrument(ret)]
     async fn delete(
         &self,
@@ -10108,6 +10352,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn get_version(
+        &self,
+        req: crate::model::reservation_slots::GetVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.get_version(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list(
         &self,
         req: crate::model::reservation_slots::ListRequest,
@@ -10190,6 +10443,15 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_version(
+        &self,
+        req: crate::model::reservation_sub_blocks::GetVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.get_version(req, options).await
     }
 
     #[tracing::instrument(ret)]

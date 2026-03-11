@@ -7879,6 +7879,127 @@ pub trait RegionCommitments: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::RegionCompositeHealthChecks].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionCompositeHealthChecks`.  In other use-cases, application developers only
+/// use `client::RegionCompositeHealthChecks` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-composite-health-checks")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-composite-health-checks")))]
+pub trait RegionCompositeHealthChecks: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionCompositeHealthChecks::aggregated_list].
+    fn aggregated_list(
+        &self,
+        _req: crate::model::region_composite_health_checks::AggregatedListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::CompositeHealthCheckAggregatedList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionCompositeHealthChecks::delete].
+    fn delete(
+        &self,
+        _req: crate::model::region_composite_health_checks::DeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionCompositeHealthChecks::get].
+    fn get(
+        &self,
+        _req: crate::model::region_composite_health_checks::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::CompositeHealthCheck>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionCompositeHealthChecks::insert].
+    fn insert(
+        &self,
+        _req: crate::model::region_composite_health_checks::InsertRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionCompositeHealthChecks::list].
+    fn list(
+        &self,
+        _req: crate::model::region_composite_health_checks::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::CompositeHealthCheckList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionCompositeHealthChecks::patch].
+    fn patch(
+        &self,
+        _req: crate::model::region_composite_health_checks::PatchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionCompositeHealthChecks::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::region_composite_health_checks::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionCompositeHealthChecks::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
 /// Defines the trait used to implement [super::client::RegionDiskTypes].
 ///
 /// Application developers may need to implement this trait to mock
@@ -8270,6 +8391,17 @@ pub trait RegionHealthAggregationPolicies: std::fmt::Debug + Send + Sync {
 #[cfg(feature = "region-health-check-services")]
 #[cfg_attr(docsrs, doc(cfg(feature = "region-health-check-services")))]
 pub trait RegionHealthCheckServices: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionHealthCheckServices::aggregated_list].
+    fn aggregated_list(
+        &self,
+        _req: crate::model::region_health_check_services::AggregatedListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::HealthCheckServiceAggregatedList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::RegionHealthCheckServices::delete].
     fn delete(
         &self,
@@ -8453,6 +8585,127 @@ pub trait RegionHealthChecks: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::RegionHealthChecks::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
+/// Defines the trait used to implement [super::client::RegionHealthSources].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionHealthSources`.  In other use-cases, application developers only
+/// use `client::RegionHealthSources` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-health-sources")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-health-sources")))]
+pub trait RegionHealthSources: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionHealthSources::aggregated_list].
+    fn aggregated_list(
+        &self,
+        _req: crate::model::region_health_sources::AggregatedListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::HealthSourceAggregatedList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionHealthSources::delete].
+    fn delete(
+        &self,
+        _req: crate::model::region_health_sources::DeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionHealthSources::get].
+    fn get(
+        &self,
+        _req: crate::model::region_health_sources::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::HealthSource>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionHealthSources::insert].
+    fn insert(
+        &self,
+        _req: crate::model::region_health_sources::InsertRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionHealthSources::list].
+    fn list(
+        &self,
+        _req: crate::model::region_health_sources::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::HealthSourceList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionHealthSources::patch].
+    fn patch(
+        &self,
+        _req: crate::model::region_health_sources::PatchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionHealthSources::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::region_health_sources::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionHealthSources::get_operation].
     fn get_operation(
         &self,
         _req: crate::model::region_operations::GetRequest,
@@ -9513,6 +9766,17 @@ pub trait RegionNetworkFirewallPolicies: std::fmt::Debug + Send + Sync {
 #[cfg(feature = "region-notification-endpoints")]
 #[cfg_attr(docsrs, doc(cfg(feature = "region-notification-endpoints")))]
 pub trait RegionNotificationEndpoints: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionNotificationEndpoints::aggregated_list].
+    fn aggregated_list(
+        &self,
+        _req: crate::model::region_notification_endpoints::AggregatedListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::NotificationEndpointAggregatedList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::RegionNotificationEndpoints::delete].
     fn delete(
         &self,
@@ -10624,6 +10888,16 @@ pub trait ReservationSlots: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ReservationSlots::get_version].
+    fn get_version(
+        &self,
+        _req: crate::model::reservation_slots::GetVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ReservationSlots::list].
     fn list(
         &self,
@@ -10709,6 +10983,16 @@ pub trait ReservationSubBlocks: std::fmt::Debug + Send + Sync {
         _req: crate::model::reservation_sub_blocks::GetIamPolicyRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationSubBlocks::get_version].
+    fn get_version(
+        &self,
+        _req: crate::model::reservation_sub_blocks::GetVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {
         gaxi::unimplemented::unimplemented_stub()
     }

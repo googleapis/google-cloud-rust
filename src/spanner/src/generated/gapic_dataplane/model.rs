@@ -1590,6 +1590,14 @@ pub struct CommitResponse {
     /// never returned.
     pub snapshot_timestamp: std::option::Option<wkt::Timestamp>,
 
+    /// Optional. A cache update expresses a set of changes the client should
+    /// incorporate into its location cache. The client should discard the changes
+    /// if they are older than the data it already has. This data can be obtained
+    /// in response to requests that included a `RoutingHint` field, but may also
+    /// be obtained by explicit location-fetching RPCs which may be added in the
+    /// future.
+    pub cache_update: std::option::Option<crate::model::CacheUpdate>,
+
     /// You must examine and retry the commit if the following is populated.
     pub multiplexed_session_retry:
         std::option::Option<crate::model::commit_response::MultiplexedSessionRetry>,
@@ -1653,6 +1661,24 @@ impl CommitResponse {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.snapshot_timestamp = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cache_update][crate::model::CommitResponse::cache_update].
+    pub fn set_cache_update<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CacheUpdate>,
+    {
+        self.cache_update = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cache_update][crate::model::CommitResponse::cache_update].
+    pub fn set_or_clear_cache_update<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CacheUpdate>,
+    {
+        self.cache_update = v.map(|x| x.into());
         self
     }
 
@@ -6752,7 +6778,7 @@ pub struct ExecuteSqlRequest {
     /// be assumed until a subsequent `Commit` call completes successfully.
     pub last_statement: bool,
 
-    /// Optional. If present, it makes the Spanner requests location-aware.
+    /// Optional. Makes the Spanner requests location-aware if present.
     ///
     /// It gives the server hints that can be used to route the request
     /// to an appropriate server, potentially significantly decreasing latency and
@@ -8084,7 +8110,7 @@ pub struct ReadRequest {
     /// transactions.
     pub lock_hint: crate::model::read_request::LockHint,
 
-    /// Optional. If present, it makes the Spanner requests location-aware.
+    /// Optional. Makes the Spanner requests location-aware if present.
     ///
     /// It gives the server hints that can be used to route the request
     /// to an appropriate server, potentially significantly decreasing latency and
@@ -8605,6 +8631,14 @@ pub struct BeginTransactionRequest {
     /// part of this request.
     pub mutation_key: std::option::Option<crate::model::Mutation>,
 
+    /// Optional. Makes the Spanner requests location-aware if present.
+    ///
+    /// It gives the server hints that can be used to route the request
+    /// to an appropriate server, potentially significantly decreasing latency and
+    /// improving throughput. To achieve improved performance, most fields must be
+    /// filled in with accurate values.
+    pub routing_hint: std::option::Option<crate::model::RoutingHint>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8672,6 +8706,24 @@ impl BeginTransactionRequest {
         self.mutation_key = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [routing_hint][crate::model::BeginTransactionRequest::routing_hint].
+    pub fn set_routing_hint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RoutingHint>,
+    {
+        self.routing_hint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [routing_hint][crate::model::BeginTransactionRequest::routing_hint].
+    pub fn set_or_clear_routing_hint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RoutingHint>,
+    {
+        self.routing_hint = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for BeginTransactionRequest {
@@ -8716,6 +8768,14 @@ pub struct CommitRequest {
     /// sequence number received in this transaction attempt. Failing to do so
     /// results in a `FailedPrecondition` error.
     pub precommit_token: std::option::Option<crate::model::MultiplexedSessionPrecommitToken>,
+
+    /// Optional. Makes the Spanner requests location-aware if present.
+    ///
+    /// It gives the server hints that can be used to route the request
+    /// to an appropriate server, potentially significantly decreasing latency and
+    /// improving throughput. To achieve improved performance, most fields must be
+    /// filled in with accurate values.
+    pub routing_hint: std::option::Option<crate::model::RoutingHint>,
 
     /// Required. The transaction in which to commit.
     pub transaction: std::option::Option<crate::model::commit_request::Transaction>,
@@ -8802,6 +8862,24 @@ impl CommitRequest {
         T: std::convert::Into<crate::model::MultiplexedSessionPrecommitToken>,
     {
         self.precommit_token = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [routing_hint][crate::model::CommitRequest::routing_hint].
+    pub fn set_routing_hint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RoutingHint>,
+    {
+        self.routing_hint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [routing_hint][crate::model::CommitRequest::routing_hint].
+    pub fn set_or_clear_routing_hint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RoutingHint>,
+    {
+        self.routing_hint = v.map(|x| x.into());
         self
     }
 
@@ -9415,38 +9493,52 @@ pub mod transaction_options {
             /// Default value.
             ///
             /// * If isolation level is
+            ///   [SERIALIZABLE][google.spanner.v1.TransactionOptions.IsolationLevel.SERIALIZABLE],
+            ///   locking semantics default to `PESSIMISTIC`.
+            /// * If isolation level is
             ///   [REPEATABLE_READ][google.spanner.v1.TransactionOptions.IsolationLevel.REPEATABLE_READ],
-            ///   then it is an error to specify `read_lock_mode`. Locking semantics
-            ///   default to `OPTIMISTIC`. No validation checks are done for reads,
-            ///   except to validate that the data that was served at the snapshot time
-            ///   is unchanged at commit time in the following cases:
-            ///   1. reads done as part of queries that use `SELECT FOR UPDATE`
-            ///   1. reads done as part of statements with a `LOCK_SCANNED_RANGES`
-            ///      hint
-            ///   1. reads done as part of DML statements
-            /// * At all other isolation levels, if `read_lock_mode` is the default
-            ///   value, then pessimistic read locks are used.
+            ///   locking semantics default to `OPTIMISTIC`.
+            /// * See
+            ///   [Concurrency
+            ///   control](https://cloud.google.com/spanner/docs/concurrency-control)
+            ///   for more details.
             ///
             /// [google.spanner.v1.TransactionOptions.IsolationLevel.REPEATABLE_READ]: crate::model::transaction_options::IsolationLevel::RepeatableRead
+            /// [google.spanner.v1.TransactionOptions.IsolationLevel.SERIALIZABLE]: crate::model::transaction_options::IsolationLevel::Serializable
             Unspecified,
             /// Pessimistic lock mode.
             ///
-            /// Read locks are acquired immediately on read.
-            /// Semantics described only applies to
+            /// Lock acquisition behavior depends on the isolation level in use. In
             /// [SERIALIZABLE][google.spanner.v1.TransactionOptions.IsolationLevel.SERIALIZABLE]
-            /// isolation.
+            /// isolation, reads and writes acquire necessary locks during transaction
+            /// statement execution. In
+            /// [REPEATABLE_READ][google.spanner.v1.TransactionOptions.IsolationLevel.REPEATABLE_READ]
+            /// isolation, reads that explicitly request to be locked and writes
+            /// acquire locks.
+            /// See
+            /// [Concurrency
+            /// control](https://cloud.google.com/spanner/docs/concurrency-control) for
+            /// details on the types of locks acquired at each transaction step.
             ///
+            /// [google.spanner.v1.TransactionOptions.IsolationLevel.REPEATABLE_READ]: crate::model::transaction_options::IsolationLevel::RepeatableRead
             /// [google.spanner.v1.TransactionOptions.IsolationLevel.SERIALIZABLE]: crate::model::transaction_options::IsolationLevel::Serializable
             Pessimistic,
             /// Optimistic lock mode.
             ///
-            /// Locks for reads within the transaction are not acquired on read.
-            /// Instead the locks are acquired on a commit to validate that
-            /// read/queried data has not changed since the transaction started.
-            /// Semantics described only applies to
+            /// Lock acquisition behavior depends on the isolation level in use. In
+            /// both
             /// [SERIALIZABLE][google.spanner.v1.TransactionOptions.IsolationLevel.SERIALIZABLE]
-            /// isolation.
+            /// and
+            /// [REPEATABLE_READ][google.spanner.v1.TransactionOptions.IsolationLevel.REPEATABLE_READ]
+            /// isolation, reads and writes do not acquire locks during transaction
+            /// statement execution.
+            /// See
+            /// [Concurrency
+            /// control](https://cloud.google.com/spanner/docs/concurrency-control) for
+            /// details on how the guarantees of each isolation level are provided at
+            /// commit time.
             ///
+            /// [google.spanner.v1.TransactionOptions.IsolationLevel.REPEATABLE_READ]: crate::model::transaction_options::IsolationLevel::RepeatableRead
             /// [google.spanner.v1.TransactionOptions.IsolationLevel.SERIALIZABLE]: crate::model::transaction_options::IsolationLevel::Serializable
             Optimistic,
             /// If set, the enum was initialized with an unknown value.
@@ -10121,6 +10213,14 @@ pub struct Transaction {
     /// [google.spanner.v1.Spanner.Commit]: crate::client::Spanner::commit
     pub precommit_token: std::option::Option<crate::model::MultiplexedSessionPrecommitToken>,
 
+    /// Optional. A cache update expresses a set of changes the client should
+    /// incorporate into its location cache. The client should discard the changes
+    /// if they are older than the data it already has. This data can be obtained
+    /// in response to requests that included a `RoutingHint` field, but may also
+    /// be obtained by explicit location-fetching RPCs which may be added in the
+    /// future.
+    pub cache_update: std::option::Option<crate::model::CacheUpdate>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10168,6 +10268,24 @@ impl Transaction {
         T: std::convert::Into<crate::model::MultiplexedSessionPrecommitToken>,
     {
         self.precommit_token = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cache_update][crate::model::Transaction::cache_update].
+    pub fn set_cache_update<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CacheUpdate>,
+    {
+        self.cache_update = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cache_update][crate::model::Transaction::cache_update].
+    pub fn set_or_clear_cache_update<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CacheUpdate>,
+    {
+        self.cache_update = v.map(|x| x.into());
         self
     }
 }

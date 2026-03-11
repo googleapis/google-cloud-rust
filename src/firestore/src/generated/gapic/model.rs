@@ -963,6 +963,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1005,6 +1006,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1047,6 +1049,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1089,6 +1092,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1132,6 +1136,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1177,6 +1182,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1219,6 +1225,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1261,6 +1268,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1306,6 +1314,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1354,6 +1363,7 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1400,6 +1410,7 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1445,6 +1456,7 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
@@ -1454,6 +1466,55 @@ impl Value {
     ) -> Self {
         self.value_type = std::option::Option::Some(
             crate::model::value::ValueType::FieldReferenceValue(v.into()),
+        );
+        self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `VariableReferenceValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn variable_reference_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::VariableReferenceValue(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [value_type][crate::model::Value::value_type]
+    /// to hold a `VariableReferenceValue`.
+    ///
+    /// Note that all the setters affecting `value_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// let x = Value::new().set_variable_reference_value("example");
+    /// assert!(x.variable_reference_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
+    /// ```
+    pub fn set_variable_reference_value<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.value_type = std::option::Option::Some(
+            crate::model::value::ValueType::VariableReferenceValue(v.into()),
         );
         self
     }
@@ -1493,6 +1554,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_function_value<T: std::convert::Into<std::boxed::Box<crate::model::Function>>>(
@@ -1539,6 +1601,7 @@ impl Value {
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
     /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.variable_reference_value().is_none());
     /// assert!(x.function_value().is_none());
     /// ```
     pub fn set_pipeline_value<T: std::convert::Into<std::boxed::Box<crate::model::Pipeline>>>(
@@ -1614,6 +1677,12 @@ pub mod value {
         /// * Not allowed to be used when writing documents.
         ///
         FieldReferenceValue(std::string::String),
+        /// Pointer to a variable defined elsewhere in a pipeline.
+        ///
+        /// Unlike `field_reference_value` which references a field within a
+        /// document, this refers to a variable, defined in a separate namespace than
+        /// the fields of a document.
+        VariableReferenceValue(std::string::String),
         /// A value that represents an unevaluated expression.
         ///
         /// **Requires:**
@@ -1686,6 +1755,12 @@ pub mod value {
             value: impl std::convert::Into<std::string::String>,
         ) -> Self {
             Self::FieldReferenceValue(value.into())
+        }
+        /// Initializes the enum to the [VariableReferenceValue](Self::VariableReferenceValue) branch.
+        pub fn from_variable_reference_value(
+            value: impl std::convert::Into<std::string::String>,
+        ) -> Self {
+            Self::VariableReferenceValue(value.into())
         }
         /// Initializes the enum to the [FunctionValue](Self::FunctionValue) branch.
         pub fn from_function_value(

@@ -7017,6 +7017,24 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn ask_contexts(
+        &self,
+        req: crate::model::AskContextsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AskContextsResponse>> {
+        self.inner.ask_contexts(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn async_retrieve_contexts(
+        &self,
+        req: crate::model::AsyncRetrieveContextsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.async_retrieve_contexts(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -7104,6 +7122,20 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.wait_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 

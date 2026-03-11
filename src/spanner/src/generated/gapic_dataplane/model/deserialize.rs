@@ -1405,6 +1405,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitResponse {
             __commit_stats,
             __precommit_token,
             __snapshot_timestamp,
+            __cache_update,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1433,6 +1434,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitResponse {
                             "precommit_token" => Ok(__FieldTag::__precommit_token),
                             "snapshotTimestamp" => Ok(__FieldTag::__snapshot_timestamp),
                             "snapshot_timestamp" => Ok(__FieldTag::__snapshot_timestamp),
+                            "cacheUpdate" => Ok(__FieldTag::__cache_update),
+                            "cache_update" => Ok(__FieldTag::__cache_update),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1501,6 +1504,15 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitResponse {
                             }
                             result.snapshot_timestamp =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__cache_update => {
+                            if !fields.insert(__FieldTag::__cache_update) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cache_update",
+                                ));
+                            }
+                            result.cache_update =
+                                map.next_value::<std::option::Option<crate::model::CacheUpdate>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -8222,6 +8234,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BeginTransactionRequest {
             __options,
             __request_options,
             __mutation_key,
+            __routing_hint,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8248,6 +8261,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BeginTransactionRequest {
                             "request_options" => Ok(__FieldTag::__request_options),
                             "mutationKey" => Ok(__FieldTag::__mutation_key),
                             "mutation_key" => Ok(__FieldTag::__mutation_key),
+                            "routingHint" => Ok(__FieldTag::__routing_hint),
+                            "routing_hint" => Ok(__FieldTag::__routing_hint),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8311,6 +8326,15 @@ impl<'de> serde::de::Deserialize<'de> for super::BeginTransactionRequest {
                             result.mutation_key =
                                 map.next_value::<std::option::Option<crate::model::Mutation>>()?;
                         }
+                        __FieldTag::__routing_hint => {
+                            if !fields.insert(__FieldTag::__routing_hint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for routing_hint",
+                                ));
+                            }
+                            result.routing_hint =
+                                map.next_value::<std::option::Option<crate::model::RoutingHint>>()?;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -8342,6 +8366,7 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitRequest {
             __max_commit_delay,
             __request_options,
             __precommit_token,
+            __routing_hint,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8376,6 +8401,8 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitRequest {
                             "request_options" => Ok(__FieldTag::__request_options),
                             "precommitToken" => Ok(__FieldTag::__precommit_token),
                             "precommit_token" => Ok(__FieldTag::__precommit_token),
+                            "routingHint" => Ok(__FieldTag::__routing_hint),
+                            "routing_hint" => Ok(__FieldTag::__routing_hint),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8505,6 +8532,15 @@ impl<'de> serde::de::Deserialize<'de> for super::CommitRequest {
                             result.precommit_token = map.next_value::<std::option::Option<
                                 crate::model::MultiplexedSessionPrecommitToken,
                             >>()?;
+                        }
+                        __FieldTag::__routing_hint => {
+                            if !fields.insert(__FieldTag::__routing_hint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for routing_hint",
+                                ));
+                            }
+                            result.routing_hint =
+                                map.next_value::<std::option::Option<crate::model::RoutingHint>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9486,6 +9522,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Transaction {
             __id,
             __read_timestamp,
             __precommit_token,
+            __cache_update,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9511,6 +9548,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Transaction {
                             "read_timestamp" => Ok(__FieldTag::__read_timestamp),
                             "precommitToken" => Ok(__FieldTag::__precommit_token),
                             "precommit_token" => Ok(__FieldTag::__precommit_token),
+                            "cacheUpdate" => Ok(__FieldTag::__cache_update),
+                            "cache_update" => Ok(__FieldTag::__cache_update),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9573,6 +9612,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Transaction {
                             result.precommit_token = map.next_value::<std::option::Option<
                                 crate::model::MultiplexedSessionPrecommitToken,
                             >>()?;
+                        }
+                        __FieldTag::__cache_update => {
+                            if !fields.insert(__FieldTag::__cache_update) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cache_update",
+                                ));
+                            }
+                            result.cache_update =
+                                map.next_value::<std::option::Option<crate::model::CacheUpdate>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
