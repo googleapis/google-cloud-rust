@@ -26,8 +26,7 @@ jobs:
     runs-on: ubuntu-24.04
     # Only run for GCB check suites that failed/timed out/cancelled on the main branch.
     if: >
-      github.event.check_suite.app.name == 'Google Cloud Build' &&
-      (github.event.check_suite.conclusion == 'failure' ||
+      github.event.check_suite.app.name == 'Google Cloud Build' && (github.event.check_suite.conclusion == 'failure' ||
        github.event.check_suite.conclusion == 'timed_out' ||
        github.event.check_suite.conclusion == 'cancelled') &&
       github.event.check_suite.head_branch == 'main'
@@ -42,7 +41,7 @@ jobs:
           PR_LIST: ${{ toJson(github.event.check_suite.pull_requests) }}
         run: |
           ISSUE_TITLE="google-cloud-rust: CI failure on main branch"
-          
+
           # Format the PR list for the body
           PR_TEXT=""
           if [[ "$PR_LIST" != "[]" ]]; then
@@ -59,7 +58,7 @@ jobs:
           **Failure in Google Cloud Build:**
           - **Check Suite:** $CHECK_SUITE_URL
           - **Commit:** $COMMIT_SHA
-          
+
           $PR_TEXT"
 
           # Check for an existing open issue with the same title.
