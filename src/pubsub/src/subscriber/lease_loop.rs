@@ -56,8 +56,8 @@ impl LeaseLoop {
                     ack_id = ack_rx.recv() => {
                         match ack_id {
                             None => break,
-                            Some(Action::Ack(ack_id)) => state.ack(ack_id),
-                            Some(Action::Nack(ack_id)) => state.nack(ack_id),
+                            Some(Action::Ack(ack_id)) => state.process(Action::Ack(ack_id)),
+                            Some(Action::Nack(ack_id)) => state.process(Action::Nack(ack_id)),
                             // TODO(#3964) - process exactly-once acks/nacks in the lease state
                             _ => unreachable!("we do not return exactly-once handlers yet."),
                         }
@@ -83,7 +83,7 @@ where
 {
     while let Ok(r) = ack_rx.try_recv() {
         if let Action::Ack(ack_id) = r {
-            state.ack(ack_id);
+            state.process(Action::Ack(ack_id));
         }
     }
     state.shutdown().await;
