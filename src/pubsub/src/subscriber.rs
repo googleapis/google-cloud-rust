@@ -18,7 +18,6 @@ pub use message_stream::MessageStream;
 
 pub(super) mod builder;
 pub(super) mod client;
-
 mod client_builder;
 mod keepalive;
 mod lease_loop;
@@ -26,6 +25,7 @@ mod lease_state;
 mod leaser;
 mod message_stream;
 mod retry_policy;
+mod shutdown;
 mod stream;
 mod stub;
 mod transport;
