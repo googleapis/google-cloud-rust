@@ -54,14 +54,14 @@
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::case_attachment_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::case_attachment_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::case_attachment_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `CaseAttachmentService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `CaseAttachmentService` in
+/// create one and reuse it. You do not need to wrap `CaseAttachmentService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -188,14 +188,14 @@ impl CaseAttachmentService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::case_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::case_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::case_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `CaseService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `CaseService` in
+/// create one and reuse it. You do not need to wrap `CaseService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -502,14 +502,14 @@ impl CaseService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::comment_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::comment_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::comment_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `CommentService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `CommentService` in
+/// create one and reuse it. You do not need to wrap `CommentService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]

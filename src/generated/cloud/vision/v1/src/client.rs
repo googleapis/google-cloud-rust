@@ -52,14 +52,14 @@
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::image_annotator::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::image_annotator::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::image_annotator::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `ImageAnnotator` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `ImageAnnotator` in
+/// create one and reuse it. You do not need to wrap `ImageAnnotator` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -329,14 +329,14 @@ impl ImageAnnotator {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::product_search::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::product_search::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::product_search::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `ProductSearch` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `ProductSearch` in
+/// create one and reuse it. You do not need to wrap `ProductSearch` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]

@@ -51,14 +51,14 @@
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::data_foundry_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::data_foundry_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::data_foundry_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `DataFoundryService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `DataFoundryService` in
+/// create one and reuse it. You do not need to wrap `DataFoundryService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "data-foundry-service")]
@@ -412,14 +412,14 @@ impl DataFoundryService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::dataset_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::dataset_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::dataset_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `DatasetService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `DatasetService` in
+/// create one and reuse it. You do not need to wrap `DatasetService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "dataset-service")]
@@ -1255,14 +1255,14 @@ impl DatasetService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::deployment_resource_pool_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::deployment_resource_pool_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::deployment_resource_pool_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `DeploymentResourcePoolService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `DeploymentResourcePoolService` in
+/// create one and reuse it. You do not need to wrap `DeploymentResourcePoolService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "deployment-resource-pool-service")]
@@ -1797,14 +1797,14 @@ impl DeploymentResourcePoolService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::endpoint_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::endpoint_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::endpoint_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `EndpointService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `EndpointService` in
+/// create one and reuse it. You do not need to wrap `EndpointService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "endpoint-service")]
@@ -2396,14 +2396,14 @@ impl EndpointService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::evaluation_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::evaluation_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::evaluation_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `EvaluationService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `EvaluationService` in
+/// create one and reuse it. You do not need to wrap `EvaluationService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "evaluation-service")]
@@ -2756,14 +2756,14 @@ impl EvaluationService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::feature_online_store_admin_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::feature_online_store_admin_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::feature_online_store_admin_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `FeatureOnlineStoreAdminService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `FeatureOnlineStoreAdminService` in
+/// create one and reuse it. You do not need to wrap `FeatureOnlineStoreAdminService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "feature-online-store-admin-service")]
@@ -3516,14 +3516,14 @@ impl FeatureOnlineStoreAdminService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::feature_online_store_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::feature_online_store_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::feature_online_store_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `FeatureOnlineStoreService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `FeatureOnlineStoreService` in
+/// create one and reuse it. You do not need to wrap `FeatureOnlineStoreService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "feature-online-store-service")]
@@ -3934,14 +3934,14 @@ impl FeatureOnlineStoreService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::feature_registry_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::feature_registry_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::feature_registry_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `FeatureRegistryService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `FeatureRegistryService` in
+/// create one and reuse it. You do not need to wrap `FeatureRegistryService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "feature-registry-service")]
@@ -4603,14 +4603,14 @@ impl FeatureRegistryService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::featurestore_online_serving_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::featurestore_online_serving_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::featurestore_online_serving_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `FeaturestoreOnlineServingService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `FeaturestoreOnlineServingService` in
+/// create one and reuse it. You do not need to wrap `FeaturestoreOnlineServingService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "featurestore-online-serving-service")]
@@ -5023,14 +5023,14 @@ impl FeaturestoreOnlineServingService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::featurestore_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::featurestore_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::featurestore_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `FeaturestoreService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `FeaturestoreService` in
+/// create one and reuse it. You do not need to wrap `FeaturestoreService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "featurestore-service")]
@@ -6000,14 +6000,14 @@ impl FeaturestoreService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::gen_ai_cache_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::gen_ai_cache_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::gen_ai_cache_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `GenAiCacheService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `GenAiCacheService` in
+/// create one and reuse it. You do not need to wrap `GenAiCacheService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "gen-ai-cache-service")]
@@ -6458,14 +6458,14 @@ impl GenAiCacheService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::gen_ai_tuning_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::gen_ai_tuning_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::gen_ai_tuning_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `GenAiTuningService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `GenAiTuningService` in
+/// create one and reuse it. You do not need to wrap `GenAiTuningService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "gen-ai-tuning-service")]
@@ -6933,14 +6933,14 @@ impl GenAiTuningService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::index_endpoint_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::index_endpoint_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::index_endpoint_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `IndexEndpointService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `IndexEndpointService` in
+/// create one and reuse it. You do not need to wrap `IndexEndpointService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "index-endpoint-service")]
@@ -7514,14 +7514,14 @@ impl IndexEndpointService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::index_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::index_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::index_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `IndexService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `IndexService` in
+/// create one and reuse it. You do not need to wrap `IndexService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "index-service")]
@@ -8042,14 +8042,14 @@ impl IndexService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::job_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::job_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::job_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `JobService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `JobService` in
+/// create one and reuse it. You do not need to wrap `JobService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "job-service")]
@@ -9307,14 +9307,14 @@ impl JobService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::llm_utility_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::llm_utility_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::llm_utility_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `LlmUtilityService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `LlmUtilityService` in
+/// create one and reuse it. You do not need to wrap `LlmUtilityService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "llm-utility-service")]
@@ -9683,14 +9683,14 @@ impl LlmUtilityService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::match_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::match_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::match_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `MatchService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `MatchService` in
+/// create one and reuse it. You do not need to wrap `MatchService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "match-service")]
@@ -10062,14 +10062,14 @@ impl MatchService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::metadata_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::metadata_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::metadata_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `MetadataService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `MetadataService` in
+/// create one and reuse it. You do not need to wrap `MetadataService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "metadata-service")]
@@ -11206,14 +11206,14 @@ impl MetadataService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::migration_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::migration_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::migration_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `MigrationService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `MigrationService` in
+/// create one and reuse it. You do not need to wrap `MigrationService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "migration-service")]
@@ -11603,14 +11603,14 @@ impl MigrationService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::model_garden_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::model_garden_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::model_garden_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `ModelGardenService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `ModelGardenService` in
+/// create one and reuse it. You do not need to wrap `ModelGardenService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "model-garden-service")]
@@ -11993,14 +11993,14 @@ impl ModelGardenService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::model_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::model_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::model_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `ModelService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `ModelService` in
+/// create one and reuse it. You do not need to wrap `ModelService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "model-service")]
@@ -12840,14 +12840,14 @@ impl ModelService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::notebook_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::notebook_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::notebook_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `NotebookService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `NotebookService` in
+/// create one and reuse it. You do not need to wrap `NotebookService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "notebook-service")]
@@ -13642,14 +13642,14 @@ impl NotebookService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::persistent_resource_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::persistent_resource_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::persistent_resource_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `PersistentResourceService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `PersistentResourceService` in
+/// create one and reuse it. You do not need to wrap `PersistentResourceService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "persistent-resource-service")]
@@ -14184,14 +14184,14 @@ impl PersistentResourceService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::pipeline_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::pipeline_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::pipeline_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `PipelineService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `PipelineService` in
+/// create one and reuse it. You do not need to wrap `PipelineService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "pipeline-service")]
@@ -14868,14 +14868,14 @@ impl PipelineService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::prediction_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::prediction_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::prediction_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `PredictionService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `PredictionService` in
+/// create one and reuse it. You do not need to wrap `PredictionService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "prediction-service")]
@@ -15372,14 +15372,14 @@ impl PredictionService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::reasoning_engine_execution_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::reasoning_engine_execution_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::reasoning_engine_execution_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `ReasoningEngineExecutionService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `ReasoningEngineExecutionService` in
+/// create one and reuse it. You do not need to wrap `ReasoningEngineExecutionService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "reasoning-engine-execution-service")]
@@ -15758,14 +15758,14 @@ impl ReasoningEngineExecutionService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::reasoning_engine_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::reasoning_engine_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::reasoning_engine_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `ReasoningEngineService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `ReasoningEngineService` in
+/// create one and reuse it. You do not need to wrap `ReasoningEngineService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "reasoning-engine-service")]
@@ -16255,14 +16255,14 @@ impl ReasoningEngineService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::schedule_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::schedule_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::schedule_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `ScheduleService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `ScheduleService` in
+/// create one and reuse it. You do not need to wrap `ScheduleService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "schedule-service")]
@@ -16776,14 +16776,14 @@ impl ScheduleService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::session_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::session_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::session_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SessionService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SessionService` in
+/// create one and reuse it. You do not need to wrap `SessionService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "session-service")]
@@ -17310,14 +17310,14 @@ impl SessionService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::specialist_pool_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::specialist_pool_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::specialist_pool_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SpecialistPoolService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SpecialistPoolService` in
+/// create one and reuse it. You do not need to wrap `SpecialistPoolService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "specialist-pool-service")]
@@ -17806,14 +17806,14 @@ impl SpecialistPoolService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::tensorboard_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::tensorboard_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::tensorboard_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `TensorboardService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `TensorboardService` in
+/// create one and reuse it. You do not need to wrap `TensorboardService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "tensorboard-service")]
@@ -18905,14 +18905,14 @@ impl TensorboardService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::vertex_rag_data_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::vertex_rag_data_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::vertex_rag_data_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `VertexRagDataService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `VertexRagDataService` in
+/// create one and reuse it. You do not need to wrap `VertexRagDataService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "vertex-rag-data-service")]
@@ -19566,14 +19566,14 @@ impl VertexRagDataService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::vertex_rag_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::vertex_rag_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::vertex_rag_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `VertexRagService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `VertexRagService` in
+/// create one and reuse it. You do not need to wrap `VertexRagService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "vertex-rag-service")]
@@ -19972,14 +19972,14 @@ impl VertexRagService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::vizier_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::vizier_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::vizier_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `VizierService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `VizierService` in
+/// create one and reuse it. You do not need to wrap `VizierService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[cfg(feature = "vizier-service")]

@@ -53,14 +53,14 @@
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::data_object_search_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::data_object_search_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::data_object_search_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `DataObjectSearchService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `DataObjectSearchService` in
+/// create one and reuse it. You do not need to wrap `DataObjectSearchService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -394,14 +394,14 @@ impl DataObjectSearchService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::data_object_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::data_object_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::data_object_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `DataObjectService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `DataObjectService` in
+/// create one and reuse it. You do not need to wrap `DataObjectService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -802,14 +802,14 @@ impl DataObjectService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::vector_search_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::vector_search_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::vector_search_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `VectorSearchService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `VectorSearchService` in
+/// create one and reuse it. You do not need to wrap `VectorSearchService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]

@@ -50,14 +50,14 @@
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::sql_backup_runs_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::sql_backup_runs_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::sql_backup_runs_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SqlBackupRunsService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SqlBackupRunsService` in
+/// create one and reuse it. You do not need to wrap `SqlBackupRunsService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -245,14 +245,14 @@ impl SqlBackupRunsService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::sql_backups_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::sql_backups_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::sql_backups_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SqlBackupsService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SqlBackupsService` in
+/// create one and reuse it. You do not need to wrap `SqlBackupsService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -457,14 +457,14 @@ impl SqlBackupsService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::sql_connect_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::sql_connect_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::sql_connect_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SqlConnectService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SqlConnectService` in
+/// create one and reuse it. You do not need to wrap `SqlConnectService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -609,14 +609,14 @@ impl SqlConnectService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::sql_databases_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::sql_databases_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::sql_databases_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SqlDatabasesService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SqlDatabasesService` in
+/// create one and reuse it. You do not need to wrap `SqlDatabasesService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -842,14 +842,14 @@ impl SqlDatabasesService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::sql_flags_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::sql_flags_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::sql_flags_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SqlFlagsService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SqlFlagsService` in
+/// create one and reuse it. You do not need to wrap `SqlFlagsService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -967,14 +967,14 @@ impl SqlFlagsService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::sql_instances_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::sql_instances_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::sql_instances_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SqlInstancesService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SqlInstancesService` in
+/// create one and reuse it. You do not need to wrap `SqlInstancesService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -2018,14 +2018,14 @@ impl SqlInstancesService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::sql_operations_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::sql_operations_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::sql_operations_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SqlOperationsService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SqlOperationsService` in
+/// create one and reuse it. You do not need to wrap `SqlOperationsService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -2188,14 +2188,14 @@ impl SqlOperationsService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::sql_ssl_certs_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::sql_ssl_certs_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::sql_ssl_certs_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SqlSslCertsService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SqlSslCertsService` in
+/// create one and reuse it. You do not need to wrap `SqlSslCertsService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -2380,14 +2380,14 @@ impl SqlSslCertsService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::sql_tiers_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::sql_tiers_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::sql_tiers_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SqlTiersService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SqlTiersService` in
+/// create one and reuse it. You do not need to wrap `SqlTiersService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -2508,14 +2508,14 @@ impl SqlTiersService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::sql_users_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::sql_users_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::sql_users_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SqlUsersService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SqlUsersService` in
+/// create one and reuse it. You do not need to wrap `SqlUsersService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
