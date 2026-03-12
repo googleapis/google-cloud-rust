@@ -89,7 +89,7 @@ impl Row {
     /// let client = Spanner::builder().build().await?;
     /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let tx = db.single_use().build();
-    /// let mut rs = tx.execute_query(Statement::new("SELECT 42 AS Age")).await?;
+    /// let mut rs = tx.execute_query(Statement::builder("SELECT 42 AS Age").build()).await?;
     ///
     /// if let Some(row) = rs.next().await.transpose()? {
     ///     let age: i64 = row.try_get("Age")?;
@@ -140,7 +140,7 @@ impl Row {
     /// let client = Spanner::builder().build().await?;
     /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let tx = db.single_use().build();
-    /// let mut rs = tx.execute_query(Statement::new("SELECT 42 AS Age")).await?;
+    /// let mut rs = tx.execute_query(Statement::builder("SELECT 42 AS Age").build()).await?;
     ///
     /// if let Some(row) = rs.next().await.transpose()? {
     ///     let age: i64 = row.get("Age");
@@ -165,7 +165,11 @@ impl Row {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::to_value::ToValue;
+    use crate::types;
+    use rust_decimal::Decimal;
     use std::sync::Arc;
+    use time::{Date, Month, OffsetDateTime};
 
     #[test]
     fn auto_traits() {
@@ -174,11 +178,6 @@ mod tests {
 
     #[test]
     fn row_get() {
-        use crate::to_value::ToValue;
-        use crate::types;
-        use rust_decimal::Decimal;
-        use time::{Date, Month, OffsetDateTime};
-
         let names = vec![
             "col_string".to_string(),
             "col_int64".to_string(),

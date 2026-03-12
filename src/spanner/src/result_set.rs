@@ -77,7 +77,7 @@ impl ResultSet {
     /// ```
     ///
     /// The metadata is only available after the first call to [`next`](Self::next).
-    /// If called before the first `next()` call, it returns an error.
+    /// If called before the first `next()` call, it returns a [`ResultSetError::MetadataNotAvailable`] error.
     pub fn metadata(&self) -> Result<ResultSetMetadata, ResultSetError> {
         self.metadata
             .clone()

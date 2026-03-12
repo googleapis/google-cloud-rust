@@ -24,7 +24,7 @@ use std::sync::Arc;
 /// let client = Spanner::builder().build().await?;
 /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let tx = db.single_use().build();
-/// let mut rs = tx.execute_query(Statement::new("SELECT 1 AS Number")).await?;
+/// let mut rs = tx.execute_query(Statement::builder("SELECT 1 AS Number").build()).await?;
 ///
 /// // Metadata is available after the first `next` call
 /// let _ = rs.next().await.transpose()?;
@@ -49,15 +49,10 @@ impl ResultSetMetadata {
 
         if let Some(m) = &metadata {
             if let Some(row_type) = &m.row_type {
-                use gaxi::prost::FromProto;
                 for field in row_type.fields.iter() {
                     column_names.push(field.name.clone());
-                    let model_type: crate::generated::gapic_dataplane::model::Type = field
-                        .r#type
-                        .as_ref()
-                        .and_then(|t| t.clone().cnv().ok())
-                        .unwrap_or_default();
-                    column_types.push(model_type.into());
+                    let column_type = field.r#type.clone().map(Into::into).unwrap_or_default();
+                    column_types.push(column_type);
                 }
             }
         }
