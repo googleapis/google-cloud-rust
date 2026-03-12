@@ -88,7 +88,7 @@ async fn test_execute_query() -> anyhow::Result<()> {
 
     // Test the builder and execution flow
     let tx = db_client.single_use().build();
-    let stmt = Statement::new("SELECT 1");
+    let stmt = Statement::builder("SELECT 1").build();
 
     let mut rs = tx.execute_query(stmt).await?;
     let row = rs.next().await.expect("has row").expect("has valid row");
