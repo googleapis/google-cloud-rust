@@ -131,7 +131,7 @@ mod spanner {
     }
 
     #[tokio::test]
-    async fn test_simple_query() -> Result<(), Box<dyn std::error::Error>> {
+    async fn simple_query() -> anyhow::Result<()> {
         let db_client = match create_database_client().await {
             Some(client) => client,
             None => return Ok(()),
@@ -236,7 +236,7 @@ ORDER BY col_int64
     }
 
     #[tokio::test]
-    async fn test_query_with_parameters() -> Result<(), Box<dyn std::error::Error>> {
+    async fn query_with_parameters() -> anyhow::Result<()> {
         let db_client = match create_database_client().await {
             Some(client) => client,
             None => return Ok(()),

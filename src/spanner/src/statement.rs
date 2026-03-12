@@ -120,11 +120,12 @@ impl Statement {
         if self.params.is_empty() {
             None
         } else {
-            let mut map = serde_json::Map::new();
-            for (k, v) in &self.params {
-                map.insert(k.clone(), v.clone().into());
-            }
-            Some(map)
+            Some(
+                self.params
+                    .iter()
+                    .map(|(k, v)| (k.clone(), v.clone().into_serde_value()))
+                    .collect(),
+            )
         }
     }
 
