@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_secretmanager_v1::Error;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 
 /// Verify the google_cloud_secretmanager_v1 crate is minimally functional.
@@ -25,9 +26,23 @@ pub async fn run() -> anyhow::Result<()> {
         .list_secrets()
         .set_parent(format!("projects/{project_id}"))
         .by_item();
-    let _ = secrets
+    secrets
         .next()
         .await
-        .expect("expected at least one secret")?;
+        .expect("expected at least one secret")
+        .inspect_err(|e| eprintln!("Error in HTTP call: {e:?}"))
+        .map(|_| ())
+        .or_else(map_error)?;
     Ok(())
+}
+
+fn map_error(e: Error) -> anyhow::Result<()> {
+    if e.status().is_some() {
+        eprintln!(
+            "Got a service error, this is acceptable as the crypto provider must be working: {e:?}"
+        );
+        return Ok(());
+    }
+    eprintln!("Got a non-service error: {e:?}");
+    Err(e.into())
 }
