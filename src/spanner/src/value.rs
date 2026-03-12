@@ -126,6 +126,39 @@ impl Value {
     }
 }
 
+impl Value {
+    /// Converts a `prost_types::Value` to a `serde_json::Value`.
+    /// This is needed because the generated gapic client uses `serde_json::Value` instead of `prost_types::Value`.
+    /// It is converted back from `serde_json::Value` to `prost_types::Value` before hitting the wire.
+    pub(crate) fn into_serde_value(self) -> serde_json::Value {
+        match self.0.kind {
+            Some(prost_types::value::Kind::NullValue(_)) => serde_json::Value::Null,
+            Some(prost_types::value::Kind::NumberValue(n)) => {
+                if let Some(num) = serde_json::Number::from_f64(n) {
+                    serde_json::Value::Number(num)
+                } else {
+                    serde_json::Value::Null
+                }
+            }
+            Some(prost_types::value::Kind::StringValue(s)) => serde_json::Value::String(s),
+            Some(prost_types::value::Kind::BoolValue(b)) => serde_json::Value::Bool(b),
+            Some(prost_types::value::Kind::StructValue(s)) => serde_json::Value::Object(
+                s.fields
+                    .into_iter()
+                    .map(|(k, v)| (k, Value(v).into_serde_value()))
+                    .collect(),
+            ),
+            Some(prost_types::value::Kind::ListValue(l)) => serde_json::Value::Array(
+                l.values
+                    .into_iter()
+                    .map(|v| Value(v).into_serde_value())
+                    .collect(),
+            ),
+            None => serde_json::Value::Null,
+        }
+    }
+}
+
 /// A lightweight wrapper around a protobuf Struct.
 #[repr(transparent)]
 #[derive(Clone, Debug, PartialEq, Default)]

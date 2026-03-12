@@ -58,7 +58,10 @@ impl DatabaseClient {
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let tx = db_client.single_use().build();
-    /// let mut rs = tx.execute_query(Statement::new("SELECT 1")).await?;
+    /// let stmt = Statement::builder("SELECT * FROM users WHERE id = @id")
+    ///     .add_param("id", &42)
+    ///     .build();
+    /// let mut rs = tx.execute_query(stmt).await?;
     /// # Ok(())
     /// # }
     /// ```

@@ -110,7 +110,10 @@ impl SingleUseReadOnlyTransactionBuilder {
 /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let tx = db_client.single_use().build();
-/// let rs = tx.execute_query(Statement::new("SELECT 1")).await?;
+/// let stmt = Statement::builder("SELECT * FROM users WHERE id = @id")
+///     .add_param("id", &42)
+///     .build();
+/// let rs = tx.execute_query(stmt).await?;
 /// # Ok(())
 /// # }
 /// ```
@@ -129,7 +132,10 @@ impl SingleUseReadOnlyTransaction {
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let tx = db_client.single_use().build();
-    /// let mut rs = tx.execute_query(Statement::new("SELECT 1")).await?;
+    /// let stmt = Statement::builder("SELECT * FROM users WHERE id = @id")
+    ///     .add_param("id", &42)
+    ///     .build();
+    /// let mut rs = tx.execute_query(stmt).await?;
     /// while let Some(row) = rs.next().await {
     ///     let _row = row?;
     ///     // process row
@@ -137,7 +143,9 @@ impl SingleUseReadOnlyTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn execute_query(&self, statement: Statement) -> crate::Result<ResultSet> {
+    pub async fn execute_query(&self, statement: impl Into<Statement>) -> crate::Result<ResultSet> {
+        let statement = statement.into();
+
         let request = crate::model::ExecuteSqlRequest {
             session: self.client.session.name.clone(),
             transaction: Some(crate::model::TransactionSelector {
@@ -146,6 +154,8 @@ impl SingleUseReadOnlyTransaction {
                 )),
                 ..Default::default()
             }),
+            params: statement.get_params(),
+            param_types: statement.get_param_types(),
             sql: statement.sql,
             ..Default::default()
         };
@@ -303,7 +313,7 @@ mod tests {
 
         let tx = db_client.single_use().build();
         let mut rs = tx
-            .execute_query(Statement::new("SELECT 1"))
+            .execute_query(Statement::builder("SELECT 1").build())
             .await
             .expect("Failed to execute query");
 
