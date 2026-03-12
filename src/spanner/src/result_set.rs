@@ -319,10 +319,7 @@ mod tests {
             client.database_client("db").build().await.unwrap();
         let tx: crate::read_only_transaction::SingleUseReadOnlyTransaction =
             db_client.single_use().build();
-        let rs: ResultSet = tx
-            .execute_query(crate::statement::Statement::new("SELECT 1"))
-            .await
-            .unwrap();
+        let rs: ResultSet = tx.execute_query("SELECT 1").await.unwrap();
         rs
     }
 

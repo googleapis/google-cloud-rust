@@ -98,14 +98,15 @@ mod spanner {
         );
     }
 
-    #[tokio::test]
-    async fn test_simple_query() -> Result<(), Box<dyn std::error::Error>> {
-        // For now, we only support integration tests on the Spanner Emulator.
+    /// Creates a database client for the test instance and database.
+    /// Returns None if the SPANNER_EMULATOR_HOST environment variable is not set.
+    /// This indicates that integration tests should be skipped.
+    async fn create_database_client() -> Option<google_cloud_spanner::client::DatabaseClient> {
         let endpoint = match get_emulator_host() {
             Some(host) => host,
             None => {
                 println!("Skipping emulator E2E test as SPANNER_EMULATOR_HOST is not set");
-                return Ok(());
+                return None;
             }
         };
 
@@ -125,6 +126,16 @@ mod spanner {
             .build()
             .await
             .expect("Failed to build database client");
+
+        Some(db_client)
+    }
+
+    #[tokio::test]
+    async fn simple_query() -> anyhow::Result<()> {
+        let db_client = match create_database_client().await {
+            Some(client) => client,
+            None => return Ok(()),
+        };
 
         let rot = db_client.single_use().build();
 
@@ -197,7 +208,7 @@ SELECT
 ORDER BY col_int64
 "#;
 
-        let stmt = Statement::new(sql);
+        let stmt = Statement::builder(sql).build();
         let mut rs = rot
             .execute_query(stmt)
             .await
@@ -220,6 +231,98 @@ ORDER BY col_int64
         verify_null_row(row1);
         verify_row_1(row2);
         verify_row_2(row3);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn query_with_parameters() -> anyhow::Result<()> {
+        let db_client = match create_database_client().await {
+            Some(client) => client,
+            None => return Ok(()),
+        };
+
+        let rot = db_client.single_use().build();
+
+        let sql = r#"
+        WITH Data AS (
+            SELECT 1 as id, 'Alice' as name 
+            UNION ALL 
+            SELECT 2 as id, 'Bob' as name
+        ) 
+        SELECT name FROM Data WHERE id = @id
+        "#;
+
+        let stmt = Statement::builder(sql).add_param("id", &2).build();
+        let mut rs = rot
+            .execute_query(stmt)
+            .await
+            .expect("Failed to execute query");
+
+        let mut rows = Vec::new();
+        while let Some(row) = rs.next().await.transpose()? {
+            rows.push(row);
+        }
+
+        assert_eq!(rows.len(), 1);
+        assert_eq!(rows[0].raw_values()[0].as_string(), "Bob");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn result_set_metadata() -> anyhow::Result<()> {
+        let db_client = match create_database_client().await {
+            Some(client) => client,
+            None => return Ok(()),
+        };
+
+        let rot = db_client.single_use().build();
+
+        // 1. Simple normal query
+        let sql = "SELECT 1 as num, 'Alice' as name";
+        let mut rs = rot.execute_query(Statement::builder(sql).build()).await?;
+
+        assert!(rs.next().await.transpose()?.is_some());
+        let metadata = rs.metadata()?;
+        assert_eq!(
+            metadata.column_names(),
+            &["num".to_string(), "name".to_string()]
+        );
+
+        // 2. Query that returns zero rows
+        let sql_zero_rows = r#"
+        WITH Data AS (
+            SELECT 1 as num, 'Alice' as name
+        )
+        SELECT num, name FROM Data WHERE 1=0
+        "#;
+        let mut rs_zero_rows = rot
+            .execute_query(Statement::builder(sql_zero_rows).build())
+            .await?;
+
+        assert!(rs_zero_rows.next().await.transpose()?.is_none());
+        let metadata_zero_rows = rs_zero_rows.metadata()?;
+        assert_eq!(
+            metadata_zero_rows.column_names(),
+            &["num".to_string(), "name".to_string()]
+        );
+
+        // 3. Query with duplicate aliases
+        let sql_dup = "SELECT 1 as dup, 2 as dup";
+        let mut rs_dup = rot
+            .execute_query(Statement::builder(sql_dup).build())
+            .await?;
+
+        let row_dup = rs_dup.next().await.transpose()?.unwrap();
+        let metadata_dup = rs_dup.metadata()?;
+        assert_eq!(
+            metadata_dup.column_names(),
+            &["dup".to_string(), "dup".to_string()]
+        );
+
+        let val: i64 = row_dup.get("dup");
+        assert_eq!(val, 1);
 
         Ok(())
     }
