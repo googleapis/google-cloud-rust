@@ -55,6 +55,7 @@ default-members = [
   "tests/protobuf",
   "tests/pubsub",
   "tests/showcase",
+  "tests/spanner",
   "tests/storage",
 ]
 
@@ -217,6 +218,7 @@ members = [
   "src/generated/cloud/security/privateca/v1",
   "src/generated/cloud/security/publicca/v1",
   "src/generated/cloud/securitycenter/v2",
+  "src/generated/cloud/securitycentermanagement/v1",
   "src/generated/cloud/securityposture/v1",
   "src/generated/cloud/servicedirectory/v1",
   "src/generated/cloud/servicehealth/v1",
@@ -329,6 +331,7 @@ members = [
   "tests/protojson-conformance",
   "tests/pubsub",
   "tests/showcase",
+  "tests/spanner",
   "tests/storage",
   "tools/check-copyright",
   "tools/minimal-version-helper",
@@ -496,6 +499,7 @@ google-cloud-aiplatform-v1           = { default-features = false, path = "src/g
 google-cloud-compute-v1              = { default-features = false, path = "src/generated/cloud/compute/v1" }
 google-cloud-storage                 = { default-features = false, path = "src/storage" }
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
+google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
 google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }

@@ -1011,6 +1011,24 @@ pub mod subscription_admin {
             self
         }
 
+        /// Sets the value of [bigtable_config][crate::model::Subscription::bigtable_config].
+        pub fn set_bigtable_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigtableConfig>,
+        {
+            self.0.request.bigtable_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bigtable_config][crate::model::Subscription::bigtable_config].
+        pub fn set_or_clear_bigtable_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BigtableConfig>,
+        {
+            self.0.request.bigtable_config = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [ack_deadline_seconds][crate::model::Subscription::ack_deadline_seconds].
         pub fn set_ack_deadline_seconds<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.ack_deadline_seconds = v.into();

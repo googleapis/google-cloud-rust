@@ -335,6 +335,7 @@ impl std::fmt::Debug for super::Cluster {
         debug_struct.field("subscription_type", &self.subscription_type);
         debug_struct.field("trial_metadata", &self.trial_metadata);
         debug_struct.field("tags", &self.tags);
+        debug_struct.field("dataplex_config", &self.dataplex_config);
         debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -399,6 +400,17 @@ impl std::fmt::Debug for super::cluster::TrialMetadata {
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("upgrade_time", &self.upgrade_time);
         debug_struct.field("grace_end_time", &self.grace_end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::cluster::DataplexConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataplexConfig");
+        debug_struct.field("enabled", &self.enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

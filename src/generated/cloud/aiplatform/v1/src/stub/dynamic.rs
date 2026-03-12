@@ -10461,6 +10461,18 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CorroborateContentResponse>>;
 
+    async fn ask_contexts(
+        &self,
+        req: crate::model::AskContextsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AskContextsResponse>>;
+
+    async fn async_retrieve_contexts(
+        &self,
+        req: crate::model::AsyncRetrieveContextsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -10520,6 +10532,16 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         req: google_cloud_longrunning::model::WaitOperationRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::VertexRagService] also implement [VertexRagService].
@@ -10551,6 +10573,24 @@ impl<T: super::VertexRagService> VertexRagService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CorroborateContentResponse>> {
         T::corroborate_content(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn ask_contexts(
+        &self,
+        req: crate::model::AskContextsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AskContextsResponse>> {
+        T::ask_contexts(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn async_retrieve_contexts(
+        &self,
+        req: crate::model::AsyncRetrieveContextsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::async_retrieve_contexts(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -10643,6 +10683,20 @@ impl<T: super::VertexRagService> VertexRagService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
     }
 }
 

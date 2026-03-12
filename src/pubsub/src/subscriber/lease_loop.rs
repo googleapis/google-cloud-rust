@@ -56,8 +56,8 @@ impl LeaseLoop {
                     ack_id = ack_rx.recv() => {
                         match ack_id {
                             None => break,
-                            Some(Action::Ack(ack_id)) => state.ack(ack_id),
-                            Some(Action::Nack(ack_id)) => state.nack(ack_id),
+                            Some(Action::Ack(ack_id)) => state.process(Action::Ack(ack_id)),
+                            Some(Action::Nack(ack_id)) => state.process(Action::Nack(ack_id)),
                             // TODO(#3964) - process exactly-once acks/nacks in the lease state
                             _ => unreachable!("we do not return exactly-once handlers yet."),
                         }
@@ -83,7 +83,7 @@ where
 {
     while let Ok(r) = ack_rx.try_recv() {
         if let Action::Ack(ack_id) = r {
-            state.ack(ack_id);
+            state.process(Action::Ack(ack_id));
         }
     }
     state.shutdown().await;
@@ -91,7 +91,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::lease_state::tests::{sorted, test_id, test_ids, test_info};
+    use super::super::lease_state::tests::{at_least_once_info, sorted, test_id, test_ids};
     use super::super::leaser::tests::MockLeaser;
     use super::*;
     use google_cloud_test_macros::tokio_test_no_panics;
@@ -102,7 +102,7 @@ mod tests {
     fn test_message(id: i32) -> NewMessage {
         NewMessage {
             ack_id: test_id(id),
-            lease_info: test_info(),
+            lease_info: at_least_once_info(),
         }
     }
 

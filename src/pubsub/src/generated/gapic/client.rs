@@ -51,14 +51,14 @@
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::topic_admin::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::topic_admin::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::topic_admin::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `TopicAdmin` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `TopicAdmin` in
+/// create one and reuse it. You do not need to wrap `TopicAdmin` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -342,14 +342,14 @@ impl TopicAdmin {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::subscription_admin::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::subscription_admin::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::subscription_admin::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SubscriptionAdmin` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SubscriptionAdmin` in
+/// create one and reuse it. You do not need to wrap `SubscriptionAdmin` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -771,14 +771,14 @@ impl SubscriptionAdmin {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::schema_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::schema_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::schema_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `SchemaService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SchemaService` in
+/// create one and reuse it. You do not need to wrap `SchemaService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]

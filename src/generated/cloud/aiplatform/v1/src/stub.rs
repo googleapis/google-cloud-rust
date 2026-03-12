@@ -8030,6 +8030,28 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::VertexRagService::ask_contexts].
+    fn ask_contexts(
+        &self,
+        _req: crate::model::AskContextsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AskContextsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VertexRagService::async_retrieve_contexts].
+    fn async_retrieve_contexts(
+        &self,
+        _req: crate::model::AsyncRetrieveContextsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::VertexRagService::list_locations].
     fn list_locations(
         &self,
@@ -8140,6 +8162,28 @@ pub trait VertexRagService: std::fmt::Debug + Send + Sync {
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 

@@ -9408,6 +9408,12 @@ pub mod process_options {
         /// response.
         pub return_bounding_boxes: bool,
 
+        /// Optional. Whether to include image annotations in layout parser response.
+        pub enable_image_annotation: bool,
+
+        /// Optional. Whether to include table annotations in layout parser response.
+        pub enable_table_annotation: bool,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -9470,6 +9476,30 @@ pub mod process_options {
         /// ```
         pub fn set_return_bounding_boxes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.return_bounding_boxes = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_image_annotation][crate::model::process_options::LayoutConfig::enable_image_annotation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_documentai_v1::model::process_options::LayoutConfig;
+        /// let x = LayoutConfig::new().set_enable_image_annotation(true);
+        /// ```
+        pub fn set_enable_image_annotation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable_image_annotation = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_table_annotation][crate::model::process_options::LayoutConfig::enable_table_annotation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_documentai_v1::model::process_options::LayoutConfig;
+        /// let x = LayoutConfig::new().set_enable_table_annotation(true);
+        /// ```
+        pub fn set_enable_table_annotation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable_table_annotation = v.into();
             self
         }
     }

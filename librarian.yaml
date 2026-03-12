@@ -12,17 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.8.4-0.20260310152958-01b39a00ca8a
+version: v0.8.4-0.20260312155511-6e855470a751
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: fd631c33fb627a0de9c682c40635d87c11485147
-    sha256: 9b208d1daa6fda3a401809b039bf1e8ac7181d238627034145266f82bb066f75
+    commit: e71037cb61157fc835aa269a5a43eed030414064
+    sha256: 079946035f9f465e33bf1416818f21c548af8dc5723056e6591b7e58809ee82a
   googleapis:
-    commit: c83d354f79b02e3dc98f22248e22851fcf9b961d
-    sha256: 0be31168e2f38d0e076c518286256522406e622f25d3457125fa168facc34ed5
+    commit: a0ff7486adf5ae827a140c3b45102019c592b438
+    sha256: 3656a116db271553908bb7741f86dbe010cb88fc78e71c8c68067de6babbdc00
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -1194,7 +1194,7 @@ libraries:
     rust:
       package_name_override: google-cloud-profiler-v2
   - name: google-cloud-pubsub
-    version: 0.32.4-preview
+    version: 0.33.0
     copyright_year: "2025"
     output: src/pubsub
     rust:
@@ -1339,6 +1339,9 @@ libraries:
   - name: google-cloud-securitycenter-v2
     version: 1.7.0
     copyright_year: "2025"
+  - name: google-cloud-securitycentermanagement-v1
+    copyright_year: "2026"
+    rust: {}
   - name: google-cloud-securityposture-v1
     version: 1.7.0
     copyright_year: "2025"

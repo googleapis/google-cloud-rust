@@ -1,0 +1,75 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Google Cloud Build Monitor
+on:
+  check_suite:
+    types: [completed]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-issue-on-failure:
+    runs-on: ubuntu-24.04
+    # Only run for GCB check suites that failed/timed out/cancelled on the main branch.
+    if: >
+      github.event.check_suite.app.name == 'Google Cloud Build' && (github.event.check_suite.conclusion == 'failure' ||
+       github.event.check_suite.conclusion == 'timed_out' ||
+       github.event.check_suite.conclusion == 'cancelled') &&
+      github.event.check_suite.head_branch == 'main'
+    steps:
+      - name: Create or update CI failure issue
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          CHECK_SUITE_URL: ${{ github.event.check_suite.html_url }}
+          COMMIT_SHA: ${{ github.event.check_suite.head_sha }}
+          PR_LIST: ${{ toJson(github.event.check_suite.pull_requests) }}
+        run: |
+          ISSUE_TITLE="google-cloud-rust: CI failure on main branch"
+
+          # Format the PR list for the body
+          PR_TEXT=""
+          if [[ "$PR_LIST" != "[]" ]]; then
+            PR_TEXT="**Associated Pull Requests:**"
+            # Extract PR numbers and turn them into links
+            PRS=$(echo "$PR_LIST" | jq -r '.[] | "#" + (.number | toString)')
+            for pr in $PRS; do
+              PR_TEXT="$PR_TEXT"$'\n'"- $pr"
+            done
+          fi
+
+          BODY="The Rust CI failed on the \`main\` branch.
+
+          **Failure in Google Cloud Build:**
+          - **Check Suite:** $CHECK_SUITE_URL
+          - **Commit:** $COMMIT_SHA
+
+          $PR_TEXT"
+
+          # Check for an existing open issue with the same title.
+          EXISTING_ISSUE=$(gh issue list --repo $GH_REPO --search "$ISSUE_TITLE in:title" --state open --json number --jq '.[0].number')
+
+          if [[ -n "$EXISTING_ISSUE" && "$EXISTING_ISSUE" != "null" ]]; then
+            echo "Found existing open issue #$EXISTING_ISSUE. Adding comment."
+            gh issue comment "$EXISTING_ISSUE" --repo $GH_REPO --body "The build failed again in GCB. Details: $CHECK_SUITE_URL (Commit: $COMMIT_SHA). $PR_TEXT"
+          else
+            echo "Creating new issue."
+            ISSUE_LINK=$(gh issue create --title "$ISSUE_TITLE" --body "$BODY" --label ":rotating_light: critical" --assignee ${{ github.actor }} -R $GH_REPO)
+            ISSUE_NUM=${ISSUE_LINK##*/}
+            gh issue comment $ISSUE_NUM --repo $GH_REPO --body "@googleapis/cloud-sdk-rust-team A critical issue has been created, please respond immediately."
+          fi

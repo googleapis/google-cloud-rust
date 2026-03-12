@@ -679,9 +679,6 @@ pub mod search_hint {
         /// `projects/{project}/locations/{location}/collections/{collection}/indexes/{index}`
         pub name: std::string::String,
 
-        /// The parameters for the index.
-        pub params: std::option::Option<crate::model::search_hint::index_hint::Params>,
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -701,144 +698,11 @@ pub mod search_hint {
             self.name = v.into();
             self
         }
-
-        /// Sets the value of [params][crate::model::search_hint::IndexHint::params].
-        ///
-        /// Note that all the setters affecting `params` are mutually
-        /// exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_vectorsearch_v1::model::search_hint::IndexHint;
-        /// use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
-        /// let x = IndexHint::new().set_params(Some(
-        ///     google_cloud_vectorsearch_v1::model::search_hint::index_hint::Params::DenseScannParams(DenseScannParams::default().into())));
-        /// ```
-        pub fn set_params<
-            T: std::convert::Into<std::option::Option<crate::model::search_hint::index_hint::Params>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.params = v.into();
-            self
-        }
-
-        /// The value of [params][crate::model::search_hint::IndexHint::params]
-        /// if it holds a `DenseScannParams`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn dense_scann_params(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::search_hint::index_hint::DenseScannParams>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.params.as_ref().and_then(|v| match v {
-                crate::model::search_hint::index_hint::Params::DenseScannParams(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// Sets the value of [params][crate::model::search_hint::IndexHint::params]
-        /// to hold a `DenseScannParams`.
-        ///
-        /// Note that all the setters affecting `params` are
-        /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_vectorsearch_v1::model::search_hint::IndexHint;
-        /// use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
-        /// let x = IndexHint::new().set_dense_scann_params(DenseScannParams::default()/* use setters */);
-        /// assert!(x.dense_scann_params().is_some());
-        /// ```
-        pub fn set_dense_scann_params<
-            T: std::convert::Into<
-                    std::boxed::Box<crate::model::search_hint::index_hint::DenseScannParams>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.params = std::option::Option::Some(
-                crate::model::search_hint::index_hint::Params::DenseScannParams(v.into()),
-            );
-            self
-        }
     }
 
     impl wkt::message::Message for IndexHint {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.vectorsearch.v1.SearchHint.IndexHint"
-        }
-    }
-
-    /// Defines additional types related to [IndexHint].
-    pub mod index_hint {
-        #[allow(unused_imports)]
-        use super::*;
-
-        /// Parameters for dense ScaNN.
-        #[derive(Clone, Default, PartialEq)]
-        #[non_exhaustive]
-        pub struct DenseScannParams {
-            /// Optional. Dense ANN param overrides to control recall and latency.
-            /// The percentage of leaves to search, in the range [0, 100].
-            pub search_leaves_pct: i32,
-
-            /// Optional. The number of initial candidates. Must be a positive integer
-            /// (> 0).
-            pub initial_candidate_count: i32,
-
-            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-        }
-
-        impl DenseScannParams {
-            pub fn new() -> Self {
-                std::default::Default::default()
-            }
-
-            /// Sets the value of [search_leaves_pct][crate::model::search_hint::index_hint::DenseScannParams::search_leaves_pct].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
-            /// let x = DenseScannParams::new().set_search_leaves_pct(42);
-            /// ```
-            pub fn set_search_leaves_pct<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                self.search_leaves_pct = v.into();
-                self
-            }
-
-            /// Sets the value of [initial_candidate_count][crate::model::search_hint::index_hint::DenseScannParams::initial_candidate_count].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_cloud_vectorsearch_v1::model::search_hint::index_hint::DenseScannParams;
-            /// let x = DenseScannParams::new().set_initial_candidate_count(42);
-            /// ```
-            pub fn set_initial_candidate_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-                self.initial_candidate_count = v.into();
-                self
-            }
-        }
-
-        impl wkt::message::Message for DenseScannParams {
-            fn typename() -> &'static str {
-                "type.googleapis.com/google.cloud.vectorsearch.v1.SearchHint.IndexHint.DenseScannParams"
-            }
-        }
-
-        /// The parameters for the index.
-        #[derive(Clone, Debug, PartialEq)]
-        #[non_exhaustive]
-        pub enum Params {
-            /// Optional. Dense ScaNN parameters.
-            DenseScannParams(
-                std::boxed::Box<crate::model::search_hint::index_hint::DenseScannParams>,
-            ),
         }
     }
 
@@ -5829,6 +5693,433 @@ impl wkt::message::Message for ImportDataObjectsResponse {
     }
 }
 
+/// Request message for
+/// [VectorSearchService.ExportDataObjects][google.cloud.vectorsearch.v1.VectorSearchService.ExportDataObjects].
+///
+/// [google.cloud.vectorsearch.v1.VectorSearchService.ExportDataObjects]: crate::client::VectorSearchService::export_data_objects
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportDataObjectsRequest {
+    /// Required. The resource name of the Collection from which we want to export
+    /// Data Objects. Format:
+    /// `projects/{project}/locations/{location}/collections/{collection}`.
+    pub name: std::string::String,
+
+    /// The configuration for the export data.
+    pub destination: std::option::Option<crate::model::export_data_objects_request::Destination>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportDataObjectsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExportDataObjectsRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::ExportDataObjectsRequest;
+    /// let x = ExportDataObjectsRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [destination][crate::model::ExportDataObjectsRequest::destination].
+    ///
+    /// Note that all the setters affecting `destination` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::ExportDataObjectsRequest;
+    /// use google_cloud_vectorsearch_v1::model::export_data_objects_request::GcsExportDestination;
+    /// let x = ExportDataObjectsRequest::new().set_destination(Some(
+    ///     google_cloud_vectorsearch_v1::model::export_data_objects_request::Destination::GcsDestination(GcsExportDestination::default().into())));
+    /// ```
+    pub fn set_destination<
+        T: std::convert::Into<
+                std::option::Option<crate::model::export_data_objects_request::Destination>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = v.into();
+        self
+    }
+
+    /// The value of [destination][crate::model::ExportDataObjectsRequest::destination]
+    /// if it holds a `GcsDestination`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gcs_destination(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::export_data_objects_request::GcsExportDestination>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.destination.as_ref().and_then(|v| match v {
+            crate::model::export_data_objects_request::Destination::GcsDestination(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [destination][crate::model::ExportDataObjectsRequest::destination]
+    /// to hold a `GcsDestination`.
+    ///
+    /// Note that all the setters affecting `destination` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::ExportDataObjectsRequest;
+    /// use google_cloud_vectorsearch_v1::model::export_data_objects_request::GcsExportDestination;
+    /// let x = ExportDataObjectsRequest::new().set_gcs_destination(GcsExportDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// ```
+    pub fn set_gcs_destination<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::export_data_objects_request::GcsExportDestination>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.destination = std::option::Option::Some(
+            crate::model::export_data_objects_request::Destination::GcsDestination(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExportDataObjectsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.ExportDataObjectsRequest"
+    }
+}
+
+/// Defines additional types related to [ExportDataObjectsRequest].
+pub mod export_data_objects_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Google Cloud Storage configuration for the export.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GcsExportDestination {
+        /// Required. URI prefix of the Cloud Storage where to export Data Objects.
+        /// The bucket is required to be in the same region as the collection.
+        pub export_uri: std::string::String,
+
+        /// Required. The format of the exported Data Objects.
+        pub format: crate::model::export_data_objects_request::gcs_export_destination::Format,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GcsExportDestination {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [export_uri][crate::model::export_data_objects_request::GcsExportDestination::export_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_vectorsearch_v1::model::export_data_objects_request::GcsExportDestination;
+        /// let x = GcsExportDestination::new().set_export_uri("example");
+        /// ```
+        pub fn set_export_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.export_uri = v.into();
+            self
+        }
+
+        /// Sets the value of [format][crate::model::export_data_objects_request::GcsExportDestination::format].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_vectorsearch_v1::model::export_data_objects_request::GcsExportDestination;
+        /// use google_cloud_vectorsearch_v1::model::export_data_objects_request::gcs_export_destination::Format;
+        /// let x0 = GcsExportDestination::new().set_format(Format::Jsonl);
+        /// ```
+        pub fn set_format<
+            T: std::convert::Into<
+                    crate::model::export_data_objects_request::gcs_export_destination::Format,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.format = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GcsExportDestination {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.vectorsearch.v1.ExportDataObjectsRequest.GcsExportDestination"
+        }
+    }
+
+    /// Defines additional types related to [GcsExportDestination].
+    pub mod gcs_export_destination {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Options for the format of the exported Data Objects.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Format {
+            /// Unspecified format.
+            Unspecified,
+            /// Exports Data Objects in `JSONL` format.
+            Jsonl,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Format::value] or
+            /// [Format::name].
+            UnknownValue(format::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod format {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Format {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Jsonl => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("FORMAT_UNSPECIFIED"),
+                    Self::Jsonl => std::option::Option::Some("JSONL"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Format {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Format {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Format {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    2 => Self::Jsonl,
+                    _ => Self::UnknownValue(format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Format {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "FORMAT_UNSPECIFIED" => Self::Unspecified,
+                    "JSONL" => Self::Jsonl,
+                    _ => Self::UnknownValue(format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Format {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Jsonl => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Format {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Format>::new(
+                    ".google.cloud.vectorsearch.v1.ExportDataObjectsRequest.GcsExportDestination.Format"))
+            }
+        }
+    }
+
+    /// The configuration for the export data.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Destination {
+        /// The Cloud Storage location where user wants to export Data Objects.
+        GcsDestination(
+            std::boxed::Box<crate::model::export_data_objects_request::GcsExportDestination>,
+        ),
+    }
+}
+
+/// Metadata for the ExportDataObjects LRO.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportDataObjectsMetadata {
+    /// Output only. The time the operation was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time the operation finished.
+    pub finish_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportDataObjectsMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::ExportDataObjectsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::ExportDataObjectsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataObjectsMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ExportDataObjectsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::ExportDataObjectsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataObjectsMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportDataObjectsMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [finish_time][crate::model::ExportDataObjectsMetadata::finish_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::ExportDataObjectsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataObjectsMetadata::new().set_finish_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_finish_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.finish_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [finish_time][crate::model::ExportDataObjectsMetadata::finish_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::ExportDataObjectsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDataObjectsMetadata::new().set_or_clear_finish_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportDataObjectsMetadata::new().set_or_clear_finish_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_finish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.finish_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExportDataObjectsMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.ExportDataObjectsMetadata"
+    }
+}
+
+/// Response for the ExportDataObjects LRO.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportDataObjectsResponse {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExportDataObjectsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for ExportDataObjectsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.ExportDataObjectsResponse"
+    }
+}
+
 /// Represents dedicated infrastructure for the index.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -5933,12 +6224,15 @@ pub mod dedicated_infrastructure {
     #[non_exhaustive]
     pub struct AutoscalingSpec {
         /// Optional. The minimum number of replicas. If not set or set to `0`,
-        /// defaults to `2`. Must be >= `2` and <= `1000`.
+        /// defaults to `2`. Must be >= `1` and <= `1000`.
         pub min_replica_count: i32,
 
-        /// Optional. The maximum number of replicas. If not set or set to `0`,
-        /// defaults to the greater of `min_replica_count` and `5`. Must be >=
+        /// Optional. The maximum number of replicas.  Must be >=
         /// `min_replica_count` and <= `1000`.
+        /// For the v1beta version, if not set or set to `0`, defaults to
+        /// the greater of `min_replica_count` and `5`.
+        /// For all other versions, if not set or set to `0`, defaults to
+        /// the greater of `min_replica_count` and `2`.
         pub max_replica_count: i32,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

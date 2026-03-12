@@ -618,6 +618,8 @@ mod tests {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
@@ -645,6 +647,8 @@ mod tests {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
@@ -672,6 +676,8 @@ mod tests {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();

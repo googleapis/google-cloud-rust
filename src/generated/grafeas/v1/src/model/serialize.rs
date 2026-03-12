@@ -322,6 +322,18 @@ impl serde::ser::Serialize for super::FileLocation {
         if self.layer_details.is_some() {
             state.serialize_entry("layerDetails", &self.layer_details)?;
         }
+        if !wkt::internal::is_default(&self.line_number) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("lineNumber", &__With(&self.line_number))?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -27449,6 +27449,7 @@ impl serde::ser::Serialize for super::NotebookSoftwareConfig {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Schema {
@@ -27640,6 +27641,7 @@ impl serde::ser::Serialize for super::Schema {
     feature = "specialist-pool-service",
     feature = "tensorboard-service",
     feature = "vertex-rag-data-service",
+    feature = "vertex-rag-service",
     feature = "vizier-service",
 ))]
 #[doc(hidden)]
@@ -31928,6 +31930,9 @@ impl serde::ser::Serialize for super::SessionEvent {
         if self.event_metadata.is_some() {
             state.serialize_entry("eventMetadata", &self.event_metadata)?;
         }
+        if self.raw_event.is_some() {
+            state.serialize_entry("rawEvent", &self.raw_event)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -32073,6 +32078,9 @@ impl serde::ser::Serialize for super::CreateSessionRequest {
         }
         if self.session.is_some() {
             state.serialize_entry("session", &self.session)?;
+        }
+        if !self.session_id.is_empty() {
+            state.serialize_entry("sessionId", &self.session_id)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -35345,6 +35353,7 @@ impl serde::ser::Serialize for super::tensorboard_time_series::Metadata {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Tool {
@@ -35396,6 +35405,7 @@ impl serde::ser::Serialize for super::Tool {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::tool::GoogleSearch {
@@ -35426,6 +35436,7 @@ impl serde::ser::Serialize for super::tool::GoogleSearch {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::tool::CodeExecution {
@@ -35450,6 +35461,7 @@ impl serde::ser::Serialize for super::tool::CodeExecution {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::tool::ComputerUse {
@@ -35483,6 +35495,7 @@ impl serde::ser::Serialize for super::tool::ComputerUse {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::UrlContext {
@@ -35507,6 +35520,7 @@ impl serde::ser::Serialize for super::UrlContext {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::FunctionDeclaration {
@@ -35866,6 +35880,7 @@ impl serde::ser::Serialize for super::CodeExecutionResult {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Retrieval {
@@ -35992,6 +36007,7 @@ impl serde::ser::Serialize for super::vertex_rag_store::RagResource {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::VertexAISearch {
@@ -36040,6 +36056,7 @@ impl serde::ser::Serialize for super::VertexAISearch {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::vertex_ai_search::DataStoreSpec {
@@ -36070,6 +36087,7 @@ impl serde::ser::Serialize for super::vertex_ai_search::DataStoreSpec {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GoogleSearchRetrieval {
@@ -36097,6 +36115,7 @@ impl serde::ser::Serialize for super::GoogleSearchRetrieval {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GoogleMaps {
@@ -36124,6 +36143,7 @@ impl serde::ser::Serialize for super::GoogleMaps {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::EnterpriseWebSearch {
@@ -36154,6 +36174,7 @@ impl serde::ser::Serialize for super::EnterpriseWebSearch {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::DynamicRetrievalConfig {
@@ -39966,6 +39987,136 @@ impl serde::ser::Serialize for super::Claim {
                 }
             }
             state.serialize_entry("score", &__With(&self.score))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "vertex-rag-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AskContextsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.query.is_some() {
+            state.serialize_entry("query", &self.query)?;
+        }
+        if !self.tools.is_empty() {
+            state.serialize_entry("tools", &self.tools)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "vertex-rag-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AskContextsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.response.is_empty() {
+            state.serialize_entry("response", &self.response)?;
+        }
+        if self.contexts.is_some() {
+            state.serialize_entry("contexts", &self.contexts)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "vertex-rag-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AsyncRetrieveContextsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.query.is_some() {
+            state.serialize_entry("query", &self.query)?;
+        }
+        if !self.tools.is_empty() {
+            state.serialize_entry("tools", &self.tools)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "vertex-rag-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AsyncRetrieveContextsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.contexts.is_some() {
+            state.serialize_entry("contexts", &self.contexts)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "vertex-rag-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AsyncRetrieveContextsOperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.generic_metadata.is_some() {
+            state.serialize_entry("genericMetadata", &self.generic_metadata)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

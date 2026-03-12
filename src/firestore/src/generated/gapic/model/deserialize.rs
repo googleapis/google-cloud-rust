@@ -941,6 +941,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Value {
             __array_value,
             __map_value,
             __field_reference_value,
+            __variable_reference_value,
             __function_value,
             __pipeline_value,
             Unknown(std::string::String),
@@ -987,6 +988,10 @@ impl<'de> serde::de::Deserialize<'de> for super::Value {
                             "map_value" => Ok(__FieldTag::__map_value),
                             "fieldReferenceValue" => Ok(__FieldTag::__field_reference_value),
                             "field_reference_value" => Ok(__FieldTag::__field_reference_value),
+                            "variableReferenceValue" => Ok(__FieldTag::__variable_reference_value),
+                            "variable_reference_value" => {
+                                Ok(__FieldTag::__variable_reference_value)
+                            }
                             "functionValue" => Ok(__FieldTag::__function_value),
                             "function_value" => Ok(__FieldTag::__function_value),
                             "pipelineValue" => Ok(__FieldTag::__pipeline_value),
@@ -1262,6 +1267,24 @@ impl<'de> serde::de::Deserialize<'de> for super::Value {
                             }
                             result.value_type = std::option::Option::Some(
                                 crate::model::value::ValueType::FieldReferenceValue(
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__variable_reference_value => {
+                            if !fields.insert(__FieldTag::__variable_reference_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for variable_reference_value",
+                                ));
+                            }
+                            if result.value_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `value_type`, a oneof with full ID .google.firestore.v1.Value.variable_reference_value, latest field was variableReferenceValue",
+                                ));
+                            }
+                            result.value_type = std::option::Option::Some(
+                                crate::model::value::ValueType::VariableReferenceValue(
                                     map.next_value::<std::option::Option<std::string::String>>()?
                                         .unwrap_or_default(),
                                 ),

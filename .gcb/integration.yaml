@@ -37,8 +37,14 @@ steps:
     env:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
+  - id: 'Start Spanner Emulator'
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['run', '-d', '--network=cloudbuild', '--name=spanner-emulator', 'gcr.io/cloud-spanner-emulator/emulator']
+    waitFor: ['-']
   - id: Run integration tests
     name: 'rust:${_RUST_VERSION}-bookworm'
+    env:
+      - 'SPANNER_EMULATOR_HOST=spanner-emulator:9010'
     script: |
       #!/usr/bin/env bash
       set -e

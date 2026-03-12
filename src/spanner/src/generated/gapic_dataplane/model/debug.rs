@@ -182,6 +182,7 @@ impl std::fmt::Debug for super::CommitResponse {
         debug_struct.field("commit_timestamp", &self.commit_timestamp);
         debug_struct.field("commit_stats", &self.commit_stats);
         debug_struct.field("snapshot_timestamp", &self.snapshot_timestamp);
+        debug_struct.field("cache_update", &self.cache_update);
         debug_struct.field("multiplexed_session_retry", &self.multiplexed_session_retry);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -910,6 +911,7 @@ impl std::fmt::Debug for super::BeginTransactionRequest {
         debug_struct.field("options", &self.options);
         debug_struct.field("request_options", &self.request_options);
         debug_struct.field("mutation_key", &self.mutation_key);
+        debug_struct.field("routing_hint", &self.routing_hint);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -926,6 +928,7 @@ impl std::fmt::Debug for super::CommitRequest {
         debug_struct.field("max_commit_delay", &self.max_commit_delay);
         debug_struct.field("request_options", &self.request_options);
         debug_struct.field("precommit_token", &self.precommit_token);
+        debug_struct.field("routing_hint", &self.routing_hint);
         debug_struct.field("transaction", &self.transaction);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1046,6 +1049,7 @@ impl std::fmt::Debug for super::Transaction {
         debug_struct.field("id", &self.id);
         debug_struct.field("read_timestamp", &self.read_timestamp);
         debug_struct.field("precommit_token", &self.precommit_token);
+        debug_struct.field("cache_update", &self.cache_update);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

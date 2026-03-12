@@ -8497,6 +8497,8 @@ impl<'de> serde::de::Deserialize<'de> for super::process_options::LayoutConfig {
             __chunking_config,
             __return_images,
             __return_bounding_boxes,
+            __enable_image_annotation,
+            __enable_table_annotation,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8523,6 +8525,10 @@ impl<'de> serde::de::Deserialize<'de> for super::process_options::LayoutConfig {
                             "return_images" => Ok(__FieldTag::__return_images),
                             "returnBoundingBoxes" => Ok(__FieldTag::__return_bounding_boxes),
                             "return_bounding_boxes" => Ok(__FieldTag::__return_bounding_boxes),
+                            "enableImageAnnotation" => Ok(__FieldTag::__enable_image_annotation),
+                            "enable_image_annotation" => Ok(__FieldTag::__enable_image_annotation),
+                            "enableTableAnnotation" => Ok(__FieldTag::__enable_table_annotation),
+                            "enable_table_annotation" => Ok(__FieldTag::__enable_table_annotation),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8575,6 +8581,26 @@ impl<'de> serde::de::Deserialize<'de> for super::process_options::LayoutConfig {
                                 ));
                             }
                             result.return_bounding_boxes = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__enable_image_annotation => {
+                            if !fields.insert(__FieldTag::__enable_image_annotation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_image_annotation",
+                                ));
+                            }
+                            result.enable_image_annotation = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__enable_table_annotation => {
+                            if !fields.insert(__FieldTag::__enable_table_annotation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_table_annotation",
+                                ));
+                            }
+                            result.enable_table_annotation = map
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }

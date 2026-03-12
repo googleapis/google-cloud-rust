@@ -1673,6 +1673,8 @@ pub struct Subscription {
     pub bigquery_config: ::core::option::Option<BigQueryConfig>,
     #[prost(message, optional, tag = "22")]
     pub cloud_storage_config: ::core::option::Option<CloudStorageConfig>,
+    #[prost(message, optional, tag = "27")]
+    pub bigtable_config: ::core::option::Option<BigtableConfig>,
     #[prost(int32, tag = "5")]
     pub ack_deadline_seconds: i32,
     #[prost(bool, tag = "7")]
@@ -2001,6 +2003,90 @@ impl ::prost::Name for BigQueryConfig {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.pubsub.v1.BigQueryConfig".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BigtableConfig {
+    #[prost(string, tag = "1")]
+    pub table: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub app_profile_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub service_account_email: ::prost::alloc::string::String,
+    #[prost(bool, tag = "5")]
+    pub write_metadata: bool,
+    #[prost(enumeration = "bigtable_config::State", tag = "4")]
+    pub state: i32,
+}
+/// Nested message and enum types in `BigtableConfig`.
+pub mod bigtable_config {
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        Unspecified = 0,
+        Active = 1,
+        NotFound = 2,
+        AppProfileMisconfigured = 3,
+        PermissionDenied = 4,
+        SchemaMismatch = 5,
+        InTransitLocationRestriction = 6,
+        VertexAiLocationRestriction = 7,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::NotFound => "NOT_FOUND",
+                Self::AppProfileMisconfigured => "APP_PROFILE_MISCONFIGURED",
+                Self::PermissionDenied => "PERMISSION_DENIED",
+                Self::SchemaMismatch => "SCHEMA_MISMATCH",
+                Self::InTransitLocationRestriction => "IN_TRANSIT_LOCATION_RESTRICTION",
+                Self::VertexAiLocationRestriction => "VERTEX_AI_LOCATION_RESTRICTION",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "ACTIVE" => Some(Self::Active),
+                "NOT_FOUND" => Some(Self::NotFound),
+                "APP_PROFILE_MISCONFIGURED" => Some(Self::AppProfileMisconfigured),
+                "PERMISSION_DENIED" => Some(Self::PermissionDenied),
+                "SCHEMA_MISMATCH" => Some(Self::SchemaMismatch),
+                "IN_TRANSIT_LOCATION_RESTRICTION" => {
+                    Some(Self::InTransitLocationRestriction)
+                }
+                "VERTEX_AI_LOCATION_RESTRICTION" => {
+                    Some(Self::VertexAiLocationRestriction)
+                }
+                _ => None,
+            }
+        }
+    }
+}
+impl ::prost::Name for BigtableConfig {
+    const NAME: &'static str = "BigtableConfig";
+    const PACKAGE: &'static str = "google.pubsub.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.pubsub.v1.BigtableConfig".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.pubsub.v1.BigtableConfig".into()
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]

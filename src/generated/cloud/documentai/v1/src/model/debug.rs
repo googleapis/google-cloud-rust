@@ -945,6 +945,8 @@ impl std::fmt::Debug for super::process_options::LayoutConfig {
         debug_struct.field("chunking_config", &self.chunking_config);
         debug_struct.field("return_images", &self.return_images);
         debug_struct.field("return_bounding_boxes", &self.return_bounding_boxes);
+        debug_struct.field("enable_image_annotation", &self.enable_image_annotation);
+        debug_struct.field("enable_table_annotation", &self.enable_table_annotation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

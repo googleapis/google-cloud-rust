@@ -3146,6 +3146,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Subscription {
             __push_config,
             __bigquery_config,
             __cloud_storage_config,
+            __bigtable_config,
             __ack_deadline_seconds,
             __retain_acked_messages,
             __message_retention_duration,
@@ -3190,6 +3191,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Subscription {
                             "bigquery_config" => Ok(__FieldTag::__bigquery_config),
                             "cloudStorageConfig" => Ok(__FieldTag::__cloud_storage_config),
                             "cloud_storage_config" => Ok(__FieldTag::__cloud_storage_config),
+                            "bigtableConfig" => Ok(__FieldTag::__bigtable_config),
+                            "bigtable_config" => Ok(__FieldTag::__bigtable_config),
                             "ackDeadlineSeconds" => Ok(__FieldTag::__ack_deadline_seconds),
                             "ack_deadline_seconds" => Ok(__FieldTag::__ack_deadline_seconds),
                             "retainAckedMessages" => Ok(__FieldTag::__retain_acked_messages),
@@ -3305,6 +3308,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Subscription {
                             }
                             result.cloud_storage_config = map.next_value::<std::option::Option<crate::model::CloudStorageConfig>>()?
                                 ;
+                        }
+                        __FieldTag::__bigtable_config => {
+                            if !fields.insert(__FieldTag::__bigtable_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bigtable_config",
+                                ));
+                            }
+                            result.bigtable_config = map
+                                .next_value::<std::option::Option<crate::model::BigtableConfig>>(
+                                )?;
                         }
                         __FieldTag::__ack_deadline_seconds => {
                             if !fields.insert(__FieldTag::__ack_deadline_seconds) {
@@ -4410,6 +4423,135 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryConfig {
                             result.service_account_email = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BigtableConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __table,
+            __app_profile_id,
+            __service_account_email,
+            __write_metadata,
+            __state,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BigtableConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "table" => Ok(__FieldTag::__table),
+                            "appProfileId" => Ok(__FieldTag::__app_profile_id),
+                            "app_profile_id" => Ok(__FieldTag::__app_profile_id),
+                            "serviceAccountEmail" => Ok(__FieldTag::__service_account_email),
+                            "service_account_email" => Ok(__FieldTag::__service_account_email),
+                            "writeMetadata" => Ok(__FieldTag::__write_metadata),
+                            "write_metadata" => Ok(__FieldTag::__write_metadata),
+                            "state" => Ok(__FieldTag::__state),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BigtableConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BigtableConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__table => {
+                            if !fields.insert(__FieldTag::__table) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for table",
+                                ));
+                            }
+                            result.table = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__app_profile_id => {
+                            if !fields.insert(__FieldTag::__app_profile_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for app_profile_id",
+                                ));
+                            }
+                            result.app_profile_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service_account_email => {
+                            if !fields.insert(__FieldTag::__service_account_email) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_account_email",
+                                ));
+                            }
+                            result.service_account_email = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__write_metadata => {
+                            if !fields.insert(__FieldTag::__write_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for write_metadata",
+                                ));
+                            }
+                            result.write_metadata = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map.next_value::<std::option::Option<crate::model::bigtable_config::State>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

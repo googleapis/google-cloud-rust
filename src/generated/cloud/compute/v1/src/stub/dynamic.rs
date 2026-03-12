@@ -10326,6 +10326,160 @@ impl<T: super::RegionCommitments> RegionCommitments for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::RegionCompositeHealthChecks].
+#[cfg(feature = "region-composite-health-checks")]
+#[async_trait::async_trait]
+pub trait RegionCompositeHealthChecks: std::fmt::Debug + Send + Sync {
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_composite_health_checks::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompositeHealthCheckAggregatedList>>;
+
+    async fn delete(
+        &self,
+        req: crate::model::region_composite_health_checks::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::region_composite_health_checks::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompositeHealthCheck>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::region_composite_health_checks::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::region_composite_health_checks::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompositeHealthCheckList>>;
+
+    async fn patch(
+        &self,
+        req: crate::model::region_composite_health_checks::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_composite_health_checks::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::RegionCompositeHealthChecks] also implement [RegionCompositeHealthChecks].
+#[cfg(feature = "region-composite-health-checks")]
+#[async_trait::async_trait]
+impl<T: super::RegionCompositeHealthChecks> RegionCompositeHealthChecks for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_composite_health_checks::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompositeHealthCheckAggregatedList>> {
+        T::aggregated_list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::region_composite_health_checks::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::region_composite_health_checks::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompositeHealthCheck>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::region_composite_health_checks::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::region_composite_health_checks::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompositeHealthCheckList>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn patch(
+        &self,
+        req: crate::model::region_composite_health_checks::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::patch(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_composite_health_checks::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::RegionDiskTypes].
 #[cfg(feature = "region-disk-types")]
 #[async_trait::async_trait]
@@ -10828,6 +10982,12 @@ impl<T: super::RegionHealthAggregationPolicies> RegionHealthAggregationPolicies 
 #[cfg(feature = "region-health-check-services")]
 #[async_trait::async_trait]
 pub trait RegionHealthCheckServices: std::fmt::Debug + Send + Sync {
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_health_check_services::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthCheckServiceAggregatedList>>;
+
     async fn delete(
         &self,
         req: crate::model::region_health_check_services::DeleteRequest,
@@ -10885,6 +11045,15 @@ pub trait RegionHealthCheckServices: std::fmt::Debug + Send + Sync {
 #[cfg(feature = "region-health-check-services")]
 #[async_trait::async_trait]
 impl<T: super::RegionHealthCheckServices> RegionHealthCheckServices for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_health_check_services::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthCheckServiceAggregatedList>> {
+        T::aggregated_list(self, req, options).await
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn delete(
         &self,
@@ -11091,6 +11260,160 @@ impl<T: super::RegionHealthChecks> RegionHealthChecks for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::update(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::RegionHealthSources].
+#[cfg(feature = "region-health-sources")]
+#[async_trait::async_trait]
+pub trait RegionHealthSources: std::fmt::Debug + Send + Sync {
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_health_sources::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthSourceAggregatedList>>;
+
+    async fn delete(
+        &self,
+        req: crate::model::region_health_sources::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::region_health_sources::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthSource>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::region_health_sources::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::region_health_sources::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthSourceList>>;
+
+    async fn patch(
+        &self,
+        req: crate::model::region_health_sources::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_health_sources::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::RegionHealthSources] also implement [RegionHealthSources].
+#[cfg(feature = "region-health-sources")]
+#[async_trait::async_trait]
+impl<T: super::RegionHealthSources> RegionHealthSources for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_health_sources::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthSourceAggregatedList>> {
+        T::aggregated_list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::region_health_sources::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::region_health_sources::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthSource>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::region_health_sources::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::region_health_sources::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthSourceList>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn patch(
+        &self,
+        req: crate::model::region_health_sources::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::patch(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_health_sources::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -12453,6 +12776,12 @@ impl<T: super::RegionNetworkFirewallPolicies> RegionNetworkFirewallPolicies for 
 #[cfg(feature = "region-notification-endpoints")]
 #[async_trait::async_trait]
 pub trait RegionNotificationEndpoints: std::fmt::Debug + Send + Sync {
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_notification_endpoints::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::NotificationEndpointAggregatedList>>;
+
     async fn delete(
         &self,
         req: crate::model::region_notification_endpoints::DeleteRequest,
@@ -12504,6 +12833,15 @@ pub trait RegionNotificationEndpoints: std::fmt::Debug + Send + Sync {
 #[cfg(feature = "region-notification-endpoints")]
 #[async_trait::async_trait]
 impl<T: super::RegionNotificationEndpoints> RegionNotificationEndpoints for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_notification_endpoints::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::NotificationEndpointAggregatedList>> {
+        T::aggregated_list(self, req, options).await
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn delete(
         &self,
@@ -13846,6 +14184,12 @@ pub trait ReservationSlots: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReservationSlotsGetResponse>>;
 
+    async fn get_version(
+        &self,
+        req: crate::model::reservation_slots::GetVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn list(
         &self,
         req: crate::model::reservation_slots::ListRequest,
@@ -13886,6 +14230,15 @@ impl<T: super::ReservationSlots> ReservationSlots for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ReservationSlotsGetResponse>> {
         T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_version(
+        &self,
+        req: crate::model::reservation_slots::GetVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -13945,6 +14298,12 @@ pub trait ReservationSubBlocks: std::fmt::Debug + Send + Sync {
         req: crate::model::reservation_sub_blocks::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn get_version(
+        &self,
+        req: crate::model::reservation_sub_blocks::GetVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
     async fn list(
         &self,
@@ -14013,6 +14372,15 @@ impl<T: super::ReservationSubBlocks> ReservationSubBlocks for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Policy>> {
         T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_version(
+        &self,
+        req: crate::model::reservation_sub_blocks::GetVersionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
