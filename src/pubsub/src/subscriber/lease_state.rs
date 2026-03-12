@@ -251,6 +251,7 @@ pub(super) mod tests {
     use std::collections::HashMap;
     use std::collections::HashSet;
     use std::sync::Arc;
+    use test_case::test_case;
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::sync::oneshot::channel;
     use tokio::time::interval;
@@ -1003,9 +1004,10 @@ pub(super) mod tests {
         assert_eq!(start.elapsed(), FLUSH_START);
     }
 
+    #[test_case(super::at_least_once_info)]
+    #[test_case(super::exactly_once_info)]
     #[tokio::test(start_paused = true)]
-    async fn limit_size_of_extends() -> anyhow::Result<()> {
-        // TODO(#3964) - Parameterize this test.
+    async fn limit_size_of_extends(lease_info_factory: fn() -> LeaseInfo) -> anyhow::Result<()> {
         const NUM_BATCHES: i32 = 5;
 
         // We use this channel to surface ack_ids from the mock expectation.
@@ -1023,7 +1025,7 @@ pub(super) mod tests {
 
         let mut want = HashSet::new();
         for i in 0..NUM_BATCHES * MAX_IDS_PER_RPC {
-            state.add(test_id(i), at_least_once_info());
+            state.add(test_id(i), lease_info_factory());
 
             // All ack IDs should be extended.
             want.insert(test_id(i));
@@ -1050,9 +1052,10 @@ pub(super) mod tests {
         Ok(())
     }
 
+    #[test_case(super::at_least_once_info)]
+    #[test_case(super::exactly_once_info)]
     #[tokio::test(start_paused = true)]
-    async fn message_expiration() -> anyhow::Result<()> {
-        // TODO(#3964) - Parameterize this test.
+    async fn message_expiration(lease_info_factory: fn() -> LeaseInfo) -> anyhow::Result<()> {
         const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(300);
         const DELTA: Duration = Duration::from_secs(1);
 
@@ -1077,13 +1080,13 @@ pub(super) mod tests {
 
         // Add 10 messages under lease management
         for i in 0..10 {
-            state.add(test_id(i), at_least_once_info());
+            state.add(test_id(i), lease_info_factory());
         }
 
         // Add 10 more messages under lease management, a little later.
         tokio::time::advance(DELTA * 2).await;
         for i in 10..20 {
-            state.add(test_id(i), at_least_once_info());
+            state.add(test_id(i), lease_info_factory());
         }
         state.extend().await;
 
