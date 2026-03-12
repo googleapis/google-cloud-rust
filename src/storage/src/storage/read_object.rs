@@ -21,6 +21,7 @@ use super::*;
 use crate::model_ext::KeyAes256;
 use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
+use crate::storage::checksum::details::Crc32c;
 use crate::storage::checksum::details::Md5;
 use crate::storage::request_options::RequestOptions;
 use gaxi::attempt_info::AttemptInfo;
@@ -169,13 +170,15 @@ where
     /// # Ok(()) }
     /// ```
     pub fn enable_crc32c_checksum(mut self, v: bool) -> Self {
-        if !v {
-            this.options.checksum.crc32c = None;
-        } else if this.options.checksum.crc32c.is_none() {
-            this.options.checksum.crc32c =
-                Some(crate::storage::checksum::details::Crc32c::default());
+        if v {
+            self.options
+                .checksum
+                .crc32c
+                .get_or_insert_with(Default::default);
+        } else {
+            self.options.checksum.crc32c = None;
         }
-        this
+        self
     }
 
     /// If present, selects a specific revision of this object (as
