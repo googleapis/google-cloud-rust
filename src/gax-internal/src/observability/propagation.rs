@@ -24,15 +24,20 @@
 //! Cargo treats 0.x releases as major versions, so a version mismatch will
 //! result in disconnected global contexts and trace propagation will fail.
 
+use http::HeaderMap;
 use http::header::{HeaderName, HeaderValue};
-use opentelemetry::propagation::TextMapPropagator;
+use opentelemetry::Context;
+use opentelemetry::propagation::{Injector, TextMapPropagator};
 use opentelemetry::trace::TraceContextExt;
+use opentelemetry_sdk::propagation::TraceContextPropagator;
 use std::str::FromStr;
+use tracing::Span;
+use tracing_opentelemetry::OpenTelemetrySpanExt;
 
 #[allow(dead_code)]
-pub(crate) struct HeaderInjector<'a>(pub &'a mut http::HeaderMap);
+pub(crate) struct HeaderInjector<'a>(pub &'a mut HeaderMap);
 
-impl<'a> opentelemetry::propagation::Injector for HeaderInjector<'a> {
+impl<'a> Injector for HeaderInjector<'a> {
     fn set(&mut self, key: &str, value: String) {
         if let (Ok(key), Ok(value)) = (HeaderName::from_str(key), HeaderValue::from_str(&value)) {
             self.0.insert(key, value);
@@ -42,26 +47,29 @@ impl<'a> opentelemetry::propagation::Injector for HeaderInjector<'a> {
 
 /// Injects the OpenTelemetry context from the given tracing span into the provided HTTP headers.
 #[allow(dead_code)]
-pub(crate) fn inject_context(span: &tracing::Span, headers: &mut http::HeaderMap) {
-    let mut context = tracing_opentelemetry::OpenTelemetrySpanExt::context(span);
+pub(crate) fn inject_context(span: &Span, headers: &mut HeaderMap) {
+    let mut context = span.context();
 
     // If the tracing span doesn't have a valid trace ID (e.g., the user isn't
     // using the tracing_opentelemetry subscriber bridge), fall back to the global
     // OTel context (for pure opentelemetry_sdk users).
     if !context.span().span_context().is_valid() {
-        context = opentelemetry::Context::current();
+        context = Context::current();
     }
 
-    let propagator = opentelemetry_sdk::propagation::TraceContextPropagator::new();
+    let propagator = TraceContextPropagator::new();
     propagator.inject_context(&context, &mut HeaderInjector(headers));
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use http::HeaderMap;
-    use opentelemetry::propagation::Injector;
+    use opentelemetry::trace::{
+        SpanContext, SpanId, TraceFlags, TraceId, TraceState, TracerProvider,
+    };
+    use opentelemetry_sdk::trace::SdkTracerProvider;
     use tracing::Dispatch;
+    use tracing_subscriber::layer::SubscriberExt;
 
     #[test]
     fn injector_valid_headers() {
@@ -93,8 +101,7 @@ mod tests {
         let mut injector = HeaderInjector(&mut headers);
 
         // Invalid characters in header key
-        injector.set("invalid key 
-", "value".to_string());
+        injector.set("invalid key\n", "value".to_string());
 
         assert!(headers.is_empty());
     }
@@ -105,21 +112,18 @@ mod tests {
         let mut injector = HeaderInjector(&mut headers);
 
         // Invalid characters in header value
-        injector.set("valid-key", "invalid
-value".to_string());
+        injector.set("valid-key", "invalid\nvalue".to_string());
 
         assert!(headers.is_empty());
     }
 
     fn set_up_otel_and_tracing() -> Dispatch {
-        let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
-        use opentelemetry::trace::TracerProvider as _;
+        let tracer_provider = SdkTracerProvider::builder().build();
         let tracer = tracer_provider.tracer("test");
 
-        use tracing_subscriber::layer::SubscriberExt;
         let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
         let subscriber = tracing_subscriber::registry().with(telemetry);
-        tracing::Dispatch::new(subscriber)
+        Dispatch::new(subscriber)
     }
 
     #[test]
@@ -137,7 +141,7 @@ value".to_string());
 
         assert!(
             matches!(
-                headers.get("traceparent").and_then(|v| v.to_str()),
+                headers.get("traceparent").map(|v| v.to_str()),
                 Some(Ok(v)) if v.starts_with("00-")
             ),
             "Headers: {:?}",
@@ -147,9 +151,6 @@ value".to_string());
 
     #[test]
     fn inject_context_fallback_to_opentelemetry_context() {
-        use opentelemetry::trace::{
-            SpanContext, SpanId, TraceFlags, TraceId, TraceState,
-        };
         let trace_id = TraceId::from_hex("00000000000000000000000000000001").unwrap();
         let span_id = SpanId::from_hex("0000000000000002").unwrap();
         let span_context = SpanContext::new(
@@ -159,7 +160,7 @@ value".to_string());
             true,
             TraceState::default(),
         );
-        let otel_context = opentelemetry::Context::new().with_remote_span_context(span_context);
+        let otel_context = Context::new().with_remote_span_context(span_context);
 
         // Create a tracing span without the tracing_opentelemetry subscriber active
         let span = tracing::info_span!("test_fallback_span");
@@ -173,8 +174,10 @@ value".to_string());
 
         assert!(
             matches!(
-                headers.get("traceparent").and_then(|v| v.to_str()),
-                Some(Ok("00-00000000000000000000000000000001-0000000000000002-01"))
+                headers.get("traceparent").map(|v| v.to_str()),
+                Some(Ok(
+                    "00-00000000000000000000000000000001-0000000000000002-01"
+                ))
             ),
             "Headers: {:?}",
             headers
