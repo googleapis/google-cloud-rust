@@ -103,7 +103,7 @@ mod tests {
         // Invalid characters in header key
         injector.set("invalid key\n", "value".to_string());
 
-        assert!(headers.is_empty());
+        assert!(headers.is_empty(), "{headers:?}");
     }
 
     #[test]
@@ -114,7 +114,7 @@ mod tests {
         // Invalid characters in header value
         injector.set("valid-key", "invalid\nvalue".to_string());
 
-        assert!(headers.is_empty());
+        assert!(headers.is_empty(), "{headers:?}");
     }
 
     fn set_up_otel_and_tracing() -> Dispatch {
