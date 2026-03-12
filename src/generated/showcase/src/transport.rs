@@ -4285,7 +4285,7 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
-                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
+                let resource_name = format!("//localhost:7469/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4302,7 +4302,7 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
-                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
+                let resource_name = format!("//localhost:7469/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4723,7 +4723,7 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
-                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
+                let resource_name = format!("//localhost:7469/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -4742,7 +4742,7 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
-                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
+                let resource_name = format!("//localhost:7469/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -4819,7 +4819,7 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs:search", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs:search";
 
-                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
+                let resource_name = format!("//localhost:7469/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
@@ -4836,7 +4836,7 @@ impl super::stub::Messaging for Messaging {
                 let path = format!("/v1beta1/{}/blurbs:search", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs:search";
 
-                let resource_name = format!("//localhost:7469/{}/blurbs", var_parent,);
+                let resource_name = format!("//localhost:7469/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7212,7 +7212,7 @@ impl super::stub::Testing for Testing {
                 let path = format!("/v1beta1/{}/tests", var_parent,);
                 let path_template = "/v1beta1/{parent}/tests";
 
-                let resource_name = format!("//localhost:7469/{}/tests", var_parent,);
+                let resource_name = format!("//localhost:7469/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);

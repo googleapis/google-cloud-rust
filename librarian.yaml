@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.8.4-0.20260311134127-181b74e0c0d8
+version: v0.8.4-0.20260312155511-6e855470a751
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
