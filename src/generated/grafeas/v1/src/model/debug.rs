@@ -146,6 +146,7 @@ impl std::fmt::Debug for super::FileLocation {
         let mut debug_struct = f.debug_struct("FileLocation");
         debug_struct.field("file_path", &self.file_path);
         debug_struct.field("layer_details", &self.layer_details);
+        debug_struct.field("line_number", &self.line_number);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

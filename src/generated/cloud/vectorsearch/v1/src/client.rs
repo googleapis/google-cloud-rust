@@ -1160,6 +1160,37 @@ impl VectorSearchService {
         super::builder::vector_search_service::ImportDataObjects::new(self.inner.clone())
     }
 
+    /// Initiates a Long-Running Operation to export DataObjects from a Collection.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vectorsearch_v1::client::VectorSearchService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vectorsearch_v1::Result;
+    /// async fn sample(
+    ///    client: &VectorSearchService
+    /// ) -> Result<()> {
+    ///     let response = client.export_data_objects()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn export_data_objects(&self) -> super::builder::vector_search_service::ExportDataObjects {
+        super::builder::vector_search_service::ExportDataObjects::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     /// This method can be called in two ways:
     ///

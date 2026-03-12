@@ -381,6 +381,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn export_data_objects(
+        &self,
+        req: crate::model::ExportDataObjectsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.export_data_objects(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
