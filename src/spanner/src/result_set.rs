@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::result_set_metadata::ResultSetMetadata;
 use crate::row::Row;
 use crate::server_streaming::stream::PartialResultSetStream;
 use std::collections::VecDeque;
@@ -32,11 +33,19 @@ use std::collections::VecDeque;
 #[derive(Debug)]
 pub struct ResultSet {
     stream: PartialResultSetStream,
-    metadata: Option<crate::google::spanner::v1::ResultSetMetadata>,
-    column_count: usize,
     buffered_values: Vec<prost_types::Value>,
     chunked: bool,
     ready_rows: VecDeque<Row>,
+    metadata: Option<ResultSetMetadata>,
+}
+
+/// Errors that can occur when interacting with a [`ResultSet`].
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum ResultSetError {
+    /// The metadata was requested before the first row was fetched.
+    #[error("metadata called before first row was fetched")]
+    MetadataNotAvailable,
 }
 
 impl ResultSet {
@@ -44,12 +53,35 @@ impl ResultSet {
     pub(crate) fn new(stream: PartialResultSetStream) -> Self {
         Self {
             stream,
-            metadata: None,
-            column_count: 0,
             buffered_values: Vec::new(),
             chunked: false,
             ready_rows: VecDeque::new(),
+            metadata: None,
         }
+    }
+
+    /// Returns the metadata of the result set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{ResultSet, Row};
+    /// # async fn fetch_metadata(mut rs: ResultSet) -> Result<(), Box<dyn std::error::Error>> {
+    /// if let Some(row) = rs.next().await.transpose()? {
+    ///     let metadata = rs.metadata()?;
+    ///     for column in metadata.column_names() {
+    ///         println!("Column name: {}", column);
+    ///     }
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// The metadata is only available after the first call to [`next`](Self::next).
+    /// If called before the first `next()` call, it returns an error.
+    pub fn metadata(&self) -> Result<ResultSetMetadata, ResultSetError> {
+        self.metadata
+            .clone()
+            .ok_or(ResultSetError::MetadataNotAvailable)
     }
 
     /// Fetches the next row from the result set.
@@ -90,15 +122,15 @@ impl ResultSet {
                     )));
                 }
                 (None, Some(m)) => {
-                    self.column_count = m.row_type.as_ref().map(|rt| rt.fields.len()).unwrap_or(0);
-                    self.metadata = Some(m);
+                    self.metadata = Some(ResultSetMetadata::new(Some(m)));
                 }
             }
 
             if prs.values.is_empty() {
                 continue;
             }
-            if self.column_count == 0 {
+            let metadata = self.metadata.as_ref().unwrap();
+            if metadata.column_types.is_empty() {
                 return Some(Err(internal_error(
                     "PartialResultSet contained values but no column metadata was provided",
                 )));
@@ -118,17 +150,21 @@ impl ResultSet {
             self.buffered_values.extend(values_iter);
             self.chunked = prs.chunked_value;
 
-            while self.buffered_values.len() >= self.column_count {
-                if self.buffered_values.len() == self.column_count && self.chunked {
+            while self.buffered_values.len() >= metadata.column_types.len() {
+                let column_count = metadata.column_types.len();
+                if self.buffered_values.len() == column_count && self.chunked {
                     break;
                 }
 
                 let row_values: Vec<crate::value::Value> = self
                     .buffered_values
-                    .drain(..self.column_count)
+                    .drain(..column_count)
                     .map(crate::value::Value)
                     .collect();
-                self.ready_rows.push_back(Row { values: row_values });
+                self.ready_rows.push_back(Row {
+                    values: row_values,
+                    metadata: metadata.clone(),
+                });
             }
 
             if let Some(row) = self.ready_rows.pop_front() {

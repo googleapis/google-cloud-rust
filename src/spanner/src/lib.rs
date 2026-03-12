@@ -41,6 +41,7 @@ pub(crate) mod model {
 pub(crate) mod from_value;
 pub(crate) mod read_only_transaction;
 pub(crate) mod result_set;
+pub(crate) mod result_set_metadata;
 pub(crate) mod row;
 pub(crate) mod statement;
 pub(crate) mod timestamp_bound;
