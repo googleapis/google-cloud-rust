@@ -116,11 +116,15 @@ impl MessageStream {
             builder.ack_deadline_seconds,
             builder.grpc_subchannel_count,
         );
+        let options = LeaseOptions {
+            max_lease: builder.max_lease,
+            ..Default::default()
+        };
         let LeaseLoop {
             handle: _lease_loop,
             message_tx,
             ack_tx,
-        } = LeaseLoop::new(leaser, confirmed_rx, LeaseOptions::default());
+        } = LeaseLoop::new(leaser, confirmed_rx, options);
 
         let initial_req = StreamingPullRequest {
             subscription,
@@ -1217,6 +1221,68 @@ mod tests {
             .expect("should receive acknowledgements");
         assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
         assert_eq!(sorted(ack_req.ack_ids), test_ids(1..3));
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn basic_lease_expiration() -> anyhow::Result<()> {
+        const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(10);
+        const MAX_LEASE: Duration = Duration::from_secs(30);
+        // We configure a max lease for this test (30s) that differs from the
+        // default (600s) to verify that an application's configuration
+        // overrides the default.
+
+        let start_time = Instant::now();
+        let (response_tx, response_rx) = channel(10);
+        let (extend_tx, mut extend_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_modify_ack_deadline().returning(move |r| {
+            extend_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_max_lease(MAX_LEASE)
+            .set_max_lease_extension(MAX_LEASE_EXTENSION)
+            .build();
+
+        response_tx.send(Ok(test_response(0..1))).await?;
+        drop(response_tx);
+
+        let (_m, _h) = stream
+            .next()
+            .await
+            .expect("stream should yield a message")?;
+
+        // Advance the clock well past the expected message expiration,
+        // recording the time at which we sent the last lease extension.
+        let mut latest = None;
+        for _ in 0..MAX_LEASE.as_secs() * 2 {
+            while let Ok(r) = extend_rx.try_recv() {
+                assert_ne!(r.ack_deadline_seconds, 0, "unexpectedly received a nack");
+                latest = Some(start_time.elapsed());
+            }
+            tokio::time::advance(Duration::from_secs(1)).await;
+            tokio::task::yield_now().await;
+        }
+
+        // Verify when we stop sending lease extensions.
+        let expected_range = (MAX_LEASE - MAX_LEASE_EXTENSION)..=MAX_LEASE;
+        assert!(
+            latest.is_some_and(|t| expected_range.contains(&t)),
+            "{latest:?}"
+        );
+
+        // Close the stream, to make sure pending operations complete.
+        stream.close().await?;
 
         Ok(())
     }
