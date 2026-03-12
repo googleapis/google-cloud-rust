@@ -440,6 +440,12 @@ pub trait VectorSearchService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn export_data_objects(
+        &self,
+        req: crate::model::ExportDataObjectsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -578,6 +584,15 @@ impl<T: super::VectorSearchService> VectorSearchService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::import_data_objects(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn export_data_objects(
+        &self,
+        req: crate::model::ExportDataObjectsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::export_data_objects(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
