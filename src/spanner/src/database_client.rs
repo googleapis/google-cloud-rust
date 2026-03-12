@@ -14,7 +14,9 @@
 
 use crate::client::Spanner;
 use crate::model::Session;
-use crate::read_only_transaction::SingleUseReadOnlyTransactionBuilder;
+use crate::read_only_transaction::{
+    MultiUseReadOnlyTransactionBuilder, SingleUseReadOnlyTransactionBuilder,
+};
 use std::sync::Arc;
 
 /// A client for interacting with a specific Spanner database.
@@ -67,6 +69,25 @@ impl DatabaseClient {
     /// ```
     pub fn single_use(&self) -> SingleUseReadOnlyTransactionBuilder {
         SingleUseReadOnlyTransactionBuilder::new(self.clone())
+    }
+
+    /// Returns a builder for a multi-use read-only transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let tx = db_client.read_only_transaction().build().await?;
+    /// let stmt = Statement::builder("SELECT * FROM users WHERE id = @id")
+    ///     .add_param("id", &42)
+    ///     .build();
+    /// let mut rs = tx.execute_query(stmt).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn read_only_transaction(&self) -> MultiUseReadOnlyTransactionBuilder {
+        MultiUseReadOnlyTransactionBuilder::new(self.clone())
     }
 }
 
