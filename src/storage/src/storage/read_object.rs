@@ -973,12 +973,28 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn read_object_disabled_crc32c_check() -> Result {
+    async fn read_object_disable_crc32c() -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .enable_crc32c_checksum(false);
+
+        assert!(builder.options.checksum.crc32c.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_disable_crc32c_ignores_mismatch() -> Result {
+        let server = Server::run();
         // Calculate and serialize the incorrect crc32c checksum
         let u = crc32c::crc32c("goodbye world".as_bytes());
         let value = base64::prelude::BASE64_STANDARD.encode(u.to_be_bytes());
-
-        let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
                 request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
@@ -1006,8 +1022,8 @@ mod tests {
         while let Some(b) = response.next().await.transpose()? {
             got.extend_from_slice(&b);
         }
-        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
 
+        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
         Ok(())
     }
 
