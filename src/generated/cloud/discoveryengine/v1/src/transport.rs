@@ -85,7 +85,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -100,7 +99,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -117,7 +115,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -132,7 +129,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -149,7 +145,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -164,7 +159,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -181,7 +175,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -196,7 +189,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -213,7 +205,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -228,7 +219,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -245,7 +235,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -260,7 +249,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -277,7 +265,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -292,7 +279,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -309,7 +295,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -324,7 +309,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -512,7 +496,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -523,7 +506,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -536,7 +518,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -547,7 +528,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -560,7 +540,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -571,7 +550,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -584,7 +562,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -595,7 +572,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -608,7 +584,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -619,7 +594,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -632,7 +606,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -643,7 +616,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -656,7 +628,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -667,7 +638,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -680,7 +650,6 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -691,7 +660,6 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1423,7 +1391,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1438,7 +1405,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1455,7 +1421,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1470,7 +1435,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1487,7 +1451,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1502,7 +1465,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1519,7 +1481,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1534,7 +1495,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1551,7 +1511,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1566,7 +1525,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1583,7 +1541,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1598,7 +1555,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1615,7 +1571,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1630,7 +1585,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1647,7 +1601,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1662,7 +1615,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1850,7 +1802,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1861,7 +1812,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1874,7 +1824,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1885,7 +1834,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1898,7 +1846,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1909,7 +1856,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1922,7 +1868,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1933,7 +1878,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1946,7 +1890,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1957,7 +1900,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1970,7 +1912,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1981,7 +1922,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1994,7 +1934,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -2005,7 +1944,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -2018,7 +1956,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -2029,7 +1966,6 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -2966,7 +2902,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2981,7 +2916,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -2998,7 +2932,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3013,7 +2946,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3030,7 +2962,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3045,7 +2976,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3062,7 +2992,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3077,7 +3006,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3094,7 +3022,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3109,7 +3036,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3126,7 +3052,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3141,7 +3066,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3158,7 +3082,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3173,7 +3096,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3190,7 +3112,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3205,7 +3126,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3393,7 +3313,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3404,7 +3323,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3417,7 +3335,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3428,7 +3345,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3441,7 +3357,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3452,7 +3367,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3465,7 +3379,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3476,7 +3389,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3489,7 +3401,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3500,7 +3411,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3513,7 +3423,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3524,7 +3433,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3537,7 +3445,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3548,7 +3455,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3561,7 +3467,6 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3572,7 +3477,6 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -4802,7 +4706,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4817,7 +4720,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4834,7 +4736,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4849,7 +4750,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4866,7 +4766,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4881,7 +4780,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4898,7 +4796,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4913,7 +4810,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4930,7 +4826,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4945,7 +4840,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4962,7 +4856,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4977,7 +4870,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4994,7 +4886,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -5009,7 +4900,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -5026,7 +4916,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -5041,7 +4930,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -5229,7 +5117,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5240,7 +5127,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5253,7 +5139,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5264,7 +5149,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5277,7 +5161,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5288,7 +5171,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5301,7 +5183,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5312,7 +5193,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5325,7 +5205,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5336,7 +5215,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5349,7 +5227,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5360,7 +5237,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5373,7 +5249,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5384,7 +5259,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5397,7 +5271,6 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5408,7 +5281,6 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -7906,7 +7778,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7921,7 +7792,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -7938,7 +7808,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7953,7 +7822,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -7970,7 +7838,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7985,7 +7852,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -8002,7 +7868,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -8017,7 +7882,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -8034,7 +7898,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -8049,7 +7912,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -8066,7 +7928,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -8081,7 +7942,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -8098,7 +7958,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -8113,7 +7972,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -8130,7 +7988,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -8145,7 +8002,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -8333,7 +8189,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8344,7 +8199,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8357,7 +8211,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8368,7 +8221,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8381,7 +8233,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8392,7 +8243,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8405,7 +8255,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8416,7 +8265,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8429,7 +8277,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8440,7 +8287,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8453,7 +8299,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8464,7 +8309,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8477,7 +8321,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8488,7 +8331,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8501,7 +8343,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8512,7 +8353,6 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9479,7 +9319,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9494,7 +9333,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9511,7 +9349,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9526,7 +9363,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9543,7 +9379,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9558,7 +9393,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9575,7 +9409,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9590,7 +9423,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9607,7 +9439,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9622,7 +9453,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9639,7 +9469,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9654,7 +9483,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9671,7 +9499,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9686,7 +9513,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9703,7 +9529,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9718,7 +9543,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9906,7 +9730,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9917,7 +9740,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9930,7 +9752,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9941,7 +9762,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9954,7 +9774,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9965,7 +9784,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9978,7 +9796,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9989,7 +9806,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -10002,7 +9818,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -10013,7 +9828,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -10026,7 +9840,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -10037,7 +9850,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -10050,7 +9862,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -10061,7 +9872,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -10074,7 +9884,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -10085,7 +9894,6 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11477,7 +11285,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11492,7 +11299,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11509,7 +11315,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11524,7 +11329,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11541,7 +11345,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11556,7 +11359,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11573,7 +11375,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11588,7 +11389,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11605,7 +11405,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11620,7 +11419,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11637,7 +11435,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11652,7 +11449,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11669,7 +11465,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11684,7 +11479,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11701,7 +11495,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11716,7 +11509,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11904,7 +11696,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11915,7 +11706,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11928,7 +11718,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11939,7 +11728,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11952,7 +11740,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11963,7 +11750,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11976,7 +11762,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11987,7 +11772,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -12000,7 +11784,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -12011,7 +11794,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -12024,7 +11806,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -12035,7 +11816,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -12048,7 +11828,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -12059,7 +11838,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -12072,7 +11850,6 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -12083,7 +11860,6 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -12849,7 +12625,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12864,7 +12639,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12881,7 +12655,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12896,7 +12669,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12913,7 +12685,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12928,7 +12699,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12945,7 +12715,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12960,7 +12729,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12977,7 +12745,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12992,7 +12759,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13009,7 +12775,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13024,7 +12789,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13041,7 +12805,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13056,7 +12819,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13073,7 +12835,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13088,7 +12849,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13276,7 +13036,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13287,7 +13046,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13300,7 +13058,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13311,7 +13068,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13324,7 +13080,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13335,7 +13090,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13348,7 +13102,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13359,7 +13112,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13372,7 +13124,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13383,7 +13134,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13396,7 +13146,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13407,7 +13156,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13420,7 +13168,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13431,7 +13178,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13444,7 +13190,6 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13455,7 +13200,6 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13997,7 +13741,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -14012,7 +13755,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -14029,7 +13771,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -14044,7 +13785,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -14061,7 +13801,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -14076,7 +13815,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -14093,7 +13831,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -14108,7 +13845,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -14125,7 +13861,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -14140,7 +13875,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -14157,7 +13891,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -14172,7 +13905,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -14189,7 +13921,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -14204,7 +13935,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -14221,7 +13951,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -14236,7 +13965,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -14424,7 +14152,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14435,7 +14162,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14448,7 +14174,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14459,7 +14184,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14472,7 +14196,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14483,7 +14206,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14496,7 +14218,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14507,7 +14228,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14520,7 +14240,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14531,7 +14250,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14544,7 +14262,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14555,7 +14272,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14568,7 +14284,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14579,7 +14294,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14592,7 +14306,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14603,7 +14316,6 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15462,7 +15174,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15477,7 +15188,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15494,7 +15204,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15509,7 +15218,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15526,7 +15234,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15541,7 +15248,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15558,7 +15264,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15573,7 +15278,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15590,7 +15294,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15605,7 +15308,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15622,7 +15324,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15637,7 +15338,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15654,7 +15354,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15669,7 +15368,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15686,7 +15384,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15701,7 +15398,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15889,7 +15585,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15900,7 +15595,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15913,7 +15607,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15924,7 +15617,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15937,7 +15629,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15948,7 +15639,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15961,7 +15651,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15972,7 +15661,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15985,7 +15673,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15996,7 +15683,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16009,7 +15695,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16020,7 +15705,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16033,7 +15717,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16044,7 +15727,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16057,7 +15739,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16068,7 +15749,6 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16538,7 +16218,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16553,7 +16232,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16570,7 +16248,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16585,7 +16262,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16602,7 +16278,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16617,7 +16292,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16634,7 +16308,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16649,7 +16322,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16666,7 +16338,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16681,7 +16352,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16698,7 +16368,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16713,7 +16382,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16730,7 +16398,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16745,7 +16412,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16762,7 +16428,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16777,7 +16442,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16965,7 +16629,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16976,7 +16639,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16989,7 +16651,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17000,7 +16661,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17013,7 +16673,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17024,7 +16683,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17037,7 +16695,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17048,7 +16705,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17061,7 +16717,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17072,7 +16727,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17085,7 +16739,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17096,7 +16749,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17109,7 +16761,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17120,7 +16771,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17133,7 +16783,6 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17144,7 +16793,6 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17628,7 +17276,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17643,7 +17290,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17660,7 +17306,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17675,7 +17320,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17692,7 +17336,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17707,7 +17350,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17724,7 +17366,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17739,7 +17380,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17756,7 +17396,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17771,7 +17410,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17788,7 +17426,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17803,7 +17440,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17820,7 +17456,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17835,7 +17470,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17852,7 +17486,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17867,7 +17500,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18055,7 +17687,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18066,7 +17697,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18079,7 +17709,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18090,7 +17719,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18103,7 +17731,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18114,7 +17741,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18127,7 +17753,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18138,7 +17763,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18151,7 +17775,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18162,7 +17785,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18175,7 +17797,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18186,7 +17807,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18199,7 +17819,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18210,7 +17829,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18223,7 +17841,6 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18234,7 +17851,6 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18794,7 +18410,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18809,7 +18424,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18826,7 +18440,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18841,7 +18454,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18858,7 +18470,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18873,7 +18484,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18890,7 +18500,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18905,7 +18514,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18922,7 +18530,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18937,7 +18544,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18954,7 +18560,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18969,7 +18574,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18986,7 +18590,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -19001,7 +18604,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -19018,7 +18620,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -19033,7 +18634,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -19221,7 +18821,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -19232,7 +18831,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -19245,7 +18843,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -19256,7 +18853,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -19269,7 +18865,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -19280,7 +18875,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -19293,7 +18887,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -19304,7 +18897,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -19317,7 +18909,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -19328,7 +18919,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -19341,7 +18931,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -19352,7 +18941,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -19365,7 +18953,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -19376,7 +18963,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -19389,7 +18975,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -19400,7 +18985,6 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20357,7 +19941,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20372,7 +19955,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20389,7 +19971,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20404,7 +19985,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20421,7 +20001,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20436,7 +20015,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20453,7 +20031,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20468,7 +20045,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20485,7 +20061,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20500,7 +20075,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20517,7 +20091,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20532,7 +20105,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20549,7 +20121,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20564,7 +20135,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20581,7 +20151,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20596,7 +20165,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20784,7 +20352,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20795,7 +20362,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20808,7 +20374,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20819,7 +20384,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20832,7 +20396,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20843,7 +20406,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20856,7 +20418,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20867,7 +20428,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20880,7 +20440,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20891,7 +20450,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20904,7 +20462,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20915,7 +20472,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20928,7 +20484,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20939,7 +20494,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20952,7 +20506,6 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20963,7 +20516,6 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -21689,7 +21241,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21704,7 +21255,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21721,7 +21271,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21736,7 +21285,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21753,7 +21301,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21768,7 +21315,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21785,7 +21331,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21800,7 +21345,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21817,7 +21361,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21832,7 +21375,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21849,7 +21391,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21864,7 +21405,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21881,7 +21421,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21896,7 +21435,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21913,7 +21451,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21928,7 +21465,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22116,7 +21652,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22127,7 +21662,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22140,7 +21674,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22151,7 +21684,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22164,7 +21696,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22175,7 +21706,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22188,7 +21718,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22199,7 +21728,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22212,7 +21740,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22223,7 +21750,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22236,7 +21762,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22247,7 +21772,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22260,7 +21784,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22271,7 +21794,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22284,7 +21806,6 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22295,7 +21816,6 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22835,7 +22355,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22850,7 +22369,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22867,7 +22385,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22882,7 +22399,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22899,7 +22415,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22914,7 +22429,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22931,7 +22445,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22946,7 +22459,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22963,7 +22475,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22978,7 +22489,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22995,7 +22505,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23010,7 +22519,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23027,7 +22535,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23042,7 +22549,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23059,7 +22565,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23074,7 +22579,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23262,7 +22766,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -23273,7 +22776,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -23286,7 +22788,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -23297,7 +22798,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -23310,7 +22810,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -23321,7 +22820,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -23334,7 +22832,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -23345,7 +22842,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -23358,7 +22854,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -23369,7 +22864,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -23382,7 +22876,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -23393,7 +22886,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -23406,7 +22898,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -23417,7 +22908,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -23430,7 +22920,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -23441,7 +22930,6 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24069,7 +23557,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -24084,7 +23571,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -24101,7 +23587,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -24116,7 +23601,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -24133,7 +23617,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -24148,7 +23631,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -24165,7 +23647,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -24180,7 +23661,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -24197,7 +23677,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -24212,7 +23691,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -24229,7 +23707,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -24244,7 +23721,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -24261,7 +23737,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -24276,7 +23751,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -24293,7 +23767,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -24308,7 +23781,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -24496,7 +23968,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24507,7 +23978,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24520,7 +23990,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24531,7 +24000,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24544,7 +24012,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24555,7 +24022,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24568,7 +24034,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24579,7 +24044,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24592,7 +24056,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24603,7 +24066,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24616,7 +24078,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24627,7 +24088,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24640,7 +24100,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24651,7 +24110,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24664,7 +24122,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24675,7 +24132,6 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -25897,7 +25353,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25912,7 +25367,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25929,7 +25383,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25944,7 +25397,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25961,7 +25413,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25976,7 +25427,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25993,7 +25443,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -26008,7 +25457,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -26025,7 +25473,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -26040,7 +25487,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -26057,7 +25503,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -26072,7 +25517,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -26089,7 +25533,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -26104,7 +25547,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -26121,7 +25563,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -26136,7 +25577,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -26324,7 +25764,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -26335,7 +25774,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -26348,7 +25786,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -26359,7 +25796,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -26372,7 +25808,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -26383,7 +25818,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -26396,7 +25830,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -26407,7 +25840,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -26420,7 +25852,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -26431,7 +25862,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -26444,7 +25874,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -26455,7 +25884,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -26468,7 +25896,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -26479,7 +25906,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -26492,7 +25918,6 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -26503,7 +25928,6 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -27226,7 +26650,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -27237,7 +26660,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -27295,7 +26717,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_target_site_name,
             );
 
-
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::PATCH)))
@@ -27306,7 +26727,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_target_site_name,
             );
-
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = Ok(builder);
@@ -27364,7 +26784,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::DELETE)))
@@ -27375,7 +26794,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
@@ -27647,7 +27065,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::DELETE)))
@@ -27658,7 +27075,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
@@ -28329,7 +27745,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -28344,7 +27759,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -28361,7 +27775,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -28376,7 +27789,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -28393,7 +27805,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -28408,7 +27819,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -28425,7 +27835,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -28440,7 +27849,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -28457,7 +27865,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -28472,7 +27879,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -28489,7 +27895,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -28504,7 +27909,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -28521,7 +27925,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -28536,7 +27939,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -28553,7 +27955,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -28568,7 +27969,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -28756,7 +28156,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28767,7 +28166,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28780,7 +28178,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28791,7 +28188,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28804,7 +28200,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28815,7 +28210,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28828,7 +28222,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28839,7 +28232,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28852,7 +28244,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28863,7 +28254,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28876,7 +28266,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28887,7 +28276,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28900,7 +28288,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28911,7 +28298,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28924,7 +28310,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28935,7 +28320,6 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -29884,7 +29268,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29899,7 +29282,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29916,7 +29298,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29931,7 +29312,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29948,7 +29328,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29963,7 +29342,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29980,7 +29358,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29995,7 +29372,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30012,7 +29388,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30027,7 +29402,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30044,7 +29418,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30059,7 +29432,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30076,7 +29448,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30091,7 +29462,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30108,7 +29478,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30123,7 +29492,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30311,7 +29679,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30322,7 +29689,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30335,7 +29701,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30346,7 +29711,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30359,7 +29723,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30370,7 +29733,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30383,7 +29745,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30394,7 +29755,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30407,7 +29767,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30418,7 +29777,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30431,7 +29789,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30442,7 +29799,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30455,7 +29811,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30466,7 +29821,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30479,7 +29833,6 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30490,7 +29843,6 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -31039,7 +30391,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -31054,7 +30405,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -31071,7 +30421,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -31086,7 +30435,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -31103,7 +30451,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -31118,7 +30465,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -31135,7 +30481,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -31150,7 +30495,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -31167,7 +30511,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -31182,7 +30525,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -31199,7 +30541,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -31214,7 +30555,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -31231,7 +30571,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -31246,7 +30585,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -31263,7 +30601,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -31278,7 +30615,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -31466,7 +30802,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -31477,7 +30812,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -31490,7 +30824,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -31501,7 +30834,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -31514,7 +30846,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -31525,7 +30856,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -31538,7 +30868,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -31549,7 +30878,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -31562,7 +30890,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -31573,7 +30900,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -31586,7 +30912,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -31597,7 +30922,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -31610,7 +30934,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -31621,7 +30944,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -31634,7 +30956,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -31645,7 +30966,6 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);

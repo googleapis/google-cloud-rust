@@ -3139,7 +3139,6 @@ impl super::stub::BackendServices for BackendServices {
                 var_backend_service,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -10829,7 +10828,6 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                 var_network_endpoint_group,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
@@ -10953,7 +10951,6 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                 var_project,
                 var_network_endpoint_group,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
@@ -15019,7 +15016,6 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                 var_resize_request,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
@@ -15710,7 +15706,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_instance_group_manager,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST)))
@@ -16008,7 +16003,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_zone,
                 var_instance_group_manager,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
@@ -16392,7 +16386,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_instance_group_manager,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
@@ -16459,7 +16452,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_zone,
                 var_instance_group_manager,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
@@ -16605,7 +16597,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_zone,
                 var_instance_group_manager,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
@@ -17301,7 +17292,6 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_zone,
                 var_instance_group_manager,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
@@ -22108,7 +22098,6 @@ impl super::stub::Instances for Instances {
                 var_instance,
             );
 
-
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
@@ -24189,7 +24178,6 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 var_interconnect_attachment_group,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24513,7 +24501,6 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 var_project,
                 var_resource,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
@@ -30038,7 +30025,6 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 var_network_endpoint_group,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
@@ -30179,7 +30165,6 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 var_zone,
                 var_network_endpoint_group,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
@@ -30465,7 +30450,6 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 var_zone,
                 var_network_endpoint_group,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
@@ -42184,7 +42168,6 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
                 var_resource,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST)))
@@ -44377,7 +44360,6 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 var_resource,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST)))
@@ -46537,7 +46519,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_instance_group_manager,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST)))
@@ -46835,7 +46816,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_region,
                 var_instance_group_manager,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
@@ -47219,7 +47199,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_instance_group_manager,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
             let builder = req.max_results.iter().fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
@@ -47286,7 +47265,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_region,
                 var_instance_group_manager,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
@@ -47432,7 +47410,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_region,
                 var_instance_group_manager,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
@@ -47733,7 +47710,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_region,
                 var_instance_group_manager,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
@@ -48112,7 +48088,6 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_region,
                 var_instance_group_manager,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
@@ -50076,7 +50051,6 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 var_network_endpoint_group,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
@@ -50217,7 +50191,6 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 var_region,
                 var_network_endpoint_group,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
@@ -50503,7 +50476,6 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 var_region,
                 var_network_endpoint_group,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
@@ -52462,7 +52434,6 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 var_region,
                 var_resource,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
@@ -57344,7 +57315,6 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 var_resource,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.options_requested_policy_version.iter().fold(builder, |builder, p| builder.query(&[("optionsRequestedPolicyVersion", p)]));
             let builder = Ok(builder);
@@ -57507,7 +57477,6 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 var_reservation_block,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
@@ -57577,7 +57546,6 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 var_resource,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST)))
@@ -57645,7 +57613,6 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 var_parent_resource,
                 var_resource,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
@@ -58649,7 +58616,6 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 var_reservation_sub_block,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
             let builder = Ok(builder);
@@ -58888,7 +58854,6 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 var_parent_resource,
                 var_resource,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
@@ -63146,7 +63111,6 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 "/compute/v1/projects/{}/global/securityPolicies/listPreconfiguredExpressionSets",
                 var_project,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));

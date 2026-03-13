@@ -1486,7 +1486,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1603,7 +1602,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "/v1/{}",
                 var_certificate_revocation_list_name,
             );
-
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
@@ -2094,7 +2092,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 var_resource,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST)))
@@ -2106,7 +2103,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 var_resource,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST)))
@@ -2117,7 +2113,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "/v1/{}:setIamPolicy",
                 var_resource,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
@@ -2184,7 +2179,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 var_resource,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = (|| {
                 let builder = req.options.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "options") });
@@ -2199,7 +2193,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 var_resource,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = (|| {
                 let builder = req.options.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "options") });
@@ -2213,7 +2206,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "/v1/{}:getIamPolicy",
                 var_resource,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = (|| {
@@ -2283,7 +2275,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 var_resource,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST)))
@@ -2295,7 +2286,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 var_resource,
             );
 
-
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::POST)))
@@ -2306,7 +2296,6 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "/v1/{}:testIamPermissions",
                 var_resource,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);

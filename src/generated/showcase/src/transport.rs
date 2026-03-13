@@ -896,6 +896,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -910,6 +911,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -929,6 +931,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -943,6 +946,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -1040,6 +1044,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1066,6 +1071,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1097,6 +1103,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1123,6 +1130,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1232,6 +1240,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -1246,6 +1255,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -1265,6 +1275,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -1279,6 +1290,7 @@ impl super::stub::Compliance for Compliance {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -2141,6 +2153,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -2155,6 +2168,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -2174,6 +2188,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -2188,6 +2203,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -2285,6 +2301,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2311,6 +2328,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2342,6 +2360,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2368,6 +2387,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2477,6 +2497,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -2491,6 +2512,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -2510,6 +2532,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -2524,6 +2547,7 @@ impl super::stub::Echo for Echo {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -2953,6 +2977,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
@@ -3088,6 +3113,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
@@ -3324,6 +3350,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -3338,6 +3365,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -3357,6 +3385,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -3371,6 +3400,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -3468,6 +3498,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3494,6 +3525,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3525,6 +3557,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3551,6 +3584,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3660,6 +3694,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -3674,6 +3709,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -3693,6 +3729,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -3707,6 +3744,7 @@ impl super::stub::Identity for Identity {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -4122,6 +4160,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
@@ -4257,6 +4296,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
@@ -4370,6 +4410,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{parent}/blurbs";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -4388,6 +4429,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{parent}/blurbs";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -4469,6 +4511,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
@@ -4488,6 +4531,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
@@ -4709,6 +4753,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
@@ -4728,6 +4773,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
@@ -4816,6 +4862,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{parent}/blurbs";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -4836,6 +4883,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{parent}/blurbs";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -4914,6 +4962,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{parent}/blurbs:search";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -4932,6 +4981,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{parent}/blurbs:search";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -5134,6 +5184,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -5148,6 +5199,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -5167,6 +5219,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -5181,6 +5234,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -5278,6 +5332,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5304,6 +5359,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5335,6 +5391,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5361,6 +5418,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5470,6 +5528,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -5484,6 +5543,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -5503,6 +5563,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -5517,6 +5578,7 @@ impl super::stub::Messaging for Messaging {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -5993,6 +6055,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
@@ -6063,6 +6126,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
@@ -6129,6 +6193,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -6320,6 +6385,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -6334,6 +6400,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -6353,6 +6420,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -6367,6 +6435,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -6464,6 +6533,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -6490,6 +6560,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -6521,6 +6592,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -6547,6 +6619,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -6656,6 +6729,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -6670,6 +6744,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -6689,6 +6764,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -6703,6 +6779,7 @@ impl super::stub::SequenceService for SequenceService {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -7118,6 +7195,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
@@ -7225,6 +7303,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
@@ -7293,6 +7372,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{name}:report";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -7355,6 +7435,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{parent}/tests";
 
                 let resource_name = format!("//localhost:7469/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -7424,6 +7505,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{name}";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
@@ -7502,6 +7584,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{name}:check";
 
                 let resource_name = format!("//localhost:7469/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("answer", &req.answer)]);
                 let builder = req
@@ -7697,6 +7780,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -7711,6 +7795,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -7730,6 +7815,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -7744,6 +7830,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -7841,6 +7928,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7867,6 +7955,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7898,6 +7987,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7924,6 +8014,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -8033,6 +8124,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -8047,6 +8139,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -8066,6 +8159,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
@@ -8080,6 +8174,7 @@ impl super::stub::Testing for Testing {
                 let _path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let resource_name = format!("//localhost:7469/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))

@@ -195,7 +195,6 @@ impl super::stub::SecurityCenterManagement for SecurityCenterManagement {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -207,7 +206,6 @@ impl super::stub::SecurityCenterManagement for SecurityCenterManagement {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -218,7 +216,6 @@ impl super::stub::SecurityCenterManagement for SecurityCenterManagement {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);

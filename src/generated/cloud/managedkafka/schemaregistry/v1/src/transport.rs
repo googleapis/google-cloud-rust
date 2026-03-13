@@ -1360,7 +1360,6 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.deleted.iter().fold(builder, |builder, p| builder.query(&[("deleted", p)]));
             let builder = Ok(builder);
@@ -1372,7 +1371,6 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.deleted.iter().fold(builder, |builder, p| builder.query(&[("deleted", p)]));
@@ -1431,7 +1429,6 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.deleted.iter().fold(builder, |builder, p| builder.query(&[("deleted", p)]));
             let builder = Ok(builder);
@@ -1443,7 +1440,6 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 "/v1/{}/schema",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.deleted.iter().fold(builder, |builder, p| builder.query(&[("deleted", p)]));
@@ -1728,7 +1724,6 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = req.permanent.iter().fold(builder, |builder, p| builder.query(&[("permanent", p)]));
             let builder = Ok(builder);
@@ -1740,7 +1735,6 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = req.permanent.iter().fold(builder, |builder, p| builder.query(&[("permanent", p)]));
@@ -1799,7 +1793,6 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_parent,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1810,7 +1803,6 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 "/v1/{}/referencedby",
                 var_parent,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);

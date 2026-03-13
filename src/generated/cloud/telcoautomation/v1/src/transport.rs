@@ -2171,7 +2171,6 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -2287,7 +2286,6 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 var_hydrated_deployment_name,
             );
 
-
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
                 let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
@@ -2337,7 +2335,6 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                 "/v1/{}:apply",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);

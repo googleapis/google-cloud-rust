@@ -2665,7 +2665,6 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -2847,7 +2846,6 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
                 var_pull_request_comment_name,
             );
 
-
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
                 let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
@@ -2897,7 +2895,6 @@ impl super::stub::SecureSourceManager for SecureSourceManager {
                 "/v1/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);

@@ -2366,7 +2366,6 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -2413,7 +2412,6 @@ impl super::stub::CloudDeploy for CloudDeploy {
                 "/v1/{}:terminate",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);

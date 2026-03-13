@@ -19093,7 +19093,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -19104,7 +19103,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -19117,7 +19115,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -19128,7 +19125,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -19379,7 +19375,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_session_entity_type_name,
             );
 
-
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
                 let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
@@ -19393,7 +19388,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_session_entity_type_name,
             );
-
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
@@ -19409,7 +19403,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_session_entity_type_name,
             );
 
-
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
                 let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
@@ -19423,7 +19416,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_session_entity_type_name,
             );
-
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
@@ -19502,7 +19494,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::DELETE)))
@@ -19513,7 +19504,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
@@ -19526,7 +19516,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::DELETE)))
@@ -19537,7 +19526,6 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_name,
             );
-
 
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);

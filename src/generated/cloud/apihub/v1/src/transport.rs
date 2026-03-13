@@ -5157,7 +5157,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 var_name,
             );
 
-
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
