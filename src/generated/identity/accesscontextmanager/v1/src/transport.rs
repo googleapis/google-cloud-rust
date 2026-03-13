@@ -34,15 +34,7 @@ impl std::fmt::Debug for AccessContextManager {
 
 impl AccessContextManager {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -56,18 +48,16 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = "/v1/accessPolicies".to_string();
-
-                let _path_template = "/v1/accessPolicies";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("parent", &req.parent)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -77,11 +67,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -104,7 +89,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -112,12 +97,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//accesscontextmanager.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -133,17 +115,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -164,15 +135,13 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = "/v1/accessPolicies".to_string();
 
-                let _path_template = "/v1/accessPolicies";
-
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -182,11 +151,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -209,7 +173,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_policy_name = try_match(
                     Some(&req)
@@ -220,10 +184,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_policy_name,);
 
-                let _path_template = "/v1/{policy.name}";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_policy_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -238,7 +198,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -257,17 +217,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -290,7 +239,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -298,12 +247,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//accesscontextmanager.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -319,17 +265,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -352,7 +287,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -360,16 +295,12 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}/accessLevels", var_parent,);
 
-                let _path_template = "/v1/{parent}/accessLevels";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("accessLevelFormat", &req.access_level_format)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -385,17 +316,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -418,7 +338,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -431,13 +351,10 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//accesscontextmanager.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("accessLevelFormat", &req.access_level_format)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -458,17 +375,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -491,7 +397,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -499,13 +405,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}/accessLevels", var_parent,);
 
-                let _path_template = "/v1/{parent}/accessLevels";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -521,17 +423,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -554,7 +445,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_access_level_name = try_match(
                     Some(&req)
@@ -570,12 +461,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_access_level_name,);
 
-                let _path_template = "/v1/{access_level.name}";
-
-                let resource_name = format!(
-                    "//accesscontextmanager.googleapis.com/{}",
-                    var_access_level_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -590,7 +475,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -614,17 +499,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -647,7 +521,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -660,12 +534,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//accesscontextmanager.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -686,17 +557,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -719,7 +579,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -727,13 +587,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}/accessLevels:replaceAll", var_parent,);
 
-                let _path_template = "/v1/{parent}/accessLevels:replaceAll";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -749,17 +605,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -782,7 +627,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -790,15 +635,11 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}/servicePerimeters", var_parent,);
 
-                let _path_template = "/v1/{parent}/servicePerimeters";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -814,17 +655,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -847,7 +677,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -860,12 +690,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//accesscontextmanager.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -886,17 +713,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -919,7 +735,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -927,13 +743,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}/servicePerimeters", var_parent,);
 
-                let _path_template = "/v1/{parent}/servicePerimeters";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -949,17 +761,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -982,7 +783,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_service_perimeter_name = try_match(
                     Some(&req)
@@ -998,12 +799,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_service_perimeter_name,);
 
-                let _path_template = "/v1/{service_perimeter.name}";
-
-                let resource_name = format!(
-                    "//accesscontextmanager.googleapis.com/{}",
-                    var_service_perimeter_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -1018,7 +813,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1042,17 +837,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1075,7 +859,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1088,12 +872,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//accesscontextmanager.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1114,17 +895,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1147,7 +917,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1155,13 +925,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}/servicePerimeters:replaceAll", var_parent,);
 
-                let _path_template = "/v1/{parent}/servicePerimeters:replaceAll";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1177,17 +943,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1210,7 +965,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1218,13 +973,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}/servicePerimeters:commit", var_parent,);
 
-                let _path_template = "/v1/{parent}/servicePerimeters:commit";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1240,17 +991,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1273,7 +1013,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1281,15 +1021,11 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}/gcpUserAccessBindings", var_parent,);
 
-                let _path_template = "/v1/{parent}/gcpUserAccessBindings";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1305,17 +1041,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1338,7 +1063,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1351,12 +1076,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//accesscontextmanager.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1377,17 +1099,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1410,7 +1121,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1418,13 +1129,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}/gcpUserAccessBindings", var_parent,);
 
-                let _path_template = "/v1/{parent}/gcpUserAccessBindings";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1440,17 +1147,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1473,7 +1169,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_gcp_user_access_binding_name = try_match(
                     Some(&req)
@@ -1489,12 +1185,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_gcp_user_access_binding_name,);
 
-                let _path_template = "/v1/{gcp_user_access_binding.name}";
-
-                let resource_name = format!(
-                    "//accesscontextmanager.googleapis.com/{}",
-                    var_gcp_user_access_binding_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -1509,7 +1199,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1533,17 +1223,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1566,7 +1245,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1579,12 +1258,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//accesscontextmanager.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1605,17 +1281,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1638,7 +1303,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1646,13 +1311,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1668,17 +1329,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1701,7 +1351,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1709,13 +1359,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1731,17 +1377,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1764,7 +1399,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1772,13 +1407,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1792,13 +1423,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1812,13 +1439,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name =
-                    format!("//accesscontextmanager.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1864,17 +1487,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1897,7 +1509,7 @@ impl super::stub::AccessContextManager for AccessContextManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1908,12 +1520,9 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//accesscontextmanager.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1932,17 +1541,6 @@ impl super::stub::AccessContextManager for AccessContextManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

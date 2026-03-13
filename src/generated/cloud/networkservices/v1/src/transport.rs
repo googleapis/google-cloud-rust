@@ -34,15 +34,7 @@ impl std::fmt::Debug for DepService {
 
 impl DepService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -58,7 +50,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -71,16 +63,13 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}/lbTrafficExtensions", var_parent,);
 
-                let _path_template = "/v1/{parent}/lbTrafficExtensions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -101,17 +90,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -134,7 +112,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -149,12 +127,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -177,17 +152,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -210,7 +174,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -223,15 +187,12 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}/lbTrafficExtensions", var_parent,);
 
-                let _path_template = "/v1/{parent}/lbTrafficExtensions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("lbTrafficExtensionId", &req.lb_traffic_extension_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -252,17 +213,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -285,7 +235,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_lb_traffic_extension_name = try_match(
                     Some(&req)
@@ -303,12 +253,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_lb_traffic_extension_name,);
 
-                let _path_template = "/v1/{lb_traffic_extension.name}";
-
-                let resource_name = format!(
-                    "//networkservices.googleapis.com/{}",
-                    var_lb_traffic_extension_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -324,7 +268,7 @@ impl super::stub::DepService for DepService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -350,17 +294,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -383,7 +316,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -398,13 +331,10 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -427,17 +357,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -460,7 +379,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -473,16 +392,13 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}/lbRouteExtensions", var_parent,);
 
-                let _path_template = "/v1/{parent}/lbRouteExtensions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -503,17 +419,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -536,7 +441,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -551,12 +456,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -579,17 +481,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -612,7 +503,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -625,14 +516,11 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}/lbRouteExtensions", var_parent,);
 
-                let _path_template = "/v1/{parent}/lbRouteExtensions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("lbRouteExtensionId", &req.lb_route_extension_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -653,17 +541,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -686,7 +563,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_lb_route_extension_name = try_match(
                     Some(&req)
@@ -704,12 +581,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_lb_route_extension_name,);
 
-                let _path_template = "/v1/{lb_route_extension.name}";
-
-                let resource_name = format!(
-                    "//networkservices.googleapis.com/{}",
-                    var_lb_route_extension_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -725,7 +596,7 @@ impl super::stub::DepService for DepService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -751,17 +622,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -784,7 +644,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -799,13 +659,10 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -828,17 +685,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -861,7 +707,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -874,16 +720,13 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}/lbEdgeExtensions", var_parent,);
 
-                let _path_template = "/v1/{parent}/lbEdgeExtensions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -904,17 +747,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -937,7 +769,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -952,12 +784,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -980,17 +809,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1013,7 +831,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1026,14 +844,11 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}/lbEdgeExtensions", var_parent,);
 
-                let _path_template = "/v1/{parent}/lbEdgeExtensions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("lbEdgeExtensionId", &req.lb_edge_extension_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1054,17 +869,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1087,7 +891,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_lb_edge_extension_name = try_match(
                     Some(&req)
@@ -1105,12 +909,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_lb_edge_extension_name,);
 
-                let _path_template = "/v1/{lb_edge_extension.name}";
-
-                let resource_name = format!(
-                    "//networkservices.googleapis.com/{}",
-                    var_lb_edge_extension_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -1126,7 +924,7 @@ impl super::stub::DepService for DepService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1152,17 +950,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1185,7 +972,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1200,13 +987,10 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1229,17 +1013,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1262,7 +1035,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1275,16 +1048,13 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}/authzExtensions", var_parent,);
 
-                let _path_template = "/v1/{parent}/authzExtensions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1305,17 +1075,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1338,7 +1097,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1353,12 +1112,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1381,17 +1137,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1414,7 +1159,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1427,14 +1172,11 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}/authzExtensions", var_parent,);
 
-                let _path_template = "/v1/{parent}/authzExtensions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("authzExtensionId", &req.authz_extension_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1455,17 +1197,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1488,7 +1219,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_authz_extension_name = try_match(
                     Some(&req)
@@ -1506,12 +1237,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_authz_extension_name,);
 
-                let _path_template = "/v1/{authz_extension.name}";
-
-                let resource_name = format!(
-                    "//networkservices.googleapis.com/{}",
-                    var_authz_extension_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -1527,7 +1252,7 @@ impl super::stub::DepService for DepService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1553,17 +1278,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1586,7 +1300,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1601,13 +1315,10 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1630,17 +1341,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1663,7 +1363,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1671,15 +1371,12 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
 
-                let _path_template = "/v1/{name}/locations";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1695,17 +1392,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1728,7 +1414,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1741,12 +1427,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1767,17 +1450,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1800,7 +1472,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1815,12 +1487,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1836,12 +1505,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1857,12 +1523,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1878,12 +1541,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1899,12 +1559,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1920,12 +1577,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1941,12 +1595,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2071,17 +1722,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2104,7 +1744,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2119,9 +1759,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2136,7 +1773,7 @@ impl super::stub::DepService for DepService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2152,9 +1789,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2169,7 +1803,7 @@ impl super::stub::DepService for DepService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2185,9 +1819,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2202,7 +1833,7 @@ impl super::stub::DepService for DepService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2218,9 +1849,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2235,7 +1863,7 @@ impl super::stub::DepService for DepService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2251,9 +1879,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2268,7 +1893,7 @@ impl super::stub::DepService for DepService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2284,9 +1909,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2301,7 +1923,7 @@ impl super::stub::DepService for DepService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2317,9 +1939,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2334,7 +1953,7 @@ impl super::stub::DepService for DepService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2459,17 +2078,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2492,7 +2100,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2507,12 +2115,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2528,12 +2133,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2549,12 +2151,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2570,12 +2169,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2591,12 +2187,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2612,12 +2205,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2633,12 +2223,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2763,17 +2350,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2796,7 +2372,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2809,9 +2385,6 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
 
-                let _path_template = "/v1/{name}/operations";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2819,7 +2392,7 @@ impl super::stub::DepService for DepService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2840,17 +2413,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2873,7 +2435,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2888,12 +2450,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2916,17 +2475,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2949,7 +2497,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2964,12 +2512,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2992,17 +2537,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3031,7 +2565,7 @@ impl super::stub::DepService for DepService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3046,12 +2580,9 @@ impl super::stub::DepService for DepService {
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
 
-                let _path_template = "/v1/{name}:cancel";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3074,17 +2605,6 @@ impl super::stub::DepService for DepService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3134,15 +2654,7 @@ impl std::fmt::Debug for NetworkServices {
 
 impl NetworkServices {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -3158,7 +2670,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3171,16 +2683,13 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/endpointPolicies", var_parent,);
 
-                let _path_template = "/v1/{parent}/endpointPolicies";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3201,17 +2710,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3234,7 +2732,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3249,12 +2747,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3277,17 +2772,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3310,7 +2794,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3323,13 +2807,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/endpointPolicies", var_parent,);
 
-                let _path_template = "/v1/{parent}/endpointPolicies";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("endpointPolicyId", &req.endpoint_policy_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3350,17 +2831,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3383,7 +2853,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_endpoint_policy_name = try_match(
                     Some(&req)
@@ -3401,12 +2871,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_endpoint_policy_name,);
 
-                let _path_template = "/v1/{endpoint_policy.name}";
-
-                let resource_name = format!(
-                    "//networkservices.googleapis.com/{}",
-                    var_endpoint_policy_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -3421,7 +2885,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3447,17 +2911,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3480,7 +2933,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3495,12 +2948,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3523,17 +2973,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3556,7 +2995,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3571,14 +3010,11 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/versions", var_parent,);
 
-                let _path_template = "/v1/{parent}/versions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3601,17 +3037,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3634,7 +3059,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3651,12 +3076,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3681,17 +3103,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3714,7 +3125,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3729,14 +3140,11 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/versions", var_parent,);
 
-                let _path_template = "/v1/{parent}/versions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("wasmPluginVersionId", &req.wasm_plugin_version_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3759,17 +3167,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3792,7 +3189,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3809,12 +3206,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3839,17 +3233,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3872,7 +3255,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3885,14 +3268,11 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/wasmPlugins", var_parent,);
 
-                let _path_template = "/v1/{parent}/wasmPlugins";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3913,17 +3293,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3946,7 +3315,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3961,13 +3330,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3990,17 +3356,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4023,7 +3378,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4036,13 +3391,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/wasmPlugins", var_parent,);
 
-                let _path_template = "/v1/{parent}/wasmPlugins";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("wasmPluginId", &req.wasm_plugin_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4063,17 +3415,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4096,7 +3437,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_wasm_plugin_name = try_match(
                     Some(&req)
@@ -4114,10 +3455,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_wasm_plugin_name,);
 
-                let _path_template = "/v1/{wasm_plugin.name}";
-
-                let resource_name =
-                    format!("//networkservices.googleapis.com/{}", var_wasm_plugin_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -4132,7 +3469,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4158,17 +3495,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4191,7 +3517,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4206,12 +3532,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4234,17 +3557,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4267,7 +3579,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4280,14 +3592,11 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/gateways", var_parent,);
 
-                let _path_template = "/v1/{parent}/gateways";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4308,17 +3617,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4341,7 +3639,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4356,12 +3654,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4384,17 +3679,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4417,7 +3701,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4430,13 +3714,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/gateways", var_parent,);
 
-                let _path_template = "/v1/{parent}/gateways";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("gatewayId", &req.gateway_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4457,17 +3738,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4490,7 +3760,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_gateway_name = try_match(
                     Some(&req)
@@ -4508,10 +3778,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_gateway_name,);
 
-                let _path_template = "/v1/{gateway.name}";
-
-                let resource_name =
-                    format!("//networkservices.googleapis.com/{}", var_gateway_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -4526,7 +3792,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4552,17 +3818,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4585,7 +3840,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4600,12 +3855,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4628,17 +3880,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4661,7 +3902,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4674,16 +3915,13 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/grpcRoutes", var_parent,);
 
-                let _path_template = "/v1/{parent}/grpcRoutes";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4704,17 +3942,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4737,7 +3964,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4752,12 +3979,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4780,17 +4004,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4813,7 +4026,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4826,13 +4039,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/grpcRoutes", var_parent,);
 
-                let _path_template = "/v1/{parent}/grpcRoutes";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("grpcRouteId", &req.grpc_route_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4853,17 +4063,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4886,7 +4085,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_grpc_route_name = try_match(
                     Some(&req)
@@ -4904,10 +4103,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_grpc_route_name,);
 
-                let _path_template = "/v1/{grpc_route.name}";
-
-                let resource_name =
-                    format!("//networkservices.googleapis.com/{}", var_grpc_route_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -4922,7 +4117,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4948,17 +4143,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4981,7 +4165,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4996,12 +4180,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5024,17 +4205,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5057,7 +4227,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5070,16 +4240,13 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/httpRoutes", var_parent,);
 
-                let _path_template = "/v1/{parent}/httpRoutes";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5100,17 +4267,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5133,7 +4289,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5148,12 +4304,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5176,17 +4329,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5209,7 +4351,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5222,13 +4364,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/httpRoutes", var_parent,);
 
-                let _path_template = "/v1/{parent}/httpRoutes";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("httpRouteId", &req.http_route_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5249,17 +4388,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5282,7 +4410,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_http_route_name = try_match(
                     Some(&req)
@@ -5300,10 +4428,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_http_route_name,);
 
-                let _path_template = "/v1/{http_route.name}";
-
-                let resource_name =
-                    format!("//networkservices.googleapis.com/{}", var_http_route_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -5318,7 +4442,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5344,17 +4468,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5377,7 +4490,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5392,12 +4505,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5420,17 +4530,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5453,7 +4552,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5466,16 +4565,13 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/tcpRoutes", var_parent,);
 
-                let _path_template = "/v1/{parent}/tcpRoutes";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5496,17 +4592,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5529,7 +4614,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5544,12 +4629,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5572,17 +4654,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5605,7 +4676,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5618,13 +4689,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/tcpRoutes", var_parent,);
 
-                let _path_template = "/v1/{parent}/tcpRoutes";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("tcpRouteId", &req.tcp_route_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5645,17 +4713,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5678,7 +4735,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_tcp_route_name = try_match(
                     Some(&req)
@@ -5696,10 +4753,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_tcp_route_name,);
 
-                let _path_template = "/v1/{tcp_route.name}";
-
-                let resource_name =
-                    format!("//networkservices.googleapis.com/{}", var_tcp_route_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -5714,7 +4767,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5740,17 +4793,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5773,7 +4815,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5788,12 +4830,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5816,17 +4855,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5849,7 +4877,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5862,16 +4890,13 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/tlsRoutes", var_parent,);
 
-                let _path_template = "/v1/{parent}/tlsRoutes";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5892,17 +4917,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5925,7 +4939,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5940,12 +4954,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5968,17 +4979,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6001,7 +5001,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6014,13 +5014,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/tlsRoutes", var_parent,);
 
-                let _path_template = "/v1/{parent}/tlsRoutes";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("tlsRouteId", &req.tls_route_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6041,17 +5038,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6074,7 +5060,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_tls_route_name = try_match(
                     Some(&req)
@@ -6092,10 +5078,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_tls_route_name,);
 
-                let _path_template = "/v1/{tls_route.name}";
-
-                let resource_name =
-                    format!("//networkservices.googleapis.com/{}", var_tls_route_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -6110,7 +5092,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6136,17 +5118,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6169,7 +5140,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6184,12 +5155,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6212,17 +5180,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6245,7 +5202,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6258,14 +5215,11 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/serviceBindings", var_parent,);
 
-                let _path_template = "/v1/{parent}/serviceBindings";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6286,17 +5240,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6319,7 +5262,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6334,12 +5277,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6362,17 +5302,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6395,7 +5324,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6408,13 +5337,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/serviceBindings", var_parent,);
 
-                let _path_template = "/v1/{parent}/serviceBindings";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("serviceBindingId", &req.service_binding_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6435,17 +5361,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6468,7 +5383,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_service_binding_name = try_match(
                     Some(&req)
@@ -6486,12 +5401,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_service_binding_name,);
 
-                let _path_template = "/v1/{service_binding.name}";
-
-                let resource_name = format!(
-                    "//networkservices.googleapis.com/{}",
-                    var_service_binding_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -6506,7 +5415,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6532,17 +5441,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6565,7 +5463,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6580,12 +5478,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6608,17 +5503,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6641,7 +5525,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6654,16 +5538,13 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/meshes", var_parent,);
 
-                let _path_template = "/v1/{parent}/meshes";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6684,17 +5565,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6717,7 +5587,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6732,12 +5602,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6760,17 +5627,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6793,7 +5649,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6806,13 +5662,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/meshes", var_parent,);
 
-                let _path_template = "/v1/{parent}/meshes";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("meshId", &req.mesh_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6833,17 +5686,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6866,7 +5708,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_mesh_name = try_match(
                     Some(&req)
@@ -6884,9 +5726,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_mesh_name,);
 
-                let _path_template = "/v1/{mesh.name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_mesh_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -6901,7 +5740,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6927,17 +5766,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6960,7 +5788,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6975,12 +5803,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7003,17 +5828,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7036,7 +5850,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7049,14 +5863,11 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/serviceLbPolicies", var_parent,);
 
-                let _path_template = "/v1/{parent}/serviceLbPolicies";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7077,17 +5888,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7110,7 +5910,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7125,12 +5925,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7153,17 +5950,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7186,7 +5972,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7199,13 +5985,10 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/serviceLbPolicies", var_parent,);
 
-                let _path_template = "/v1/{parent}/serviceLbPolicies";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("serviceLbPolicyId", &req.service_lb_policy_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7226,17 +6009,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7259,7 +6031,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_service_lb_policy_name = try_match(
                     Some(&req)
@@ -7277,12 +6049,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_service_lb_policy_name,);
 
-                let _path_template = "/v1/{service_lb_policy.name}";
-
-                let resource_name = format!(
-                    "//networkservices.googleapis.com/{}",
-                    var_service_lb_policy_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -7297,7 +6063,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7323,17 +6089,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7356,7 +6111,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7371,12 +6126,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7399,17 +6151,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7432,7 +6173,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7449,12 +6190,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7479,17 +6217,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7512,7 +6239,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7529,12 +6256,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7559,17 +6283,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7592,7 +6305,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7607,14 +6320,11 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/routeViews", var_parent,);
 
-                let _path_template = "/v1/{parent}/routeViews";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7637,17 +6347,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7670,7 +6369,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7685,14 +6384,11 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/routeViews", var_parent,);
 
-                let _path_template = "/v1/{parent}/routeViews";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7715,17 +6411,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7748,7 +6433,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7756,15 +6441,12 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
 
-                let _path_template = "/v1/{name}/locations";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7780,17 +6462,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7813,7 +6484,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7826,12 +6497,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7852,17 +6520,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7885,7 +6542,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7900,12 +6557,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7921,12 +6575,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7942,12 +6593,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7963,12 +6611,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7984,12 +6629,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8005,12 +6647,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8026,12 +6665,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:setIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8156,17 +6792,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8189,7 +6814,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -8204,9 +6829,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -8221,7 +6843,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8237,9 +6859,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -8254,7 +6873,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8270,9 +6889,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -8287,7 +6903,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8303,9 +6919,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -8320,7 +6933,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8336,9 +6949,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -8353,7 +6963,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8369,9 +6979,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -8386,7 +6993,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8402,9 +7009,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
 
-                let _path_template = "/v1/{resource}:getIamPolicy";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -8419,7 +7023,7 @@ impl super::stub::NetworkServices for NetworkServices {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8544,17 +7148,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8577,7 +7170,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -8592,12 +7185,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8613,12 +7203,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8634,12 +7221,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8655,12 +7239,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8676,12 +7257,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8697,12 +7275,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8718,12 +7293,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
 
-                let _path_template = "/v1/{resource}:testIamPermissions";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8848,17 +7420,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8881,7 +7442,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8894,9 +7455,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
 
-                let _path_template = "/v1/{name}/operations";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -8904,7 +7462,7 @@ impl super::stub::NetworkServices for NetworkServices {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8925,17 +7483,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8958,7 +7505,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8973,12 +7520,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9001,17 +7545,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9034,7 +7567,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9049,12 +7582,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9077,17 +7607,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9116,7 +7635,7 @@ impl super::stub::NetworkServices for NetworkServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9131,12 +7650,9 @@ impl super::stub::NetworkServices for NetworkServices {
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
 
-                let _path_template = "/v1/{name}:cancel";
-
-                let resource_name = format!("//networkservices.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9159,17 +7675,6 @@ impl super::stub::NetworkServices for NetworkServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

@@ -22,8 +22,6 @@ where
     T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> IAMCredentials<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,119 +37,39 @@ impl<T> super::stub::IAMCredentials for IAMCredentials<T>
 where
     T: super::stub::IAMCredentials + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn generate_access_token(
         &self,
         req: crate::model::GenerateAccessTokenRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateAccessTokenResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::IAMCredentials",
-                "generate_access_token",
-                Some("google.iam.credentials.v1.IAMCredentials/GenerateAccessToken")
-            );
-            self.inner
-                .generate_access_token(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.generate_access_token(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn generate_id_token(
         &self,
         req: crate::model::GenerateIdTokenRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateIdTokenResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::IAMCredentials",
-                "generate_id_token",
-                Some("google.iam.credentials.v1.IAMCredentials/GenerateIdToken")
-            );
-            self.inner
-                .generate_id_token(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.generate_id_token(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn sign_blob(
         &self,
         req: crate::model::SignBlobRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SignBlobResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::IAMCredentials",
-                "sign_blob",
-                Some("google.iam.credentials.v1.IAMCredentials/SignBlob")
-            );
-            self.inner
-                .sign_blob(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.sign_blob(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn sign_jwt(
         &self,
         req: crate::model::SignJwtRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SignJwtResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::IAMCredentials",
-                "sign_jwt",
-                Some("google.iam.credentials.v1.IAMCredentials/SignJwt")
-            );
-            self.inner
-                .sign_jwt(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.sign_jwt(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "iamcredentials";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "iamcredentials";
-            info
-        };
     }
 }

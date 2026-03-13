@@ -22,8 +22,6 @@ where
     T: super::stub::ServiceUsage + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> ServiceUsage<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::ServiceUsage + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,203 +37,75 @@ impl<T> super::stub::ServiceUsage for ServiceUsage<T>
 where
     T: super::stub::ServiceUsage + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn enable_service(
         &self,
         req: crate::model::EnableServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ServiceUsage",
-                "enable_service",
-                Some("google.api.serviceusage.v1.ServiceUsage/EnableService")
-            );
-            self.inner
-                .enable_service(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.enable_service(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn disable_service(
         &self,
         req: crate::model::DisableServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ServiceUsage",
-                "disable_service",
-                Some("google.api.serviceusage.v1.ServiceUsage/DisableService")
-            );
-            self.inner
-                .disable_service(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.disable_service(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_service(
         &self,
         req: crate::model::GetServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Service>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ServiceUsage",
-                "get_service",
-                Some("google.api.serviceusage.v1.ServiceUsage/GetService")
-            );
-            self.inner
-                .get_service(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_service(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_services(
         &self,
         req: crate::model::ListServicesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListServicesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ServiceUsage",
-                "list_services",
-                Some("google.api.serviceusage.v1.ServiceUsage/ListServices")
-            );
-            self.inner
-                .list_services(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_services(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn batch_enable_services(
         &self,
         req: crate::model::BatchEnableServicesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ServiceUsage",
-                "batch_enable_services",
-                Some("google.api.serviceusage.v1.ServiceUsage/BatchEnableServices")
-            );
-            self.inner
-                .batch_enable_services(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.batch_enable_services(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn batch_get_services(
         &self,
         req: crate::model::BatchGetServicesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BatchGetServicesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ServiceUsage",
-                "batch_get_services",
-                Some("google.api.serviceusage.v1.ServiceUsage/BatchGetServices")
-            );
-            self.inner
-                .batch_get_services(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.batch_get_services(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ServiceUsage",
-                "list_operations",
-                Some("google.longrunning.Operations/ListOperations")
-            );
-            self.inner
-                .list_operations(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ServiceUsage",
-                "get_operation",
-                Some("google.longrunning.Operations/GetOperation")
-            );
-            self.inner
-                .get_operation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
 
@@ -255,21 +121,5 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "serviceusage";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "serviceusage";
-            info
-        };
     }
 }

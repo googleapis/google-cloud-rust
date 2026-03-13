@@ -22,8 +22,6 @@ where
     T: super::stub::Executions + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> Executions<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::Executions + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,119 +37,39 @@ impl<T> super::stub::Executions for Executions<T>
 where
     T: super::stub::Executions + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_executions(
         &self,
         req: crate::model::ListExecutionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListExecutionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Executions",
-                "list_executions",
-                Some("google.cloud.workflows.executions.v1.Executions/ListExecutions")
-            );
-            self.inner
-                .list_executions(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_executions(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_execution(
         &self,
         req: crate::model::CreateExecutionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Execution>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Executions",
-                "create_execution",
-                Some("google.cloud.workflows.executions.v1.Executions/CreateExecution")
-            );
-            self.inner
-                .create_execution(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_execution(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_execution(
         &self,
         req: crate::model::GetExecutionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Execution>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Executions",
-                "get_execution",
-                Some("google.cloud.workflows.executions.v1.Executions/GetExecution")
-            );
-            self.inner
-                .get_execution(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_execution(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn cancel_execution(
         &self,
         req: crate::model::CancelExecutionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Execution>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Executions",
-                "cancel_execution",
-                Some("google.cloud.workflows.executions.v1.Executions/CancelExecution")
-            );
-            self.inner
-                .cancel_execution(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_execution(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "workflowexecutions";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "workflowexecutions";
-            info
-        };
     }
 }

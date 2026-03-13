@@ -22,8 +22,6 @@ where
     T: super::stub::Firestore + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> Firestore<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::Firestore + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,294 +37,102 @@ impl<T> super::stub::Firestore for Firestore<T>
 where
     T: super::stub::Firestore + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_document(
         &self,
         req: crate::model::GetDocumentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Document>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "get_document",
-                Some("google.firestore.v1.Firestore/GetDocument")
-            );
-            self.inner
-                .get_document(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_document(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_documents(
         &self,
         req: crate::model::ListDocumentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDocumentsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "list_documents",
-                Some("google.firestore.v1.Firestore/ListDocuments")
-            );
-            self.inner
-                .list_documents(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_documents(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_document(
         &self,
         req: crate::model::UpdateDocumentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Document>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "update_document",
-                Some("google.firestore.v1.Firestore/UpdateDocument")
-            );
-            self.inner
-                .update_document(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_document(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_document(
         &self,
         req: crate::model::DeleteDocumentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "delete_document",
-                Some("google.firestore.v1.Firestore/DeleteDocument")
-            );
-            self.inner
-                .delete_document(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_document(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn begin_transaction(
         &self,
         req: crate::model::BeginTransactionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BeginTransactionResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "begin_transaction",
-                Some("google.firestore.v1.Firestore/BeginTransaction")
-            );
-            self.inner
-                .begin_transaction(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.begin_transaction(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn commit(
         &self,
         req: crate::model::CommitRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CommitResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "commit",
-                Some("google.firestore.v1.Firestore/Commit")
-            );
-            self.inner
-                .commit(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.commit(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn rollback(
         &self,
         req: crate::model::RollbackRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "rollback",
-                Some("google.firestore.v1.Firestore/Rollback")
-            );
-            self.inner
-                .rollback(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.rollback(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn partition_query(
         &self,
         req: crate::model::PartitionQueryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PartitionQueryResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "partition_query",
-                Some("google.firestore.v1.Firestore/PartitionQuery")
-            );
-            self.inner
-                .partition_query(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.partition_query(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_collection_ids(
         &self,
         req: crate::model::ListCollectionIdsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCollectionIdsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "list_collection_ids",
-                Some("google.firestore.v1.Firestore/ListCollectionIds")
-            );
-            self.inner
-                .list_collection_ids(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_collection_ids(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn batch_write(
         &self,
         req: crate::model::BatchWriteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BatchWriteResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "batch_write",
-                Some("google.firestore.v1.Firestore/BatchWrite")
-            );
-            self.inner
-                .batch_write(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.batch_write(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_document(
         &self,
         req: crate::model::CreateDocumentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Document>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Firestore",
-                "create_document",
-                Some("google.firestore.v1.Firestore/CreateDocument")
-            );
-            self.inner
-                .create_document(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_document(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "firestore";
-            info
-        };
     }
 }

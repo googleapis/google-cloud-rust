@@ -51,18 +51,6 @@ impl std::fmt::Debug for Firestore {
 
 impl Firestore {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
-        let inner = if gaxi::options::tracing_enabled(&config) {
-            gaxi::grpc::Client::new_with_instrumentation(
-                config,
-                DEFAULT_HOST,
-                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
-            )
-            .await?
-        } else {
-            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
-        };
-        #[cfg(not(google_cloud_unstable_tracing))]
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -98,21 +86,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -161,21 +134,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::ListDocumentsResponse;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -219,24 +177,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req)
-                        .and_then(|m| m.document.as_ref())
-                        .map(|m| &m.name)
-                        .map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -279,21 +219,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -336,21 +261,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::BeginTransactionResponse;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req).map(|m| &m.database).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -389,21 +299,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::CommitResponse;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req).map(|m| &m.database).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -442,21 +337,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req).map(|m| &m.database).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -499,21 +379,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::PartitionQueryResponse;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -557,21 +422,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::ListCollectionIdsResponse;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -614,21 +464,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::BatchWriteResponse;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req).map(|m| &m.database).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -677,21 +512,6 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//firestore.googleapis.com/{}",
-                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,

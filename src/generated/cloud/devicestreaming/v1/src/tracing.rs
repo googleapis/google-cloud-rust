@@ -22,8 +22,6 @@ where
     T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> DirectAccessService<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,144 +37,48 @@ impl<T> super::stub::DirectAccessService for DirectAccessService<T>
 where
     T: super::stub::DirectAccessService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_device_session(
         &self,
         req: crate::model::CreateDeviceSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DeviceSession>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DirectAccessService",
-                "create_device_session",
-                Some("google.cloud.devicestreaming.v1.DirectAccessService/CreateDeviceSession")
-            );
-            self.inner
-                .create_device_session(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_device_session(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_device_sessions(
         &self,
         req: crate::model::ListDeviceSessionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDeviceSessionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DirectAccessService",
-                "list_device_sessions",
-                Some("google.cloud.devicestreaming.v1.DirectAccessService/ListDeviceSessions")
-            );
-            self.inner
-                .list_device_sessions(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_device_sessions(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_device_session(
         &self,
         req: crate::model::GetDeviceSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DeviceSession>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DirectAccessService",
-                "get_device_session",
-                Some("google.cloud.devicestreaming.v1.DirectAccessService/GetDeviceSession")
-            );
-            self.inner
-                .get_device_session(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_device_session(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn cancel_device_session(
         &self,
         req: crate::model::CancelDeviceSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DirectAccessService",
-                "cancel_device_session",
-                Some("google.cloud.devicestreaming.v1.DirectAccessService/CancelDeviceSession")
-            );
-            self.inner
-                .cancel_device_session(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_device_session(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_device_session(
         &self,
         req: crate::model::UpdateDeviceSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DeviceSession>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DirectAccessService",
-                "update_device_session",
-                Some("google.cloud.devicestreaming.v1.DirectAccessService/UpdateDeviceSession")
-            );
-            self.inner
-                .update_device_session(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_device_session(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "devicestreaming";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "devicestreaming";
-            info
-        };
     }
 }

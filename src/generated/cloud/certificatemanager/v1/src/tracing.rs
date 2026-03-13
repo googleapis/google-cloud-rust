@@ -22,8 +22,6 @@ where
     T: super::stub::CertificateManager + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> CertificateManager<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::CertificateManager + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,910 +37,326 @@ impl<T> super::stub::CertificateManager for CertificateManager<T>
 where
     T: super::stub::CertificateManager + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_certificates(
         &self,
         req: crate::model::ListCertificatesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCertificatesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "list_certificates",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/ListCertificates")
-            );
-            self.inner
-                .list_certificates(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_certificates(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_certificate(
         &self,
         req: crate::model::GetCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Certificate>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "get_certificate",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/GetCertificate")
-            );
-            self.inner
-                .get_certificate(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_certificate(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_certificate(
         &self,
         req: crate::model::CreateCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "create_certificate",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/CreateCertificate")
-            );
-            self.inner
-                .create_certificate(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_certificate(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_certificate(
         &self,
         req: crate::model::UpdateCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "update_certificate",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/UpdateCertificate")
-            );
-            self.inner
-                .update_certificate(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_certificate(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_certificate(
         &self,
         req: crate::model::DeleteCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "delete_certificate",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/DeleteCertificate")
-            );
-            self.inner
-                .delete_certificate(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_certificate(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_certificate_maps(
         &self,
         req: crate::model::ListCertificateMapsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCertificateMapsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "list_certificate_maps",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/ListCertificateMaps")
-            );
-            self.inner
-                .list_certificate_maps(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_certificate_maps(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_certificate_map(
         &self,
         req: crate::model::GetCertificateMapRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CertificateMap>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "get_certificate_map",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/GetCertificateMap")
-            );
-            self.inner
-                .get_certificate_map(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_certificate_map(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_certificate_map(
         &self,
         req: crate::model::CreateCertificateMapRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "create_certificate_map",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/CreateCertificateMap")
-            );
-            self.inner
-                .create_certificate_map(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_certificate_map(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_certificate_map(
         &self,
         req: crate::model::UpdateCertificateMapRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "update_certificate_map",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/UpdateCertificateMap")
-            );
-            self.inner
-                .update_certificate_map(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_certificate_map(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_certificate_map(
         &self,
         req: crate::model::DeleteCertificateMapRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "delete_certificate_map",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/DeleteCertificateMap")
-            );
-            self.inner
-                .delete_certificate_map(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_certificate_map(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_certificate_map_entries(
         &self,
         req: crate::model::ListCertificateMapEntriesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCertificateMapEntriesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "list_certificate_map_entries",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/ListCertificateMapEntries"
-                )
-            );
-            self.inner
-                .list_certificate_map_entries(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_certificate_map_entries(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_certificate_map_entry(
         &self,
         req: crate::model::GetCertificateMapEntryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CertificateMapEntry>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "get_certificate_map_entry",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/GetCertificateMapEntry"
-                )
-            );
-            self.inner
-                .get_certificate_map_entry(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_certificate_map_entry(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_certificate_map_entry(
         &self,
         req: crate::model::CreateCertificateMapEntryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "create_certificate_map_entry",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/CreateCertificateMapEntry"
-                )
-            );
-            self.inner
-                .create_certificate_map_entry(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_certificate_map_entry(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_certificate_map_entry(
         &self,
         req: crate::model::UpdateCertificateMapEntryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "update_certificate_map_entry",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/UpdateCertificateMapEntry"
-                )
-            );
-            self.inner
-                .update_certificate_map_entry(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_certificate_map_entry(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_certificate_map_entry(
         &self,
         req: crate::model::DeleteCertificateMapEntryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "delete_certificate_map_entry",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/DeleteCertificateMapEntry"
-                )
-            );
-            self.inner
-                .delete_certificate_map_entry(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_certificate_map_entry(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_dns_authorizations(
         &self,
         req: crate::model::ListDnsAuthorizationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDnsAuthorizationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "list_dns_authorizations",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/ListDnsAuthorizations")
-            );
-            self.inner
-                .list_dns_authorizations(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_dns_authorizations(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_dns_authorization(
         &self,
         req: crate::model::GetDnsAuthorizationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DnsAuthorization>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "get_dns_authorization",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/GetDnsAuthorization")
-            );
-            self.inner
-                .get_dns_authorization(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_dns_authorization(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_dns_authorization(
         &self,
         req: crate::model::CreateDnsAuthorizationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "create_dns_authorization",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/CreateDnsAuthorization"
-                )
-            );
-            self.inner
-                .create_dns_authorization(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_dns_authorization(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_dns_authorization(
         &self,
         req: crate::model::UpdateDnsAuthorizationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "update_dns_authorization",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/UpdateDnsAuthorization"
-                )
-            );
-            self.inner
-                .update_dns_authorization(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_dns_authorization(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_dns_authorization(
         &self,
         req: crate::model::DeleteDnsAuthorizationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "delete_dns_authorization",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/DeleteDnsAuthorization"
-                )
-            );
-            self.inner
-                .delete_dns_authorization(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_dns_authorization(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_certificate_issuance_configs(
         &self,
         req: crate::model::ListCertificateIssuanceConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCertificateIssuanceConfigsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "list_certificate_issuance_configs",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/ListCertificateIssuanceConfigs"
-                )
-            );
-            self.inner
-                .list_certificate_issuance_configs(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_certificate_issuance_configs(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_certificate_issuance_config(
         &self,
         req: crate::model::GetCertificateIssuanceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CertificateIssuanceConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "get_certificate_issuance_config",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/GetCertificateIssuanceConfig"
-                )
-            );
-            self.inner
-                .get_certificate_issuance_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_certificate_issuance_config(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_certificate_issuance_config(
         &self,
         req: crate::model::CreateCertificateIssuanceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "create_certificate_issuance_config",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/CreateCertificateIssuanceConfig"
-                )
-            );
-            self.inner
-                .create_certificate_issuance_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .create_certificate_issuance_config(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_certificate_issuance_config(
         &self,
         req: crate::model::DeleteCertificateIssuanceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "delete_certificate_issuance_config",
-                Some(
-                    "google.cloud.certificatemanager.v1.CertificateManager/DeleteCertificateIssuanceConfig"
-                )
-            );
-            self.inner
-                .delete_certificate_issuance_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .delete_certificate_issuance_config(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_trust_configs(
         &self,
         req: crate::model::ListTrustConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListTrustConfigsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "list_trust_configs",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/ListTrustConfigs")
-            );
-            self.inner
-                .list_trust_configs(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_trust_configs(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_trust_config(
         &self,
         req: crate::model::GetTrustConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TrustConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "get_trust_config",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/GetTrustConfig")
-            );
-            self.inner
-                .get_trust_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_trust_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_trust_config(
         &self,
         req: crate::model::CreateTrustConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "create_trust_config",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/CreateTrustConfig")
-            );
-            self.inner
-                .create_trust_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_trust_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_trust_config(
         &self,
         req: crate::model::UpdateTrustConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "update_trust_config",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/UpdateTrustConfig")
-            );
-            self.inner
-                .update_trust_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_trust_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_trust_config(
         &self,
         req: crate::model::DeleteTrustConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "delete_trust_config",
-                Some("google.cloud.certificatemanager.v1.CertificateManager/DeleteTrustConfig")
-            );
-            self.inner
-                .delete_trust_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_trust_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "list_locations",
-                Some("google.cloud.location.Locations/ListLocations")
-            );
-            self.inner
-                .list_locations(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "get_location",
-                Some("google.cloud.location.Locations/GetLocation")
-            );
-            self.inner
-                .get_location(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "list_operations",
-                Some("google.longrunning.Operations/ListOperations")
-            );
-            self.inner
-                .list_operations(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "get_operation",
-                Some("google.longrunning.Operations/GetOperation")
-            );
-            self.inner
-                .get_operation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "delete_operation",
-                Some("google.longrunning.Operations/DeleteOperation")
-            );
-            self.inner
-                .delete_operation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_operation(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::CertificateManager",
-                "cancel_operation",
-                Some("google.longrunning.Operations/CancelOperation")
-            );
-            self.inner
-                .cancel_operation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_operation(req, options).await
     }
 
@@ -962,21 +372,5 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "certificatemanager";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "certificatemanager";
-            info
-        };
     }
 }

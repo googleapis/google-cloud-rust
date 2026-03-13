@@ -22,8 +22,6 @@ where
     T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> GatewayControl<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,44 +37,12 @@ impl<T> super::stub::GatewayControl for GatewayControl<T>
 where
     T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn generate_credentials(
         &self,
         req: crate::model::GenerateCredentialsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateCredentialsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::GatewayControl",
-                "generate_credentials",
-                Some("google.cloud.gkeconnect.gateway.v1.GatewayControl/GenerateCredentials")
-            );
-            self.inner
-                .generate_credentials(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.generate_credentials(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "connectgateway";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "connectgateway";
-            info
-        };
     }
 }

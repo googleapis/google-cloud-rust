@@ -34,15 +34,7 @@ impl std::fmt::Debug for OracleDatabase {
 
 impl OracleDatabase {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -58,7 +50,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -71,16 +63,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/cloudExadataInfrastructures", var_parent,);
 
-                let _path_template = "/v1/{parent}/cloudExadataInfrastructures";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -101,17 +90,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -134,7 +112,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -149,12 +127,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -177,17 +152,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -210,7 +174,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -223,9 +187,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/cloudExadataInfrastructures", var_parent,);
 
-                let _path_template = "/v1/{parent}/cloudExadataInfrastructures";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[(
                     "cloudExadataInfrastructureId",
@@ -233,7 +194,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -254,17 +215,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -287,7 +237,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -302,14 +252,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -332,17 +279,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -365,7 +301,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -378,15 +314,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/cloudVmClusters", var_parent,);
 
-                let _path_template = "/v1/{parent}/cloudVmClusters";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -407,17 +340,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -440,7 +362,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -455,12 +377,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -483,17 +402,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -516,7 +424,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -529,14 +437,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/cloudVmClusters", var_parent,);
 
-                let _path_template = "/v1/{parent}/cloudVmClusters";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("cloudVmClusterId", &req.cloud_vm_cluster_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -557,17 +462,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -590,7 +484,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -605,14 +499,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -635,17 +526,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -668,7 +548,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -681,14 +561,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/entitlements", var_parent,);
 
-                let _path_template = "/v1/{parent}/entitlements";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -709,17 +586,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -742,7 +608,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -757,14 +623,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/dbServers", var_parent,);
 
-                let _path_template = "/v1/{parent}/dbServers";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -787,17 +650,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -820,7 +672,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -835,14 +687,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/dbNodes", var_parent,);
 
-                let _path_template = "/v1/{parent}/dbNodes";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -858,14 +707,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/dbNodes", var_parent,);
 
-                let _path_template = "/v1/{parent}/dbNodes";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -905,17 +751,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -938,7 +773,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -951,15 +786,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/giVersions", var_parent,);
 
-                let _path_template = "/v1/{parent}/giVersions";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -980,17 +812,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1013,7 +834,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1028,15 +849,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/minorVersions", var_parent,);
 
-                let _path_template = "/v1/{parent}/minorVersions";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1059,17 +877,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1092,7 +899,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1105,15 +912,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/dbSystemShapes", var_parent,);
 
-                let _path_template = "/v1/{parent}/dbSystemShapes";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1134,17 +938,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1167,7 +960,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1180,16 +973,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/autonomousDatabases", var_parent,);
 
-                let _path_template = "/v1/{parent}/autonomousDatabases";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1210,17 +1000,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1243,7 +1022,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1258,12 +1037,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1286,17 +1062,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1319,7 +1084,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1332,15 +1097,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/autonomousDatabases", var_parent,);
 
-                let _path_template = "/v1/{parent}/autonomousDatabases";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("autonomousDatabaseId", &req.autonomous_database_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1361,17 +1123,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1394,7 +1145,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_autonomous_database_name = try_match(
                     Some(&req)
@@ -1412,12 +1163,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_autonomous_database_name,);
 
-                let _path_template = "/v1/{autonomous_database.name}";
-
-                let resource_name = format!(
-                    "//oracledatabase.googleapis.com/{}",
-                    var_autonomous_database_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -1433,7 +1178,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1459,17 +1204,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1492,7 +1226,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1507,13 +1241,10 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1536,17 +1267,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1569,7 +1289,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1584,12 +1304,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}:restore", var_name,);
 
-                let _path_template = "/v1/{name}:restore";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1612,17 +1329,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1645,7 +1351,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1660,12 +1366,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}:generateWallet", var_name,);
 
-                let _path_template = "/v1/{name}:generateWallet";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1688,17 +1391,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1721,7 +1413,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1734,14 +1426,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/autonomousDbVersions", var_parent,);
 
-                let _path_template = "/v1/{parent}/autonomousDbVersions";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1762,17 +1451,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1795,7 +1473,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1808,15 +1486,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/autonomousDatabaseCharacterSets", var_parent,);
 
-                let _path_template = "/v1/{parent}/autonomousDatabaseCharacterSets";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1837,17 +1512,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1870,7 +1534,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1883,15 +1547,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/autonomousDatabaseBackups", var_parent,);
 
-                let _path_template = "/v1/{parent}/autonomousDatabaseBackups";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1912,17 +1573,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1945,7 +1595,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1960,12 +1610,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}:stop", var_name,);
 
-                let _path_template = "/v1/{name}:stop";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1988,17 +1635,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2021,7 +1657,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2036,12 +1672,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}:start", var_name,);
 
-                let _path_template = "/v1/{name}:start";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2064,17 +1697,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2097,7 +1719,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2112,12 +1734,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}:restart", var_name,);
 
-                let _path_template = "/v1/{name}:restart";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2140,17 +1759,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2173,7 +1781,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2188,12 +1796,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}:switchover", var_name,);
 
-                let _path_template = "/v1/{name}:switchover";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2216,17 +1821,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2249,7 +1843,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2264,12 +1858,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}:failover", var_name,);
 
-                let _path_template = "/v1/{name}:failover";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2292,17 +1883,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2325,7 +1905,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2338,16 +1918,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/odbNetworks", var_parent,);
 
-                let _path_template = "/v1/{parent}/odbNetworks";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2368,17 +1945,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2401,7 +1967,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2416,12 +1982,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2444,17 +2007,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2477,7 +2029,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2490,14 +2042,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/odbNetworks", var_parent,);
 
-                let _path_template = "/v1/{parent}/odbNetworks";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("odbNetworkId", &req.odb_network_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2518,17 +2067,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2551,7 +2089,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2566,13 +2104,10 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2595,17 +2130,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2628,7 +2152,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2643,16 +2167,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/odbSubnets", var_parent,);
 
-                let _path_template = "/v1/{parent}/odbSubnets";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2675,17 +2196,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2708,7 +2218,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2725,12 +2235,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2755,17 +2262,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2788,7 +2284,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2803,14 +2299,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/odbSubnets", var_parent,);
 
-                let _path_template = "/v1/{parent}/odbSubnets";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("odbSubnetId", &req.odb_subnet_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2833,17 +2326,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2866,7 +2348,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2883,13 +2365,10 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2914,17 +2393,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2947,7 +2415,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2960,16 +2428,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/exadbVmClusters", var_parent,);
 
-                let _path_template = "/v1/{parent}/exadbVmClusters";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2990,17 +2455,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3023,7 +2477,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3038,12 +2492,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3066,17 +2517,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3099,7 +2539,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3112,14 +2552,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/exadbVmClusters", var_parent,);
 
-                let _path_template = "/v1/{parent}/exadbVmClusters";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("exadbVmClusterId", &req.exadb_vm_cluster_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3140,17 +2577,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3173,7 +2599,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3188,13 +2614,10 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3217,17 +2640,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3250,7 +2662,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_exadb_vm_cluster_name = try_match(
                     Some(&req)
@@ -3268,12 +2680,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_exadb_vm_cluster_name,);
 
-                let _path_template = "/v1/{exadb_vm_cluster.name}";
-
-                let resource_name = format!(
-                    "//oracledatabase.googleapis.com/{}",
-                    var_exadb_vm_cluster_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -3289,7 +2695,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3315,17 +2721,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3348,7 +2743,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3363,12 +2758,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}:removeVirtualMachine", var_name,);
 
-                let _path_template = "/v1/{name}:removeVirtualMachine";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3391,17 +2783,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3424,7 +2805,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3437,16 +2818,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/exascaleDbStorageVaults", var_parent,);
 
-                let _path_template = "/v1/{parent}/exascaleDbStorageVaults";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3467,17 +2845,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3500,7 +2867,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3515,12 +2882,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3543,17 +2907,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3576,7 +2929,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3589,9 +2942,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/exascaleDbStorageVaults", var_parent,);
 
-                let _path_template = "/v1/{parent}/exascaleDbStorageVaults";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[(
                     "exascaleDbStorageVaultId",
@@ -3599,7 +2949,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3620,17 +2970,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3653,7 +2992,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3668,13 +3007,10 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3697,17 +3033,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3730,7 +3055,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3743,14 +3068,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/dbSystemInitialStorageSizes", var_parent,);
 
-                let _path_template = "/v1/{parent}/dbSystemInitialStorageSizes";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3771,17 +3093,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3804,7 +3115,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3817,15 +3128,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/databases", var_parent,);
 
-                let _path_template = "/v1/{parent}/databases";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3846,17 +3154,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3879,7 +3176,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3894,12 +3191,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3922,17 +3216,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3955,7 +3238,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3968,15 +3251,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/pluggableDatabases", var_parent,);
 
-                let _path_template = "/v1/{parent}/pluggableDatabases";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3997,17 +3277,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4030,7 +3299,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4045,12 +3314,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4073,17 +3339,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4106,7 +3361,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4119,16 +3374,13 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/dbSystems", var_parent,);
 
-                let _path_template = "/v1/{parent}/dbSystems";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4149,17 +3401,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4182,7 +3423,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4197,12 +3438,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4225,17 +3463,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4258,7 +3485,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4271,14 +3498,11 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/dbSystems", var_parent,);
 
-                let _path_template = "/v1/{parent}/dbSystems";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("dbSystemId", &req.db_system_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4299,17 +3523,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4332,7 +3545,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4347,13 +3560,10 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4376,17 +3586,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4409,7 +3608,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4422,15 +3621,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/dbVersions", var_parent,);
 
-                let _path_template = "/v1/{parent}/dbVersions";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4451,17 +3647,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4484,7 +3669,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4497,15 +3682,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/databaseCharacterSets", var_parent,);
 
-                let _path_template = "/v1/{parent}/databaseCharacterSets";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4526,17 +3708,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4559,7 +3730,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4567,15 +3738,12 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
 
-                let _path_template = "/v1/{name}/locations";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4591,17 +3759,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4624,7 +3781,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4637,12 +3794,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4663,17 +3817,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4696,7 +3839,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4709,9 +3852,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
 
-                let _path_template = "/v1/{name}/operations";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4719,7 +3859,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4740,17 +3880,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4773,7 +3902,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4788,12 +3917,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4816,17 +3942,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4849,7 +3964,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4864,12 +3979,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4892,17 +4004,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4931,7 +4032,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4946,12 +4047,9 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
 
-                let _path_template = "/v1/{name}:cancel";
-
-                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4974,17 +4072,6 @@ impl super::stub::OracleDatabase for OracleDatabase {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

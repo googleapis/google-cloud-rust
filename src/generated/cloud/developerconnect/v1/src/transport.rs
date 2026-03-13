@@ -34,15 +34,7 @@ impl std::fmt::Debug for DeveloperConnect {
 
 impl DeveloperConnect {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -58,7 +50,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -71,16 +63,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/connections", var_parent,);
 
-                let _path_template = "/v1/{parent}/connections";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -101,17 +90,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -134,7 +112,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -149,12 +127,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -177,17 +152,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -210,7 +174,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -223,15 +187,12 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/connections", var_parent,);
 
-                let _path_template = "/v1/{parent}/connections";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("connectionId", &req.connection_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -252,17 +213,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -285,7 +235,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_connection_name = try_match(
                     Some(&req)
@@ -303,10 +253,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_connection_name,);
 
-                let _path_template = "/v1/{connection.name}";
-
-                let resource_name =
-                    format!("//developerconnect.googleapis.com/{}", var_connection_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -324,7 +270,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -350,17 +296,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -383,7 +318,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -398,15 +333,12 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -429,17 +361,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -462,7 +383,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -477,16 +398,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/gitRepositoryLinks", var_parent,);
 
-                let _path_template = "/v1/{parent}/gitRepositoryLinks";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("gitRepositoryLinkId", &req.git_repository_link_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -509,17 +427,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -542,7 +449,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -559,15 +466,12 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -592,17 +496,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -625,7 +518,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -640,16 +533,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/gitRepositoryLinks", var_parent,);
 
-                let _path_template = "/v1/{parent}/gitRepositoryLinks";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -672,17 +562,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -705,7 +584,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -722,12 +601,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -752,17 +628,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -785,7 +650,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_git_repository_link = try_match(
                     Some(&req)
@@ -804,15 +669,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}:fetchReadWriteToken", var_git_repository_link,);
 
-                let _path_template = "/v1/{git_repository_link}:fetchReadWriteToken";
-
-                let resource_name = format!(
-                    "//developerconnect.googleapis.com/{}",
-                    var_git_repository_link,
-                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -839,17 +698,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -872,7 +720,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_git_repository_link = try_match(
                     Some(&req)
@@ -891,15 +739,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}:fetchReadToken", var_git_repository_link,);
 
-                let _path_template = "/v1/{git_repository_link}:fetchReadToken";
-
-                let resource_name = format!(
-                    "//developerconnect.googleapis.com/{}",
-                    var_git_repository_link,
-                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -926,17 +768,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -959,7 +790,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_connection = try_match(
                     Some(&req).map(|m| &m.connection).map(|s| s.as_str()),
@@ -974,15 +805,11 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}:fetchLinkableGitRepositories", var_connection,);
 
-                let _path_template = "/v1/{connection}:fetchLinkableGitRepositories";
-
-                let resource_name =
-                    format!("//developerconnect.googleapis.com/{}", var_connection,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1005,17 +832,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1038,7 +854,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_connection = try_match(
                     Some(&req).map(|m| &m.connection).map(|s| s.as_str()),
@@ -1053,13 +869,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}:fetchGitHubInstallations", var_connection,);
 
-                let _path_template = "/v1/{connection}:fetchGitHubInstallations";
-
-                let resource_name =
-                    format!("//developerconnect.googleapis.com/{}", var_connection,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1082,17 +894,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1115,7 +916,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_git_repository_link = try_match(
                     Some(&req)
@@ -1134,18 +935,12 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}:fetchGitRefs", var_git_repository_link,);
 
-                let _path_template = "/v1/{git_repository_link}:fetchGitRefs";
-
-                let resource_name = format!(
-                    "//developerconnect.googleapis.com/{}",
-                    var_git_repository_link,
-                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("refType", &req.ref_type)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1172,17 +967,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1205,7 +989,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1218,16 +1002,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/accountConnectors", var_parent,);
 
-                let _path_template = "/v1/{parent}/accountConnectors";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1248,17 +1029,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1281,7 +1051,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1296,12 +1066,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1324,17 +1091,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1357,7 +1113,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1370,15 +1126,12 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/accountConnectors", var_parent,);
 
-                let _path_template = "/v1/{parent}/accountConnectors";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("accountConnectorId", &req.account_connector_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1399,17 +1152,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1432,7 +1174,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_account_connector_name = try_match(
                     Some(&req)
@@ -1450,12 +1192,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_account_connector_name,);
 
-                let _path_template = "/v1/{account_connector.name}";
-
-                let resource_name = format!(
-                    "//developerconnect.googleapis.com/{}",
-                    var_account_connector_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -1473,7 +1209,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1499,17 +1235,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1532,7 +1257,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1547,16 +1272,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1579,17 +1301,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1612,7 +1323,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_account_connector = try_match(
                     Some(&req).map(|m| &m.account_connector).map(|s| s.as_str()),
@@ -1627,15 +1338,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/users:fetchAccessToken", var_account_connector,);
 
-                let _path_template = "/v1/{account_connector}/users:fetchAccessToken";
-
-                let resource_name = format!(
-                    "//developerconnect.googleapis.com/{}",
-                    var_account_connector,
-                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1658,17 +1363,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1691,7 +1385,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1706,16 +1400,13 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/users", var_parent,);
 
-                let _path_template = "/v1/{parent}/users";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1738,17 +1429,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1771,7 +1451,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1788,15 +1468,12 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1821,17 +1498,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1854,7 +1520,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1869,12 +1535,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/users:fetchSelf", var_name,);
 
-                let _path_template = "/v1/{name}/users:fetchSelf";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1897,17 +1560,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1930,7 +1582,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1945,12 +1597,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/users:deleteSelf", var_name,);
 
-                let _path_template = "/v1/{name}/users:deleteSelf";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1973,17 +1622,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2006,7 +1644,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_account_connector = try_match(
                     Some(&req).map(|m| &m.account_connector).map(|s| s.as_str()),
@@ -2021,15 +1659,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/users:startOAuthFlow", var_account_connector,);
 
-                let _path_template = "/v1/{account_connector}/users:startOAuthFlow";
-
-                let resource_name = format!(
-                    "//developerconnect.googleapis.com/{}",
-                    var_account_connector,
-                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2052,17 +1684,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2085,7 +1706,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_account_connector = try_match(
                     Some(&req).map(|m| &m.account_connector).map(|s| s.as_str()),
@@ -2100,12 +1721,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/users:finishOAuthFlow", var_account_connector,);
 
-                let _path_template = "/v1/{account_connector}/users:finishOAuthFlow";
-
-                let resource_name = format!(
-                    "//developerconnect.googleapis.com/{}",
-                    var_account_connector,
-                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2128,7 +1743,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2151,17 +1766,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2184,7 +1788,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2192,15 +1796,12 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
 
-                let _path_template = "/v1/{name}/locations";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2216,17 +1817,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2249,7 +1839,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2262,12 +1852,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2288,17 +1875,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2321,7 +1897,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2334,9 +1910,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
 
-                let _path_template = "/v1/{name}/operations";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2344,7 +1917,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2365,17 +1938,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2398,7 +1960,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2413,12 +1975,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2441,17 +2000,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2474,7 +2022,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2489,12 +2037,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2517,17 +2062,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2556,7 +2090,7 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2571,12 +2105,9 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
 
-                let _path_template = "/v1/{name}:cancel";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2599,17 +2130,6 @@ impl super::stub::DeveloperConnect for DeveloperConnect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2659,15 +2179,7 @@ impl std::fmt::Debug for InsightsConfigService {
 
 impl InsightsConfigService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -2683,7 +2195,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2696,16 +2208,13 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}/insightsConfigs", var_parent,);
 
-                let _path_template = "/v1/{parent}/insightsConfigs";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2726,17 +2235,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2759,7 +2257,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2772,14 +2270,11 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}/insightsConfigs", var_parent,);
 
-                let _path_template = "/v1/{parent}/insightsConfigs";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("insightsConfigId", &req.insights_config_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2800,17 +2295,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2833,7 +2317,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2848,12 +2332,9 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2876,17 +2357,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2909,7 +2379,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_insights_config_name = try_match(
                     Some(&req)
@@ -2927,18 +2397,12 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}", var_insights_config_name,);
 
-                let _path_template = "/v1/{insights_config.name}";
-
-                let resource_name = format!(
-                    "//developerconnect.googleapis.com/{}",
-                    var_insights_config_name,
-                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2964,17 +2428,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2997,7 +2450,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3012,15 +2465,12 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3043,17 +2493,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3076,7 +2515,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3093,12 +2532,9 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3123,17 +2559,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3156,7 +2581,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3171,15 +2596,12 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}/deploymentEvents", var_parent,);
 
-                let _path_template = "/v1/{parent}/deploymentEvents";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3202,17 +2624,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3235,7 +2646,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3243,15 +2654,12 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
 
-                let _path_template = "/v1/{name}/locations";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3267,17 +2675,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3300,7 +2697,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3313,12 +2710,9 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3339,17 +2733,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3372,7 +2755,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3385,9 +2768,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
 
-                let _path_template = "/v1/{name}/operations";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3395,7 +2775,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3416,17 +2796,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3449,7 +2818,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3464,12 +2833,9 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3492,17 +2858,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3525,7 +2880,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3540,12 +2895,9 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
-                let _path_template = "/v1/{name}";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3568,17 +2920,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3607,7 +2948,7 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3622,12 +2963,9 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
 
-                let _path_template = "/v1/{name}:cancel";
-
-                let resource_name = format!("//developerconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3650,17 +2988,6 @@ impl super::stub::InsightsConfigService for InsightsConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

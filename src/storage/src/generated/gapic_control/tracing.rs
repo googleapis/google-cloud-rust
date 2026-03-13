@@ -22,8 +22,6 @@ where
     T: super::stub::StorageControl + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> StorageControl<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::StorageControl + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,717 +37,267 @@ impl<T> super::stub::StorageControl for StorageControl<T>
 where
     T: super::stub::StorageControl + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_folder(
         &self,
         req: crate::model::CreateFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Folder>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "create_folder",
-                Some("google.storage.control.v2.StorageControl/CreateFolder")
-            );
-            self.inner
-                .create_folder(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_folder(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_folder(
         &self,
         req: crate::model::DeleteFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "delete_folder",
-                Some("google.storage.control.v2.StorageControl/DeleteFolder")
-            );
-            self.inner
-                .delete_folder(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_folder(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_folder(
         &self,
         req: crate::model::GetFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Folder>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "get_folder",
-                Some("google.storage.control.v2.StorageControl/GetFolder")
-            );
-            self.inner
-                .get_folder(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_folder(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_folders(
         &self,
         req: crate::model::ListFoldersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListFoldersResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "list_folders",
-                Some("google.storage.control.v2.StorageControl/ListFolders")
-            );
-            self.inner
-                .list_folders(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_folders(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn rename_folder(
         &self,
         req: crate::model::RenameFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "rename_folder",
-                Some("google.storage.control.v2.StorageControl/RenameFolder")
-            );
-            self.inner
-                .rename_folder(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.rename_folder(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_folder_recursive(
         &self,
         req: crate::model::DeleteFolderRecursiveRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "delete_folder_recursive",
-                Some("google.storage.control.v2.StorageControl/DeleteFolderRecursive")
-            );
-            self.inner
-                .delete_folder_recursive(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_folder_recursive(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_storage_layout(
         &self,
         req: crate::model::GetStorageLayoutRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::StorageLayout>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "get_storage_layout",
-                Some("google.storage.control.v2.StorageControl/GetStorageLayout")
-            );
-            self.inner
-                .get_storage_layout(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_storage_layout(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_managed_folder(
         &self,
         req: crate::model::CreateManagedFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ManagedFolder>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "create_managed_folder",
-                Some("google.storage.control.v2.StorageControl/CreateManagedFolder")
-            );
-            self.inner
-                .create_managed_folder(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_managed_folder(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_managed_folder(
         &self,
         req: crate::model::DeleteManagedFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "delete_managed_folder",
-                Some("google.storage.control.v2.StorageControl/DeleteManagedFolder")
-            );
-            self.inner
-                .delete_managed_folder(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_managed_folder(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_managed_folder(
         &self,
         req: crate::model::GetManagedFolderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ManagedFolder>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "get_managed_folder",
-                Some("google.storage.control.v2.StorageControl/GetManagedFolder")
-            );
-            self.inner
-                .get_managed_folder(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_managed_folder(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_managed_folders(
         &self,
         req: crate::model::ListManagedFoldersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListManagedFoldersResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "list_managed_folders",
-                Some("google.storage.control.v2.StorageControl/ListManagedFolders")
-            );
-            self.inner
-                .list_managed_folders(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_managed_folders(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_anywhere_cache(
         &self,
         req: crate::model::CreateAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "create_anywhere_cache",
-                Some("google.storage.control.v2.StorageControl/CreateAnywhereCache")
-            );
-            self.inner
-                .create_anywhere_cache(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_anywhere_cache(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_anywhere_cache(
         &self,
         req: crate::model::UpdateAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "update_anywhere_cache",
-                Some("google.storage.control.v2.StorageControl/UpdateAnywhereCache")
-            );
-            self.inner
-                .update_anywhere_cache(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_anywhere_cache(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn disable_anywhere_cache(
         &self,
         req: crate::model::DisableAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnywhereCache>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "disable_anywhere_cache",
-                Some("google.storage.control.v2.StorageControl/DisableAnywhereCache")
-            );
-            self.inner
-                .disable_anywhere_cache(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.disable_anywhere_cache(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn pause_anywhere_cache(
         &self,
         req: crate::model::PauseAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnywhereCache>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "pause_anywhere_cache",
-                Some("google.storage.control.v2.StorageControl/PauseAnywhereCache")
-            );
-            self.inner
-                .pause_anywhere_cache(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.pause_anywhere_cache(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn resume_anywhere_cache(
         &self,
         req: crate::model::ResumeAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnywhereCache>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "resume_anywhere_cache",
-                Some("google.storage.control.v2.StorageControl/ResumeAnywhereCache")
-            );
-            self.inner
-                .resume_anywhere_cache(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.resume_anywhere_cache(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_anywhere_cache(
         &self,
         req: crate::model::GetAnywhereCacheRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnywhereCache>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "get_anywhere_cache",
-                Some("google.storage.control.v2.StorageControl/GetAnywhereCache")
-            );
-            self.inner
-                .get_anywhere_cache(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_anywhere_cache(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_anywhere_caches(
         &self,
         req: crate::model::ListAnywhereCachesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAnywhereCachesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "list_anywhere_caches",
-                Some("google.storage.control.v2.StorageControl/ListAnywhereCaches")
-            );
-            self.inner
-                .list_anywhere_caches(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_anywhere_caches(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_project_intelligence_config(
         &self,
         req: crate::model::GetProjectIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "get_project_intelligence_config",
-                Some("google.storage.control.v2.StorageControl/GetProjectIntelligenceConfig")
-            );
-            self.inner
-                .get_project_intelligence_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_project_intelligence_config(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_project_intelligence_config(
         &self,
         req: crate::model::UpdateProjectIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "update_project_intelligence_config",
-                Some("google.storage.control.v2.StorageControl/UpdateProjectIntelligenceConfig")
-            );
-            self.inner
-                .update_project_intelligence_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .update_project_intelligence_config(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_folder_intelligence_config(
         &self,
         req: crate::model::GetFolderIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "get_folder_intelligence_config",
-                Some("google.storage.control.v2.StorageControl/GetFolderIntelligenceConfig")
-            );
-            self.inner
-                .get_folder_intelligence_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_folder_intelligence_config(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_folder_intelligence_config(
         &self,
         req: crate::model::UpdateFolderIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "update_folder_intelligence_config",
-                Some("google.storage.control.v2.StorageControl/UpdateFolderIntelligenceConfig")
-            );
-            self.inner
-                .update_folder_intelligence_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .update_folder_intelligence_config(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_organization_intelligence_config(
         &self,
         req: crate::model::GetOrganizationIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "get_organization_intelligence_config",
-                Some("google.storage.control.v2.StorageControl/GetOrganizationIntelligenceConfig")
-            );
-            self.inner
-                .get_organization_intelligence_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_organization_intelligence_config(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_organization_intelligence_config(
         &self,
         req: crate::model::UpdateOrganizationIntelligenceConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IntelligenceConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "update_organization_intelligence_config",
-                Some(
-                    "google.storage.control.v2.StorageControl/UpdateOrganizationIntelligenceConfig"
-                )
-            );
-            self.inner
-                .update_organization_intelligence_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .update_organization_intelligence_config(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "get_iam_policy",
-                Some("google.storage.control.v2.StorageControl/GetIamPolicy")
-            );
-            self.inner
-                .get_iam_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "set_iam_policy",
-                Some("google.storage.control.v2.StorageControl/SetIamPolicy")
-            );
-            self.inner
-                .set_iam_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "test_iam_permissions",
-                Some("google.storage.control.v2.StorageControl/TestIamPermissions")
-            );
-            self.inner
-                .test_iam_permissions(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::StorageControl",
-                "get_operation",
-                Some("google.longrunning.Operations/GetOperation")
-            );
-            self.inner
-                .get_operation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
 
@@ -769,21 +313,5 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "storage";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "storage";
-            info
-        };
     }
 }

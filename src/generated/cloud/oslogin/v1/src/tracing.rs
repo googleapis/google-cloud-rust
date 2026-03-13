@@ -22,8 +22,6 @@ where
     T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> OsLoginService<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,194 +37,66 @@ impl<T> super::stub::OsLoginService for OsLoginService<T>
 where
     T: super::stub::OsLoginService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_ssh_public_key(
         &self,
         req: crate::model::CreateSshPublicKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OsLoginService",
-                "create_ssh_public_key",
-                Some("google.cloud.oslogin.v1.OsLoginService/CreateSshPublicKey")
-            );
-            self.inner
-                .create_ssh_public_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_ssh_public_key(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_posix_account(
         &self,
         req: crate::model::DeletePosixAccountRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OsLoginService",
-                "delete_posix_account",
-                Some("google.cloud.oslogin.v1.OsLoginService/DeletePosixAccount")
-            );
-            self.inner
-                .delete_posix_account(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_posix_account(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_ssh_public_key(
         &self,
         req: crate::model::DeleteSshPublicKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OsLoginService",
-                "delete_ssh_public_key",
-                Some("google.cloud.oslogin.v1.OsLoginService/DeleteSshPublicKey")
-            );
-            self.inner
-                .delete_ssh_public_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_ssh_public_key(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_login_profile(
         &self,
         req: crate::model::GetLoginProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LoginProfile>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OsLoginService",
-                "get_login_profile",
-                Some("google.cloud.oslogin.v1.OsLoginService/GetLoginProfile")
-            );
-            self.inner
-                .get_login_profile(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_login_profile(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_ssh_public_key(
         &self,
         req: crate::model::GetSshPublicKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OsLoginService",
-                "get_ssh_public_key",
-                Some("google.cloud.oslogin.v1.OsLoginService/GetSshPublicKey")
-            );
-            self.inner
-                .get_ssh_public_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_ssh_public_key(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn import_ssh_public_key(
         &self,
         req: crate::model::ImportSshPublicKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ImportSshPublicKeyResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OsLoginService",
-                "import_ssh_public_key",
-                Some("google.cloud.oslogin.v1.OsLoginService/ImportSshPublicKey")
-            );
-            self.inner
-                .import_ssh_public_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.import_ssh_public_key(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_ssh_public_key(
         &self,
         req: crate::model::UpdateSshPublicKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OsLoginService",
-                "update_ssh_public_key",
-                Some("google.cloud.oslogin.v1.OsLoginService/UpdateSshPublicKey")
-            );
-            self.inner
-                .update_ssh_public_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_ssh_public_key(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "oslogin";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "oslogin";
-            info
-        };
     }
 }

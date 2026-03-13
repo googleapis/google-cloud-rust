@@ -22,8 +22,6 @@ where
     T: super::stub::OrgPolicy + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> OrgPolicy<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::OrgPolicy + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,319 +37,111 @@ impl<T> super::stub::OrgPolicy for OrgPolicy<T>
 where
     T: super::stub::OrgPolicy + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_constraints(
         &self,
         req: crate::model::ListConstraintsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListConstraintsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "list_constraints",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/ListConstraints")
-            );
-            self.inner
-                .list_constraints(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_constraints(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_policies(
         &self,
         req: crate::model::ListPoliciesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListPoliciesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "list_policies",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/ListPolicies")
-            );
-            self.inner
-                .list_policies(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_policies(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "get_policy",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/GetPolicy")
-            );
-            self.inner
-                .get_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_effective_policy(
         &self,
         req: crate::model::GetEffectivePolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "get_effective_policy",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/GetEffectivePolicy")
-            );
-            self.inner
-                .get_effective_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_effective_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_policy(
         &self,
         req: crate::model::CreatePolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "create_policy",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/CreatePolicy")
-            );
-            self.inner
-                .create_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_policy(
         &self,
         req: crate::model::UpdatePolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "update_policy",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/UpdatePolicy")
-            );
-            self.inner
-                .update_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_policy(
         &self,
         req: crate::model::DeletePolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "delete_policy",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/DeletePolicy")
-            );
-            self.inner
-                .delete_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_custom_constraint(
         &self,
         req: crate::model::CreateCustomConstraintRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CustomConstraint>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "create_custom_constraint",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/CreateCustomConstraint")
-            );
-            self.inner
-                .create_custom_constraint(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_custom_constraint(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_custom_constraint(
         &self,
         req: crate::model::UpdateCustomConstraintRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CustomConstraint>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "update_custom_constraint",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/UpdateCustomConstraint")
-            );
-            self.inner
-                .update_custom_constraint(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_custom_constraint(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_custom_constraint(
         &self,
         req: crate::model::GetCustomConstraintRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CustomConstraint>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "get_custom_constraint",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/GetCustomConstraint")
-            );
-            self.inner
-                .get_custom_constraint(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_custom_constraint(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_custom_constraints(
         &self,
         req: crate::model::ListCustomConstraintsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCustomConstraintsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "list_custom_constraints",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/ListCustomConstraints")
-            );
-            self.inner
-                .list_custom_constraints(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_custom_constraints(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_custom_constraint(
         &self,
         req: crate::model::DeleteCustomConstraintRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::OrgPolicy",
-                "delete_custom_constraint",
-                Some("google.cloud.orgpolicy.v2.OrgPolicy/DeleteCustomConstraint")
-            );
-            self.inner
-                .delete_custom_constraint(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_custom_constraint(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "orgpolicy";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "orgpolicy";
-            info
-        };
     }
 }

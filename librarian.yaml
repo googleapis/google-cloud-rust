@@ -120,6 +120,8 @@ default:
       - broken_intra_doc_links
     generate_setter_samples: "true"
     generate_rpc_samples: "true"
+    detailed_tracing_attributes: false
+    resource_name_heuristic: false
 libraries:
   - name: common
     copyright_year: "2025"
@@ -1365,6 +1367,7 @@ libraries:
       - googleapis
     skip_release: true
     rust:
+      detailed_tracing_attributes: true
   - name: google-cloud-spanner
     copyright_year: "2026"
     output: src/spanner

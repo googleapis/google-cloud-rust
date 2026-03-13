@@ -51,18 +51,6 @@ impl std::fmt::Debug for Publisher {
 
 impl Publisher {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
-        let inner = if gaxi::options::tracing_enabled(&config) {
-            gaxi::grpc::Client::new_with_instrumentation(
-                config,
-                DEFAULT_HOST,
-                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
-            )
-            .await?
-        } else {
-            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
-        };
-        #[cfg(not(google_cloud_unstable_tracing))]
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -94,21 +82,6 @@ impl super::stub::Publisher for Publisher {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::pubsub::v1::PublishResponse;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//pubsub.googleapis.com/{}",
-                    Some(&req).map(|m| &m.topic).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -139,18 +112,6 @@ impl std::fmt::Debug for Subscriber {
 
 impl Subscriber {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
-        let inner = if gaxi::options::tracing_enabled(&config) {
-            gaxi::grpc::Client::new_with_instrumentation(
-                config,
-                DEFAULT_HOST,
-                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
-            )
-            .await?
-        } else {
-            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
-        };
-        #[cfg(not(google_cloud_unstable_tracing))]
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -186,21 +147,6 @@ impl super::stub::Subscriber for Subscriber {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//pubsub.googleapis.com/{}",
-                    Some(&req).map(|m| &m.subscription).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,
@@ -242,21 +188,6 @@ impl super::stub::Subscriber for Subscriber {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            let resource_name = (|| {
-                Some(format!(
-                    "//pubsub.googleapis.com/{}",
-                    Some(&req).map(|m| &m.subscription).map(|s| s.as_str())?,
-                ))
-            })();
-            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
-                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-                options.insert_extension(ResourceName(rn))
-            } else {
-                options
-            }
-        };
         self.inner
             .execute(
                 extensions,

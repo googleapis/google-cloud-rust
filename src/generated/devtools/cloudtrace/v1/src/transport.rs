@@ -34,15 +34,7 @@ impl std::fmt::Debug for TraceService {
 
 impl TraceService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
-        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
-        let inner = if tracing_is_enabled {
-            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
-        } else {
-            inner
-        };
         Ok(Self { inner })
     }
 }
@@ -58,7 +50,7 @@ impl super::stub::TraceService for TraceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -66,10 +58,6 @@ impl super::stub::TraceService for TraceService {
                 )?;
                 let path = format!("/v1/projects/{}/traces", var_project_id,);
 
-                let _path_template = "/v1/projects/{project_id}/traces";
-
-                let resource_name =
-                    format!("//cloudtrace.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = builder.query(&[("view", &req.view)]);
@@ -99,7 +87,7 @@ impl super::stub::TraceService for TraceService {
                     let builder = builder.query(&[("orderBy", &req.order_by)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -115,17 +103,6 @@ impl super::stub::TraceService for TraceService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -148,7 +125,7 @@ impl super::stub::TraceService for TraceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -160,15 +137,9 @@ impl super::stub::TraceService for TraceService {
                 )?;
                 let path = format!("/v1/projects/{}/traces/{}", var_project_id, var_trace_id,);
 
-                let _path_template = "/v1/projects/{project_id}/traces/{trace_id}";
-
-                let resource_name = format!(
-                    "//cloudtrace.googleapis.com/projects/{}/traces/{}",
-                    var_project_id, var_trace_id,
-                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -190,17 +161,6 @@ impl super::stub::TraceService for TraceService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -223,7 +183,7 @@ impl super::stub::TraceService for TraceService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, resource_name) = None
+        let (builder, method) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -231,13 +191,9 @@ impl super::stub::TraceService for TraceService {
                 )?;
                 let path = format!("/v1/projects/{}/traces", var_project_id,);
 
-                let _path_template = "/v1/projects/{project_id}/traces";
-
-                let resource_name =
-                    format!("//cloudtrace.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
+                Some(builder.map(|b| (b, Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -253,17 +209,6 @@ impl super::stub::TraceService for TraceService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
-        let options = {
-            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-            options.insert_extension(PathTemplate(_path_template))
-        };
-        let options = if !resource_name.is_empty() {
-            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
-            options.insert_extension(ResourceName(resource_name))
-        } else {
-            options
-        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

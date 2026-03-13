@@ -22,8 +22,6 @@ where
     T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> ProfilerService<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,78 +37,30 @@ impl<T> super::stub::ProfilerService for ProfilerService<T>
 where
     T: super::stub::ProfilerService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_profile(
         &self,
         req: crate::model::CreateProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Profile>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ProfilerService",
-                "create_profile",
-                Some("google.devtools.cloudprofiler.v2.ProfilerService/CreateProfile")
-            );
-            self.inner
-                .create_profile(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_profile(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_offline_profile(
         &self,
         req: crate::model::CreateOfflineProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Profile>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ProfilerService",
-                "create_offline_profile",
-                Some("google.devtools.cloudprofiler.v2.ProfilerService/CreateOfflineProfile")
-            );
-            self.inner
-                .create_offline_profile(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_offline_profile(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_profile(
         &self,
         req: crate::model::UpdateProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Profile>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ProfilerService",
-                "update_profile",
-                Some("google.devtools.cloudprofiler.v2.ProfilerService/UpdateProfile")
-            );
-            self.inner
-                .update_profile(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_profile(req, options).await
     }
 }
@@ -126,8 +72,6 @@ where
     T: super::stub::ExportService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> ExportService<T>
@@ -135,11 +79,7 @@ where
     T: super::stub::ExportService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -147,44 +87,12 @@ impl<T> super::stub::ExportService for ExportService<T>
 where
     T: super::stub::ExportService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_profiles(
         &self,
         req: crate::model::ListProfilesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListProfilesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ExportService",
-                "list_profiles",
-                Some("google.devtools.cloudprofiler.v2.ExportService/ListProfiles")
-            );
-            self.inner
-                .list_profiles(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_profiles(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "cloudprofiler";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "cloudprofiler";
-            info
-        };
     }
 }

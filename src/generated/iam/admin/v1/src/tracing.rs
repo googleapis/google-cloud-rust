@@ -22,8 +22,6 @@ where
     T: super::stub::Iam + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> Iam<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::Iam + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,794 +37,282 @@ impl<T> super::stub::Iam for Iam<T>
 where
     T: super::stub::Iam + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_service_accounts(
         &self,
         req: crate::model::ListServiceAccountsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListServiceAccountsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "list_service_accounts",
-                Some("google.iam.admin.v1.IAM/ListServiceAccounts")
-            );
-            self.inner
-                .list_service_accounts(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_service_accounts(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_service_account(
         &self,
         req: crate::model::GetServiceAccountRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ServiceAccount>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "get_service_account",
-                Some("google.iam.admin.v1.IAM/GetServiceAccount")
-            );
-            self.inner
-                .get_service_account(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_service_account(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_service_account(
         &self,
         req: crate::model::CreateServiceAccountRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ServiceAccount>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "create_service_account",
-                Some("google.iam.admin.v1.IAM/CreateServiceAccount")
-            );
-            self.inner
-                .create_service_account(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_service_account(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_service_account(
         &self,
         req: crate::model::ServiceAccount,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ServiceAccount>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "update_service_account",
-                Some("google.iam.admin.v1.IAM/UpdateServiceAccount")
-            );
-            self.inner
-                .update_service_account(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_service_account(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn patch_service_account(
         &self,
         req: crate::model::PatchServiceAccountRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ServiceAccount>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "patch_service_account",
-                Some("google.iam.admin.v1.IAM/PatchServiceAccount")
-            );
-            self.inner
-                .patch_service_account(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.patch_service_account(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_service_account(
         &self,
         req: crate::model::DeleteServiceAccountRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "delete_service_account",
-                Some("google.iam.admin.v1.IAM/DeleteServiceAccount")
-            );
-            self.inner
-                .delete_service_account(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_service_account(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn undelete_service_account(
         &self,
         req: crate::model::UndeleteServiceAccountRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::UndeleteServiceAccountResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "undelete_service_account",
-                Some("google.iam.admin.v1.IAM/UndeleteServiceAccount")
-            );
-            self.inner
-                .undelete_service_account(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.undelete_service_account(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn enable_service_account(
         &self,
         req: crate::model::EnableServiceAccountRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "enable_service_account",
-                Some("google.iam.admin.v1.IAM/EnableServiceAccount")
-            );
-            self.inner
-                .enable_service_account(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.enable_service_account(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn disable_service_account(
         &self,
         req: crate::model::DisableServiceAccountRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "disable_service_account",
-                Some("google.iam.admin.v1.IAM/DisableServiceAccount")
-            );
-            self.inner
-                .disable_service_account(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.disable_service_account(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_service_account_keys(
         &self,
         req: crate::model::ListServiceAccountKeysRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListServiceAccountKeysResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "list_service_account_keys",
-                Some("google.iam.admin.v1.IAM/ListServiceAccountKeys")
-            );
-            self.inner
-                .list_service_account_keys(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_service_account_keys(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_service_account_key(
         &self,
         req: crate::model::GetServiceAccountKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ServiceAccountKey>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "get_service_account_key",
-                Some("google.iam.admin.v1.IAM/GetServiceAccountKey")
-            );
-            self.inner
-                .get_service_account_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_service_account_key(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_service_account_key(
         &self,
         req: crate::model::CreateServiceAccountKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ServiceAccountKey>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "create_service_account_key",
-                Some("google.iam.admin.v1.IAM/CreateServiceAccountKey")
-            );
-            self.inner
-                .create_service_account_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_service_account_key(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn upload_service_account_key(
         &self,
         req: crate::model::UploadServiceAccountKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ServiceAccountKey>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "upload_service_account_key",
-                Some("google.iam.admin.v1.IAM/UploadServiceAccountKey")
-            );
-            self.inner
-                .upload_service_account_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.upload_service_account_key(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_service_account_key(
         &self,
         req: crate::model::DeleteServiceAccountKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "delete_service_account_key",
-                Some("google.iam.admin.v1.IAM/DeleteServiceAccountKey")
-            );
-            self.inner
-                .delete_service_account_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_service_account_key(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn disable_service_account_key(
         &self,
         req: crate::model::DisableServiceAccountKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "disable_service_account_key",
-                Some("google.iam.admin.v1.IAM/DisableServiceAccountKey")
-            );
-            self.inner
-                .disable_service_account_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.disable_service_account_key(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn enable_service_account_key(
         &self,
         req: crate::model::EnableServiceAccountKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "enable_service_account_key",
-                Some("google.iam.admin.v1.IAM/EnableServiceAccountKey")
-            );
-            self.inner
-                .enable_service_account_key(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.enable_service_account_key(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn sign_blob(
         &self,
         req: crate::model::SignBlobRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SignBlobResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "sign_blob",
-                Some("google.iam.admin.v1.IAM/SignBlob")
-            );
-            self.inner
-                .sign_blob(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.sign_blob(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn sign_jwt(
         &self,
         req: crate::model::SignJwtRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SignJwtResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "sign_jwt",
-                Some("google.iam.admin.v1.IAM/SignJwt")
-            );
-            self.inner
-                .sign_jwt(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.sign_jwt(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "get_iam_policy",
-                Some("google.iam.admin.v1.IAM/GetIamPolicy")
-            );
-            self.inner
-                .get_iam_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "set_iam_policy",
-                Some("google.iam.admin.v1.IAM/SetIamPolicy")
-            );
-            self.inner
-                .set_iam_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "test_iam_permissions",
-                Some("google.iam.admin.v1.IAM/TestIamPermissions")
-            );
-            self.inner
-                .test_iam_permissions(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn query_grantable_roles(
         &self,
         req: crate::model::QueryGrantableRolesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QueryGrantableRolesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "query_grantable_roles",
-                Some("google.iam.admin.v1.IAM/QueryGrantableRoles")
-            );
-            self.inner
-                .query_grantable_roles(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.query_grantable_roles(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_roles(
         &self,
         req: crate::model::ListRolesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRolesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "list_roles",
-                Some("google.iam.admin.v1.IAM/ListRoles")
-            );
-            self.inner
-                .list_roles(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_roles(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_role(
         &self,
         req: crate::model::GetRoleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Role>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "get_role",
-                Some("google.iam.admin.v1.IAM/GetRole")
-            );
-            self.inner
-                .get_role(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_role(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_role(
         &self,
         req: crate::model::CreateRoleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Role>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "create_role",
-                Some("google.iam.admin.v1.IAM/CreateRole")
-            );
-            self.inner
-                .create_role(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_role(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_role(
         &self,
         req: crate::model::UpdateRoleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Role>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "update_role",
-                Some("google.iam.admin.v1.IAM/UpdateRole")
-            );
-            self.inner
-                .update_role(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_role(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_role(
         &self,
         req: crate::model::DeleteRoleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Role>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "delete_role",
-                Some("google.iam.admin.v1.IAM/DeleteRole")
-            );
-            self.inner
-                .delete_role(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_role(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn undelete_role(
         &self,
         req: crate::model::UndeleteRoleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Role>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "undelete_role",
-                Some("google.iam.admin.v1.IAM/UndeleteRole")
-            );
-            self.inner
-                .undelete_role(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.undelete_role(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn query_testable_permissions(
         &self,
         req: crate::model::QueryTestablePermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QueryTestablePermissionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "query_testable_permissions",
-                Some("google.iam.admin.v1.IAM/QueryTestablePermissions")
-            );
-            self.inner
-                .query_testable_permissions(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.query_testable_permissions(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn query_auditable_services(
         &self,
         req: crate::model::QueryAuditableServicesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QueryAuditableServicesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "query_auditable_services",
-                Some("google.iam.admin.v1.IAM/QueryAuditableServices")
-            );
-            self.inner
-                .query_auditable_services(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.query_auditable_services(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn lint_policy(
         &self,
         req: crate::model::LintPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LintPolicyResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Iam",
-                "lint_policy",
-                Some("google.iam.admin.v1.IAM/LintPolicy")
-            );
-            self.inner
-                .lint_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.lint_policy(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "iam";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "iam";
-            info
-        };
     }
 }

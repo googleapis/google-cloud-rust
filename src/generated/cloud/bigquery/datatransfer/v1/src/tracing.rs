@@ -22,8 +22,6 @@ where
     T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> DataTransferService<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,483 +37,165 @@ impl<T> super::stub::DataTransferService for DataTransferService<T>
 where
     T: super::stub::DataTransferService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_data_source(
         &self,
         req: crate::model::GetDataSourceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DataSource>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "get_data_source",
-                Some("google.cloud.bigquery.datatransfer.v1.DataTransferService/GetDataSource")
-            );
-            self.inner
-                .get_data_source(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_data_source(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_data_sources(
         &self,
         req: crate::model::ListDataSourcesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDataSourcesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "list_data_sources",
-                Some("google.cloud.bigquery.datatransfer.v1.DataTransferService/ListDataSources")
-            );
-            self.inner
-                .list_data_sources(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_data_sources(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_transfer_config(
         &self,
         req: crate::model::CreateTransferConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TransferConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "create_transfer_config",
-                Some(
-                    "google.cloud.bigquery.datatransfer.v1.DataTransferService/CreateTransferConfig"
-                )
-            );
-            self.inner
-                .create_transfer_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_transfer_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_transfer_config(
         &self,
         req: crate::model::UpdateTransferConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TransferConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "update_transfer_config",
-                Some(
-                    "google.cloud.bigquery.datatransfer.v1.DataTransferService/UpdateTransferConfig"
-                )
-            );
-            self.inner
-                .update_transfer_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_transfer_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_transfer_config(
         &self,
         req: crate::model::DeleteTransferConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "delete_transfer_config",
-                Some(
-                    "google.cloud.bigquery.datatransfer.v1.DataTransferService/DeleteTransferConfig"
-                )
-            );
-            self.inner
-                .delete_transfer_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_transfer_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_transfer_config(
         &self,
         req: crate::model::GetTransferConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TransferConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "get_transfer_config",
-                Some("google.cloud.bigquery.datatransfer.v1.DataTransferService/GetTransferConfig")
-            );
-            self.inner
-                .get_transfer_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_transfer_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_transfer_configs(
         &self,
         req: crate::model::ListTransferConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListTransferConfigsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "list_transfer_configs",
-                Some(
-                    "google.cloud.bigquery.datatransfer.v1.DataTransferService/ListTransferConfigs"
-                )
-            );
-            self.inner
-                .list_transfer_configs(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_transfer_configs(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn schedule_transfer_runs(
         &self,
         req: crate::model::ScheduleTransferRunsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScheduleTransferRunsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "schedule_transfer_runs",
-                Some(
-                    "google.cloud.bigquery.datatransfer.v1.DataTransferService/ScheduleTransferRuns"
-                )
-            );
-            self.inner
-                .schedule_transfer_runs(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.schedule_transfer_runs(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn start_manual_transfer_runs(
         &self,
         req: crate::model::StartManualTransferRunsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::StartManualTransferRunsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "start_manual_transfer_runs",
-                Some(
-                    "google.cloud.bigquery.datatransfer.v1.DataTransferService/StartManualTransferRuns"
-                )
-            );
-            self.inner
-                .start_manual_transfer_runs(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.start_manual_transfer_runs(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_transfer_run(
         &self,
         req: crate::model::GetTransferRunRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TransferRun>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "get_transfer_run",
-                Some("google.cloud.bigquery.datatransfer.v1.DataTransferService/GetTransferRun")
-            );
-            self.inner
-                .get_transfer_run(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_transfer_run(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_transfer_run(
         &self,
         req: crate::model::DeleteTransferRunRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "delete_transfer_run",
-                Some("google.cloud.bigquery.datatransfer.v1.DataTransferService/DeleteTransferRun")
-            );
-            self.inner
-                .delete_transfer_run(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_transfer_run(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_transfer_runs(
         &self,
         req: crate::model::ListTransferRunsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListTransferRunsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "list_transfer_runs",
-                Some("google.cloud.bigquery.datatransfer.v1.DataTransferService/ListTransferRuns")
-            );
-            self.inner
-                .list_transfer_runs(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_transfer_runs(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_transfer_logs(
         &self,
         req: crate::model::ListTransferLogsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListTransferLogsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "list_transfer_logs",
-                Some("google.cloud.bigquery.datatransfer.v1.DataTransferService/ListTransferLogs")
-            );
-            self.inner
-                .list_transfer_logs(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_transfer_logs(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn check_valid_creds(
         &self,
         req: crate::model::CheckValidCredsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CheckValidCredsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "check_valid_creds",
-                Some("google.cloud.bigquery.datatransfer.v1.DataTransferService/CheckValidCreds")
-            );
-            self.inner
-                .check_valid_creds(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.check_valid_creds(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn enroll_data_sources(
         &self,
         req: crate::model::EnrollDataSourcesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "enroll_data_sources",
-                Some("google.cloud.bigquery.datatransfer.v1.DataTransferService/EnrollDataSources")
-            );
-            self.inner
-                .enroll_data_sources(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.enroll_data_sources(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn unenroll_data_sources(
         &self,
         req: crate::model::UnenrollDataSourcesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "unenroll_data_sources",
-                Some(
-                    "google.cloud.bigquery.datatransfer.v1.DataTransferService/UnenrollDataSources"
-                )
-            );
-            self.inner
-                .unenroll_data_sources(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.unenroll_data_sources(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "list_locations",
-                Some("google.cloud.location.Locations/ListLocations")
-            );
-            self.inner
-                .list_locations(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::DataTransferService",
-                "get_location",
-                Some("google.cloud.location.Locations/GetLocation")
-            );
-            self.inner
-                .get_location(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "bigquerydatatransfer";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "bigquerydatatransfer";
-            info
-        };
     }
 }

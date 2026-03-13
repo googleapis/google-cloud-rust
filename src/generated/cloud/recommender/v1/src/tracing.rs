@@ -22,8 +22,6 @@ where
     T: super::stub::Recommender + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> Recommender<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::Recommender + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,344 +37,120 @@ impl<T> super::stub::Recommender for Recommender<T>
 where
     T: super::stub::Recommender + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_insights(
         &self,
         req: crate::model::ListInsightsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListInsightsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "list_insights",
-                Some("google.cloud.recommender.v1.Recommender/ListInsights")
-            );
-            self.inner
-                .list_insights(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_insights(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_insight(
         &self,
         req: crate::model::GetInsightRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Insight>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "get_insight",
-                Some("google.cloud.recommender.v1.Recommender/GetInsight")
-            );
-            self.inner
-                .get_insight(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_insight(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn mark_insight_accepted(
         &self,
         req: crate::model::MarkInsightAcceptedRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Insight>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "mark_insight_accepted",
-                Some("google.cloud.recommender.v1.Recommender/MarkInsightAccepted")
-            );
-            self.inner
-                .mark_insight_accepted(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.mark_insight_accepted(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_recommendations(
         &self,
         req: crate::model::ListRecommendationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRecommendationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "list_recommendations",
-                Some("google.cloud.recommender.v1.Recommender/ListRecommendations")
-            );
-            self.inner
-                .list_recommendations(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_recommendations(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_recommendation(
         &self,
         req: crate::model::GetRecommendationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Recommendation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "get_recommendation",
-                Some("google.cloud.recommender.v1.Recommender/GetRecommendation")
-            );
-            self.inner
-                .get_recommendation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_recommendation(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn mark_recommendation_dismissed(
         &self,
         req: crate::model::MarkRecommendationDismissedRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Recommendation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "mark_recommendation_dismissed",
-                Some("google.cloud.recommender.v1.Recommender/MarkRecommendationDismissed")
-            );
-            self.inner
-                .mark_recommendation_dismissed(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.mark_recommendation_dismissed(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn mark_recommendation_claimed(
         &self,
         req: crate::model::MarkRecommendationClaimedRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Recommendation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "mark_recommendation_claimed",
-                Some("google.cloud.recommender.v1.Recommender/MarkRecommendationClaimed")
-            );
-            self.inner
-                .mark_recommendation_claimed(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.mark_recommendation_claimed(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn mark_recommendation_succeeded(
         &self,
         req: crate::model::MarkRecommendationSucceededRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Recommendation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "mark_recommendation_succeeded",
-                Some("google.cloud.recommender.v1.Recommender/MarkRecommendationSucceeded")
-            );
-            self.inner
-                .mark_recommendation_succeeded(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.mark_recommendation_succeeded(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn mark_recommendation_failed(
         &self,
         req: crate::model::MarkRecommendationFailedRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Recommendation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "mark_recommendation_failed",
-                Some("google.cloud.recommender.v1.Recommender/MarkRecommendationFailed")
-            );
-            self.inner
-                .mark_recommendation_failed(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.mark_recommendation_failed(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_recommender_config(
         &self,
         req: crate::model::GetRecommenderConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RecommenderConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "get_recommender_config",
-                Some("google.cloud.recommender.v1.Recommender/GetRecommenderConfig")
-            );
-            self.inner
-                .get_recommender_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_recommender_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_recommender_config(
         &self,
         req: crate::model::UpdateRecommenderConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RecommenderConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "update_recommender_config",
-                Some("google.cloud.recommender.v1.Recommender/UpdateRecommenderConfig")
-            );
-            self.inner
-                .update_recommender_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_recommender_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_insight_type_config(
         &self,
         req: crate::model::GetInsightTypeConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InsightTypeConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "get_insight_type_config",
-                Some("google.cloud.recommender.v1.Recommender/GetInsightTypeConfig")
-            );
-            self.inner
-                .get_insight_type_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_insight_type_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_insight_type_config(
         &self,
         req: crate::model::UpdateInsightTypeConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InsightTypeConfig>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::Recommender",
-                "update_insight_type_config",
-                Some("google.cloud.recommender.v1.Recommender/UpdateInsightTypeConfig")
-            );
-            self.inner
-                .update_insight_type_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_insight_type_config(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "recommender";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "recommender";
-            info
-        };
     }
 }

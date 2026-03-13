@@ -22,8 +22,6 @@ where
     T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SqlBackupRunsService<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,103 +37,39 @@ impl<T> super::stub::SqlBackupRunsService for SqlBackupRunsService<T>
 where
     T: super::stub::SqlBackupRunsService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete(
         &self,
         req: crate::model::SqlBackupRunsDeleteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlBackupRunsService",
-                "delete",
-                Some("google.cloud.sql.v1.SqlBackupRunsService/Delete")
-            );
-            self.inner
-                .delete(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get(
         &self,
         req: crate::model::SqlBackupRunsGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BackupRun>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlBackupRunsService",
-                "get",
-                Some("google.cloud.sql.v1.SqlBackupRunsService/Get")
-            );
-            self.inner
-                .get(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn insert(
         &self,
         req: crate::model::SqlBackupRunsInsertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlBackupRunsService",
-                "insert",
-                Some("google.cloud.sql.v1.SqlBackupRunsService/Insert")
-            );
-            self.inner
-                .insert(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.insert(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list(
         &self,
         req: crate::model::SqlBackupRunsListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BackupRunsListResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlBackupRunsService",
-                "list",
-                Some("google.cloud.sql.v1.SqlBackupRunsService/List")
-            );
-            self.inner
-                .list(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list(req, options).await
     }
 }
@@ -151,8 +81,6 @@ where
     T: super::stub::SqlBackupsService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SqlBackupsService<T>
@@ -160,11 +88,7 @@ where
     T: super::stub::SqlBackupsService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -172,128 +96,48 @@ impl<T> super::stub::SqlBackupsService for SqlBackupsService<T>
 where
     T: super::stub::SqlBackupsService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_backup(
         &self,
         req: crate::model::CreateBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlBackupsService",
-                "create_backup",
-                Some("google.cloud.sql.v1.SqlBackupsService/CreateBackup")
-            );
-            self.inner
-                .create_backup(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_backup(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Backup>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlBackupsService",
-                "get_backup",
-                Some("google.cloud.sql.v1.SqlBackupsService/GetBackup")
-            );
-            self.inner
-                .get_backup(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_backup(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListBackupsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlBackupsService",
-                "list_backups",
-                Some("google.cloud.sql.v1.SqlBackupsService/ListBackups")
-            );
-            self.inner
-                .list_backups(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_backups(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_backup(
         &self,
         req: crate::model::UpdateBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlBackupsService",
-                "update_backup",
-                Some("google.cloud.sql.v1.SqlBackupsService/UpdateBackup")
-            );
-            self.inner
-                .update_backup(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_backup(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlBackupsService",
-                "delete_backup",
-                Some("google.cloud.sql.v1.SqlBackupsService/DeleteBackup")
-            );
-            self.inner
-                .delete_backup(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_backup(req, options).await
     }
 }
@@ -305,8 +149,6 @@ where
     T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SqlConnectService<T>
@@ -314,11 +156,7 @@ where
     T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -326,53 +164,21 @@ impl<T> super::stub::SqlConnectService for SqlConnectService<T>
 where
     T: super::stub::SqlConnectService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_connect_settings(
         &self,
         req: crate::model::GetConnectSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ConnectSettings>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlConnectService",
-                "get_connect_settings",
-                Some("google.cloud.sql.v1.SqlConnectService/GetConnectSettings")
-            );
-            self.inner
-                .get_connect_settings(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_connect_settings(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn generate_ephemeral_cert(
         &self,
         req: crate::model::GenerateEphemeralCertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateEphemeralCertResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlConnectService",
-                "generate_ephemeral_cert",
-                Some("google.cloud.sql.v1.SqlConnectService/GenerateEphemeralCert")
-            );
-            self.inner
-                .generate_ephemeral_cert(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.generate_ephemeral_cert(req, options).await
     }
 }
@@ -384,8 +190,6 @@ where
     T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SqlDatabasesService<T>
@@ -393,11 +197,7 @@ where
     T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -405,153 +205,57 @@ impl<T> super::stub::SqlDatabasesService for SqlDatabasesService<T>
 where
     T: super::stub::SqlDatabasesService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete(
         &self,
         req: crate::model::SqlDatabasesDeleteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlDatabasesService",
-                "delete",
-                Some("google.cloud.sql.v1.SqlDatabasesService/Delete")
-            );
-            self.inner
-                .delete(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get(
         &self,
         req: crate::model::SqlDatabasesGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Database>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlDatabasesService",
-                "get",
-                Some("google.cloud.sql.v1.SqlDatabasesService/Get")
-            );
-            self.inner
-                .get(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn insert(
         &self,
         req: crate::model::SqlDatabasesInsertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlDatabasesService",
-                "insert",
-                Some("google.cloud.sql.v1.SqlDatabasesService/Insert")
-            );
-            self.inner
-                .insert(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.insert(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list(
         &self,
         req: crate::model::SqlDatabasesListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DatabasesListResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlDatabasesService",
-                "list",
-                Some("google.cloud.sql.v1.SqlDatabasesService/List")
-            );
-            self.inner
-                .list(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn patch(
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlDatabasesService",
-                "patch",
-                Some("google.cloud.sql.v1.SqlDatabasesService/Patch")
-            );
-            self.inner
-                .patch(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.patch(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update(
         &self,
         req: crate::model::SqlDatabasesUpdateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlDatabasesService",
-                "update",
-                Some("google.cloud.sql.v1.SqlDatabasesService/Update")
-            );
-            self.inner
-                .update(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update(req, options).await
     }
 }
@@ -563,8 +267,6 @@ where
     T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SqlFlagsService<T>
@@ -572,11 +274,7 @@ where
     T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -584,28 +282,12 @@ impl<T> super::stub::SqlFlagsService for SqlFlagsService<T>
 where
     T: super::stub::SqlFlagsService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list(
         &self,
         req: crate::model::SqlFlagsListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FlagsListResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlFlagsService",
-                "list",
-                Some("google.cloud.sql.v1.SqlFlagsService/List")
-            );
-            self.inner
-                .list(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list(req, options).await
     }
 }
@@ -617,8 +299,6 @@ where
     T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SqlInstancesService<T>
@@ -626,11 +306,7 @@ where
     T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -638,1080 +314,392 @@ impl<T> super::stub::SqlInstancesService for SqlInstancesService<T>
 where
     T: super::stub::SqlInstancesService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn add_server_ca(
         &self,
         req: crate::model::SqlInstancesAddServerCaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "add_server_ca",
-                Some("google.cloud.sql.v1.SqlInstancesService/AddServerCa")
-            );
-            self.inner
-                .add_server_ca(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.add_server_ca(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn add_server_certificate(
         &self,
         req: crate::model::SqlInstancesAddServerCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "add_server_certificate",
-                Some("google.cloud.sql.v1.SqlInstancesService/AddServerCertificate")
-            );
-            self.inner
-                .add_server_certificate(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.add_server_certificate(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn add_entra_id_certificate(
         &self,
         req: crate::model::SqlInstancesAddEntraIdCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "add_entra_id_certificate",
-                Some("google.cloud.sql.v1.SqlInstancesService/AddEntraIdCertificate")
-            );
-            self.inner
-                .add_entra_id_certificate(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.add_entra_id_certificate(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn clone(
         &self,
         req: crate::model::SqlInstancesCloneRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "clone",
-                Some("google.cloud.sql.v1.SqlInstancesService/Clone")
-            );
-            self.inner
-                .clone(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.clone(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete(
         &self,
         req: crate::model::SqlInstancesDeleteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "delete",
-                Some("google.cloud.sql.v1.SqlInstancesService/Delete")
-            );
-            self.inner
-                .delete(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn demote_master(
         &self,
         req: crate::model::SqlInstancesDemoteMasterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "demote_master",
-                Some("google.cloud.sql.v1.SqlInstancesService/DemoteMaster")
-            );
-            self.inner
-                .demote_master(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.demote_master(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn demote(
         &self,
         req: crate::model::SqlInstancesDemoteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "demote",
-                Some("google.cloud.sql.v1.SqlInstancesService/Demote")
-            );
-            self.inner
-                .demote(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.demote(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn export(
         &self,
         req: crate::model::SqlInstancesExportRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "export",
-                Some("google.cloud.sql.v1.SqlInstancesService/Export")
-            );
-            self.inner
-                .export(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.export(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn failover(
         &self,
         req: crate::model::SqlInstancesFailoverRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "failover",
-                Some("google.cloud.sql.v1.SqlInstancesService/Failover")
-            );
-            self.inner
-                .failover(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.failover(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn reencrypt(
         &self,
         req: crate::model::SqlInstancesReencryptRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "reencrypt",
-                Some("google.cloud.sql.v1.SqlInstancesService/Reencrypt")
-            );
-            self.inner
-                .reencrypt(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.reencrypt(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get(
         &self,
         req: crate::model::SqlInstancesGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DatabaseInstance>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "get",
-                Some("google.cloud.sql.v1.SqlInstancesService/Get")
-            );
-            self.inner
-                .get(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn import(
         &self,
         req: crate::model::SqlInstancesImportRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "import",
-                Some("google.cloud.sql.v1.SqlInstancesService/Import")
-            );
-            self.inner
-                .import(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.import(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn insert(
         &self,
         req: crate::model::SqlInstancesInsertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "insert",
-                Some("google.cloud.sql.v1.SqlInstancesService/Insert")
-            );
-            self.inner
-                .insert(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.insert(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list(
         &self,
         req: crate::model::SqlInstancesListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InstancesListResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "list",
-                Some("google.cloud.sql.v1.SqlInstancesService/List")
-            );
-            self.inner
-                .list(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_server_cas(
         &self,
         req: crate::model::SqlInstancesListServerCasRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InstancesListServerCasResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "list_server_cas",
-                Some("google.cloud.sql.v1.SqlInstancesService/ListServerCas")
-            );
-            self.inner
-                .list_server_cas(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_server_cas(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_server_certificates(
         &self,
         req: crate::model::SqlInstancesListServerCertificatesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InstancesListServerCertificatesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "list_server_certificates",
-                Some("google.cloud.sql.v1.SqlInstancesService/ListServerCertificates")
-            );
-            self.inner
-                .list_server_certificates(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_server_certificates(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_entra_id_certificates(
         &self,
         req: crate::model::SqlInstancesListEntraIdCertificatesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InstancesListEntraIdCertificatesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "list_entra_id_certificates",
-                Some("google.cloud.sql.v1.SqlInstancesService/ListEntraIdCertificates")
-            );
-            self.inner
-                .list_entra_id_certificates(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_entra_id_certificates(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn patch(
         &self,
         req: crate::model::SqlInstancesPatchRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "patch",
-                Some("google.cloud.sql.v1.SqlInstancesService/Patch")
-            );
-            self.inner
-                .patch(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.patch(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn promote_replica(
         &self,
         req: crate::model::SqlInstancesPromoteReplicaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "promote_replica",
-                Some("google.cloud.sql.v1.SqlInstancesService/PromoteReplica")
-            );
-            self.inner
-                .promote_replica(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.promote_replica(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn switchover(
         &self,
         req: crate::model::SqlInstancesSwitchoverRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "switchover",
-                Some("google.cloud.sql.v1.SqlInstancesService/Switchover")
-            );
-            self.inner
-                .switchover(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.switchover(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn reset_ssl_config(
         &self,
         req: crate::model::SqlInstancesResetSslConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "reset_ssl_config",
-                Some("google.cloud.sql.v1.SqlInstancesService/ResetSslConfig")
-            );
-            self.inner
-                .reset_ssl_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.reset_ssl_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn restart(
         &self,
         req: crate::model::SqlInstancesRestartRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "restart",
-                Some("google.cloud.sql.v1.SqlInstancesService/Restart")
-            );
-            self.inner
-                .restart(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.restart(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn restore_backup(
         &self,
         req: crate::model::SqlInstancesRestoreBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "restore_backup",
-                Some("google.cloud.sql.v1.SqlInstancesService/RestoreBackup")
-            );
-            self.inner
-                .restore_backup(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.restore_backup(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn rotate_server_ca(
         &self,
         req: crate::model::SqlInstancesRotateServerCaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "rotate_server_ca",
-                Some("google.cloud.sql.v1.SqlInstancesService/RotateServerCa")
-            );
-            self.inner
-                .rotate_server_ca(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.rotate_server_ca(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn rotate_server_certificate(
         &self,
         req: crate::model::SqlInstancesRotateServerCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "rotate_server_certificate",
-                Some("google.cloud.sql.v1.SqlInstancesService/RotateServerCertificate")
-            );
-            self.inner
-                .rotate_server_certificate(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.rotate_server_certificate(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn rotate_entra_id_certificate(
         &self,
         req: crate::model::SqlInstancesRotateEntraIdCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "rotate_entra_id_certificate",
-                Some("google.cloud.sql.v1.SqlInstancesService/RotateEntraIdCertificate")
-            );
-            self.inner
-                .rotate_entra_id_certificate(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.rotate_entra_id_certificate(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn start_replica(
         &self,
         req: crate::model::SqlInstancesStartReplicaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "start_replica",
-                Some("google.cloud.sql.v1.SqlInstancesService/StartReplica")
-            );
-            self.inner
-                .start_replica(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.start_replica(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn stop_replica(
         &self,
         req: crate::model::SqlInstancesStopReplicaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "stop_replica",
-                Some("google.cloud.sql.v1.SqlInstancesService/StopReplica")
-            );
-            self.inner
-                .stop_replica(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.stop_replica(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn truncate_log(
         &self,
         req: crate::model::SqlInstancesTruncateLogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "truncate_log",
-                Some("google.cloud.sql.v1.SqlInstancesService/TruncateLog")
-            );
-            self.inner
-                .truncate_log(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.truncate_log(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update(
         &self,
         req: crate::model::SqlInstancesUpdateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "update",
-                Some("google.cloud.sql.v1.SqlInstancesService/Update")
-            );
-            self.inner
-                .update(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_ephemeral(
         &self,
         req: crate::model::SqlInstancesCreateEphemeralCertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SslCert>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "create_ephemeral",
-                Some("google.cloud.sql.v1.SqlInstancesService/CreateEphemeral")
-            );
-            self.inner
-                .create_ephemeral(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_ephemeral(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn reschedule_maintenance(
         &self,
         req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "reschedule_maintenance",
-                Some("google.cloud.sql.v1.SqlInstancesService/RescheduleMaintenance")
-            );
-            self.inner
-                .reschedule_maintenance(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.reschedule_maintenance(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn verify_external_sync_settings(
         &self,
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "verify_external_sync_settings",
-                Some("google.cloud.sql.v1.SqlInstancesService/VerifyExternalSyncSettings")
-            );
-            self.inner
-                .verify_external_sync_settings(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.verify_external_sync_settings(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn start_external_sync(
         &self,
         req: crate::model::SqlInstancesStartExternalSyncRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "start_external_sync",
-                Some("google.cloud.sql.v1.SqlInstancesService/StartExternalSync")
-            );
-            self.inner
-                .start_external_sync(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.start_external_sync(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn perform_disk_shrink(
         &self,
         req: crate::model::SqlInstancesPerformDiskShrinkRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "perform_disk_shrink",
-                Some("google.cloud.sql.v1.SqlInstancesService/PerformDiskShrink")
-            );
-            self.inner
-                .perform_disk_shrink(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.perform_disk_shrink(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_disk_shrink_config(
         &self,
         req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "get_disk_shrink_config",
-                Some("google.cloud.sql.v1.SqlInstancesService/GetDiskShrinkConfig")
-            );
-            self.inner
-                .get_disk_shrink_config(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_disk_shrink_config(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn reset_replica_size(
         &self,
         req: crate::model::SqlInstancesResetReplicaSizeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "reset_replica_size",
-                Some("google.cloud.sql.v1.SqlInstancesService/ResetReplicaSize")
-            );
-            self.inner
-                .reset_replica_size(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.reset_replica_size(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_latest_recovery_time(
         &self,
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "get_latest_recovery_time",
-                Some("google.cloud.sql.v1.SqlInstancesService/GetLatestRecoveryTime")
-            );
-            self.inner
-                .get_latest_recovery_time(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_latest_recovery_time(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn execute_sql(
         &self,
         req: crate::model::SqlInstancesExecuteSqlRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesExecuteSqlResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "execute_sql",
-                Some("google.cloud.sql.v1.SqlInstancesService/ExecuteSql")
-            );
-            self.inner
-                .execute_sql(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.execute_sql(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn acquire_ssrs_lease(
         &self,
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "acquire_ssrs_lease",
-                Some("google.cloud.sql.v1.SqlInstancesService/AcquireSsrsLease")
-            );
-            self.inner
-                .acquire_ssrs_lease(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.acquire_ssrs_lease(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn release_ssrs_lease(
         &self,
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "release_ssrs_lease",
-                Some("google.cloud.sql.v1.SqlInstancesService/ReleaseSsrsLease")
-            );
-            self.inner
-                .release_ssrs_lease(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.release_ssrs_lease(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn pre_check_major_version_upgrade(
         &self,
         req: crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "pre_check_major_version_upgrade",
-                Some("google.cloud.sql.v1.SqlInstancesService/PreCheckMajorVersionUpgrade")
-            );
-            self.inner
-                .pre_check_major_version_upgrade(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .pre_check_major_version_upgrade(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn point_in_time_restore(
         &self,
         req: crate::model::SqlInstancesPointInTimeRestoreRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlInstancesService",
-                "point_in_time_restore",
-                Some("google.cloud.sql.v1.SqlInstancesService/PointInTimeRestore")
-            );
-            self.inner
-                .point_in_time_restore(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.point_in_time_restore(req, options).await
     }
 }
@@ -1723,8 +711,6 @@ where
     T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SqlOperationsService<T>
@@ -1732,11 +718,7 @@ where
     T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -1744,78 +726,30 @@ impl<T> super::stub::SqlOperationsService for SqlOperationsService<T>
 where
     T: super::stub::SqlOperationsService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get(
         &self,
         req: crate::model::SqlOperationsGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlOperationsService",
-                "get",
-                Some("google.cloud.sql.v1.SqlOperationsService/Get")
-            );
-            self.inner
-                .get(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list(
         &self,
         req: crate::model::SqlOperationsListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::OperationsListResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlOperationsService",
-                "list",
-                Some("google.cloud.sql.v1.SqlOperationsService/List")
-            );
-            self.inner
-                .list(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn cancel(
         &self,
         req: crate::model::SqlOperationsCancelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlOperationsService",
-                "cancel",
-                Some("google.cloud.sql.v1.SqlOperationsService/Cancel")
-            );
-            self.inner
-                .cancel(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel(req, options).await
     }
 }
@@ -1827,8 +761,6 @@ where
     T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SqlSslCertsService<T>
@@ -1836,11 +768,7 @@ where
     T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -1848,103 +776,39 @@ impl<T> super::stub::SqlSslCertsService for SqlSslCertsService<T>
 where
     T: super::stub::SqlSslCertsService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete(
         &self,
         req: crate::model::SqlSslCertsDeleteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlSslCertsService",
-                "delete",
-                Some("google.cloud.sql.v1.SqlSslCertsService/Delete")
-            );
-            self.inner
-                .delete(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get(
         &self,
         req: crate::model::SqlSslCertsGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SslCert>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlSslCertsService",
-                "get",
-                Some("google.cloud.sql.v1.SqlSslCertsService/Get")
-            );
-            self.inner
-                .get(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn insert(
         &self,
         req: crate::model::SqlSslCertsInsertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SslCertsInsertResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlSslCertsService",
-                "insert",
-                Some("google.cloud.sql.v1.SqlSslCertsService/Insert")
-            );
-            self.inner
-                .insert(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.insert(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list(
         &self,
         req: crate::model::SqlSslCertsListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SslCertsListResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlSslCertsService",
-                "list",
-                Some("google.cloud.sql.v1.SqlSslCertsService/List")
-            );
-            self.inner
-                .list(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list(req, options).await
     }
 }
@@ -1956,8 +820,6 @@ where
     T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SqlTiersService<T>
@@ -1965,11 +827,7 @@ where
     T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -1977,28 +835,12 @@ impl<T> super::stub::SqlTiersService for SqlTiersService<T>
 where
     T: super::stub::SqlTiersService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list(
         &self,
         req: crate::model::SqlTiersListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TiersListResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlTiersService",
-                "list",
-                Some("google.cloud.sql.v1.SqlTiersService/List")
-            );
-            self.inner
-                .list(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list(req, options).await
     }
 }
@@ -2010,8 +852,6 @@ where
     T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SqlUsersService<T>
@@ -2019,11 +859,7 @@ where
     T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -2031,144 +867,48 @@ impl<T> super::stub::SqlUsersService for SqlUsersService<T>
 where
     T: super::stub::SqlUsersService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete(
         &self,
         req: crate::model::SqlUsersDeleteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlUsersService",
-                "delete",
-                Some("google.cloud.sql.v1.SqlUsersService/Delete")
-            );
-            self.inner
-                .delete(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get(
         &self,
         req: crate::model::SqlUsersGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::User>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlUsersService",
-                "get",
-                Some("google.cloud.sql.v1.SqlUsersService/Get")
-            );
-            self.inner
-                .get(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn insert(
         &self,
         req: crate::model::SqlUsersInsertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlUsersService",
-                "insert",
-                Some("google.cloud.sql.v1.SqlUsersService/Insert")
-            );
-            self.inner
-                .insert(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.insert(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list(
         &self,
         req: crate::model::SqlUsersListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::UsersListResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlUsersService",
-                "list",
-                Some("google.cloud.sql.v1.SqlUsersService/List")
-            );
-            self.inner
-                .list(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update(
         &self,
         req: crate::model::SqlUsersUpdateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SqlUsersService",
-                "update",
-                Some("google.cloud.sql.v1.SqlUsersService/Update")
-            );
-            self.inner
-                .update(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "sqladmin";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "sqladmin";
-            info
-        };
     }
 }

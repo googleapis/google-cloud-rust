@@ -22,8 +22,6 @@ where
     T: super::stub::LicenseManagementService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> LicenseManagementService<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::LicenseManagementService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,163 +37,57 @@ impl<T> super::stub::LicenseManagementService for LicenseManagementService<T>
 where
     T: super::stub::LicenseManagementService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_license_pool(
         &self,
         req: crate::model::GetLicensePoolRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LicensePool>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::LicenseManagementService",
-                "get_license_pool",
-                Some(
-                    "google.cloud.commerce.consumer.procurement.v1.LicenseManagementService/GetLicensePool"
-                )
-            );
-            self.inner
-                .get_license_pool(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_license_pool(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_license_pool(
         &self,
         req: crate::model::UpdateLicensePoolRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LicensePool>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::LicenseManagementService",
-                "update_license_pool",
-                Some(
-                    "google.cloud.commerce.consumer.procurement.v1.LicenseManagementService/UpdateLicensePool"
-                )
-            );
-            self.inner
-                .update_license_pool(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_license_pool(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn assign(
         &self,
         req: crate::model::AssignRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AssignResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::LicenseManagementService",
-                "assign",
-                Some(
-                    "google.cloud.commerce.consumer.procurement.v1.LicenseManagementService/Assign"
-                )
-            );
-            self.inner
-                .assign(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.assign(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn unassign(
         &self,
         req: crate::model::UnassignRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::UnassignResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::LicenseManagementService",
-                "unassign",
-                Some(
-                    "google.cloud.commerce.consumer.procurement.v1.LicenseManagementService/Unassign"
-                )
-            );
-            self.inner
-                .unassign(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.unassign(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn enumerate_licensed_users(
         &self,
         req: crate::model::EnumerateLicensedUsersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EnumerateLicensedUsersResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::LicenseManagementService",
-                "enumerate_licensed_users",
-                Some(
-                    "google.cloud.commerce.consumer.procurement.v1.LicenseManagementService/EnumerateLicensedUsers"
-                )
-            );
-            self.inner
-                .enumerate_licensed_users(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.enumerate_licensed_users(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::LicenseManagementService",
-                "get_operation",
-                Some("google.longrunning.Operations/GetOperation")
-            );
-            self.inner
-                .get_operation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
 }
@@ -211,8 +99,6 @@ where
     T: super::stub::ConsumerProcurementService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> ConsumerProcurementService<T>
@@ -220,11 +106,7 @@ where
     T: super::stub::ConsumerProcurementService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -232,163 +114,57 @@ impl<T> super::stub::ConsumerProcurementService for ConsumerProcurementService<T
 where
     T: super::stub::ConsumerProcurementService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn place_order(
         &self,
         req: crate::model::PlaceOrderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ConsumerProcurementService",
-                "place_order",
-                Some(
-                    "google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService/PlaceOrder"
-                )
-            );
-            self.inner
-                .place_order(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.place_order(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_order(
         &self,
         req: crate::model::GetOrderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Order>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ConsumerProcurementService",
-                "get_order",
-                Some(
-                    "google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService/GetOrder"
-                )
-            );
-            self.inner
-                .get_order(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_order(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_orders(
         &self,
         req: crate::model::ListOrdersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListOrdersResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ConsumerProcurementService",
-                "list_orders",
-                Some(
-                    "google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService/ListOrders"
-                )
-            );
-            self.inner
-                .list_orders(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_orders(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn modify_order(
         &self,
         req: crate::model::ModifyOrderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ConsumerProcurementService",
-                "modify_order",
-                Some(
-                    "google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService/ModifyOrder"
-                )
-            );
-            self.inner
-                .modify_order(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.modify_order(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn cancel_order(
         &self,
         req: crate::model::CancelOrderRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ConsumerProcurementService",
-                "cancel_order",
-                Some(
-                    "google.cloud.commerce.consumer.procurement.v1.ConsumerProcurementService/CancelOrder"
-                )
-            );
-            self.inner
-                .cancel_order(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_order(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ConsumerProcurementService",
-                "get_operation",
-                Some("google.longrunning.Operations/GetOperation")
-            );
-            self.inner
-                .get_operation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
 
@@ -404,21 +180,5 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "cloudcommerceconsumerprocurement";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "cloudcommerceconsumerprocurement";
-            info
-        };
     }
 }

@@ -22,8 +22,6 @@ where
     T: super::stub::KeyDashboardService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> KeyDashboardService<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::KeyDashboardService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,28 +37,12 @@ impl<T> super::stub::KeyDashboardService for KeyDashboardService<T>
 where
     T: super::stub::KeyDashboardService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_crypto_keys(
         &self,
         req: crate::model::ListCryptoKeysRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCryptoKeysResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::KeyDashboardService",
-                "list_crypto_keys",
-                Some("google.cloud.kms.inventory.v1.KeyDashboardService/ListCryptoKeys")
-            );
-            self.inner
-                .list_crypto_keys(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_crypto_keys(req, options).await
     }
 }
@@ -76,8 +54,6 @@ where
     T: super::stub::KeyTrackingService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> KeyTrackingService<T>
@@ -85,11 +61,7 @@ where
     T: super::stub::KeyTrackingService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -97,73 +69,23 @@ impl<T> super::stub::KeyTrackingService for KeyTrackingService<T>
 where
     T: super::stub::KeyTrackingService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_protected_resources_summary(
         &self,
         req: crate::model::GetProtectedResourcesSummaryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ProtectedResourcesSummary>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::KeyTrackingService",
-                "get_protected_resources_summary",
-                Some(
-                    "google.cloud.kms.inventory.v1.KeyTrackingService/GetProtectedResourcesSummary"
-                )
-            );
-            self.inner
-                .get_protected_resources_summary(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_protected_resources_summary(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn search_protected_resources(
         &self,
         req: crate::model::SearchProtectedResourcesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SearchProtectedResourcesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::KeyTrackingService",
-                "search_protected_resources",
-                Some("google.cloud.kms.inventory.v1.KeyTrackingService/SearchProtectedResources")
-            );
-            self.inner
-                .search_protected_resources(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.search_protected_resources(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "kmsinventory";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "kmsinventory";
-            info
-        };
     }
 }

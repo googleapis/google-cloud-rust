@@ -22,8 +22,6 @@ where
     T: super::stub::SecretManagerService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SecretManagerService<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::SecretManagerService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,879 +37,321 @@ impl<T> super::stub::SecretManagerService for SecretManagerService<T>
 where
     T: super::stub::SecretManagerService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: crate::model::secret_manager_service::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListLocationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "list_locations",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/ListLocations")
-            );
-            self.inner
-                .list_locations(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_location(
         &self,
         req: crate::model::secret_manager_service::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Location>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "get_location",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/GetLocation")
-            );
-            self.inner
-                .get_location(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_secrets(
         &self,
         req: crate::model::secret_manager_service::ListSecretsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecretsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "list_secrets",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/ListSecrets")
-            );
-            self.inner
-                .list_secrets(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_secrets(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_secret(
         &self,
         req: crate::model::secret_manager_service::CreateSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "create_secret",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/CreateSecret")
-            );
-            self.inner
-                .create_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_secret(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_secrets_by_project_and_location(
         &self,
         req: crate::model::secret_manager_service::ListSecretsByProjectAndLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecretsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "list_secrets_by_project_and_location",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/ListSecretsByProjectAndLocation"
-                )
-            );
-            self.inner
-                .list_secrets_by_project_and_location(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_secrets_by_project_and_location(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_secret_by_project_and_location(
         &self,
         req: crate::model::secret_manager_service::CreateSecretByProjectAndLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "create_secret_by_project_and_location",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/CreateSecretByProjectAndLocation"
-                )
-            );
-            self.inner
-                .create_secret_by_project_and_location(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .create_secret_by_project_and_location(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn add_secret_version(
         &self,
         req: crate::model::secret_manager_service::AddSecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "add_secret_version",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/AddSecretVersion")
-            );
-            self.inner
-                .add_secret_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.add_secret_version(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn add_secret_version_by_project_and_location_and_secret(
         &self,
         req: crate::model::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "add_secret_version_by_project_and_location_and_secret",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/AddSecretVersionByProjectAndLocationAndSecret"
-                )
-            );
-            self.inner
-                .add_secret_version_by_project_and_location_and_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .add_secret_version_by_project_and_location_and_secret(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_secret(
         &self,
         req: crate::model::secret_manager_service::GetSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "get_secret",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/GetSecret")
-            );
-            self.inner
-                .get_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_secret(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_secret(
         &self,
         req: crate::model::secret_manager_service::DeleteSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Empty>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "delete_secret",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/DeleteSecret")
-            );
-            self.inner
-                .delete_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_secret(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_secret(
         &self,
         req: crate::model::secret_manager_service::UpdateSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "update_secret",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/UpdateSecret")
-            );
-            self.inner
-                .update_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_secret(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::secret_manager_service::GetSecretByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "get_secret_by_project_and_location_and_secret",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/GetSecretByProjectAndLocationAndSecret"
-                )
-            );
-            self.inner
-                .get_secret_by_project_and_location_and_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_secret_by_project_and_location_and_secret(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::secret_manager_service::DeleteSecretByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Empty>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "delete_secret_by_project_and_location_and_secret",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/DeleteSecretByProjectAndLocationAndSecret"
-                )
-            );
-            self.inner
-                .delete_secret_by_project_and_location_and_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .delete_secret_by_project_and_location_and_secret(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::secret_manager_service::UpdateSecretByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Secret>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "update_secret_by_project_and_location_and_secret",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/UpdateSecretByProjectAndLocationAndSecret"
-                )
-            );
-            self.inner
-                .update_secret_by_project_and_location_and_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .update_secret_by_project_and_location_and_secret(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_secret_versions(
         &self,
         req: crate::model::secret_manager_service::ListSecretVersionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecretVersionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "list_secret_versions",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/ListSecretVersions")
-            );
-            self.inner
-                .list_secret_versions(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_secret_versions(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_secret_versions_by_project_and_location_and_secret(
         &self,
         req: crate::model::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecretVersionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "list_secret_versions_by_project_and_location_and_secret",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/ListSecretVersionsByProjectAndLocationAndSecret"
-                )
-            );
-            self.inner
-                .list_secret_versions_by_project_and_location_and_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_secret_versions_by_project_and_location_and_secret(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_secret_version(
         &self,
         req: crate::model::secret_manager_service::GetSecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "get_secret_version",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/GetSecretVersion")
-            );
-            self.inner
-                .get_secret_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_secret_version(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "get_secret_version_by_project_and_location_and_secret_and_version",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/GetSecretVersionByProjectAndLocationAndSecretAndVersion"
-                )
-            );
-            self.inner
-                .get_secret_version_by_project_and_location_and_secret_and_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_secret_version_by_project_and_location_and_secret_and_version(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn access_secret_version(
         &self,
         req: crate::model::secret_manager_service::AccessSecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AccessSecretVersionResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "access_secret_version",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/AccessSecretVersion")
-            );
-            self.inner
-                .access_secret_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.access_secret_version(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn access_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AccessSecretVersionResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "access_secret_version_by_project_and_location_and_secret_and_version",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/AccessSecretVersionByProjectAndLocationAndSecretAndVersion"
-                )
-            );
-            self.inner
-                .access_secret_version_by_project_and_location_and_secret_and_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .access_secret_version_by_project_and_location_and_secret_and_version(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn disable_secret_version(
         &self,
         req: crate::model::secret_manager_service::DisableSecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "disable_secret_version",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/DisableSecretVersion")
-            );
-            self.inner
-                .disable_secret_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.disable_secret_version(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn disable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "disable_secret_version_by_project_and_location_and_secret_and_version",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/DisableSecretVersionByProjectAndLocationAndSecretAndVersion"
-                )
-            );
-            self.inner
-                .disable_secret_version_by_project_and_location_and_secret_and_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .disable_secret_version_by_project_and_location_and_secret_and_version(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn enable_secret_version(
         &self,
         req: crate::model::secret_manager_service::EnableSecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "enable_secret_version",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/EnableSecretVersion")
-            );
-            self.inner
-                .enable_secret_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.enable_secret_version(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn enable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "enable_secret_version_by_project_and_location_and_secret_and_version",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/EnableSecretVersionByProjectAndLocationAndSecretAndVersion"
-                )
-            );
-            self.inner
-                .enable_secret_version_by_project_and_location_and_secret_and_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .enable_secret_version_by_project_and_location_and_secret_and_version(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn destroy_secret_version(
         &self,
         req: crate::model::secret_manager_service::DestroySecretVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "destroy_secret_version",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/DestroySecretVersion")
-            );
-            self.inner
-                .destroy_secret_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.destroy_secret_version(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn destroy_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecretVersion>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "destroy_secret_version_by_project_and_location_and_secret_and_version",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/DestroySecretVersionByProjectAndLocationAndSecretAndVersion"
-                )
-            );
-            self.inner
-                .destroy_secret_version_by_project_and_location_and_secret_and_version(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .destroy_secret_version_by_project_and_location_and_secret_and_version(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn set_iam_policy(
         &self,
         req: crate::model::secret_manager_service::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "set_iam_policy",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/SetIamPolicy")
-            );
-            self.inner
-                .set_iam_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn set_iam_policy_by_project_and_location_and_secret(
         &self,
         req: crate::model::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "set_iam_policy_by_project_and_location_and_secret",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/SetIamPolicyByProjectAndLocationAndSecret"
-                )
-            );
-            self.inner
-                .set_iam_policy_by_project_and_location_and_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .set_iam_policy_by_project_and_location_and_secret(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_iam_policy(
         &self,
         req: crate::model::secret_manager_service::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "get_iam_policy",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/GetIamPolicy")
-            );
-            self.inner
-                .get_iam_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_iam_policy_by_project_and_location_and_secret(
         &self,
         req: crate::model::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "get_iam_policy_by_project_and_location_and_secret",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/GetIamPolicyByProjectAndLocationAndSecret"
-                )
-            );
-            self.inner
-                .get_iam_policy_by_project_and_location_and_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_iam_policy_by_project_and_location_and_secret(req, options)
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn test_iam_permissions(
         &self,
         req: crate::model::secret_manager_service::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TestIamPermissionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "test_iam_permissions",
-                Some("google.cloud.secretmanager.v1.SecretManagerService/TestIamPermissions")
-            );
-            self.inner
-                .test_iam_permissions(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
         req: crate::model::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TestIamPermissionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::SecretManagerService",
-                "test_iam_permissions_by_project_and_location_and_secret",
-                Some(
-                    "google.cloud.secretmanager.v1.SecretManagerService/TestIamPermissionsByProjectAndLocationAndSecret"
-                )
-            );
-            self.inner
-                .test_iam_permissions_by_project_and_location_and_secret(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .test_iam_permissions_by_project_and_location_and_secret(req, options)
             .await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "secretmanager";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "secretmanager";
-            info
-        };
     }
 }

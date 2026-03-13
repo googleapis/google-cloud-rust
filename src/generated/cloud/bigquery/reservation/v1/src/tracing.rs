@@ -22,8 +22,6 @@ where
     T: super::stub::ReservationService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> ReservationService<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::ReservationService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,766 +37,264 @@ impl<T> super::stub::ReservationService for ReservationService<T>
 where
     T: super::stub::ReservationService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_reservation(
         &self,
         req: crate::model::CreateReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Reservation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "create_reservation",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/CreateReservation")
-            );
-            self.inner
-                .create_reservation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_reservation(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_reservations(
         &self,
         req: crate::model::ListReservationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListReservationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "list_reservations",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/ListReservations")
-            );
-            self.inner
-                .list_reservations(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_reservations(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_reservation(
         &self,
         req: crate::model::GetReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Reservation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "get_reservation",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/GetReservation")
-            );
-            self.inner
-                .get_reservation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_reservation(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_reservation(
         &self,
         req: crate::model::DeleteReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "delete_reservation",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/DeleteReservation")
-            );
-            self.inner
-                .delete_reservation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_reservation(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_reservation(
         &self,
         req: crate::model::UpdateReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Reservation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "update_reservation",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/UpdateReservation")
-            );
-            self.inner
-                .update_reservation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_reservation(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn failover_reservation(
         &self,
         req: crate::model::FailoverReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Reservation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "failover_reservation",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/FailoverReservation")
-            );
-            self.inner
-                .failover_reservation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.failover_reservation(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_capacity_commitment(
         &self,
         req: crate::model::CreateCapacityCommitmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CapacityCommitment>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "create_capacity_commitment",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/CreateCapacityCommitment"
-                )
-            );
-            self.inner
-                .create_capacity_commitment(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_capacity_commitment(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_capacity_commitments(
         &self,
         req: crate::model::ListCapacityCommitmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCapacityCommitmentsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "list_capacity_commitments",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/ListCapacityCommitments"
-                )
-            );
-            self.inner
-                .list_capacity_commitments(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_capacity_commitments(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_capacity_commitment(
         &self,
         req: crate::model::GetCapacityCommitmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CapacityCommitment>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "get_capacity_commitment",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/GetCapacityCommitment"
-                )
-            );
-            self.inner
-                .get_capacity_commitment(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_capacity_commitment(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_capacity_commitment(
         &self,
         req: crate::model::DeleteCapacityCommitmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "delete_capacity_commitment",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/DeleteCapacityCommitment"
-                )
-            );
-            self.inner
-                .delete_capacity_commitment(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_capacity_commitment(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_capacity_commitment(
         &self,
         req: crate::model::UpdateCapacityCommitmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CapacityCommitment>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "update_capacity_commitment",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/UpdateCapacityCommitment"
-                )
-            );
-            self.inner
-                .update_capacity_commitment(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_capacity_commitment(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn split_capacity_commitment(
         &self,
         req: crate::model::SplitCapacityCommitmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SplitCapacityCommitmentResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "split_capacity_commitment",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/SplitCapacityCommitment"
-                )
-            );
-            self.inner
-                .split_capacity_commitment(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.split_capacity_commitment(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn merge_capacity_commitments(
         &self,
         req: crate::model::MergeCapacityCommitmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CapacityCommitment>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "merge_capacity_commitments",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/MergeCapacityCommitments"
-                )
-            );
-            self.inner
-                .merge_capacity_commitments(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.merge_capacity_commitments(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_assignment(
         &self,
         req: crate::model::CreateAssignmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Assignment>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "create_assignment",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/CreateAssignment")
-            );
-            self.inner
-                .create_assignment(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_assignment(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_assignments(
         &self,
         req: crate::model::ListAssignmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAssignmentsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "list_assignments",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/ListAssignments")
-            );
-            self.inner
-                .list_assignments(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_assignments(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_assignment(
         &self,
         req: crate::model::DeleteAssignmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "delete_assignment",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/DeleteAssignment")
-            );
-            self.inner
-                .delete_assignment(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_assignment(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn search_assignments(
         &self,
         req: crate::model::SearchAssignmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SearchAssignmentsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "search_assignments",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/SearchAssignments")
-            );
-            self.inner
-                .search_assignments(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.search_assignments(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn search_all_assignments(
         &self,
         req: crate::model::SearchAllAssignmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SearchAllAssignmentsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "search_all_assignments",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/SearchAllAssignments"
-                )
-            );
-            self.inner
-                .search_all_assignments(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.search_all_assignments(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn move_assignment(
         &self,
         req: crate::model::MoveAssignmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Assignment>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "move_assignment",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/MoveAssignment")
-            );
-            self.inner
-                .move_assignment(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.move_assignment(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_assignment(
         &self,
         req: crate::model::UpdateAssignmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Assignment>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "update_assignment",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/UpdateAssignment")
-            );
-            self.inner
-                .update_assignment(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_assignment(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_bi_reservation(
         &self,
         req: crate::model::GetBiReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BiReservation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "get_bi_reservation",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/GetBiReservation")
-            );
-            self.inner
-                .get_bi_reservation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_bi_reservation(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn update_bi_reservation(
         &self,
         req: crate::model::UpdateBiReservationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BiReservation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "update_bi_reservation",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/UpdateBiReservation")
-            );
-            self.inner
-                .update_bi_reservation(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_bi_reservation(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "get_iam_policy",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/GetIamPolicy")
-            );
-            self.inner
-                .get_iam_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "set_iam_policy",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/SetIamPolicy")
-            );
-            self.inner
-                .set_iam_policy(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "test_iam_permissions",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/TestIamPermissions")
-            );
-            self.inner
-                .test_iam_permissions(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn create_reservation_group(
         &self,
         req: crate::model::CreateReservationGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReservationGroup>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "create_reservation_group",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/CreateReservationGroup"
-                )
-            );
-            self.inner
-                .create_reservation_group(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_reservation_group(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn get_reservation_group(
         &self,
         req: crate::model::GetReservationGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReservationGroup>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "get_reservation_group",
-                Some("google.cloud.bigquery.reservation.v1.ReservationService/GetReservationGroup")
-            );
-            self.inner
-                .get_reservation_group(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_reservation_group(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn delete_reservation_group(
         &self,
         req: crate::model::DeleteReservationGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "delete_reservation_group",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/DeleteReservationGroup"
-                )
-            );
-            self.inner
-                .delete_reservation_group(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_reservation_group(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn list_reservation_groups(
         &self,
         req: crate::model::ListReservationGroupsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListReservationGroupsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ReservationService",
-                "list_reservation_groups",
-                Some(
-                    "google.cloud.bigquery.reservation.v1.ReservationService/ListReservationGroups"
-                )
-            );
-            self.inner
-                .list_reservation_groups(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_reservation_groups(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "bigqueryreservation";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "bigqueryreservation";
-            info
-        };
     }
 }

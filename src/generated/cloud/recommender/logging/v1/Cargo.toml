@@ -26,9 +26,6 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
-[lints]
-workspace = true
-
 [dependencies]
 bytes.workspace                       = true
 google-cloud-recommender-v1.workspace = true

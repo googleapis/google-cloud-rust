@@ -22,8 +22,6 @@ where
     T: super::stub::QuotaController + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> QuotaController<T>
@@ -31,11 +29,7 @@ where
     T: super::stub::QuotaController + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -43,28 +37,12 @@ impl<T> super::stub::QuotaController for QuotaController<T>
 where
     T: super::stub::QuotaController + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn allocate_quota(
         &self,
         req: crate::model::AllocateQuotaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AllocateQuotaResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::QuotaController",
-                "allocate_quota",
-                Some("google.api.servicecontrol.v1.QuotaController/AllocateQuota")
-            );
-            self.inner
-                .allocate_quota(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.allocate_quota(req, options).await
     }
 }
@@ -76,8 +54,6 @@ where
     T: super::stub::ServiceController + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
-    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> ServiceController<T>
@@ -85,11 +61,7 @@ where
     T: super::stub::ServiceController + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self {
-            inner,
-            #[cfg(google_cloud_unstable_tracing)]
-            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
-        }
+        Self { inner }
     }
 }
 
@@ -97,69 +69,21 @@ impl<T> super::stub::ServiceController for ServiceController<T>
 where
     T: super::stub::ServiceController + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn check(
         &self,
         req: crate::model::CheckRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CheckResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ServiceController",
-                "check",
-                Some("google.api.servicecontrol.v1.ServiceController/Check")
-            );
-            self.inner
-                .check(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.check(req, options).await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(ret)]
     async fn report(
         &self,
         req: crate::model::ReportRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReportResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use gaxi::observability::ClientSignalsExt as _;
-            let (start, span) = gaxi::client_request_signals!(
-                &info::INSTRUMENTATION_CLIENT_INFO,
-                &options,
-                "client::ServiceController",
-                "report",
-                Some("google.api.servicecontrol.v1.ServiceController/Report")
-            );
-            self.inner
-                .report(req, options)
-                .instrument_client(self.duration.clone(), start, span)
-                .await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.report(req, options).await
-    }
-}
-
-#[cfg(google_cloud_unstable_tracing)]
-pub(crate) mod info {
-    const NAME: &str = env!("CARGO_PKG_NAME");
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "servicecontrol";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "servicecontrol";
-            info
-        };
     }
 }
