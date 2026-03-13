@@ -18,29 +18,28 @@ use google_cloud_pubsub::model::Message;
 
 pub async fn sample(project: &str, topic_id: &str) -> anyhow::Result<()> {
     let publisher = Publisher::builder(format!("projects/{project}/topics/{topic_id}"))
-        // Sending messages to the same region ensures they are received in order
-        // even when multiple publishers are used.
-        .with_endpoint("us-east1-pubsub.googleapis.com:443")
+        // Pub/Sub's ordered delivery guarantee only applies when publishes for
+        // an ordering key are in the same region.
+        .with_endpoint("us-east1-pubsub.googleapis.com")
         .build()
         .await?;
 
-    let messages = vec![
+    let publish_futures = [
         ("message1", "key1"),
         ("message2", "key2"),
         ("message3", "key1"),
         ("message4", "key2"),
-    ];
+    ]
+    .map(|(data, ordering_key)| {
+        publisher.publish(
+            Message::new()
+                .set_data(data.as_bytes())
+                .set_ordering_key(ordering_key),
+        )
+    });
 
-    let mut futures = vec![];
-    for (data, ordering_key) in messages {
-        let message = Message::new()
-            .set_data(data.as_bytes())
-            .set_ordering_key(ordering_key);
-        futures.push(publisher.publish(message));
-    }
-
-    for future in futures {
-        match future.await {
+    for publish_future in publish_futures {
+        match publish_future.await {
             Ok(message_id) => println!("published message with ID: {message_id}"),
             Err(e) => println!("error publishing message: {e}"),
         }
