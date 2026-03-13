@@ -13,9 +13,9 @@
 // limitations under the License.
 
 use super::builder::Subscribe;
-use super::handler::{Action, AtLeastOnce, Handler};
+use super::handler::{Action, AtLeastOnce, ExactlyOnce, Handler};
 use super::lease_loop::LeaseLoop;
-use super::lease_state::{LeaseInfo, LeaseOptions, NewMessage};
+use super::lease_state::{ExactlyOnceInfo, LeaseInfo, LeaseOptions, NewMessage};
 use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
 use super::stream::Stream;
@@ -108,7 +108,7 @@ impl MessageStream {
         let inner = builder.inner;
         let subscription = builder.subscription;
 
-        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (confirmed_tx, confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             inner.clone(),
             confirmed_tx,
@@ -120,7 +120,7 @@ impl MessageStream {
             handle: _lease_loop,
             message_tx,
             ack_tx,
-        } = LeaseLoop::new(leaser, LeaseOptions::default());
+        } = LeaseLoop::new(leaser, confirmed_rx, LeaseOptions::default());
 
         let initial_req = StreamingPullRequest {
             subscription,
@@ -270,6 +270,10 @@ impl MessageStream {
             Err(e) => return Some(Err(e)),
         };
 
+        let exactly_once = resp
+            .subscription_properties
+            .is_some_and(|m| m.exactly_once_delivery_enabled);
+
         // Process the received messages in the response.
         for rm in resp.received_messages {
             let Some(message) = rm.message else {
@@ -281,19 +285,33 @@ impl MessageStream {
                 // message.
                 continue;
             };
-            let lease_info = LeaseInfo::AtLeastOnce(Instant::now());
+
+            let (lease_info, handler) = if exactly_once {
+                let (result_tx, result_rx) = tokio::sync::oneshot::channel();
+                (
+                    LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx)),
+                    Handler::ExactlyOnce(ExactlyOnce::new(
+                        rm.ack_id.clone(),
+                        self.ack_tx.clone(),
+                        result_rx,
+                    )),
+                )
+            } else {
+                (
+                    LeaseInfo::AtLeastOnce(Instant::now()),
+                    Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id.clone(), self.ack_tx.clone())),
+                )
+            };
+
             let _ = self.message_tx.send(NewMessage {
-                ack_id: rm.ack_id.clone(),
+                ack_id: rm.ack_id,
                 lease_info,
             });
             let message = match message.cnv().map_err(Error::deser) {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
             };
-            self.pool.push_back((
-                message,
-                Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id, self.ack_tx.clone())),
-            ));
+            self.pool.push_back((message, handler));
         }
         Some(Ok(()))
     }
@@ -318,6 +336,8 @@ impl MessageStream {
 
 #[cfg(test)]
 mod tests {
+    use crate::subscriber::lease_state::tests::MAX_IDS_PER_RPC;
+
     use super::super::client::Subscriber;
     use super::super::keepalive::KEEPALIVE_PERIOD;
     use super::super::lease_state::tests::{test_id, test_ids};
@@ -328,8 +348,9 @@ mod tests {
     use google_cloud_test_macros::tokio_test_no_panics;
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
+    use test_case::test_case;
     use tokio::sync::mpsc::{channel, unbounded_channel};
-    use tokio::task::JoinHandle;
+    use tokio::task::{JoinHandle, JoinSet};
     use tokio::time::{Duration, Instant};
 
     fn sorted(mut v: Vec<String>) -> Vec<String> {
@@ -341,8 +362,29 @@ mod tests {
         bytes::Bytes::from(format!("data-{}", test_id(v)))
     }
 
-    fn test_response(range: std::ops::Range<i32>) -> v1::StreamingPullResponse {
+    fn test_at_least_once_response(range: std::ops::Range<i32>) -> v1::StreamingPullResponse {
         v1::StreamingPullResponse {
+            received_messages: range
+                .into_iter()
+                .map(|i| v1::ReceivedMessage {
+                    ack_id: test_id(i),
+                    message: Some(v1::PubsubMessage {
+                        data: test_data(i).to_vec(),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                })
+                .collect(),
+            ..Default::default()
+        }
+    }
+
+    fn test_exactly_once_response(range: std::ops::Range<i32>) -> v1::StreamingPullResponse {
+        v1::StreamingPullResponse {
+            subscription_properties: Some(v1::streaming_pull_response::SubscriptionProperties {
+                exactly_once_delivery_enabled: true,
+                ..Default::default()
+            }),
             received_messages: range
                 .into_iter()
                 .map(|i| v1::ReceivedMessage {
@@ -467,7 +509,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn basic_success() -> anyhow::Result<()> {
+    async fn basic_success_at_least_once() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
 
@@ -484,9 +526,15 @@ mod tests {
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
-        response_tx.send(Ok(test_response(1..2))).await?;
-        response_tx.send(Ok(test_response(2..4))).await?;
-        response_tx.send(Ok(test_response(4..7))).await?;
+        response_tx
+            .send(Ok(test_at_least_once_response(1..2)))
+            .await?;
+        response_tx
+            .send(Ok(test_at_least_once_response(2..4)))
+            .await?;
+        response_tx
+            .send(Ok(test_at_least_once_response(4..7)))
+            .await?;
         drop(response_tx);
 
         for i in 1..7 {
@@ -512,7 +560,65 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn basic_lease_management() -> anyhow::Result<()> {
+    async fn basic_success_exactly_once() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge().returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+
+        response_tx
+            .send(Ok(test_exactly_once_response(0..2)))
+            .await?;
+        response_tx
+            .send(Ok(test_exactly_once_response(2..4)))
+            .await?;
+        // We use MAX_IDS_PER_RPC total ids to indirectly force a flush in the subscriber.
+        // This is needed for exactly once because the current shutdown behavior does not
+        // send a final AcknowledgeRequest for application acknowledged ids.
+        response_tx
+            .send(Ok(test_exactly_once_response(4..MAX_IDS_PER_RPC)))
+            .await?;
+
+        let mut ack_join_set = JoinSet::new();
+        for i in 0..MAX_IDS_PER_RPC {
+            let Some((m, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/{MAX_IDS_PER_RPC}")
+            };
+            assert_eq!(m.data, test_data(i));
+            assert_eq!(h.ack_id(), test_id(i));
+            ack_join_set.spawn(h.confirmed_ack());
+        }
+        ack_join_set.join_all().await;
+
+        drop(response_tx);
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
+
+        // Wait for the stream to join its background tasks.
+        stream.close().await?;
+
+        // Verify the acks went through.
+        let ack_req = ack_rx.try_recv()?;
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(ack_req.ack_ids.len(), MAX_IDS_PER_RPC as usize);
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(0..MAX_IDS_PER_RPC));
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn basic_lease_management_at_least_once() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (nack_tx, mut nack_rx) = unbounded_channel();
@@ -542,7 +648,9 @@ mod tests {
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
-        response_tx.send(Ok(test_response(0..30))).await?;
+        response_tx
+            .send(Ok(test_at_least_once_response(0..30)))
+            .await?;
         drop(response_tx);
 
         // Ack some messages
@@ -604,14 +712,132 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn delayed_responses() -> anyhow::Result<()> {
+    async fn basic_lease_management_exactly_once() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let (nack_tx, mut nack_rx) = unbounded_channel();
+        let (extend_tx, mut extend_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge().returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        mock.expect_modify_ack_deadline().returning(move |r| {
+            let r = r.into_inner();
+            if r.ack_deadline_seconds == 0 {
+                nack_tx.send(r).expect("sending on channel always succeeds");
+            } else {
+                extend_tx
+                    .send(r)
+                    .expect("sending on channel always succeeds");
+            }
+            Ok(TonicResponse::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+
+        // We use MAX_IDS_PER_RPC total ids to indirectly force a flush in the subscriber.
+        // This is needed for exactly once because the current shutdown behavior does not
+        // send a final AcknowledgeRequest for application acknowledged ids.
+        response_tx
+            .send(Ok(test_exactly_once_response(0..MAX_IDS_PER_RPC)))
+            .await?;
+        response_tx
+            .send(Ok(test_exactly_once_response(
+                MAX_IDS_PER_RPC..(MAX_IDS_PER_RPC + 20),
+            )))
+            .await?;
+
+        let mut ack_join_set = JoinSet::new();
+        // Ack some messages
+        for i in 0..MAX_IDS_PER_RPC {
+            let Some((_, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}")
+            };
+            ack_join_set.spawn(h.confirmed_ack());
+        }
+        ack_join_set.join_all().await;
+
+        // Nack some messages
+        for i in MAX_IDS_PER_RPC..(MAX_IDS_PER_RPC + 10) {
+            let Some((_, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}")
+            };
+            drop(h);
+        }
+        // Take a long time to process some messages
+        let mut hold = Vec::new();
+        for i in (MAX_IDS_PER_RPC + 10)..(MAX_IDS_PER_RPC + 20) {
+            let Some((_, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}")
+            };
+            hold.push(h);
+        }
+
+        // Advance the clock 10s, which is the default stream ack deadline. In
+        // this time, we should attempt at least one lease extension RPC.
+        tokio::time::advance(Duration::from_secs(10)).await;
+
+        drop(response_tx);
+        // Close the stream, to make sure pending operations complete.
+        stream.close().await?;
+
+        // Verify the acks went through.
+        let ack_req = ack_rx.try_recv()?;
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(0..MAX_IDS_PER_RPC));
+        assert!(ack_rx.is_empty(), "{ack_rx:?}");
+
+        // Verify the initial nacks went through.
+        let nack_req = nack_rx.try_recv()?;
+        assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(nack_req.ack_deadline_seconds, 0);
+        assert_eq!(
+            sorted(nack_req.ack_ids),
+            test_ids(MAX_IDS_PER_RPC..(MAX_IDS_PER_RPC + 10))
+        );
+
+        // Verify that we nack the leftover messages when the stream shuts down.
+        let nack_req = nack_rx.try_recv()?;
+        assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(nack_req.ack_deadline_seconds, 0);
+        assert_eq!(
+            sorted(nack_req.ack_ids),
+            test_ids((MAX_IDS_PER_RPC + 10)..(MAX_IDS_PER_RPC + 20))
+        );
+        assert!(nack_rx.is_empty(), "{nack_rx:?}");
+
+        // Verify at least one lease extension attempt was made.
+        let extend_req = extend_rx.try_recv()?;
+        assert_eq!(extend_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(extend_req.ack_deadline_seconds, 10);
+        assert_eq!(
+            sorted(extend_req.ack_ids),
+            test_ids((MAX_IDS_PER_RPC + 10)..(MAX_IDS_PER_RPC + 20))
+        );
+
+        Ok(())
+    }
+
+    #[test_case(super::test_at_least_once_response)]
+    #[test_case(super::test_exactly_once_response)]
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn delayed_responses(
+        resp_factory: fn(std::ops::Range<i32>) -> v1::StreamingPullResponse,
+    ) -> anyhow::Result<()> {
         // In this test, we verify the case where an application asks for a
         // message, but a response is not immediately available on the stream.
 
         let (response_tx, response_rx) = channel(10);
         let handle: JoinHandle<anyhow::Result<()>> = tokio::spawn(async move {
             tokio::time::sleep(Duration::from_millis(20)).await;
-            response_tx.send(Ok(test_response(1..2))).await?;
+            response_tx.send(Ok(resp_factory(1..2))).await?;
             Ok(())
         });
 
@@ -636,8 +862,12 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(super::test_at_least_once_response)]
+    #[test_case(super::test_exactly_once_response)]
     #[tokio_test_no_panics]
-    async fn serves_messages_immediately() -> anyhow::Result<()> {
+    async fn serves_messages_immediately(
+        resp_factory: fn(std::ops::Range<i32>) -> v1::StreamingPullResponse,
+    ) -> anyhow::Result<()> {
         // This test verifies we do not do something crazy like draining the
         // stream (which would never end) before serving messages to the
         // application.
@@ -654,7 +884,7 @@ mod tests {
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         for i in 1..7 {
-            response_tx.send(Ok(test_response(i..i + 1))).await?;
+            response_tx.send(Ok(resp_factory(i..i + 1))).await?;
 
             let Some((m, h)) = stream.next().await.transpose()? else {
                 anyhow::bail!("expected message {i}/6")
@@ -669,8 +899,12 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(super::test_at_least_once_response)]
+    #[test_case(super::test_exactly_once_response)]
     #[tokio_test_no_panics]
-    async fn handles_empty_response() -> anyhow::Result<()> {
+    async fn handles_empty_response(
+        resp_factory: fn(std::ops::Range<i32>) -> v1::StreamingPullResponse,
+    ) -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
 
         let mut mock = MockSubscriber::new();
@@ -682,10 +916,10 @@ mod tests {
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
-        response_tx.send(Ok(test_response(1..2))).await?;
+        response_tx.send(Ok(resp_factory(1..2))).await?;
         // See if we can handle an empty range
-        response_tx.send(Ok(test_response(2..2))).await?;
-        response_tx.send(Ok(test_response(2..3))).await?;
+        response_tx.send(Ok(resp_factory(2..2))).await?;
+        response_tx.send(Ok(resp_factory(2..3))).await?;
         drop(response_tx);
 
         for i in 1..3 {
@@ -701,8 +935,12 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(super::test_at_least_once_response)]
+    #[test_case(super::test_exactly_once_response)]
     #[tokio_test_no_panics(start_paused = true)]
-    async fn handles_missing_message_field() -> anyhow::Result<()> {
+    async fn handles_missing_message_field(
+        resp_factory: fn(std::ops::Range<i32>) -> v1::StreamingPullResponse,
+    ) -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (extend_tx, mut extend_rx) = unbounded_channel();
 
@@ -730,10 +968,10 @@ mod tests {
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
-        response_tx.send(Ok(test_response(1..4))).await?;
+        response_tx.send(Ok(resp_factory(1..4))).await?;
         // See if we can handle an empty range
         response_tx.send(Ok(bad)).await?;
-        response_tx.send(Ok(test_response(4..7))).await?;
+        response_tx.send(Ok(resp_factory(4..7))).await?;
         drop(response_tx);
 
         let mut handlers = Vec::new();
@@ -765,8 +1003,12 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(super::test_at_least_once_response)]
+    #[test_case(super::test_exactly_once_response)]
     #[tokio_test_no_panics]
-    async fn permanent_error_midstream() -> anyhow::Result<()> {
+    async fn permanent_error_midstream(
+        resp_factory: fn(std::ops::Range<i32>) -> v1::StreamingPullResponse,
+    ) -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
 
         let mut mock = MockSubscriber::new();
@@ -776,7 +1018,7 @@ mod tests {
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
-        response_tx.send(Ok(test_response(1..4))).await?;
+        response_tx.send(Ok(resp_factory(1..4))).await?;
         response_tx
             .send(Err(TonicStatus::failed_precondition("fail")))
             .await?;
@@ -805,8 +1047,12 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(super::test_at_least_once_response)]
+    #[test_case(super::test_exactly_once_response)]
     #[tokio_test_no_panics(start_paused = true)]
-    async fn keepalives() -> anyhow::Result<()> {
+    async fn keepalives(
+        resp_factory: fn(std::ops::Range<i32>) -> v1::StreamingPullResponse,
+    ) -> anyhow::Result<()> {
         // We use this channel to surface writes (requests) from outside our
         // mock expectation.
         let (recover_writes_tx, mut recover_writes_rx) = channel(1);
@@ -833,7 +1079,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
-        response_tx.send(Ok(test_response(1..4))).await?;
+        response_tx.send(Ok(resp_factory(1..4))).await?;
         let _ = stream.next().await;
 
         let initial_req = recover_writes_rx
@@ -1003,7 +1249,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn resume_midstream_success() -> anyhow::Result<()> {
+    async fn resume_midstream_success_at_least_once() -> anyhow::Result<()> {
         let (response_tx_1, response_rx_1) = channel(10);
         let (response_tx_2, response_rx_2) = channel(10);
         let (response_tx_3, response_rx_3) = channel(10);
@@ -1033,19 +1279,29 @@ mod tests {
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
-        response_tx_1.send(Ok(test_response(0..10))).await?;
-        response_tx_1.send(Ok(test_response(10..20))).await?;
+        response_tx_1
+            .send(Ok(test_at_least_once_response(0..10)))
+            .await?;
+        response_tx_1
+            .send(Ok(test_at_least_once_response(10..20)))
+            .await?;
         response_tx_1
             .send(Err(TonicStatus::unavailable("GFE disconnect. try again")))
             .await?;
         drop(response_tx_1);
-        response_tx_2.send(Ok(test_response(20..30))).await?;
-        response_tx_2.send(Ok(test_response(30..40))).await?;
+        response_tx_2
+            .send(Ok(test_at_least_once_response(20..30)))
+            .await?;
+        response_tx_2
+            .send(Ok(test_at_least_once_response(30..40)))
+            .await?;
         response_tx_2
             .send(Err(TonicStatus::unavailable("GFE disconnect. try again")))
             .await?;
         drop(response_tx_2);
-        response_tx_3.send(Ok(test_response(40..50))).await?;
+        response_tx_3
+            .send(Ok(test_at_least_once_response(40..50)))
+            .await?;
         drop(response_tx_3);
 
         for i in 0..50 {
@@ -1074,7 +1330,96 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn resume_midstream_hits_permanent_error() -> anyhow::Result<()> {
+    async fn resume_midstream_success_exactly_once() -> anyhow::Result<()> {
+        let (response_tx_1, response_rx_1) = channel(10);
+        let (response_tx_2, response_rx_2) = channel(10);
+        let (response_tx_3, response_rx_3) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_| Ok(TonicResponse::from(response_rx_1)));
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_| Ok(TonicResponse::from(response_rx_2)));
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_| Ok(TonicResponse::from(response_rx_3)));
+        mock.expect_acknowledge().times(1..).returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+
+        response_tx_1
+            .send(Ok(test_exactly_once_response(0..10)))
+            .await?;
+        response_tx_1
+            .send(Ok(test_exactly_once_response(10..20)))
+            .await?;
+        response_tx_1
+            .send(Err(TonicStatus::unavailable("GFE disconnect. try again")))
+            .await?;
+        drop(response_tx_1);
+        response_tx_2
+            .send(Ok(test_exactly_once_response(20..30)))
+            .await?;
+        response_tx_2
+            .send(Ok(test_exactly_once_response(30..40)))
+            .await?;
+        response_tx_2
+            .send(Err(TonicStatus::unavailable("GFE disconnect. try again")))
+            .await?;
+        drop(response_tx_2);
+        response_tx_3
+            .send(Ok(test_exactly_once_response(40..50)))
+            .await?;
+        drop(response_tx_3);
+
+        for i in 0..50 {
+            let (m, h) = stream
+                .next()
+                .await
+                .unwrap_or_else(|| panic!("expected message {}/50", i + 1))?;
+            assert_eq!(m.data, test_data(i));
+            h.ack();
+        }
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
+
+        // Wait for the stream to join its background tasks.
+        stream.close().await?;
+
+        // Verify the acks went through.
+        let mut got = Vec::new();
+        while let Ok(ack_req) = ack_rx.try_recv() {
+            assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+            got.extend(ack_req.ack_ids);
+        }
+        // Due to current shutdown behavior for exactly once, the last 10
+        // application acknowledged ids are nacked.
+        assert_eq!(sorted(got), test_ids(0..40));
+
+        Ok(())
+    }
+
+    #[test_case(super::test_at_least_once_response)]
+    #[test_case(super::test_exactly_once_response)]
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn resume_midstream_hits_permanent_error(
+        resp_factory: fn(std::ops::Range<i32>) -> v1::StreamingPullResponse,
+    ) -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
 
@@ -1105,8 +1450,8 @@ mod tests {
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
-        response_tx.send(Ok(test_response(0..10))).await?;
-        response_tx.send(Ok(test_response(10..20))).await?;
+        response_tx.send(Ok(resp_factory(0..10))).await?;
+        response_tx.send(Ok(resp_factory(10..20))).await?;
         response_tx
             .send(Err(TonicStatus::unavailable("GFE disconnect. try again")))
             .await?;
@@ -1176,7 +1521,7 @@ mod tests {
 
     #[cfg(feature = "unstable-stream")]
     #[tokio_test_no_panics(start_paused = true)]
-    async fn into_stream() -> anyhow::Result<()> {
+    async fn into_stream_at_least_once() -> anyhow::Result<()> {
         use futures::TryStreamExt;
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -1199,7 +1544,9 @@ mod tests {
             .build()
             .into_stream();
 
-        response_tx.send(Ok(test_response(1..3))).await?;
+        response_tx
+            .send(Ok(test_at_least_once_response(1..3)))
+            .await?;
         drop(response_tx);
 
         let got: Vec<_> = stream
@@ -1217,6 +1564,49 @@ mod tests {
             .expect("should receive acknowledgements");
         assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
         assert_eq!(sorted(ack_req.ack_ids), test_ids(1..3));
+
+        Ok(())
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn into_stream_exactly_once() -> anyhow::Result<()> {
+        use futures::TryStreamExt;
+        let (response_tx, response_rx) = channel(10);
+        let (nack_tx, mut nack_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_modify_ack_deadline().returning(move |r| {
+            nack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+
+        response_tx
+            .send(Ok(test_exactly_once_response(1..3)))
+            .await?;
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+
+        let stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .build()
+            .into_stream();
+        drop(response_tx);
+
+        let got: Vec<_> = stream.map_ok(|(m, _)| m.data).try_collect().await?;
+        assert_eq!(got, vec![test_data(1), test_data(2)]);
+
+        let nack_req = nack_rx
+            .recv()
+            .await
+            .expect("should receive acknowledgements");
+        assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(sorted(nack_req.ack_ids), test_ids(1..3));
 
         Ok(())
     }
