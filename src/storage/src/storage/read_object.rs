@@ -21,7 +21,6 @@ use super::*;
 use crate::model_ext::KeyAes256;
 use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
-use crate::storage::checksum::details::Crc32c;
 use crate::storage::checksum::details::Md5;
 use crate::storage::request_options::RequestOptions;
 use gaxi::attempt_info::AttemptInfo;
