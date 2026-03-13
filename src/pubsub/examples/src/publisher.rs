@@ -14,3 +14,4 @@
 
 pub mod publish_with_ordering_keys;
 pub mod quickstart_publisher;
+pub mod resume_publish_with_ordering_keys;
