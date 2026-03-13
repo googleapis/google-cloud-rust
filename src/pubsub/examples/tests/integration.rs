@@ -73,4 +73,22 @@ mod tests {
 
         result
     }
+
+    #[tokio::test]
+    async fn publisher_samples() -> anyhow::Result<()> {
+        let client = TopicAdmin::builder().build().await?;
+        let mut topics = Vec::new();
+
+        let result = run_publisher_samples(&mut topics)
+            .await
+            .inspect_err(anydump);
+
+        for name in topics {
+            let _ = cleanup_test_topic(&client, &name)
+                .await
+                .inspect_err(|e| println!("Error cleaning up topic {name}: {e:?}"))
+                .inspect_err(anydump);
+        }
+        result
+    }
 }
