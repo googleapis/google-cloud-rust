@@ -22,6 +22,8 @@ where
     T: super::stub::ParameterManager + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> ParameterManager<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::ParameterManager + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,120 +43,344 @@ impl<T> super::stub::ParameterManager for ParameterManager<T>
 where
     T: super::stub::ParameterManager + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_parameters(
         &self,
         req: crate::model::ListParametersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListParametersResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "list_parameters",
+                Some("google.cloud.parametermanager.v1.ParameterManager/ListParameters")
+            );
+            self.inner
+                .list_parameters(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_parameters(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_parameter(
         &self,
         req: crate::model::GetParameterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Parameter>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "get_parameter",
+                Some("google.cloud.parametermanager.v1.ParameterManager/GetParameter")
+            );
+            self.inner
+                .get_parameter(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_parameter(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_parameter(
         &self,
         req: crate::model::CreateParameterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Parameter>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "create_parameter",
+                Some("google.cloud.parametermanager.v1.ParameterManager/CreateParameter")
+            );
+            self.inner
+                .create_parameter(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_parameter(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_parameter(
         &self,
         req: crate::model::UpdateParameterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Parameter>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "update_parameter",
+                Some("google.cloud.parametermanager.v1.ParameterManager/UpdateParameter")
+            );
+            self.inner
+                .update_parameter(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_parameter(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_parameter(
         &self,
         req: crate::model::DeleteParameterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "delete_parameter",
+                Some("google.cloud.parametermanager.v1.ParameterManager/DeleteParameter")
+            );
+            self.inner
+                .delete_parameter(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_parameter(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_parameter_versions(
         &self,
         req: crate::model::ListParameterVersionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListParameterVersionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "list_parameter_versions",
+                Some("google.cloud.parametermanager.v1.ParameterManager/ListParameterVersions")
+            );
+            self.inner
+                .list_parameter_versions(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_parameter_versions(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_parameter_version(
         &self,
         req: crate::model::GetParameterVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ParameterVersion>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "get_parameter_version",
+                Some("google.cloud.parametermanager.v1.ParameterManager/GetParameterVersion")
+            );
+            self.inner
+                .get_parameter_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_parameter_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn render_parameter_version(
         &self,
         req: crate::model::RenderParameterVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RenderParameterVersionResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "render_parameter_version",
+                Some("google.cloud.parametermanager.v1.ParameterManager/RenderParameterVersion")
+            );
+            self.inner
+                .render_parameter_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.render_parameter_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_parameter_version(
         &self,
         req: crate::model::CreateParameterVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ParameterVersion>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "create_parameter_version",
+                Some("google.cloud.parametermanager.v1.ParameterManager/CreateParameterVersion")
+            );
+            self.inner
+                .create_parameter_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_parameter_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_parameter_version(
         &self,
         req: crate::model::UpdateParameterVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ParameterVersion>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "update_parameter_version",
+                Some("google.cloud.parametermanager.v1.ParameterManager/UpdateParameterVersion")
+            );
+            self.inner
+                .update_parameter_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_parameter_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_parameter_version(
         &self,
         req: crate::model::DeleteParameterVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "delete_parameter_version",
+                Some("google.cloud.parametermanager.v1.ParameterManager/DeleteParameterVersion")
+            );
+            self.inner
+                .delete_parameter_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_parameter_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "list_locations",
+                Some("google.cloud.location.Locations/ListLocations")
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ParameterManager",
+                "get_location",
+                Some("google.cloud.location.Locations/GetLocation")
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "parametermanager";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "parametermanager";
+            info
+        };
     }
 }

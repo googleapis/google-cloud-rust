@@ -22,6 +22,8 @@ where
     T: super::stub::CloudRedisCluster + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> CloudRedisCluster<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::CloudRedisCluster + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,187 +43,511 @@ impl<T> super::stub::CloudRedisCluster for CloudRedisCluster<T>
 where
     T: super::stub::CloudRedisCluster + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_clusters(
         &self,
         req: crate::model::ListClustersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListClustersResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "list_clusters",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/ListClusters")
+            );
+            self.inner
+                .list_clusters(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_clusters(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_cluster(
         &self,
         req: crate::model::GetClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Cluster>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "get_cluster",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/GetCluster")
+            );
+            self.inner
+                .get_cluster(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_cluster(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_cluster(
         &self,
         req: crate::model::UpdateClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "update_cluster",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/UpdateCluster")
+            );
+            self.inner
+                .update_cluster(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_cluster(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_cluster(
         &self,
         req: crate::model::DeleteClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "delete_cluster",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/DeleteCluster")
+            );
+            self.inner
+                .delete_cluster(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_cluster(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_cluster(
         &self,
         req: crate::model::CreateClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "create_cluster",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/CreateCluster")
+            );
+            self.inner
+                .create_cluster(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_cluster(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_cluster_certificate_authority(
         &self,
         req: crate::model::GetClusterCertificateAuthorityRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CertificateAuthority>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "get_cluster_certificate_authority",
+                Some(
+                    "google.cloud.redis.cluster.v1.CloudRedisCluster/GetClusterCertificateAuthority"
+                )
+            );
+            self.inner
+                .get_cluster_certificate_authority(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_cluster_certificate_authority(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn reschedule_cluster_maintenance(
         &self,
         req: crate::model::RescheduleClusterMaintenanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "reschedule_cluster_maintenance",
+                Some(
+                    "google.cloud.redis.cluster.v1.CloudRedisCluster/RescheduleClusterMaintenance"
+                )
+            );
+            self.inner
+                .reschedule_cluster_maintenance(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .reschedule_cluster_maintenance(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_backup_collections(
         &self,
         req: crate::model::ListBackupCollectionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListBackupCollectionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "list_backup_collections",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/ListBackupCollections")
+            );
+            self.inner
+                .list_backup_collections(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_backup_collections(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_backup_collection(
         &self,
         req: crate::model::GetBackupCollectionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BackupCollection>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "get_backup_collection",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/GetBackupCollection")
+            );
+            self.inner
+                .get_backup_collection(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_backup_collection(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_backups(
         &self,
         req: crate::model::ListBackupsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListBackupsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "list_backups",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/ListBackups")
+            );
+            self.inner
+                .list_backups(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_backups(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_backup(
         &self,
         req: crate::model::GetBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Backup>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "get_backup",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/GetBackup")
+            );
+            self.inner
+                .get_backup(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_backup(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_backup(
         &self,
         req: crate::model::DeleteBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "delete_backup",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/DeleteBackup")
+            );
+            self.inner
+                .delete_backup(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_backup(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn export_backup(
         &self,
         req: crate::model::ExportBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "export_backup",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/ExportBackup")
+            );
+            self.inner
+                .export_backup(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.export_backup(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn backup_cluster(
         &self,
         req: crate::model::BackupClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "backup_cluster",
+                Some("google.cloud.redis.cluster.v1.CloudRedisCluster/BackupCluster")
+            );
+            self.inner
+                .backup_cluster(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.backup_cluster(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "list_locations",
+                Some("google.cloud.location.Locations/ListLocations")
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "get_location",
+                Some("google.cloud.location.Locations/GetLocation")
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "list_operations",
+                Some("google.longrunning.Operations/ListOperations")
+            );
+            self.inner
+                .list_operations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "get_operation",
+                Some("google.longrunning.Operations/GetOperation")
+            );
+            self.inner
+                .get_operation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "delete_operation",
+                Some("google.longrunning.Operations/DeleteOperation")
+            );
+            self.inner
+                .delete_operation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_operation(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::CloudRedisCluster",
+                "cancel_operation",
+                Some("google.longrunning.Operations/CancelOperation")
+            );
+            self.inner
+                .cancel_operation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_operation(req, options).await
     }
 
@@ -233,5 +563,21 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "redis";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "redis";
+            info
+        };
     }
 }

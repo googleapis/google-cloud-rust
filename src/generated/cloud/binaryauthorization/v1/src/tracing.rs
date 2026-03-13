@@ -22,6 +22,8 @@ where
     T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> BinauthzManagementServiceV1<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,66 +43,188 @@ impl<T> super::stub::BinauthzManagementServiceV1 for BinauthzManagementServiceV1
 where
     T: super::stub::BinauthzManagementServiceV1 + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_policy(
         &self,
         req: crate::model::GetPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::BinauthzManagementServiceV1",
+                "get_policy",
+                Some("google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1/GetPolicy")
+            );
+            self.inner
+                .get_policy(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_policy(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_policy(
         &self,
         req: crate::model::UpdatePolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::BinauthzManagementServiceV1",
+                "update_policy",
+                Some(
+                    "google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1/UpdatePolicy"
+                )
+            );
+            self.inner
+                .update_policy(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_policy(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_attestor(
         &self,
         req: crate::model::CreateAttestorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Attestor>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::BinauthzManagementServiceV1",
+                "create_attestor",
+                Some(
+                    "google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1/CreateAttestor"
+                )
+            );
+            self.inner
+                .create_attestor(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_attestor(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_attestor(
         &self,
         req: crate::model::GetAttestorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Attestor>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::BinauthzManagementServiceV1",
+                "get_attestor",
+                Some("google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1/GetAttestor")
+            );
+            self.inner
+                .get_attestor(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_attestor(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_attestor(
         &self,
         req: crate::model::UpdateAttestorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Attestor>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::BinauthzManagementServiceV1",
+                "update_attestor",
+                Some(
+                    "google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1/UpdateAttestor"
+                )
+            );
+            self.inner
+                .update_attestor(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_attestor(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_attestors(
         &self,
         req: crate::model::ListAttestorsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAttestorsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::BinauthzManagementServiceV1",
+                "list_attestors",
+                Some(
+                    "google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1/ListAttestors"
+                )
+            );
+            self.inner
+                .list_attestors(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_attestors(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_attestor(
         &self,
         req: crate::model::DeleteAttestorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::BinauthzManagementServiceV1",
+                "delete_attestor",
+                Some(
+                    "google.cloud.binaryauthorization.v1.BinauthzManagementServiceV1/DeleteAttestor"
+                )
+            );
+            self.inner
+                .delete_attestor(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_attestor(req, options).await
     }
 }
@@ -108,6 +236,8 @@ where
     T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SystemPolicyV1<T>
@@ -115,7 +245,11 @@ where
     T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -123,12 +257,28 @@ impl<T> super::stub::SystemPolicyV1 for SystemPolicyV1<T>
 where
     T: super::stub::SystemPolicyV1 + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_system_policy(
         &self,
         req: crate::model::GetSystemPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SystemPolicyV1",
+                "get_system_policy",
+                Some("google.cloud.binaryauthorization.v1.SystemPolicyV1/GetSystemPolicy")
+            );
+            self.inner
+                .get_system_policy(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_system_policy(req, options).await
     }
 }
@@ -140,6 +290,8 @@ where
     T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> ValidationHelperV1<T>
@@ -147,7 +299,11 @@ where
     T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -155,14 +311,48 @@ impl<T> super::stub::ValidationHelperV1 for ValidationHelperV1<T>
 where
     T: super::stub::ValidationHelperV1 + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn validate_attestation_occurrence(
         &self,
         req: crate::model::ValidateAttestationOccurrenceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ValidateAttestationOccurrenceResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ValidationHelperV1",
+                "validate_attestation_occurrence",
+                Some(
+                    "google.cloud.binaryauthorization.v1.ValidationHelperV1/ValidateAttestationOccurrence"
+                )
+            );
+            self.inner
+                .validate_attestation_occurrence(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .validate_attestation_occurrence(req, options)
             .await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "binaryauthorization";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "binaryauthorization";
+            info
+        };
     }
 }

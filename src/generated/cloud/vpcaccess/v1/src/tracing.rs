@@ -22,6 +22,8 @@ where
     T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> VpcAccessService<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,66 +43,178 @@ impl<T> super::stub::VpcAccessService for VpcAccessService<T>
 where
     T: super::stub::VpcAccessService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_connector(
         &self,
         req: crate::model::CreateConnectorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::VpcAccessService",
+                "create_connector",
+                Some("google.cloud.vpcaccess.v1.VpcAccessService/CreateConnector")
+            );
+            self.inner
+                .create_connector(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_connector(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_connector(
         &self,
         req: crate::model::GetConnectorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Connector>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::VpcAccessService",
+                "get_connector",
+                Some("google.cloud.vpcaccess.v1.VpcAccessService/GetConnector")
+            );
+            self.inner
+                .get_connector(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_connector(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_connectors(
         &self,
         req: crate::model::ListConnectorsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListConnectorsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::VpcAccessService",
+                "list_connectors",
+                Some("google.cloud.vpcaccess.v1.VpcAccessService/ListConnectors")
+            );
+            self.inner
+                .list_connectors(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_connectors(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_connector(
         &self,
         req: crate::model::DeleteConnectorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::VpcAccessService",
+                "delete_connector",
+                Some("google.cloud.vpcaccess.v1.VpcAccessService/DeleteConnector")
+            );
+            self.inner
+                .delete_connector(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_connector(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::VpcAccessService",
+                "list_locations",
+                Some("google.cloud.location.Locations/ListLocations")
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::VpcAccessService",
+                "list_operations",
+                Some("google.longrunning.Operations/ListOperations")
+            );
+            self.inner
+                .list_operations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::VpcAccessService",
+                "get_operation",
+                Some("google.longrunning.Operations/GetOperation")
+            );
+            self.inner
+                .get_operation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
 
@@ -112,5 +230,21 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "vpcaccess";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "vpcaccess";
+            info
+        };
     }
 }

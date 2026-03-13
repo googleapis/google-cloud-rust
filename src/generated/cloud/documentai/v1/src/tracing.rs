@@ -22,6 +22,8 @@ where
     T: super::stub::DocumentProcessorService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> DocumentProcessorService<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::DocumentProcessorService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,246 +43,684 @@ impl<T> super::stub::DocumentProcessorService for DocumentProcessorService<T>
 where
     T: super::stub::DocumentProcessorService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn process_document(
         &self,
         req: crate::model::ProcessRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ProcessResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "process_document",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/ProcessDocument")
+            );
+            self.inner
+                .process_document(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.process_document(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn batch_process_documents(
         &self,
         req: crate::model::BatchProcessRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "batch_process_documents",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/BatchProcessDocuments")
+            );
+            self.inner
+                .batch_process_documents(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.batch_process_documents(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_processor_types(
         &self,
         req: crate::model::FetchProcessorTypesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchProcessorTypesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "fetch_processor_types",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/FetchProcessorTypes")
+            );
+            self.inner
+                .fetch_processor_types(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_processor_types(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_processor_types(
         &self,
         req: crate::model::ListProcessorTypesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListProcessorTypesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "list_processor_types",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/ListProcessorTypes")
+            );
+            self.inner
+                .list_processor_types(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_processor_types(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_processor_type(
         &self,
         req: crate::model::GetProcessorTypeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ProcessorType>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "get_processor_type",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/GetProcessorType")
+            );
+            self.inner
+                .get_processor_type(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_processor_type(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_processors(
         &self,
         req: crate::model::ListProcessorsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListProcessorsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "list_processors",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/ListProcessors")
+            );
+            self.inner
+                .list_processors(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_processors(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_processor(
         &self,
         req: crate::model::GetProcessorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Processor>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "get_processor",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/GetProcessor")
+            );
+            self.inner
+                .get_processor(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_processor(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn train_processor_version(
         &self,
         req: crate::model::TrainProcessorVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "train_processor_version",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/TrainProcessorVersion")
+            );
+            self.inner
+                .train_processor_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.train_processor_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_processor_version(
         &self,
         req: crate::model::GetProcessorVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ProcessorVersion>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "get_processor_version",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/GetProcessorVersion")
+            );
+            self.inner
+                .get_processor_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_processor_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_processor_versions(
         &self,
         req: crate::model::ListProcessorVersionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListProcessorVersionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "list_processor_versions",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/ListProcessorVersions")
+            );
+            self.inner
+                .list_processor_versions(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_processor_versions(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_processor_version(
         &self,
         req: crate::model::DeleteProcessorVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "delete_processor_version",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/DeleteProcessorVersion")
+            );
+            self.inner
+                .delete_processor_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_processor_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn deploy_processor_version(
         &self,
         req: crate::model::DeployProcessorVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "deploy_processor_version",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/DeployProcessorVersion")
+            );
+            self.inner
+                .deploy_processor_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.deploy_processor_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn undeploy_processor_version(
         &self,
         req: crate::model::UndeployProcessorVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "undeploy_processor_version",
+                Some(
+                    "google.cloud.documentai.v1.DocumentProcessorService/UndeployProcessorVersion"
+                )
+            );
+            self.inner
+                .undeploy_processor_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.undeploy_processor_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_processor(
         &self,
         req: crate::model::CreateProcessorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Processor>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "create_processor",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/CreateProcessor")
+            );
+            self.inner
+                .create_processor(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_processor(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_processor(
         &self,
         req: crate::model::DeleteProcessorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "delete_processor",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/DeleteProcessor")
+            );
+            self.inner
+                .delete_processor(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_processor(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn enable_processor(
         &self,
         req: crate::model::EnableProcessorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "enable_processor",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/EnableProcessor")
+            );
+            self.inner
+                .enable_processor(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.enable_processor(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn disable_processor(
         &self,
         req: crate::model::DisableProcessorRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "disable_processor",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/DisableProcessor")
+            );
+            self.inner
+                .disable_processor(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.disable_processor(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn set_default_processor_version(
         &self,
         req: crate::model::SetDefaultProcessorVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "set_default_processor_version",
+                Some(
+                    "google.cloud.documentai.v1.DocumentProcessorService/SetDefaultProcessorVersion"
+                )
+            );
+            self.inner
+                .set_default_processor_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_default_processor_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn review_document(
         &self,
         req: crate::model::ReviewDocumentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "review_document",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/ReviewDocument")
+            );
+            self.inner
+                .review_document(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.review_document(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn evaluate_processor_version(
         &self,
         req: crate::model::EvaluateProcessorVersionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "evaluate_processor_version",
+                Some(
+                    "google.cloud.documentai.v1.DocumentProcessorService/EvaluateProcessorVersion"
+                )
+            );
+            self.inner
+                .evaluate_processor_version(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.evaluate_processor_version(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_evaluation(
         &self,
         req: crate::model::GetEvaluationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Evaluation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "get_evaluation",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/GetEvaluation")
+            );
+            self.inner
+                .get_evaluation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_evaluation(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_evaluations(
         &self,
         req: crate::model::ListEvaluationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListEvaluationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "list_evaluations",
+                Some("google.cloud.documentai.v1.DocumentProcessorService/ListEvaluations")
+            );
+            self.inner
+                .list_evaluations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_evaluations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "list_locations",
+                Some("google.cloud.location.Locations/ListLocations")
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "get_location",
+                Some("google.cloud.location.Locations/GetLocation")
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "list_operations",
+                Some("google.longrunning.Operations/ListOperations")
+            );
+            self.inner
+                .list_operations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "get_operation",
+                Some("google.longrunning.Operations/GetOperation")
+            );
+            self.inner
+                .get_operation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DocumentProcessorService",
+                "cancel_operation",
+                Some("google.longrunning.Operations/CancelOperation")
+            );
+            self.inner
+                .cancel_operation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_operation(req, options).await
     }
 
@@ -292,5 +736,21 @@ where
         options: &crate::RequestOptions,
     ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "documentai";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "documentai";
+            info
+        };
     }
 }

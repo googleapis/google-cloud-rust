@@ -34,7 +34,15 @@ impl std::fmt::Debug for SecretManagerService {
 
 impl SecretManagerService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -58,6 +66,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 )?;
                 let path = format!("/v1/projects/{}/locations", var_project,);
 
+                let _path_template = "/v1/projects/{project}/locations";
+
+                let resource_name =
+                    format!("//secretmanager.googleapis.com/projects/{}", var_project,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .filter
@@ -72,7 +84,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -88,6 +100,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -110,7 +133,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -122,9 +145,15 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 )?;
                 let path = format!("/v1/projects/{}/locations/{}", var_project, var_location,);
 
+                let _path_template = "/v1/projects/{project}/locations/{location}";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/locations/{}",
+                    var_project, var_location,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -146,6 +175,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -168,7 +208,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -176,6 +216,10 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 )?;
                 let path = format!("/v1/projects/{}/secrets", var_project,);
 
+                let _path_template = "/v1/projects/{project}/secrets";
+
+                let resource_name =
+                    format!("//secretmanager.googleapis.com/projects/{}", var_project,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .page_size
@@ -190,7 +234,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("filter", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -206,6 +250,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -228,7 +283,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -236,10 +291,14 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 )?;
                 let path = format!("/v1/projects/{}/secrets", var_project,);
 
+                let _path_template = "/v1/projects/{project}/secrets";
+
+                let resource_name =
+                    format!("//secretmanager.googleapis.com/projects/{}", var_project,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("secretId", &req.secret_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -255,6 +314,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -277,7 +347,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -292,6 +362,12 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_location,
                 );
 
+                let _path_template = "/v1/projects/{project}/locations/{location}/secrets";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/locations/{}",
+                    var_project, var_location,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .page_size
@@ -306,7 +382,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("filter", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -328,6 +404,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -350,7 +437,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -365,10 +452,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_location,
                 );
 
+                let _path_template = "/v1/projects/{project}/locations/{location}/secrets";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/locations/{}",
+                    var_project, var_location,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("secretId", &req.secret_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -390,6 +483,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -412,7 +516,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -427,9 +531,15 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_secret,
                 );
 
+                let _path_template = "/v1/projects/{project}/secrets/{secret}:addVersion";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}",
+                    var_project, var_secret,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -451,6 +561,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -473,7 +594,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -492,9 +613,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_location, var_secret,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project}/locations/{location}/secrets/{secret}:addVersion";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}",
+                    var_project, var_location, var_secret,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -522,6 +650,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -544,7 +683,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -556,9 +695,15 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 )?;
                 let path = format!("/v1/projects/{}/secrets/{}", var_project, var_secret,);
 
+                let _path_template = "/v1/projects/{project}/secrets/{secret}";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}",
+                    var_project, var_secret,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -580,6 +725,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -602,7 +758,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -614,13 +770,19 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 )?;
                 let path = format!("/v1/projects/{}/secrets/{}", var_project, var_secret,);
 
+                let _path_template = "/v1/projects/{project}/secrets/{secret}";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}",
+                    var_project, var_secret,
+                );
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
                     .etag
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("etag", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -642,6 +804,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -664,7 +837,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -676,6 +849,12 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 )?;
                 let path = format!("/v1/projects/{}/secrets/{}", var_project, var_secret,);
 
+                let _path_template = "/v1/projects/{project}/secrets/{secret}";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}",
+                    var_project, var_secret,
+                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = {
@@ -686,7 +865,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     };
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -708,6 +887,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -730,7 +920,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -749,9 +939,15 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_location, var_secret,
                 );
 
+                let _path_template = "/v1/projects/{project}/locations/{location}/secrets/{secret}";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}",
+                    var_project, var_location, var_secret,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -779,6 +975,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -801,7 +1008,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -820,13 +1027,19 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_location, var_secret,
                 );
 
+                let _path_template = "/v1/projects/{project}/locations/{location}/secrets/{secret}";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}",
+                    var_project, var_location, var_secret,
+                );
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
                     .etag
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("etag", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -854,6 +1067,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -876,7 +1100,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -895,6 +1119,12 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_location, var_secret,
                 );
 
+                let _path_template = "/v1/projects/{project}/locations/{location}/secrets/{secret}";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}",
+                    var_project, var_location, var_secret,
+                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = {
@@ -905,7 +1135,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     };
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -933,6 +1163,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -955,7 +1196,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -970,6 +1211,12 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_secret,
                 );
 
+                let _path_template = "/v1/projects/{project}/secrets/{secret}/versions";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}",
+                    var_project, var_secret,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .page_size
@@ -984,7 +1231,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("filter", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1006,6 +1253,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1028,7 +1286,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1047,6 +1305,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_location, var_secret,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project}/locations/{location}/secrets/{secret}/versions";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}",
+                    var_project, var_location, var_secret,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .page_size
@@ -1061,7 +1326,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("filter", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1089,6 +1354,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1111,7 +1387,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1130,9 +1406,15 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_secret, var_version,
                 );
 
+                let _path_template = "/v1/projects/{project}/secrets/{secret}/versions/{version}";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}/versions/{}",
+                    var_project, var_secret, var_version,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1160,6 +1442,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1182,65 +1475,72 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_project = try_match(
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_secret = try_match(Some(&req).map(|m| &m.secret).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_version = try_match(Some(&req).map(|m| &m.version).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
+                var_project,
+                var_location,
+                var_secret,
+                var_version,
+            );
+
+            let _path_template = "/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}";
+
+            let resource_name = format!(
+                "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}/versions/{}",
+                var_project,
+                var_location,
+                var_secret,
+                var_version,
+            );
+            let builder = self.inner.builder(Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_location = try_match(
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_secret = try_match(
+                    "location",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_version = try_match(
+                    "secret",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.version).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
-                    var_project, var_location, var_secret, var_version,
-                );
-
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "location",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "secret",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "version",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "version",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1263,7 +1563,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1282,9 +1582,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_secret, var_version,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project}/secrets/{secret}/versions/{version}:access";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}/versions/{}",
+                    var_project, var_secret, var_version,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1312,6 +1619,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1334,65 +1652,72 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_project = try_match(
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_secret = try_match(Some(&req).map(|m| &m.secret).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_version = try_match(Some(&req).map(|m| &m.version).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
+                var_project,
+                var_location,
+                var_secret,
+                var_version,
+            );
+
+            let _path_template = "/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access";
+
+            let resource_name = format!(
+                "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}/versions/{}",
+                var_project,
+                var_location,
+                var_secret,
+                var_version,
+            );
+            let builder = self.inner.builder(Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_location = try_match(
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_secret = try_match(
+                    "location",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_version = try_match(
+                    "secret",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.version).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
-                    var_project, var_location, var_secret, var_version,
-                );
-
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "location",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "secret",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "version",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "version",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1415,7 +1740,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1434,9 +1759,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_secret, var_version,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project}/secrets/{secret}/versions/{version}:disable";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}/versions/{}",
+                    var_project, var_secret, var_version,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1464,6 +1796,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1486,65 +1829,72 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_project = try_match(
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_secret = try_match(Some(&req).map(|m| &m.secret).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_version = try_match(Some(&req).map(|m| &m.version).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
+                var_project,
+                var_location,
+                var_secret,
+                var_version,
+            );
+
+            let _path_template = "/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:disable";
+
+            let resource_name = format!(
+                "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}/versions/{}",
+                var_project,
+                var_location,
+                var_secret,
+                var_version,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_location = try_match(
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_secret = try_match(
+                    "location",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_version = try_match(
+                    "secret",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.version).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
-                    var_project, var_location, var_secret, var_version,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "location",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "secret",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "version",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "version",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1567,7 +1917,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1586,9 +1936,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_secret, var_version,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project}/secrets/{secret}/versions/{version}:enable";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}/versions/{}",
+                    var_project, var_secret, var_version,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1616,6 +1973,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1638,65 +2006,72 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_project = try_match(
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_secret = try_match(Some(&req).map(|m| &m.secret).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_version = try_match(Some(&req).map(|m| &m.version).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
+                var_project,
+                var_location,
+                var_secret,
+                var_version,
+            );
+
+            let _path_template = "/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:enable";
+
+            let resource_name = format!(
+                "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}/versions/{}",
+                var_project,
+                var_location,
+                var_secret,
+                var_version,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_location = try_match(
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_secret = try_match(
+                    "location",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_version = try_match(
+                    "secret",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.version).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
-                    var_project, var_location, var_secret, var_version,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "location",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "secret",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "version",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "version",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1719,7 +2094,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1738,9 +2113,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_secret, var_version,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}/versions/{}",
+                    var_project, var_secret, var_version,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1768,6 +2150,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1790,65 +2183,72 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_project = try_match(
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_secret = try_match(Some(&req).map(|m| &m.secret).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_version = try_match(Some(&req).map(|m| &m.version).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
+                var_project,
+                var_location,
+                var_secret,
+                var_version,
+            );
+
+            let _path_template = "/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:destroy";
+
+            let resource_name = format!(
+                "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}/versions/{}",
+                var_project,
+                var_location,
+                var_secret,
+                var_version,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_location = try_match(
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_secret = try_match(
+                    "location",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_version = try_match(
+                    "secret",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.version).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
-                    var_project, var_location, var_secret, var_version,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "location",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "secret",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.version).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "version",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "version",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1871,7 +2271,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1886,9 +2286,15 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_secret,
                 );
 
+                let _path_template = "/v1/projects/{project}/secrets/{secret}:setIamPolicy";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}",
+                    var_project, var_secret,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1910,6 +2316,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1932,7 +2349,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1951,9 +2368,16 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_location, var_secret,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project}/locations/{location}/secrets/{secret}:setIamPolicy";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}",
+                    var_project, var_location, var_secret,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1981,6 +2405,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2003,7 +2438,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2018,6 +2453,12 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_secret,
                 );
 
+                let _path_template = "/v1/projects/{project}/secrets/{secret}:getIamPolicy";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}",
+                    var_project, var_secret,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .options_requested_policy_version
@@ -2026,7 +2467,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                         builder.query(&[("options.requestedPolicyVersion", p)])
                     });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2048,6 +2489,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2070,7 +2522,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2089,6 +2541,13 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_location, var_secret,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}",
+                    var_project, var_location, var_secret,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .options_requested_policy_version
@@ -2097,7 +2556,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                         builder.query(&[("options.requestedPolicyVersion", p)])
                     });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2125,6 +2584,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2147,7 +2617,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2162,9 +2632,15 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     var_project, var_secret,
                 );
 
+                let _path_template = "/v1/projects/{project}/secrets/{secret}:testIamPermissions";
+
+                let resource_name = format!(
+                    "//secretmanager.googleapis.com/projects/{}/secrets/{}",
+                    var_project, var_secret,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2186,6 +2662,17 @@ impl super::stub::SecretManagerService for SecretManagerService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2208,55 +2695,64 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_project = try_match(
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_secret = try_match(Some(&req).map(|m| &m.secret).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
+                var_project,
+                var_location,
+                var_secret,
+            );
+
+            let _path_template = "/v1/projects/{project}/locations/{location}/secrets/{secret}:testIamPermissions";
+
+            let resource_name = format!(
+                "//secretmanager.googleapis.com/projects/{}/locations/{}/secrets/{}",
+                var_project,
+                var_location,
+                var_secret,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_location = try_match(
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_secret = try_match(
+                    "location",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
-                    var_project, var_location, var_secret,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "location",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.secret).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "secret",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "secret",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

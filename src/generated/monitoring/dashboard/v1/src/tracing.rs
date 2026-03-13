@@ -22,6 +22,8 @@ where
     T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> DashboardsService<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,48 +43,144 @@ impl<T> super::stub::DashboardsService for DashboardsService<T>
 where
     T: super::stub::DashboardsService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_dashboard(
         &self,
         req: crate::model::CreateDashboardRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dashboard>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DashboardsService",
+                "create_dashboard",
+                Some("google.monitoring.dashboard.v1.DashboardsService/CreateDashboard")
+            );
+            self.inner
+                .create_dashboard(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_dashboard(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_dashboards(
         &self,
         req: crate::model::ListDashboardsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDashboardsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DashboardsService",
+                "list_dashboards",
+                Some("google.monitoring.dashboard.v1.DashboardsService/ListDashboards")
+            );
+            self.inner
+                .list_dashboards(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_dashboards(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_dashboard(
         &self,
         req: crate::model::GetDashboardRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dashboard>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DashboardsService",
+                "get_dashboard",
+                Some("google.monitoring.dashboard.v1.DashboardsService/GetDashboard")
+            );
+            self.inner
+                .get_dashboard(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_dashboard(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_dashboard(
         &self,
         req: crate::model::DeleteDashboardRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DashboardsService",
+                "delete_dashboard",
+                Some("google.monitoring.dashboard.v1.DashboardsService/DeleteDashboard")
+            );
+            self.inner
+                .delete_dashboard(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_dashboard(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_dashboard(
         &self,
         req: crate::model::UpdateDashboardRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Dashboard>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::DashboardsService",
+                "update_dashboard",
+                Some("google.monitoring.dashboard.v1.DashboardsService/UpdateDashboard")
+            );
+            self.inner
+                .update_dashboard(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_dashboard(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "monitoring";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "monitoring";
+            info
+        };
     }
 }

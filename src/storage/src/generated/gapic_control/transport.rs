@@ -51,6 +51,18 @@ impl std::fmt::Debug for StorageControl {
 
 impl StorageControl {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if gaxi::options::tracing_enabled(&config) {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
+        };
+        #[cfg(not(google_cloud_unstable_tracing))]
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -112,6 +124,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::Folder;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -191,6 +205,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = ();
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -270,6 +286,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::Folder;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -338,6 +356,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::ListFoldersResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -417,6 +437,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::longrunning::Operation;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -496,6 +518,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::longrunning::Operation;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -575,6 +599,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::StorageLayout;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -643,6 +669,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::ManagedFolder;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -722,6 +750,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = ();
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -801,6 +831,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::ManagedFolder;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -869,6 +901,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::ListManagedFoldersResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -937,6 +971,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::longrunning::Operation;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -1022,6 +1058,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::longrunning::Operation;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -1101,6 +1139,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -1180,6 +1220,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -1259,6 +1301,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -1338,6 +1382,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -1406,6 +1452,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::ListAnywhereCachesResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -1449,6 +1497,21 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -1493,6 +1556,24 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.intelligence_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -1536,6 +1617,21 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -1580,6 +1676,24 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.intelligence_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -1623,6 +1737,21 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -1667,6 +1796,24 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.intelligence_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -1764,6 +1911,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::iam::v1::Policy;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -1861,6 +2010,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::iam::v1::Policy;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -1992,6 +2143,8 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::iam::v1::TestIamPermissionsResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = { options };
         self.inner
             .execute(
                 extensions,
@@ -2039,6 +2192,21 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::longrunning::Operation;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,

@@ -22,6 +22,8 @@ where
     T: super::stub::ConfidentialComputing + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> ConfidentialComputing<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::ConfidentialComputing + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,57 +43,175 @@ impl<T> super::stub::ConfidentialComputing for ConfidentialComputing<T>
 where
     T: super::stub::ConfidentialComputing + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_challenge(
         &self,
         req: crate::model::CreateChallengeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Challenge>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ConfidentialComputing",
+                "create_challenge",
+                Some("google.cloud.confidentialcomputing.v1.ConfidentialComputing/CreateChallenge")
+            );
+            self.inner
+                .create_challenge(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_challenge(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn verify_attestation(
         &self,
         req: crate::model::VerifyAttestationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VerifyAttestationResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ConfidentialComputing",
+                "verify_attestation",
+                Some(
+                    "google.cloud.confidentialcomputing.v1.ConfidentialComputing/VerifyAttestation"
+                )
+            );
+            self.inner
+                .verify_attestation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.verify_attestation(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn verify_confidential_space(
         &self,
         req: crate::model::VerifyConfidentialSpaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VerifyConfidentialSpaceResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ConfidentialComputing",
+                "verify_confidential_space",
+                Some(
+                    "google.cloud.confidentialcomputing.v1.ConfidentialComputing/VerifyConfidentialSpace"
+                )
+            );
+            self.inner
+                .verify_confidential_space(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.verify_confidential_space(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn verify_confidential_gke(
         &self,
         req: crate::model::VerifyConfidentialGkeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VerifyConfidentialGkeResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ConfidentialComputing",
+                "verify_confidential_gke",
+                Some(
+                    "google.cloud.confidentialcomputing.v1.ConfidentialComputing/VerifyConfidentialGke"
+                )
+            );
+            self.inner
+                .verify_confidential_gke(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.verify_confidential_gke(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ConfidentialComputing",
+                "list_locations",
+                Some("google.cloud.location.Locations/ListLocations")
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::ConfidentialComputing",
+                "get_location",
+                Some("google.cloud.location.Locations/GetLocation")
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "confidentialcomputing";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "confidentialcomputing";
+            info
+        };
     }
 }

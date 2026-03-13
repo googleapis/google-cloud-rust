@@ -51,6 +51,18 @@ impl std::fmt::Debug for Spanner {
 
 impl Spanner {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if gaxi::options::tracing_enabled(&config) {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
+        };
+        #[cfg(not(google_cloud_unstable_tracing))]
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -85,6 +97,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::Session;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.database).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -127,6 +154,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::BatchCreateSessionsResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.database).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -165,6 +207,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::Session;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -203,6 +260,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ListSessionsResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.database).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -244,6 +316,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -282,6 +369,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ResultSet;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -324,6 +426,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ExecuteBatchDmlResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -362,6 +479,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ResultSet;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -404,6 +536,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::Transaction;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -442,6 +589,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::CommitResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -480,6 +642,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -522,6 +699,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::PartitionResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,
@@ -563,6 +755,21 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::PartitionResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+                options.insert_extension(ResourceName(rn))
+            } else {
+                options
+            }
+        };
         self.inner
             .execute(
                 extensions,

@@ -22,6 +22,8 @@ where
     T: super::stub::Dataform + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> Dataform<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::Dataform + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,542 +43,1502 @@ impl<T> super::stub::Dataform for Dataform<T>
 where
     T: super::stub::Dataform + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_repositories(
         &self,
         req: crate::model::ListRepositoriesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRepositoriesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "list_repositories",
+                Some("google.cloud.dataform.v1.Dataform/ListRepositories")
+            );
+            self.inner
+                .list_repositories(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_repositories(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_repository(
         &self,
         req: crate::model::GetRepositoryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Repository>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "get_repository",
+                Some("google.cloud.dataform.v1.Dataform/GetRepository")
+            );
+            self.inner
+                .get_repository(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_repository(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_repository(
         &self,
         req: crate::model::CreateRepositoryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Repository>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "create_repository",
+                Some("google.cloud.dataform.v1.Dataform/CreateRepository")
+            );
+            self.inner
+                .create_repository(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_repository(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_repository(
         &self,
         req: crate::model::UpdateRepositoryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Repository>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "update_repository",
+                Some("google.cloud.dataform.v1.Dataform/UpdateRepository")
+            );
+            self.inner
+                .update_repository(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_repository(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_repository(
         &self,
         req: crate::model::DeleteRepositoryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "delete_repository",
+                Some("google.cloud.dataform.v1.Dataform/DeleteRepository")
+            );
+            self.inner
+                .delete_repository(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_repository(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn commit_repository_changes(
         &self,
         req: crate::model::CommitRepositoryChangesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CommitRepositoryChangesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "commit_repository_changes",
+                Some("google.cloud.dataform.v1.Dataform/CommitRepositoryChanges")
+            );
+            self.inner
+                .commit_repository_changes(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.commit_repository_changes(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn read_repository_file(
         &self,
         req: crate::model::ReadRepositoryFileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReadRepositoryFileResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "read_repository_file",
+                Some("google.cloud.dataform.v1.Dataform/ReadRepositoryFile")
+            );
+            self.inner
+                .read_repository_file(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.read_repository_file(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn query_repository_directory_contents(
         &self,
         req: crate::model::QueryRepositoryDirectoryContentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QueryRepositoryDirectoryContentsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "query_repository_directory_contents",
+                Some("google.cloud.dataform.v1.Dataform/QueryRepositoryDirectoryContents")
+            );
+            self.inner
+                .query_repository_directory_contents(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .query_repository_directory_contents(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_repository_history(
         &self,
         req: crate::model::FetchRepositoryHistoryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchRepositoryHistoryResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "fetch_repository_history",
+                Some("google.cloud.dataform.v1.Dataform/FetchRepositoryHistory")
+            );
+            self.inner
+                .fetch_repository_history(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_repository_history(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn compute_repository_access_token_status(
         &self,
         req: crate::model::ComputeRepositoryAccessTokenStatusRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ComputeRepositoryAccessTokenStatusResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "compute_repository_access_token_status",
+                Some("google.cloud.dataform.v1.Dataform/ComputeRepositoryAccessTokenStatus")
+            );
+            self.inner
+                .compute_repository_access_token_status(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .compute_repository_access_token_status(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_remote_branches(
         &self,
         req: crate::model::FetchRemoteBranchesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchRemoteBranchesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "fetch_remote_branches",
+                Some("google.cloud.dataform.v1.Dataform/FetchRemoteBranches")
+            );
+            self.inner
+                .fetch_remote_branches(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_remote_branches(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_workspaces(
         &self,
         req: crate::model::ListWorkspacesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListWorkspacesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "list_workspaces",
+                Some("google.cloud.dataform.v1.Dataform/ListWorkspaces")
+            );
+            self.inner
+                .list_workspaces(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_workspaces(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_workspace(
         &self,
         req: crate::model::GetWorkspaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Workspace>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "get_workspace",
+                Some("google.cloud.dataform.v1.Dataform/GetWorkspace")
+            );
+            self.inner
+                .get_workspace(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_workspace(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_workspace(
         &self,
         req: crate::model::CreateWorkspaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Workspace>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "create_workspace",
+                Some("google.cloud.dataform.v1.Dataform/CreateWorkspace")
+            );
+            self.inner
+                .create_workspace(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_workspace(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_workspace(
         &self,
         req: crate::model::DeleteWorkspaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "delete_workspace",
+                Some("google.cloud.dataform.v1.Dataform/DeleteWorkspace")
+            );
+            self.inner
+                .delete_workspace(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_workspace(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn install_npm_packages(
         &self,
         req: crate::model::InstallNpmPackagesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InstallNpmPackagesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "install_npm_packages",
+                Some("google.cloud.dataform.v1.Dataform/InstallNpmPackages")
+            );
+            self.inner
+                .install_npm_packages(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.install_npm_packages(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn pull_git_commits(
         &self,
         req: crate::model::PullGitCommitsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PullGitCommitsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "pull_git_commits",
+                Some("google.cloud.dataform.v1.Dataform/PullGitCommits")
+            );
+            self.inner
+                .pull_git_commits(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.pull_git_commits(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn push_git_commits(
         &self,
         req: crate::model::PushGitCommitsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PushGitCommitsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "push_git_commits",
+                Some("google.cloud.dataform.v1.Dataform/PushGitCommits")
+            );
+            self.inner
+                .push_git_commits(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.push_git_commits(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_file_git_statuses(
         &self,
         req: crate::model::FetchFileGitStatusesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchFileGitStatusesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "fetch_file_git_statuses",
+                Some("google.cloud.dataform.v1.Dataform/FetchFileGitStatuses")
+            );
+            self.inner
+                .fetch_file_git_statuses(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_file_git_statuses(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_git_ahead_behind(
         &self,
         req: crate::model::FetchGitAheadBehindRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchGitAheadBehindResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "fetch_git_ahead_behind",
+                Some("google.cloud.dataform.v1.Dataform/FetchGitAheadBehind")
+            );
+            self.inner
+                .fetch_git_ahead_behind(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_git_ahead_behind(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn commit_workspace_changes(
         &self,
         req: crate::model::CommitWorkspaceChangesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CommitWorkspaceChangesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "commit_workspace_changes",
+                Some("google.cloud.dataform.v1.Dataform/CommitWorkspaceChanges")
+            );
+            self.inner
+                .commit_workspace_changes(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.commit_workspace_changes(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn reset_workspace_changes(
         &self,
         req: crate::model::ResetWorkspaceChangesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ResetWorkspaceChangesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "reset_workspace_changes",
+                Some("google.cloud.dataform.v1.Dataform/ResetWorkspaceChanges")
+            );
+            self.inner
+                .reset_workspace_changes(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.reset_workspace_changes(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_file_diff(
         &self,
         req: crate::model::FetchFileDiffRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchFileDiffResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "fetch_file_diff",
+                Some("google.cloud.dataform.v1.Dataform/FetchFileDiff")
+            );
+            self.inner
+                .fetch_file_diff(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_file_diff(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn query_directory_contents(
         &self,
         req: crate::model::QueryDirectoryContentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QueryDirectoryContentsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "query_directory_contents",
+                Some("google.cloud.dataform.v1.Dataform/QueryDirectoryContents")
+            );
+            self.inner
+                .query_directory_contents(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.query_directory_contents(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn search_files(
         &self,
         req: crate::model::SearchFilesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SearchFilesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "search_files",
+                Some("google.cloud.dataform.v1.Dataform/SearchFiles")
+            );
+            self.inner
+                .search_files(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.search_files(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn make_directory(
         &self,
         req: crate::model::MakeDirectoryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::MakeDirectoryResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "make_directory",
+                Some("google.cloud.dataform.v1.Dataform/MakeDirectory")
+            );
+            self.inner
+                .make_directory(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.make_directory(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn remove_directory(
         &self,
         req: crate::model::RemoveDirectoryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RemoveDirectoryResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "remove_directory",
+                Some("google.cloud.dataform.v1.Dataform/RemoveDirectory")
+            );
+            self.inner
+                .remove_directory(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.remove_directory(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn move_directory(
         &self,
         req: crate::model::MoveDirectoryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::MoveDirectoryResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "move_directory",
+                Some("google.cloud.dataform.v1.Dataform/MoveDirectory")
+            );
+            self.inner
+                .move_directory(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.move_directory(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn read_file(
         &self,
         req: crate::model::ReadFileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReadFileResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "read_file",
+                Some("google.cloud.dataform.v1.Dataform/ReadFile")
+            );
+            self.inner
+                .read_file(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.read_file(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn remove_file(
         &self,
         req: crate::model::RemoveFileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RemoveFileResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "remove_file",
+                Some("google.cloud.dataform.v1.Dataform/RemoveFile")
+            );
+            self.inner
+                .remove_file(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.remove_file(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn move_file(
         &self,
         req: crate::model::MoveFileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::MoveFileResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "move_file",
+                Some("google.cloud.dataform.v1.Dataform/MoveFile")
+            );
+            self.inner
+                .move_file(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.move_file(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn write_file(
         &self,
         req: crate::model::WriteFileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WriteFileResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "write_file",
+                Some("google.cloud.dataform.v1.Dataform/WriteFile")
+            );
+            self.inner
+                .write_file(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.write_file(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_release_configs(
         &self,
         req: crate::model::ListReleaseConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListReleaseConfigsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "list_release_configs",
+                Some("google.cloud.dataform.v1.Dataform/ListReleaseConfigs")
+            );
+            self.inner
+                .list_release_configs(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_release_configs(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_release_config(
         &self,
         req: crate::model::GetReleaseConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReleaseConfig>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "get_release_config",
+                Some("google.cloud.dataform.v1.Dataform/GetReleaseConfig")
+            );
+            self.inner
+                .get_release_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_release_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_release_config(
         &self,
         req: crate::model::CreateReleaseConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReleaseConfig>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "create_release_config",
+                Some("google.cloud.dataform.v1.Dataform/CreateReleaseConfig")
+            );
+            self.inner
+                .create_release_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_release_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_release_config(
         &self,
         req: crate::model::UpdateReleaseConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReleaseConfig>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "update_release_config",
+                Some("google.cloud.dataform.v1.Dataform/UpdateReleaseConfig")
+            );
+            self.inner
+                .update_release_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_release_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_release_config(
         &self,
         req: crate::model::DeleteReleaseConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "delete_release_config",
+                Some("google.cloud.dataform.v1.Dataform/DeleteReleaseConfig")
+            );
+            self.inner
+                .delete_release_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_release_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_compilation_results(
         &self,
         req: crate::model::ListCompilationResultsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCompilationResultsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "list_compilation_results",
+                Some("google.cloud.dataform.v1.Dataform/ListCompilationResults")
+            );
+            self.inner
+                .list_compilation_results(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_compilation_results(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_compilation_result(
         &self,
         req: crate::model::GetCompilationResultRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CompilationResult>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "get_compilation_result",
+                Some("google.cloud.dataform.v1.Dataform/GetCompilationResult")
+            );
+            self.inner
+                .get_compilation_result(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_compilation_result(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_compilation_result(
         &self,
         req: crate::model::CreateCompilationResultRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CompilationResult>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "create_compilation_result",
+                Some("google.cloud.dataform.v1.Dataform/CreateCompilationResult")
+            );
+            self.inner
+                .create_compilation_result(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_compilation_result(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn query_compilation_result_actions(
         &self,
         req: crate::model::QueryCompilationResultActionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QueryCompilationResultActionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "query_compilation_result_actions",
+                Some("google.cloud.dataform.v1.Dataform/QueryCompilationResultActions")
+            );
+            self.inner
+                .query_compilation_result_actions(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .query_compilation_result_actions(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_workflow_configs(
         &self,
         req: crate::model::ListWorkflowConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListWorkflowConfigsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "list_workflow_configs",
+                Some("google.cloud.dataform.v1.Dataform/ListWorkflowConfigs")
+            );
+            self.inner
+                .list_workflow_configs(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_workflow_configs(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_workflow_config(
         &self,
         req: crate::model::GetWorkflowConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WorkflowConfig>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "get_workflow_config",
+                Some("google.cloud.dataform.v1.Dataform/GetWorkflowConfig")
+            );
+            self.inner
+                .get_workflow_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_workflow_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_workflow_config(
         &self,
         req: crate::model::CreateWorkflowConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WorkflowConfig>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "create_workflow_config",
+                Some("google.cloud.dataform.v1.Dataform/CreateWorkflowConfig")
+            );
+            self.inner
+                .create_workflow_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_workflow_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_workflow_config(
         &self,
         req: crate::model::UpdateWorkflowConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WorkflowConfig>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "update_workflow_config",
+                Some("google.cloud.dataform.v1.Dataform/UpdateWorkflowConfig")
+            );
+            self.inner
+                .update_workflow_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_workflow_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_workflow_config(
         &self,
         req: crate::model::DeleteWorkflowConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "delete_workflow_config",
+                Some("google.cloud.dataform.v1.Dataform/DeleteWorkflowConfig")
+            );
+            self.inner
+                .delete_workflow_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_workflow_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_workflow_invocations(
         &self,
         req: crate::model::ListWorkflowInvocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListWorkflowInvocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "list_workflow_invocations",
+                Some("google.cloud.dataform.v1.Dataform/ListWorkflowInvocations")
+            );
+            self.inner
+                .list_workflow_invocations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_workflow_invocations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_workflow_invocation(
         &self,
         req: crate::model::GetWorkflowInvocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WorkflowInvocation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "get_workflow_invocation",
+                Some("google.cloud.dataform.v1.Dataform/GetWorkflowInvocation")
+            );
+            self.inner
+                .get_workflow_invocation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_workflow_invocation(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_workflow_invocation(
         &self,
         req: crate::model::CreateWorkflowInvocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WorkflowInvocation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "create_workflow_invocation",
+                Some("google.cloud.dataform.v1.Dataform/CreateWorkflowInvocation")
+            );
+            self.inner
+                .create_workflow_invocation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_workflow_invocation(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_workflow_invocation(
         &self,
         req: crate::model::DeleteWorkflowInvocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "delete_workflow_invocation",
+                Some("google.cloud.dataform.v1.Dataform/DeleteWorkflowInvocation")
+            );
+            self.inner
+                .delete_workflow_invocation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_workflow_invocation(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn cancel_workflow_invocation(
         &self,
         req: crate::model::CancelWorkflowInvocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CancelWorkflowInvocationResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "cancel_workflow_invocation",
+                Some("google.cloud.dataform.v1.Dataform/CancelWorkflowInvocation")
+            );
+            self.inner
+                .cancel_workflow_invocation(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_workflow_invocation(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn query_workflow_invocation_actions(
         &self,
         req: crate::model::QueryWorkflowInvocationActionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QueryWorkflowInvocationActionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "query_workflow_invocation_actions",
+                Some("google.cloud.dataform.v1.Dataform/QueryWorkflowInvocationActions")
+            );
+            self.inner
+                .query_workflow_invocation_actions(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .query_workflow_invocation_actions(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_config(
         &self,
         req: crate::model::GetConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Config>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "get_config",
+                Some("google.cloud.dataform.v1.Dataform/GetConfig")
+            );
+            self.inner
+                .get_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_config(
         &self,
         req: crate::model::UpdateConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Config>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "update_config",
+                Some("google.cloud.dataform.v1.Dataform/UpdateConfig")
+            );
+            self.inner
+                .update_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "list_locations",
+                Some("google.cloud.location.Locations/ListLocations")
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "get_location",
+                Some("google.cloud.location.Locations/GetLocation")
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "set_iam_policy",
+                Some("google.iam.v1.IAMPolicy/SetIamPolicy")
+            );
+            self.inner
+                .set_iam_policy(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "get_iam_policy",
+                Some("google.iam.v1.IAMPolicy/GetIamPolicy")
+            );
+            self.inner
+                .get_iam_policy(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::Dataform",
+                "test_iam_permissions",
+                Some("google.iam.v1.IAMPolicy/TestIamPermissions")
+            );
+            self.inner
+                .test_iam_permissions(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "dataform";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "dataform";
+            info
+        };
     }
 }

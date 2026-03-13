@@ -22,6 +22,8 @@ where
     T: super::stub::IcebergCatalogService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> IcebergCatalogService<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::IcebergCatalogService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,178 +43,498 @@ impl<T> super::stub::IcebergCatalogService for IcebergCatalogService<T>
 where
     T: super::stub::IcebergCatalogService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iceberg_catalog_config(
         &self,
         req: crate::model::GetIcebergCatalogConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergCatalogConfig>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "get_iceberg_catalog_config",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/GetIcebergCatalogConfig")
+            );
+            self.inner
+                .get_iceberg_catalog_config(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iceberg_catalog_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_iceberg_namespaces(
         &self,
         req: crate::model::ListIcebergNamespacesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIcebergNamespacesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "list_iceberg_namespaces",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/ListIcebergNamespaces")
+            );
+            self.inner
+                .list_iceberg_namespaces(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_iceberg_namespaces(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iceberg_namespace(
         &self,
         req: crate::model::GetIcebergNamespaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergNamespace>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "get_iceberg_namespace",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/GetIcebergNamespace")
+            );
+            self.inner
+                .get_iceberg_namespace(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iceberg_namespace(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_iceberg_namespace(
         &self,
         req: crate::model::CreateIcebergNamespaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergNamespace>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "create_iceberg_namespace",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/CreateIcebergNamespace")
+            );
+            self.inner
+                .create_iceberg_namespace(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_iceberg_namespace(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_iceberg_namespace(
         &self,
         req: crate::model::DeleteIcebergNamespaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "delete_iceberg_namespace",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/DeleteIcebergNamespace")
+            );
+            self.inner
+                .delete_iceberg_namespace(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_iceberg_namespace(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_iceberg_namespace(
         &self,
         req: crate::model::UpdateIcebergNamespaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::UpdateIcebergNamespaceResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "update_iceberg_namespace",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/UpdateIcebergNamespace")
+            );
+            self.inner
+                .update_iceberg_namespace(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_iceberg_namespace(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_iceberg_table_identifiers(
         &self,
         req: crate::model::ListIcebergTableIdentifiersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIcebergTableIdentifiersResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "list_iceberg_table_identifiers",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/ListIcebergTableIdentifiers")
+            );
+            self.inner
+                .list_iceberg_table_identifiers(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_iceberg_table_identifiers(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_iceberg_table(
         &self,
         req: crate::model::CreateIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "create_iceberg_table",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/CreateIcebergTable")
+            );
+            self.inner
+                .create_iceberg_table(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_iceberg_table(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_iceberg_table(
         &self,
         req: crate::model::DeleteIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "delete_iceberg_table",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/DeleteIcebergTable")
+            );
+            self.inner
+                .delete_iceberg_table(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_iceberg_table(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iceberg_table(
         &self,
         req: crate::model::GetIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "get_iceberg_table",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/GetIcebergTable")
+            );
+            self.inner
+                .get_iceberg_table(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iceberg_table(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn load_iceberg_table_credentials(
         &self,
         req: crate::model::GetIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LoadIcebergTableCredentialsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "load_iceberg_table_credentials",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/LoadIcebergTableCredentials")
+            );
+            self.inner
+                .load_iceberg_table_credentials(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .load_iceberg_table_credentials(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_iceberg_table(
         &self,
         req: crate::model::UpdateIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "update_iceberg_table",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/UpdateIcebergTable")
+            );
+            self.inner
+                .update_iceberg_table(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_iceberg_table(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn register_iceberg_table(
         &self,
         req: crate::model::RegisterIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "register_iceberg_table",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/RegisterIcebergTable")
+            );
+            self.inner
+                .register_iceberg_table(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.register_iceberg_table(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iceberg_catalog(
         &self,
         req: crate::model::GetIcebergCatalogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergCatalog>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "get_iceberg_catalog",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/GetIcebergCatalog")
+            );
+            self.inner
+                .get_iceberg_catalog(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iceberg_catalog(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_iceberg_catalogs(
         &self,
         req: crate::model::ListIcebergCatalogsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIcebergCatalogsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "list_iceberg_catalogs",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/ListIcebergCatalogs")
+            );
+            self.inner
+                .list_iceberg_catalogs(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_iceberg_catalogs(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_iceberg_catalog(
         &self,
         req: crate::model::DeleteIcebergCatalogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "delete_iceberg_catalog",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/DeleteIcebergCatalog")
+            );
+            self.inner
+                .delete_iceberg_catalog(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_iceberg_catalog(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_iceberg_catalog(
         &self,
         req: crate::model::UpdateIcebergCatalogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergCatalog>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "update_iceberg_catalog",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/UpdateIcebergCatalog")
+            );
+            self.inner
+                .update_iceberg_catalog(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_iceberg_catalog(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_iceberg_catalog(
         &self,
         req: crate::model::CreateIcebergCatalogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergCatalog>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "create_iceberg_catalog",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/CreateIcebergCatalog")
+            );
+            self.inner
+                .create_iceberg_catalog(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_iceberg_catalog(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn failover_iceberg_catalog(
         &self,
         req: crate::model::FailoverIcebergCatalogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FailoverIcebergCatalogResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::IcebergCatalogService",
+                "failover_iceberg_catalog",
+                Some("google.cloud.biglake.v1.IcebergCatalogService/FailoverIcebergCatalog")
+            );
+            self.inner
+                .failover_iceberg_catalog(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.failover_iceberg_catalog(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "biglake";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "biglake";
+            info
+        };
     }
 }

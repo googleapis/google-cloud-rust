@@ -22,6 +22,8 @@ where
     T: super::stub::RecaptchaEnterpriseService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> RecaptchaEnterpriseService<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::RecaptchaEnterpriseService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,205 +43,603 @@ impl<T> super::stub::RecaptchaEnterpriseService for RecaptchaEnterpriseService<T
 where
     T: super::stub::RecaptchaEnterpriseService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_assessment(
         &self,
         req: crate::model::CreateAssessmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Assessment>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "create_assessment",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/CreateAssessment"
+                )
+            );
+            self.inner
+                .create_assessment(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_assessment(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn annotate_assessment(
         &self,
         req: crate::model::AnnotateAssessmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnnotateAssessmentResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "annotate_assessment",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/AnnotateAssessment"
+                )
+            );
+            self.inner
+                .annotate_assessment(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.annotate_assessment(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_key(
         &self,
         req: crate::model::CreateKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Key>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "create_key",
+                Some("google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/CreateKey")
+            );
+            self.inner
+                .create_key(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_key(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_keys(
         &self,
         req: crate::model::ListKeysRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListKeysResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "list_keys",
+                Some("google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ListKeys")
+            );
+            self.inner
+                .list_keys(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_keys(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn retrieve_legacy_secret_key(
         &self,
         req: crate::model::RetrieveLegacySecretKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RetrieveLegacySecretKeyResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "retrieve_legacy_secret_key",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/RetrieveLegacySecretKey"
+                )
+            );
+            self.inner
+                .retrieve_legacy_secret_key(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.retrieve_legacy_secret_key(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_key(
         &self,
         req: crate::model::GetKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Key>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "get_key",
+                Some("google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/GetKey")
+            );
+            self.inner
+                .get_key(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_key(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_key(
         &self,
         req: crate::model::UpdateKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Key>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "update_key",
+                Some("google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/UpdateKey")
+            );
+            self.inner
+                .update_key(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_key(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_key(
         &self,
         req: crate::model::DeleteKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "delete_key",
+                Some("google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/DeleteKey")
+            );
+            self.inner
+                .delete_key(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_key(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn migrate_key(
         &self,
         req: crate::model::MigrateKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Key>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "migrate_key",
+                Some("google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/MigrateKey")
+            );
+            self.inner
+                .migrate_key(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.migrate_key(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn add_ip_override(
         &self,
         req: crate::model::AddIpOverrideRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AddIpOverrideResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "add_ip_override",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/AddIpOverride"
+                )
+            );
+            self.inner
+                .add_ip_override(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.add_ip_override(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn remove_ip_override(
         &self,
         req: crate::model::RemoveIpOverrideRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RemoveIpOverrideResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "remove_ip_override",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/RemoveIpOverride"
+                )
+            );
+            self.inner
+                .remove_ip_override(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.remove_ip_override(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_ip_overrides(
         &self,
         req: crate::model::ListIpOverridesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIpOverridesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "list_ip_overrides",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ListIpOverrides"
+                )
+            );
+            self.inner
+                .list_ip_overrides(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_ip_overrides(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_metrics(
         &self,
         req: crate::model::GetMetricsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Metrics>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "get_metrics",
+                Some("google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/GetMetrics")
+            );
+            self.inner
+                .get_metrics(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_metrics(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_firewall_policy(
         &self,
         req: crate::model::CreateFirewallPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FirewallPolicy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "create_firewall_policy",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/CreateFirewallPolicy"
+                )
+            );
+            self.inner
+                .create_firewall_policy(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_firewall_policy(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_firewall_policies(
         &self,
         req: crate::model::ListFirewallPoliciesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListFirewallPoliciesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "list_firewall_policies",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ListFirewallPolicies"
+                )
+            );
+            self.inner
+                .list_firewall_policies(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_firewall_policies(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_firewall_policy(
         &self,
         req: crate::model::GetFirewallPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FirewallPolicy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "get_firewall_policy",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/GetFirewallPolicy"
+                )
+            );
+            self.inner
+                .get_firewall_policy(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_firewall_policy(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_firewall_policy(
         &self,
         req: crate::model::UpdateFirewallPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FirewallPolicy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "update_firewall_policy",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/UpdateFirewallPolicy"
+                )
+            );
+            self.inner
+                .update_firewall_policy(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_firewall_policy(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_firewall_policy(
         &self,
         req: crate::model::DeleteFirewallPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "delete_firewall_policy",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/DeleteFirewallPolicy"
+                )
+            );
+            self.inner
+                .delete_firewall_policy(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_firewall_policy(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn reorder_firewall_policies(
         &self,
         req: crate::model::ReorderFirewallPoliciesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReorderFirewallPoliciesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "reorder_firewall_policies",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ReorderFirewallPolicies"
+                )
+            );
+            self.inner
+                .reorder_firewall_policies(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.reorder_firewall_policies(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_related_account_groups(
         &self,
         req: crate::model::ListRelatedAccountGroupsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRelatedAccountGroupsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "list_related_account_groups",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ListRelatedAccountGroups"
+                )
+            );
+            self.inner
+                .list_related_account_groups(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_related_account_groups(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_related_account_group_memberships(
         &self,
         req: crate::model::ListRelatedAccountGroupMembershipsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "list_related_account_group_memberships",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ListRelatedAccountGroupMemberships"
+                )
+            );
+            self.inner
+                .list_related_account_group_memberships(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_related_account_group_memberships(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn search_related_account_group_memberships(
         &self,
         req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::RecaptchaEnterpriseService",
+                "search_related_account_group_memberships",
+                Some(
+                    "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/SearchRelatedAccountGroupMemberships"
+                )
+            );
+            self.inner
+                .search_related_account_group_memberships(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .search_related_account_group_memberships(req, options)
             .await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "recaptchaenterprise";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "recaptchaenterprise";
+            info
+        };
     }
 }

@@ -21,15 +21,15 @@ sources:
     commit: e71037cb61157fc835aa269a5a43eed030414064
     sha256: 079946035f9f465e33bf1416818f21c548af8dc5723056e6591b7e58809ee82a
   googleapis:
-    commit: a0ff7486adf5ae827a140c3b45102019c592b438
-    sha256: 3656a116db271553908bb7741f86dbe010cb88fc78e71c8c68067de6babbdc00
+    commit: aa3a93a945627f5123f035ada27c6e49ea0ae0d9
+    sha256: c7ef2370296e25cc30f6bab3d7047a5db77e4f7e12f391afacbbd2a006759b75
   protobuf:
-    commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
-    sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
+    commit: fbbc2b6acbfe563683d83d5fbfe3032fd8af2f08
+    sha256: 7a3c7c6cfe5b92af2e212431f046bde837affd13d96977a98083e053a8963158
     subpath: src
   showcase:
-    commit: 3fd9cb2f682d5f8263d913eaba8b78e045acc4d2
-    sha256: ed1e698886cb4ab9b90ca98cfee38023d813e9729fca7297578c81c4af3e1e9e
+    commit: 2dfb915413f836ef31f42d6c96104ed670dfbaf5
+    sha256: 9ac84bda5b5d7402123fd412b1e798fc2ec95b9a39ac3dc2abb3eb59bdc91cd7
 release:
   branch: main
   ignored_changes:
@@ -297,10 +297,9 @@ libraries:
           match: |2
                 - `folders/<folder-number>`
                 - `organizations/<organization-number>`
-          replace: |+
+          replace: |
             - `folders/<folder-number>`
             - `organizations/<organization-number>`
-
   - name: google-cloud-api-servicemanagement-v1
     version: 1.7.0
     apis:
@@ -327,6 +326,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-apikeys-v2
+      detailed_tracing_attributes: true
   - name: google-cloud-apiregistry-v1
     version: 0.1.1
     copyright_year: "2026"
@@ -417,6 +417,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-artifactregistry-v1
+      detailed_tracing_attributes: true
   - name: google-cloud-asset-v1
     version: 1.6.0
     copyright_year: "2025"
@@ -434,6 +435,7 @@ libraries:
         - name: google-cloud-osconfig-v1
           package: google-cloud-osconfig-v1
           source: google.cloud.osconfig.v1
+      detailed_tracing_attributes: true
   - name: google-cloud-assuredworkloads-v1
     version: 1.7.0
     copyright_year: "2025"
@@ -499,6 +501,7 @@ libraries:
     skip_release: true
     rust:
       package_name_override: google-cloud-bigquery-v2
+      detailed_tracing_attributes: true
   - name: google-cloud-bigtable
     copyright_year: "2025"
     output: src/bigtable
@@ -521,6 +524,7 @@ libraries:
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-build-v1
+      detailed_tracing_attributes: true
   - name: google-cloud-build-v2
     version: 1.6.0
     apis:
@@ -752,6 +756,8 @@ libraries:
         - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
+      detailed_tracing_attributes: true
+      resource_name_heuristic: true
       discovery:
         operation_id: ..Operation
         pollers:
@@ -815,6 +821,7 @@ libraries:
         - output: src/firestore/src/generated/protos/firestore
           api_path: google/firestore/v1
           template: prost
+      detailed_tracing_attributes: true
   - name: google-cloud-firestore-admin-v1
     version: 1.7.0
     apis:

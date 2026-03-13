@@ -22,6 +22,8 @@ where
     T: super::stub::SecurityCenterManagement + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> SecurityCenterManagement<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::SecurityCenterManagement + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,7 +43,7 @@ impl<T> super::stub::SecurityCenterManagement for SecurityCenterManagement<T>
 where
     T: super::stub::SecurityCenterManagement + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_effective_security_health_analytics_custom_modules(
         &self,
         req: crate::model::ListEffectiveSecurityHealthAnalyticsCustomModulesRequest,
@@ -45,35 +51,89 @@ where
     ) -> Result<
         crate::Response<crate::model::ListEffectiveSecurityHealthAnalyticsCustomModulesResponse>,
     > {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "list_effective_security_health_analytics_custom_modules",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListEffectiveSecurityHealthAnalyticsCustomModules"
+                )
+            );
+            self.inner
+                .list_effective_security_health_analytics_custom_modules(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_effective_security_health_analytics_custom_modules(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_effective_security_health_analytics_custom_module(
         &self,
         req: crate::model::GetEffectiveSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EffectiveSecurityHealthAnalyticsCustomModule>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "get_effective_security_health_analytics_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/GetEffectiveSecurityHealthAnalyticsCustomModule"
+                )
+            );
+            self.inner
+                .get_effective_security_health_analytics_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_effective_security_health_analytics_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_security_health_analytics_custom_modules(
         &self,
         req: crate::model::ListSecurityHealthAnalyticsCustomModulesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecurityHealthAnalyticsCustomModulesResponse>>
     {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "list_security_health_analytics_custom_modules",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListSecurityHealthAnalyticsCustomModules"
+                )
+            );
+            self.inner
+                .list_security_health_analytics_custom_modules(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_security_health_analytics_custom_modules(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_descendant_security_health_analytics_custom_modules(
         &self,
         req: crate::model::ListDescendantSecurityHealthAnalyticsCustomModulesRequest,
@@ -81,102 +141,264 @@ where
     ) -> Result<
         crate::Response<crate::model::ListDescendantSecurityHealthAnalyticsCustomModulesResponse>,
     > {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "list_descendant_security_health_analytics_custom_modules",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListDescendantSecurityHealthAnalyticsCustomModules"
+                )
+            );
+            self.inner
+                .list_descendant_security_health_analytics_custom_modules(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_descendant_security_health_analytics_custom_modules(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_security_health_analytics_custom_module(
         &self,
         req: crate::model::GetSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecurityHealthAnalyticsCustomModule>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "get_security_health_analytics_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/GetSecurityHealthAnalyticsCustomModule"
+                )
+            );
+            self.inner
+                .get_security_health_analytics_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_security_health_analytics_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_security_health_analytics_custom_module(
         &self,
         req: crate::model::CreateSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecurityHealthAnalyticsCustomModule>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "create_security_health_analytics_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/CreateSecurityHealthAnalyticsCustomModule"
+                )
+            );
+            self.inner
+                .create_security_health_analytics_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .create_security_health_analytics_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_security_health_analytics_custom_module(
         &self,
         req: crate::model::UpdateSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecurityHealthAnalyticsCustomModule>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "update_security_health_analytics_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/UpdateSecurityHealthAnalyticsCustomModule"
+                )
+            );
+            self.inner
+                .update_security_health_analytics_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .update_security_health_analytics_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_security_health_analytics_custom_module(
         &self,
         req: crate::model::DeleteSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "delete_security_health_analytics_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/DeleteSecurityHealthAnalyticsCustomModule"
+                )
+            );
+            self.inner
+                .delete_security_health_analytics_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .delete_security_health_analytics_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn simulate_security_health_analytics_custom_module(
         &self,
         req: crate::model::SimulateSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SimulateSecurityHealthAnalyticsCustomModuleResponse>>
     {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "simulate_security_health_analytics_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/SimulateSecurityHealthAnalyticsCustomModule"
+                )
+            );
+            self.inner
+                .simulate_security_health_analytics_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .simulate_security_health_analytics_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_effective_event_threat_detection_custom_modules(
         &self,
         req: crate::model::ListEffectiveEventThreatDetectionCustomModulesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListEffectiveEventThreatDetectionCustomModulesResponse>>
     {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "list_effective_event_threat_detection_custom_modules",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListEffectiveEventThreatDetectionCustomModules"
+                )
+            );
+            self.inner
+                .list_effective_event_threat_detection_custom_modules(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_effective_event_threat_detection_custom_modules(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_effective_event_threat_detection_custom_module(
         &self,
         req: crate::model::GetEffectiveEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EffectiveEventThreatDetectionCustomModule>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "get_effective_event_threat_detection_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/GetEffectiveEventThreatDetectionCustomModule"
+                )
+            );
+            self.inner
+                .get_effective_event_threat_detection_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_effective_event_threat_detection_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_event_threat_detection_custom_modules(
         &self,
         req: crate::model::ListEventThreatDetectionCustomModulesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListEventThreatDetectionCustomModulesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "list_event_threat_detection_custom_modules",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListEventThreatDetectionCustomModules"
+                )
+            );
+            self.inner
+                .list_event_threat_detection_custom_modules(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_event_threat_detection_custom_modules(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_descendant_event_threat_detection_custom_modules(
         &self,
         req: crate::model::ListDescendantEventThreatDetectionCustomModulesRequest,
@@ -184,111 +406,321 @@ where
     ) -> Result<
         crate::Response<crate::model::ListDescendantEventThreatDetectionCustomModulesResponse>,
     > {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "list_descendant_event_threat_detection_custom_modules",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListDescendantEventThreatDetectionCustomModules"
+                )
+            );
+            self.inner
+                .list_descendant_event_threat_detection_custom_modules(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .list_descendant_event_threat_detection_custom_modules(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_event_threat_detection_custom_module(
         &self,
         req: crate::model::GetEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EventThreatDetectionCustomModule>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "get_event_threat_detection_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/GetEventThreatDetectionCustomModule"
+                )
+            );
+            self.inner
+                .get_event_threat_detection_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .get_event_threat_detection_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_event_threat_detection_custom_module(
         &self,
         req: crate::model::CreateEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EventThreatDetectionCustomModule>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "create_event_threat_detection_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/CreateEventThreatDetectionCustomModule"
+                )
+            );
+            self.inner
+                .create_event_threat_detection_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .create_event_threat_detection_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_event_threat_detection_custom_module(
         &self,
         req: crate::model::UpdateEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EventThreatDetectionCustomModule>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "update_event_threat_detection_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/UpdateEventThreatDetectionCustomModule"
+                )
+            );
+            self.inner
+                .update_event_threat_detection_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .update_event_threat_detection_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_event_threat_detection_custom_module(
         &self,
         req: crate::model::DeleteEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "delete_event_threat_detection_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/DeleteEventThreatDetectionCustomModule"
+                )
+            );
+            self.inner
+                .delete_event_threat_detection_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .delete_event_threat_detection_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn validate_event_threat_detection_custom_module(
         &self,
         req: crate::model::ValidateEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ValidateEventThreatDetectionCustomModuleResponse>>
     {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "validate_event_threat_detection_custom_module",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ValidateEventThreatDetectionCustomModule"
+                )
+            );
+            self.inner
+                .validate_event_threat_detection_custom_module(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .validate_event_threat_detection_custom_module(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_security_center_service(
         &self,
         req: crate::model::GetSecurityCenterServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecurityCenterService>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "get_security_center_service",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/GetSecurityCenterService"
+                )
+            );
+            self.inner
+                .get_security_center_service(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_security_center_service(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_security_center_services(
         &self,
         req: crate::model::ListSecurityCenterServicesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecurityCenterServicesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "list_security_center_services",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListSecurityCenterServices"
+                )
+            );
+            self.inner
+                .list_security_center_services(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_security_center_services(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_security_center_service(
         &self,
         req: crate::model::UpdateSecurityCenterServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecurityCenterService>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "update_security_center_service",
+                Some(
+                    "google.cloud.securitycentermanagement.v1.SecurityCenterManagement/UpdateSecurityCenterService"
+                )
+            );
+            self.inner
+                .update_security_center_service(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .update_security_center_service(req, options)
             .await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "list_locations",
+                Some("google.cloud.location.Locations/ListLocations")
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::SecurityCenterManagement",
+                "get_location",
+                Some("google.cloud.location.Locations/GetLocation")
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "securitycentermanagement";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "securitycentermanagement";
+            info
+        };
     }
 }

@@ -22,6 +22,8 @@ where
     T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> MigrationService<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,66 +43,194 @@ impl<T> super::stub::MigrationService for MigrationService<T>
 where
     T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_migration_workflow(
         &self,
         req: crate::model::CreateMigrationWorkflowRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::MigrationWorkflow>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::MigrationService",
+                "create_migration_workflow",
+                Some("google.cloud.bigquery.migration.v2.MigrationService/CreateMigrationWorkflow")
+            );
+            self.inner
+                .create_migration_workflow(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_migration_workflow(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_migration_workflow(
         &self,
         req: crate::model::GetMigrationWorkflowRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::MigrationWorkflow>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::MigrationService",
+                "get_migration_workflow",
+                Some("google.cloud.bigquery.migration.v2.MigrationService/GetMigrationWorkflow")
+            );
+            self.inner
+                .get_migration_workflow(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_migration_workflow(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_migration_workflows(
         &self,
         req: crate::model::ListMigrationWorkflowsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListMigrationWorkflowsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::MigrationService",
+                "list_migration_workflows",
+                Some("google.cloud.bigquery.migration.v2.MigrationService/ListMigrationWorkflows")
+            );
+            self.inner
+                .list_migration_workflows(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_migration_workflows(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_migration_workflow(
         &self,
         req: crate::model::DeleteMigrationWorkflowRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::MigrationService",
+                "delete_migration_workflow",
+                Some("google.cloud.bigquery.migration.v2.MigrationService/DeleteMigrationWorkflow")
+            );
+            self.inner
+                .delete_migration_workflow(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_migration_workflow(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn start_migration_workflow(
         &self,
         req: crate::model::StartMigrationWorkflowRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::MigrationService",
+                "start_migration_workflow",
+                Some("google.cloud.bigquery.migration.v2.MigrationService/StartMigrationWorkflow")
+            );
+            self.inner
+                .start_migration_workflow(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.start_migration_workflow(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_migration_subtask(
         &self,
         req: crate::model::GetMigrationSubtaskRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::MigrationSubtask>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::MigrationService",
+                "get_migration_subtask",
+                Some("google.cloud.bigquery.migration.v2.MigrationService/GetMigrationSubtask")
+            );
+            self.inner
+                .get_migration_subtask(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_migration_subtask(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_migration_subtasks(
         &self,
         req: crate::model::ListMigrationSubtasksRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListMigrationSubtasksResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::MigrationService",
+                "list_migration_subtasks",
+                Some("google.cloud.bigquery.migration.v2.MigrationService/ListMigrationSubtasks")
+            );
+            self.inner
+                .list_migration_subtasks(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_migration_subtasks(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "bigquerymigration";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "bigquerymigration";
+            info
+        };
     }
 }

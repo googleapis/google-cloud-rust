@@ -34,7 +34,15 @@ impl std::fmt::Debug for ClusterManager {
 
 impl ClusterManager {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -63,11 +71,14 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}/clusters", var_parent,);
 
+                let _path_template = "/v1/{parent}/clusters";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("projectId", &req.project_id)]);
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -83,10 +94,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone,
                 );
 
+                let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("parent", &req.parent)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -123,6 +138,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -145,7 +171,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -160,12 +186,15 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let _path_template = "/v1/{name}";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("projectId", &req.project_id)]);
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = builder.query(&[("clusterId", &req.cluster_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -185,10 +214,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -233,6 +266,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -255,7 +299,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -268,9 +312,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}/clusters", var_parent,);
 
+                let _path_template = "/v1/{parent}/clusters";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -286,9 +333,13 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone,
                 );
 
+                let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -325,6 +376,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -347,7 +409,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -362,9 +424,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let _path_template = "/v1/{name}";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -384,9 +449,13 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -431,6 +500,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -453,104 +533,95 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_name = try_match(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/clusters/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/nodePools/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}", var_name,);
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/{}",
+                var_name,
+            );
 
-                let builder = self.inner.builder(Method::PUT, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
-            })
-            .or_else(|| {
-                let var_project_id = try_match(
+            let _path_template = "/v1/{name}";
+
+            let resource_name = format!(
+                "//container.googleapis.com/{}",
+                var_name,
+            );
+            let builder = self.inner.builder(Method::PUT, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::PUT, _path_template, resource_name)))
+        })
+        .or_else(|| {
+            let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_cluster_id = try_match(Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_node_pool_id = try_match(Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/update",
+                var_project_id,
+                var_zone,
+                var_cluster_id,
+                var_node_pool_id,
+            );
+
+            let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}/update";
+
+            let resource_name = format!(
+                "//container.googleapis.com/projects/{}",
+                var_project_id,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/clusters/*/nodePools/*");
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_zone = try_match(
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_cluster_id = try_match(
+                    "zone",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_node_pool_id = try_match(
+                    "cluster_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/update",
-                    var_project_id, var_zone, var_cluster_id, var_node_pool_id,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/clusters/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/nodePools/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/clusters/*/nodePools/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "cluster_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "node_pool_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "node_pool_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -573,104 +644,95 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_name = try_match(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/clusters/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/nodePools/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setAutoscaling", var_name,);
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/{}:setAutoscaling",
+                var_name,
+            );
 
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .or_else(|| {
-                let var_project_id = try_match(
+            let _path_template = "/v1/{name}:setAutoscaling";
+
+            let resource_name = format!(
+                "//container.googleapis.com/{}",
+                var_name,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .or_else(|| {
+            let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_cluster_id = try_match(Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_node_pool_id = try_match(Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/autoscaling",
+                var_project_id,
+                var_zone,
+                var_cluster_id,
+                var_node_pool_id,
+            );
+
+            let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}/autoscaling";
+
+            let resource_name = format!(
+                "//container.googleapis.com/projects/{}",
+                var_project_id,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/clusters/*/nodePools/*");
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_zone = try_match(
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_cluster_id = try_match(
+                    "zone",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_node_pool_id = try_match(
+                    "cluster_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/autoscaling",
-                    var_project_id, var_zone, var_cluster_id, var_node_pool_id,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/clusters/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/nodePools/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/clusters/*/nodePools/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "cluster_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "node_pool_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "node_pool_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -693,7 +755,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -708,9 +770,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:setLogging", var_name,);
 
+                let _path_template = "/v1/{name}:setLogging";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -730,9 +795,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/logging";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -777,6 +847,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -799,7 +880,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -814,9 +895,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:setMonitoring", var_name,);
 
+                let _path_template = "/v1/{name}:setMonitoring";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -836,9 +920,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/monitoring";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -883,6 +972,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -905,7 +1005,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -920,9 +1020,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:setAddons", var_name,);
 
+                let _path_template = "/v1/{name}:setAddons";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -942,9 +1045,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/addons";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -989,6 +1097,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1011,7 +1130,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1026,9 +1145,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:setLocations", var_name,);
 
+                let _path_template = "/v1/{name}:setLocations";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1048,9 +1170,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/locations";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1095,6 +1222,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1117,7 +1255,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1132,9 +1270,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:updateMaster", var_name,);
 
+                let _path_template = "/v1/{name}:updateMaster";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1154,9 +1295,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/master";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1201,6 +1347,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1223,7 +1380,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1238,9 +1395,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:setMasterAuth", var_name,);
 
+                let _path_template = "/v1/{name}:setMasterAuth";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1260,9 +1420,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}:setMasterAuth";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1307,6 +1472,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1329,7 +1505,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1344,12 +1520,15 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let _path_template = "/v1/{name}";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("projectId", &req.project_id)]);
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = builder.query(&[("clusterId", &req.cluster_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1369,10 +1548,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1417,6 +1600,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1439,7 +1633,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1452,11 +1646,14 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}/operations", var_parent,);
 
+                let _path_template = "/v1/{parent}/operations";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("projectId", &req.project_id)]);
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1472,10 +1669,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone,
                 );
 
+                let _path_template = "/v1/projects/{project_id}/zones/{zone}/operations";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("parent", &req.parent)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1512,6 +1713,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1534,7 +1746,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1549,12 +1761,15 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let _path_template = "/v1/{name}";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("projectId", &req.project_id)]);
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = builder.query(&[("operationId", &req.operation_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1574,10 +1789,15 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_operation_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/operations/{operation_id}";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1622,6 +1842,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1644,7 +1875,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1659,9 +1890,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
 
+                let _path_template = "/v1/{name}:cancel";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1681,9 +1915,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_operation_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/operations/{operation_id}:cancel";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1728,6 +1967,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1756,7 +2006,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1769,11 +2019,14 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}/serverConfig", var_name,);
 
+                let _path_template = "/v1/{name}/serverConfig";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("projectId", &req.project_id)]);
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1789,10 +2042,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone,
                 );
 
+                let _path_template = "/v1/projects/{project_id}/zones/{zone}/serverconfig";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1829,6 +2086,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1851,7 +2119,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1866,9 +2134,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}/jwks", var_parent,);
 
+                let _path_template = "/v1/{parent}/jwks";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1891,6 +2162,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1913,7 +2195,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1928,12 +2210,15 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}/nodePools", var_parent,);
 
+                let _path_template = "/v1/{parent}/nodePools";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("projectId", &req.project_id)]);
                 let builder = builder.query(&[("zone", &req.zone)]);
                 let builder = builder.query(&[("clusterId", &req.cluster_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -1953,10 +2238,15 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("parent", &req.parent)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2001,6 +2291,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2023,109 +2324,100 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_name = try_match(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/clusters/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/nodePools/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}", var_name,);
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/{}",
+                var_name,
+            );
 
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = builder.query(&[("projectId", &req.project_id)]);
-                let builder = builder.query(&[("zone", &req.zone)]);
-                let builder = builder.query(&[("clusterId", &req.cluster_id)]);
-                let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
-            })
-            .or_else(|| {
-                let var_project_id = try_match(
+            let _path_template = "/v1/{name}";
+
+            let resource_name = format!(
+                "//container.googleapis.com/{}",
+                var_name,
+            );
+            let builder = self.inner.builder(Method::GET, path);
+            let builder = builder.query(&[("projectId", &req.project_id)]);
+            let builder = builder.query(&[("zone", &req.zone)]);
+            let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+            let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+        })
+        .or_else(|| {
+            let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_cluster_id = try_match(Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_node_pool_id = try_match(Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
+                var_project_id,
+                var_zone,
+                var_cluster_id,
+                var_node_pool_id,
+            );
+
+            let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}";
+
+            let resource_name = format!(
+                "//container.googleapis.com/projects/{}",
+                var_project_id,
+            );
+            let builder = self.inner.builder(Method::GET, path);
+            let builder = builder.query(&[("name", &req.name)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/clusters/*/nodePools/*");
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_zone = try_match(
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_cluster_id = try_match(
+                    "zone",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_node_pool_id = try_match(
+                    "cluster_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
-                    var_project_id, var_zone, var_cluster_id, var_node_pool_id,
-                );
-
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = builder.query(&[("name", &req.name)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/clusters/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/nodePools/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/clusters/*/nodePools/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "cluster_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "node_pool_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "node_pool_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2148,7 +2440,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2163,9 +2455,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}/nodePools", var_parent,);
 
+                let _path_template = "/v1/{parent}/nodePools";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -2185,9 +2480,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2232,6 +2532,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2254,109 +2565,100 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_name = try_match(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/clusters/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/nodePools/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}", var_name,);
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/{}",
+                var_name,
+            );
 
-                let builder = self.inner.builder(Method::DELETE, path);
-                let builder = builder.query(&[("projectId", &req.project_id)]);
-                let builder = builder.query(&[("zone", &req.zone)]);
-                let builder = builder.query(&[("clusterId", &req.cluster_id)]);
-                let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
-            })
-            .or_else(|| {
-                let var_project_id = try_match(
+            let _path_template = "/v1/{name}";
+
+            let resource_name = format!(
+                "//container.googleapis.com/{}",
+                var_name,
+            );
+            let builder = self.inner.builder(Method::DELETE, path);
+            let builder = builder.query(&[("projectId", &req.project_id)]);
+            let builder = builder.query(&[("zone", &req.zone)]);
+            let builder = builder.query(&[("clusterId", &req.cluster_id)]);
+            let builder = builder.query(&[("nodePoolId", &req.node_pool_id)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+        })
+        .or_else(|| {
+            let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_cluster_id = try_match(Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_node_pool_id = try_match(Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
+                var_project_id,
+                var_zone,
+                var_cluster_id,
+                var_node_pool_id,
+            );
+
+            let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}";
+
+            let resource_name = format!(
+                "//container.googleapis.com/projects/{}",
+                var_project_id,
+            );
+            let builder = self.inner.builder(Method::DELETE, path);
+            let builder = builder.query(&[("name", &req.name)]);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::DELETE, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/clusters/*/nodePools/*");
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_zone = try_match(
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_cluster_id = try_match(
+                    "zone",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_node_pool_id = try_match(
+                    "cluster_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}",
-                    var_project_id, var_zone, var_cluster_id, var_node_pool_id,
-                );
-
-                let builder = self.inner.builder(Method::DELETE, path);
-                let builder = builder.query(&[("name", &req.name)]);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/clusters/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/nodePools/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/clusters/*/nodePools/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "cluster_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "node_pool_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "node_pool_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2379,7 +2681,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2396,9 +2698,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:completeUpgrade", var_name,);
 
+                let _path_template = "/v1/{name}:completeUpgrade";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2423,6 +2728,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2451,104 +2767,95 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_name = try_match(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/clusters/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/nodePools/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:rollback", var_name,);
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/{}:rollback",
+                var_name,
+            );
 
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .or_else(|| {
-                let var_project_id = try_match(
+            let _path_template = "/v1/{name}:rollback";
+
+            let resource_name = format!(
+                "//container.googleapis.com/{}",
+                var_name,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .or_else(|| {
+            let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_cluster_id = try_match(Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_node_pool_id = try_match(Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}:rollback",
+                var_project_id,
+                var_zone,
+                var_cluster_id,
+                var_node_pool_id,
+            );
+
+            let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}:rollback";
+
+            let resource_name = format!(
+                "//container.googleapis.com/projects/{}",
+                var_project_id,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/clusters/*/nodePools/*");
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_zone = try_match(
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_cluster_id = try_match(
+                    "zone",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_node_pool_id = try_match(
+                    "cluster_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}:rollback",
-                    var_project_id, var_zone, var_cluster_id, var_node_pool_id,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/clusters/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/nodePools/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/clusters/*/nodePools/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "cluster_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "node_pool_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "node_pool_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2571,104 +2878,95 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_name = try_match(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/clusters/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/nodePools/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setManagement", var_name,);
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/{}:setManagement",
+                var_name,
+            );
 
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .or_else(|| {
-                let var_project_id = try_match(
+            let _path_template = "/v1/{name}:setManagement";
+
+            let resource_name = format!(
+                "//container.googleapis.com/{}",
+                var_name,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .or_else(|| {
+            let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_cluster_id = try_match(Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_node_pool_id = try_match(Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setManagement",
+                var_project_id,
+                var_zone,
+                var_cluster_id,
+                var_node_pool_id,
+            );
+
+            let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}/setManagement";
+
+            let resource_name = format!(
+                "//container.googleapis.com/projects/{}",
+                var_project_id,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/clusters/*/nodePools/*");
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_zone = try_match(
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_cluster_id = try_match(
+                    "zone",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_node_pool_id = try_match(
+                    "cluster_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setManagement",
-                    var_project_id, var_zone, var_cluster_id, var_node_pool_id,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/clusters/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/nodePools/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/clusters/*/nodePools/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "cluster_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "node_pool_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "node_pool_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2691,7 +2989,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2706,9 +3004,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:setResourceLabels", var_name,);
 
+                let _path_template = "/v1/{name}:setResourceLabels";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -2728,9 +3029,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/resourceLabels";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2775,6 +3081,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2797,7 +3114,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2812,9 +3129,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:setLegacyAbac", var_name,);
 
+                let _path_template = "/v1/{name}:setLegacyAbac";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -2834,9 +3154,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/legacyAbac";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2881,6 +3206,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2903,7 +3239,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2918,9 +3254,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:startIpRotation", var_name,);
 
+                let _path_template = "/v1/{name}:startIpRotation";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -2940,9 +3279,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}:startIpRotation";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2987,6 +3331,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3009,90 +3364,88 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_name = try_match(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/clusters/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:completeIpRotation", var_name,);
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/{}:completeIpRotation",
+                var_name,
+            );
 
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .or_else(|| {
-                let var_project_id = try_match(
+            let _path_template = "/v1/{name}:completeIpRotation";
+
+            let resource_name = format!(
+                "//container.googleapis.com/{}",
+                var_name,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .or_else(|| {
+            let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_cluster_id = try_match(Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/zones/{}/clusters/{}:completeIpRotation",
+                var_project_id,
+                var_zone,
+                var_cluster_id,
+            );
+
+            let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}:completeIpRotation";
+
+            let resource_name = format!(
+                "//container.googleapis.com/projects/{}",
+                var_project_id,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/clusters/*");
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_zone = try_match(
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_cluster_id = try_match(
+                    "zone",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/zones/{}/clusters/{}:completeIpRotation",
-                    var_project_id, var_zone, var_cluster_id,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/clusters/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/clusters/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "cluster_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "cluster_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3115,104 +3468,95 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_name = try_match(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/clusters/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/nodePools/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setSize", var_name,);
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/{}:setSize",
+                var_name,
+            );
 
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .or_else(|| {
-                let var_project_id = try_match(
+            let _path_template = "/v1/{name}:setSize";
+
+            let resource_name = format!(
+                "//container.googleapis.com/{}",
+                var_name,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .or_else(|| {
+            let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_cluster_id = try_match(Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_node_pool_id = try_match(Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setSize",
+                var_project_id,
+                var_zone,
+                var_cluster_id,
+                var_node_pool_id,
+            );
+
+            let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}/nodePools/{node_pool_id}/setSize";
+
+            let resource_name = format!(
+                "//container.googleapis.com/projects/{}",
+                var_project_id,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard, Segment::Literal("/nodePools/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/clusters/*/nodePools/*");
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_zone = try_match(
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_cluster_id = try_match(
+                    "zone",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_node_pool_id = try_match(
+                    "cluster_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/zones/{}/clusters/{}/nodePools/{}/setSize",
-                    var_project_id, var_zone, var_cluster_id, var_node_pool_id,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/clusters/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/nodePools/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/clusters/*/nodePools/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "cluster_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.node_pool_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "node_pool_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "node_pool_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3235,7 +3579,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3250,9 +3594,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:setNetworkPolicy", var_name,);
 
+                let _path_template = "/v1/{name}:setNetworkPolicy";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_project_id = try_match(
@@ -3272,9 +3619,14 @@ impl super::stub::ClusterManager for ClusterManager {
                     var_project_id, var_zone, var_cluster_id,
                 );
 
+                let _path_template =
+                    "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}:setNetworkPolicy";
+
+                let resource_name =
+                    format!("//container.googleapis.com/projects/{}", var_project_id,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3319,6 +3671,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3341,90 +3704,88 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_name = try_match(
-                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/clusters/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setMaintenancePolicy", var_name,);
+        let (builder, method, _path_template, resource_name) = None
+        .or_else(|| {
+            let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/{}:setMaintenancePolicy",
+                var_name,
+            );
 
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .or_else(|| {
-                let var_project_id = try_match(
+            let _path_template = "/v1/{name}:setMaintenancePolicy";
+
+            let resource_name = format!(
+                "//container.googleapis.com/{}",
+                var_name,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .or_else(|| {
+            let var_project_id = try_match(Some(&req).map(|m| &m.project_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_cluster_id = try_match(Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/zones/{}/clusters/{}:setMaintenancePolicy",
+                var_project_id,
+                var_zone,
+                var_cluster_id,
+            );
+
+            let _path_template = "/v1/projects/{project_id}/zones/{zone}/clusters/{cluster_id}:setMaintenancePolicy";
+
+            let resource_name = format!(
+                "//container.googleapis.com/projects/{}",
+                var_project_id,
+            );
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, _path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/clusters/"), Segment::SingleWildcard],
+                    "name",
+                    "projects/*/locations/*/clusters/*");
+                paths.push(builder.build());
+            }
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_zone = try_match(
+                    "project_id",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_cluster_id = try_match(
+                    "zone",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/v1/projects/{}/zones/{}/clusters/{}:setMaintenancePolicy",
-                    var_project_id, var_zone, var_cluster_id,
-                );
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/clusters/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "name",
-                        "projects/*/locations/*/clusters/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project_id",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "zone",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.cluster_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "cluster_id",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "cluster_id",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3447,7 +3808,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3455,12 +3816,15 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}/aggregated/usableSubnetworks", var_parent,);
 
+                let _path_template = "/v1/{parent}/aggregated/usableSubnetworks";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3476,6 +3840,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3498,7 +3873,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3513,9 +3888,12 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:checkAutopilotCompatibility", var_name,);
 
+                let _path_template = "/v1/{name}:checkAutopilotCompatibility";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3538,6 +3916,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3560,7 +3949,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3575,10 +3964,13 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:fetchClusterUpgradeInfo", var_name,);
 
+                let _path_template = "/v1/{name}:fetchClusterUpgradeInfo";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3594,10 +3986,13 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:fetchClusterUpgradeInfo", var_name,);
 
+                let _path_template = "/v1/{name}:fetchClusterUpgradeInfo";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3637,6 +4032,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3659,7 +4065,7 @@ impl super::stub::ClusterManager for ClusterManager {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3676,10 +4082,13 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:fetchNodePoolUpgradeInfo", var_name,);
 
+                let _path_template = "/v1/{name}:fetchNodePoolUpgradeInfo";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3697,10 +4106,13 @@ impl super::stub::ClusterManager for ClusterManager {
                 )?;
                 let path = format!("/v1/{}:fetchNodePoolUpgradeInfo", var_name,);
 
+                let _path_template = "/v1/{name}:fetchNodePoolUpgradeInfo";
+
+                let resource_name = format!("//container.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3744,6 +4156,17 @@ impl super::stub::ClusterManager for ClusterManager {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

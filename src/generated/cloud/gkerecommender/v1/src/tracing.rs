@@ -22,6 +22,8 @@ where
     T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> GkeInferenceQuickstart<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,57 +43,173 @@ impl<T> super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart<T>
 where
     T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_models(
         &self,
         req: crate::model::FetchModelsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchModelsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::GkeInferenceQuickstart",
+                "fetch_models",
+                Some("google.cloud.gkerecommender.v1.GkeInferenceQuickstart/FetchModels")
+            );
+            self.inner
+                .fetch_models(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_models(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_model_servers(
         &self,
         req: crate::model::FetchModelServersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchModelServersResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::GkeInferenceQuickstart",
+                "fetch_model_servers",
+                Some("google.cloud.gkerecommender.v1.GkeInferenceQuickstart/FetchModelServers")
+            );
+            self.inner
+                .fetch_model_servers(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_model_servers(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_model_server_versions(
         &self,
         req: crate::model::FetchModelServerVersionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchModelServerVersionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::GkeInferenceQuickstart",
+                "fetch_model_server_versions",
+                Some(
+                    "google.cloud.gkerecommender.v1.GkeInferenceQuickstart/FetchModelServerVersions"
+                )
+            );
+            self.inner
+                .fetch_model_server_versions(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_model_server_versions(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_profiles(
         &self,
         req: crate::model::FetchProfilesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchProfilesResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::GkeInferenceQuickstart",
+                "fetch_profiles",
+                Some("google.cloud.gkerecommender.v1.GkeInferenceQuickstart/FetchProfiles")
+            );
+            self.inner
+                .fetch_profiles(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_profiles(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn generate_optimized_manifest(
         &self,
         req: crate::model::GenerateOptimizedManifestRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateOptimizedManifestResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::GkeInferenceQuickstart",
+                "generate_optimized_manifest",
+                Some(
+                    "google.cloud.gkerecommender.v1.GkeInferenceQuickstart/GenerateOptimizedManifest"
+                )
+            );
+            self.inner
+                .generate_optimized_manifest(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.generate_optimized_manifest(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fetch_benchmarking_data(
         &self,
         req: crate::model::FetchBenchmarkingDataRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchBenchmarkingDataResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::GkeInferenceQuickstart",
+                "fetch_benchmarking_data",
+                Some("google.cloud.gkerecommender.v1.GkeInferenceQuickstart/FetchBenchmarkingData")
+            );
+            self.inner
+                .fetch_benchmarking_data(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fetch_benchmarking_data(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "gkerecommender";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "gkerecommender";
+            info
+        };
     }
 }

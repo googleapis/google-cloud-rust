@@ -22,6 +22,8 @@ where
     T: super::stub::EssentialContactsService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> EssentialContactsService<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::EssentialContactsService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,66 +43,194 @@ impl<T> super::stub::EssentialContactsService for EssentialContactsService<T>
 where
     T: super::stub::EssentialContactsService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_contact(
         &self,
         req: crate::model::CreateContactRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Contact>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::EssentialContactsService",
+                "create_contact",
+                Some("google.cloud.essentialcontacts.v1.EssentialContactsService/CreateContact")
+            );
+            self.inner
+                .create_contact(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_contact(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_contact(
         &self,
         req: crate::model::UpdateContactRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Contact>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::EssentialContactsService",
+                "update_contact",
+                Some("google.cloud.essentialcontacts.v1.EssentialContactsService/UpdateContact")
+            );
+            self.inner
+                .update_contact(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_contact(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_contacts(
         &self,
         req: crate::model::ListContactsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListContactsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::EssentialContactsService",
+                "list_contacts",
+                Some("google.cloud.essentialcontacts.v1.EssentialContactsService/ListContacts")
+            );
+            self.inner
+                .list_contacts(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_contacts(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_contact(
         &self,
         req: crate::model::GetContactRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Contact>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::EssentialContactsService",
+                "get_contact",
+                Some("google.cloud.essentialcontacts.v1.EssentialContactsService/GetContact")
+            );
+            self.inner
+                .get_contact(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_contact(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_contact(
         &self,
         req: crate::model::DeleteContactRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::EssentialContactsService",
+                "delete_contact",
+                Some("google.cloud.essentialcontacts.v1.EssentialContactsService/DeleteContact")
+            );
+            self.inner
+                .delete_contact(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_contact(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn compute_contacts(
         &self,
         req: crate::model::ComputeContactsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ComputeContactsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::EssentialContactsService",
+                "compute_contacts",
+                Some("google.cloud.essentialcontacts.v1.EssentialContactsService/ComputeContacts")
+            );
+            self.inner
+                .compute_contacts(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.compute_contacts(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn send_test_message(
         &self,
         req: crate::model::SendTestMessageRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::EssentialContactsService",
+                "send_test_message",
+                Some("google.cloud.essentialcontacts.v1.EssentialContactsService/SendTestMessage")
+            );
+            self.inner
+                .send_test_message(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.send_test_message(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "essentialcontacts";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "essentialcontacts";
+            info
+        };
     }
 }

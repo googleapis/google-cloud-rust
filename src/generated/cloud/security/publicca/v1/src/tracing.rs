@@ -22,6 +22,8 @@ where
     T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> PublicCertificateAuthorityService<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,12 +43,46 @@ impl<T> super::stub::PublicCertificateAuthorityService for PublicCertificateAuth
 where
     T: super::stub::PublicCertificateAuthorityService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_external_account_key(
         &self,
         req: crate::model::CreateExternalAccountKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ExternalAccountKey>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ClientSignalsExt as _;
+            let (start, span) = gaxi::client_request_signals!(
+                &info::INSTRUMENTATION_CLIENT_INFO,
+                &options,
+                "client::PublicCertificateAuthorityService",
+                "create_external_account_key",
+                Some(
+                    "google.cloud.security.publicca.v1.PublicCertificateAuthorityService/CreateExternalAccountKey"
+                )
+            );
+            self.inner
+                .create_external_account_key(req, options)
+                .instrument_client(self.duration.clone(), start, span)
+                .await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_external_account_key(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "publicca";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "publicca";
+            info
+        };
     }
 }
