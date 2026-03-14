@@ -31,9 +31,27 @@ use crate::{
 };
 #[cfg(google_cloud_unstable_tracing)]
 use gaxi::observability::ResultExt;
+use gaxi::gcs_constants::{DEFAULT_GRPC_WRITE_CHUNK_SIZE, ENV_GRPC_WRITE_CHUNK_SIZE, MAX_GRPC_WRITE_CHUNK_SIZE};
 use std::sync::Arc;
 #[cfg(google_cloud_unstable_tracing)]
 use tracing::Instrument;
+
+/// Returns the effective gRPC write chunk size.
+///
+/// Priority:
+///   1. `S3DLIO_GRPC_WRITE_CHUNK_SIZE` env var (bytes) — silently clamped to
+///      [`MAX_GRPC_WRITE_CHUNK_SIZE`] if the provided value exceeds the server limit.
+///   2. [`DEFAULT_GRPC_WRITE_CHUNK_SIZE`].
+///
+/// Both constants are defined in `gcs_constants` — the single source of truth
+/// for all GCS/gRPC tuning values.
+fn grpc_write_chunk_size() -> usize {
+    let requested = std::env::var(ENV_GRPC_WRITE_CHUNK_SIZE)
+        .ok()
+        .and_then(|v| v.parse::<usize>().ok())
+        .unwrap_or(DEFAULT_GRPC_WRITE_CHUNK_SIZE);
+    requested.min(MAX_GRPC_WRITE_CHUNK_SIZE)
+}
 
 /// An implementation of [`stub::Storage`][crate::storage::stub::Storage] that
 /// interacts with the Cloud Storage service.
@@ -271,6 +289,171 @@ impl super::stub::Storage for Storage {
         }
         self.write_object_unbuffered_plain(payload, req, options)
             .await
+    }
+
+    async fn write_object_grpc(
+        &self,
+        data: bytes::Bytes,
+        req: WriteObjectRequest,
+        options: RequestOptions,
+    ) -> Result<Object> {
+        use crate::google::storage::v2::{
+            bidi_write_object_request, bidi_write_object_response, BidiWriteObjectRequest,
+            BidiWriteObjectResponse, ChecksummedData, ObjectChecksums,
+            WriteObjectSpec as ProtoWriteObjectSpec,
+        };
+        use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
+        use crate::Error;
+        use gaxi::grpc::tonic::{Extensions, GrpcMethod, Streaming};
+        use gaxi::prost::ToProto;
+
+        let resource = req
+            .spec
+            .resource
+            .as_ref()
+            .expect("resource field must be set");
+        let bucket_name = resource.bucket.clone();
+        let proto_resource = req
+            .spec
+            .resource
+            .clone()
+            .map(|r| r.to_proto())
+            .transpose()
+            .map_err(|e| Error::io(format!("failed to convert Object to proto: {e}")))?;
+
+        let proto_spec = ProtoWriteObjectSpec {
+            resource: proto_resource,
+            predefined_acl: req.spec.predefined_acl.clone(),
+            if_generation_match: req.spec.if_generation_match,
+            if_generation_not_match: req.spec.if_generation_not_match,
+            if_metageneration_match: req.spec.if_metageneration_match,
+            if_metageneration_not_match: req.spec.if_metageneration_not_match,
+            object_size: Some(data.len() as i64),
+            appendable: req.spec.appendable,
+        };
+
+        let object_crc32c = crc32c::crc32c(&data);
+        let chunk_size = grpc_write_chunk_size();
+        let total_len = data.len();
+        let num_chunks_est = if total_len == 0 { 1 } else { (total_len + chunk_size - 1) / chunk_size };
+        tracing::trace!(
+            "BidiWriteObject: total_size={} bytes, chunk_size={} bytes ({:.1} MiB), estimated_chunks={}, appendable={:?}, object_crc32c={:#010x}",
+            total_len, chunk_size, chunk_size as f64 / (1024.0 * 1024.0), num_chunks_est, req.spec.appendable, object_crc32c
+        );
+
+        let x_goog_request_params = format!("bucket={bucket_name}");
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new("google.storage.v2.Storage", "BidiWriteObject"));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/BidiWriteObject");
+
+        const PRODUCER_CHANNEL_CAPACITY: usize = 8;
+        let (tx, rx) = tokio::sync::mpsc::channel::<BidiWriteObjectRequest>(PRODUCER_CHANNEL_CAPACITY);
+
+        let producer_task = {
+            let data = data.clone();
+            let proto_spec = proto_spec.clone();
+            tokio::spawn(async move {
+                let mut offset: usize = 0;
+                let mut msg_index: usize = 0;
+                while offset < total_len || (total_len == 0 && msg_index == 0) {
+                    let end = std::cmp::min(offset + chunk_size, total_len);
+                    let chunk = data.slice(offset..end);
+                    let chunk_crc = crc32c::crc32c(&chunk);
+                    let is_first = msg_index == 0;
+                    let is_last = end >= total_len;
+
+                    let request = BidiWriteObjectRequest {
+                        write_offset: offset as i64,
+                        object_checksums: if is_last {
+                            Some(ObjectChecksums {
+                                crc32c: Some(object_crc32c),
+                                md5_hash: bytes::Bytes::new(),
+                            })
+                        } else {
+                            None
+                        },
+                        state_lookup: false,
+                        flush: is_last,
+                        finish_write: is_last,
+                        common_object_request_params: None,
+                        first_message: if is_first {
+                            Some(bidi_write_object_request::FirstMessage::WriteObjectSpec(
+                                proto_spec.clone(),
+                            ))
+                        } else {
+                            None
+                        },
+                        data: Some(bidi_write_object_request::Data::ChecksummedData(
+                            ChecksummedData {
+                                content: chunk,
+                                crc32c: Some(chunk_crc),
+                            },
+                        )),
+                    };
+
+                    tracing::trace!(
+                        "BidiWriteObject: chunk {}/{} offset={} len={} crc32c={:#010x} first={} last={}",
+                        msg_index + 1, num_chunks_est, offset, end - offset, chunk_crc, is_first, is_last
+                    );
+                    if tx.send(request).await.is_err() {
+                        break;
+                    }
+                    offset = end;
+                    msg_index += 1;
+                }
+                tracing::trace!("BidiWriteObject producer: sent {} chunk(s)", msg_index);
+            })
+        };
+
+        let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
+        let response: std::result::Result<
+            gaxi::grpc::tonic::Result<gaxi::grpc::tonic::Response<Streaming<BidiWriteObjectResponse>>>,
+            crate::Error,
+        > = self
+            .inner
+            .grpc
+            .bidi_stream_with_status(
+                extensions,
+                path,
+                request_stream,
+                options.gax(),
+                &X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await;
+
+        producer_task.abort();
+        let _ = producer_task.await;
+
+        let tonic_result = response?;
+        let tonic_response = tonic_result.map_err(gaxi::grpc::from_status::to_gax_error)?;
+        let (_, mut stream, _) = tonic_response.into_parts();
+
+        loop {
+            match stream.message().await {
+                Ok(Some(msg)) => {
+                    if let Some(bidi_write_object_response::WriteStatus::Resource(proto_obj)) =
+                        msg.write_status
+                    {
+                        use gaxi::prost::FromProto;
+                        let model_obj: crate::model::Object =
+                            proto_obj.cnv().map_err(|e| {
+                                Error::io(format!("failed to convert proto Object to model: {e}"))
+                            })?;
+                        return Ok(model_obj);
+                    }
+                }
+                Ok(None) => {
+                    return Err(Error::io("BidiWriteObject stream ended without returning Object"));
+                }
+                Err(status) => {
+                    return Err(gaxi::grpc::from_status::to_gax_error(status));
+                }
+            }
+        }
     }
 
     async fn open_object(

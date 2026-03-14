@@ -41,6 +41,7 @@ use google_cloud_gax::retry_policy::{
     Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _,
 };
 use google_cloud_gax::retry_throttler::SharedRetryThrottler;
+use crate::gcs_constants::{DEFAULT_WINDOW_MIB, ENV_GRPC_INITIAL_WINDOW_MIB};
 use http::HeaderMap;
 use std::sync::Arc;
 use std::time::Duration;
@@ -440,6 +441,39 @@ impl Client {
         } else {
             endpoint
         };
+        // -----------------------------------------------------------------------
+        // HTTP/2 flow-control window tuning — s3dlio patch
+        //
+        // The HTTP/2 default stream window is 65,535 bytes (RFC 7540 §6.9.2).
+        // On a 1 ms same-region GCS link this caps a single gRPC stream at
+        // ~64 MB/s, so with 24 parallel requests the aggregate ceiling is
+        // ~1.5 GB/s regardless of network capacity.
+        //
+        // Setting a 128 MiB window makes each stream effectively unlimited at
+        // the speeds a single GCP VM can achieve (≤ 100 Gbps), leaving only
+        // the NIC and the GCS server as the bottleneck.
+        //
+        // Control via `S3DLIO_GRPC_INITIAL_WINDOW_MIB` (default: see gcs_constants::DEFAULT_WINDOW_MIB).
+        // Set to 0 to use the HTTP/2 protocol default (65 KB).
+        // -----------------------------------------------------------------------
+        let window_mib = std::env::var(ENV_GRPC_INITIAL_WINDOW_MIB)
+            .ok()
+            .and_then(|v| v.parse::<u64>().ok())
+            .unwrap_or(DEFAULT_WINDOW_MIB);
+
+        let endpoint = if window_mib > 0 {
+            // Cap at u32::MAX to satisfy the tonic API.
+            let window_bytes = (window_mib * 1024 * 1024).min(u32::MAX as u64) as u32;
+            endpoint
+                .initial_connection_window_size(window_bytes)
+                .initial_stream_window_size(window_bytes)
+                // Disable Nagle's algorithm: critical for the bidi streaming write
+                // path where chunk headers are sent before the data portion.
+                .tcp_nodelay(true)
+        } else {
+            endpoint
+        };
+
         Ok(endpoint.origin(origin).concurrency_limit(100))
     }
 

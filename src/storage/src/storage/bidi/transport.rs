@@ -14,6 +14,7 @@
 
 use super::active_read::ActiveRead;
 use super::range_reader::RangeReader;
+use crate::constants::BIDI_REQUEST_CHANNEL_CAPACITY;
 use crate::model::Object;
 use crate::model_ext::{ReadRange, RequestedRange};
 use crate::read_object::ReadObjectResponse;
@@ -41,7 +42,7 @@ impl ObjectDescriptorTransport {
     {
         use gaxi::prost::FromProto;
 
-        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        let (tx, rx) = tokio::sync::mpsc::channel(BIDI_REQUEST_CHANNEL_CAPACITY);
         let requested_ranges = ranges.into_iter().map(|r| r.0).collect::<Vec<_>>();
         let proto_ranges = requested_ranges
             .iter()
@@ -79,7 +80,7 @@ impl ObjectDescriptorTransport {
         ranges
             .into_iter()
             .map(|r| {
-                let (tx, rx) = tokio::sync::mpsc::channel(100);
+                let (tx, rx) = tokio::sync::mpsc::channel(BIDI_REQUEST_CHANNEL_CAPACITY);
                 let active = ActiveRead::new(tx, r);
                 let reader = RangeReader::new(rx, object.clone(), requests.clone());
                 (active, ReadObjectResponse::new(Box::new(reader)))
@@ -97,7 +98,7 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
     }
 
     async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
-        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        let (tx, rx) = tokio::sync::mpsc::channel(BIDI_REQUEST_CHANNEL_CAPACITY);
         let range = ActiveRead::new(tx, range.0);
         self.tx
             .send(range)

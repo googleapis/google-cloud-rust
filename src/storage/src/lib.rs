@@ -56,6 +56,7 @@ pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
 pub mod backoff_policy;
+pub mod constants;
 pub mod object_descriptor;
 pub mod read_object;
 pub mod read_resume_policy;

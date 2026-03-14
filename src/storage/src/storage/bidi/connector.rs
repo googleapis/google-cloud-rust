@@ -15,6 +15,10 @@
 use super::redirect::handle_redirect;
 use super::retry_redirect::RetryRedirect;
 use super::{Client, TonicStreaming};
+use crate::constants::{
+    BIDI_CONNECT_PROGRESS_LOG_INTERVAL_SECS,
+    BIDI_REQUEST_CHANNEL_CAPACITY,
+};
 use crate::google::storage::v2::{
     BidiReadObjectRequest, BidiReadObjectResponse, BidiReadObjectSpec, ReadRange as ProtoRange,
 };
@@ -27,6 +31,7 @@ use gaxi::grpc::Client as GrpcClient;
 use gaxi::grpc::tonic::{Extensions, GrpcMethod, Status, Streaming};
 use http::HeaderMap;
 use std::sync::{Arc, Mutex};
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 use tokio::sync::mpsc::Sender;
 
@@ -92,17 +97,53 @@ where
         let client = self.client.clone();
         let options = self.options.clone();
         let spec = self.spec.clone();
-        let sleep = async |backoff| tokio::time::sleep(backoff).await;
+        let sleep = async |backoff| {
+            tracing::info!(
+                "gcs bidi read backoff: sleeping {:?} before next connect/reconnect attempt",
+                backoff
+            );
+            tokio::time::sleep(backoff).await;
+        };
         let default_timeout = self.options.bidi_attempt_timeout;
         // Move the copies and invoke the retry loop to call `connect_attempt()`.
         let inner = async move |d: Option<Duration>| {
             let attempt_timeout = std::cmp::min(default_timeout, d.unwrap_or(default_timeout));
+            tracing::info!(
+                "gcs bidi read connect attempt started (attempt-timeout={:?})",
+                attempt_timeout
+            );
             let attempt =
                 Self::connect_attempt(client.clone(), spec.clone(), ranges.clone(), &options);
-            match tokio::time::timeout(attempt_timeout, attempt).await {
+            let done = Arc::new(AtomicBool::new(false));
+            let done_for_log_task = done.clone();
+            let progress_handle = tokio::spawn(async move {
+                let mut waited_secs: u64 = 0;
+                loop {
+                    tokio::time::sleep(Duration::from_secs(BIDI_CONNECT_PROGRESS_LOG_INTERVAL_SECS)).await;
+                    if done_for_log_task.load(Ordering::Relaxed) {
+                        break;
+                    }
+                    waited_secs += BIDI_CONNECT_PROGRESS_LOG_INTERVAL_SECS;
+                    tracing::info!(
+                        "gcs bidi read connect attempt still pending (waited={}s)",
+                        waited_secs
+                    );
+                }
+            });
+
+            let outcome = match tokio::time::timeout(attempt_timeout, attempt).await {
                 Ok(r) => r,
                 Err(e) => Err(Error::timeout(e)),
+            };
+
+            done.store(true, Ordering::Relaxed);
+            progress_handle.abort();
+
+            if outcome.is_err() {
+                tracing::info!("gcs bidi read connect attempt failed; retry policy will decide next step");
             }
+
+            outcome
         };
         google_cloud_gax::retry_loop_internal::retry_loop(
             inner, sleep, true, throttler, retry, backoff,
@@ -120,9 +161,20 @@ where
         let error = handle_redirect(self.spec.clone(), status);
         // This is a new attempt, increment the count.
         self.reconnect_attempts += 1;
+        tracing::info!(
+            "gcs bidi read reconnect requested (attempt={}, status={})",
+            self.reconnect_attempts,
+            error
+        );
         let policy = ResumeRedirect::new(self.options.read_resume_policy());
         match policy.on_error(&ResumeQuery::new(self.reconnect_attempts), error) {
-            ResumeResult::Continue(_) => self.connect(ranges).await,
+            ResumeResult::Continue(_) => {
+                tracing::info!(
+                    "gcs bidi read reconnect attempt {} accepted by resume policy",
+                    self.reconnect_attempts
+                );
+                self.connect(ranges).await
+            }
             ResumeResult::Exhausted(e) => Err(e),
             ResumeResult::Permanent(e) => Err(e),
         }
@@ -182,7 +234,7 @@ where
                 s + &format!("&routing_token={token}")
             });
 
-        let (tx, rx) = tokio::sync::mpsc::channel::<BidiReadObjectRequest>(100);
+        let (tx, rx) = tokio::sync::mpsc::channel::<BidiReadObjectRequest>(BIDI_REQUEST_CHANNEL_CAPACITY);
         tx.send(request.clone()).await.map_err(Error::io)?;
 
         let extensions = {
