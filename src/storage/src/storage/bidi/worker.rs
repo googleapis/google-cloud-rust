@@ -15,6 +15,7 @@
 use super::active_read::ActiveRead;
 use super::connector::{Connection, Connector};
 use super::{Client, TonicStreaming};
+use crate::constants::BIDI_REQUEST_RECV_MANY_BATCH_SIZE;
 use crate::error::ReadError;
 use crate::google::storage::v2::{BidiReadObjectRequest, BidiReadObjectResponse, ObjectRangeData};
 use gaxi::grpc::tonic::{Result as TonicResult, Status};
@@ -85,7 +86,7 @@ where
                         }
                     };
                 },
-                r = requests.recv_many(&mut ranges, 16) => {
+                r = requests.recv_many(&mut ranges, BIDI_REQUEST_RECV_MANY_BATCH_SIZE) => {
                     if r == 0 {
                         break None;
                     };

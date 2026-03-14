@@ -14,6 +14,7 @@
 
 use super::common_options::CommonOptions;
 use crate::{
+    constants::DEFAULT_BIDI_ATTEMPT_TIMEOUT_SECS,
     read_resume_policy::ReadResumePolicy,
     storage::checksum::details::{Checksum, Crc32c},
 };
@@ -27,7 +28,7 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 /// The default timeout for bidi (re)connection attempts.
-const DEFAULT_BIDI_ATTEMPT_TIMEOUT: Duration = Duration::from_secs(60);
+const DEFAULT_BIDI_ATTEMPT_TIMEOUT: Duration = Duration::from_secs(DEFAULT_BIDI_ATTEMPT_TIMEOUT_SECS);
 
 /// The per-request options for a client call.
 ///
