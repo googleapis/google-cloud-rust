@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use anyhow::Error;
 use google_cloud_pubsub::client::{Publisher, Subscriber};
 use google_cloud_pubsub::model::Message;
 use google_cloud_pubsub::subscriber::handler::Handler;
-use std::collections::HashSet;
 use tokio::task::JoinSet;
 
 pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Result<()> {
@@ -26,19 +26,16 @@ pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Res
     let subscriber = Subscriber::builder().build().await?;
     let mut stream = subscriber.subscribe(subscription_name).build();
 
-    let subscribe = tokio::spawn(async move {
+    let subscribe: tokio::task::JoinHandle<Result<(), Error>> = tokio::spawn(async move {
         let mut handles = JoinSet::new();
-        let mut confirms = HashSet::new();
-        while confirms.len() < MESSAGE_COUNT
-            && let Some((m, Handler::ExactlyOnce(h))) = stream.next().await.transpose()?
+        while handles.len() < MESSAGE_COUNT
+            && let Some((_, Handler::ExactlyOnce(h))) = stream.next().await.transpose()?
         {
-            if confirms.insert(m.data) {
-                handles.spawn(h.confirmed_ack());
-            }
-            // Duplicate messages are ignored.
+            handles.spawn(h.confirmed_ack());
         }
-        if handles.join_all().await.into_iter().any(|r| r.is_err()) {
-            anyhow::bail!("received unexpected confirm_ack error")
+        assert_eq!(handles.len(), MESSAGE_COUNT);
+        while let Some(r) = handles.join_next().await {
+            r?.inspect_err(|e| tracing::info!("received unexpected confirm_ack error: {e:?}"))?;
         }
         Ok(())
     });
@@ -47,7 +44,9 @@ pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Res
     for i in 0..MESSAGE_COUNT {
         publish.spawn(publisher.publish(Message::new().set_data(format!("{i}"))));
     }
-    publish.join_all().await;
+    while let Some(r) = publish.join_next().await {
+        r?.inspect_err(|e| tracing::info!("unexpected publish error: {e:?}"))?;
+    }
     tracing::info!("successfully published messages");
 
     subscribe.await??;

@@ -590,7 +590,7 @@ mod tests {
             assert_eq!(h.ack_id(), test_id(i));
             ack_join_set.spawn(h.confirmed_ack());
         }
-        ack_join_set.join_all().await;
+        assert!(ack_join_set.join_all().await.into_iter().all(|r| r.is_ok()));
 
         drop(response_tx);
         let end = stream.next().await.transpose()?;
