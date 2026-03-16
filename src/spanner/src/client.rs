@@ -22,6 +22,8 @@ pub use crate::from_value::{ConvertError, FromValue};
 pub use crate::read_only_transaction::SingleUseReadOnlyTransaction;
 pub use crate::read_only_transaction::SingleUseReadOnlyTransactionBuilder;
 pub use crate::result_set::ResultSet;
+pub use crate::result_set::ResultSetError;
+pub use crate::result_set_metadata::ResultSetMetadata;
 pub use crate::row::Row;
 pub use crate::statement::Statement;
 pub use crate::timestamp_bound::TimestampBound;
