@@ -108,7 +108,7 @@ impl MessageStream {
         let inner = builder.inner;
         let subscription = builder.subscription;
 
-        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (confirmed_tx, confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             inner.clone(),
             confirmed_tx,
@@ -120,7 +120,7 @@ impl MessageStream {
             handle: _lease_loop,
             message_tx,
             ack_tx,
-        } = LeaseLoop::new(leaser, LeaseOptions::default());
+        } = LeaseLoop::new(leaser, confirmed_rx, LeaseOptions::default());
 
         let initial_req = StreamingPullRequest {
             subscription,
