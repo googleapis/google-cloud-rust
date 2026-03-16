@@ -257,6 +257,9 @@ pub struct Aip194Strict;
 
 impl RetryPolicy for Aip194Strict {
     fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
+        use crate::error::rpc::Code;
+        use http::StatusCode;
+
         if error.is_transient_and_before_rpc() {
             return RetryResult::Continue(error);
         }
@@ -266,20 +269,19 @@ impl RetryPolicy for Aip194Strict {
         if error.is_io() {
             return RetryResult::Continue(error);
         }
-        if let Some(status) = error.status() {
-            return if status.code == crate::error::rpc::Code::Unavailable {
-                RetryResult::Continue(error)
-            } else {
-                RetryResult::Permanent(error)
-            };
+        if error.status().is_some_and(|s| s.code == Code::Unavailable) {
+            return RetryResult::Continue(error);
         }
-
-        match error.http_status_code() {
-            Some(code) if code == http::StatusCode::SERVICE_UNAVAILABLE.as_u16() => {
-                RetryResult::Continue(error)
-            }
-            _ => RetryResult::Permanent(error),
+        // Some services return a status of "Unknown" and a http status code of 503
+        // (SERVICE_UNAVAILABLE). That is not how gRPC status codes are supposed to work, but the
+        // intent is clear: we need to retry.
+        if error
+            .http_status_code()
+            .is_some_and(|code| code == StatusCode::SERVICE_UNAVAILABLE.as_u16())
+        {
+            return RetryResult::Continue(error);
         }
+        RetryResult::Permanent(error)
     }
 }
 
@@ -618,6 +620,19 @@ pub mod tests {
         ));
 
         assert!(
+            p.on_error(&idempotent_state(now), unknown_and_503())
+                .is_continue()
+        );
+        assert!(
+            p.on_error(&non_idempotent_state(now), unknown_and_503())
+                .is_permanent()
+        );
+        assert!(matches!(
+            p.on_throttle(&idempotent_state(now), unknown_and_503()),
+            ThrottleResult::Continue(_)
+        ));
+
+        assert!(
             p.on_error(&idempotent_state(now), permission_denied())
                 .is_permanent()
         );
@@ -823,6 +838,14 @@ pub mod tests {
             .set_code(Code::Unavailable)
             .set_message("UNAVAILABLE");
         Error::service(status)
+    }
+
+    fn unknown_and_503() -> Error {
+        use crate::error::rpc::Code;
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::Unknown)
+            .set_message("UNAVAILABLE");
+        Error::service_full(status, Some(503), None, Some("source error".into()))
     }
 
     fn permission_denied() -> Error {
