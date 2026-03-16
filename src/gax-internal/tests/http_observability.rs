@@ -524,7 +524,7 @@ mod tests {
 
         assert_eq!(got, want);
     }
-    
+
     #[tokio::test]
     async fn propagate_trace_context() {
         let server = Server::run();
