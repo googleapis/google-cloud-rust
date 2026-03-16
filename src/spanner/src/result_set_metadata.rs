@@ -47,14 +47,14 @@ impl ResultSetMetadata {
         let mut column_names = Vec::new();
         let mut column_types = Vec::new();
 
-        if let Some(m) = &metadata {
-            if let Some(row_type) = &m.row_type {
-                for field in row_type.fields.iter() {
-                    column_names.push(field.name.clone());
-                    let column_type = field.r#type.clone().map(Into::into).unwrap_or_default();
-                    column_types.push(column_type);
-                }
-            }
+        let fields = metadata
+            .and_then(|m| m.row_type)
+            .into_iter()
+            .flat_map(|r| r.fields.into_iter());
+        for field in fields {
+            column_names.push(field.name);
+            let column_type = field.r#type.map(Into::into).unwrap_or_default();
+            column_types.push(column_type);
         }
 
         Self {

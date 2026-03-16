@@ -55,10 +55,7 @@ impl ColumnIndex for &str {
 
 impl ColumnIndex for String {
     fn index(&self, row: &Row) -> Option<usize> {
-        row.metadata
-            .column_names
-            .iter()
-            .position(|name| name == self)
+        self.as_str().index(row)
     }
 }
 
@@ -122,13 +119,13 @@ impl Row {
                 len: self.values.len(),
             })
         })?;
-        let type_ = self.metadata.column_types.get(idx).ok_or_else(|| {
+        let r#type = self.metadata.column_types.get(idx).ok_or_else(|| {
             crate::Error::deser(RowError::IndexOutOfRange {
                 index: idx,
                 len: self.metadata.column_types.len(),
             })
         })?;
-        T::from_value(value, type_).map_err(crate::Error::deser)
+        T::from_value(value, r#type).map_err(crate::Error::deser)
     }
 
     /// Retrieves a value from the row by column name or zero-based index, panicking on error.
