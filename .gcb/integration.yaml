@@ -40,7 +40,6 @@ steps:
   - id: 'Vendor cargo dependencies'
     name: 'rust:${_RUST_VERSION}-bookworm'
     waitFor: ['Set up build cache']
-    dir: 'integration-tests'
     env:
       - 'SPANNER_EMULATOR_HOST=spanner-emulator:9010'
     script: |
