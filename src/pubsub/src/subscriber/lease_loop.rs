@@ -54,12 +54,10 @@ impl LeaseLoop {
                         }
                     },
                     ack_id = ack_rx.recv() => {
-                        match ack_id {
-                            None => break,
-                            Some(Action::Ack(ack_id)) => state.process(Action::Ack(ack_id)),
-                            Some(Action::Nack(ack_id)) => state.process(Action::Nack(ack_id)),
-                            // TODO(#3964) - process exactly-once acks/nacks in the lease state
-                            _ => unreachable!("we do not return exactly-once handlers yet."),
+                        if let Some(action) = ack_id {
+                            state.process(action);
+                        } else {
+                            break;
                         }
                     },
                 }
@@ -91,7 +89,9 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::lease_state::tests::{at_least_once_info, sorted, test_id, test_ids};
+    use super::super::lease_state::tests::{
+        at_least_once_info, exactly_once_info, sorted, test_id, test_ids,
+    };
     use super::super::leaser::tests::MockLeaser;
     use super::*;
     use google_cloud_test_macros::tokio_test_no_panics;
@@ -104,6 +104,62 @@ mod tests {
             ack_id: test_id(id),
             lease_info: at_least_once_info(),
         }
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn basic_exactly_once() -> anyhow::Result<()> {
+        const FLUSH_START: Duration = Duration::from_millis(200);
+
+        let mock = Arc::new(Mutex::new(MockLeaser::new()));
+
+        let options = LeaseOptions {
+            flush_start: FLUSH_START,
+            // effectively disable extensions to simplify this test.
+            extend_start: Duration::from_secs(900),
+            ..Default::default()
+        };
+        let lease_loop = LeaseLoop::new(mock.clone(), options);
+        // Yield execution, so tokio can actually start the lease loop.
+        tokio::task::yield_now().await;
+
+        // Seed the lease loop with some messages
+        for i in 0..30 {
+            lease_loop.message_tx.send(NewMessage {
+                ack_id: test_id(i),
+                lease_info: exactly_once_info(),
+            })?;
+        }
+
+        // Ack 10 messages
+        for i in 0..10 {
+            lease_loop.ack_tx.send(Action::ExactlyOnceAck(test_id(i)))?;
+        }
+
+        // Nack 10 messages
+        for i in 10..20 {
+            lease_loop
+                .ack_tx
+                .send(Action::ExactlyOnceNack(test_id(i)))?;
+        }
+
+        mock.lock()
+            .await
+            .expect_confirmed_ack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..10))
+            .returning(|_| ());
+        mock.lock()
+            .await
+            .expect_nack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(10..20))
+            .returning(|_| ());
+        tokio::time::advance(FLUSH_START).await;
+
+        // Yield the current task, so tokio can execute the flush().
+        tokio::task::yield_now().await;
+
+        Ok(())
     }
 
     #[tokio_test_no_panics(start_paused = true)]
