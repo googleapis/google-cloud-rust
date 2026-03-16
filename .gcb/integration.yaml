@@ -51,6 +51,7 @@ steps:
       #!/usr/bin/env bash
       set -e
       echo "Vendor dependencies to run cargo commands in parallel"
+      mkdir ./cargo
       cargo vendor > ./.cargo/config.toml
       cargo test --features run-integration-tests --tests
   - id: Validate default crypto provider behavior
@@ -64,6 +65,7 @@ steps:
       #!/usr/bin/env bash
       set -e
       echo "Vendor dependencies to run cargo commands in parallel"
+      mkdir ./cargo
       cargo vendor > ./.cargo/config.toml
       rustup component add clippy
       echo "Verify crypto providers behavior"
