@@ -53,15 +53,30 @@ use std::sync::Arc;
 ///
 /// # Exactly-once Delivery
 ///
-/// The subscriber does **not** support [exactly-once] delivery yet.
+/// The subscriber supports [exactly-once] delivery.
 ///
-/// If you subscribe to a subscription with exactly-once delivery enabled, the
-/// subscriber will deliver you messages with at-least-once semantics. There is
-/// no way for you to confirm the acknowledgements from the server. Messages may
-/// get redelivered.
+/// If you enable exactly-once delivery for a subscription, your application
+/// can be opinionated about the delivery type, by destructuring the handler
+/// into its [`Handler::ExactlyOnce`] branch.
 ///
-/// Adding support for exactly-once delivery is planned. You can track the
-/// progress in [google-cloud-rust#3964].
+/// ```
+/// use google_cloud_pubsub::subscriber::MessageStream;
+/// use google_cloud_pubsub::subscriber::handler::Handler;
+/// async fn exactly_once_stream(mut stream: MessageStream) -> anyhow::Result<()> {
+///   while let Some((m, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? {
+///       println!("Received message m={m:?}");
+///
+///       // Await the result of the ack. Typically you would not block the loop
+///       // with an `await` point like this.
+///       h.confirmed_ack().await?;
+///   }
+///   unreachable!("Oops, my subscription must have at-least-once semantics")
+/// }
+/// ```
+///
+/// You should not change the delivery type of a subscription midstream. If you
+/// do, the subscriber will honor the delivery setting at the time each message
+/// was received.
 ///
 /// [exactly-once]: https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery
 /// [google-cloud-rust#3964]: https://github.com/googleapis/google-cloud-rust/issues/3964
