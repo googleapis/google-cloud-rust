@@ -44,21 +44,27 @@ steps:
   - id: Run integration tests
     name: 'rust:${_RUST_VERSION}-bookworm'
     waitFor: ['Start Spanner Emulator', 'Set up build cache']
+    dir: 'integration-tests'
     env:
       - 'SPANNER_EMULATOR_HOST=spanner-emulator:9010'
     script: |
       #!/usr/bin/env bash
       set -e
+      echo "Vendor dependencies to run cargo commands in parallel"
+      cargo vendor > ./.cargo/config.toml
       cargo test --features run-integration-tests --tests
   - id: Validate default crypto provider behavior
     name: 'rust:${_RUST_VERSION}-bookworm'
     waitFor: ['Set up build cache']
+    dir: "crypto-tests"
     # For these tests, we need to run them one package at a time. Otherwise all
     # the features are unified, and these tests are trying to test one feature
     # at a time.
     script: |
       #!/usr/bin/env bash
       set -e
+      echo "Vendor dependencies to run cargo commands in parallel"
+      cargo vendor > ./.cargo/config.toml
       rustup component add clippy
       echo "Verify crypto providers behavior"
       mapfile -t directories < <(git ls-files -- 'tests/crypto-providers/**Cargo.toml' |
