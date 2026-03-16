@@ -37,6 +37,7 @@ google-cloud-lro.workspace    = true
 google-cloud-test-utils       = { workspace = true }
 google-cloud-showcase-v1beta1 = { workspace = true, features = ["default"] }
 google-cloud-storage          = { workspace = true, features = ["default"] }
+google-cloud-spanner          = { workspace = true }
 google-cloud-wkt              = { workspace = true }
 storage-samples               = { workspace = true }
 google-cloud-trace-v1         = { workspace = true, features = ["default"] }

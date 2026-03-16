@@ -6061,6 +6061,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-monitoring-v3",
  "google-cloud-showcase-v1beta1",
+ "google-cloud-spanner",
  "google-cloud-storage",
  "google-cloud-test-utils",
  "google-cloud-trace-v1",
