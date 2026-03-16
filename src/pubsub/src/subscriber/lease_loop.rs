@@ -208,7 +208,7 @@ mod tests {
             .await
             .expect_confirmed_ack()
             .times(1)
-            .withf(|v| sorted(v) == test_ids(0..1))
+            .withf(|v| v == test_ids(0..1))
             .returning(|_| ());
         tokio::time::advance(FLUSH_START).await;
 
