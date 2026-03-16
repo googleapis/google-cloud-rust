@@ -165,8 +165,7 @@ where
     /// println!("object contents={:?}", contents);
     /// # Ok(()) }
     /// ```
-    pub fn enable_crc32c_checksum(self, v: bool) -> Self {
-        let mut this = self;
+    pub fn enable_crc32c_checksum(mut self, v: bool) -> Self {
         if !v {
             this.options.checksum.crc32c = None;
         } else if this.options.checksum.crc32c.is_none() {
