@@ -696,4 +696,57 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn propagate_trace_context() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        config.tracing = true;
+        config.cred = Some(test_credentials());
+        let client = grpc::Client::new(config, &endpoint).await?;
+
+        let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
+        let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
+        let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
+        use tracing_subscriber::layer::SubscriberExt;
+        let subscriber = tracing_subscriber::registry().with(telemetry);
+        let _guard = tracing::subscriber::set_default(subscriber);
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
+        let request = google::test::v1::EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+
+        use tracing::Instrument;
+        let span = tracing::info_span!("parent_span");
+        let response = client
+            .execute::<_, google::test::v1::EchoResponse>(
+                extensions,
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+                request,
+                RequestOptions::default(),
+                "test-client",
+                "",
+            )
+            .instrument(span)
+            .await?;
+
+        let inner = response.into_inner();
+        assert!(
+            inner.metadata.contains_key("traceparent"),
+            "Metadata should contain traceparent. Metadata: {:?}",
+            inner.metadata
+        );
+
+        Ok(())
+    }
 }

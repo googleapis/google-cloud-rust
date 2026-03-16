@@ -275,7 +275,13 @@ impl ReqwestClient {
             .record_http(&span, attempt_info.attempt_count, method, url)
     }
 
-    async fn execute_http_inner(&self, request: reqwest::Request) -> Result<reqwest::Response> {
+    #[allow(unused_mut)]
+    async fn execute_http_inner(&self, mut request: reqwest::Request) -> Result<reqwest::Response> {
+        #[cfg(google_cloud_unstable_tracing)]
+        crate::observability::propagation::inject_context(
+            &tracing::Span::current(),
+            request.headers_mut(),
+        );
         self.inner.execute(request).await.map_err(map_send_error)
     }
 
@@ -413,7 +419,16 @@ impl ReqwestClient {
             .record_http(&span, attempt_count, method, url)
     }
 
-    async fn request_attempt_inner(&self, request: reqwest::Request) -> Result<reqwest::Response> {
+    #[allow(unused_mut)]
+    async fn request_attempt_inner(
+        &self,
+        mut request: reqwest::Request,
+    ) -> Result<reqwest::Response> {
+        #[cfg(google_cloud_unstable_tracing)]
+        crate::observability::propagation::inject_context(
+            &tracing::Span::current(),
+            request.headers_mut(),
+        );
         let response = self.inner.execute(request).await.map_err(map_send_error)?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;
