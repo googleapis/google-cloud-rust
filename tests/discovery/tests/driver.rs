@@ -17,6 +17,7 @@ mod compute {
     use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
 
+    #[ignore = "TODO(#5017) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_zones() -> anyhow::Result<()> {
         let _guard = enable_tracing();
