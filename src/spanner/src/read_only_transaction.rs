@@ -15,7 +15,6 @@
 use crate::database_client::DatabaseClient;
 use crate::model::TransactionOptions;
 use crate::model::transaction_options::ReadOnly;
-use crate::model::transaction_options::read_only::TimestampBound as ReadOnlyTimestampBound;
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
@@ -81,26 +80,12 @@ impl SingleUseReadOnlyTransactionBuilder {
     /// # }
     /// ```
     pub fn build(self) -> SingleUseReadOnlyTransaction {
-        let mut read_only = ReadOnly::default();
-        if let Some(bound) = self.timestamp_bound {
-            read_only.timestamp_bound = Some(bound.0);
-        } else {
-            read_only.timestamp_bound = Some(ReadOnlyTimestampBound::Strong(true));
-        }
-
-        let transaction_options = TransactionOptions {
-            mode: Some(crate::model::transaction_options::Mode::ReadOnly(Box::new(
-                read_only,
-            ))),
-            ..Default::default()
+        let read_only = match self.timestamp_bound {
+            Some(b) => ReadOnly::default().set_timestamp_bound(b.0),
+            None => ReadOnly::default().set_strong(true),
         };
-
-        let transaction_selector = crate::model::TransactionSelector {
-            selector: Some(crate::model::transaction_selector::Selector::SingleUse(
-                Box::new(transaction_options),
-            )),
-            ..Default::default()
-        };
+        let transaction_selector = crate::model::TransactionSelector::default()
+            .set_single_use(TransactionOptions::default().set_read_only(read_only));
 
         SingleUseReadOnlyTransaction {
             context: ReadContext::new(self.client, transaction_selector),
@@ -125,6 +110,7 @@ impl SingleUseReadOnlyTransactionBuilder {
 /// # Ok(())
 /// # }
 /// ```
+#[derive(Debug)]
 pub struct SingleUseReadOnlyTransaction {
     context: ReadContext,
 }
@@ -150,7 +136,10 @@ impl SingleUseReadOnlyTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn execute_query(&self, statement: impl Into<Statement>) -> crate::Result<ResultSet> {
+    pub async fn execute_query<T: Into<Statement>>(
+        &self,
+        statement: T,
+    ) -> crate::Result<ResultSet> {
         self.context.execute_query(statement).await
     }
 }
@@ -213,26 +202,14 @@ impl MultiUseReadOnlyTransactionBuilder {
     /// # }
     /// ```
     pub async fn build(self) -> crate::Result<MultiUseReadOnlyTransaction> {
-        let mut read_only = ReadOnly::default();
-        if let Some(bound) = self.timestamp_bound {
-            read_only.timestamp_bound = Some(bound.0);
-        } else {
-            read_only.timestamp_bound = Some(ReadOnlyTimestampBound::Strong(true));
-        }
-        read_only.return_read_timestamp = true;
-
-        let transaction_options = TransactionOptions {
-            mode: Some(crate::model::transaction_options::Mode::ReadOnly(Box::new(
-                read_only,
-            ))),
-            ..Default::default()
+        let read_only = ReadOnly::default().set_return_read_timestamp(true);
+        let read_only = match self.timestamp_bound {
+            Some(b) => read_only.set_timestamp_bound(b.0),
+            None => read_only.set_strong(true),
         };
-
-        let request = crate::model::BeginTransactionRequest {
-            session: self.client.session.name.clone(),
-            options: Some(transaction_options),
-            ..Default::default()
-        };
+        let request = crate::model::BeginTransactionRequest::default()
+            .set_session(self.client.session.name.clone())
+            .set_options(TransactionOptions::default().set_read_only(read_only));
 
         // TODO(#4972): make request options configurable
         let response = self
@@ -241,18 +218,10 @@ impl MultiUseReadOnlyTransactionBuilder {
             .begin_transaction(request, crate::RequestOptions::default())
             .await?;
 
-        let transaction_selector = crate::model::TransactionSelector {
-            selector: Some(crate::model::transaction_selector::Selector::Id(
-                response.id,
-            )),
-            ..Default::default()
-        };
-
+        let transaction_selector = crate::model::TransactionSelector::default().set_id(response.id);
         Ok(MultiUseReadOnlyTransaction {
             context: ReadContext::new(self.client, transaction_selector),
-            read_timestamp: response
-                .read_timestamp
-                .and_then(|ts| std::convert::TryInto::<time::OffsetDateTime>::try_into(ts).ok()),
+            read_timestamp: response.read_timestamp,
         })
     }
 }
@@ -278,14 +247,15 @@ impl MultiUseReadOnlyTransactionBuilder {
 /// # Ok(())
 /// # }
 /// ```
+#[derive(Debug)]
 pub struct MultiUseReadOnlyTransaction {
     context: ReadContext,
-    pub(crate) read_timestamp: Option<time::OffsetDateTime>,
+    pub(crate) read_timestamp: Option<wkt::Timestamp>,
 }
 
 impl MultiUseReadOnlyTransaction {
     /// Returns the read timestamp chosen for the transaction.
-    pub fn read_timestamp(&self) -> Option<time::OffsetDateTime> {
+    pub fn read_timestamp(&self) -> Option<wkt::Timestamp> {
         self.read_timestamp
     }
 
@@ -309,12 +279,15 @@ impl MultiUseReadOnlyTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn execute_query(&self, statement: impl Into<Statement>) -> crate::Result<ResultSet> {
+    pub async fn execute_query<T: Into<Statement>>(
+        &self,
+        statement: T,
+    ) -> crate::Result<ResultSet> {
         self.context.execute_query(statement).await
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub(crate) struct ReadContext {
     client: DatabaseClient,
     transaction_selector: crate::model::TransactionSelector,
@@ -331,20 +304,18 @@ impl ReadContext {
         }
     }
 
-    pub(crate) async fn execute_query(
+    pub(crate) async fn execute_query<T: Into<Statement>>(
         &self,
-        statement: impl Into<Statement>,
+        statement: T,
     ) -> crate::Result<ResultSet> {
         let statement = statement.into();
 
-        let request = crate::model::ExecuteSqlRequest {
-            session: self.client.session.name.clone(),
-            transaction: Some(self.transaction_selector.clone()),
-            params: statement.get_params(),
-            param_types: statement.get_param_types(),
-            sql: statement.sql,
-            ..Default::default()
-        };
+        let mut request = crate::model::ExecuteSqlRequest::default()
+            .set_session(self.client.session.name.clone())
+            .set_transaction(self.transaction_selector.clone());
+        request.params = statement.get_params();
+        request.param_types = statement.get_param_types();
+        request = request.set_sql(statement.sql);
 
         let stream = self
             .client
@@ -365,10 +336,10 @@ mod tests {
     #[test]
     fn auto_traits() {
         static_assertions::assert_impl_all!(SingleUseReadOnlyTransactionBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(SingleUseReadOnlyTransaction: Send, Sync);
+        static_assertions::assert_impl_all!(SingleUseReadOnlyTransaction: Send, Sync, std::fmt::Debug);
         static_assertions::assert_impl_all!(MultiUseReadOnlyTransactionBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(MultiUseReadOnlyTransaction: Send, Sync);
-        static_assertions::assert_impl_all!(ReadContext: Send, Sync);
+        static_assertions::assert_impl_all!(MultiUseReadOnlyTransaction: Send, Sync, std::fmt::Debug);
+        static_assertions::assert_impl_all!(ReadContext: Send, Sync, std::fmt::Debug);
     }
 
     fn create_session_mock() -> spanner_grpc_mock::MockSpanner {
@@ -388,23 +359,15 @@ mod tests {
         spanner_grpc_mock::google::spanner::v1::PartialResultSet {
             metadata: Some(spanner_grpc_mock::google::spanner::v1::ResultSetMetadata {
                 row_type: Some(spanner_grpc_mock::google::spanner::v1::StructType {
-                    fields: vec![spanner_grpc_mock::google::spanner::v1::struct_type::Field {
-                        name: "".to_string(),
-                        r#type: None,
-                    }],
+                    fields: vec![Default::default()],
                 }),
-                transaction: None,
-                undeclared_parameters: None,
+                ..Default::default()
             }),
             values: vec![prost_types::Value {
                 kind: Some(prost_types::value::Kind::StringValue("1".to_string())),
             }],
-            chunked_value: false,
-            resume_token: vec![],
-            stats: None,
-            precommit_token: None,
-            cache_update: None,
             last: true,
+            ..Default::default()
         }
     }
 
@@ -432,18 +395,6 @@ mod tests {
         (db_client, server)
     }
 
-    async fn assert_select1_result_set(mut rs: crate::result_set::ResultSet) {
-        let row = rs.next().await.expect("has row").expect("has valid row");
-        assert_eq!(row.raw_values().len(), 1);
-        if let Some(prost_types::value::Kind::StringValue(ref s)) = row.raw_values()[0].0.kind {
-            assert_eq!(s, "1");
-        } else {
-            panic!("Expected StringValue");
-        }
-
-        assert!(rs.next().await.is_none());
-    }
-
     #[tokio::test]
     async fn single_use_builder() {
         let mock = create_session_mock();
@@ -451,15 +402,13 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = db_client.single_use().build();
-        let ro = match tx.context.transaction_selector.selector {
-            Some(crate::model::transaction_selector::Selector::SingleUse(opts)) => {
-                match opts.mode {
-                    Some(crate::model::transaction_options::Mode::ReadOnly(ro)) => ro,
-                    _ => panic!("Expected ReadOnly mode"),
-                }
-            }
-            _ => panic!("Expected SingleUse selector"),
-        };
+        let ro = tx
+            .context
+            .transaction_selector
+            .single_use()
+            .expect("Expected SingleUse selector")
+            .read_only()
+            .expect("Expected ReadOnly mode");
         assert_eq!(
             ro.timestamp_bound,
             Some(crate::model::transaction_options::read_only::TimestampBound::Strong(true))
@@ -471,20 +420,18 @@ mod tests {
                 std::time::Duration::from_secs(10),
             ))
             .build();
-        let ro2 = match tx2.context.transaction_selector.selector {
-            Some(crate::model::transaction_selector::Selector::SingleUse(opts)) => {
-                match opts.mode {
-                    Some(crate::model::transaction_options::Mode::ReadOnly(ro)) => ro,
-                    _ => panic!("Expected ReadOnly mode"),
-                }
-            }
-            _ => panic!("Expected SingleUse selector"),
-        };
+        let ro2 = tx2
+            .context
+            .transaction_selector
+            .single_use()
+            .expect("Expected SingleUse selector")
+            .read_only()
+            .expect("Expected ReadOnly mode");
         assert_eq!(
             ro2.timestamp_bound,
             Some(
                 crate::model::transaction_options::read_only::TimestampBound::MaxStaleness(
-                    Box::new(wkt::Duration::new(10, 0).unwrap())
+                    Box::new(wkt::Duration::new(10, 0).expect("failed to create Duration"))
                 )
             )
         );
@@ -492,7 +439,9 @@ mod tests {
 
     #[tokio::test]
     async fn execute_single_query() {
+        use super::super::result_set::tests::string_val;
         use crate::client::Statement;
+        use crate::value::Value;
 
         let mut mock = create_session_mock();
 
@@ -512,17 +461,22 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = db_client.single_use().build();
-        let rs = tx
+        let mut rs = tx
             .execute_query(Statement::builder("SELECT 1").build())
             .await
             .expect("Failed to execute query");
 
-        assert_select1_result_set(rs).await;
+        let row = rs.next().await.expect("has row").expect("has valid row");
+        assert_eq!(row.raw_values(), [Value(string_val("1"))]);
+        let result = rs.next().await;
+        assert!(result.is_none(), "expected None, got {result:?}");
     }
 
     #[tokio::test]
     async fn execute_multi_query() {
+        use super::super::result_set::tests::string_val;
         use crate::client::Statement;
+        use crate::value::Value;
         use spanner_grpc_mock::google::spanner::v1 as mock_v1;
 
         let mut mock = create_session_mock();
@@ -535,11 +489,12 @@ mod tests {
             );
             Ok(gaxi::grpc::tonic::Response::new(mock_v1::Transaction {
                 id: vec![1, 2, 3],
+                // prost_types::Timestamp fields need to be explicitly set because default is 0 for both
                 read_timestamp: Some(prost_types::Timestamp {
                     seconds: 123456789,
                     nanos: 0,
                 }),
-                precommit_token: None,
+                ..Default::default()
             }))
         });
 
@@ -552,7 +507,10 @@ mod tests {
                     "projects/p/instances/i/databases/d/sessions/123"
                 );
                 assert_eq!(
-                    req.transaction.unwrap().selector.unwrap(),
+                    req.transaction
+                        .expect("transaction should be present")
+                        .selector
+                        .expect("selector should be present"),
                     mock_v1::transaction_selector::Selector::Id(vec![1, 2, 3])
                 );
 
@@ -568,15 +526,24 @@ mod tests {
             .build()
             .await
             .expect("Failed to start tx");
-        assert_eq!(tx.read_timestamp().unwrap().unix_timestamp(), 123456789);
+        assert_eq!(
+            tx.read_timestamp()
+                .expect("expected read timestamp")
+                .seconds(),
+            123456789
+        );
 
         for _ in 0..2 {
-            let rs = tx
+            let mut rs = tx
                 .execute_query(Statement::builder("SELECT 1").build())
                 .await
                 .expect("Failed to execute query");
 
-            assert_select1_result_set(rs).await;
+            let row = rs.next().await.expect("has row").expect("has valid row");
+            assert_eq!(row.raw_values(), [Value(string_val("1"))]);
+
+            let result = rs.next().await;
+            assert!(result.is_none(), "expected None, got {result:?}");
         }
     }
 }

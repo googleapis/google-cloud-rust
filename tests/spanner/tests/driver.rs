@@ -411,21 +411,21 @@ ORDER BY col_int64
         let mut rs1 = tx
             .execute_query(Statement::builder("SELECT 1 AS col_int").build())
             .await?;
-        let row1 = rs1.next().await.transpose()?.unwrap();
+        let row1 = rs1.next().await.transpose()?.expect("should yield a row");
         let val1 = row1.raw_values()[0].as_string();
         assert_eq!(val1, "1");
         let next1 = rs1.next().await.transpose()?;
-        assert!(next1.is_none());
+        assert!(next1.is_none(), "{next1:?}");
 
         // Execute the second query reusing the same transaction.
         let mut rs2 = tx
             .execute_query(Statement::builder("SELECT 2 AS col_int").build())
             .await?;
-        let row2 = rs2.next().await.transpose()?.unwrap();
+        let row2 = rs2.next().await.transpose()?.expect("should yield a row");
         let val2 = row2.raw_values()[0].as_string();
         assert_eq!(val2, "2");
         let next2 = rs2.next().await.transpose()?;
-        assert!(next2.is_none());
+        assert!(next2.is_none(), "{next2:?}");
 
         Ok(())
     }

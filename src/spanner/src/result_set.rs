@@ -204,7 +204,7 @@ fn merge_values(target: &mut prost_types::Value, source: prost_types::Value) -> 
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use crate::client::Spanner;
     use gaxi::grpc::tonic::Response;
@@ -215,7 +215,7 @@ mod tests {
     use spanner_grpc_mock::google::spanner::v1::{PartialResultSet, ResultSetMetadata, StructType};
     use spanner_grpc_mock::start;
 
-    fn string_val(s: &str) -> Value {
+    pub(crate) fn string_val(s: &str) -> Value {
         Value {
             kind: Some(prost_types::value::Kind::StringValue(s.to_string())),
         }

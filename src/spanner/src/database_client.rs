@@ -67,6 +67,10 @@ impl DatabaseClient {
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// A single-use read-only transaction is optimized for the case where only a single
+    /// read or query is needed. This is more efficient than using a read-only transaction
+    /// for a single read or query.
     pub fn single_use(&self) -> SingleUseReadOnlyTransactionBuilder {
         SingleUseReadOnlyTransactionBuilder::new(self.clone())
     }
@@ -86,6 +90,10 @@ impl DatabaseClient {
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// A read-only transaction can be used to execute multiple reads or queries.
+    /// These transactions guarantee data consistency across multiple read operations,
+    /// but don't permit data modifications. Read-only transactions do not take locks.
     pub fn read_only_transaction(&self) -> MultiUseReadOnlyTransactionBuilder {
         MultiUseReadOnlyTransactionBuilder::new(self.clone())
     }
