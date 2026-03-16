@@ -188,6 +188,21 @@ where
         let resource_name = req.extensions().get::<ResourceName>().map(|r| r.as_str());
         let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count, resource_name);
         crate::observability::propagation::inject_context(&span, req.headers_mut());
+        
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Ok(headers) = std::env::var("GOOGLE_CLOUD_TEST_EXTRA_HEADERS") {
+            for header in headers.split(',') {
+                if let Some((k, v)) = header.split_once('=') {
+                    if let (Ok(name), Ok(val)) = (
+                        http::header::HeaderName::from_bytes(k.trim().as_bytes()),
+                        http::header::HeaderValue::from_str(v.trim()),
+                    ) {
+                        req.headers_mut().insert(name, val);
+                    }
+                }
+            }
+        }
+
         let future = self.inner.call(req);
         ResponseFuture {
             inner: future,
@@ -244,6 +259,21 @@ where
             &tracing::Span::current(),
             req.headers_mut(),
         );
+
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Ok(headers) = std::env::var("GOOGLE_CLOUD_TEST_EXTRA_HEADERS") {
+            for header in headers.split(',') {
+                if let Some((k, v)) = header.split_once('=') {
+                    if let (Ok(name), Ok(val)) = (
+                        http::header::HeaderName::from_bytes(k.trim().as_bytes()),
+                        http::header::HeaderValue::from_str(v.trim()),
+                    ) {
+                        req.headers_mut().insert(name, val);
+                    }
+                }
+            }
+        }
+
         NoTracingFuture {
             inner: self.inner.call(req),
             _phantom: std::marker::PhantomData,
