@@ -275,7 +275,7 @@ impl ReqwestClient {
             .record_http(&span, attempt_info.attempt_count, method, url)
     }
 
-    #[allow(unused_mut)]
+    #[cfg_attr(not(google_cloud_unstable_tracing), allow(unused_mut))]
     async fn execute_http_inner(&self, mut request: reqwest::Request) -> Result<reqwest::Response> {
         #[cfg(google_cloud_unstable_tracing)]
         crate::observability::propagation::inject_context(
@@ -419,7 +419,7 @@ impl ReqwestClient {
             .record_http(&span, attempt_count, method, url)
     }
 
-    #[allow(unused_mut)]
+    #[cfg_attr(not(google_cloud_unstable_tracing), allow(unused_mut))]
     async fn request_attempt_inner(
         &self,
         mut request: reqwest::Request,
