@@ -398,7 +398,7 @@ tokio-util            = { default-features = false, version = "0.7.18" }
 toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
-tracing-subscriber    = { default-features = false, version = "0.3.22" }
+tracing-subscriber    = { default-features = false, version = "0.3.23" }
 url                   = { default-features = false, version = "2.4" }
 uuid                  = { default-features = false, version = "1.22", features = ["v4"] }
 
