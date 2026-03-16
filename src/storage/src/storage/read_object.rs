@@ -146,7 +146,10 @@ where
 
     /// Enables computation of CRC32C checksums.
     ///
-    /// CRC32C checksums are checked by default.
+    /// Note that the library computes and verifies (if avaiable) CRC32C checksums at the end of
+    /// the download. Use `enable_crc32c_checksum(false)` to disable the computation, but note
+    /// that this reduces the data integrity guarantees. Data *can* be corrupted even when
+    /// downloaded over HTTPS or other encrypted channels.
     ///
     /// # Example
     /// ```
