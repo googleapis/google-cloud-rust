@@ -146,8 +146,8 @@ where
 
     /// Enables computation of CRC32C checksums.
     ///
-    /// Note that the library computes and verifies (if avaiable) CRC32C checksums at the end of
-    /// the download. Use `enable_crc32c_checksum(false)` to disable the computation, but note
+    /// Note that the library computes and verifies (if available) CRC32C checksums at the end of
+    /// the download. Use `compute_crc32c_checksum(false)` to disable the computation, but note
     /// that this reduces the data integrity guarantees. Data *can* be corrupted even when
     /// downloaded over HTTPS or other encrypted channels.
     ///
@@ -157,7 +157,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let builder =  client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .enable_crc32c_checksum(false);
+    ///     .compute_crc32c_checksum(false);
     /// let mut reader = builder
     ///     .send()
     ///     .await?;
@@ -168,7 +168,7 @@ where
     /// println!("object contents={:?}", contents);
     /// # Ok(()) }
     /// ```
-    pub fn enable_crc32c_checksum(mut self, v: bool) -> Self {
+    pub fn compute_crc32c_checksum(mut self, v: bool) -> Self {
         if v {
             self.options
                 .checksum
@@ -982,7 +982,7 @@ mod tests {
             "object",
             inner.options.clone(),
         )
-        .enable_crc32c_checksum(false);
+        .compute_crc32c_checksum(false);
 
         assert!(builder.options.checksum.crc32c.is_none());
         Ok(())
@@ -1014,7 +1014,7 @@ mod tests {
             .await?;
         let mut response = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
-            .enable_crc32c_checksum(false)
+            .compute_crc32c_checksum(false)
             .send()
             .await?;
         let mut got = Vec::new();
