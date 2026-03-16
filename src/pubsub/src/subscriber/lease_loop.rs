@@ -208,7 +208,7 @@ mod tests {
             .await
             .expect_confirmed_ack()
             .times(1)
-            .withf(|v| v.len() == 1 && v[0] == test_id(0))
+            .withf(|v| *v == vec![test_id(0)])
             .returning(|_| ());
         tokio::time::advance(FLUSH_START).await;
 
