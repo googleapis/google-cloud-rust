@@ -81,6 +81,16 @@ pub(super) struct ExactlyOnceInfo {
     pending: bool,
 }
 
+impl ExactlyOnceInfo {
+    pub(super) fn new(result_tx: Sender<AckResult>) -> Self {
+        ExactlyOnceInfo {
+            receive_time: Instant::now(),
+            result_tx,
+            pending: false,
+        }
+    }
+}
+
 #[derive(Debug)]
 pub(super) struct LeaseState<L>
 where
@@ -295,12 +305,7 @@ pub(super) mod tests {
 
     pub(in super::super) fn exactly_once_info() -> LeaseInfo {
         let (result_tx, _result_rx) = channel();
-        let info = ExactlyOnceInfo {
-            receive_time: Instant::now(),
-            result_tx,
-            pending: false,
-        };
-        LeaseInfo::ExactlyOnce(info)
+        LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx))
     }
 
     #[tokio::test(start_paused = true)]
