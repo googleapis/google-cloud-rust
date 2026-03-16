@@ -30,7 +30,7 @@ use prost::Message;
 
 /// The request builder for [SpannerImpl::execute_streaming_sql][crate::client::SpannerImpl::execute_streaming_sql] calls.
 #[derive(Clone, Debug)]
-pub(crate) struct ExecuteStreamingSql {
+pub struct ExecuteStreamingSql {
     grpc_client: gaxi::grpc::Client,
     request: ExecuteSqlRequest,
     options: crate::RequestOptions,
@@ -82,7 +82,7 @@ impl crate::RequestBuilder for ExecuteStreamingSql {
 
 /// The request builder for [SpannerImpl::streaming_read][crate::client::SpannerImpl::streaming_read] calls.
 #[derive(Clone, Debug)]
-pub(crate) struct StreamingRead {
+pub struct StreamingRead {
     grpc_client: gaxi::grpc::Client,
     request: ReadRequest,
     options: crate::RequestOptions,

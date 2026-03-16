@@ -35,7 +35,7 @@ pub mod builder {
     pub use crate::database_client::DatabaseClientBuilder;
 }
 pub(crate) mod database_client;
-pub(crate) mod model {
+pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }
 pub(crate) mod from_value;

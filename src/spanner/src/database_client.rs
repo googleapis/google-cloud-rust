@@ -44,9 +44,9 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct DatabaseClient {
     #[allow(dead_code)]
-    pub(crate) spanner: Spanner,
+    pub spanner: Spanner,
     #[allow(dead_code)]
-    pub(crate) session: Arc<Session>,
+    pub session: Arc<Session>,
 }
 
 impl DatabaseClient {

@@ -140,7 +140,7 @@ impl Spanner {
         }
     }
 
-    pub(crate) async fn create_session(
+    pub async fn create_session(
         &self,
         request: crate::model::CreateSessionRequest,
         options: crate::RequestOptions,
@@ -153,7 +153,7 @@ impl Spanner {
             .await
     }
 
-    pub(crate) async fn execute_sql(
+    pub async fn execute_sql(
         &self,
         request: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
@@ -179,7 +179,7 @@ impl Spanner {
             .await
     }
 
-    pub(crate) async fn read(
+    pub async fn read(
         &self,
         request: crate::model::ReadRequest,
         options: crate::RequestOptions,
@@ -192,7 +192,7 @@ impl Spanner {
             .await
     }
 
-    pub(crate) async fn begin_transaction(
+    pub async fn begin_transaction(
         &self,
         request: crate::model::BeginTransactionRequest,
         options: crate::RequestOptions,
@@ -205,7 +205,7 @@ impl Spanner {
             .await
     }
 
-    pub(crate) async fn commit(
+    pub async fn commit(
         &self,
         request: crate::model::CommitRequest,
         options: crate::RequestOptions,
@@ -218,7 +218,7 @@ impl Spanner {
             .await
     }
 
-    pub(crate) async fn rollback(
+    pub async fn rollback(
         &self,
         request: crate::model::RollbackRequest,
         options: crate::RequestOptions,
@@ -235,7 +235,7 @@ impl Spanner {
     ///
     /// This is a custom streaming implementation over the underlying Spanner gRPC
     /// transport, since streaming responses are not yet auto-generated here.
-    pub(crate) fn execute_streaming_sql(
+    pub fn execute_streaming_sql(
         &self,
         request: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
@@ -253,7 +253,7 @@ impl Spanner {
     ///
     /// This is a custom streaming implementation over the underlying Spanner gRPC
     /// transport, since streaming responses are not yet auto-generated here.
-    pub(crate) fn streaming_read(
+    pub fn streaming_read(
         &self,
         request: crate::model::ReadRequest,
         options: crate::RequestOptions,
