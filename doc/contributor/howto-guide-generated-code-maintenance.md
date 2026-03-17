@@ -78,11 +78,11 @@ If you still have issues, please contact librarian team.
 #### How to update an unlisted language:
 
 1. Send a PR adding the language to the [sdk.yaml] in librarian and merge it.
-2. Get latest librarian version
-```bash
-go list -m -json github.com/googleapis/librarian@main | jq -r '.Version'
-```
-3. Send a PR to update the version field in [librarian.yaml].
+1. Get latest librarian version
+   ```bash
+   go list -m -json github.com/googleapis/librarian@main | jq -r '.Version'
+   ```
+1. Send a PR to update the version field in [librarian.yaml].
 
 ## Update the code generation sources
 
