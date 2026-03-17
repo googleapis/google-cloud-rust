@@ -18,6 +18,9 @@
 //! tracing spans and metrics.
 
 #[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod propagation;
+
+#[cfg(google_cloud_unstable_tracing)]
 pub mod attributes;
 
 #[cfg(all(

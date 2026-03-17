@@ -1,11 +1,13 @@
 {
+    "api_description": "Showcase represents both a model API and an integration testing surface for\nclient library generator consumption.",
     "api_id": "showcase.googleapis.com",
     "api_shortname": "showcase",
     "client_documentation": "https://docs.rs/google-cloud-showcase-v1beta1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-showcase-v1beta1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Client Libraries Showcase API",
+    "name": "showcase",
+    "name_pretty": "Client Libraries Showcase",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

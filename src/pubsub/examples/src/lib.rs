@@ -12,10 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod quickstart_publisher;
-pub mod quickstart_subscriber;
+mod publisher;
 mod schema;
-pub mod subscriber_stream;
+mod subscriber;
 mod subscription;
 mod topic;
 
@@ -52,9 +51,8 @@ pub async fn run_subscription_samples(
     subscription::create_pull_subscription::sample(&client, &project_id, topic_id, &id).await?;
     subscription::list_subscriptions::sample(&client, &project_id).await?;
 
-    quickstart_publisher::sample(&project_id, topic_id).await?;
-    quickstart_subscriber::sample(&project_id, &id).await?;
-    subscriber_stream::sample(&project_id, &id).await?;
+    subscriber::quickstart_subscriber::sample(&project_id, &id).await?;
+    subscriber::subscriber_stream::sample(&project_id, &id).await?;
 
     Ok(())
 }
@@ -70,6 +68,20 @@ pub async fn run_schema_samples(schema_names: &mut Vec<String>) -> anyhow::Resul
     schema::create_avro_schema::sample(&client, &project, &id).await?;
     schema::list_schemas::sample(&client, &project).await?;
     schema::list_schema_revisions::sample(&client, &project, &id).await?;
+
+    Ok(())
+}
+
+pub async fn run_publisher_samples(topic_names: &mut Vec<String>) -> anyhow::Result<()> {
+    let project = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    let topic_admin = TopicAdmin::builder().build().await?;
+
+    let topic_id = random_topic_id();
+    topic_names.push(format!("projects/{project}/topics/{topic_id}"));
+    topic::create_topic::sample(&topic_admin, &project, &topic_id).await?;
+
+    publisher::quickstart_publisher::sample(&project, &topic_id).await?;
+    publisher::publish_with_ordering_keys::sample(&project, &topic_id).await?;
 
     Ok(())
 }

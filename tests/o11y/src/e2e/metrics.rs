@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::resource_detector::TestResourceDetector;
-use super::{MetricService, set_up_meter_provider, set_up_tracer_provider, try_get_metric};
+use super::{MetricService, new_credentials, set_up_providers, try_get_metric};
 use google_cloud_test_utils::runtime_config::project_id;
 use opentelemetry::KeyValue;
 use rand::RngExt;
@@ -23,11 +22,16 @@ use std::time::Duration;
 const METRIC_NAME: &str = "workload.googleapis.com/test.e2e.metric";
 
 pub async fn run() -> anyhow::Result<()> {
-    let id = uuid::Uuid::new_v4().to_string();
     let project_id = project_id()?;
-    let _tracer_provider = set_up_tracer_provider(&project_id).await?;
-    let provider =
-        set_up_meter_provider(&project_id, TestResourceDetector::new(&project_id)).await?;
+    let id = uuid::Uuid::new_v4().to_string();
+    let credentials = new_credentials(&project_id).await?;
+    let (_tracer_provider, provider, _) = set_up_providers(
+        &project_id,
+        "test.e2e.metric",
+        id.to_string(),
+        credentials.clone(),
+    )
+    .await?;
 
     let client = MetricService::builder().build().await?;
 

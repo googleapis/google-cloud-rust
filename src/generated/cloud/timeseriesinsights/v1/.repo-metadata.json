@@ -1,11 +1,13 @@
 {
+    "api_description": "Provides a Timeseries Insights service which operates over time series\ndata. Users can perform time series spike, trend, and anomaly detection.\nWith a straightforward API and easy to understand results, the service\nmakes it simple to gather insights from large amounts of time series data\n(e.g. monitoring datasets) and integrate these insights in their\napplications.",
     "api_id": "timeseriesinsights.googleapis.com",
     "api_shortname": "timeseriesinsights",
     "client_documentation": "https://docs.rs/google-cloud-timeseriesinsights-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-timeseriesinsights-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Timeseries Insights API",
+    "name": "timeseriesinsights",
+    "name_pretty": "Timeseries Insights",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

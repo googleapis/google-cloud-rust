@@ -77,9 +77,10 @@ pub use with_client_signals::WithClientSignals;
 macro_rules! client_request_signals {
     ($info:expr, $options:expr, $client:literal, $method:literal, $rpc_method:expr) => {{
         use $crate::observability::attributes::keys::*;
+        use $crate::observability::attributes::otel_status_codes;
         use $crate::observability::attributes::{
             GCP_CLIENT_LANGUAGE_RUST, GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL,
-            RPC_SYSTEM_HTTP, otel_status_codes::UNSET,
+            RPC_SYSTEM_HTTP,
         };
         let start = $crate::observability::RequestStart::new(
             $info,
@@ -100,7 +101,7 @@ macro_rules! client_request_signals {
             { GCP_CLIENT_ARTIFACT } = $info.client_artifact,
             { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
             // Fields to be recorded later
-            { OTEL_STATUS_CODE } = UNSET,
+            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty,
             { ERROR_TYPE } = ::tracing::field::Empty,
             { SERVER_ADDRESS } = ::tracing::field::Empty,
@@ -137,9 +138,10 @@ macro_rules! client_request_signals {
 macro_rules! client_request_span {
     ($client:expr, $method:expr, $info:expr) => {{
         use $crate::observability::attributes::keys::*;
+        use $crate::observability::attributes::otel_status_codes;
         use $crate::observability::attributes::{
             GCP_CLIENT_LANGUAGE_RUST, GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL,
-            RPC_SYSTEM_HTTP, otel_status_codes::UNSET,
+            RPC_SYSTEM_HTTP,
         };
         tracing::info_span!(
             "client_request",
@@ -155,7 +157,7 @@ macro_rules! client_request_span {
             { GCP_CLIENT_ARTIFACT } = $info.client_artifact,
             { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
             // Fields to be recorded later
-            { OTEL_STATUS_CODE } = UNSET,
+            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty,
             { ERROR_TYPE } = ::tracing::field::Empty,
             { SERVER_ADDRESS } = ::tracing::field::Empty,
@@ -326,7 +328,9 @@ mod tests {
         pub logs_provider: SdkLoggerProvider,
         pub metric_exporter: InMemoryMetricExporter,
         pub metric_provider: SdkMeterProvider,
-        pub guard: DefaultGuard,
+        // To make the tests hermetic we need to avoid the global `tracing` subscriber. This is a
+        // per-thread guard. It works as long as all the tests are single-threaded (the default).
+        pub _guard: DefaultGuard,
     }
 
     impl SignalProviders {
@@ -365,7 +369,7 @@ mod tests {
                 logs_provider,
                 metric_exporter,
                 metric_provider,
-                guard,
+                _guard: guard,
             }
         }
 

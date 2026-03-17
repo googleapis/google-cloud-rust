@@ -12093,6 +12093,7 @@ impl std::fmt::Debug for super::NotebookSoftwareConfig {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::Schema {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -12153,6 +12154,7 @@ impl std::fmt::Debug for super::Schema {
     feature = "specialist-pool-service",
     feature = "tensorboard-service",
     feature = "vertex-rag-data-service",
+    feature = "vertex-rag-service",
     feature = "vizier-service",
 ))]
 impl std::fmt::Debug for super::GenericOperationMetadata {
@@ -14060,6 +14062,7 @@ impl std::fmt::Debug for super::SessionEvent {
         debug_struct.field("error_code", &self.error_code);
         debug_struct.field("error_message", &self.error_message);
         debug_struct.field("event_metadata", &self.event_metadata);
+        debug_struct.field("raw_event", &self.raw_event);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -14123,6 +14126,7 @@ impl std::fmt::Debug for super::CreateSessionRequest {
         let mut debug_struct = f.debug_struct("CreateSessionRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("session", &self.session);
+        debug_struct.field("session_id", &self.session_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15546,6 +15550,7 @@ impl std::fmt::Debug for super::tensorboard_time_series::Metadata {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::Tool {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15570,6 +15575,7 @@ impl std::fmt::Debug for super::Tool {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::tool::GoogleSearch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15587,6 +15593,7 @@ impl std::fmt::Debug for super::tool::GoogleSearch {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::tool::CodeExecution {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15602,6 +15609,7 @@ impl std::fmt::Debug for super::tool::CodeExecution {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::tool::ComputerUse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15622,6 +15630,7 @@ impl std::fmt::Debug for super::tool::ComputerUse {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::UrlContext {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15637,6 +15646,7 @@ impl std::fmt::Debug for super::UrlContext {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::FunctionDeclaration {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15831,6 +15841,7 @@ impl std::fmt::Debug for super::CodeExecutionResult {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::Retrieval {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15886,6 +15897,7 @@ impl std::fmt::Debug for super::vertex_rag_store::RagResource {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::VertexAISearch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15906,6 +15918,7 @@ impl std::fmt::Debug for super::VertexAISearch {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::vertex_ai_search::DataStoreSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15923,6 +15936,7 @@ impl std::fmt::Debug for super::vertex_ai_search::DataStoreSpec {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::GoogleSearchRetrieval {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15939,6 +15953,7 @@ impl std::fmt::Debug for super::GoogleSearchRetrieval {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::GoogleMaps {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15955,6 +15970,7 @@ impl std::fmt::Debug for super::GoogleMaps {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::EnterpriseWebSearch {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15972,6 +15988,7 @@ impl std::fmt::Debug for super::EnterpriseWebSearch {
     feature = "gen-ai-cache-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "vertex-rag-service",
 ))]
 impl std::fmt::Debug for super::DynamicRetrievalConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -17444,6 +17461,71 @@ impl std::fmt::Debug for super::Claim {
         debug_struct.field("end_index", &self.end_index);
         debug_struct.field("fact_indexes", &self.fact_indexes);
         debug_struct.field("score", &self.score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "vertex-rag-service")]
+impl std::fmt::Debug for super::AskContextsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AskContextsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("tools", &self.tools);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "vertex-rag-service")]
+impl std::fmt::Debug for super::AskContextsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AskContextsResponse");
+        debug_struct.field("response", &self.response);
+        debug_struct.field("contexts", &self.contexts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "vertex-rag-service")]
+impl std::fmt::Debug for super::AsyncRetrieveContextsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncRetrieveContextsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("query", &self.query);
+        debug_struct.field("tools", &self.tools);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "vertex-rag-service")]
+impl std::fmt::Debug for super::AsyncRetrieveContextsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncRetrieveContextsResponse");
+        debug_struct.field("contexts", &self.contexts);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "vertex-rag-service")]
+impl std::fmt::Debug for super::AsyncRetrieveContextsOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncRetrieveContextsOperationMetadata");
+        debug_struct.field("generic_metadata", &self.generic_metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

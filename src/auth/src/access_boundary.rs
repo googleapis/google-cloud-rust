@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::constants::TRUST_BOUNDARY_HEADER;
+use crate::credentials::EntityTag;
 use crate::credentials::{
     AccessToken, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider, dynamic,
 };
@@ -34,10 +35,9 @@ use std::clone::Clone;
 use std::error::Error;
 use std::fmt::Debug;
 use std::sync::{Arc, OnceLock};
-use tokio::sync::watch;
+use tokio::sync::{Mutex, watch};
 use tokio::time::{Duration, Instant, sleep};
 
-pub(crate) const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
 #[allow(dead_code)]
@@ -54,7 +54,7 @@ struct AccessBoundary {
     /// - `None`: We haven't fetched anything yet (uninitialized).
     /// - `Some(...)`: We successfully talked to the IAM service or have a customer provided override.
     ///   These values come with a TTL so we know how long to keep them around.
-    rx_header: watch::Receiver<Option<BoundaryValue>>,
+    rx_header: watch::Receiver<(Option<BoundaryValue>, EntityTag)>,
 }
 
 #[derive(Debug, Clone)]
@@ -81,12 +81,17 @@ impl AccessBoundary {
     where
         T: AccessBoundaryProvider + 'static,
     {
-        let (tx_header, rx_header) = watch::channel(None);
+        let (tx_header, rx_header) = watch::channel((None, EntityTag::new()));
 
         if Self::is_enabled() {
             tokio::spawn(refresh_task(provider, tx_header));
         }
 
+        Self { rx_header }
+    }
+
+    pub(crate) fn new_no_op() -> Self {
+        let (_, rx_header) = watch::channel((None, EntityTag::new()));
         Self { rx_header }
     }
 
@@ -96,23 +101,34 @@ impl AccessBoundary {
     where
         T: AccessBoundaryProvider + 'static,
     {
-        let (tx_header, rx_header) = watch::channel(None);
+        let (tx_header, rx_header) = watch::channel((None, EntityTag::new()));
         tokio::spawn(refresh_task(provider, tx_header));
         Self { rx_header }
     }
 
     fn is_enabled() -> bool {
-        std::env::var(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR)
-            .map(|v| v.to_lowercase())
-            .map(|v| v == "true" || v == "1")
-            .unwrap_or(false)
+        #[cfg(google_cloud_unstable_trusted_boundaries)]
+        {
+            true
+        }
+        #[cfg(not(google_cloud_unstable_trusted_boundaries))]
+        {
+            false
+        }
     }
 
     pub(crate) fn header_value(&self) -> Option<String> {
-        let val = self.rx_header.borrow().clone();
-        val.filter(|b| b.expires_at >= Instant::now()) // fail open if expired
+        let (val, _) = self.latest_header_value_and_entity_tag();
+        val
+    }
+
+    fn latest_header_value_and_entity_tag(&self) -> (Option<String>, EntityTag) {
+        let (val, tag) = self.rx_header.borrow().clone();
+        let val = val
+            .filter(|b| b.expires_at >= Instant::now()) // fail open if expired
             .and_then(|b| b.value)
-            .filter(|v| v != NO_OP_ENCODED_LOCATIONS)
+            .filter(|v| v != NO_OP_ENCODED_LOCATIONS);
+        (val, tag)
     }
 }
 
@@ -124,6 +140,97 @@ where
 {
     credentials: Arc<T>,
     access_boundary: Arc<AccessBoundary>,
+    cache: Arc<Mutex<EntityTagCache>>,
+}
+
+/// A cache designed to track cache validity for composite resources.
+/// It maps a dynamically requested "outer" `EntityTag` to the "inner" `EntityTag`
+/// provided by the underlying credentials layer, alongside a value that represents
+/// the current properties injected by the composite layer. This is not generic
+/// and is instead tailored to the access boundary use case, but later can be
+/// reused.
+#[derive(Debug)]
+struct EntityTagCache {
+    /// The `EntityTag` exposed to callers of this composite provider.
+    tag: Option<EntityTag>,
+
+    /// The `EntityTag` representing the state of the underlying inner credentials provider.
+    creds_tag: Option<EntityTag>,
+    /// The cached headers from the underlying provider.
+    creds_data: Option<HeaderMap>,
+    /// The `EntityTag` representing the state of the access boundary provider.
+    boundary_tag: Option<EntityTag>,
+    /// The injected state (in this case the current access boundary) tied to this cache entry.
+    boundary_data: Option<Option<String>>,
+}
+
+impl EntityTagCache {
+    fn new() -> Self {
+        Self {
+            tag: None,
+            creds_data: None,
+            creds_tag: None,
+            boundary_tag: None,
+            boundary_data: None,
+        }
+    }
+
+    fn update_credentials(
+        &mut self,
+        tag: EntityTag,
+        data: HeaderMap,
+    ) -> Result<CacheableResource<HeaderMap>> {
+        self.creds_tag = Some(tag);
+        self.creds_data = Some(data);
+        self.update_resource()
+    }
+
+    fn update_boundary(
+        &mut self,
+        tag: EntityTag,
+        data: Option<String>,
+    ) -> Result<CacheableResource<HeaderMap>> {
+        self.boundary_tag = Some(tag);
+        self.boundary_data = Some(data);
+        self.update_resource()
+    }
+
+    fn update_both(
+        &mut self,
+        creds_tag: EntityTag,
+        creds_data: HeaderMap,
+        boundary_tag: EntityTag,
+        boundary_data: Option<String>,
+    ) -> Result<CacheableResource<HeaderMap>> {
+        self.creds_tag = Some(creds_tag);
+        self.creds_data = Some(creds_data);
+        self.boundary_tag = Some(boundary_tag);
+        self.boundary_data = Some(boundary_data);
+        self.update_resource()
+    }
+
+    fn update_resource(&mut self) -> Result<CacheableResource<HeaderMap>> {
+        let new = EntityTag::new();
+        self.tag = Some(new.clone());
+        Ok(CacheableResource::New {
+            entity_tag: new,
+            data: self.combine()?,
+        })
+    }
+
+    fn combine(&self) -> Result<HeaderMap> {
+        let mut headers = self
+            .creds_data
+            .clone()
+            .expect("credentials returned NotModified when no data was cached");
+        if let Some(Some(value)) = &self.boundary_data {
+            headers.insert(
+                TRUST_BOUNDARY_HEADER,
+                HeaderValue::from_str(value).map_err(errors::non_retryable)?,
+            );
+        }
+        Ok(headers)
+    }
 }
 
 impl<T> CredentialsWithAccessBoundary<T>
@@ -140,6 +247,7 @@ where
         Self {
             credentials,
             access_boundary,
+            cache: Arc::new(Mutex::new(EntityTagCache::new())),
         }
     }
 
@@ -159,16 +267,57 @@ where
         Self {
             credentials,
             access_boundary,
+            cache: Arc::new(Mutex::new(EntityTagCache::new())),
+        }
+    }
+
+    pub(crate) fn new_no_op(credentials: T) -> Self {
+        Self {
+            credentials: Arc::new(credentials),
+            access_boundary: Arc::new(AccessBoundary::new_no_op()),
+            cache: Arc::new(Mutex::new(EntityTagCache::new())),
         }
     }
 
     #[cfg(test)]
     pub(crate) async fn wait_for_boundary(&self) {
         let mut rx = self.access_boundary.rx_header.clone();
-        if rx.borrow().is_some() {
+        if rx.borrow().0.is_some() {
             return;
         }
         let _ = rx.changed().await;
+    }
+}
+
+impl<T> CredentialsWithAccessBoundary<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    async fn query_credentials(
+        &self,
+        inner_tag: &Option<EntityTag>,
+        extensions: Extensions,
+    ) -> Result<CacheableResource<HeaderMap>> {
+        let mut extensions = extensions;
+        if let Some(tag) = inner_tag {
+            extensions.insert(tag.clone());
+        } else {
+            extensions.remove::<EntityTag>();
+        }
+
+        self.credentials.headers(extensions).await
+    }
+
+    fn query_boundary(&self, inner_tag: &Option<EntityTag>) -> CacheableResource<Option<String>> {
+        let (boundary_value, boundary_tag) =
+            self.access_boundary.latest_header_value_and_entity_tag();
+        match inner_tag {
+            Some(tag) if tag.eq(&boundary_tag) => CacheableResource::NotModified,
+            _ => CacheableResource::New {
+                entity_tag: boundary_tag,
+                data: boundary_value,
+            },
+        }
     }
 }
 
@@ -178,25 +327,53 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
-        let cached_headers = self.credentials.headers(extensions).await?;
-
-        // TODO(#4186): cache our own entity tag for access boundaries and avoid extra computations
-        let (entity_tag, mut headers) = match cached_headers {
-            CacheableResource::New { entity_tag, data } => (entity_tag, data),
-            CacheableResource::NotModified => return Ok(CacheableResource::NotModified),
-        };
-
-        if let Some(value) = self.access_boundary.header_value() {
-            headers.insert(
-                TRUST_BOUNDARY_HEADER,
-                HeaderValue::from_str(&value).map_err(errors::non_retryable)?,
-            );
+        if !AccessBoundary::is_enabled() {
+            return self.credentials.headers(extensions).await;
         }
 
-        Ok(CacheableResource::New {
-            entity_tag,
-            data: headers,
-        })
+        let tag = extensions.get::<EntityTag>();
+        let mut guard = self.cache.lock().await;
+
+        let creds_resource = self
+            .query_credentials(&guard.creds_tag, extensions.clone())
+            .await?;
+        let boundary_resource = self.query_boundary(&guard.boundary_tag);
+
+        let new = match (tag, creds_resource, boundary_resource) {
+            (Some(tag), CacheableResource::NotModified, CacheableResource::NotModified)
+                if Some(tag) == guard.tag.as_ref() =>
+            {
+                return Ok(CacheableResource::NotModified);
+            }
+            (None | Some(_), CacheableResource::NotModified, CacheableResource::NotModified) => {
+                return Ok(CacheableResource::New {
+                    entity_tag: guard
+                        .tag
+                        .clone()
+                        .expect("both credentials and access boundary returned NotModified, we should have a entity tag"),
+                    data: guard.combine()?,
+                });
+            }
+            (_, CacheableResource::New { entity_tag, data }, CacheableResource::NotModified) => {
+                guard.update_credentials(entity_tag, data)?
+            }
+            (_, CacheableResource::NotModified, CacheableResource::New { entity_tag, data }) => {
+                guard.update_boundary(entity_tag, data)?
+            }
+            (
+                _,
+                CacheableResource::New {
+                    entity_tag: creds_tag,
+                    data: creds_data,
+                },
+                CacheableResource::New {
+                    entity_tag: boundary_tag,
+                    data: boundary_data,
+                },
+            ) => guard.update_both(creds_tag, creds_data, boundary_tag, boundary_data)?,
+        };
+
+        Ok(new)
     }
 
     async fn universe_domain(&self) -> Option<String> {
@@ -378,14 +555,14 @@ async fn fetch_access_boundary_call(
     resp.json().await.map_err(GaxError::io)
 }
 
-async fn refresh_task<T>(provider: T, tx_header: watch::Sender<Option<BoundaryValue>>)
+async fn refresh_task<T>(provider: T, tx_header: watch::Sender<(Option<BoundaryValue>, EntityTag)>)
 where
     T: AccessBoundaryProvider,
 {
     loop {
         match provider.fetch_access_boundary().await {
             Ok(val) => {
-                let _ = tx_header.send(Some(BoundaryValue::new(val)));
+                let _ = tx_header.send((Some(BoundaryValue::new(val)), EntityTag::new()));
                 sleep(DEFAULT_TTL - REFRESH_SLACK).await
             }
             Err(_e) => {
@@ -454,13 +631,11 @@ pub(crate) mod tests {
     use super::*;
     use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
     use crate::credentials::{AccessToken, EntityTag};
-    use crate::mds::MDS_DEFAULT_URI;
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, cycle, matchers::*, responders::*};
-    use scoped_env::ScopedEnv;
     use serde_json::json;
-    use serial_test::{parallel, serial};
+    use serial_test::parallel;
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
@@ -526,9 +701,9 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    #[serial]
+    #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn test_fetch_access_boundary_success() -> TestResult {
-        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path("GET", "/allowedLocations")).respond_with(
@@ -573,9 +748,11 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    #[serial]
+    #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn test_fetch_access_boundary_mds_success() -> TestResult {
-        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+        use crate::mds::MDS_DEFAULT_URI;
+
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path(
@@ -704,10 +881,8 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    #[serial]
+    #[parallel]
     async fn test_access_boundary_new_disabled() -> TestResult {
-        let _env = ScopedEnv::remove(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR);
-
         let mut mock = MockCredentials::new();
         mock.expect_headers().return_once(|_extensions| {
             let headers = HeaderMap::from_iter([(
@@ -733,48 +908,27 @@ pub(crate) mod tests {
     #[tokio::test]
     #[parallel]
     async fn test_access_boundary_header_value_no_op() {
-        let (tx, rx_header) = watch::channel(None);
+        let (tx, rx_header) = watch::channel((None, EntityTag::new()));
         let access_boundary = AccessBoundary { rx_header };
 
-        let _ = tx.send(Some(BoundaryValue::new(Some("0x123".to_string()))));
+        let _ = tx.send((
+            Some(BoundaryValue::new(Some("0x123".to_string()))),
+            EntityTag::new(),
+        ));
         assert_eq!(access_boundary.header_value().as_deref(), Some("0x123"));
 
-        let _ = tx.send(Some(BoundaryValue::new(Some(
-            NO_OP_ENCODED_LOCATIONS.to_string(),
-        ))));
+        let _ = tx.send((
+            Some(BoundaryValue::new(Some(
+                NO_OP_ENCODED_LOCATIONS.to_string(),
+            ))),
+            EntityTag::new(),
+        ));
         let val = access_boundary.header_value();
         assert!(val.is_none(), "{val:?}");
 
-        let _ = tx.send(None);
+        let _ = tx.send((None, EntityTag::new()));
         let val = access_boundary.header_value();
         assert!(val.is_none(), "{val:?}");
-    }
-
-    #[test_case(Some("true"), true; "with_true")]
-    #[test_case(Some("TRUE"), true; "with_true_uppercase")]
-    #[test_case(Some("1"), true; "with_one")]
-    #[test_case(Some("false"), false; "with_false")]
-    #[test_case(Some("0"), false; "with_zero")]
-    #[test_case(None, false; "with_none")]
-    #[serial]
-    #[tokio::test]
-    async fn test_is_regional_access_boundaries_enabled(
-        env_val: Option<&str>,
-        expected: bool,
-    ) -> TestResult {
-        let _env = match env_val {
-            Some(val) => ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, val),
-            None => ScopedEnv::remove(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR),
-        };
-        assert_eq!(
-            AccessBoundary::is_enabled(),
-            expected,
-            "Failed on case: env_val={:?}, expected={}",
-            env_val,
-            expected
-        );
-
-        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
@@ -791,7 +945,7 @@ pub(crate) mod tests {
             .times(1)
             .return_once(|| Ok(Some("0x123".to_string())));
 
-        let (tx, rx) = watch::channel::<Option<BoundaryValue>>(None);
+        let (tx, rx) = watch::channel((None, EntityTag::new()));
 
         tokio::spawn(async move {
             refresh_task(mock_provider, tx).await;
@@ -801,14 +955,14 @@ pub(crate) mod tests {
         tokio::time::advance(Duration::from_secs(2)).await;
         tokio::task::yield_now().await;
 
-        let val = rx.borrow().clone();
+        let (val, _) = rx.borrow().clone();
         assert!(val.is_none(), "should be None on startup/error: {val:?}");
 
         // advance 15 minutes, next call fails
         tokio::time::advance(COOLDOWN_INTERVAL).await;
         tokio::task::yield_now().await;
 
-        let val = rx.borrow().clone();
+        let (val, _) = rx.borrow().clone();
         assert!(
             val.is_none(),
             "should still be None after second error: {val:?}"
@@ -818,7 +972,7 @@ pub(crate) mod tests {
         tokio::time::advance(COOLDOWN_INTERVAL).await;
         tokio::task::yield_now().await;
 
-        let val = rx.borrow().clone();
+        let (val, _) = rx.borrow().clone();
         let val = val.as_ref().and_then(|v| v.value.as_deref());
         assert_eq!(val, Some("0x123"), "{val:?}");
     }
@@ -826,15 +980,18 @@ pub(crate) mod tests {
     #[tokio::test(start_paused = true)]
     #[parallel]
     async fn expired_access_boundary_returns_none() {
-        let (tx, rx_header) = watch::channel::<Option<BoundaryValue>>(None);
+        let (tx, rx_header) = watch::channel((None, EntityTag::new()));
         let access_boundary = AccessBoundary { rx_header };
 
         let ttl = Duration::from_secs(10);
         let expires_at = Instant::now() + ttl;
-        let _ = tx.send(Some(BoundaryValue {
-            value: Some("old-value".to_string()),
-            expires_at,
-        }));
+        let _ = tx.send((
+            Some(BoundaryValue {
+                value: Some("old-value".to_string()),
+                expires_at,
+            }),
+            EntityTag::new(),
+        ));
 
         // value is valid
         let val = access_boundary.header_value();
@@ -848,7 +1005,10 @@ pub(crate) mod tests {
         assert!(val.is_none(), "{val:?}");
 
         // update with new value
-        let _ = tx.send(Some(BoundaryValue::new(Some("new-value".to_string()))));
+        let _ = tx.send((
+            Some(BoundaryValue::new(Some("new-value".to_string()))),
+            EntityTag::new(),
+        ));
 
         let val = access_boundary.header_value();
         assert_eq!(val.as_deref(), Some("new-value"), "{val:?}");
@@ -885,6 +1045,138 @@ pub(crate) mod tests {
 
         let val = access_boundary.header_value();
         assert_eq!(val.as_deref(), Some("new-value"), "{val:?}");
+    }
+
+    #[tokio::test(start_paused = true)]
+    #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
+    async fn test_entity_tag_caching_behavior() -> TestResult {
+        let mut mock_creds = MockCredentials::new();
+        let latest_token_etag = Arc::new(std::sync::RwLock::new(EntityTag::new()));
+        let closure_latest_token_etag = latest_token_etag.clone();
+        mock_creds.expect_headers().returning(move |extensions| {
+            let user_etag = extensions.get::<EntityTag>().cloned();
+            let token_etag = closure_latest_token_etag.read().unwrap();
+            match user_etag {
+                Some(etag) if etag.eq(&*token_etag) => Ok(CacheableResource::NotModified),
+                _ => Ok(CacheableResource::New {
+                    entity_tag: token_etag.clone(),
+                    data: HeaderMap::new(),
+                }),
+            }
+        });
+
+        let mut mock_boundary = MockAccessBoundaryProvider::new();
+        mock_boundary
+            .expect_fetch_access_boundary()
+            .times(1)
+            .returning(|| Ok(Some("0x123".to_string())));
+        mock_boundary
+            .expect_fetch_access_boundary()
+            .times(1)
+            .returning(|| Ok(Some("0x321".to_string())));
+
+        let access_boundary = AccessBoundary::new_with_mock_provider(mock_boundary);
+        let creds = CredentialsWithAccessBoundary {
+            credentials: Arc::new(mock_creds),
+            access_boundary: Arc::new(access_boundary),
+            cache: Arc::new(tokio::sync::Mutex::new(EntityTagCache::new())),
+        };
+
+        // First call - no tag yet
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        let tag1 = match cached_headers {
+            CacheableResource::New { ref entity_tag, .. } => entity_tag.clone(),
+            _ => panic!("expected New"),
+        };
+        let boundary = get_access_boundary_from_headers(cached_headers);
+        assert!(boundary.is_none(), "{boundary:?}");
+
+        // Second call with same tag - should be NotModified
+        let mut ext = Extensions::new();
+        ext.insert(tag1.clone());
+        let cached_headers = creds.headers(ext).await?;
+        assert!(
+            matches!(cached_headers, CacheableResource::NotModified),
+            "{cached_headers:?}"
+        );
+
+        tokio::time::advance(Duration::from_secs(2)).await; // allow boundary to fetch
+        tokio::task::yield_now().await;
+        creds.wait_for_boundary().await;
+
+        // Using old tag - inner token didn't change but boundary DID.
+        let mut ext = Extensions::new();
+        ext.insert(tag1.clone());
+        let cached_headers = creds.headers(ext).await?;
+        let tag2 = match cached_headers {
+            CacheableResource::New { ref entity_tag, .. } => entity_tag.clone(),
+            _ => panic!("expected New with updated access boundary"),
+        };
+        let boundary = get_access_boundary_from_headers(cached_headers);
+        assert_eq!(boundary.as_deref(), Some("0x123"), "{boundary:?}");
+        assert_ne!(tag1, tag2, "New boundary should result in new ETags");
+
+        // Passing the new tag should return NotModified again
+        let mut ext = Extensions::new();
+        ext.insert(tag2.clone());
+        let cached_headers = creds.headers(ext).await?;
+        assert!(
+            matches!(cached_headers, CacheableResource::NotModified),
+            "{cached_headers:?}"
+        );
+
+        // wait for boundary to refresh
+        tokio::time::advance(DEFAULT_TTL).await;
+        tokio::task::yield_now().await;
+        creds.wait_for_boundary().await;
+
+        // Using old tag - inner token didn't change but boundary DID.
+        let mut ext = Extensions::new();
+        ext.insert(tag2.clone());
+        let cached_headers = creds.headers(ext).await?;
+        let tag3 = match cached_headers {
+            CacheableResource::New { ref entity_tag, .. } => entity_tag.clone(),
+            _ => panic!("expected New with updated access boundary"),
+        };
+        let boundary = get_access_boundary_from_headers(cached_headers);
+        assert_eq!(boundary.as_deref(), Some("0x321"), "{boundary:?}");
+        assert_ne!(tag2, tag3, "New boundary should result in new ETags");
+
+        // now update the token
+        {
+            let mut etag = latest_token_etag.write().unwrap();
+            *etag = EntityTag::new();
+        }
+
+        // Using old tag - boundary didn't change but inner token DID.
+        let mut ext = Extensions::new();
+        ext.insert(tag3.clone());
+        let cached_headers = creds.headers(ext).await?;
+        let tag4 = match cached_headers {
+            CacheableResource::New { ref entity_tag, .. } => entity_tag.clone(),
+            _ => panic!("expected New with updated token"),
+        };
+        let boundary = get_access_boundary_from_headers(cached_headers);
+        assert_eq!(boundary.as_deref(), Some("0x321"), "{boundary:?}");
+        assert_ne!(tag3, tag4, "New token should result in new ETags");
+
+        // Using random tag - should return token and boundary just fine.
+        let mut ext = Extensions::new();
+        ext.insert(EntityTag::new());
+        let cached_headers = creds.headers(ext).await?;
+        let tag5 = match cached_headers {
+            CacheableResource::New { ref entity_tag, .. } => entity_tag.clone(),
+            _ => panic!("expected New with updated token"),
+        };
+        let boundary = get_access_boundary_from_headers(cached_headers);
+        assert_eq!(boundary.as_deref(), Some("0x321"), "{boundary:?}");
+        assert_eq!(
+            tag4, tag5,
+            "Same token and boundary should result in same ETags"
+        );
+
+        Ok(())
     }
 
     #[tokio::test]

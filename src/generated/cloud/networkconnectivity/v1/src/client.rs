@@ -54,14 +54,14 @@
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::cross_network_automation_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::cross_network_automation_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::cross_network_automation_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `CrossNetworkAutomationService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `CrossNetworkAutomationService` in
+/// create one and reuse it. You do not need to wrap `CrossNetworkAutomationService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -959,14 +959,14 @@ impl CrossNetworkAutomationService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::data_transfer_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::data_transfer_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::data_transfer_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `DataTransferService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `DataTransferService` in
+/// create one and reuse it. You do not need to wrap `DataTransferService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -1644,14 +1644,14 @@ impl DataTransferService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::hub_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::hub_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::hub_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `HubService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `HubService` in
+/// create one and reuse it. You do not need to wrap `HubService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -2595,14 +2595,14 @@ impl HubService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::internal_range_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::internal_range_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::internal_range_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `InternalRangeService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `InternalRangeService` in
+/// create one and reuse it. You do not need to wrap `InternalRangeService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
@@ -3065,14 +3065,14 @@ impl InternalRangeService {
 ///   authentication may need to override this default.
 ///
 /// [with_endpoint()]: super::builder::policy_based_routing_service::ClientBuilder::with_endpoint
-/// [with_credentials()]: super::builder::policy_based_routing_service::ClientBuilder::credentials
+/// [with_credentials()]: super::builder::policy_based_routing_service::ClientBuilder::with_credentials
 /// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 ///
 /// # Pooling and Cloning
 ///
 /// `PolicyBasedRoutingService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `PolicyBasedRoutingService` in
+/// create one and reuse it. You do not need to wrap `PolicyBasedRoutingService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 #[derive(Clone, Debug)]

@@ -22,6 +22,7 @@
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
+pub use rust_decimal::Decimal;
 
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 pub(crate) use google_cloud_gax::options::RequestOptions;
@@ -37,7 +38,18 @@ pub(crate) mod database_client;
 pub(crate) mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }
+pub(crate) mod from_value;
+pub(crate) mod read_only_transaction;
+pub(crate) mod result_set;
+pub(crate) mod result_set_metadata;
+pub(crate) mod row;
+pub(crate) mod statement;
+pub(crate) mod timestamp_bound;
+pub(crate) mod to_value;
+pub(crate) mod types;
+pub(crate) mod value;
 
+pub(crate) mod error;
 mod status;
 
 #[allow(dead_code)]
@@ -47,6 +59,7 @@ mod status;
 pub(crate) mod generated;
 
 #[allow(dead_code)]
+#[allow(clippy::all)]
 pub(crate) mod google {
     pub mod api {
         include!("generated/protos/spanner/google.api.rs");

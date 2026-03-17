@@ -345,6 +345,9 @@ impl serde::ser::Serialize for super::Value {
         if let Some(value) = self.field_reference_value() {
             state.serialize_entry("fieldReferenceValue", value)?;
         }
+        if let Some(value) = self.variable_reference_value() {
+            state.serialize_entry("variableReferenceValue", value)?;
+        }
         if let Some(value) = self.function_value() {
             state.serialize_entry("functionValue", value)?;
         }

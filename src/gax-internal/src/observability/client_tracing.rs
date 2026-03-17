@@ -50,12 +50,12 @@ impl<T> sealed::ResultExt for std::result::Result<T, Error> {}
 impl<T> ResultExt for std::result::Result<T, Error> {
     fn record_in_span(self, span: &Span) -> Self {
         match &self {
-            Ok(_) => span.record(OTEL_STATUS_CODE, otel_status_codes::OK),
+            Ok(_) => {}
             Err(e) => {
                 span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
                 let error_type = ErrorType::from_gax_error(e);
                 span.record(otel_trace::ERROR_TYPE, error_type.as_str());
-                span.record(OTEL_STATUS_DESCRIPTION, e.to_string())
+                span.record(OTEL_STATUS_DESCRIPTION, e.to_string());
             }
         };
         self
@@ -117,7 +117,7 @@ mod tests {
         let result = {
             let span = tracing::info_span!(
                 "test-only",
-                { OTEL_STATUS_CODE } = field::Empty,
+                { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
                 { otel_trace::ERROR_TYPE } = field::Empty,
                 { OTEL_STATUS_DESCRIPTION } = field::Empty,
             );
@@ -132,7 +132,7 @@ mod tests {
         };
         let want = BTreeMap::from_iter(
             [
-                (OTEL_STATUS_CODE, Some("OK")),
+                (OTEL_STATUS_CODE, Some("UNSET")),
                 (otel_trace::ERROR_TYPE, None),
                 (OTEL_STATUS_DESCRIPTION, None),
             ]
@@ -152,7 +152,7 @@ mod tests {
         let result = {
             let span = tracing::info_span!(
                 "test-only",
-                { OTEL_STATUS_CODE } = field::Empty,
+                { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
                 { otel_trace::ERROR_TYPE } = field::Empty,
                 { OTEL_STATUS_DESCRIPTION } = field::Empty,
             );

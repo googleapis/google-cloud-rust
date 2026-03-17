@@ -1,11 +1,15 @@
 {
+    "api_description": "Manage Apache Kafka clusters and resources.",
     "api_id": "managedkafka.googleapis.com",
     "api_shortname": "managedkafka",
     "client_documentation": "https://docs.rs/google-cloud-managedkafka-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-managedkafka-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1376234",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Managed Service for Apache Kafka API",
+    "name": "managedkafka",
+    "name_pretty": "Managed Service for Apache Kafka",
+    "product_documentation": "https://cloud.google.com/managed-service-for-apache-kafka/docs",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

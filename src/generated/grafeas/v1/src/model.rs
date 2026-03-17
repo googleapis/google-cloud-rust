@@ -792,6 +792,10 @@ pub struct FileLocation {
     /// information from the origin layer of the package).
     pub layer_details: std::option::Option<crate::model::LayerDetails>,
 
+    /// Line number in the file where the package was found.
+    /// Optional field that only applies to source repository scanning.
+    pub line_number: i32,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -842,6 +846,18 @@ impl FileLocation {
         T: std::convert::Into<crate::model::LayerDetails>,
     {
         self.layer_details = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [line_number][crate::model::FileLocation::line_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::FileLocation;
+    /// let x = FileLocation::new().set_line_number(42);
+    /// ```
+    pub fn set_line_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.line_number = v.into();
         self
     }
 }

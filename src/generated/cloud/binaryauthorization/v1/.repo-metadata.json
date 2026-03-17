@@ -1,11 +1,14 @@
 {
+    "api_description": "The management interface for Binary Authorization, a system providing\npolicy control for images deployed to Kubernetes Engine clusters, Anthos\nclusters on VMware, and Cloud Run.",
     "api_id": "binaryauthorization.googleapis.com",
     "api_shortname": "binaryauthorization",
     "client_documentation": "https://docs.rs/google-cloud-binaryauthorization-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-binaryauthorization-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Binary Authorization API",
+    "name": "binaryauthorization",
+    "name_pretty": "Binary Authorization",
+    "product_documentation": "https://cloud.google.com/binary-authorization",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

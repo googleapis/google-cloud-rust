@@ -32,18 +32,18 @@
 //! # Ok(()) }
 //! ```
 
+use super::Error;
+use super::Uri;
 use super::{OTEL_KEY_GCP_PROJECT_ID, OTEL_KEY_SERVICE_NAME};
 use crate::auth::CloudTelemetryAuthInterceptor;
 use google_cloud_auth::credentials::{Builder as AdcBuilder, Credentials};
 use opentelemetry::KeyValue;
 use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig;
-use opentelemetry_otlp::{ExporterBuildError, WithExportConfig, WithTonicConfig};
+use opentelemetry_otlp::{WithExportConfig, WithTonicConfig};
 use opentelemetry_sdk::metrics::{
     Aggregation, Instrument, InstrumentKind, SdkMeterProvider, Stream,
 };
 use opentelemetry_sdk::resource::ResourceDetector;
-
-pub use http::Uri;
 
 /// Creates a `SdkMeterProvider` optimized for Google Cloud Monitoring.
 ///
@@ -213,31 +213,6 @@ impl Builder {
                 | (Some(W), Some(_), _, _, _)
                 | (Some(C), Some(_), _, _, _)
         )
-    }
-}
-
-type BoxedError = Box<dyn std::error::Error + Send + Sync + 'static>;
-
-#[derive(Debug, thiserror::Error)]
-#[non_exhaustive]
-pub enum Error {
-    #[error("cannot initialize default credentials: {0}")]
-    DefaultCredentials(#[source] BoxedError),
-    #[error("the URI is invalid: {0}")]
-    InvalidUri(Uri),
-    #[error("cannot create metrics exporter: {0}")]
-    CreateExporter(#[source] BoxedError),
-}
-
-impl Error {
-    fn credentials(source: google_cloud_auth::build_errors::Error) -> Self {
-        Self::DefaultCredentials(Box::new(source))
-    }
-    fn invalid_uri(uri: Uri) -> Self {
-        Self::InvalidUri(uri)
-    }
-    fn create_exporter(source: ExporterBuildError) -> Self {
-        Self::CreateExporter(Box::new(source))
     }
 }
 

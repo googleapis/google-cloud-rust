@@ -266,7 +266,7 @@ impl Builder {
         self
     }
 
-    #[cfg(test)]
+    #[cfg(all(test, google_cloud_unstable_trusted_boundaries))]
     fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
         self.iam_endpoint_override = iam_endpoint_override;
         self
@@ -620,23 +620,18 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
-        PKCS8_PK, b64_decode_to_json, get_access_boundary_from_headers, get_headers_from_cache,
-        get_token_from_headers,
+        PKCS8_PK, b64_decode_to_json, get_headers_from_cache, get_token_from_headers,
     };
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
-    use httptest::responders::json_encoded;
-    use httptest::{Expectation, Server, matchers::*};
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::LineEnding;
-    use scoped_env::ScopedEnv;
     use serde_json::Value;
     use serde_json::json;
-    use serial_test::{parallel, serial};
+    use serial_test::parallel;
     use std::error::Error as _;
     use std::time::Duration;
 
@@ -1055,9 +1050,13 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial]
+    #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn e2e_access_boundary() -> TestResult {
-        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+        use crate::credentials::tests::get_access_boundary_from_headers;
+        use httptest::responders::json_encoded;
+        use httptest::{Expectation, Server, matchers::*};
+        use serde_json::Value;
 
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_storage::Error;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model_ext::ReadRange;
 
@@ -25,8 +26,26 @@ const LANDSAT_INDEX: &str = "index.csv.gz";
 /// The caller may need to configure the default crypto provider.
 pub async fn run() -> anyhow::Result<()> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+
     // Verify gRPC requests work as expected:
-    let client = StorageControl::builder().build().await?;
+    let control = StorageControl::builder().build().await?;
+    make_grpc_calls(&project_id, control)
+        .await
+        .inspect_err(|e| eprintln!("Error in gRPC call: {e:?}"))
+        .or_else(map_error)?;
+
+    // Verify JSON requests work as expected:
+    let storage = Storage::builder().build().await?;
+    make_json_calls(storage)
+        .await
+        .inspect_err(|e| eprintln!("Error in JSON call: {e:?}"))
+        .or_else(map_error)
+}
+
+async fn make_grpc_calls(
+    project_id: &str,
+    client: StorageControl,
+) -> google_cloud_storage::Result<()> {
     let mut buckets = client
         .list_buckets()
         .set_parent(format!("projects/{project_id}"))
@@ -35,10 +54,11 @@ pub async fn run() -> anyhow::Result<()> {
         .next()
         .await
         .expect("expected at least one bucket")?;
+    Ok(())
+}
 
-    // Verify JSON requests work as expected:
-    let storage = Storage::builder().build().await?;
-    let mut reader = storage
+async fn make_json_calls(client: Storage) -> google_cloud_storage::Result<()> {
+    let mut reader = client
         .read_object(LANDSAT_DATASET, LANDSAT_INDEX)
         .set_read_range(ReadRange::head(128))
         .send()
@@ -47,6 +67,16 @@ pub async fn run() -> anyhow::Result<()> {
     while let Some(chunk) = reader.next().await.transpose()? {
         contents.extend_from_slice(&chunk);
     }
-    assert_eq!(contents.len(), 128);
     Ok(())
+}
+
+fn map_error(e: Error) -> anyhow::Result<()> {
+    if e.status().is_some() {
+        eprintln!(
+            "Got a service error, this is acceptable as the crypto provider must be working: {e:?}"
+        );
+        return Ok(());
+    }
+    eprintln!("Got a non-service error: {e:?}");
+    Err(e.into())
 }

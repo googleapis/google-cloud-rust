@@ -396,6 +396,7 @@ impl std::fmt::Debug for super::Subscription {
         debug_struct.field("push_config", &self.push_config);
         debug_struct.field("bigquery_config", &self.bigquery_config);
         debug_struct.field("cloud_storage_config", &self.cloud_storage_config);
+        debug_struct.field("bigtable_config", &self.bigtable_config);
         debug_struct.field("ack_deadline_seconds", &self.ack_deadline_seconds);
         debug_struct.field("retain_acked_messages", &self.retain_acked_messages);
         debug_struct.field(
@@ -535,6 +536,21 @@ impl std::fmt::Debug for super::BigQueryConfig {
         debug_struct.field("state", &self.state);
         debug_struct.field("use_table_schema", &self.use_table_schema);
         debug_struct.field("service_account_email", &self.service_account_email);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BigtableConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigtableConfig");
+        debug_struct.field("table", &self.table);
+        debug_struct.field("app_profile_id", &self.app_profile_id);
+        debug_struct.field("service_account_email", &self.service_account_email);
+        debug_struct.field("write_metadata", &self.write_metadata);
+        debug_struct.field("state", &self.state);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

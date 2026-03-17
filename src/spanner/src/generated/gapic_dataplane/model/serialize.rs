@@ -419,6 +419,9 @@ impl serde::ser::Serialize for super::CommitResponse {
         if self.snapshot_timestamp.is_some() {
             state.serialize_entry("snapshotTimestamp", &self.snapshot_timestamp)?;
         }
+        if self.cache_update.is_some() {
+            state.serialize_entry("cacheUpdate", &self.cache_update)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2469,6 +2472,9 @@ impl serde::ser::Serialize for super::BeginTransactionRequest {
         if self.mutation_key.is_some() {
             state.serialize_entry("mutationKey", &self.mutation_key)?;
         }
+        if self.routing_hint.is_some() {
+            state.serialize_entry("routingHint", &self.routing_hint)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2520,6 +2526,9 @@ impl serde::ser::Serialize for super::CommitRequest {
         }
         if self.precommit_token.is_some() {
             state.serialize_entry("precommitToken", &self.precommit_token)?;
+        }
+        if self.routing_hint.is_some() {
+            state.serialize_entry("routingHint", &self.routing_hint)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2816,6 +2825,9 @@ impl serde::ser::Serialize for super::Transaction {
         }
         if self.precommit_token.is_some() {
             state.serialize_entry("precommitToken", &self.precommit_token)?;
+        }
+        if self.cache_update.is_some() {
+            state.serialize_entry("cacheUpdate", &self.cache_update)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

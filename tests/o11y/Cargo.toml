@@ -43,9 +43,8 @@ google-cloud-trace-v1         = { workspace = true, features = ["default"] }
 google-cloud-monitoring-v3    = { workspace = true, features = ["default"] }
 http.workspace                = true
 httptest.workspace            = true
-opentelemetry                 = { workspace = true, features = ["metrics", "trace"] }
-opentelemetry_sdk             = { workspace = true, features = ["metrics", "rt-tokio", "spec_unstable_metrics_views", "trace"] }
-opentelemetry-proto           = { workspace = true, features = ["gen-tonic", "metrics", "trace"] }
+opentelemetry                 = { workspace = true, features = ["logs", "metrics", "trace"] }
+opentelemetry-proto           = { workspace = true, features = ["gen-tonic", "logs", "metrics", "trace"] }
 thiserror.workspace           = true
 rand.workspace                = true
 reqwest                       = { workspace = true, features = ["json"] }
@@ -55,6 +54,7 @@ tokio                         = { workspace = true, features = ["test-util", "ti
 tokio-stream                  = { workspace = true, features = ["net"] }
 tonic                         = { workspace = true, features = ["codegen", "router", "server", "transport"] }
 tracing.workspace             = true
+tracing-serde.workspace       = true
 tracing-subscriber            = { workspace = true, features = ["fmt"] }
 tracing-opentelemetry         = { workspace = true }
 uuid                          = { workspace = true, features = ["v4"] }
@@ -63,7 +63,11 @@ uuid                          = { workspace = true, features = ["v4"] }
 # Enable `internal-logs` to troubleshoot errors.
 [dependencies.opentelemetry-otlp]
 workspace = true
-features  = ["grpc-tonic", "internal-logs", "metrics", "tls", "tls-roots", "trace"]
+features  = ["grpc-tonic", "internal-logs", "logs", "metrics", "tls", "tls-roots", "trace"]
+
+[dependencies.opentelemetry_sdk]
+workspace = true
+features  = ["logs", "metrics", "rt-tokio", "spec_unstable_metrics_views", "trace"]
 
 [dev-dependencies]
 opentelemetry_sdk = { workspace = true, features = ["testing"] }
@@ -71,6 +75,9 @@ serial_test       = { workspace = true }
 scoped-env        = { workspace = true }
 test-case         = { workspace = true }
 tower             = { workspace = true, features = ["util"] }
+
+[dependencies.opentelemetry-appender-tracing]
+workspace = true
 
 [lints]
 workspace = true

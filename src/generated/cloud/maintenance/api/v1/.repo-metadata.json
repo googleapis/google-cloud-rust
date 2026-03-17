@@ -1,11 +1,15 @@
 {
+    "api_description": "The Maintenance API provides a centralized view of planned disruptive\nmaintenance events across supported Google Cloud products. It offers users\nvisibility into upcoming, ongoing, and completed maintenance, along with\ncontrols to manage certain maintenance activities, such as maintenance\nwindows, rescheduling, and on-demand updates.",
     "api_id": "maintenance.googleapis.com",
     "api_shortname": "maintenance",
     "client_documentation": "https://docs.rs/google-cloud-maintenance-api-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-maintenance-api-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1673988\u0026template=1161103",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Maintenance API",
+    "name": "maintenance",
+    "name_pretty": "Maintenance",
+    "product_documentation": "https://cloud.google.com/unified-maintenance/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

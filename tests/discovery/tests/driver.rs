@@ -33,7 +33,6 @@ mod compute {
             .inspect_err(anydump)
     }
 
-    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_lro_errors() -> anyhow::Result<()> {
         let _guard = enable_tracing();
@@ -42,7 +41,6 @@ mod compute {
             .inspect_err(anydump)
     }
 
-    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_machine_types() -> anyhow::Result<()> {
         let _guard = enable_tracing();
@@ -51,7 +49,6 @@ mod compute {
             .inspect_err(anydump)
     }
 
-    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_images() -> anyhow::Result<()> {
         let _guard = enable_tracing();
@@ -60,7 +57,6 @@ mod compute {
             .inspect_err(anydump)
     }
 
-    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_instances() -> anyhow::Result<()> {
         let _guard = enable_tracing();
@@ -69,7 +65,6 @@ mod compute {
             .inspect_err(anydump)
     }
 
-    #[ignore = "TODO(#3691) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_region_instances() -> anyhow::Result<()> {
         let _guard = enable_tracing();

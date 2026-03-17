@@ -1,11 +1,15 @@
 {
+    "api_description": "The Google Cloud Security Operations API, popularly known as the Chronicle\nAPI, serves endpoints that enable security analysts to analyze and\nmitigate a security threat throughout its lifecycle",
     "api_id": "chronicle.googleapis.com",
     "api_shortname": "chronicle",
     "client_documentation": "https://docs.rs/google-cloud-chronicle-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-chronicle-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1387895",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Chronicle API",
+    "name": "chronicle",
+    "name_pretty": "Chronicle",
+    "product_documentation": "https://cloud.google.com/chronicle/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

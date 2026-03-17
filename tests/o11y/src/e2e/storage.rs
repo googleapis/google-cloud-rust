@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::e2e::wait_for_trace;
+use super::{new_credentials, set_up_providers, wait_for_trace};
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::ReadRange;
 use google_cloud_test_utils::runtime_config::project_id;
 use opentelemetry::trace::TraceContextExt;
 use std::collections::BTreeSet;
 use tracing_opentelemetry::OpenTelemetrySpanExt;
+use uuid::Uuid;
 
 const ROOT_SPAN_NAME: &str = "e2e-storage-test";
 
@@ -29,7 +30,6 @@ pub async fn run() -> anyhow::Result<()> {
     let trace_id = send_trace(&project_id).await?;
     let required = BTreeSet::from_iter([
         ROOT_SPAN_NAME,
-        "list_buckets",
         "google.storage.v2.Storage/ListBuckets",
         "create_bucket",
         "google.storage.v2.Storage/CreateBucket",
@@ -55,7 +55,7 @@ pub async fn run() -> anyhow::Result<()> {
         "delete_bucket",
         "google.storage.v2.Storage/DeleteBucket",
     ]);
-    let trace = wait_for_trace(&project_id, &trace_id, required.len() - 2).await?;
+    let trace = wait_for_trace(&project_id, &trace_id, &required).await?;
 
     // Verify the expected spans appear in the trace:
     let span_names = trace
@@ -64,16 +64,22 @@ pub async fn run() -> anyhow::Result<()> {
         .map(|s| s.name.as_str())
         .collect::<BTreeSet<_>>();
     let missing = required.difference(&span_names).collect::<Vec<_>>();
-    // Sometimes a few traces are not delivered and are reported as "missing":
-    //   https://github.com/user-attachments/assets/7a534f6c-930e-4f97-b840-2ed01de2095e
-    assert!(missing.len() <= 2, "missing={missing:?}\n\n{trace:?}",);
+    assert!(missing.is_empty(), "missing={missing:?}\n\n{trace:?}",);
 
     Ok(())
 }
 
 async fn send_trace(project_id: &str) -> anyhow::Result<String> {
     // 1. Setup Telemetry (Real Google Cloud Destination)
-    let provider = crate::e2e::set_up_tracer_provider(project_id).await?;
+    let id = Uuid::new_v4();
+    let credentials = new_credentials(project_id).await?;
+    let (provider, _meter_provider, _) = set_up_providers(
+        project_id,
+        ROOT_SPAN_NAME,
+        id.to_string(),
+        credentials.clone(),
+    )
+    .await?;
 
     // 2. Generate Trace
     // Start a root span
@@ -84,10 +90,9 @@ async fn send_trace(project_id: &str) -> anyhow::Result<String> {
         .span_context()
         .trace_id()
         .to_string();
-    {
-        let _enter = root_span.entered();
-        let _ = client_library_operations().await;
-    }
+
+    use tracing::Instrument;
+    let _ = client_library_operations().instrument(root_span).await;
 
     println!(
         "View generated trace in Console: https://console.cloud.google.com/traces/explorer;traceId={}?project={}",

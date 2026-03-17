@@ -393,6 +393,7 @@ impl gaxi::prost::ToProto<CommitResponse> for crate::generated::gapic_dataplane:
             commit_timestamp: self.commit_timestamp.map(|v| v.to_proto()).transpose()?,
             commit_stats: self.commit_stats.map(|v| v.to_proto()).transpose()?,
             snapshot_timestamp: self.snapshot_timestamp.map(|v| v.to_proto()).transpose()?,
+            cache_update: self.cache_update.map(|v| v.to_proto()).transpose()?,
             multiplexed_session_retry: self.multiplexed_session_retry.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -405,6 +406,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::CommitResp
                 .set_or_clear_commit_timestamp(self.commit_timestamp.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_commit_stats(self.commit_stats.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_snapshot_timestamp(self.snapshot_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_cache_update(self.cache_update.map(|v| v.cnv()).transpose()?)
                 .set_multiplexed_session_retry(self.multiplexed_session_retry.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -1975,6 +1977,7 @@ impl gaxi::prost::ToProto<BeginTransactionRequest> for crate::generated::gapic_d
             options: self.options.map(|v| v.to_proto()).transpose()?,
             request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
             mutation_key: self.mutation_key.map(|v| v.to_proto()).transpose()?,
+            routing_hint: self.routing_hint.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -1987,6 +1990,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BeginTrans
                 .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_mutation_key(self.mutation_key.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_routing_hint(self.routing_hint.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -2024,6 +2028,7 @@ impl gaxi::prost::ToProto<CommitRequest> for crate::generated::gapic_dataplane::
             max_commit_delay: self.max_commit_delay.map(|v| v.to_proto()).transpose()?,
             request_options: self.request_options.map(|v| v.to_proto()).transpose()?,
             precommit_token: self.precommit_token.map(|v| v.to_proto()).transpose()?,
+            routing_hint: self.routing_hint.map(|v| v.to_proto()).transpose()?,
             transaction: self.transaction.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -2040,6 +2045,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::CommitRequ
                 .set_or_clear_max_commit_delay(self.max_commit_delay.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_precommit_token(self.precommit_token.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_routing_hint(self.routing_hint.map(|v| v.cnv()).transpose()?)
                 .set_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
         )
     }
@@ -2288,6 +2294,7 @@ impl gaxi::prost::ToProto<Transaction> for crate::generated::gapic_dataplane::mo
             id: self.id.to_proto()?,
             read_timestamp: self.read_timestamp.map(|v| v.to_proto()).transpose()?,
             precommit_token: self.precommit_token.map(|v| v.to_proto()).transpose()?,
+            cache_update: self.cache_update.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -2299,6 +2306,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Transactio
                 .set_id(self.id)
                 .set_or_clear_read_timestamp(self.read_timestamp.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_precommit_token(self.precommit_token.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_cache_update(self.cache_update.map(|v| v.cnv()).transpose()?)
         )
     }
 }

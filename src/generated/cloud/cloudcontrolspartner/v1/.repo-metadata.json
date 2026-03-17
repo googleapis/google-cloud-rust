@@ -1,11 +1,15 @@
 {
+    "api_description": "Provides insights about your customers and their Assured Workloads based on\nyour Sovereign Controls by Partners offering.",
     "api_id": "cloudcontrolspartner.googleapis.com",
     "api_shortname": "cloudcontrolspartner",
     "client_documentation": "https://docs.rs/google-cloud-cloudcontrolspartner-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-cloudcontrolspartner-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1504051",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Controls Partner API",
+    "name": "cloudcontrolspartner",
+    "name_pretty": "Cloud Controls Partner",
+    "product_documentation": "https://cloud.google.com/sovereign-controls-by-partners/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

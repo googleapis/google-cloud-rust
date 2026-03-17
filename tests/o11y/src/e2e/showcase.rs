@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{set_up_tracer_provider, wait_for_trace};
+use super::{new_credentials, set_up_providers, wait_for_trace};
 use crate::Anonymous;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::runtime_config::project_id;
@@ -20,6 +20,7 @@ use httptest::{Expectation, Server, matchers::*, responders::status_code};
 use opentelemetry::trace::TraceContextExt;
 use std::collections::BTreeSet;
 use tracing_opentelemetry::OpenTelemetrySpanExt;
+use uuid::Uuid;
 
 const ROOT_SPAN_NAME: &str = "e2e-showcase-test";
 
@@ -37,34 +38,43 @@ pub async fn run() -> anyhow::Result<()> {
     // 2. Setup Telemetry (Real Google Cloud Destination)
     // This requires GOOGLE_CLOUD_PROJECT to be set.
     let project_id = project_id()?;
-    let provider = set_up_tracer_provider(&project_id).await?;
+    let id = Uuid::new_v4();
+    let credentials = new_credentials(&project_id).await?;
+    let (provider, _meter_provider, _) = set_up_providers(
+        &project_id,
+        ROOT_SPAN_NAME,
+        id.to_string(),
+        credentials.clone(),
+    )
+    .await?;
 
     // 3. Generate Trace
     // Start a root span
     let root_span = tracing::info_span!("e2e_root", "otel.name" = ROOT_SPAN_NAME);
-    let trace_id = {
-        let _enter = root_span.enter();
-        let trace_id = root_span
-            .context()
-            .span()
-            .span_context()
-            .trace_id()
-            .to_string();
+    let trace_id = root_span
+        .context()
+        .span()
+        .span_context()
+        .trace_id()
+        .to_string();
 
-        // Initialize showcase client pointing to local mock server
-        let client = Echo::builder()
-            .with_endpoint(format!("http://{}", echo_server.addr()))
-            .with_credentials(Anonymous::new().build())
-            .with_tracing()
-            .build()
-            .await?;
+    // Initialize showcase client pointing to local mock server
+    let client = Echo::builder()
+        .with_endpoint(format!("http://{}", echo_server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .with_tracing()
+        .build()
+        .await?;
 
-        // Make the API call
-        // This will generate child spans within the library
-        let _ = client.echo().set_content("test").send().await?;
-
-        trace_id
-    };
+    // Make the API call
+    // This will generate child spans within the library
+    use tracing::Instrument;
+    let _ = client
+        .echo()
+        .set_content("test")
+        .send()
+        .instrument(root_span.clone())
+        .await?;
     // explicitly drop the span to end it
     drop(root_span);
 
@@ -83,7 +93,7 @@ pub async fn run() -> anyhow::Result<()> {
         ROOT_SPAN_NAME,
         "google_cloud_showcase_v1beta1::client::Echo::echo",
     ]);
-    let trace = wait_for_trace(&project_id, &trace_id, required.len()).await?;
+    let trace = wait_for_trace(&project_id, &trace_id, &required).await?;
 
     // Verify the expected spans appear in the trace:
     let span_names = trace

@@ -24,7 +24,7 @@ impl ::prost::Name for Document {
 pub struct Value {
     #[prost(
         oneof = "value::ValueType",
-        tags = "11, 1, 2, 3, 10, 17, 18, 5, 8, 9, 6, 19, 20, 21"
+        tags = "11, 1, 2, 3, 10, 17, 18, 5, 8, 9, 6, 19, 22, 20, 21"
     )]
     pub value_type: ::core::option::Option<value::ValueType>,
 }
@@ -56,6 +56,8 @@ pub mod value {
         MapValue(super::MapValue),
         #[prost(string, tag = "19")]
         FieldReferenceValue(::prost::alloc::string::String),
+        #[prost(string, tag = "22")]
+        VariableReferenceValue(::prost::alloc::string::String),
         #[prost(message, tag = "20")]
         FunctionValue(super::Function),
         #[prost(message, tag = "21")]

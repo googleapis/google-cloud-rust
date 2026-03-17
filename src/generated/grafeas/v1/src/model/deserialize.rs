@@ -1008,6 +1008,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FileLocation {
         enum __FieldTag {
             __file_path,
             __layer_details,
+            __line_number,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1032,6 +1033,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FileLocation {
                             "file_path" => Ok(__FieldTag::__file_path),
                             "layerDetails" => Ok(__FieldTag::__layer_details),
                             "layer_details" => Ok(__FieldTag::__layer_details),
+                            "lineNumber" => Ok(__FieldTag::__line_number),
+                            "line_number" => Ok(__FieldTag::__line_number),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1075,6 +1078,25 @@ impl<'de> serde::de::Deserialize<'de> for super::FileLocation {
                             }
                             result.layer_details = map
                                 .next_value::<std::option::Option<crate::model::LayerDetails>>()?;
+                        }
+                        __FieldTag::__line_number => {
+                            if !fields.insert(__FieldTag::__line_number) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for line_number",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.line_number = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

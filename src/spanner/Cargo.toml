@@ -28,25 +28,31 @@ rust-version.workspace = true
 
 [dependencies]
 async-trait.workspace = true
+base64.workspace      = true
 bytes.workspace       = true
 gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-grpc-server-streaming"] }
+google-cloud-auth     = { workspace = true }
 google-cloud-gax      = { workspace = true }
 google-cloud-rpc      = { workspace = true }
 http.workspace        = true
 lazy_static.workspace = true
 prost.workspace       = true
 prost-types.workspace = true
+rust_decimal          = { workspace = true }
 serde.workspace       = true
 serde_json.workspace  = true
 serde_with.workspace  = true
+thiserror.workspace   = true
+time                  = { workspace = true, features = ["formatting", "macros", "parsing"] }
 tracing.workspace     = true
-wkt.workspace         = true
+url.workspace         = true
+wkt                   = { workspace = true, features = ["time"] }
 
 [dev-dependencies]
 anyhow.workspace            = true
-google-cloud-auth.workspace = true
 mockall.workspace           = true
 spanner-grpc-mock           = { path = "grpc-mock" }
 static_assertions.workspace = true
 tokio.workspace             = true
 tokio-stream.workspace      = true
+uuid.workspace              = true

@@ -278,6 +278,7 @@ impl gaxi::prost::ToProto<value::ValueType> for crate::generated::gapic::model::
             Self::ArrayValue(v) => Ok(Self::Output::ArrayValue((*v).to_proto()?)),
             Self::MapValue(v) => Ok(Self::Output::MapValue((*v).to_proto()?)),
             Self::FieldReferenceValue(v) => Ok(Self::Output::FieldReferenceValue(v.to_proto()?)),
+            Self::VariableReferenceValue(v) => Ok(Self::Output::VariableReferenceValue(v.to_proto()?)),
             Self::FunctionValue(v) => Ok(Self::Output::FunctionValue((*v).to_proto()?)),
             Self::PipelineValue(v) => Ok(Self::Output::PipelineValue((*v).to_proto()?)),
         }
@@ -300,6 +301,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::value::ValueType> fo
             Self::ArrayValue(v) => Ok(T::from_array_value(v.cnv()?)),
             Self::MapValue(v) => Ok(T::from_map_value(v.cnv()?)),
             Self::FieldReferenceValue(v) => Ok(T::from_field_reference_value(v.cnv()?)),
+            Self::VariableReferenceValue(v) => Ok(T::from_variable_reference_value(v.cnv()?)),
             Self::FunctionValue(v) => Ok(T::from_function_value(v.cnv()?)),
             Self::PipelineValue(v) => Ok(T::from_pipeline_value(v.cnv()?)),
         }

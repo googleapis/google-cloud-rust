@@ -1,11 +1,15 @@
 {
+    "api_description": "Integrates Google Vision features, including image labeling, face, logo,\nand landmark detection, optical character recognition (OCR), and detection\nof explicit content, into applications.",
     "api_id": "vision.googleapis.com",
     "api_shortname": "vision",
     "client_documentation": "https://docs.rs/google-cloud-vision-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-vision-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues?q=status:open%20componentid:187174",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Vision API",
+    "name": "vision",
+    "name_pretty": "Cloud Vision",
+    "product_documentation": "https://cloud.google.com/vision/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

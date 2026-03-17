@@ -1,11 +1,14 @@
 {
+    "api_description": "Allows developers to manage billing for their Google Cloud Platform\nprojects     programmatically.",
     "api_id": "cloudbilling.googleapis.com",
     "api_shortname": "cloudbilling",
     "client_documentation": "https://docs.rs/google-cloud-billing-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-billing-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Billing API",
+    "name": "cloudbilling",
+    "name_pretty": "Cloud Billing",
+    "product_documentation": "https://cloud.google.com/billing",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

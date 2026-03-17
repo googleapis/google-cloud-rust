@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20260213" revision of the API.
+//! This client library was generated from the "20260227" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -89,11 +89,13 @@
 //! * [RegionAutoscalers](client/struct.RegionAutoscalers.html)
 //! * [RegionBackendServices](client/struct.RegionBackendServices.html)
 //! * [RegionCommitments](client/struct.RegionCommitments.html)
+//! * [RegionCompositeHealthChecks](client/struct.RegionCompositeHealthChecks.html)
 //! * [RegionDiskTypes](client/struct.RegionDiskTypes.html)
 //! * [RegionDisks](client/struct.RegionDisks.html)
 //! * [RegionHealthAggregationPolicies](client/struct.RegionHealthAggregationPolicies.html)
 //! * [RegionHealthCheckServices](client/struct.RegionHealthCheckServices.html)
 //! * [RegionHealthChecks](client/struct.RegionHealthChecks.html)
+//! * [RegionHealthSources](client/struct.RegionHealthSources.html)
 //! * [RegionInstanceGroupManagers](client/struct.RegionInstanceGroupManagers.html)
 //! * [RegionInstanceGroups](client/struct.RegionInstanceGroups.html)
 //! * [RegionInstanceTemplates](client/struct.RegionInstanceTemplates.html)
@@ -253,11 +255,13 @@ pub(crate) mod transport;
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-commitments",
+    feature = "region-composite-health-checks",
     feature = "region-disk-types",
     feature = "region-disks",
     feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
+    feature = "region-health-sources",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -370,11 +374,13 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-commitments",
+    feature = "region-composite-health-checks",
     feature = "region-disk-types",
     feature = "region-disks",
     feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
+    feature = "region-health-sources",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",

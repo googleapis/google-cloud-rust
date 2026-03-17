@@ -2,10 +2,13 @@
     "api_id": "cloudsecuritycompliance.googleapis.com",
     "api_shortname": "cloudsecuritycompliance",
     "client_documentation": "https://docs.rs/google-cloud-cloudsecuritycompliance-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-cloudsecuritycompliance-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1761967\u0026template=0",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Cloud Security Compliance API",
+    "name": "cloudsecuritycompliance",
+    "name_pretty": "Cloud Security Compliance",
+    "product_documentation": "https://cloud.google.com/security-command-center/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

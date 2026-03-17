@@ -2,10 +2,13 @@
     "api_id": "kmsinventory.googleapis.com",
     "api_shortname": "kmsinventory",
     "client_documentation": "https://docs.rs/google-cloud-kms-inventory-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-kms-inventory-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=190860\u0026template=819701",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "KMS Inventory API",
+    "name": "kmsinventory",
+    "name_pretty": "KMS Inventory",
+    "product_documentation": "https://cloud.google.com/kms/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

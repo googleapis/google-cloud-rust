@@ -1,11 +1,15 @@
 {
+    "api_description": "Execute workflows created with Workflows API.",
     "api_id": "workflowexecutions.googleapis.com",
     "api_shortname": "workflowexecutions",
     "client_documentation": "https://docs.rs/google-cloud-workflows-executions-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-workflows-executions-v1",
+    "issue_tracker": "https://issuetracker.google.com/savedsearches/559729",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Workflow Executions API",
+    "name": "workflowexecutions",
+    "name_pretty": "Workflow Executions",
+    "product_documentation": "https://cloud.google.com/workflows/",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

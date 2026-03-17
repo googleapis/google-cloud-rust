@@ -153,6 +153,8 @@ region-autoscalers = []
 region-backend-services = []
 # Enables `client::RegionCommitments` and all the types it depends on.
 region-commitments = []
+# Enables `client::RegionCompositeHealthChecks` and all the types it depends on.
+region-composite-health-checks = []
 # Enables `client::RegionDiskTypes` and all the types it depends on.
 region-disk-types = []
 # Enables `client::RegionDisks` and all the types it depends on.
@@ -163,6 +165,8 @@ region-health-aggregation-policies = []
 region-health-check-services = []
 # Enables `client::RegionHealthChecks` and all the types it depends on.
 region-health-checks = []
+# Enables `client::RegionHealthSources` and all the types it depends on.
+region-health-sources = []
 # Enables `client::RegionInstanceGroupManagers` and all the types it depends on.
 region-instance-group-managers = []
 # Enables `client::RegionInstanceGroups` and all the types it depends on.

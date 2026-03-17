@@ -1,11 +1,15 @@
 {
+    "api_description": "Attestation verifier for Confidential Space.",
     "api_id": "confidentialcomputing.googleapis.com",
     "api_shortname": "confidentialcomputing",
     "client_documentation": "https://docs.rs/google-cloud-confidentialcomputing-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-confidentialcomputing-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1134314\u0026template=1640550",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Confidential Computing API",
+    "name": "confidentialcomputing",
+    "name_pretty": "Confidential Computing",
+    "product_documentation": "https://cloud.google.com/confidential-computing",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

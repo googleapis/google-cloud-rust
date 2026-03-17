@@ -2,10 +2,12 @@
     "api_id": "videostitcher.googleapis.com",
     "api_shortname": "videostitcher",
     "client_documentation": "https://docs.rs/google-cloud-video-stitcher-v1/latest",
-    "distribution_name": "google-cloud-rust",
+    "distribution_name": "google-cloud-video-stitcher-v1",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
-    "name_pretty": "Video Stitcher API",
+    "name": "videostitcher",
+    "name_pretty": "Video Stitcher",
+    "product_documentation": "https://cloud.google.com/video-stitcher",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }

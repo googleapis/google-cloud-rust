@@ -55,6 +55,7 @@ default-members = [
   "tests/protobuf",
   "tests/pubsub",
   "tests/showcase",
+  "tests/spanner",
   "tests/storage",
 ]
 
@@ -164,6 +165,7 @@ members = [
   "src/generated/cloud/gkemulticloud/v1",
   "src/generated/cloud/gkerecommender/v1",
   "src/generated/cloud/gsuiteaddons/v1",
+  "src/generated/cloud/hypercomputecluster/v1",
   "src/generated/cloud/iap/v1",
   "src/generated/cloud/ids/v1",
   "src/generated/cloud/kms/inventory/v1",
@@ -216,6 +218,7 @@ members = [
   "src/generated/cloud/security/privateca/v1",
   "src/generated/cloud/security/publicca/v1",
   "src/generated/cloud/securitycenter/v2",
+  "src/generated/cloud/securitycentermanagement/v1",
   "src/generated/cloud/securityposture/v1",
   "src/generated/cloud/servicedirectory/v1",
   "src/generated/cloud/servicehealth/v1",
@@ -232,6 +235,7 @@ members = [
   "src/generated/cloud/timeseriesinsights/v1",
   "src/generated/cloud/tpu/v2",
   "src/generated/cloud/translate/v3",
+  "src/generated/cloud/vectorsearch/v1",
   "src/generated/cloud/video/livestream/v1",
   "src/generated/cloud/video/stitcher/v1",
   "src/generated/cloud/video/transcoder/v1",
@@ -327,6 +331,7 @@ members = [
   "tests/protojson-conformance",
   "tests/pubsub",
   "tests/showcase",
+  "tests/spanner",
   "tests/storage",
   "tools/check-copyright",
   "tools/minimal-version-helper",
@@ -356,7 +361,7 @@ async-trait           = { default-features = false, version = "0.1.85" }
 base64                = { default-features = false, version = "0.22", features = ["std"] }
 bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
 cargo_metadata        = { default-features = false, version = "0.23" }
-chrono                = { default-features = false, version = "0.4.43" }
+chrono                = { default-features = false, version = "0.4.44" }
 crates_io_api         = { default-features = false, version = "0.12" }
 clap                  = { default-features = false, version = "4" }
 crc32c                = { default-features = false, version = "0.6.8" }
@@ -374,9 +379,10 @@ opentelemetry_sdk     = { default-features = false, version = "0.31" }
 opentelemetry-otlp    = { default-features = false, version = "0.31" }
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
-pin-project           = { default-features = false, version = "1.0.11" }
+pin-project           = { default-features = false, version = "1.1.11" }
 rand                  = { default-features = false, version = "0.10" }
 p256                  = { default-features = false, version = "0.13" }
+rust_decimal          = { default-features = false, version = "1.33.1", features = ["std"] }
 rustls                = { default-features = false, version = "0.23.37" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
 semver                = { default-features = false, version = "1.0.26" }
@@ -386,15 +392,15 @@ serde_with            = { default-features = false, version = "3", features = ["
 sha2                  = { default-features = false, version = "0.10.6" }
 thiserror             = { default-features = false, version = "2.0.12" }
 time                  = { default-features = false, version = "0.3.45" }
-tokio                 = { default-features = false, version = "1.45.1" }
+tokio                 = { default-features = false, version = "1.47.0" }
 tokio-metrics         = { default-features = false, version = "0.4.9" }
 tokio-util            = { default-features = false, version = "0.7.18" }
 toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
-tracing-subscriber    = { default-features = false, version = "0.3.22" }
+tracing-subscriber    = { default-features = false, version = "0.3.23" }
 url                   = { default-features = false, version = "2.4" }
-uuid                  = { default-features = false, version = "1", features = ["v4"] }
+uuid                  = { default-features = false, version = "1.22", features = ["v4"] }
 
 opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0" }
 opentelemetry-appender-tracing     = { default-features = false, version = "0.31.0" }
@@ -414,7 +420,8 @@ tonic-prost-build = { default-features = false, version = "0.14.5" }
 # WARNING: When this changes to 0.6 we need to bump the google-cloud-gax-internal major version.
 tower = { default-features = false, version = "0.5.2", features = ["util"] }
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
-tracing = { default-features = false, version = "0.1.44", features = ["attributes"] }
+tracing       = { default-features = false, version = "0.1.44", features = ["attributes"] }
+tracing-serde = { default-features = false, version = "0.2" }
 
 # Some of our direct dependencies fail to declare the minimum version
 # requirements correctly. Force a higher version so we can test our own minimum
@@ -422,7 +429,7 @@ tracing = { default-features = false, version = "0.1.44", features = ["attribute
 aws-lc-rs = { default-features = false, version = "1.16.1" }
 
 # Test packages
-anyhow            = { default-features = false, version = "1.0.101", features = ["std"] }
+anyhow            = { default-features = false, version = "1.0.102", features = ["std"] }
 axum              = { default-features = false, version = "0.8" }
 flate2            = { default-features = false, version = "1.1.9" }
 hmac              = { default-features = false, version = "0.12.1" }
@@ -451,7 +458,7 @@ tokio-test        = { default-features = false, version = "0.4" }
 # Local packages used as dependencies.
 google-cloud-auth        = { default-features = false, version = "1.7.0", path = "src/auth" }
 google-cloud-gax         = { default-features = false, version = "1.8.0", path = "src/gax" }
-gaxi                     = { default-features = false, version = "0.7.10", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+gaxi                     = { default-features = false, version = "0.7.11", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 wkt                      = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt         = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-api         = { default-features = false, version = "1.3.0", path = "src/generated/api/types" }
@@ -492,6 +499,7 @@ google-cloud-aiplatform-v1           = { default-features = false, path = "src/g
 google-cloud-compute-v1              = { default-features = false, path = "src/generated/cloud/compute/v1" }
 google-cloud-storage                 = { default-features = false, path = "src/storage" }
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
+google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
 google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2" }
 google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }

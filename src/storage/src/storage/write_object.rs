@@ -1189,6 +1189,7 @@ mod tests {
     use crate::storage::checksum::details::{Crc32c, Md5};
     use crate::streaming_source::tests::MockSeekSource;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::error::Error as _;
     use std::io::{Error as IoError, ErrorKind};
 
@@ -1684,6 +1685,40 @@ mod tests {
                 .is_some(),
             "{err:?}"
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn write_object_with_user_agent() -> Result {
+        use http::header::USER_AGENT;
+
+        let user_agent = "quicker_foxes_lazier_dogs/1.2.3";
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::headers(contains((USER_AGENT.as_str(), user_agent))),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .times(1)
+            .respond_with(status_code(200).body("{}")),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let _ = client
+            .write_object(
+                "projects/_/buckets/test-bucket",
+                "test-object",
+                "hello world",
+            )
+            .with_user_agent(user_agent)
+            .send_unbuffered()
+            .await?;
 
         Ok(())
     }

@@ -983,6 +983,24 @@ pub mod spanner {
             self.0.request.mutation_key = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [routing_hint][crate::model::BeginTransactionRequest::routing_hint].
+        pub fn set_routing_hint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RoutingHint>,
+        {
+            self.0.request.routing_hint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [routing_hint][crate::model::BeginTransactionRequest::routing_hint].
+        pub fn set_or_clear_routing_hint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RoutingHint>,
+        {
+            self.0.request.routing_hint = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1097,6 +1115,24 @@ pub mod spanner {
             T: std::convert::Into<crate::model::MultiplexedSessionPrecommitToken>,
         {
             self.0.request.precommit_token = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [routing_hint][crate::model::CommitRequest::routing_hint].
+        pub fn set_routing_hint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RoutingHint>,
+        {
+            self.0.request.routing_hint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [routing_hint][crate::model::CommitRequest::routing_hint].
+        pub fn set_or_clear_routing_hint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RoutingHint>,
+        {
+            self.0.request.routing_hint = v.map(|x| x.into());
             self
         }
 
