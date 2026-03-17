@@ -147,7 +147,7 @@ where
     /// Enables computation of CRC32C checksums.
     ///
     /// Note that the library computes and verifies (if available) CRC32C checksums at the end of
-    /// the download. Use `compute_crc32c_checksum(false)` to disable the computation, but note
+    /// the download. Use `compute_crc32c(false)` to disable the computation, but note
     /// that this reduces the data integrity guarantees. Data *can* be corrupted even when
     /// downloaded over HTTPS or other encrypted channels.
     ///
@@ -157,7 +157,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let builder =  client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .compute_crc32c_checksum(false);
+    ///     .compute_crc32c(false);
     /// let mut reader = builder
     ///     .send()
     ///     .await?;
@@ -168,7 +168,7 @@ where
     /// println!("object contents={:?}", contents);
     /// # Ok(()) }
     /// ```
-    pub fn compute_crc32c_checksum(mut self, v: bool) -> Self {
+    pub fn compute_crc32c(mut self, v: bool) -> Self {
         if v {
             self.options
                 .checksum
@@ -982,9 +982,27 @@ mod tests {
             "object",
             inner.options.clone(),
         )
-        .compute_crc32c_checksum(false);
+        .compute_crc32c(false);
 
         assert!(builder.options.checksum.crc32c.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_enable_crc32c() -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .compute_crc32c(false) // Disable it first, because by default it's enabled
+        .compute_crc32c(true);
+
+        assert!(builder.options.checksum.crc32c.is_some());
         Ok(())
     }
 
@@ -1014,7 +1032,7 @@ mod tests {
             .await?;
         let mut response = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
-            .compute_crc32c_checksum(false)
+            .compute_crc32c(false)
             .send()
             .await?;
         let mut got = Vec::new();
