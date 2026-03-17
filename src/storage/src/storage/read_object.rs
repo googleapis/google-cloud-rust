@@ -168,8 +168,8 @@ where
     /// println!("object contents={:?}", contents);
     /// # Ok(()) }
     /// ```
-    pub fn compute_crc32c(mut self, v: bool) -> Self {
-        if v {
+    pub fn compute_crc32c(mut self, enable: bool) -> Self {
+        if enable {
             self.options
                 .checksum
                 .crc32c
