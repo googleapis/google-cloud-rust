@@ -39,7 +39,6 @@ steps:
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - id: Validate default crypto provider behavior
     name: 'rust:${_RUST_VERSION}-bookworm'
-    waitFor: ['Set up build cache']
     script: |
       #!/usr/bin/env bash
       set -e
