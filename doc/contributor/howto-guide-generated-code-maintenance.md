@@ -22,25 +22,6 @@ instructions in [Set Up Development Environment].
 
 ## Generate new library
 
-### Troubleshooting
-
-**Note:** Ensure you are verifying against the version of `librarian` used in Rust.
-
-`librarian` uses an allowlist configured in [sdk.yaml] to manage libraries. Cloud APIs are automatically allowed for all languages.
-
-**❌ If you get a "library is not allowed" error:**
-
-Check the [sdk.yaml] file:
-* **If the library is missing and it is not a Cloud API:** Add it, but enable it *only* for Rust.
-* **If the library is already there:** Verify that Rust is included in the accepted languages for that specific library.
-
-If you still have issues, please contact librarian team.
-
-#### How to update an unlisted language:**
-
-1. Send a PR adding the language to the [sdk.yaml] in librarian.
-2. Send a PR to update the version field in librarian.yaml.
-
 ### Generate
 
 Define the library's name. Note this should match the directory path where the
@@ -73,6 +54,25 @@ Commit all these changes and send a PR to merge them:
 git add .
 git commit -m "feat(${library}): generate library"
 ```
+
+### Troubleshooting
+
+**Note:** Ensure you are verifying against the version of `librarian` used in Rust.
+
+`librarian` uses an allowlist configured in [sdk.yaml] to manage libraries. Cloud APIs are automatically allowed for all languages.
+
+**❌ If you get a "library is not allowed" error:**
+
+Check the [sdk.yaml] file:
+* **If the library is missing and it is not a Cloud API:** Add it, but enable it *only* for Rust.
+* **If the library is already there:** Verify that Rust is included in the accepted languages for that specific library.
+
+If you still have issues, please contact librarian team.
+
+#### How to update an unlisted language:**
+
+1. Send a PR adding the language to the [sdk.yaml] in librarian.
+2. Send a PR to update the version field in librarian.yaml.
 
 ## Update the code generation sources
 
