@@ -57,7 +57,7 @@ use std::sync::Arc;
 ///
 /// If you enable exactly-once delivery for a subscription, your application
 /// can be opinionated about the delivery type, by destructuring the handler
-/// into its [`Handler::ExactlyOnce`] branch.
+/// into its [`crate::subscriber::handler::ExactlyOnce`] branch.
 ///
 /// ```
 /// use google_cloud_pubsub::subscriber::MessageStream;
