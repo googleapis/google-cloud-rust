@@ -39,10 +39,10 @@ pub async fn sample(project: &str, topic_id: &str) -> anyhow::Result<()> {
     });
 
     for publish_future in publish_futures {
-        match publish_future.await {
-            Ok(message_id) => println!("published message with ID: {message_id}"),
-            Err(e) => println!("error publishing message: {e}"),
-        }
+        let message_id = publish_future
+            .await
+            .inspect_err(|e| println!("error publishing message: {e}"))?;
+        println!("published message with ID: {message_id}");
     }
 
     Ok(())
