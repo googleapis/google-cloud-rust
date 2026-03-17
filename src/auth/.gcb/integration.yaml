@@ -35,7 +35,6 @@ steps:
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - id: 'Run auth integration tests'
     name: 'rust:${_RUST_VERSION}-bookworm'
-    waitFor: ['Set up build cache']
     script: |
       #!/usr/bin/env bash
       set -e
@@ -43,7 +42,6 @@ steps:
         --package integration-tests-auth
   - id: 'Run External Account integration tests'
     name: 'rust:${_RUST_VERSION}-bookworm'
-    waitFor: ['Set up build cache']
     env:
       - 'EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=${_EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL}'
       - 'GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=${_WORKLOAD_IDENTITY_AUDIENCE}'
