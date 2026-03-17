@@ -34,3 +34,7 @@ impl SpannerInternalError {
         Self::UnexpectedData(message.into())
     }
 }
+
+pub(crate) fn internal_error(message: impl Into<String>) -> crate::Error {
+    crate::Error::deser(SpannerInternalError::new(message))
+}
