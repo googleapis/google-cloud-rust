@@ -34,6 +34,8 @@ Check the [sdk.yaml] file:
 * **If the library is missing and it is not a Cloud API:** Add it, but enable it *only* for Rust.
 * **If the library is already there:** Verify that Rust is included in the accepted languages for that specific library.
 
+If you still have issues, please contact librarian team.
+
 #### How to update an unlisted language:**
 
 1. Send a PR adding the language to the [sdk.yaml] in librarian.
