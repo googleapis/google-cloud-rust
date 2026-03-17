@@ -41,8 +41,8 @@ pub(super) struct LeaseOptions {
     /// How long we wait for the initial extensions
     pub(super) extend_start: Duration,
     /// How long messages can be kept under lease. A message's lease can be
-    /// extended as long as `max_lease_extension` has not elapsed.
-    pub(super) max_lease_extension: Duration,
+    /// extended as long as `max_lease` has not elapsed.
+    pub(super) max_lease: Duration,
 }
 
 impl Default for LeaseOptions {
@@ -52,7 +52,7 @@ impl Default for LeaseOptions {
             flush_start: Duration::from_millis(100),
             extend_period: Duration::from_secs(3),
             extend_start: Duration::from_millis(500),
-            max_lease_extension: Duration::from_secs(600),
+            max_lease: Duration::from_secs(600),
         }
     }
 }
@@ -81,6 +81,16 @@ pub(super) struct ExactlyOnceInfo {
     pending: bool,
 }
 
+impl ExactlyOnceInfo {
+    pub(super) fn new(result_tx: Sender<AckResult>) -> Self {
+        ExactlyOnceInfo {
+            receive_time: Instant::now(),
+            result_tx,
+            pending: false,
+        }
+    }
+}
+
 #[derive(Debug)]
 pub(super) struct LeaseState<L>
 where
@@ -99,7 +109,7 @@ where
     // A timer for extending leases
     extend_interval: Interval,
     // How long messages can be kept under lease
-    max_lease_extension: Duration,
+    max_lease: Duration,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -126,7 +136,7 @@ where
             leaser,
             flush_interval,
             extend_interval,
-            max_lease_extension: options.max_lease_extension,
+            max_lease: options.max_lease,
         }
     }
 
@@ -202,12 +212,12 @@ where
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(super) async fn extend(&mut self) {
         // TODO(#3975) - send RPCs concurrently.
-        let batches = self.leases.retain(self.max_lease_extension);
+        let batches = self.leases.retain(self.max_lease);
         for ack_ids in batches {
             self.leaser.extend(ack_ids).await;
         }
 
-        let batches = self.eo_leases.retain(self.max_lease_extension);
+        let batches = self.eo_leases.retain(self.max_lease);
         for ack_ids in batches {
             self.leaser.extend(ack_ids).await;
         }
@@ -295,12 +305,7 @@ pub(super) mod tests {
 
     pub(in super::super) fn exactly_once_info() -> LeaseInfo {
         let (result_tx, _result_rx) = channel();
-        let info = ExactlyOnceInfo {
-            receive_time: Instant::now(),
-            result_tx,
-            pending: false,
-        };
-        LeaseInfo::ExactlyOnce(info)
+        LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx))
     }
 
     #[tokio::test(start_paused = true)]
@@ -1056,7 +1061,7 @@ pub(super) mod tests {
     #[test_case(super::exactly_once_info)]
     #[tokio::test(start_paused = true)]
     async fn message_expiration(lease_info_factory: fn() -> LeaseInfo) -> anyhow::Result<()> {
-        const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(300);
+        const MAX_LEASE: Duration = Duration::from_secs(300);
         const DELTA: Duration = Duration::from_secs(1);
 
         let mut seq = mockall::Sequence::new();
@@ -1073,7 +1078,7 @@ pub(super) mod tests {
             .returning(|_| ());
 
         let options = LeaseOptions {
-            max_lease_extension: MAX_LEASE_EXTENSION,
+            max_lease: MAX_LEASE,
             ..Default::default()
         };
         let mut state = LeaseState::new(Arc::new(mock), options);
@@ -1091,7 +1096,7 @@ pub(super) mod tests {
         state.extend().await;
 
         // Advance the time past the expiration of the original 10 messages.
-        tokio::time::advance(MAX_LEASE_EXTENSION - DELTA).await;
+        tokio::time::advance(MAX_LEASE - DELTA).await;
         state.extend().await;
 
         // Advance the time past the expiration of the subsequent 10 messages.
