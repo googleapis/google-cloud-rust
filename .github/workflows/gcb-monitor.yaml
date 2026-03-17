@@ -36,7 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
-          CHECK_SUITE_URL: ${{ github.event.check_suite.html_url }}
+          CHECK_SUITE_URL: ${{ github.event.check_suite.url }}
           COMMIT_SHA: ${{ github.event.check_suite.head_sha }}
           PR_LIST: ${{ toJson(github.event.check_suite.pull_requests) }}
         run: |

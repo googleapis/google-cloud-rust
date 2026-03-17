@@ -183,10 +183,11 @@ where
         self.inner.poll_ready(cx)
     }
 
-    fn call(&mut self, req: http::Request<B>) -> Self::Future {
+    fn call(&mut self, mut req: http::Request<B>) -> Self::Future {
         let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.as_i64());
         let resource_name = req.extensions().get::<ResourceName>().map(|r| r.as_str());
         let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count, resource_name);
+        crate::observability::propagation::inject_context(&span, req.headers_mut());
         let future = self.inner.call(req);
         ResponseFuture {
             inner: future,
@@ -220,9 +221,9 @@ impl<S> NoTracingTowerService<S> {
     }
 }
 
-impl<S, Req, ResBody> Service<Req> for NoTracingTowerService<S>
+impl<S, B, ResBody> Service<http::Request<B>> for NoTracingTowerService<S>
 where
-    S: Service<Req, Response = http::Response<ResBody>>,
+    S: Service<http::Request<B>, Response = http::Response<ResBody>>,
     S::Future: Send + 'static,
     ResBody: http_body::Body<Data = bytes::Bytes, Error = tonic::Status> + Send + 'static,
 {
@@ -238,7 +239,11 @@ where
         self.inner.poll_ready(cx)
     }
 
-    fn call(&mut self, req: Req) -> Self::Future {
+    fn call(&mut self, mut req: http::Request<B>) -> Self::Future {
+        crate::observability::propagation::inject_context(
+            &tracing::Span::current(),
+            req.headers_mut(),
+        );
         NoTracingFuture {
             inner: self.inner.call(req),
             _phantom: std::marker::PhantomData,
