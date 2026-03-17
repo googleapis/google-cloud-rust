@@ -330,6 +330,7 @@ impl MessageStream {
 
         // Signal a shutdown to the lease management background task.
         drop(self.message_tx);
+        drop(self.ack_tx);
 
         // Wait for the lease management task to complete.
         self._lease_loop.await?;
