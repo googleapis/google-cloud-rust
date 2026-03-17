@@ -194,46 +194,41 @@ With `yield_threshold: 32768`, tonic checks after each message: is the buffer >=
 
 ## Optimization Opportunities
 
-### Priority 1: Eliminate the `send_grpc()` copy (Layer 2)
+### Priority 1: Eliminate the `send_grpc()` copy (Layer 2) — ✅ IMPLEMENTED
 
 Currently, `send_grpc()` always collects all payload chunks into a new `BytesMut`, even when the payload is a single `Bytes` buffer. For the common case (s3dlio passes a single `Bytes`), this 16 MiB copy is completely unnecessary.
 
 **Impact**: Eliminates 16 MiB allocation + 16 MiB memcpy per PUT  
-**Risk**: Low — purely an optimization, no behavioral change
+**Risk**: Low — purely an optimization, no behavioral change  
+**Status**: Implemented in `write_object.rs` — single-chunk fast path skips the copy entirely.
 
-### Priority 2: Custom tonic BufferSettings (Layer 5)
+### Priority 2: Custom tonic BufferSettings (Layer 5) — ✅ IMPLEMENTED
 
 Override `ProstCodec` with pre-sized encode buffers matching our chunk size.
 
 **Impact**: Eliminates ~8 reallocations on the first message  
-**Risk**: Low — tonic supports custom buffer settings via `Codec` trait
+**Risk**: Low — tonic supports custom buffer settings via `Codec` trait  
+**Status**: Implemented in `grpc.rs` — `SizedProstCodec` wrapper provides 2 MiB + 4 KiB (page-aligned) initial buffer to `bidi_stream_with_status()`.
 
-### Priority 3: Buffer pool for repeated PUTs
+### Priority 3: Buffer pool for repeated PUTs (Future)
 
 For workloads uploading many same-sized objects (benchmarking, DLIO), a pool of pre-allocated `BytesMut` buffers could eliminate per-PUT allocation overhead.
 
 **Impact**: Amortizes allocation cost across many PUTs  
-**Risk**: Medium — requires careful lifetime management
+**Risk**: Medium — requires careful lifetime management  
+**Status**: Deferred — not needed at this time.
 
 ---
 
 ## Recommended Code Changes
 
-### Change 1: Skip copy in `send_grpc()` for single-chunk payloads
+### Change 1: Skip copy in `send_grpc()` for single-chunk payloads — ✅ IMPLEMENTED
 
-**File**: `google-cloud-rust/src/storage/src/storage/write_object.rs`  
+**File**: `src/storage/src/storage/write_object.rs`  
 **Function**: `send_grpc()`
 
 ```rust
-// Current (always copies):
-let total_len: usize = chunks.iter().map(|c| c.len()).sum();
-let mut buf = bytes::BytesMut::with_capacity(total_len);
-for chunk in chunks {
-    buf.extend_from_slice(&chunk);
-}
-let data = buf.freeze();
-
-// Proposed (skip copy for single chunk):
+// Implemented: skip copy for single chunk, coalesce only when needed
 let data = if chunks.len() == 1 {
     chunks.into_iter().next().unwrap()  // zero-copy: use Bytes directly
 } else {
@@ -246,30 +241,20 @@ let data = if chunks.len() == 1 {
 };
 ```
 
-### Change 2: Custom ProstCodec with larger encode buffer
+### Change 2: Custom ProstCodec with larger encode buffer — ✅ IMPLEMENTED
 
-**File**: `google-cloud-rust/src/gax-internal/src/grpc.rs`  
+**File**: `src/gax-internal/src/grpc.rs`  
 **Function**: `bidi_stream_with_status()`
 
-The current code uses `ProstCodec::default()` with 8 KiB initial buffer. For BidiWriteObject, we should provide a codec with a buffer pre-sized to the chunk size:
+Implemented via `SizedProstCodec<T, U>` — a thin wrapper around `tonic_prost::ProstCodec` that implements `tonic::codec::Codec` and delegates to `ProstCodec::raw_encoder(buffer_settings)` / `raw_decoder(buffer_settings)` with a custom initial buffer size.
 
 ```rust
-// Current:
-let codec = tonic_prost::ProstCodec::<Request, Response>::default();
-
-// Proposed: use a codec with buffer matching the write chunk size
-// This requires either:
-// (a) tonic_prost::ProstCodec supporting BufferSettings (check API), or
-// (b) A wrapper codec that overrides buffer_settings()
+// Buffer is page-aligned: 2 MiB (chunk) + 4 KiB (one memory page for protobuf overhead)
+let buf_size = DEFAULT_GRPC_WRITE_CHUNK_SIZE + 4096;  // = 2,101,248 bytes
+BufferSettings::new(buf_size, buf_size)
 ```
 
-**Note**: This requires checking whether `tonic_prost::ProstCodec` exposes a way to customize `BufferSettings`. If not, we'd need a thin wrapper implementing `tonic::codec::Codec` that delegates to `ProstCodec` but overrides `buffer_settings()`. This is a bit more involved but straightforward.
-
-The ideal buffer size would be:
-```
-chunk_size + 1024 = 2,097,152 + 1024 = 2,098,176 bytes
-```
-(1024 bytes covers protobuf overhead + gRPC frame header for any message)
+Applied to `bidi_stream_with_status()` — the BidiWriteObject path used for RAPID/zonal bucket PUTs.
 
 ### Change 3 (Future): Avoid the tonic encode copy entirely
 
@@ -291,12 +276,12 @@ This is complex and best deferred until after the truncation fix is confirmed.
 
 ## Summary Table
 
-| Layer | File | Alloc | Copy | Optimization |
-|-------|------|-------|------|-------------|
-| Caller | `s3dlio/src/s3_utils.rs` | 16 MiB | None | N/A |
-| `send_grpc()` | `write_object.rs:1040` | 16 MiB | **16 MiB** | Skip for single chunk |
-| `data.slice()` | `transport.rs:383` | None | None | Already optimal |
-| mpsc channel | `transport.rs:356` | Minimal | None | Already optimal |
-| tonic encode | tonic 0.14.5 `encode.rs` | 8 KiB→2 MiB | **2 MiB × 8** | Custom BufferSettings |
-| HTTP/2 framing | h2 crate | Minimal | None | Already optimal |
-| **Total per PUT** | | **~34 MiB** | **~32 MiB** | Reducible to ~16 MiB alloc, ~16 MiB copy |
+| Layer | File | Before | After | Status |
+|-------|------|--------|-------|--------|
+| Caller | `s3dlio/src/s3_utils.rs` | 16 MiB alloc, 0 copy | 16 MiB alloc, 0 copy | N/A |
+| `send_grpc()` | `write_object.rs` | 16 MiB alloc, **16 MiB copy** | **0 alloc, 0 copy** | ✅ Implemented |
+| `data.slice()` | `transport.rs` | 0 alloc, 0 copy | 0 alloc, 0 copy | Already optimal |
+| mpsc channel | `transport.rs` | Minimal | Minimal | Already optimal |
+| tonic encode | `grpc.rs` + tonic | 8 KiB→2 MiB (**8 reallocs**), 2 MiB×8 copy | **2 MiB+4K (1 alloc)**, 2 MiB×8 copy | ✅ Implemented |
+| HTTP/2 framing | h2 crate | 0 copy | 0 copy | Already optimal |
+| **Total per 16 MiB PUT** | | **~34 MiB alloc, ~32 MiB copy** | **~18 MiB alloc, ~16 MiB copy** | **~47% reduction** |

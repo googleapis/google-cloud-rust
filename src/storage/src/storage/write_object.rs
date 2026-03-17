@@ -1049,12 +1049,19 @@ where
             })?;
             chunks.push(chunk);
         }
-        let total_len: usize = chunks.iter().map(|c| c.len()).sum();
-        let mut buf = bytes::BytesMut::with_capacity(total_len);
-        for chunk in chunks {
-            buf.extend_from_slice(&chunk);
-        }
-        let data = buf.freeze();
+        // Fast path: if there's exactly one chunk, use it directly (zero-copy).
+        // This avoids a 16 MiB allocation + copy for the common case where
+        // the caller provides the entire payload as a single Bytes buffer.
+        let data = if chunks.len() == 1 {
+            chunks.into_iter().next().unwrap()
+        } else {
+            let total_len: usize = chunks.iter().map(|c| c.len()).sum();
+            let mut buf = bytes::BytesMut::with_capacity(total_len);
+            for chunk in chunks {
+                buf.extend_from_slice(&chunk);
+            }
+            buf.freeze()
+        };
 
         self.stub
             .write_object_grpc(data, self.request, self.options)

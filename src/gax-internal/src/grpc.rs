@@ -61,6 +61,49 @@ pub type GrpcService = tower::util::Either<
 /// The inner gRPC client type.
 pub type InnerClient = Grpc<GrpcService>;
 
+/// A [`tonic::codec::Codec`] wrapper around [`tonic_prost::ProstCodec`] that
+/// lets us specify a custom initial buffer size for the encoder.  The default
+/// ProstCodec starts at 8 KiB which triggers ~8 reallocations when encoding
+/// a 2 MiB BidiWriteObject message.
+#[derive(Debug, Clone)]
+struct SizedProstCodec<T, U> {
+    buffer_settings: ::tonic::codec::BufferSettings,
+    _phantom: std::marker::PhantomData<(T, U)>,
+}
+
+impl<T, U> SizedProstCodec<T, U> {
+    /// Create a codec pre-sized for GCS write messages (~2 MiB payload +
+    /// protobuf framing overhead).
+    fn for_writes() -> Self {
+        use crate::gcs_constants::DEFAULT_GRPC_WRITE_CHUNK_SIZE;
+        // 2 MiB chunk + 4 KiB (one memory page) for protobuf framing overhead.
+        let buf_size = DEFAULT_GRPC_WRITE_CHUNK_SIZE + 4096;
+        Self {
+            buffer_settings: ::tonic::codec::BufferSettings::new(buf_size, buf_size),
+            _phantom: std::marker::PhantomData,
+        }
+    }
+}
+
+impl<T, U> ::tonic::codec::Codec for SizedProstCodec<T, U>
+where
+    T: prost::Message + Send + 'static,
+    U: prost::Message + Default + Send + 'static,
+{
+    type Encode = T;
+    type Decode = U;
+    type Encoder = tonic_prost::ProstEncoder<T>;
+    type Decoder = tonic_prost::ProstDecoder<U>;
+
+    fn encoder(&mut self) -> Self::Encoder {
+        tonic_prost::ProstCodec::<T, U>::raw_encoder(self.buffer_settings)
+    }
+
+    fn decoder(&mut self) -> Self::Decoder {
+        tonic_prost::ProstCodec::<T, U>::raw_decoder(self.buffer_settings)
+    }
+}
+
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,
@@ -208,7 +251,10 @@ impl Client {
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
-        let codec = tonic_prost::ProstCodec::<Request, Response>::default();
+        // Use a codec with an encode buffer pre-sized to the write chunk size
+        // (2 MiB + 4 KiB overhead).  The default ProstCodec starts at 8 KiB,
+        // which causes ~8 reallocations when encoding 2 MiB messages.
+        let codec = SizedProstCodec::<Request, Response>::for_writes();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
         Ok(inner
