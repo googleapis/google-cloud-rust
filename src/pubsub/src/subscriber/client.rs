@@ -57,7 +57,7 @@ use std::sync::Arc;
 ///
 /// If you enable exactly-once delivery for a subscription, your application
 /// can be opinionated about the delivery type, by destructuring the handler
-/// into its [`crate::subscriber::handler::ExactlyOnce`] branch.
+/// into its [`Handler::ExactlyOnce`][eo-branch] branch.
 ///
 /// ```
 /// use google_cloud_pubsub::subscriber::MessageStream;
@@ -105,6 +105,7 @@ use std::sync::Arc;
 ///
 /// [application default credentials]: https://cloud.google.com/docs/authentication#adc
 /// [cloud pub/sub]: https://docs.cloud.google.com/pubsub/docs/overview
+/// [eo-branch]: crate::subscriber::handler::Handler::ExactlyOnce
 /// [private google access with vpc service controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [pull subscription]: https://docs.cloud.google.com/pubsub/docs/pull
 /// [with_endpoint()]: ClientBuilder::with_endpoint

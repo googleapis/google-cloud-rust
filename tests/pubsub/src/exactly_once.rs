@@ -29,9 +29,11 @@ pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Res
     let subscribe: tokio::task::JoinHandle<Result<(), Error>> = tokio::spawn(async move {
         let mut acks = JoinSet::new();
         while acks.len() < MESSAGE_COUNT {
-            if let Some((_, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? {
-                acks.spawn(h.confirmed_ack());
-            }
+            let h = match stream.next().await.transpose()? {
+                Some((_, Handler::ExactlyOnce(h))) => h,
+                _ => unreachable!("exactly-once delivery is enabled, and the stream stays open."),
+            };
+            acks.spawn(h.confirmed_ack());
         }
         while let Some(r) = acks.join_next().await {
             r?.inspect_err(|e| tracing::info!("received unexpected confirm_ack error: {e:?}"))?;
