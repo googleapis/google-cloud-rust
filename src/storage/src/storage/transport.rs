@@ -328,7 +328,11 @@ impl super::stub::Storage for Storage {
             if_generation_not_match: req.spec.if_generation_not_match,
             if_metageneration_match: req.spec.if_metageneration_match,
             if_metageneration_not_match: req.spec.if_metageneration_not_match,
-            object_size: Some(data.len() as i64),
+            // Appendable objects (RAPID/zonal) must NOT declare object_size.
+            // The proto docs say object_size is the "expected final object size"
+            // but appendable objects have no fixed final size.  Setting both
+            // causes the server to leave metadata at size=0 after finalization.
+            object_size: if req.spec.appendable == Some(true) { None } else { Some(data.len() as i64) },
             appendable: req.spec.appendable,
         };
 
@@ -352,10 +356,26 @@ impl super::stub::Storage for Storage {
         const PRODUCER_CHANNEL_CAPACITY: usize = 8;
         let (tx, rx) = tokio::sync::mpsc::channel::<BidiWriteObjectRequest>(PRODUCER_CHANNEL_CAPACITY);
 
+        // The C++ client (google-cloud-cpp) sends finish_write=true as a
+        // SEPARATE empty message after the last data chunk, not combined.
+        // For appendable objects (RAPID/zonal) this two-step Flush→Finalize
+        // is required for the metadata index to commit the real size.
+        let is_appendable = proto_spec.appendable == Some(true);
+
+        // Watch channel: the reader feeds PersistedSize updates back to the
+        // producer.  For appendable (RAPID) writes, the producer MUST wait for
+        // the server to confirm all data is persisted BEFORE sending finalize.
+        // Without this, the server commits only whatever has been flushed at
+        // the moment it receives finish_write=true, causing truncation.
+        // Sentinel value i64::MAX signals that the final Resource was received.
+        const RESOURCE_RECEIVED: i64 = i64::MAX;
+        let (persisted_tx, mut persisted_rx) = tokio::sync::watch::channel::<i64>(-1);
+
         let producer_task = {
             let data = data.clone();
             let proto_spec = proto_spec.clone();
             tokio::spawn(async move {
+                let producer_start = std::time::Instant::now();
                 let mut offset: usize = 0;
                 let mut msg_index: usize = 0;
                 while offset < total_len || (total_len == 0 && msg_index == 0) {
@@ -365,9 +385,15 @@ impl super::stub::Storage for Storage {
                     let is_first = msg_index == 0;
                     let is_last = end >= total_len;
 
+                    // For non-appendable: last data chunk carries flush +
+                    // finish + full-object checksum (single-step finalize).
+                    // For appendable (RAPID): data chunks never finalize;
+                    // a separate message handles that below.
+                    let finish_on_chunk = is_last && !is_appendable;
+
                     let request = BidiWriteObjectRequest {
                         write_offset: offset as i64,
-                        object_checksums: if is_last {
+                        object_checksums: if finish_on_chunk {
                             Some(ObjectChecksums {
                                 crc32c: Some(object_crc32c),
                                 md5_hash: bytes::Bytes::new(),
@@ -376,8 +402,8 @@ impl super::stub::Storage for Storage {
                             None
                         },
                         state_lookup: false,
-                        flush: is_last,
-                        finish_write: is_last,
+                        flush: false,
+                        finish_write: finish_on_chunk,
                         common_object_request_params: None,
                         first_message: if is_first {
                             Some(bidi_write_object_request::FirstMessage::WriteObjectSpec(
@@ -394,17 +420,194 @@ impl super::stub::Storage for Storage {
                         )),
                     };
 
+                    if is_first {
+                        tracing::debug!(
+                            "BidiWriteObject: PRODUCER sending first chunk offset=0 len={} appendable={}",
+                            end - offset, is_appendable
+                        );
+                    }
                     tracing::trace!(
-                        "BidiWriteObject: chunk {}/{} offset={} len={} crc32c={:#010x} first={} last={}",
-                        msg_index + 1, num_chunks_est, offset, end - offset, chunk_crc, is_first, is_last
+                        "BidiWriteObject: chunk {}/{} offset={} len={} crc32c={:#010x} first={} last={} flush=false finish={}",
+                        msg_index + 1, num_chunks_est, offset, end - offset, chunk_crc, is_first, is_last, finish_on_chunk
                     );
                     if tx.send(request).await.is_err() {
+                        tracing::debug!(
+                            "BidiWriteObject: PRODUCER tx.send failed at chunk {}/{} — receiver dropped",
+                            msg_index + 1, num_chunks_est
+                        );
                         break;
                     }
                     offset = end;
                     msg_index += 1;
                 }
-                tracing::trace!("BidiWriteObject producer: sent {} chunk(s)", msg_index);
+                let data_done_elapsed = producer_start.elapsed();
+                tracing::debug!(
+                    "BidiWriteObject: PRODUCER all {} data chunk(s) sent, {} bytes total, elapsed={:?}",
+                    msg_index, total_len, data_done_elapsed
+                );
+
+                // Appendable (RAPID): two-phase finalize.
+                // Phase 1: flush probe — ask server to confirm all data is persisted.
+                // Phase 2: finalize   — only after PersistedSize >= total_len.
+                // Without this, the server commits only partially-flushed
+                // data when it receives finish_write, causing truncation.
+                if is_appendable {
+                    // --- Phase 1: flush probe ---
+                    let flush_probe = BidiWriteObjectRequest {
+                        write_offset: total_len as i64,
+                        finish_write: false,
+                        flush: true,
+                        state_lookup: true,
+                        data: None,
+                        object_checksums: None,
+                        common_object_request_params: None,
+                        first_message: None,
+                    };
+                    tracing::debug!(
+                        "BidiWriteObject: PRODUCER sending flush probe #{} write_offset={} (flush=true, state_lookup=true)",
+                        msg_index + 1, total_len
+                    );
+                    if tx.send(flush_probe).await.is_err() {
+                        tracing::warn!("BidiWriteObject: PRODUCER flush probe send FAILED — receiver dropped");
+                    } else {
+                        msg_index += 1;
+
+                        // Wait for server to confirm PersistedSize >= total_len
+                        tracing::debug!(
+                            "BidiWriteObject: PRODUCER waiting for PersistedSize >= {}",
+                            total_len
+                        );
+                        let wait_start = std::time::Instant::now();
+                        loop {
+                            // Check current value before waiting
+                            let current = *persisted_rx.borrow();
+                            if current >= total_len as i64 {
+                                tracing::debug!(
+                                    "BidiWriteObject: PRODUCER PersistedSize={} >= total_len={}, proceeding to finalize, waited {:?}",
+                                    current, total_len, wait_start.elapsed()
+                                );
+                                break;
+                            }
+                            if current == RESOURCE_RECEIVED {
+                                tracing::debug!(
+                                    "BidiWriteObject: PRODUCER got early Resource before finalize — skipping finalize"
+                                );
+                                break;
+                            }
+                            let remaining = std::time::Duration::from_secs(60)
+                                .saturating_sub(wait_start.elapsed());
+                            if remaining.is_zero() {
+                                tracing::warn!(
+                                    "BidiWriteObject: PRODUCER TIMEOUT (60s) waiting for PersistedSize (current={}, need={})",
+                                    current, total_len
+                                );
+                                break;
+                            }
+                            match tokio::time::timeout(remaining, persisted_rx.changed()).await {
+                                Ok(Ok(())) => {
+                                    let ps = *persisted_rx.borrow();
+                                    tracing::debug!(
+                                        "BidiWriteObject: PRODUCER PersistedSize update: {} (need {}), elapsed={:?}",
+                                        ps, total_len, wait_start.elapsed()
+                                    );
+                                }
+                                Ok(Err(_)) => {
+                                    tracing::warn!(
+                                        "BidiWriteObject: PRODUCER persisted channel closed — reader may have exited"
+                                    );
+                                    break;
+                                }
+                                Err(_) => {
+                                    tracing::warn!(
+                                        "BidiWriteObject: PRODUCER TIMEOUT (60s) waiting for PersistedSize (current={}, need={})",
+                                        *persisted_rx.borrow(), total_len
+                                    );
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    // --- Phase 2: finalize (unless Resource already arrived) ---
+                    let current = *persisted_rx.borrow();
+                    if current != RESOURCE_RECEIVED {
+                        let finalize_request = BidiWriteObjectRequest {
+                            write_offset: total_len as i64,
+                            finish_write: true,
+                            flush: true,
+                            data: None,
+                            object_checksums: Some(ObjectChecksums {
+                                crc32c: Some(object_crc32c),
+                                md5_hash: bytes::Bytes::new(),
+                            }),
+                            state_lookup: false,
+                            common_object_request_params: None,
+                            first_message: None,
+                        };
+                        tracing::debug!(
+                            "BidiWriteObject: PRODUCER sending finalize #{} write_offset={} crc32c={:#010x}",
+                            msg_index + 1, total_len, object_crc32c
+                        );
+                        match tx.send(finalize_request).await {
+                            Ok(()) => tracing::debug!("BidiWriteObject: PRODUCER finalize queued OK"),
+                            Err(_) => tracing::warn!("BidiWriteObject: PRODUCER finalize send FAILED — receiver dropped"),
+                        }
+                        msg_index += 1;
+                    }
+                }
+
+                tracing::debug!(
+                    "BidiWriteObject: PRODUCER done: {} message(s) sent, appendable={}, total_elapsed={:?}",
+                    msg_index, is_appendable, producer_start.elapsed()
+                );
+
+                // CRITICAL: keep `tx` alive until the reader confirms
+                // Resource (for appendable).  Dropping `tx` closes the gRPC
+                // send-half which can race with the server's final commit.
+                if is_appendable {
+                    let current = *persisted_rx.borrow();
+                    if current != RESOURCE_RECEIVED {
+                        tracing::debug!("BidiWriteObject: PRODUCER entering keep-alive wait (holding tx open for up to 60s)");
+                        let keepalive_deadline = std::time::Instant::now() + std::time::Duration::from_secs(60);
+                        loop {
+                            let current = *persisted_rx.borrow();
+                            if current == RESOURCE_RECEIVED {
+                                tracing::debug!(
+                                    "BidiWriteObject: PRODUCER Resource confirmed — closing stream, total_elapsed={:?}",
+                                    producer_start.elapsed()
+                                );
+                                break;
+                            }
+                            let remaining = keepalive_deadline.saturating_duration_since(std::time::Instant::now());
+                            if remaining.is_zero() {
+                                tracing::warn!(
+                                    "BidiWriteObject: PRODUCER TIMEOUT (60s) waiting for Resource — data may be truncated!"
+                                );
+                                break;
+                            }
+                            match tokio::time::timeout(remaining, persisted_rx.changed()).await {
+                                Ok(Ok(())) => { /* loop will re-check */ }
+                                Ok(Err(_)) => {
+                                    tracing::warn!(
+                                        "BidiWriteObject: PRODUCER persisted channel closed without Resource — data may be truncated!"
+                                    );
+                                    break;
+                                }
+                                Err(_) => {
+                                    tracing::warn!(
+                                        "BidiWriteObject: PRODUCER TIMEOUT (60s) waiting for Resource — data may be truncated!"
+                                    );
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        tracing::debug!(
+                            "BidiWriteObject: PRODUCER Resource already confirmed, total_elapsed={:?}",
+                            producer_start.elapsed()
+                        );
+                    }
+                }
             })
         };
 
@@ -425,35 +628,112 @@ impl super::stub::Storage for Storage {
             )
             .await;
 
-        producer_task.abort();
-        let _ = producer_task.await;
-
         let tonic_result = response?;
         let tonic_response = tonic_result.map_err(gaxi::grpc::from_status::to_gax_error)?;
         let (_, mut stream, _) = tonic_response.into_parts();
 
-        loop {
-            match stream.message().await {
-                Ok(Some(msg)) => {
-                    if let Some(bidi_write_object_response::WriteStatus::Resource(proto_obj)) =
-                        msg.write_status
-                    {
-                        use gaxi::prost::FromProto;
-                        let model_obj: crate::model::Object =
-                            proto_obj.cnv().map_err(|e| {
-                                Error::io(format!("failed to convert proto Object to model: {e}"))
-                            })?;
-                        return Ok(model_obj);
+        // Drain response stream CONCURRENTLY with the producer.
+        // BidiWriteObject servers (especially RAPID/zonal) send PersistedSize
+        // ACKs for each chunk.  If we don't read them, the HTTP/2 flow-control
+        // window fills up and the producer stalls (observed at chunk 14 of 18).
+        let reader_task = tokio::spawn(async move {
+            let reader_start = std::time::Instant::now();
+            let mut response_count: u32 = 0;
+            // For appendable (RAPID) writes, the server sends an initial
+            // Resource(size=0) as a "spec ack" before any data is persisted.
+            // We must NOT treat this as the final Resource — doing so causes
+            // the producer to skip finalization and the stream to close with
+            // only partially-committed data.
+            let mut initial_resource_skipped = false;
+            let mut seen_persisted_size = false;
+            tracing::debug!("BidiWriteObject: READER started, waiting for server responses");
+            loop {
+                match stream.message().await {
+                    Ok(Some(msg)) => {
+                        response_count += 1;
+                        match &msg.write_status {
+                            Some(bidi_write_object_response::WriteStatus::Resource(proto_obj)) => {
+                                // For appendable writes: the FIRST Resource with
+                                // size=0 is the spec ack ("hello").  Skip it and
+                                // keep listening for PersistedSize + final Resource.
+                                if is_appendable
+                                    && !initial_resource_skipped
+                                    && !seen_persisted_size
+                                {
+                                    initial_resource_skipped = true;
+                                    tracing::debug!(
+                                        "BidiWriteObject: READER skipping initial spec-ack Resource (response #{}) size={} name={:?} elapsed={:?}",
+                                        response_count, proto_obj.size,
+                                        proto_obj.name, reader_start.elapsed()
+                                    );
+                                    continue;
+                                }
+                                tracing::debug!(
+                                    "BidiWriteObject: READER got final Resource (response #{}) size={} name={:?} elapsed={:?}",
+                                    response_count, proto_obj.size,
+                                    proto_obj.name, reader_start.elapsed()
+                                );
+                                // Signal producer: Resource received, safe to close stream.
+                                let _ = persisted_tx.send(RESOURCE_RECEIVED);
+                                return Ok(proto_obj.clone());
+                            }
+                            Some(bidi_write_object_response::WriteStatus::PersistedSize(ps)) => {
+                                seen_persisted_size = true;
+                                tracing::debug!(
+                                    "BidiWriteObject: READER got PersistedSize={} (response #{}) elapsed={:?}",
+                                    ps, response_count, reader_start.elapsed()
+                                );
+                                let _ = persisted_tx.send(*ps);
+                            }
+                            None => {
+                                tracing::debug!(
+                                    "BidiWriteObject: READER got response #{} with NO write_status (empty ack?) elapsed={:?}",
+                                    response_count, reader_start.elapsed()
+                                );
+                            }
+                        }
+                    }
+                    Ok(None) => {
+                        tracing::debug!(
+                            "BidiWriteObject: READER stream ended (None) after {} response(s), elapsed={:?} — NO Resource received!",
+                            response_count, reader_start.elapsed()
+                        );
+                        return Err(Error::io(
+                            "BidiWriteObject stream ended without returning Object",
+                        ));
+                    }
+                    Err(status) => {
+                        tracing::debug!(
+                            "BidiWriteObject: READER stream error after {} response(s), elapsed={:?}: {:?}",
+                            response_count, reader_start.elapsed(), status
+                        );
+                        return Err(gaxi::grpc::from_status::to_gax_error(status));
                     }
                 }
-                Ok(None) => {
-                    return Err(Error::io("BidiWriteObject stream ended without returning Object"));
-                }
-                Err(status) => {
-                    return Err(gaxi::grpc::from_status::to_gax_error(status));
-                }
+            }
+        });
+
+        // Wait for BOTH producer and reader to complete.
+        // The producer must finish sending all chunks + finalize before the
+        // server will return the final Resource response.
+        let (producer_result, reader_result) = tokio::join!(producer_task, reader_task);
+
+        // Check for panics in either task.
+        if let Err(e) = producer_result {
+            if e.is_panic() {
+                std::panic::resume_unwind(e.into_panic());
             }
         }
+        let proto_obj = reader_result
+            .map_err(|e| Error::io(format!("reader task failed: {e}")))?
+            ?;
+
+        use gaxi::prost::FromProto;
+        let model_obj: crate::model::Object = proto_obj
+            .cnv()
+            .map_err(|e| Error::io(format!("failed to convert proto Object to model: {e}")))?;
+
+        Ok(model_obj)
     }
 
     async fn open_object(
