@@ -30,6 +30,7 @@ pub use crate::row::Row;
 pub use crate::statement::Statement;
 pub use crate::timestamp_bound::TimestampBound;
 pub use crate::to_value::ToValue;
+pub use crate::transaction_retry_helper::TransactionRetrySettings;
 pub use crate::types::{Type, TypeCode};
 pub use crate::value::{Kind, Value};
 pub use wkt::{DurationError, TimestampError};

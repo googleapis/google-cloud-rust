@@ -14,6 +14,7 @@
 
 use crate::client::Spanner;
 use crate::model::Session;
+use crate::partitioned_dml_transaction::PartitionedDmlTransactionBuilder;
 use crate::read_only_transaction::{
     MultiUseReadOnlyTransactionBuilder, SingleUseReadOnlyTransactionBuilder,
 };
@@ -96,6 +97,29 @@ impl DatabaseClient {
     /// but don't permit data modifications. Read-only transactions do not take locks.
     pub fn read_only_transaction(&self) -> MultiUseReadOnlyTransactionBuilder {
         MultiUseReadOnlyTransactionBuilder::new(self.clone())
+    }
+
+    /// Returns a builder for a partitioned DML transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.partitioned_dml_transaction().build().await?;
+    /// let statement = Statement::builder("UPDATE users SET active = true WHERE TRUE").build();
+    /// let modified_rows = transaction.execute_update(statement).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Partitioned DML is used to execute a single DML statement that may modify a large number
+    /// of rows. The execution of the statement will automatically be partitioned into smaller
+    /// transactions by Spanner, which may execute in parallel.
+    ///
+    /// See also: <https://docs.cloud.google.com/spanner/docs/dml-partitioned>
+    pub fn partitioned_dml_transaction(&self) -> PartitionedDmlTransactionBuilder {
+        PartitionedDmlTransactionBuilder::new(self.clone())
     }
 }
 
