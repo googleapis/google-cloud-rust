@@ -581,16 +581,18 @@ mod tests {
             .send(Ok(test_exactly_once_response(4..MAX_IDS_PER_RPC)))
             .await?;
 
-        let mut ack_join_set = JoinSet::new();
+        let mut acks = JoinSet::new();
         for i in 0..MAX_IDS_PER_RPC {
             let Some((m, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? else {
                 anyhow::bail!("expected message {i}/{MAX_IDS_PER_RPC}")
             };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
-            ack_join_set.spawn(h.confirmed_ack());
+            acks.spawn(h.confirmed_ack());
         }
-        assert!(ack_join_set.join_all().await.into_iter().all(|r| r.is_ok()));
+        while let Some(r) = acks.join_next().await {
+            r?.inspect_err(|e| tracing::info!("received unexpected confirm_ack error: {e:?}"))?;
+        }
 
         drop(response_tx);
         let end = stream.next().await.transpose()?;

@@ -27,14 +27,13 @@ pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Res
     let mut stream = subscriber.subscribe(subscription_name).build();
 
     let subscribe: tokio::task::JoinHandle<Result<(), Error>> = tokio::spawn(async move {
-        let mut handles = JoinSet::new();
-        while handles.len() < MESSAGE_COUNT
-            && let Some((_, Handler::ExactlyOnce(h))) = stream.next().await.transpose()?
-        {
-            handles.spawn(h.confirmed_ack());
+        let mut acks = JoinSet::new();
+        while acks.len() < MESSAGE_COUNT {
+            if let Some((_, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? {
+                acks.spawn(h.confirmed_ack());
+            }
         }
-        assert_eq!(handles.len(), MESSAGE_COUNT);
-        while let Some(r) = handles.join_next().await {
+        while let Some(r) = acks.join_next().await {
             r?.inspect_err(|e| tracing::info!("received unexpected confirm_ack error: {e:?}"))?;
         }
         Ok(())
