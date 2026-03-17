@@ -40,20 +40,16 @@ steps:
   - id: 'Vendor cargo dependencies'
     name: 'rust:${_RUST_VERSION}-bookworm'
     waitFor: ['Set up build cache']
-    env:
-      - 'SPANNER_EMULATOR_HOST=spanner-emulator:9010'
     script: |
       #!/usr/bin/env bash
       set -e
       echo "Vendor dependencies to run cargo commands in parallel"
-      mkdir -p integration-tests/.cargo integration-tests/vendor
-      cd integration-tests
-      cargo vendor --respect-source-config  > .cargo/config.toml
-      cd ..
-      mkdir -p crypto-tests/.cargo crypto-tests/vendor      
-      cd crypto-tests
-      cargo vendor --respect-source-config  > .cargo/config.toml
-      cd ..
+      for dir in integration-tests crypto-tests; do
+        mkdir -p "${dir}/.cargo" "${dir}/vendor"
+        cd "${dir}"
+        cargo vendor --respect-source-config > .cargo/config.toml
+        cd ..
+      done
   - id: 'Start Spanner Emulator'
     name: 'gcr.io/cloud-builders/docker'
     args: ['run', '-d', '--network=cloudbuild', '--name=spanner-emulator', 'gcr.io/cloud-spanner-emulator/emulator']
