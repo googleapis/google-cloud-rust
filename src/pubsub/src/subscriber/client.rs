@@ -79,7 +79,6 @@ use std::sync::Arc;
 /// was received.
 ///
 /// [exactly-once]: https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery
-/// [google-cloud-rust#3964]: https://github.com/googleapis/google-cloud-rust/issues/3964
 ///
 /// # Configuration
 ///
