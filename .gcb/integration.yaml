@@ -76,7 +76,7 @@ steps:
       set -e
       rustup component add clippy
       echo "Verify crypto providers behavior"
-      mapfile -t directories < <(git ls-files -- 'tests/crypto-providers/**Cargo.toml' |
+      mapfile -t directories < <(git ls-files -- '../tests/crypto-providers/**Cargo.toml' |
           xargs -I{} dirname {} |
           grep -v test-)
       for dir in "${directories[@]}"; do
