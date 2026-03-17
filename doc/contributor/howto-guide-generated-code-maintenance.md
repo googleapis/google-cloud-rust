@@ -24,15 +24,22 @@ instructions in [Set Up Development Environment].
 
 ### Verify `librarian` knows about the library
 
-`librarian` has a hard-coded list of APIs. If librarian does not have the API in
-its list it does not find the service config yaml file. As a result, the title,
-description, and mixins (IAM, location, longrunning) may be missing.
+librarian uses an allowlist configured in [sdk.yaml](https://github.com/googleapis/librarian/blob/main/internal/serviceconfig/sdk.yaml) to manage libraries. Here is how it determines what is allowed:
 
-You need to look at the [API list] for the pinned version of librarian, if the
-API is not in the list:
+**For Cloud APIs (google/cloud/ path prefix):** If an API is **not** listed in sdk.yaml, librarian automatically allows it for all languages.
+**For other APIs (sdk.yaml):** If an API **is** defined in sdk.yaml, that file becomes the strict source of truth. The Cloud APIs rule is overridden, and your specific language must be explicitly listed under that API's definition to be allowed.
 
-1. Send a PR adding the API to librarian.
-1. Send a PR to update the `version` field in `librarian.yaml`.
+**Remember to perform the verification on the version of librarian that is used in Rust.**
+
+#### Common Scenarios
+
+**✅ You are good to go if:** The API is not in sdk.yaml AND your library path starts with google/cloud/. The Cloud APIs rule covers you.
+**❌ You need to make updates if:** The API is in sdk.yaml, but Rust is not listed in the accepted languages for that library.
+
+**How to update an unlisted language:**
+
+1. Send a PR adding the language to the sdk.yaml in librarian.
+2. Send a PR to update the version field in librarian.yaml.
 
 ### Generate
 
