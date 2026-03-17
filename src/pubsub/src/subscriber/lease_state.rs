@@ -267,7 +267,7 @@ pub(super) mod tests {
     use tokio::time::interval;
 
     // Cover the constant, converting it to an integer for convenience.
-    const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
+    pub(crate) const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
 
     // Any valid `Interval` will do.
     fn test_interval() -> Interval {
