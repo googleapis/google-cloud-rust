@@ -58,10 +58,11 @@ git commit -m "feat(${library}): generate library"
 ### Troubleshooting
 
 **Note:** Ensure you are verifying against the version of `librarian` used in
-Rust.
+Rust (you can check the version in [librarian.yaml]).
 
 `librarian` uses an allowlist configured in [sdk.yaml] to manage libraries.
-Cloud APIs are automatically allowed for all languages.
+Cloud APIs are automatically allowed for all languages except the ones in
+[sdk.yaml].
 
 **❌ If you get a "library is not allowed" error:**
 
@@ -76,8 +77,12 @@ If you still have issues, please contact librarian team.
 
 #### How to update an unlisted language:
 
-1. Send a PR adding the language to the [sdk.yaml] in librarian.
-2. Send a PR to update the version field in librarian.yaml.
+1. Send a PR adding the language to the [sdk.yaml] in librarian and merge it.
+2. Get latest librarian version
+```bash
+go list -m -json github.com/googleapis/librarian@main | jq -r '.Version'
+```
+3. Send a PR to update the version field in [librarian.yaml].
 
 ## Update the code generation sources
 
@@ -381,6 +386,7 @@ go run github.com/googleapis/librarian/cmd/librarian@main generate google-cloud-
 
 [add new dependency]: #add-new-dependency
 [generate new library]: #generate-new-library
+[librarian.yaml]: https://github.com/googleapis/google-cloud-rust/blob/main/librarian.yaml
 [protocol buffer compiler installation]: https://protobuf.dev/installation/
 [sdk.yaml]: https://github.com/googleapis/librarian/blob/main/internal/serviceconfig/sdk.yaml
 [set up development environment]: /doc/contributor/howto-guide-set-up-development-environment.md
