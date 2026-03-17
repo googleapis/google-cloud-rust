@@ -22,23 +22,21 @@ instructions in [Set Up Development Environment].
 
 ## Generate new library
 
-### Verify `librarian` knows about the library
+### Troubleshooting
 
-librarian uses an allowlist configured in [sdk.yaml](https://github.com/googleapis/librarian/blob/main/internal/serviceconfig/sdk.yaml) to manage libraries. Here is how it determines what is allowed:
+**Note:** Ensure you are verifying against the version of `librarian` used in Rust.
 
-**For Cloud APIs (google/cloud/ path prefix):** If an API is **not** listed in sdk.yaml, librarian automatically allows it for all languages.
-**For other APIs (sdk.yaml):** If an API **is** defined in sdk.yaml, that file becomes the strict source of truth. The Cloud APIs rule is overridden, and your specific language must be explicitly listed under that API's definition to be allowed.
+`librarian` uses an allowlist configured in [sdk.yaml] to manage libraries. Cloud APIs are automatically allowed for all languages.
 
-**Remember to perform the verification on the version of librarian that is used in Rust.**
+**❌ If you get a "library is not allowed" error:**
 
-#### Common Scenarios
+Check the [sdk.yaml] file:
+* **If the library is missing and it is not a Cloud API:** Add it, but enable it *only* for Rust.
+* **If the library is already there:** Verify that Rust is included in the accepted languages for that specific library.
 
-**✅ You are good to go if:** The API is not in sdk.yaml AND your library path starts with google/cloud/. The Cloud APIs rule covers you.
-**❌ You need to make updates if:** The API is in sdk.yaml, but Rust is not listed in the accepted languages for that library.
+#### How to update an unlisted language:**
 
-**How to update an unlisted language:**
-
-1. Send a PR adding the language to the sdk.yaml in librarian.
+1. Send a PR adding the language to the [sdk.yaml] in librarian.
 2. Send a PR to update the version field in librarian.yaml.
 
 ### Generate
@@ -379,3 +377,4 @@ go run github.com/googleapis/librarian/cmd/librarian@main generate google-cloud-
 [generate new library]: #generate-new-library
 [protocol buffer compiler installation]: https://protobuf.dev/installation/
 [set up development environment]: /doc/contributor/howto-guide-set-up-development-environment.md
+[sdk.yaml]: https://github.com/googleapis/librarian/blob/main/internal/serviceconfig/sdk.yaml
