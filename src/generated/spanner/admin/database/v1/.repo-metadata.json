@@ -10,5 +10,6 @@
     "name": "spanner",
     "name_pretty": "Cloud Spanner",
     "product_documentation": "https://cloud.google.com/spanner/",
-    "release_level": "stable"
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
 }

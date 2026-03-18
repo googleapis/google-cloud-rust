@@ -10,5 +10,6 @@
     "name": "workflowexecutions",
     "name_pretty": "Workflow Executions",
     "product_documentation": "https://cloud.google.com/workflows/",
-    "release_level": "stable"
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
 }

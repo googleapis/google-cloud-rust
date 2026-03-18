@@ -10,5 +10,6 @@
     "name": "bigquerydatatransfer",
     "name_pretty": "BigQuery Data Transfer",
     "product_documentation": "https://cloud.google.com/bigquery/transfer/",
-    "release_level": "stable"
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
 }

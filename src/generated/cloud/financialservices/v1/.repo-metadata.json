@@ -9,5 +9,6 @@
     "name": "financialservices",
     "name_pretty": "Financial Services",
     "product_documentation": "https://cloud.google.com/financial-services/anti-money-laundering/",
-    "release_level": "stable"
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
 }
