@@ -73,6 +73,16 @@ done
 cargo clippy --no-deps --package google-cloud-pubsub --all-targets -- --deny warnings
 cargo clippy --no-deps --package google-cloud-pubsub --all-features --all-targets --profile=test -- --deny warnings
 
+cargo clean
+echo "==== google-cloud-auth ===="
+for sub in test doc; do
+  cargo "${sub}" --package google-cloud-auth --no-default-features
+  cargo "${sub}" --package google-cloud-auth --no-default-features --features idtoken
+  cargo "${sub}" --package google-cloud-auth --all-features
+done
+cargo clippy --no-deps --package google-cloud-auth --all-targets -- --deny warnings
+cargo clippy --no-deps --package google-cloud-auth --all-features --all-targets --profile=test -- --deny warnings
+
 echo "==== DONE ===="
 
 /workspace/.bin/sccache --show-stats
