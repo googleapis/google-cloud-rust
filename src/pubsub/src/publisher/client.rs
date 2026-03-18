@@ -52,16 +52,17 @@ pub use super::base_publisher::BasePublisher;
 ///   [Application Default Credentials]. Applications using custom
 ///   authentication may need to override this default.
 ///
-/// [with_endpoint()]: crate::builder::publisher::PublisherBuilder::with_endpoint
-/// [with_credentials()]: crate::builder::publisher::PublisherBuilder::with_credentials
-/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
-/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
-///
 /// # Pooling and Cloning
 ///
 /// `Publisher` holds a connection pool internally, it is advised to
 /// create one and then reuse it. You do not need to wrap `Publisher` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it.
+///
+/// [cloud pub/sub]: https://docs.cloud.google.com/pubsub/docs/overview
+/// [with_endpoint()]: crate::builder::publisher::PublisherBuilder::with_endpoint
+/// [with_credentials()]: crate::builder::publisher::PublisherBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
 #[derive(Debug, Clone)]
 pub struct Publisher {
     #[allow(dead_code)]
