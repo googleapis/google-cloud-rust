@@ -86,6 +86,7 @@ pub struct MessageStream {
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<Action>,
 
+    #[allow(dead_code)] // TODO(#5024) - implementation in progress...
     /// This future is ready when the lease loop shutdown completes.
     lease_loop: Shared<BoxFuture<'static, ()>>,
 }
