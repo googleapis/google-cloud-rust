@@ -97,6 +97,14 @@ impl DatabaseClient {
     pub fn read_only_transaction(&self) -> MultiUseReadOnlyTransactionBuilder {
         MultiUseReadOnlyTransactionBuilder::new(self.clone())
     }
+
+    /// Returns a builder for a read-write transaction.
+    #[allow(dead_code)]
+    pub(crate) fn read_write_transaction(
+        &self,
+    ) -> crate::read_write_transaction::ReadWriteTransactionBuilder {
+        crate::read_write_transaction::ReadWriteTransactionBuilder::new(self.clone())
+    }
 }
 
 /// A builder for [DatabaseClient].
