@@ -40,14 +40,7 @@ default = ["_default-rustls-provider"]
 #
 # Currently this is based on reqwest, and this crate implicitly uses the same
 # features of reqwest that `google-cloud-auth` does.
-_internal-http-client = [
-  "_internal-common",
-  "dep:hyper",
-  "dep:lazy_static",
-  "dep:reqwest",
-  "dep:serde",
-  "dep:serde_json",
-]
+_internal-http-client = ["_internal-common", "dep:hyper", "dep:reqwest", "dep:serde", "dep:serde_json"]
 # Enables the gRPC client.
 #
 # Currently this is based on Tonic, and this crate implicitly uses the same
@@ -84,6 +77,7 @@ _internal-common = [
   "dep:google-cloud-rpc",
   "dep:http",
   "dep:http-body-util",
+  "dep:lazy_static",
   "dep:opentelemetry",
   "dep:opentelemetry-semantic-conventions",
   "dep:opentelemetry_sdk",
@@ -103,11 +97,11 @@ _internal-grpc-server-streaming = []
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
 futures                            = { workspace = true, optional = true }
+lazy_static                        = { workspace = true, optional = true }
 http                               = { workspace = true, optional = true }
 http-body                          = { workspace = true, optional = true }
 http-body-util                     = { workspace = true, optional = true }
 hyper                              = { workspace = true, optional = true }
-lazy_static                        = { workspace = true, optional = true }
 opentelemetry                      = { workspace = true, optional = true, features = ["internal-logs", "metrics"] }
 opentelemetry_sdk                  = { workspace = true, optional = true, features = ["trace"] }
 opentelemetry-semantic-conventions = { workspace = true, optional = true, features = ["semconv_experimental"] }
@@ -137,7 +131,6 @@ anyhow.workspace                  = true
 bytes.workspace                   = true
 google-cloud-test-utils.workspace = true
 httptest.workspace                = true
-lazy_static.workspace             = true
 mockall.workspace                 = true
 opentelemetry_sdk                 = { workspace = true, features = ["logs", "metrics", "testing"] }
 opentelemetry-appender-tracing    = { workspace = true }

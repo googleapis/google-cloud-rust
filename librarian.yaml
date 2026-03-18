@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.8.4-0.20260317143837-becad42c58e8
+version: v0.8.4-0.20260318163223-0ba84a3917a6
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
@@ -93,9 +93,6 @@ default:
       - name: google-cloud-type
         package: google-cloud-type
         source: google.type
-      - name: lazy_static
-        package: lazy_static
-        used_if: services
       - name: serde
         package: serde
         force_used: true

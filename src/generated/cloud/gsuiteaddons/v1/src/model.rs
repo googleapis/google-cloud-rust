@@ -28,7 +28,6 @@ extern crate google_cloud_apps_script_type_gmail;
 extern crate google_cloud_apps_script_type_sheets;
 extern crate google_cloud_apps_script_type_slides;
 extern crate google_cloud_gax;
-extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;

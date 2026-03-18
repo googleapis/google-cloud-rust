@@ -10,6 +10,5 @@
     "name": "oslogin",
     "name_pretty": "Cloud OS Login",
     "product_documentation": "https://cloud.google.com/compute/",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

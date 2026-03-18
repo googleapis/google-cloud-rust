@@ -8,6 +8,5 @@
     "library_type": "GAPIC_AUTO",
     "name": "datastore",
     "name_pretty": "Cloud Datastore",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

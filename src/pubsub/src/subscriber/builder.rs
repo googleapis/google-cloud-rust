@@ -45,7 +45,7 @@ impl Subscribe {
             subscription,
             client_id,
             grpc_subchannel_count,
-            ack_deadline_seconds: 10,
+            ack_deadline_seconds: 60,
             max_lease: Duration::from_secs(600),
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
@@ -125,7 +125,7 @@ impl Subscribe {
     /// you can specify is 10 minutes. The client clamps the supplied value to
     /// this range.
     ///
-    /// The default value is 10 seconds.
+    /// The default value is 60 seconds.
     pub fn set_max_lease_extension<T: Into<Duration>>(mut self, v: T) -> Self {
         self.ack_deadline_seconds = v.into().as_secs().clamp(10, 600) as i32;
         self
@@ -218,7 +218,7 @@ mod tests {
             "projects/my-project/subscriptions/my-subscription"
         );
         assert_eq!(builder.grpc_subchannel_count, 1);
-        assert_eq!(builder.ack_deadline_seconds, 10);
+        assert_eq!(builder.ack_deadline_seconds, 60);
         assert!(
             builder.max_lease >= Duration::from_secs(300),
             "max_lease={:?}",

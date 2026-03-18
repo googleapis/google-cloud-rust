@@ -44,7 +44,6 @@ gaxi                        = { workspace = true, features = ["_internal-http-cl
 google-cloud-api.workspace  = true
 google-cloud-gax.workspace  = true
 google-cloud-type.workspace = true
-lazy_static.workspace       = true
 serde.workspace             = true
 serde_json.workspace        = true
 serde_with.workspace        = true

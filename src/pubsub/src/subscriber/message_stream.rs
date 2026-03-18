@@ -643,7 +643,10 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_max_lease_extension(Duration::from_secs(10))
+            .build();
 
         response_tx.send(Ok(test_response(0..30))).await?;
         drop(response_tx);
@@ -671,8 +674,8 @@ mod tests {
             hold.push(h);
         }
 
-        // Advance the clock 10s, which is the default stream ack deadline. In
-        // this time, we should attempt at least one lease extension RPC.
+        // Advance the clock 10s, which is the stream ack deadline. In this
+        // time, we should attempt at least one lease extension RPC.
         tokio::time::advance(Duration::from_secs(10)).await;
 
         // Close the stream, to make sure pending operations complete.
@@ -831,7 +834,10 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_max_lease_extension(Duration::from_secs(10))
+            .build();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         // See if we can handle an empty range
@@ -851,8 +857,8 @@ mod tests {
         let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
 
-        // Advance the clock 10s, which is the default stream ack deadline. In
-        // this time, we should attempt at least one lease extension RPC.
+        // Advance the clock 10s, which is the stream ack deadline. In this
+        // time, we should attempt at least one lease extension RPC.
         tokio::time::advance(Duration::from_secs(10)).await;
 
         // Close the stream, to make sure pending operations complete.

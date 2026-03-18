@@ -10,6 +10,5 @@
     "name": "telcoautomation",
     "name_pretty": "Telco Automation",
     "product_documentation": "https://cloud.google.com/telecom-network-automation",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

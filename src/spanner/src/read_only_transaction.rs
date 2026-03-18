@@ -289,8 +289,8 @@ impl MultiUseReadOnlyTransaction {
 
 #[derive(Clone, Debug)]
 pub(crate) struct ReadContext {
-    client: DatabaseClient,
-    transaction_selector: crate::model::TransactionSelector,
+    pub(crate) client: DatabaseClient,
+    pub(crate) transaction_selector: crate::model::TransactionSelector,
 }
 
 impl ReadContext {
@@ -330,7 +330,7 @@ impl ReadContext {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
 
     #[test]
@@ -342,7 +342,7 @@ mod tests {
         static_assertions::assert_impl_all!(ReadContext: Send, Sync, std::fmt::Debug);
     }
 
-    fn create_session_mock() -> spanner_grpc_mock::MockSpanner {
+    pub(crate) fn create_session_mock() -> spanner_grpc_mock::MockSpanner {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().once().returning(|_| {
             Ok(gaxi::grpc::tonic::Response::new(
@@ -371,7 +371,7 @@ mod tests {
         }
     }
 
-    async fn setup_db_client(
+    pub(crate) async fn setup_db_client(
         mock: spanner_grpc_mock::MockSpanner,
     ) -> (DatabaseClient, tokio::task::JoinHandle<()>) {
         use crate::client::Spanner;

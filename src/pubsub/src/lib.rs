@@ -62,7 +62,6 @@ pub(crate) mod generated;
 /// Types related to publishing messages with a [Publisher][client::Publisher]
 /// client.
 pub mod publisher;
-#[allow(dead_code)] // TODO(#3964) - implementation in progress...
 /// Types related to receiving messages with a [Subscriber][client::Subscriber]
 /// client.
 pub mod subscriber;
@@ -181,18 +180,18 @@ pub mod stub {
 const DEFAULT_HOST: &str = "https://pubsub.googleapis.com";
 
 mod info {
+    use std::sync::LazyLock;
+
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
-            let ac = gaxi::api_header::XGoogApiClient{
-                name:          NAME,
-                version:       VERSION,
-                library_type:  gaxi::api_header::GAPIC,
-            };
-            ac.grpc_header_value()
+    pub(crate) static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
+        let ac = gaxi::api_header::XGoogApiClient {
+            name: NAME,
+            version: VERSION,
+            library_type: gaxi::api_header::GAPIC,
         };
-    }
+        ac.grpc_header_value()
+    });
 }
 
 #[allow(dead_code)]

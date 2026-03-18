@@ -345,7 +345,7 @@ license      = "Apache-2.0"
 repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories   = ["network-programming"]
-rust-version = "1.85.0"
+rust-version = "1.86.0"
 
 # Define a custom profile for builds on GHA. The standard profiles exhaust the
 # available disk space on the free GHA runners. The GHA builds cannot take
@@ -372,7 +372,6 @@ http-body             = { default-features = false, version = "1" }
 humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.6" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
-lazy_static           = { default-features = false, version = "1.2" }
 opentelemetry         = { default-features = false, version = "0.31" }
 opentelemetry-proto   = { default-features = false, version = "0.31" }
 opentelemetry_sdk     = { default-features = false, version = "0.31" }
@@ -427,6 +426,10 @@ tracing-serde = { default-features = false, version = "0.2" }
 # requirements correctly. Force a higher version so we can test our own minimum
 # version requirements in the minimal-versions build.
 aws-lc-rs = { default-features = false, version = "1.16.1" }
+
+# sharded-slab fails to declare the minimum dependency for `lazy_static`
+#     https://github.com/hawkw/sharded-slab/pull/81
+lazy_static = { default-features = false, version = "1.5" }
 
 # Test packages
 anyhow            = { default-features = false, version = "1.0.102", features = ["std"] }

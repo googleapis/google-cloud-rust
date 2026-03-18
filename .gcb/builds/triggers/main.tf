@@ -139,7 +139,7 @@ locals {
       config       = "complex.yaml"
       flags        = local.unstable_flags
       script       = "test"
-      rust_version = "1.85"
+      rust_version = "1.86"
     }
     test-unstable-cfg = {
       config = "complex.yaml"

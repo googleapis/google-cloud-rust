@@ -8,6 +8,5 @@
     "name": "gsuiteaddons",
     "name_pretty": "Google Workspace add-ons",
     "product_documentation": "https://developers.google.com/workspace/add-ons/overview",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }
