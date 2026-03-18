@@ -41,7 +41,6 @@ http.workspace             = true
 futures.workspace          = true
 http-body.workspace        = true
 hyper.workspace            = true
-lazy_static.workspace      = true
 md5.workspace              = true
 percent-encoding.workspace = true
 pin-project.workspace      = true

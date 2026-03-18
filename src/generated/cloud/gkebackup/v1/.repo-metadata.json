@@ -10,6 +10,5 @@
     "name": "gkebackup",
     "name_pretty": "Backup for GKE",
     "product_documentation": "https://cloud.google.com/kubernetes-engine/",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

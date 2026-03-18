@@ -10,6 +10,5 @@
     "name": "cloud",
     "name_pretty": "Cloud Metadata",
     "product_documentation": "https://github.com/googleapis/googleapis/tree/master/google",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

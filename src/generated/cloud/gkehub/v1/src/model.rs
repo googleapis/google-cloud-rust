@@ -26,7 +26,6 @@ extern crate google_cloud_gkehub_multiclusteringress_v1;
 extern crate google_cloud_gkehub_rbacrolebindingactuation_v1;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
-extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;

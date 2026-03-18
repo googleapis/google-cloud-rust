@@ -10,6 +10,5 @@
     "name": "netapp",
     "name_pretty": "NetApp",
     "product_documentation": "https://cloud.google.com/netapp/volumes/",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

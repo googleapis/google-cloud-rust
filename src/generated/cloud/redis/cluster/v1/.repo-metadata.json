@@ -10,6 +10,5 @@
     "name": "redis",
     "name_pretty": "Google Cloud Memorystore for Redis",
     "product_documentation": "https://cloud.google.com/memorystore/",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

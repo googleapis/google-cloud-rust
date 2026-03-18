@@ -9,6 +9,5 @@
     "name": "metastore",
     "name_pretty": "Dataproc Metastore",
     "product_documentation": "https://cloud.google.com/dataproc-metastore/",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

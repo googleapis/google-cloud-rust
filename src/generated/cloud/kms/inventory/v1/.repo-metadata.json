@@ -9,6 +9,5 @@
     "name": "kmsinventory",
     "name_pretty": "KMS Inventory",
     "product_documentation": "https://cloud.google.com/kms/",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

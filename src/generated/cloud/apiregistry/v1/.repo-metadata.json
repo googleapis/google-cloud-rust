@@ -9,6 +9,5 @@
     "name": "cloudapiregistry",
     "name_pretty": "Cloud API Registry",
     "product_documentation": "https://docs.cloud.google.com/api-registry/",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

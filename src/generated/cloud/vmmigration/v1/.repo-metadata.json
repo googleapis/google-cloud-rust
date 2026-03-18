@@ -9,6 +9,5 @@
     "name": "vmmigration",
     "name_pretty": "VM Migration",
     "product_documentation": "https://cloud.google.com/migrate/compute-engine/docs",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }
