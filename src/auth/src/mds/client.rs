@@ -112,6 +112,7 @@ impl Client {
 
     /// Fetches an ID token for the default service account.
     /// Used by idtoken feature.
+    #[cfg(feature = "idtoken")]
     pub(crate) async fn id_token(
         &self,
         target_audience: &str,
