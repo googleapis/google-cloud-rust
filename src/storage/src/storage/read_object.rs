@@ -144,6 +144,42 @@ where
         this
     }
 
+    /// Enables computation of CRC32C checksums.
+    ///
+    /// Note that the library computes and verifies (if available) CRC32C checksums at the end of
+    /// the download. Use `compute_crc32c(false)` to disable the computation, but note
+    /// that this reduces the data integrity guarantees. Data *can* be corrupted even when
+    /// downloaded over HTTPS or other encrypted channels.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let builder =  client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .compute_crc32c(false);
+    /// let mut reader = builder
+    ///     .send()
+    ///     .await?;
+    /// let mut contents = Vec::new();
+    /// while let Some(chunk) = reader.next().await.transpose()? {
+    ///     contents.extend_from_slice(&chunk);
+    /// }
+    /// println!("object contents={:?}", contents);
+    /// # Ok(()) }
+    /// ```
+    pub fn compute_crc32c(mut self, enable: bool) -> Self {
+        if enable {
+            self.options
+                .checksum
+                .crc32c
+                .get_or_insert_with(Default::default);
+        } else {
+            self.options.checksum.crc32c = None;
+        }
+        self
+    }
+
     /// If present, selects a specific revision of this object (as
     /// opposed to the latest version, the default).
     pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
@@ -932,6 +968,79 @@ mod tests {
             ),
             "err={err:?}"
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_disable_crc32c() -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .compute_crc32c(false);
+
+        assert!(builder.options.checksum.crc32c.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_enable_crc32c() -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .compute_crc32c(false) // Disable it first, because by default it's enabled
+        .compute_crc32c(true);
+
+        assert!(builder.options.checksum.crc32c.is_some());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_disable_crc32c_ignores_mismatch() -> Result {
+        let server = Server::run();
+        // Calculate and serialize the incorrect crc32c checksum
+        let u = crc32c::crc32c("goodbye world".as_bytes());
+        let value = base64::prelude::BASE64_STANDARD.encode(u.to_be_bytes());
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .body("hello world")
+                    .append_header("x-goog-hash", format!("crc32c={value}"))
+                    .append_header("x-goog-generation", 123456),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let mut response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .compute_crc32c(false)
+            .send()
+            .await?;
+        let mut got = Vec::new();
+        while let Some(b) = response.next().await.transpose()? {
+            got.extend_from_slice(&b);
+        }
+
+        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
         Ok(())
     }
 

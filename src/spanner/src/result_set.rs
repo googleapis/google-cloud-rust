@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::error::internal_error;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::row::Row;
 use crate::server_streaming::stream::PartialResultSetStream;
@@ -181,10 +182,6 @@ impl ResultSet {
 
         None
     }
-}
-
-fn internal_error(message: &str) -> crate::Error {
-    crate::Error::deser(crate::error::SpannerInternalError::new(message))
 }
 
 /// Merges two values from successive `PartialResultSet`s into a single value.

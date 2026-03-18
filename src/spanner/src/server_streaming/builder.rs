@@ -27,6 +27,7 @@ use gaxi::grpc::tonic::Extensions;
 use gaxi::grpc::tonic::GrpcMethod;
 use gaxi::prost::ToProto;
 use prost::Message;
+use std::sync::LazyLock;
 
 /// The request builder for [SpannerImpl::execute_streaming_sql][crate::client::SpannerImpl::execute_streaming_sql] calls.
 #[derive(Clone, Debug)]
@@ -184,16 +185,14 @@ impl crate::RequestBuilder for BatchWrite {
     }
 }
 
-lazy_static::lazy_static! {
-    static ref X_GOOG_API_CLIENT_HEADER: String = {
-        let ac = gaxi::api_header::XGoogApiClient {
-            name: env!("CARGO_PKG_NAME"),
-            version: env!("CARGO_PKG_VERSION"),
-            library_type: gaxi::api_header::GCCL,
-        };
-        ac.grpc_header_value()
+static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
+    let ac = gaxi::api_header::XGoogApiClient {
+        name: env!("CARGO_PKG_NAME"),
+        version: env!("CARGO_PKG_VERSION"),
+        library_type: gaxi::api_header::GCCL,
     };
-}
+    ac.grpc_header_value()
+});
 
 async fn make_server_streaming_request<Req, Res>(
     grpc_client: &gaxi::grpc::Client,

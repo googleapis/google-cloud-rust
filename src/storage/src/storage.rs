@@ -37,28 +37,27 @@ use crate::{Error, Result};
 const DEFAULT_HOST: &str = "https://storage.googleapis.com";
 
 pub(crate) mod info {
+    use std::sync::LazyLock;
+
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
-            let ac = gaxi::api_header::XGoogApiClient{
-                name:          NAME,
-                version:       VERSION,
-                library_type:  gaxi::api_header::GCCL,
-            };
-            ac.grpc_header_value()
+    pub(crate) static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
+        let ac = gaxi::api_header::XGoogApiClient {
+            name: NAME,
+            version: VERSION,
+            library_type: gaxi::api_header::GCCL,
         };
-    }
+        ac.grpc_header_value()
+    });
 
     #[cfg(google_cloud_unstable_tracing)]
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION: gaxi::options::InstrumentationClientInfo = {
+    pub(crate) static INSTRUMENTATION: LazyLock<gaxi::options::InstrumentationClientInfo> =
+        LazyLock::new(|| {
             let mut info = gaxi::options::InstrumentationClientInfo::default();
             info.service_name = "storage";
             info.client_version = VERSION;
             info.client_artifact = NAME;
             info.default_host = "storage.googleapis.com";
             info
-        };
-    }
+        });
 }

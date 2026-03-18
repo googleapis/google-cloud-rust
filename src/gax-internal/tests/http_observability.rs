@@ -31,6 +31,7 @@ mod tests {
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
     use serde::Deserialize;
     use std::collections::BTreeMap;
+    use std::sync::LazyLock;
     use test_case::test_case;
     use tracing::{Instrument, field};
 
@@ -44,16 +45,14 @@ mod tests {
     const TEST_ARTIFACT: &str = "google-cloud-test";
     const TEST_HOST: &str = "test.googleapis.com";
 
-    lazy_static::lazy_static! {
-        static ref TEST_INSTRUMENTATION_INFO: InstrumentationClientInfo = {
-            let mut info = InstrumentationClientInfo::default();
-            info.service_name = TEST_SERVICE;
-            info.client_version = TEST_VERSION;
-            info.client_artifact = TEST_ARTIFACT;
-            info.default_host = TEST_HOST;
-            info
-        };
-    }
+    static TEST_INSTRUMENTATION_INFO: LazyLock<InstrumentationClientInfo> = LazyLock::new(|| {
+        let mut info = InstrumentationClientInfo::default();
+        info.service_name = TEST_SERVICE;
+        info.client_version = TEST_VERSION;
+        info.client_artifact = TEST_ARTIFACT;
+        info.default_host = TEST_HOST;
+        info
+    });
 
     async fn create_client(tracing_enabled: bool, endpoint: String) -> ReqwestClient {
         let mut config = ClientConfig::default();

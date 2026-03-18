@@ -127,12 +127,11 @@ macro_rules! client_request_signals {
 ///
 /// ```
 /// let span = client_request_span!("client::Client", "upload_chunk", &HIDDEN_DETAIL);
+/// # use std::sync::LazyLock;
 /// # use google_cloud_gax_internal::client_request_span;
 /// # use google_cloud_gax_internal::options::InstrumentationClientInfo;
-/// # lazy_static::lazy_static! { static ref HIDDEN_DETAIL: InstrumentationClientInfo = {
-/// #     InstrumentationClientInfo::default()
-/// # };
-/// # }
+/// # static HIDDEN_DETAIL: LazyLock<InstrumentationClientInfo> =
+/// #     LazyLock::new(|| InstrumentationClientInfo::default());
 /// ```
 #[macro_export]
 macro_rules! client_request_span {

@@ -2925,7 +2925,6 @@ dependencies = [
  "http-body-util",
  "httptest",
  "hyper",
- "lazy_static",
  "mockall",
  "opentelemetry",
  "opentelemetry-appender-tracing",
