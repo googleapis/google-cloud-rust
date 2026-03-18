@@ -45,7 +45,7 @@ impl Subscribe {
             subscription,
             client_id,
             grpc_subchannel_count,
-            ack_deadline_seconds: 10,
+            ack_deadline_seconds: 60,
             max_lease: Duration::from_secs(60 * 60),
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
