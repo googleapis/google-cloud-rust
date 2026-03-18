@@ -64,6 +64,36 @@ pub async fn basic_subscriber(subscription_name: String) -> Result<()> {
     Ok(())
 }
 
+pub async fn basic_nack(topic_name: &str, subscription_name: &str) -> Result<()> {
+    tracing::info!("testing basic nack");
+
+    let publisher = Publisher::builder(topic_name).build().await?;
+    let subscriber = Subscriber::builder().build().await?;
+    let mut stream = subscriber.subscribe(subscription_name).build();
+
+    publisher
+        .publish(Message::new().set_data("Hello, World!"))
+        .await?;
+    tracing::info!("successfully published message");
+
+    let Some((m, h)) = stream.next().await.transpose()? else {
+        unreachable!("the stream stays open.")
+    };
+    assert_eq!(m.data, "Hello, World!");
+    tracing::info!("successfully received the message");
+    // Nack the message by dropping.
+    drop(h);
+
+    let Some((m, h)) = stream.next().await.transpose()? else {
+        unreachable!("the stream stays open.")
+    };
+    assert_eq!(m.data, "Hello, World!");
+    tracing::info!("successfully received the nack message");
+    h.ack();
+
+    Ok(())
+}
+
 pub async fn basic_topic() -> Result<()> {
     let (client, topic) = create_test_topic().await?;
 
