@@ -31,7 +31,7 @@ steps:
     env:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
-  - name: 'rust:1.85-bookworm'
+  - name: 'rust:1.86-bookworm'
     script: |
       #!/usr/bin/env bash
       set -e

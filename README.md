@@ -13,10 +13,9 @@ client libraries for Rust.
 
 ## Minimum Supported Rust Version (MSRV)
 
-We require Rust >= 1.85. We will compile the development branch with this
-version until at least 2026-03-01. Once we update our MSRV beyond 1.85, we plan
-to update the MSRV periodically. However, the development branch will always
-compile with the `rustc` versions released within the previous year[^1].
+We require Rust >= 1.86. We plan to update the MSRV periodically. However, the
+development branch will always compile with the `rustc` versions released within
+the previous year.
 
 ## Semantic versioning
 
@@ -79,9 +78,6 @@ the [Set Up Development Environment] and the [Architecture] guides useful.
 ## License
 
 Apache 2.0 - See [LICENSE] for more information.
-
-[^1]: That is, once 1.85 is at least a year old we will bump to 1.86 or higher,
-    and we will bump from 1.86 to 1.87 once 1.86 is at least a year old.
 
 [architecture]: ARCHITECTURE.md
 [contributing]: CONTRIBUTING.md
