@@ -42,8 +42,9 @@ impl LeaseLoop {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let shutdown_guard = match options.shutdown_behavior {
             // If the subscriber is configured to wait for processing, we do not
-            // want the lease loop to break when the stream drops its message
-            // sender. So we hold a clone of it.
+            // want to break out of the lease loop when the stream drops its
+            // message sender. We want to continue extending leases for these
+            // messages as needed. So we hold a clone of the message sender.
             ShutdownBehavior::WaitForProcessing => Some(message_tx.clone()),
             ShutdownBehavior::NackImmediately => None,
         };
