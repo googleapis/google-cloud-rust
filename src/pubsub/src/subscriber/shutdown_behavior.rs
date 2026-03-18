@@ -16,6 +16,7 @@
 /// The behavior on shutdown.
 #[derive(Clone, Copy, Debug)]
 pub(super) enum ShutdownBehavior {
+    #[allow(dead_code)] // TODO(#4868) - implementation in progress...
     /// The subscriber stops reading from the underlying gRPC stream.
     ///
     /// The subscriber continues to accept acknowledgements for messages it has
