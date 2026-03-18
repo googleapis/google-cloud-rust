@@ -16,26 +16,22 @@
 /// The behavior on shutdown.
 #[derive(Clone, Copy, Debug)]
 pub(super) enum ShutdownBehavior {
-    /// The subscriber immediately stops reading from the underlying gRPC
-    /// stream.
+    /// The subscriber stops reading from the underlying gRPC stream.
     ///
-    /// The subscriber continues to accept acks for messages it has delivered to
-    /// the application. The subscriber continues to extend leases for these
-    /// messages while it waits on the application to ack/nack them.
+    /// The subscriber continues to accept acknowledgements for messages it has
+    /// delivered to the application. The subscriber continues to extend leases
+    /// for these messages while it waits on the application to ack/nack them.
     ///
     /// The shutdown is complete when all message handles delivered to the
-    /// application have been used, and all pending ack/nack RPCs have
+    /// application have been consumed, and all pending ack/nack RPCs have
     /// completed.
     WaitForProcessing,
 
-    /// The subscriber immediately stops reading from the underlying gRPC
-    /// stream.
+    /// The subscriber stops reading from the underlying gRPC stream.
     ///
-    /// The subscriber flushes all pending acks from the application. The
-    /// subscriber stops accepting acks.
-    ///
-    /// All other messages under lease management are immediately nacked. The
-    /// subscriber flushes the nacks.
+    /// The subscriber stops accepting acknowledgements from the application.
+    /// The subscriber sends all pending acknowledgements to the server. The
+    /// subscriber nacks all other messages under lease management.
     ///
     /// The shutdown is complete when all pending ack/nack RPCs have completed.
     NackImmediately,

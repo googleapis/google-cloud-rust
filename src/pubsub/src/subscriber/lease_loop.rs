@@ -52,6 +52,13 @@ impl LeaseLoop {
         let handle = tokio::spawn(async move {
             loop {
                 tokio::select! {
+                    // We use `biased` to make sure ack IDs from the stream are
+                    // added to lease management before acks/nacks for them are
+                    // processed.
+                    //
+                    // If these channels can race, we might accept an
+                    // application's acknowledgement, and then immediately
+                    // after, accept that message under lease management.
                     biased;
                     event = state.next_event() => {
                         match event {
@@ -424,7 +431,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn nack_immediately() -> anyhow::Result<()> {
+    async fn shutdown_nack_immediately() -> anyhow::Result<()> {
         let mock = Arc::new(Mutex::new(MockLeaser::new()));
         mock.lock()
             .await
@@ -470,7 +477,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn wait_for_processing() -> anyhow::Result<()> {
+    async fn shutdown_wait_for_processing() -> anyhow::Result<()> {
         let mock = Arc::new(Mutex::new(MockLeaser::new()));
         mock.lock()
             .await
