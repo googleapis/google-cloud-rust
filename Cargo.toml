@@ -372,7 +372,6 @@ http-body             = { default-features = false, version = "1" }
 humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.6" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
-lazy_static           = { default-features = false, version = "1.2" }
 opentelemetry         = { default-features = false, version = "0.31" }
 opentelemetry-proto   = { default-features = false, version = "0.31" }
 opentelemetry_sdk     = { default-features = false, version = "0.31" }
