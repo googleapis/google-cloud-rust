@@ -264,19 +264,9 @@ pub(super) mod tests {
     use test_case::test_case;
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::sync::oneshot::channel;
-    use tokio::time::interval;
 
     // Cover the constant, converting it to an integer for convenience.
     pub(crate) const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
-
-    // Any valid `Interval` will do.
-    fn test_interval() -> Interval {
-        interval(Duration::from_secs(1))
-    }
-
-    fn test_duration() -> Duration {
-        Duration::from_secs(123)
-    }
 
     #[derive(Debug)]
     pub(super) struct TestLeases {
