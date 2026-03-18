@@ -77,6 +77,7 @@ _internal-common = [
   "dep:google-cloud-rpc",
   "dep:http",
   "dep:http-body-util",
+  "dep:lazy_static",
   "dep:opentelemetry",
   "dep:opentelemetry-semantic-conventions",
   "dep:opentelemetry_sdk",
@@ -96,6 +97,7 @@ _internal-grpc-server-streaming = []
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
 futures                            = { workspace = true, optional = true }
+lazy_static                        = { workspace = true, optional = true }
 http                               = { workspace = true, optional = true }
 http-body                          = { workspace = true, optional = true }
 http-body-util                     = { workspace = true, optional = true }

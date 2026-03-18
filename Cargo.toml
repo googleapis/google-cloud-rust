@@ -427,6 +427,10 @@ tracing-serde = { default-features = false, version = "0.2" }
 # version requirements in the minimal-versions build.
 aws-lc-rs = { default-features = false, version = "1.16.1" }
 
+# sharded-slab fails to declare the minimum dependency for `lazy_static`
+#     https://github.com/hawkw/sharded-slab/pull/81
+lazy_static = { default-features = false, version = "1.1" }
+
 # Test packages
 anyhow            = { default-features = false, version = "1.0.102", features = ["std"] }
 axum              = { default-features = false, version = "0.8" }
