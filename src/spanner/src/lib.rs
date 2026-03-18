@@ -47,7 +47,7 @@ pub(crate) mod row;
 pub(crate) mod statement;
 pub(crate) mod timestamp_bound;
 pub(crate) mod to_value;
-pub(crate) mod transaction_retry_helper;
+pub(crate) mod transaction_retry_settings;
 pub(crate) mod types;
 pub(crate) mod value;
 

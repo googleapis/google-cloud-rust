@@ -21,7 +21,7 @@ use crate::model::{
 };
 use crate::server_streaming::stream::PartialResultSetStream;
 use crate::statement::Statement;
-use crate::transaction_retry_helper::{TransactionRetrySettings, retry_aborted};
+use crate::transaction_retry_settings::{TransactionRetrySettings, retry_aborted};
 
 /// A builder for [PartitionedDmlTransaction].
 ///
@@ -176,22 +176,16 @@ async fn extract_lower_bound_update_count_from_stream(
     mut stream: PartialResultSetStream,
 ) -> crate::Result<i64> {
     let mut lower_bound: Option<i64> = None;
-    while let Some(message_res) = stream.next_message().await {
-        let prs = message_res?;
-        if let Some(stats) = prs.stats {
-            if let Some(RowCountLowerBound(val)) = stats.row_count {
-                lower_bound = Some(val);
-            }
+    while let Some(prs) = stream.next_message().await.transpose()? {
+        if let Some(RowCountLowerBound(val)) = prs.stats.and_then(|s| s.row_count) {
+            lower_bound = Some(val);
         }
     }
-    match lower_bound {
-        Some(lb) => Ok(lb),
-        None => Err(crate::Error::deser(
-            crate::error::SpannerInternalError::new(
-                "ExecuteStreamingSql completed successfully but no row_count_lower_bound was returned",
-            ),
-        )),
-    }
+    lower_bound.ok_or_else(|| {
+        crate::Error::deser(crate::error::SpannerInternalError::new(
+            "ExecuteStreamingSql completed successfully but no row_count_lower_bound was returned",
+        ))
+    })
 }
 
 #[cfg(test)]
