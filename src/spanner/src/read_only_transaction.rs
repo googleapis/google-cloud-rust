@@ -289,8 +289,8 @@ impl MultiUseReadOnlyTransaction {
 
 #[derive(Clone, Debug)]
 pub(crate) struct ReadContext {
-    client: DatabaseClient,
-    transaction_selector: crate::model::TransactionSelector,
+    pub(crate) client: DatabaseClient,
+    pub(crate) transaction_selector: crate::model::TransactionSelector,
 }
 
 impl ReadContext {
