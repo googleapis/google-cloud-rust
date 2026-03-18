@@ -9,5 +9,6 @@
     "library_type": "GAPIC_AUTO",
     "name": "securityposture",
     "name_pretty": "Security Posture",
-    "release_level": "stable"
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
 }

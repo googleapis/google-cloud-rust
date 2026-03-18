@@ -9,5 +9,6 @@
     "name": "privateca",
     "name_pretty": "Certificate Authority",
     "product_documentation": "https://cloud.google.com/certificate-authority-service",
-    "release_level": "stable"
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
 }

@@ -13,6 +13,7 @@
 # limitations under the License.
 language: rust
 version: v0.8.4-0.20260318163223-0ba84a3917a6
+repo: googleapis/google-cloud-rust
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
