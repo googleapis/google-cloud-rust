@@ -270,6 +270,7 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
+    #[cfg(feature = "idtoken")]
     async fn test_id_token_failure() {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
