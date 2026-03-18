@@ -23,7 +23,6 @@ extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_rpc;
-extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;

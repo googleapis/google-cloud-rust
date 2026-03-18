@@ -93,9 +93,6 @@ default:
       - name: google-cloud-type
         package: google-cloud-type
         source: google.type
-      - name: lazy_static
-        package: lazy_static
-        used_if: services
       - name: serde
         package: serde
         force_used: true

@@ -24,7 +24,6 @@ extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
 extern crate google_cloud_type;
-extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
