@@ -118,6 +118,7 @@ impl MessageStream {
         );
         let options = LeaseOptions {
             max_lease: builder.max_lease,
+            shutdown_behavior: builder.shutdown_behavior,
             ..Default::default()
         };
         let LeaseLoop {
@@ -341,6 +342,7 @@ impl MessageStream {
 
 #[cfg(test)]
 mod tests {
+    use super::super::ShutdownBehavior;
     use super::super::client::Subscriber;
     use super::super::keepalive::KEEPALIVE_PERIOD;
     use super::super::lease_state::tests::{MAX_IDS_PER_RPC, test_id, test_ids};
@@ -1386,6 +1388,47 @@ mod tests {
             latest.is_some_and(|t| expected_range.contains(&t)),
             "{latest:?}"
         );
+
+        // Close the stream, to make sure pending operations complete.
+        stream.close().await?;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn shutdown_wait_for_processing() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge()
+            .times(1)
+            .returning(|_| Ok(TonicResponse::from(())));
+        mock.expect_modify_ack_deadline()
+            .times(1)
+            .returning(|_| Ok(TonicResponse::from(())));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_shutdown_behavior(ShutdownBehavior::WaitForProcessing)
+            .build();
+
+        response_tx.send(Ok(test_response(0..1))).await?;
+        drop(response_tx);
+
+        let (_m, h) = stream
+            .next()
+            .await
+            .expect("stream should yield a message")?;
+
+        tokio::spawn(async move {
+            // Delay the ack until after the shutdown is signaled. It should
+            // still go through.
+            tokio::time::sleep(Duration::from_secs(5)).await;
+            h.ack();
+        });
 
         // Close the stream, to make sure pending operations complete.
         stream.close().await?;

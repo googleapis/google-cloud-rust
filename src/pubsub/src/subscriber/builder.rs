@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::MessageStream;
+use super::ShutdownBehavior;
 use super::transport::Transport;
 use std::sync::Arc;
 use std::time::Duration;
@@ -31,6 +32,7 @@ pub struct Subscribe {
     pub(super) max_lease: Duration,
     pub(super) max_outstanding_messages: i64,
     pub(super) max_outstanding_bytes: i64,
+    pub(super) shutdown_behavior: ShutdownBehavior,
 }
 
 impl Subscribe {
@@ -49,6 +51,8 @@ impl Subscribe {
             max_lease: Duration::from_secs(600),
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
+            // TODO(#4869) - switch the default.
+            shutdown_behavior: ShutdownBehavior::NackImmediately,
         }
     }
 
@@ -187,6 +191,28 @@ impl Subscribe {
         self.max_outstanding_bytes = v.into();
         self
     }
+
+    /// Sets the shutdown behavior for the stream.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let client = Subscriber::builder().build().await?;
+    /// use google_cloud_pubsub::subscriber::ShutdownBehavior::NackImmediately;
+    /// let stream = client.subscribe("projects/my-project/subscriptions/my-subscription")
+    ///     .set_shutdown_behavior(NackImmediately)
+    ///     .build();
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The default behavior is [`WaitForProcessing`][wait].
+    ///
+    /// [wait]: crate::subscriber::ShutdownBehavior::WaitForProcessing
+    pub fn set_shutdown_behavior(mut self, v: ShutdownBehavior) -> Self {
+        self.shutdown_behavior = v;
+        self
+    }
 }
 
 #[cfg(test)]
@@ -234,6 +260,8 @@ mod tests {
             "max_outstanding_bytes={}",
             builder.max_outstanding_bytes
         );
+        // TODO(#4869) - switch the default.
+        //assert_eq!(builder.shutdown_behavior, ShutdownBehavior::WaitForProcessing);
 
         Ok(())
     }
@@ -249,7 +277,8 @@ mod tests {
         .set_max_lease(Duration::from_secs(3600))
         .set_max_lease_extension(Duration::from_secs(20))
         .set_max_outstanding_messages(12345)
-        .set_max_outstanding_bytes(6789 * KIB);
+        .set_max_outstanding_bytes(6789 * KIB)
+        .set_shutdown_behavior(ShutdownBehavior::NackImmediately);
         assert_eq!(
             builder.subscription,
             "projects/my-project/subscriptions/my-subscription"
@@ -259,6 +288,7 @@ mod tests {
         assert_eq!(builder.ack_deadline_seconds, 20);
         assert_eq!(builder.max_outstanding_messages, 12345);
         assert_eq!(builder.max_outstanding_bytes, 6789 * KIB);
+        assert_eq!(builder.shutdown_behavior, ShutdownBehavior::NackImmediately);
 
         Ok(())
     }

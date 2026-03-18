@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(#4868) - make this public
 /// The behavior on shutdown.
-#[derive(Clone, Copy, Debug)]
-pub(super) enum ShutdownBehavior {
-    #[allow(dead_code)] // TODO(#4868) - implementation in progress...
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum ShutdownBehavior {
     /// The subscriber stops reading from the underlying gRPC stream.
     ///
     /// The subscriber continues to accept acknowledgements for messages it has
