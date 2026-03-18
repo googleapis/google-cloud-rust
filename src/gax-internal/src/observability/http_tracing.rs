@@ -22,19 +22,22 @@ use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, Resou
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use reqwest::{Method, Url};
 use std::collections::HashSet;
+use std::sync::LazyLock;
 use tracing::{Span, field};
 
-lazy_static::lazy_static! {
-    pub(crate) static ref REDACTED_QUERY_PARAMETERS: HashSet<&'static str> = {
+pub(crate) static REDACTED_QUERY_PARAMETERS: LazyLock<HashSet<&'static str>> =
+    LazyLock::new(|| {
         HashSet::from_iter([
             // Required by OpenTelemetry semantic conventions:
             //     https://opentelemetry.io/docs/specs/semconv/registry/attributes/url/#url-full
-            "AWSAccessKeyId", "Signature", "sig", "X-Goog-Signature",
+            "AWSAccessKeyId",
+            "Signature",
+            "sig",
+            "X-Goog-Signature",
             // Google uses this as a key in resumable uploads.
             "upload_id",
         ])
-    };
-}
+    });
 
 /// Creates a new tracing span for an HTTP request attempt.
 ///

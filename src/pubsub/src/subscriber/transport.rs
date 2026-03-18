@@ -22,18 +22,18 @@ use tokio::sync::mpsc::Receiver;
 use tokio_stream::wrappers::ReceiverStream;
 
 mod info {
+    use std::sync::LazyLock;
+
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(super) static ref X_GOOG_API_CLIENT_HEADER: String = {
-            let ac = gaxi::api_header::XGoogApiClient{
-                name:          NAME,
-                version:       VERSION,
-                library_type:  gaxi::api_header::GCCL,
-            };
-            ac.grpc_header_value()
+    pub(super) static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
+        let ac = gaxi::api_header::XGoogApiClient {
+            name: NAME,
+            version: VERSION,
+            library_type: gaxi::api_header::GCCL,
         };
-    }
+        ac.grpc_header_value()
+    });
 }
 
 impl TonicStreaming for Streaming<StreamingPullResponse> {
