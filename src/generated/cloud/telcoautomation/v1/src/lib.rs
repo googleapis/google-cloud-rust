@@ -85,16 +85,15 @@ const DEFAULT_HOST: &str = "https://telcoautomation.googleapis.com/";
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
-            let ac = gaxi::api_header::XGoogApiClient{
-                name:          NAME,
-                version:       VERSION,
-                library_type:  gaxi::api_header::GAPIC,
+    pub(crate) static X_GOOG_API_CLIENT_HEADER: std::sync::LazyLock<String> =
+        std::sync::LazyLock::new(|| {
+            let ac = gaxi::api_header::XGoogApiClient {
+                name: NAME,
+                version: VERSION,
+                library_type: gaxi::api_header::GAPIC,
             };
             ac.rest_header_value()
-        };
-    }
+        });
 }
 
 // Define some shortcuts for imported crates.

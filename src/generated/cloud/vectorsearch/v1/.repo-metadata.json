@@ -10,6 +10,5 @@
     "name": "vectorsearch",
     "name_pretty": "Vector Search",
     "product_documentation": "https://docs.cloud.google.com/vertex-ai/",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

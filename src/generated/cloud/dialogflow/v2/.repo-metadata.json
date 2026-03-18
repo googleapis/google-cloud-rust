@@ -10,6 +10,5 @@
     "name": "dialogflow",
     "name_pretty": "Dialogflow",
     "product_documentation": "https://docs.cloud.google.com/dialogflow/docs",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

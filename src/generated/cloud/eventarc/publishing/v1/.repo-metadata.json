@@ -9,6 +9,5 @@
     "name": "eventarcpublishing",
     "name_pretty": "Eventarc Publishing",
     "product_documentation": "https://cloud.google.com/eventarc/docs",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

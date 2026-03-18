@@ -10,6 +10,5 @@
     "name": "infra-manager",
     "name_pretty": "Infrastructure Manager",
     "product_documentation": "https://cloud.google.com/infrastructure-manager/",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }

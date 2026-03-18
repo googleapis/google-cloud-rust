@@ -9,6 +9,5 @@
     "name": "containeranalysis",
     "name_pretty": "Container Analysis",
     "product_documentation": "https://grafeas.io",
-    "release_level": "stable",
-    "repo": "googleapis/google-cloud-rust"
+    "release_level": "stable"
 }
