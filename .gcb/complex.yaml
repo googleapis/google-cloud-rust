@@ -50,3 +50,6 @@ substitutions:
   _POOL_REGION: us-central1
   _POOL_ID: rust-sdk-pool
   _RUST_VERSION: '1.94'
+# The workspace-minimal-versions build can take over 1h (the default). This is
+# harmless (other than wasting CPU time) for other builds.
+timeout: 7200s
