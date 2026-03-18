@@ -125,8 +125,9 @@ impl ReadWriteTransaction {
             .ok_or_else(|| crate::error::internal_error("No stats returned"))?;
         match stats.row_count {
             Some(RowCount::RowCountExact(c)) => Ok(c),
-            Some(RowCount::RowCountLowerBound(c)) => Ok(c),
-            None => Ok(0),
+            _ => Err(crate::error::internal_error(
+                "ExecuteSql returned an invalid or missing row count type for a read/write transaction",
+            )),
         }
     }
 
@@ -253,6 +254,47 @@ mod tests {
 
         let ts = tx.commit().await.expect("Failed to commit");
         assert_eq!(ts.seconds(), 123456789);
+    }
+
+    #[tokio::test]
+    async fn read_write_transaction_execute_update_invalid_stats() {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![1, 2, 3],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_sql().once().returning(|_| {
+            Ok(tonic::Response::new(v1::ResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountLowerBound(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = db_client
+            .read_write_transaction()
+            .build()
+            .await
+            .expect("Failed to build transaction");
+
+        let result = tx
+            .execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .await;
+
+        let err = result.expect_err("Expected an error for invalid row count stats");
+        assert!(
+            format!("{:?}", err).contains("invalid or missing row count type"),
+            "Error did not contain expected message: {:?}",
+            err
+        );
     }
 
     #[tokio::test]
