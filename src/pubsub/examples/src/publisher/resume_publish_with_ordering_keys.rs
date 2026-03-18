@@ -20,7 +20,7 @@ pub async fn sample(project: &str, topic_id: &str) -> anyhow::Result<()> {
     let publisher = Publisher::builder(format!("projects/{project}/topics/{topic_id}"))
         // Pub/Sub's ordered delivery guarantee only applies when publishes for
         // an ordering key are in the same region.
-        .with_endpoint("us-east1-pubsub.googleapis.com")
+        .with_endpoint("https://us-east1-pubsub.googleapis.com")
         .build()
         .await?;
 
