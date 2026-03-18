@@ -17,7 +17,7 @@ use crate::value::Value;
 /// Represents a primary key or index key for Cloud Spanner.
 ///
 /// # Example
-/// ```rust
+/// ```
 /// use google_cloud_spanner::key;
 ///
 /// let key = key![1_i64, "Alice"];
@@ -43,6 +43,13 @@ impl Key {
     pub fn new(values: Vec<Value>) -> Self {
         Key { values }
     }
+
+    pub(crate) fn into_values(self) -> Vec<serde_json::Value> {
+        self.values
+            .into_iter()
+            .map(|v| v.into_serde_value())
+            .collect()
+    }
 }
 
 impl Default for Key {
@@ -51,26 +58,17 @@ impl Default for Key {
     }
 }
 
-impl From<Key> for Vec<serde_json::Value> {
-    fn from(key: Key) -> Self {
-        key.values
-            .into_iter()
-            .map(|v| v.into_serde_value())
-            .collect()
-    }
-}
-
 /// Defines whether a boundary of a key range is open (exclusive) or closed (inclusive).
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq)]
 pub(crate) enum Endpoint {
-    Closed,
-    Open,
+    Closed(Key),
+    Open(Key),
 }
 
 /// Represents a contiguous range of keys.
 ///
 /// # Example
-/// ```rust
+/// ```
 /// use google_cloud_spanner::client::KeyRange;
 /// use google_cloud_spanner::key;
 ///
@@ -78,94 +76,76 @@ pub(crate) enum Endpoint {
 /// ```
 #[derive(Clone, Debug, PartialEq)]
 pub struct KeyRange {
-    pub(crate) start: Key,
-    pub(crate) start_endpoint: Endpoint,
-    pub(crate) end: Key,
-    pub(crate) end_endpoint: Endpoint,
+    pub(crate) start: Endpoint,
+    pub(crate) end: Endpoint,
 }
 
 impl KeyRange {
-    /// Constructs a closed-open `KeyRange`.
+    /// Creates a key for the range [start, end).
     ///
     /// # Example
-    /// ```rust
+    /// ```
     /// use google_cloud_spanner::client::KeyRange;
     /// use google_cloud_spanner::key;
     ///
     /// // Creates a key for the range [1, 10)
     /// let range = KeyRange::closed_open(key![1_i64], key![10_i64]);
     /// ```
-    ///
-    /// Creates a key for the range [start, end).
     pub fn closed_open(start: Key, end: Key) -> Self {
         KeyRange {
-            start,
-            start_endpoint: Endpoint::Closed,
-            end,
-            end_endpoint: Endpoint::Open,
+            start: Endpoint::Closed(start),
+            end: Endpoint::Open(end),
         }
     }
 
-    /// Constructs a closed-closed `KeyRange`.
+    /// Creates a key for the range [start, end].
     ///
     /// # Example
-    /// ```rust
+    /// ```
     /// use google_cloud_spanner::client::KeyRange;
     /// use google_cloud_spanner::key;
     ///
     /// // Creates a key for the range [1, 10]
     /// let range = KeyRange::closed_closed(key![1_i64], key![10_i64]);
     /// ```
-    ///
-    /// Creates a key for the range [start, end].
     pub fn closed_closed(start: Key, end: Key) -> Self {
         KeyRange {
-            start,
-            start_endpoint: Endpoint::Closed,
-            end,
-            end_endpoint: Endpoint::Closed,
+            start: Endpoint::Closed(start),
+            end: Endpoint::Closed(end),
         }
     }
 
-    /// Constructs an open-closed `KeyRange`.
+    /// Creates a key for the range (start, end].
     ///
     /// # Example
-    /// ```rust
+    /// ```
     /// use google_cloud_spanner::client::KeyRange;
     /// use google_cloud_spanner::key;
     ///
     /// // Creates a key for the range (1, 10]
     /// let range = KeyRange::open_closed(key![1_i64], key![10_i64]);
     /// ```
-    ///
-    /// Creates a key for the range (start, end].
     pub fn open_closed(start: Key, end: Key) -> Self {
         KeyRange {
-            start,
-            start_endpoint: Endpoint::Open,
-            end,
-            end_endpoint: Endpoint::Closed,
+            start: Endpoint::Open(start),
+            end: Endpoint::Closed(end),
         }
     }
 
-    /// Constructs an open-open `KeyRange`.
+    /// Creates a key for the range (start, end).
     ///
     /// # Example
-    /// ```rust
+    /// ```
     /// use google_cloud_spanner::client::KeyRange;
     /// use google_cloud_spanner::key;
     ///
     /// // Creates a key for the range (1, 10)
     /// let range = KeyRange::open_open(key![1_i64], key![10_i64]);
     /// ```
-    ///
-    /// Creates a key for the range (start, end).
     pub fn open_open(start: Key, end: Key) -> Self {
         KeyRange {
-            start,
-            start_endpoint: Endpoint::Open,
-            end,
-            end_endpoint: Endpoint::Open,
+            start: Endpoint::Open(start),
+            end: Endpoint::Open(end),
         }
     }
 
@@ -173,20 +153,14 @@ impl KeyRange {
     pub(crate) fn into_proto(self) -> crate::model::KeyRange {
         let mut proto = crate::model::KeyRange::new();
 
-        proto = match self.start_endpoint {
-            Endpoint::Closed => {
-                proto.set_start_closed(Into::<Vec<serde_json::Value>>::into(self.start))
-            }
-            Endpoint::Open => {
-                proto.set_start_open(Into::<Vec<serde_json::Value>>::into(self.start))
-            }
+        proto = match self.start {
+            Endpoint::Closed(start) => proto.set_start_closed(start.into_values()),
+            Endpoint::Open(start) => proto.set_start_open(start.into_values()),
         };
 
-        match self.end_endpoint {
-            Endpoint::Closed => {
-                proto.set_end_closed(Into::<Vec<serde_json::Value>>::into(self.end))
-            }
-            Endpoint::Open => proto.set_end_open(Into::<Vec<serde_json::Value>>::into(self.end)),
+        match self.end {
+            Endpoint::Closed(end) => proto.set_end_closed(end.into_values()),
+            Endpoint::Open(end) => proto.set_end_open(end.into_values()),
         }
     }
 }
@@ -194,7 +168,7 @@ impl KeyRange {
 /// A collection of Spanner keys and key ranges.
 ///
 /// # Example
-/// ```rust
+/// ```
 /// use google_cloud_spanner::client::{KeySet, KeyRange};
 /// use google_cloud_spanner::key;
 ///
@@ -243,7 +217,7 @@ impl KeySet {
 
         // Convert keys
         let keys_proto: Vec<Vec<serde_json::Value>> =
-            self.keys.into_iter().map(|k| k.into()).collect();
+            self.keys.into_iter().map(|k| k.into_values()).collect();
         if !keys_proto.is_empty() {
             proto = proto.set_keys(keys_proto);
         }
@@ -326,7 +300,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_auto_traits() {
+    fn auto_traits() {
+        static_assertions::assert_impl_all!(Endpoint: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(Key: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(KeyRange: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(KeySet: Send, Sync, Clone, std::fmt::Debug);
@@ -334,49 +309,49 @@ mod tests {
     }
 
     #[test]
-    fn test_key_builder() {
+    fn key_builder() {
         let key = key![1_i64, "test"];
         assert_eq!(key.values.len(), 2);
     }
 
     #[test]
-    fn test_key_default() {
+    fn key_default() {
         let key = Key::default();
         assert_eq!(key.values.len(), 0);
     }
 
     #[test]
-    fn test_key_from_into() {
+    fn key_into_values() {
         let key = key![1_i64];
-        let values: Vec<serde_json::Value> = key.into();
+        let values = key.into_values();
         assert_eq!(values.len(), 1);
         assert_eq!(values[0], serde_json::json!("1"));
     }
 
     #[test]
-    fn test_keyrange_factories() {
+    fn keyrange_factories() {
         let start = key![1_i64];
         let end = key![10_i64];
 
         let r1 = KeyRange::closed_open(start.clone(), end.clone());
-        assert_eq!(r1.start_endpoint, Endpoint::Closed);
-        assert_eq!(r1.end_endpoint, Endpoint::Open);
+        assert_eq!(r1.start, Endpoint::Closed(start.clone()));
+        assert_eq!(r1.end, Endpoint::Open(end.clone()));
 
         let r2 = KeyRange::closed_closed(start.clone(), end.clone());
-        assert_eq!(r2.start_endpoint, Endpoint::Closed);
-        assert_eq!(r2.end_endpoint, Endpoint::Closed);
+        assert_eq!(r2.start, Endpoint::Closed(start.clone()));
+        assert_eq!(r2.end, Endpoint::Closed(end.clone()));
 
         let r3 = KeyRange::open_closed(start.clone(), end.clone());
-        assert_eq!(r3.start_endpoint, Endpoint::Open);
-        assert_eq!(r3.end_endpoint, Endpoint::Closed);
+        assert_eq!(r3.start, Endpoint::Open(start.clone()));
+        assert_eq!(r3.end, Endpoint::Closed(end.clone()));
 
         let r4 = KeyRange::open_open(start.clone(), end.clone());
-        assert_eq!(r4.start_endpoint, Endpoint::Open);
-        assert_eq!(r4.end_endpoint, Endpoint::Open);
+        assert_eq!(r4.start, Endpoint::Open(start.clone()));
+        assert_eq!(r4.end, Endpoint::Open(end.clone()));
     }
 
     #[test]
-    fn test_keyrange_into_proto() {
+    fn keyrange_into_proto() {
         let r1 = KeyRange::closed_open(key![1_i64], key![10_i64]);
         let proto1 = r1.into_proto();
         assert_eq!(proto1.start_closed().unwrap().len(), 1);
@@ -389,7 +364,7 @@ mod tests {
     }
 
     #[test]
-    fn test_keyset_builder() {
+    fn keyset_builder() {
         let key = key![1_i64];
         let range = KeyRange::closed_open(key![2_i64], key![5_i64]);
         let keyset = KeySet::builder().add_key(key).add_range(range).build();
@@ -400,7 +375,7 @@ mod tests {
     }
 
     #[test]
-    fn test_keyset_builder_default() {
+    fn keyset_builder_default() {
         let builder = KeySetBuilder::default();
         let keyset = builder.build();
         assert_eq!(keyset.keys.len(), 0);
@@ -408,7 +383,7 @@ mod tests {
     }
 
     #[test]
-    fn test_keyset_default() {
+    fn keyset_default() {
         let keyset = KeySet::default();
         assert_eq!(keyset.keys.len(), 0);
         assert_eq!(keyset.ranges.len(), 0);
@@ -416,14 +391,14 @@ mod tests {
     }
 
     #[test]
-    fn test_keyset_from_key() {
+    fn keyset_from_key() {
         let keyset: KeySet = key![1_i64].into();
         assert_eq!(keyset.keys.len(), 1);
         assert_eq!(keyset.ranges.len(), 0);
     }
 
     #[test]
-    fn test_keyset_from_keyrange() {
+    fn keyset_from_keyrange() {
         let range = KeyRange::closed_open(key![2_i64], key![5_i64]);
         let keyset: KeySet = range.into();
         assert_eq!(keyset.keys.len(), 0);
@@ -431,7 +406,7 @@ mod tests {
     }
 
     #[test]
-    fn test_keyset_into_proto() {
+    fn keyset_into_proto() {
         let keyset = KeySet::all();
         let proto = keyset.into_proto();
         assert!(proto.all);
