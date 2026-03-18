@@ -19,6 +19,7 @@ use gaxi::options::{ClientConfig, Credentials};
 pub use crate::database_client::DatabaseClient;
 pub use crate::error::SpannerInternalError;
 pub use crate::from_value::{ConvertError, FromValue};
+pub use crate::key::{Key, KeyRange, KeySet, KeySetBuilder};
 pub use crate::read_only_transaction::MultiUseReadOnlyTransaction;
 pub use crate::read_only_transaction::MultiUseReadOnlyTransactionBuilder;
 pub use crate::read_only_transaction::SingleUseReadOnlyTransaction;
