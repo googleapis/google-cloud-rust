@@ -228,7 +228,9 @@ mod tests {
 
         let token = headers
             .get(HeaderName::from_static("authorization"))
-            .unwrap_or_else(|| panic!("headers should contain authorization header, got={headers:?}"));
+            .unwrap_or_else(|| {
+                panic!("headers should contain authorization header, got={headers:?}")
+            });
 
         assert_eq!(token, HeaderValue::from_static("MAC special_token"));
         assert!(token.is_sensitive());
