@@ -376,7 +376,6 @@ impl ExternalAccountConfigBuilder {
 }
 
 #[derive(Debug, Clone)]
-#[allow(dead_code)]
 enum CredentialSource {
     Url(UrlSourcedCredentials),
     Executable(ExecutableSourcedCredentials),

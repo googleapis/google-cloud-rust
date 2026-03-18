@@ -392,7 +392,6 @@ pub(crate) struct UserTokenProvider {
     source: UserTokenSource,
 }
 
-#[allow(dead_code)]
 #[derive(PartialEq)]
 enum UserTokenSource {
     IdToken,
