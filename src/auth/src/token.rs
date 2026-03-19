@@ -19,8 +19,55 @@
 use crate::Result;
 use crate::credentials::CacheableResource;
 use http::Extensions;
+use std::collections::HashMap;
+use tokio::time::Instant;
 
-pub use google_cloud_auth_internal::token::Token;
+/// Represents an auth token.
+#[derive(Clone, PartialEq)]
+pub struct Token {
+    /// The actual token string.
+    ///
+    /// This is the value used in `Authorization:` header.
+    pub token: String,
+
+    /// The type of the token.
+    ///
+    /// The most common type is `"Bearer"` but other types may appear in the
+    /// future.
+    pub token_type: String,
+
+    /// The instant at which the token expires.
+    ///
+    /// If `None`, the token does not expire.
+    ///
+    /// Note that the `Instant` is not valid across processes. It is
+    /// recommended to let the authentication library refresh tokens within a
+    /// process instead of handling expirations yourself. If you do need to
+    /// copy an expiration across processes, consider converting it to a
+    /// `time::OffsetDateTime` first:
+    ///
+    /// ```
+    /// # let expires_at = Some(std::time::Instant::now());
+    /// expires_at.map(|i| time::OffsetDateTime::now_utc() + (i - std::time::Instant::now()));
+    /// ```
+    pub expires_at: Option<Instant>,
+
+    /// Optional metadata associated with the token.
+    ///
+    /// This might include information like granted scopes or other claims.
+    pub metadata: Option<HashMap<String, String>>,
+}
+
+impl std::fmt::Debug for Token {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Token")
+            .field("token", &"[censored]")
+            .field("token_type", &self.token_type)
+            .field("expires_at", &self.expires_at)
+            .field("metadata", &self.metadata)
+            .finish()
+    }
+}
 
 #[async_trait::async_trait]
 pub(crate) trait TokenProvider: std::fmt::Debug + Send + Sync {
@@ -35,6 +82,7 @@ pub(crate) trait CachedTokenProvider: std::fmt::Debug + Send + Sync {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use std::time::Duration;
 
     // Used by tests in other modules.
     mockall::mock! {
@@ -45,5 +93,31 @@ pub(crate) mod tests {
         impl TokenProvider for TokenProvider {
             async fn token(&self) -> Result<Token>;
         }
+    }
+
+    #[test]
+    fn debug() {
+        let expires_at = Instant::now() + Duration::from_secs(3600);
+        let metadata =
+            HashMap::from([("a", "test-only")].map(|(k, v)| (k.to_string(), v.to_string())));
+
+        let token = Token {
+            token: "token-test-only".into(),
+            token_type: "token-type-test-only".into(),
+            expires_at: Some(expires_at),
+            metadata: Some(metadata.clone()),
+        };
+        let got = format!("{token:?}");
+        assert!(!got.contains("token-test-only"), "{got}");
+        assert!(got.contains("token: \"[censored]\""), "{got}");
+        assert!(got.contains("token_type: \"token-type-test-only"), "{got}");
+        assert!(
+            got.contains(&format!("expires_at: Some({expires_at:?}")),
+            "{got}"
+        );
+        assert!(
+            got.contains(&format!("metadata: Some({metadata:?}")),
+            "{got}"
+        );
     }
 }

@@ -12,164 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::error::Error;
-use std::fmt::{Debug, Display, Formatter, Result};
-use std::sync::Arc;
+use std::fmt;
 
-type ArcError = Arc<dyn Error + Send + Sync>;
-
-/// Represents an error using [Credentials].
-///
-/// The Google Cloud client libraries may experience problems using credentials
-/// to create the necessary authentication headers. For example, a temporary
-/// failure to retrieve or create [access tokens]. Note that these failures may
-/// happen even after the credentials files are successfully loaded and parsed.
-///
-/// Applications rarely need to create instances of this error type. The
-/// exception might be when testing application code, where the application is
-/// mocking a client library behavior. Such tests are extremely rare, most
-/// applications should only work with the [Error][crate::error::Error] type.
-///
-/// # Example
-/// ```
-/// use google_cloud_gax::error::InternalCredentialsError;
-/// let mut headers = fetch_headers();
-/// while let Err(e) = &headers {
-///     if e.is_transient() {
-///         headers = fetch_headers();
-///     }
-/// }
-///
-/// fn fetch_headers() -> Result<http::HeaderMap, InternalCredentialsError> {
-///   # Ok(http::HeaderMap::new())
-/// }
-/// ```
-///
-/// [access tokens]: https://cloud.google.com/docs/authentication/token-types
-/// [Credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credential.html
-#[derive(Clone, Debug)]
+/// A minimal error type for credentials provider.
+#[derive(Debug)]
 pub struct InternalCredentialsError {
-    is_transient: bool,
-    message: Option<String>,
-    source: Option<ArcError>,
+    pub is_transient: bool,
+    pub message: String,
+    pub source: Option<Box<dyn std::error::Error + Send + Sync>>,
 }
 
-impl InternalCredentialsError {
-    /// Creates a new `InternalCredentialsError`.
-    ///
-    /// This function is only intended for use in the client libraries
-    /// implementation. Application may use this in mocks, though we do not
-    /// recommend that you write tests for specific error cases. Most tests
-    /// should use the generic [Error][crate::error::Error] type.
-    ///
-    /// # Example
-    /// ```
-    /// use google_cloud_gax::error::InternalCredentialsError;
-    /// let mut headers = fetch_headers();
-    /// while let Err(e) = &headers {
-    ///     if e.is_transient() {
-    ///         headers = fetch_headers();
-    ///     }
-    /// }
-    ///
-    /// fn fetch_headers() -> Result<http::HeaderMap, InternalCredentialsError> {
-    ///   # Ok(http::HeaderMap::new())
-    /// }
-    /// ```
-    ///
-    /// # Parameters
-    /// * `is_transient` - if true, the operation may succeed in future attempts.
-    /// * `source` - The underlying error that caused the auth failure.
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn from_source<T: Error + Send + Sync + 'static>(is_transient: bool, source: T) -> Self {
-        InternalCredentialsError {
-            is_transient,
-            source: Some(Arc::new(source)),
-            message: None,
+impl fmt::Display for InternalCredentialsError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.message)?;
+        if let Some(source) = &self.source {
+            write!(f, ": {}", source)?;
         }
-    }
-
-    /// Creates a new `InternalCredentialsError`.
-    ///
-    /// This function is only intended for use in the client libraries
-    /// implementation. Application may use this in mocks, though we do not
-    /// recommend that you write tests for specific error cases. Most tests
-    /// should use the generic [Error][crate::error::Error] type.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gax::error::InternalCredentialsError;
-    /// let err = InternalCredentialsError::from_msg(
-    ///     true, "simulated retryable error while trying to create credentials");
-    /// assert!(err.is_transient());
-    /// assert!(format!("{err}").contains("simulated retryable error"));
-    /// ```
-    ///
-    /// # Parameters
-    /// * `is_transient` - if true, the operation may succeed in future attempts.
-    /// * `message` - The underlying error that caused the auth failure.
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn from_msg<T: Into<String>>(is_transient: bool, message: T) -> Self {
-        InternalCredentialsError {
-            is_transient,
-            message: Some(message.into()),
-            source: None,
-        }
-    }
-
-    /// Creates a new `InternalCredentialsError`.
-    ///
-    /// This function is only intended for use in the client libraries
-    /// implementation. Application may use this in mocks, though we do not
-    /// recommend that you write tests for specific error cases. Most tests
-    /// should use the generic [Error][crate::error::Error] type.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gax::error::InternalCredentialsError;
-    /// let source = std::io::Error::new(std::io::ErrorKind::ConnectionRefused, "cannot connect");
-    /// let err = InternalCredentialsError::new(
-    ///     true,
-    ///     "simulated retryable error while trying to create credentials",
-    ///     source);
-    /// assert!(err.is_transient());
-    /// assert!(format!("{err}").contains("simulated retryable error"));
-    /// ```
-    ///
-    /// # Parameters
-    /// * `is_transient` - if true, the operation may succeed in future attempts.
-    /// * `message` - The underlying error that caused the auth failure.
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn new<M, S>(is_transient: bool, message: M, source: S) -> Self
-    where
-        M: Into<String>,
-        S: std::error::Error + Send + Sync + 'static,
-    {
-        InternalCredentialsError {
-            is_transient,
-            message: Some(message.into()),
-            source: Some(Arc::new(source)),
-        }
-    }
-
-    /// Returns true if the error is transient and may succeed in future attempts.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gax::error::InternalCredentialsError;
-    /// let mut headers = fetch_headers();
-    /// while let Err(e) = &headers {
-    ///     if e.is_transient() {
-    ///         headers = fetch_headers();
-    ///     }
-    /// }
-    ///
-    /// fn fetch_headers() -> Result<http::HeaderMap, InternalCredentialsError> {
-    ///   # Ok(http::HeaderMap::new())
-    /// }
-    /// ```
-    pub fn is_transient(&self) -> bool {
-        self.is_transient
+        Ok(())
     }
 }
 
@@ -177,88 +36,16 @@ impl std::error::Error for InternalCredentialsError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         self.source
             .as_ref()
-            .map(|arc| arc.as_ref() as &(dyn std::error::Error + 'static))
+            .map(|e| e.as_ref() as &(dyn std::error::Error + 'static))
     }
 }
 
-const TRANSIENT_MSG: &str = "but future attempts may succeed";
-const PERMANENT_MSG: &str = "and future attempts will not succeed";
-
-impl Display for InternalCredentialsError {
-    /// Formats the error message to include retryability and source.
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        let msg = if self.is_transient {
-            TRANSIENT_MSG
-        } else {
-            PERMANENT_MSG
-        };
-        match &self.message {
-            None => write!(f, "cannot create auth headers {msg}"),
-            Some(m) => write!(f, "{m} {msg}"),
+impl InternalCredentialsError {
+    pub fn new<M: Into<String>>(is_transient: bool, message: M) -> Self {
+        Self {
+            is_transient,
+            message: message.into(),
+            source: None,
         }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use test_case::test_case;
-
-    #[test_case(true)]
-    #[test_case(false)]
-    fn from_source(transient: bool) {
-        let source = wkt::TimestampError::OutOfRange;
-        let got = InternalCredentialsError::from_source(transient, source);
-        assert_eq!(got.is_transient(), transient, "{got:?}");
-        assert!(
-            got.source()
-                .and_then(|e| e.downcast_ref::<wkt::TimestampError>())
-                .is_some(),
-            "{got:?}"
-        );
-        assert!(
-            got.to_string().contains("cannot create auth headers"),
-            "{got:?}"
-        );
-    }
-
-    #[test_case(true)]
-    #[test_case(false)]
-    fn from_str(transient: bool) {
-        let got = InternalCredentialsError::from_msg(transient, "test-only");
-        assert_eq!(got.is_transient(), transient, "{got:?}");
-        assert!(got.source().is_none(), "{got:?}");
-        assert!(got.to_string().contains("test-only"), "{got}");
-    }
-
-    #[test_case(true)]
-    #[test_case(false)]
-    fn new(transient: bool) {
-        let source = wkt::TimestampError::OutOfRange;
-        let got = InternalCredentialsError::new(transient, "additional information", source);
-        assert_eq!(got.is_transient(), transient, "{got:?}");
-        assert!(
-            got.source()
-                .and_then(|e| e.downcast_ref::<wkt::TimestampError>())
-                .is_some(),
-            "{got:?}"
-        );
-        assert!(
-            got.to_string().contains("additional information"),
-            "{got:?}"
-        );
-    }
-
-    #[test]
-    fn fmt() {
-        let e = InternalCredentialsError::from_msg(true, "test-only-err-123");
-        let got = format!("{e}");
-        assert!(got.contains("test-only-err-123"), "{got}");
-        assert!(got.contains(TRANSIENT_MSG), "{got}");
-
-        let e = InternalCredentialsError::from_msg(false, "test-only-err-123");
-        let got = format!("{e}");
-        assert!(got.contains("test-only-err-123"), "{got}");
-        assert!(got.contains(PERMANENT_MSG), "{got}");
     }
 }

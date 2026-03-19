@@ -319,7 +319,7 @@ impl ReqwestClient {
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> ClientBuilderResult<std::sync::Arc<dyn InternalCredentials>> {
+    ) -> ClientBuilderResult<Arc<dyn InternalCredentials>> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use async_trait::async_trait;
+use crate::errors::InternalCredentialsError;
 use http::{Extensions, HeaderMap};
 use std::fmt;
 
@@ -27,56 +27,8 @@ pub enum CacheableResource<T> {
     New { entity_tag: EntityTag, data: T },
 }
 
-/// A minimal error type for credentials provider.
-#[derive(Debug)]
-pub struct InternalCredentialsError {
-    pub is_transient: bool,
-    pub message: String,
-    pub source: Option<Box<dyn std::error::Error + Send + Sync>>,
-}
-
-impl fmt::Display for InternalCredentialsError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.message)?;
-        if let Some(source) = &self.source {
-            write!(f, ": {}", source)?;
-        }
-        Ok(())
-    }
-}
-
-impl std::error::Error for InternalCredentialsError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        self.source
-            .as_ref()
-            .map(|e| e.as_ref() as &(dyn std::error::Error + 'static))
-    }
-}
-
-impl InternalCredentialsError {
-    pub fn new<M: Into<String>>(is_transient: bool, message: M) -> Self {
-        Self {
-            is_transient,
-            message: message.into(),
-            source: None,
-        }
-    }
-
-    pub fn with_source<M: Into<String>, E: Into<Box<dyn std::error::Error + Send + Sync>>>(
-        is_transient: bool,
-        message: M,
-        source: E,
-    ) -> Self {
-        Self {
-            is_transient,
-            message: message.into(),
-            source: Some(source.into()),
-        }
-    }
-}
-
 /// A minimal trait for `gax-internal` to fetch authentication headers.
-#[async_trait]
+#[async_trait::async_trait]
 pub trait InternalCredentials: Send + Sync + fmt::Debug {
     async fn headers(
         &self,

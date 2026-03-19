@@ -21,6 +21,8 @@ use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
 use crate::token::Token;
 use crate::{BuildResult, Result};
+use google_cloud_auth_internal::credentials::InternalCredentials;
+use google_cloud_auth_internal::errors::InternalCredentialsError;
 use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
@@ -148,7 +150,7 @@ impl google_cloud_auth_internal::credentials::InternalCredentials for Credential
         extensions: http::Extensions,
     ) -> std::result::Result<
         google_cloud_auth_internal::credentials::CacheableResource<http::HeaderMap>,
-        google_cloud_auth_internal::credentials::InternalCredentialsError,
+        google_cloud_auth_internal::errors::InternalCredentialsError,
     > {
         let res = self.headers(extensions).await;
         match res {
@@ -162,7 +164,7 @@ impl google_cloud_auth_internal::credentials::InternalCredentials for Credential
                 Ok(google_cloud_auth_internal::credentials::CacheableResource::NotModified)
             }
             Err(e) => Err(
-                google_cloud_auth_internal::credentials::InternalCredentialsError::new(
+                google_cloud_auth_internal::errors::InternalCredentialsError::new(
                     e.is_transient(),
                     e.to_string(),
                 ),
@@ -895,14 +897,12 @@ pub mod testing {
 pub fn register_default_credentials_builder() {
     google_cloud_auth_internal::factory::set_default_credentials_builder(Box::new(|| {
         let creds = Builder::default().build().map_err(|e| {
-            google_cloud_auth_internal::credentials::InternalCredentialsError::new(
+            google_cloud_auth_internal::errors::InternalCredentialsError::new(
                 false, // loading from environment is not transient
                 e.to_string(),
             )
         })?;
-        let creds: std::sync::Arc<
-            dyn google_cloud_auth_internal::credentials::InternalCredentials,
-        > = std::sync::Arc::new(creds);
+        let creds: std::sync::Arc<dyn google_cloud_auth_internal::credentials::InternalCredentials> = Arc::new(creds);
         Ok(creds)
     }));
 }
