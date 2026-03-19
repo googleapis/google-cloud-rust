@@ -12,27 +12,57 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Error;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::rpc::StatusDetails;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use std::time::Duration;
 
-/// Configuration for automatically retrying a transaction when it is aborted.
+/// Defines a policy for retrying a transaction when it is aborted by Spanner.
+///
+/// Spanner can abort any read/write transaction due to lock conflicts or other
+/// transient issues. In such cases, the client should retry the complete
+/// transaction.
+pub trait TransactionRetryPolicy: Send + Sync {
+    /// Evaluates whether an aborted transaction should be retried.
+    ///
+    /// * `error` the `Aborted` error that was raised. Note that this policy
+    ///   takes ownership of the error and returns it embedded in the retry result.
+    /// * `attempts` is the number of attempts already made (1 for the first failure).
+    /// * `elapsed` is the total time spent executing the transaction so far.
+    fn on_abort(&self, error: Error, attempts: u32, elapsed: Duration) -> RetryResult;
+}
+
+/// Policy for automatically retrying a transaction when it is aborted based on
+/// the number of attempts and total elapsed time.
 #[derive(Clone, Debug)]
-pub struct TransactionRetrySettings {
+pub struct BasicTransactionRetryPolicy {
     /// The maximum number of attempts to make. If 0, this field is ignored.
     pub max_attempts: u32,
     /// The total maximum time to spend retrying. If 0, this field is ignored.
     pub total_timeout: Duration,
 }
 
-impl Default for TransactionRetrySettings {
+impl Default for BasicTransactionRetryPolicy {
     fn default() -> Self {
         Self {
             max_attempts: 0,
             total_timeout: Duration::from_secs(0),
         }
+    }
+}
+
+impl TransactionRetryPolicy for BasicTransactionRetryPolicy {
+    fn on_abort(&self, error: Error, attempts: u32, elapsed: Duration) -> RetryResult {
+        if self.max_attempts > 0 && attempts >= self.max_attempts {
+            return RetryResult::Exhausted(error);
+        }
+        if self.total_timeout > Duration::from_secs(0) && elapsed > self.total_timeout {
+            return RetryResult::Exhausted(error);
+        }
+        RetryResult::Continue(error)
     }
 }
 
@@ -42,9 +72,8 @@ impl Default for TransactionRetrySettings {
 /// This is used for operations like Partitioned DML transactions in Cloud Spanner, where
 /// the server may abort the transaction due to transient issues, indicating that the client
 /// should re-attempt the entire operation.
-#[allow(dead_code)]
 pub(crate) async fn retry_aborted<T, F, Fut>(
-    settings: &TransactionRetrySettings,
+    policy: &dyn TransactionRetryPolicy,
     mut f: F,
 ) -> crate::Result<T>
 where
@@ -70,14 +99,11 @@ where
                 if !is_aborted(&e) {
                     return Err(e);
                 }
-                if settings.max_attempts > 0 && attempts >= settings.max_attempts {
-                    return Err(e);
-                }
-                if settings.total_timeout > Duration::from_secs(0)
-                    && start_time.elapsed() > settings.total_timeout
-                {
-                    return Err(e);
-                }
+
+                let e = match policy.on_abort(e, attempts, start_time.elapsed()) {
+                    RetryResult::Continue(err) => err,
+                    RetryResult::Exhausted(err) | RetryResult::Permanent(err) => return Err(err),
+                };
 
                 let delay = extract_retry_delay(&e);
                 let sleep_duration = match delay {
@@ -93,13 +119,11 @@ where
     }
 }
 
-#[allow(dead_code)]
 pub(crate) fn is_aborted(err: &crate::Error) -> bool {
     err.status()
         .is_some_and(|s| s.code == google_cloud_gax::error::rpc::Code::Aborted)
 }
 
-#[allow(dead_code)]
 fn extract_retry_delay(err: &crate::Error) -> Option<Duration> {
     err.status()?.details.iter().find_map(|detail| {
         let StatusDetails::RetryInfo(retry_info) = detail else {
@@ -138,26 +162,27 @@ mod tests {
     #[test]
     fn auto_traits() {
         static_assertions::assert_impl_all!(
-            TransactionRetrySettings: Send,
+            BasicTransactionRetryPolicy: Send,
             Sync,
             Unpin,
             Clone,
             std::fmt::Debug,
-            Default
+            Default,
+            TransactionRetryPolicy,
         );
     }
 
     #[tokio::test]
     async fn retry_aborted_success_first_try() {
-        let settings = TransactionRetrySettings::default();
-        let res = retry_aborted(&settings, || async { Ok::<i32, Error>(42) }).await;
+        let policy = BasicTransactionRetryPolicy::default();
+        let res = retry_aborted(&policy, || async { Ok::<i32, Error>(42) }).await;
         assert_eq!(res.expect("Transaction should succeed cleanly"), 42);
     }
 
     #[tokio::test]
     async fn retry_aborted_not_aborted_error() {
-        let settings = TransactionRetrySettings::default();
-        let res = retry_aborted(&settings, || async {
+        let policy = BasicTransactionRetryPolicy::default();
+        let res = retry_aborted(&policy, || async {
             let status = Status::default()
                 .set_code(Code::Unavailable)
                 .set_message("server unavailable");
@@ -174,13 +199,13 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn retry_aborted_max_attempts_exceeded() {
-        let settings = TransactionRetrySettings {
+        let policy = BasicTransactionRetryPolicy {
             max_attempts: 2,
             total_timeout: Duration::from_secs(0),
         };
         let attempts = Arc::new(AtomicU32::new(0));
 
-        let res = retry_aborted(&settings, || {
+        let res = retry_aborted(&policy, || {
             let attempts = attempts.clone();
             async move {
                 attempts.fetch_add(1, Ordering::SeqCst);
@@ -195,11 +220,11 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn retry_aborted_with_retry_info() {
-        let settings = TransactionRetrySettings::default();
+        let policy = BasicTransactionRetryPolicy::default();
         let attempts = Arc::new(AtomicU32::new(0));
 
         let start = tokio::time::Instant::now();
-        let res = retry_aborted(&settings, || {
+        let res = retry_aborted(&policy, || {
             let attempts = attempts.clone();
             async move {
                 let current = attempts.fetch_add(1, Ordering::SeqCst);
@@ -224,10 +249,10 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn retry_aborted_with_default_backoff() {
-        let settings = TransactionRetrySettings::default();
+        let policy = BasicTransactionRetryPolicy::default();
         let attempts = Arc::new(AtomicU32::new(0));
 
-        let res = retry_aborted(&settings, || {
+        let res = retry_aborted(&policy, || {
             let attempts = attempts.clone();
             async move {
                 let current = attempts.fetch_add(1, Ordering::SeqCst);
@@ -249,13 +274,13 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn retry_aborted_total_timeout_exceeded() {
-        let settings = TransactionRetrySettings {
+        let policy = BasicTransactionRetryPolicy {
             max_attempts: 0,
             total_timeout: Duration::from_secs(1),
         };
         let attempts = Arc::new(AtomicU32::new(0));
 
-        let res = retry_aborted(&settings, || {
+        let res = retry_aborted(&policy, || {
             let attempts = attempts.clone();
             async move {
                 attempts.fetch_add(1, Ordering::SeqCst);
@@ -310,5 +335,34 @@ mod tests {
         status = status.set_details(vec![Any::from_msg(&retry_info).unwrap()]);
         let err = Error::service(status);
         assert_eq!(extract_retry_delay(&err), None);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn retry_aborted_with_custom_policy() {
+        struct CustomPolicy;
+        impl TransactionRetryPolicy for CustomPolicy {
+            fn on_abort(&self, error: Error, attempts: u32, _elapsed: Duration) -> RetryResult {
+                if attempts < 3 {
+                    RetryResult::Continue(error)
+                } else {
+                    RetryResult::Exhausted(error)
+                }
+            }
+        }
+
+        let policy = CustomPolicy;
+        let attempts = Arc::new(AtomicU32::new(0));
+
+        let res = retry_aborted(&policy, || {
+            let attempts = attempts.clone();
+            async move {
+                attempts.fetch_add(1, Ordering::SeqCst);
+                Err::<i32, Error>(create_aborted_error(None))
+            }
+        })
+        .await;
+
+        assert!(res.is_err());
+        assert_eq!(attempts.load(Ordering::SeqCst), 3); // Initial + 2 failures check
     }
 }

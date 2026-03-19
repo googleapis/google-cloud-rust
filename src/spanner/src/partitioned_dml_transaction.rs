@@ -21,7 +21,9 @@ use crate::model::{
 };
 use crate::server_streaming::stream::PartialResultSetStream;
 use crate::statement::Statement;
-use crate::transaction_retry_settings::{TransactionRetrySettings, retry_aborted};
+use crate::transaction_retry_policy::{
+    BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
+};
 
 /// A builder for [PartitionedDmlTransaction].
 ///
@@ -38,35 +40,35 @@ use crate::transaction_retry_settings::{TransactionRetrySettings, retry_aborted}
 /// ```
 pub struct PartitionedDmlTransactionBuilder {
     client: DatabaseClient,
-    retry_settings: TransactionRetrySettings,
+    retry_policy: Box<dyn TransactionRetryPolicy>,
 }
 
 impl PartitionedDmlTransactionBuilder {
     pub(crate) fn new(client: DatabaseClient) -> Self {
         Self {
             client,
-            retry_settings: TransactionRetrySettings::default(),
+            retry_policy: Box::new(BasicTransactionRetryPolicy::default()),
         }
     }
 
-    /// Sets the retry settings for the transaction.
+    /// Sets the retry policy for the transaction.
     ///
     /// # Example
     /// ```
     /// # use std::time::Duration;
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::TransactionRetrySettings;
+    /// # use google_cloud_spanner::client::BasicTransactionRetryPolicy;
     /// # async fn build_transaction(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     ///     let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     ///     
-    ///     let retry_settings = TransactionRetrySettings {
+    ///     let retry_policy = BasicTransactionRetryPolicy {
     ///         max_attempts: 5,
     ///         total_timeout: Duration::from_secs(60),
     ///     };
     ///
     ///     let transaction = db_client
     ///         .partitioned_dml_transaction()
-    ///         .with_retry_settings(retry_settings)
+    ///         .with_retry_policy(retry_policy)
     ///         .build()
     ///         .await?;
     /// #   Ok(())
@@ -74,10 +76,10 @@ impl PartitionedDmlTransactionBuilder {
     /// ```
     ///
     /// The client will retry the entire transaction if it is aborted by Spanner.
-    /// These settings determine the maximum number of attempts and the total
-    /// timeout for retries. If both are 0, the client will retry indefinitely.
-    pub fn with_retry_settings(mut self, settings: TransactionRetrySettings) -> Self {
-        self.retry_settings = settings;
+    /// This policy can be used to customize whether a transaction should be retried
+    /// or not. The default is to retry indefinetly until the transaction succeeds.
+    pub fn with_retry_policy<P: TransactionRetryPolicy + 'static>(mut self, policy: P) -> Self {
+        self.retry_policy = Box::new(policy);
         self
     }
 
@@ -85,7 +87,7 @@ impl PartitionedDmlTransactionBuilder {
     pub async fn build(self) -> crate::Result<PartitionedDmlTransaction> {
         Ok(PartitionedDmlTransaction {
             client: self.client,
-            retry_settings: self.retry_settings,
+            retry_policy: self.retry_policy,
         })
     }
 }
@@ -101,7 +103,7 @@ impl PartitionedDmlTransactionBuilder {
 /// See also: <https://docs.cloud.google.com/spanner/docs/dml-partitioned>
 pub struct PartitionedDmlTransaction {
     client: DatabaseClient,
-    retry_settings: TransactionRetrySettings,
+    retry_policy: Box<dyn TransactionRetryPolicy>,
 }
 
 impl PartitionedDmlTransaction {
@@ -139,7 +141,7 @@ impl PartitionedDmlTransaction {
         };
 
         // Execute the statement and retry if the transaction is aborted by Spanner.
-        retry_aborted(&self.retry_settings, || async {
+        retry_aborted(&*self.retry_policy, || async {
             let transaction = self
                 .client
                 .spanner
@@ -247,8 +249,7 @@ mod tests {
         assert_eq!(res, 500);
     }
 
-    #[tokio::test]
-    #[ignore = "Transaction retries will be implemented in a subsequent PR"]
+    #[tokio::test(start_paused = true)]
     async fn execute_update_with_aborted_retry() {
         let mut mock = create_session_mock();
 
@@ -308,23 +309,17 @@ mod tests {
         let mock = create_session_mock();
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let settings = TransactionRetrySettings {
+        let policy = BasicTransactionRetryPolicy {
             max_attempts: 10,
             total_timeout: std::time::Duration::from_secs(42),
         };
 
-        let transaction = db_client
+        let _transaction = db_client
             .partitioned_dml_transaction()
-            .with_retry_settings(settings)
+            .with_retry_policy(policy)
             .build()
             .await
             .unwrap();
-
-        assert_eq!(transaction.retry_settings.max_attempts, 10);
-        assert_eq!(
-            transaction.retry_settings.total_timeout,
-            std::time::Duration::from_secs(42)
-        );
     }
 
     #[tokio::test]
