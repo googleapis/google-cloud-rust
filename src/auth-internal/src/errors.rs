@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,40 +12,57 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::fmt;
+use std::error::Error;
+use std::fmt::{Display, Formatter, Result};
 
 /// A minimal error type for credentials provider.
 #[derive(Debug)]
 pub struct InternalCredentialsError {
-    pub is_transient: bool,
-    pub message: String,
-    pub source: Option<Box<dyn std::error::Error + Send + Sync>>,
+    is_transient: bool,
+    message: Option<String>,
+    source: Option<Box<dyn std::error::Error + Send + Sync>>,
 }
 
-impl fmt::Display for InternalCredentialsError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.message)?;
+impl Display for InternalCredentialsError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+        if let Some(message) = &self.message {
+            write!(f, "{}", message)?;
+        }
         if let Some(source) = &self.source {
-            write!(f, ": {}", source)?;
+            write!(f, "{}", source)?;
         }
         Ok(())
     }
 }
 
-impl std::error::Error for InternalCredentialsError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+impl Error for InternalCredentialsError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
         self.source
             .as_ref()
-            .map(|e| e.as_ref() as &(dyn std::error::Error + 'static))
+            .map(|e| e.as_ref() as &(dyn Error + 'static))
     }
 }
 
 impl InternalCredentialsError {
-    pub fn new<M: Into<String>>(is_transient: bool, message: M) -> Self {
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn from_msg<T: Into<String>>(is_transient: bool, message: T) -> Self {
         Self {
             is_transient,
-            message: message.into(),
+            message: Some(message.into()),
             source: None,
         }
+    }
+
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn from_source<T: Error + Send + Sync + 'static>(is_transient: bool, source: T) -> Self {
+        Self {
+            is_transient,
+            source: Some(Box::new(source)),
+            message: None,
+        }
+    }
+
+    pub fn is_transient(&self) -> bool {
+        self.is_transient
     }
 }

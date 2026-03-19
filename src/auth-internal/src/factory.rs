@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ pub fn build_default_credentials()
 -> std::result::Result<Arc<dyn InternalCredentials>, InternalCredentialsError> {
     match BUILDER.get() {
         Some(f) => f(),
-        None => Err(InternalCredentialsError::new(
+        None => Err(InternalCredentialsError::from_msg(
             false,
             "no default credentials builder registered",
         )),

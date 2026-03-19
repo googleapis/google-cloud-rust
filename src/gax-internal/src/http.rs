@@ -378,9 +378,9 @@ impl ReqwestClient {
         builder = match self.cred.headers(Extensions::new()).await {
             Err(e) => {
                 return Err(Error::authentication(
-                    google_cloud_gax::error::CredentialsError::from_msg(
-                        e.is_transient,
-                        e.to_string(),
+                    google_cloud_gax::error::CredentialsError::from_source(
+                        e.is_transient(),
+                        e,
                     ),
                 ));
             }
@@ -562,7 +562,7 @@ mod tests {
     use crate::client_request_span;
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
-    use google_cloud_auth_internal::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::TestLayer;
     use http::{HeaderMap, HeaderValue, Method};
