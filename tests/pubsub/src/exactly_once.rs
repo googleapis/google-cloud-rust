@@ -55,3 +55,37 @@ pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Res
 
     Ok(())
 }
+
+pub async fn nack_then_confirmed_ack(
+    topic_name: &str,
+    subscription_name: &str,
+) -> anyhow::Result<()> {
+    tracing::info!("testing exactly once nack then confirmed ack");
+    let publisher = Publisher::builder(topic_name).build().await?;
+    let subscriber = Subscriber::builder().build().await?;
+    let mut stream = subscriber.subscribe(subscription_name).build();
+
+    publisher
+        .publish(Message::new().set_data("Hello, World!"))
+        .await?;
+    tracing::info!("successfully published message");
+
+    let Some((m, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? else {
+        unreachable!("exactly-once delivery is enabled, and the stream stays open.")
+    };
+    assert_eq!(m.data, "Hello, World!");
+    // Nack the message by dropping.
+    drop(h);
+
+    let Some((m, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? else {
+        unreachable!("exactly-once delivery is enabled, and the stream stays open.")
+    };
+    assert_eq!(m.data, "Hello, World!");
+    h.confirmed_ack()
+        .await
+        .inspect_err(|e| tracing::info!("received unexpected confirm_ack error: {e:?}"))?;
+
+    tracing::info!("successfully confirmed the message");
+
+    Ok(())
+}
