@@ -40,6 +40,7 @@ pub(crate) mod model {
 }
 pub(crate) mod from_value;
 pub(crate) mod key;
+pub(crate) mod mutation;
 pub(crate) mod partitioned_dml_transaction;
 pub(crate) mod read_only_transaction;
 pub(crate) mod read_write_transaction;
@@ -52,6 +53,7 @@ pub(crate) mod to_value;
 pub(crate) mod transaction_retry_policy;
 pub(crate) mod types;
 pub(crate) mod value;
+pub(crate) mod write_only_transaction;
 
 pub(crate) mod error;
 mod status;

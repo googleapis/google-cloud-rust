@@ -154,25 +154,24 @@ impl Mutation {
 impl Write {
     #[allow(dead_code)]
     fn into_proto(self) -> crate::model::mutation::Write {
-        crate::model::mutation::Write {
-            table: self.table,
-            columns: self.columns,
-            values: vec![self
-                .values
-                .into_iter()
-                .map(Value::into_serde_value)
-                .collect()],
-        }
+        crate::model::mutation::Write::new()
+            .set_table(self.table)
+            .set_columns(self.columns)
+            .set_values(vec![
+                self.values
+                    .into_iter()
+                    .map(Value::into_serde_value)
+                    .collect::<wkt::ListValue>(),
+            ])
     }
 }
 
 impl Delete {
     #[allow(dead_code)]
     fn into_proto(self) -> crate::model::mutation::Delete {
-        crate::model::mutation::Delete {
-            table: self.table,
-            key_set: Some(self.key_set),
-        }
+        crate::model::mutation::Delete::new()
+            .set_table(self.table)
+            .set_key_set(self.key_set)
     }
 }
 
