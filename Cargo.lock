@@ -1573,7 +1573,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-auth"
-version = "1.7.0"
+version = "1.8.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1581,7 +1581,9 @@ dependencies = [
  "base64",
  "bytes",
  "chrono",
+ "google-cloud-auth-internal",
  "google-cloud-gax",
+ "google-cloud-iam-credentials-v1",
  "hex",
  "hmac",
  "http",
@@ -1609,6 +1611,19 @@ dependencies = [
  "tokio",
  "tokio-test",
  "url",
+]
+
+[[package]]
+name = "google-cloud-auth-internal"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "google-cloud-wkt",
+ "http",
+ "serde",
+ "test-case",
+ "thiserror 2.0.18",
+ "tokio",
 ]
 
 [[package]]
@@ -2889,6 +2904,7 @@ dependencies = [
  "base64",
  "bytes",
  "futures",
+ "google-cloud-auth-internal",
  "google-cloud-rpc",
  "google-cloud-wkt",
  "http",
@@ -2913,7 +2929,7 @@ dependencies = [
  "bytes",
  "echo-server",
  "futures",
- "google-cloud-auth",
+ "google-cloud-auth-internal",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-rpc",
@@ -6516,7 +6532,7 @@ version = "0.50.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7957b9740744892f114936ab4a57b3f487491bbeafaf8083688b16841a4240e5"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]

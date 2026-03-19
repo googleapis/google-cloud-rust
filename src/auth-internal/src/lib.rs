@@ -12,9 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Anonymous credentials.
-//!
-//! These credentials do not provide any authentication information. They are
-//! useful for accessing public resources that do not require authentication.
+pub mod credentials;
+pub mod errors;
+pub mod factory;
+pub mod token;
 
-pub use google_cloud_auth_internal::credentials::anonymous::Builder;
+/*pub use credentials::dynamic;
+pub use credentials::{
+    AccessTokenCredentials, AccessTokenCredentialsProvider, Credentials, CredentialsProvider,
+};
+pub use errors::CredentialsError;
+pub use token::{AccessToken, Token};*/
+
+/// A `Result` alias where the `Err` case is [CredentialsError][errors::CredentialsError].
+pub type Result<T> = std::result::Result<T, errors::CredentialsError>;

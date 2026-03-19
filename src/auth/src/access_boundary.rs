@@ -14,12 +14,14 @@
 
 use crate::constants::TRUST_BOUNDARY_HEADER;
 use crate::credentials::EntityTag;
-use crate::credentials::{
-    AccessToken, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider, dynamic,
-};
+use crate::credentials::{AccessToken, CacheableResource};
 use crate::errors::CredentialsError;
 use crate::mds::client::Client as MDSClient;
 use crate::{Result, errors};
+use google_cloud_auth_internal::credentials::dynamic;
+use google_cloud_auth_internal::credentials::dynamic::{
+    AccessTokenCredentialsProvider, CredentialsProvider,
+};
 use google_cloud_gax::Result as GaxResult;
 use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use google_cloud_gax::error::Error as GaxError;
@@ -322,6 +324,7 @@ where
 }
 
 /// Decorates Credentials and AccessTokenCredentials with access boundary information.
+#[async_trait::async_trait]
 impl<T> CredentialsProvider for CredentialsWithAccessBoundary<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
@@ -375,12 +378,9 @@ where
 
         Ok(new)
     }
-
-    async fn universe_domain(&self) -> Option<String> {
-        self.credentials.universe_domain().await
-    }
 }
 
+#[async_trait::async_trait]
 impl<T> AccessTokenCredentialsProvider for CredentialsWithAccessBoundary<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
@@ -631,6 +631,9 @@ pub(crate) mod tests {
     use super::*;
     use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
     use crate::credentials::{AccessToken, EntityTag};
+    use google_cloud_auth_internal::credentials::dynamic::{
+        AccessTokenCredentialsProvider, CredentialsProvider,
+    };
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, cycle, matchers::*, responders::*};
@@ -645,11 +648,13 @@ pub(crate) mod tests {
         #[derive(Debug)]
         Credentials {}
 
+        #[async_trait::async_trait]
         impl CredentialsProvider for Credentials {
             async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
             async fn universe_domain(&self) -> Option<String>;
         }
 
+        #[async_trait::async_trait]
         impl AccessTokenCredentialsProvider for Credentials {
             async fn access_token(&self) -> Result<AccessToken>;
         }

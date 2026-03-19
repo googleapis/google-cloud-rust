@@ -20,13 +20,13 @@
 //!
 //! [API Key]: https://cloud.google.com/api-keys/docs/overview
 
-use crate::credentials::dynamic::CredentialsProvider;
 use crate::credentials::{CacheableResource, Credentials, Result};
 use crate::headers_util::AuthHeadersBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
+use google_cloud_auth_internal::credentials::dynamic::CredentialsProvider;
+use google_cloud_auth_internal::credentials::new_credentials;
 use http::{Extensions, HeaderMap};
-use std::sync::Arc;
 
 struct ApiKeyTokenProvider {
     api_key: String,
@@ -101,11 +101,9 @@ impl Builder {
 
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> Credentials {
-        Credentials {
-            inner: Arc::new(ApiKeyCredentials {
-                token_provider: TokenCache::new(self.build_token_provider()),
-            }),
-        }
+        new_credentials(ApiKeyCredentials {
+            token_provider: TokenCache::new(self.build_token_provider()),
+        })
     }
 }
 

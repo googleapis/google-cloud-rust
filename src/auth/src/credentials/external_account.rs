@@ -107,7 +107,6 @@
 //! [best practices]: https://cloud.google.com/docs/authentication#auth-decision-tree
 //! [Obtain short-lived tokens for Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-obtaining-short-lived-credentials#use_configuration_files_for_sign-in
 
-use super::dynamic::CredentialsProvider;
 use super::external_account_sources::aws_sourced::AwsSourcedCredentials;
 use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
 use super::external_account_sources::file_sourced::FileSourcedCredentials;
@@ -118,7 +117,6 @@ use super::{CacheableResource, Credentials};
 use crate::access_boundary::{CredentialsWithAccessBoundary, external_account_lookup_url};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::{DEFAULT_SCOPE, STS_TOKEN_URL};
-use crate::credentials::dynamic::AccessTokenCredentialsProvider;
 use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
 use crate::credentials::subject_token::dynamic;
 use crate::credentials::{AccessToken, AccessTokenCredentials};
@@ -128,6 +126,10 @@ use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
+use google_cloud_auth_internal::credentials::dynamic::{
+    AccessTokenCredentialsProvider, CredentialsProvider,
+};
+use google_cloud_auth_internal::credentials::{new_access_token_credentials, new_credentials};
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_throttler::RetryThrottlerArg;
@@ -726,7 +728,7 @@ impl Builder {
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(self.build_credentials()?.into())
+        Ok(new_credentials(self.build_credentials()?))
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -743,7 +745,7 @@ impl Builder {
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        Ok(self.build_credentials()?.into())
+        Ok(new_access_token_credentials(self.build_credentials()?))
     }
 
     fn build_credentials(
@@ -1381,9 +1383,7 @@ impl ProgrammaticBuilder {
     pub fn build(self) -> BuildResult<Credentials> {
         let (config, quota_project_id, retry_builder) = self.build_components()?;
         let creds = config.make_credentials(quota_project_id, retry_builder);
-        Ok(Credentials {
-            inner: Arc::new(creds),
-        })
+        Ok(new_credentials(creds))
     }
 
     /// Consumes the builder and returns its configured components.

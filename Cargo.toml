@@ -18,6 +18,7 @@ resolver = "3"
 default-members = [
   "guide/samples",
   "src/auth",
+  "src/auth-internal",
   "src/bigquery",
   "src/bigtable",
   "src/datastore",
@@ -62,6 +63,7 @@ default-members = [
 members = [
   "guide/samples",
   "src/auth",
+  "src/auth-internal",
   "src/bigquery",
   "src/bigtable",
   "src/datastore",
@@ -456,18 +458,19 @@ tokio-stream      = { default-features = false, version = "0.1.16" }
 tokio-test        = { default-features = false, version = "0.4" }
 
 # Local packages used as dependencies.
-google-cloud-auth        = { default-features = false, version = "1.7.0", path = "src/auth" }
-google-cloud-gax         = { default-features = false, version = "1.8.0", path = "src/gax" }
-gaxi                     = { default-features = false, version = "0.7.10", path = "src/gax-internal", package = "google-cloud-gax-internal" }
-wkt                      = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
-google-cloud-wkt         = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
-google-cloud-api         = { default-features = false, version = "1.3.0", path = "src/generated/api/types" }
-google-cloud-iam-v1      = { default-features = false, version = "1.6.0", path = "src/generated/iam/v1" }
-google-cloud-location    = { default-features = false, version = "1.6.0", path = "src/generated/cloud/location" }
-google-cloud-longrunning = { default-features = false, version = "1.7.0", path = "src/generated/longrunning" }
-google-cloud-lro         = { default-features = false, version = "1.1", path = "src/lro" }
-google-cloud-rpc         = { default-features = false, version = "1", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
-google-cloud-type        = { default-features = false, version = "1", path = "src/generated/type" }
+google-cloud-auth          = { default-features = false, version = "1.7.0", path = "src/auth" }
+google-cloud-auth-internal = { default-features = false, version = "0.1.0", path = "src/auth-internal" }
+google-cloud-gax           = { default-features = false, version = "1.8.0", path = "src/gax" }
+gaxi                       = { default-features = false, version = "0.7.10", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+wkt                        = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
+google-cloud-wkt           = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
+google-cloud-api           = { default-features = false, version = "1.3.0", path = "src/generated/api/types" }
+google-cloud-iam-v1        = { default-features = false, version = "1.6.0", path = "src/generated/iam/v1" }
+google-cloud-location      = { default-features = false, version = "1.6.0", path = "src/generated/cloud/location" }
+google-cloud-longrunning   = { default-features = false, version = "1.7.0", path = "src/generated/longrunning" }
+google-cloud-lro           = { default-features = false, version = "1.1", path = "src/lro" }
+google-cloud-rpc           = { default-features = false, version = "1", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
+google-cloud-type          = { default-features = false, version = "1", path = "src/generated/type" }
 # These are used by specific generated libraries.
 google-cloud-apps-script-type                   = { default-features = false, version = "1", path = "src/generated/apps/script/gtype" }
 google-cloud-apps-script-type-calendar          = { default-features = false, version = "1.4.0", path = "src/generated/apps/script/calendar" }

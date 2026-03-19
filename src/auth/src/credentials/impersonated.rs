@@ -94,7 +94,6 @@
 use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
-use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{
     AccessToken, AccessTokenCredentials, CacheableResource, Credentials, build_credentials,
     extract_credential_type,
@@ -108,6 +107,10 @@ use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
+use google_cloud_auth_internal::credentials::dynamic::{
+    AccessTokenCredentialsProvider, CredentialsProvider,
+};
+use google_cloud_auth_internal::credentials::{new_access_token_credentials, new_credentials};
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_throttler::RetryThrottlerArg;
@@ -430,7 +433,7 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(self.build_credentials()?.into())
+        Ok(new_credentials(self.build_credentials()?))
     }
 
     #[cfg(test)]
@@ -487,7 +490,7 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        Ok(self.build_credentials()?.into())
+        Ok(new_access_token_credentials(self.build_credentials()?))
     }
 
     fn build_credentials(
@@ -1368,9 +1371,7 @@ mod tests {
             }
         }
 
-        let source_credentials = Credentials {
-            inner: Arc::new(MockSourceCredentialsFail),
-        };
+        let source_credentials = new_credentials(MockSourceCredentialsFail);
 
         let token_provider = ImpersonatedTokenProvider {
             source_credentials,

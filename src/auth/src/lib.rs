@@ -68,5 +68,4 @@ pub(crate) mod token_cache;
 /// A `Result` alias where the `Err` case is [BuildCredentialsError].
 pub(crate) type BuildResult<T> = std::result::Result<T, build_errors::Error>;
 
-/// A `Result` alias where the `Err` case is [CredentialsError][errors::CredentialsError].
-pub(crate) type Result<T> = std::result::Result<T, errors::CredentialsError>;
+pub(crate) use google_cloud_auth_internal::Result;

@@ -79,7 +79,7 @@ _internal-http-stream = ["_internal-http-client", "reqwest?/stream"]
 _internal-common = [
   "dep:bytes",
   "dep:futures",
-  "dep:google-cloud-auth",
+  "dep:google-cloud-auth-internal",
   "dep:google-cloud-gax",
   "dep:google-cloud-rpc",
   "dep:http",
@@ -96,7 +96,7 @@ _internal-common = [
 ]
 
 # Enables the default rustls crypto provider for whatever client(s) are enabled.
-_default-rustls-provider = ["google-cloud-auth?/default-rustls-provider", "tonic?/tls-aws-lc"]
+_default-rustls-provider = ["tonic?/tls-aws-lc"]
 # Enables the unstable server streaming functionality in the gRPC client.
 _internal-grpc-server-streaming = []
 
@@ -127,10 +127,10 @@ tower                              = { workspace = true, optional = true }
 tracing                            = { workspace = true, optional = true }
 tracing-opentelemetry              = { workspace = true, optional = true }
 # Local crates
-google-cloud-auth = { workspace = true, optional = true }
-google-cloud-gax  = { workspace = true, optional = true }
-google-cloud-rpc  = { workspace = true, optional = true }
-wkt               = { workspace = true, optional = true }
+google-cloud-auth-internal = { workspace = true, optional = true }
+google-cloud-gax           = { workspace = true, optional = true }
+google-cloud-rpc           = { workspace = true, optional = true }
+wkt                        = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow.workspace                  = true

@@ -28,9 +28,8 @@ use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
 #[cfg(google_cloud_unstable_tracing)]
 use crate::observability::create_http_attempt_span;
-use google_cloud_auth::credentials::{
-    Builder as CredentialsBuilder, CacheableResource, Credentials,
-};
+use google_cloud_auth_internal::credentials::{CacheableResource, Credentials};
+use google_cloud_auth_internal::factory::build_default_credentials;
 use google_cloud_gax::Result;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::client_builder::Error as BuilderError;
@@ -315,12 +314,10 @@ impl ReqwestClient {
     async fn make_credentials(
         config: &crate::options::ClientConfig,
     ) -> ClientBuilderResult<Credentials> {
-        if let Some(c) = config.cred.clone() {
+        if let Some(c) = config.credentials.clone() {
             return Ok(c);
         }
-        CredentialsBuilder::default()
-            .build()
-            .map_err(BuilderError::cred)
+        build_default_credentials().map_err(BuilderError::cred)
     }
 
     async fn retry_loop<O: serde::de::DeserializeOwned + Default>(
@@ -543,7 +540,7 @@ mod tests {
     use crate::client_request_span;
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
-    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_auth_internal::credentials::anonymous::Builder as Anonymous;
     #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::TestLayer;
     use http::{HeaderMap, HeaderValue, Method};

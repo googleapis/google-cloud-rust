@@ -96,7 +96,6 @@
 
 use crate::build_errors::Error as BuilderError;
 use crate::constants::OAUTH2_TOKEN_SERVER_URL;
-use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::AuthHeadersBuilder;
@@ -104,6 +103,10 @@ use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
+use google_cloud_auth_internal::credentials::dynamic::{
+    AccessTokenCredentialsProvider, CredentialsProvider,
+};
+use google_cloud_auth_internal::credentials::{new_access_token_credentials, new_credentials};
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_throttler::RetryThrottlerArg;
@@ -111,7 +114,6 @@ use http::header::CONTENT_TYPE;
 use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::{Client, Method};
 use serde_json::Value;
-use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
 /// A builder for constructing `user_account` [Credentials] instance.
@@ -316,7 +318,7 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(self.build_access_token_credentials()?.into())
+        Ok(new_credentials(self.build_credentials()?))
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -354,6 +356,10 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(new_access_token_credentials(self.build_credentials()?))
+    }
+
+    fn build_credentials(self) -> BuildResult<UserCredentials<TokenCache>> {
         let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
             .map_err(BuilderError::parsing)?;
         let endpoint = self
@@ -373,11 +379,9 @@ impl Builder {
 
         let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
 
-        Ok(AccessTokenCredentials {
-            inner: Arc::new(UserCredentials {
-                token_provider,
-                quota_project_id,
-            }),
+        Ok(UserCredentials {
+            token_provider,
+            quota_project_id,
         })
     }
 }

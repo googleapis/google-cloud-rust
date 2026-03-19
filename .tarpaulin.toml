@@ -16,6 +16,7 @@
 all-features = true
 packages = [
   "google-cloud-auth",
+  "google-cloud-auth-internal",
   "google-cloud-gax",
   "google-cloud-gax-internal",
   "google-cloud-lro",

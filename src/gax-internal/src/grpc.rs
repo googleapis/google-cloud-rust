@@ -21,9 +21,8 @@ pub mod tonic;
 use ::tonic::client::Grpc;
 use ::tonic::transport::Channel;
 use from_status::to_gax_error;
-use google_cloud_auth::credentials::{
-    Builder as CredentialsBuilder, CacheableResource, Credentials,
-};
+use google_cloud_auth_internal::credentials::{CacheableResource, Credentials};
+use google_cloud_auth_internal::factory::build_default_credentials;
 use google_cloud_gax::Result;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::client_builder::Error as BuilderError;
@@ -446,12 +445,10 @@ impl Client {
     async fn make_credentials(
         config: &crate::options::ClientConfig,
     ) -> ClientBuilderResult<Credentials> {
-        if let Some(c) = config.cred.clone() {
+        if let Some(c) = config.credentials.clone() {
             return Ok(c);
         }
-        CredentialsBuilder::default()
-            .build()
-            .map_err(BuilderError::cred)
+        build_default_credentials().map_err(BuilderError::cred)
     }
 
     async fn add_auth_headers(&self, mut headers: http::HeaderMap) -> Result<http::HeaderMap> {
