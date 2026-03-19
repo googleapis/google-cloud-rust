@@ -58,7 +58,7 @@ aws-lc-rs = { workspace = true, optional = true }
 # Local dependencies
 google-cloud-auth-internal      = { workspace = true }
 google-cloud-gax.workspace      = true
-google-cloud-iam-credentials-v1 = { workspace = true }
+google-cloud-iam-credentials-v1 = { workspace = true, features = ["default"] }
 
 [dev-dependencies]
 anyhow.workspace      = true

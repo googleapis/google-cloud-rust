@@ -458,7 +458,7 @@ impl Client {
             .await
             .map_err(|e| {
                 Error::authentication(google_cloud_gax::error::CredentialsError::from_msg(
-                    e.is_transient,
+                    e.is_transient(),
                     e.to_string(),
                 ))
             })?;
