@@ -77,7 +77,7 @@ impl PartitionedDmlTransactionBuilder {
     ///
     /// The client will retry the entire transaction if it is aborted by Spanner.
     /// This policy can be used to customize whether a transaction should be retried
-    /// or not. The default is to retry indefinetly until the transaction succeeds.
+    /// or not. The default is to retry indefinitely until the transaction succeeds.
     pub fn with_retry_policy<P: TransactionRetryPolicy + 'static>(mut self, policy: P) -> Self {
         self.retry_policy = Box::new(policy);
         self
