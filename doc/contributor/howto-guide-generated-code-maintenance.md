@@ -22,18 +22,6 @@ instructions in [Set Up Development Environment].
 
 ## Generate new library
 
-### Verify `librarian` knows about the library
-
-`librarian` has a hard-coded list of APIs. If librarian does not have the API in
-its list it does not find the service config yaml file. As a result, the title,
-description, and mixins (IAM, location, longrunning) may be missing.
-
-You need to look at the [API list] for the pinned version of librarian, if the
-API is not in the list:
-
-1. Send a PR adding the API to librarian.
-1. Send a PR to update the `version` field in `librarian.yaml`.
-
 ### Generate
 
 Define the library's name. Note this should match the directory path where the
@@ -66,6 +54,35 @@ Commit all these changes and send a PR to merge them:
 git add .
 git commit -m "feat(${library}): generate library"
 ```
+
+### Troubleshooting
+
+**Note:** Ensure you are verifying against the version of `librarian` used in
+Rust (you can check the version in [librarian.yaml]).
+
+`librarian` uses an allowlist configured in [sdk.yaml] to manage libraries.
+Cloud APIs are automatically allowed for all languages except the ones in
+[sdk.yaml].
+
+**❌ If you get a "library is not allowed" error:**
+
+Check the [sdk.yaml] file:
+
+- **If the library is missing and it is not a Cloud API:** Add it, but enable it
+  *only* for Rust.
+- **If the library is already there:** Verify that Rust is included in the
+  accepted languages for that specific library.
+
+If you still have issues, please contact librarian team.
+
+#### How to update an unlisted language:
+
+1. Send a PR adding the language to the [sdk.yaml] in librarian and merge it.
+1. Get latest librarian version
+   ```bash
+   go list -m -json github.com/googleapis/librarian@main | jq -r '.Version'
+   ```
+1. Send a PR to update the version field in [librarian.yaml].
 
 ## Update the code generation sources
 
@@ -368,7 +385,8 @@ go run github.com/googleapis/librarian/cmd/librarian@main generate google-cloud-
 ```
 
 [add new dependency]: #add-new-dependency
-[api list]: https://github.com/googleapis/librarian/blob/main/internal/serviceconfig/api.go
 [generate new library]: #generate-new-library
+[librarian.yaml]: https://github.com/googleapis/google-cloud-rust/blob/main/librarian.yaml
 [protocol buffer compiler installation]: https://protobuf.dev/installation/
+[sdk.yaml]: https://github.com/googleapis/librarian/blob/main/internal/serviceconfig/sdk.yaml
 [set up development environment]: /doc/contributor/howto-guide-set-up-development-environment.md

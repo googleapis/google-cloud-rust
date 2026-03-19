@@ -24,8 +24,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-apiregistry-v1/0.1.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-apiregistry-v1/0.1.2)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[CloudApiRegistry]: https://docs.rs/google-cloud-apiregistry-v1/0.1.1/google_cloud_apiregistry_v1/client/struct.CloudApiRegistry.html
+[CloudApiRegistry]: https://docs.rs/google-cloud-apiregistry-v1/0.1.2/google_cloud_apiregistry_v1/client/struct.CloudApiRegistry.html

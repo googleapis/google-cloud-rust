@@ -62,7 +62,6 @@ pub(crate) mod generated;
 /// Types related to publishing messages with a [Publisher][client::Publisher]
 /// client.
 pub mod publisher;
-#[allow(dead_code)] // TODO(#3964) - implementation in progress...
 /// Types related to receiving messages with a [Subscriber][client::Subscriber]
 /// client.
 pub mod subscriber;

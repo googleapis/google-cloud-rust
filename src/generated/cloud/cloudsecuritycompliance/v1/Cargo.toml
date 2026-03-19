@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-cloudsecuritycompliance-v1"
-version                = "2.6.0"
+version                = "2.7.0"
 description            = "Google Cloud Client Libraries for Rust - Cloud Security Compliance API"
 edition.workspace      = true
 authors.workspace      = true
@@ -46,7 +46,6 @@ google-cloud-location.workspace    = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace         = true
 google-cloud-type.workspace        = true
-lazy_static.workspace              = true
 serde.workspace                    = true
 serde_json.workspace               = true
 serde_with.workspace               = true

@@ -2748,14 +2748,14 @@ where
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
-            let mut info = gaxi::options::InstrumentationClientInfo::default();
-            info.service_name = "showcase";
-            info.client_version = VERSION;
-            info.client_artifact = NAME;
-            info.default_host = "localhost:7469";
-            info
-        };
-    }
+    pub(crate) static INSTRUMENTATION_CLIENT_INFO: std::sync::LazyLock<
+        gaxi::options::InstrumentationClientInfo,
+    > = std::sync::LazyLock::new(|| {
+        let mut info = gaxi::options::InstrumentationClientInfo::default();
+        info.service_name = "showcase";
+        info.client_version = VERSION;
+        info.client_artifact = NAME;
+        info.default_host = "localhost:7469";
+        info
+    });
 }

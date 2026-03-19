@@ -19,6 +19,7 @@ use super::handler::AckResult;
 use super::handler::Action;
 use super::leaser::ConfirmedAcks;
 use super::leaser::Leaser;
+use super::shutdown_behavior::ShutdownBehavior;
 use at_least_once::Leases;
 use exactly_once::Leases as EoLeases;
 use tokio::sync::oneshot::Sender;
@@ -43,6 +44,8 @@ pub(super) struct LeaseOptions {
     /// How long messages can be kept under lease. A message's lease can be
     /// extended as long as `max_lease` has not elapsed.
     pub(super) max_lease: Duration,
+    /// The shutdown behavior of the lease loop
+    pub(super) shutdown_behavior: ShutdownBehavior,
 }
 
 impl Default for LeaseOptions {
@@ -53,10 +56,13 @@ impl Default for LeaseOptions {
             extend_period: Duration::from_secs(3),
             extend_start: Duration::from_millis(500),
             max_lease: Duration::from_secs(600),
+            // TODO(#4869) - switch to `WaitForProcessing`
+            shutdown_behavior: ShutdownBehavior::NackImmediately,
         }
     }
 }
 
+#[derive(Debug)]
 pub(super) struct NewMessage {
     pub(super) ack_id: String,
     pub(super) lease_info: LeaseInfo,
@@ -228,14 +234,16 @@ where
     /// This flushes all pending acks and nacks all other messages.
     pub(super) async fn shutdown(mut self) {
         // TODO(#3975) - await these concurrently.
-        // TODO(#4869) - support `WaitForProcessing` shutdown behavior.
+
+        // Note that if `WaitForProcessing` was selected by the application,
+        // there are no messages under lease. They have all been processed.
         self.leases.evict();
         let (to_ack, to_nack) = self.leases.drain();
-        // TODO(#4847) - this nack needs to be broken into batches.
         if !to_ack.is_empty() {
             self.leaser.ack(to_ack).await;
         }
         if !to_nack.is_empty() {
+            // TODO(#4847) - this nack needs to be broken into batches.
             self.leaser.nack(to_nack).await;
         }
 
@@ -264,19 +272,9 @@ pub(super) mod tests {
     use test_case::test_case;
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::sync::oneshot::channel;
-    use tokio::time::interval;
 
     // Cover the constant, converting it to an integer for convenience.
     pub(crate) const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
-
-    // Any valid `Interval` will do.
-    fn test_interval() -> Interval {
-        interval(Duration::from_secs(1))
-    }
-
-    fn test_duration() -> Duration {
-        Duration::from_secs(123)
-    }
 
     #[derive(Debug)]
     pub(super) struct TestLeases {

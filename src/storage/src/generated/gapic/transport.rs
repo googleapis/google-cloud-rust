@@ -23,16 +23,15 @@ const DEFAULT_HOST: &str = "https://storage.googleapis.com";
 mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
-    lazy_static::lazy_static! {
-        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
-            let ac = gaxi::api_header::XGoogApiClient{
-                name:          NAME,
-                version:       VERSION,
-                library_type:  gaxi::api_header::GAPIC,
+    pub(crate) static X_GOOG_API_CLIENT_HEADER: std::sync::LazyLock<String> =
+        std::sync::LazyLock::new(|| {
+            let ac = gaxi::api_header::XGoogApiClient {
+                name: NAME,
+                version: VERSION,
+                library_type: gaxi::api_header::GAPIC,
             };
             ac.grpc_header_value()
-        };
-    }
+        });
 }
 
 /// Implements [StorageControl](super::stub::StorageControl) using a Tonic-generated client.

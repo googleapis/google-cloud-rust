@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-asset-v1"
-version                = "1.6.0"
+version                = "1.7.0"
 description            = "Google Cloud Client Libraries for Rust - Cloud Asset API"
 edition.workspace      = true
 authors.workspace      = true
@@ -50,7 +50,6 @@ google-cloud-orgpolicy-v1.workspace                     = true
 google-cloud-osconfig-v1.workspace                      = true
 google-cloud-rpc.workspace                              = true
 google-cloud-type.workspace                             = true
-lazy_static.workspace                                   = true
 serde.workspace                                         = true
 serde_json.workspace                                    = true
 serde_with.workspace                                    = true

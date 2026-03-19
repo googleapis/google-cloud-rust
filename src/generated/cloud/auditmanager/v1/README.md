@@ -24,8 +24,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-auditmanager-v1/0.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-auditmanager-v1/0.1.1)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[AuditManager]: https://docs.rs/google-cloud-auditmanager-v1/0.1.0/google_cloud_auditmanager_v1/client/struct.AuditManager.html
+[AuditManager]: https://docs.rs/google-cloud-auditmanager-v1/0.1.1/google_cloud_auditmanager_v1/client/struct.AuditManager.html

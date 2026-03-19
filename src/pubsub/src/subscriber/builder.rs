@@ -46,7 +46,7 @@ impl Subscribe {
             client_id,
             grpc_subchannel_count,
             ack_deadline_seconds: 60,
-            max_lease: Duration::from_secs(600),
+            max_lease: Duration::from_secs(60 * 60),
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
         }
@@ -91,8 +91,8 @@ impl Subscribe {
     /// The client holds a message for at most this amount. After a message has
     /// been held for this long, the client will stop extending its lease.
     ///
-    /// The default value is 10 minutes. If it takes your application longer
-    /// than 10 minutes to process a message, you should increase this value.
+    /// The default value is 60 minutes. If it takes your application longer
+    /// than 60 minutes to process a message, you should increase this value.
     pub fn set_max_lease<T: Into<Duration>>(mut self, v: T) -> Self {
         self.max_lease = v.into();
         self
