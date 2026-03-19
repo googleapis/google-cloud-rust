@@ -147,24 +147,24 @@ impl SingleUseReadOnlyTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Read, KeySet};
+    /// # use google_cloud_spanner::client::{Spanner, ReadRequest, KeySet};
     /// # use google_cloud_spanner::key;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.single_use().build();
     ///
     /// // Read using the primary key
-    /// let read_by_pk = Read::new("Users", vec!["Id", "Name"]).with_keys(KeySet::all());
-    /// let mut result_set = transaction.read(read_by_pk).await?;
+    /// let read_by_pk = ReadRequest::builder("Users", vec!["Id", "Name"]).with_keys(KeySet::all()).build();
+    /// let mut result_set = transaction.execute_read(read_by_pk).await?;
     /// while let Some(row) = result_set.next().await {
     ///     let _row = row?;
     ///     // process row
     /// }
     ///
     /// // Read using a secondary index
-    /// let read_by_index = Read::new("Users", vec!["Id", "Name"])
-    ///     .with_index("UsersByIndex", key![1_i64]);
-    /// let mut result_set = transaction.read(read_by_index).await?;
+    /// let read_by_index = ReadRequest::builder("Users", vec!["Id", "Name"])
+    ///     .with_index("UsersByIndex", key![1_i64]).build();
+    /// let mut result_set = transaction.execute_read(read_by_index).await?;
     /// while let Some(row) = result_set.next().await {
     ///     let _row = row?;
     ///     // process row
@@ -172,11 +172,11 @@ impl SingleUseReadOnlyTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn read<T: Into<crate::read::ReadRequest>>(
+    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
         &self,
         read: T,
     ) -> crate::Result<ResultSet> {
-        self.context.read(read).await
+        self.context.execute_read(read).await
     }
 }
 
@@ -326,24 +326,24 @@ impl MultiUseReadOnlyTransaction {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Read, KeySet};
+    /// # use google_cloud_spanner::client::{Spanner, ReadRequest, KeySet};
     /// # use google_cloud_spanner::key;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.read_only_transaction().build().await?;
     ///
     /// // Read using the primary key
-    /// let read_by_pk = Read::new("Users", vec!["Id", "Name"]).with_keys(KeySet::all());
-    /// let mut result_set = transaction.read(read_by_pk).await?;
+    /// let read_by_pk = ReadRequest::builder("Users", vec!["Id", "Name"]).with_keys(KeySet::all()).build();
+    /// let mut result_set = transaction.execute_read(read_by_pk).await?;
     /// while let Some(row) = result_set.next().await {
     ///     let _row = row?;
     ///     // process row
     /// }
     ///
     /// // Read using a secondary index
-    /// let read_by_index = Read::new("Users", vec!["Id", "Name"])
-    ///     .with_index("UsersByIndex", key![1_i64]);
-    /// let mut result_set = transaction.read(read_by_index).await?;
+    /// let read_by_index = ReadRequest::builder("Users", vec!["Id", "Name"])
+    ///     .with_index("UsersByIndex", key![1_i64]).build();
+    /// let mut result_set = transaction.execute_read(read_by_index).await?;
     /// while let Some(row) = result_set.next().await {
     ///     let _row = row?;
     ///     // process row
@@ -351,11 +351,11 @@ impl MultiUseReadOnlyTransaction {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn read<T: Into<crate::read::ReadRequest>>(
+    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
         &self,
         read: T,
     ) -> crate::Result<ResultSet> {
-        self.context.read(read).await
+        self.context.execute_read(read).await
     }
 }
 
@@ -400,7 +400,7 @@ impl ReadContext {
         Ok(ResultSet::new(stream))
     }
 
-    pub(crate) async fn read<T: Into<crate::read::ReadRequest>>(
+    pub(crate) async fn execute_read<T: Into<crate::read::ReadRequest>>(
         &self,
         read: T,
     ) -> crate::Result<ResultSet> {
@@ -654,7 +654,7 @@ pub(crate) mod tests {
     #[tokio::test]
     async fn execute_single_read() {
         use super::super::result_set::tests::string_val;
-        use crate::client::{KeySet, Read};
+        use crate::client::{KeySet, ReadRequest};
         use crate::value::Value;
 
         let mut mock = create_session_mock();
@@ -676,8 +676,10 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = db_client.single_use().build();
-        let read = Read::new("Users", vec!["Id", "Name"]).with_keys(KeySet::all());
-        let mut rs = tx.read(read).await.expect("Failed to execute read");
+        let read = ReadRequest::builder("Users", vec!["Id", "Name"])
+            .with_keys(KeySet::all())
+            .build();
+        let mut rs = tx.execute_read(read).await.expect("Failed to execute read");
 
         let row = rs.next().await.expect("has row").expect("has valid row");
         assert_eq!(row.raw_values(), [Value(string_val("1"))]);

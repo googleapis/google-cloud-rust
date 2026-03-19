@@ -18,62 +18,43 @@ use crate::key::KeySet;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_spanner::client::Read;
+/// # use google_cloud_spanner::client::ReadRequest;
 /// # use google_cloud_spanner::client::KeySet;
 /// # use google_cloud_spanner::key;
 /// // Read all rows from a table using its primary key.
-/// let read_all = Read::new("Users", vec!["Id", "Name"]).with_keys(KeySet::all());
+/// let read_all = ReadRequest::builder("Users", vec!["Id", "Name"])
+///     .with_keys(KeySet::all())
+///     .build();
 ///
 /// // Read specific rows using an index.
-/// let read_by_id = Read::new("Users", vec!["Id", "Name"])
+/// let read_by_id = ReadRequest::builder("Users", vec!["Id", "Name"])
 ///     .with_index("UsersByIndex", key![1_i64])
-///     .with_limit(10);
+///     .with_limit(10)
+///     .build();
 /// ```
 ///
-/// Use `Read::new` to define the table and columns to be read.
+/// Use `ReadRequest::builder` to define the table and columns to be read.
 /// Keys must be supplied using `with_keys` (for the primary key) or `with_index` (for an index)
 /// to obtain an executable `ReadRequest`.
 #[derive(Clone, Debug, PartialEq)]
-pub struct Read {
+pub struct ReadRequestBuilder {
     table: String,
     columns: Vec<String>,
 }
 
-impl Read {
-    /// Creates a new read operation for a specific table.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Read;
-    /// let read = Read::new("Users", vec!["Id", "Name"]);
-    /// ```
-    ///
-    /// The table name and columns to retrieve are required to initiate a read.
-    pub fn new(
-        table: impl Into<String>,
-        columns: impl IntoIterator<Item = impl Into<String>>,
-    ) -> Self {
-        Read {
-            table: table.into(),
-            columns: columns.into_iter().map(|s| s.into()).collect(),
-        }
-    }
-
+impl ReadRequestBuilder {
     /// Supplies the `KeySet` targeting the table's primary key.
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Read, KeySet};
-    /// let read = Read::new("Users", vec!["Id", "Name"]).with_keys(KeySet::all());
+    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// let request = ReadRequest::builder("Users", vec!["Id", "Name"]).with_keys(KeySet::all());
     /// ```
     ///
     /// The `keys` parameter identifies the rows to be yielded by naming the primary keys
     /// of the rows in the table. Rows are yielded in table primary key order.
-    ///
-    /// It is not an error for the `KeySet` to name rows that do not exist in the database.
-    /// The read operation simply yields nothing for nonexistent rows.
-    pub fn with_keys(self, keys: impl Into<KeySet>) -> ReadRequest {
-        ReadRequest {
+    pub fn with_keys(self, keys: impl Into<KeySet>) -> ConfiguredReadRequestBuilder {
+        ConfiguredReadRequestBuilder {
             table: self.table,
             index: None,
             keys: keys.into(),
@@ -86,23 +67,64 @@ impl Read {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Read, KeySet};
+    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
     /// # use google_cloud_spanner::key;
-    /// let read = Read::new("Users", vec!["Id", "Name"]).with_index("UsersByIndex", key![1_i64]);
+    /// let request = ReadRequest::builder("Users", vec!["Id", "Name"]).with_index("UsersByIndex", key![1_i64]);
     /// ```
     ///
     /// The `keys` parameter identifies the rows to be yielded by naming the index keys
     /// in the provided `index`. Rows are yielded in index key order.
-    ///
-    /// It is not an error for the `KeySet` to name rows that do not exist in the database.
-    /// The read operation simply yields nothing for nonexistent rows.
-    pub fn with_index(self, index: impl Into<String>, keys: impl Into<KeySet>) -> ReadRequest {
-        ReadRequest {
+    pub fn with_index(
+        self,
+        index: impl Into<String>,
+        keys: impl Into<KeySet>,
+    ) -> ConfiguredReadRequestBuilder {
+        ConfiguredReadRequestBuilder {
             table: self.table,
             index: Some(index.into()),
             keys: keys.into(),
             columns: self.columns,
             limit: None,
+        }
+    }
+}
+
+/// A fully configured read request that is ready to be built.
+#[derive(Clone, Debug, PartialEq)]
+pub struct ConfiguredReadRequestBuilder {
+    table: String,
+    index: Option<String>,
+    keys: KeySet,
+    columns: Vec<String>,
+    limit: Option<i64>,
+}
+
+impl ConfiguredReadRequestBuilder {
+    /// Sets an optional limit on how many rows could be retrieved.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// let request = ReadRequest::builder("Users", vec!["Id"])
+    ///     .with_keys(KeySet::all())
+    ///     .with_limit(10)
+    ///     .build();
+    /// ```
+    ///
+    /// If fewer rows are found, only the matching rows will be returned.
+    pub fn with_limit(mut self, limit: i64) -> Self {
+        self.limit = Some(limit);
+        self
+    }
+
+    /// Builds the configured `ReadRequest`.
+    pub fn build(self) -> ReadRequest {
+        ReadRequest {
+            table: self.table,
+            index: self.index,
+            keys: self.keys,
+            columns: self.columns,
+            limit: self.limit,
         }
     }
 }
@@ -121,20 +143,23 @@ pub struct ReadRequest {
 }
 
 impl ReadRequest {
-    /// Sets an optional limit on how many rows could be retrieved.
+    /// Creates a new read operation builder for a specific table.
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::{Read, KeySet};
-    /// let read = Read::new("Users", vec!["Id"])
-    ///     .with_keys(KeySet::all())
-    ///     .with_limit(10);
+    /// # use google_cloud_spanner::client::ReadRequest;
+    /// let builder = ReadRequest::builder("Users", vec!["Id", "Name"]);
     /// ```
     ///
-    /// If fewer rows are found, only the matching rows will be returned.
-    pub fn with_limit(mut self, limit: i64) -> Self {
-        self.limit = Some(limit);
-        self
+    /// The table name and columns to retrieve are required to initiate a read.
+    pub fn builder(
+        table: impl Into<String>,
+        columns: impl IntoIterator<Item = impl Into<String>>,
+    ) -> ReadRequestBuilder {
+        ReadRequestBuilder {
+            table: table.into(),
+            columns: columns.into_iter().map(|s| s.into()).collect(),
+        }
     }
 }
 
@@ -144,14 +169,17 @@ mod tests {
 
     #[test]
     fn auto_traits() {
-        static_assertions::assert_impl_all!(Read: Send, Sync, Clone, std::fmt::Debug, PartialEq);
+        static_assertions::assert_impl_all!(ReadRequestBuilder: Send, Sync, Clone, std::fmt::Debug, PartialEq);
+        static_assertions::assert_impl_all!(ConfiguredReadRequestBuilder: Send, Sync, Clone, std::fmt::Debug, PartialEq);
         static_assertions::assert_impl_all!(ReadRequest: Send, Sync, Clone, std::fmt::Debug, PartialEq);
     }
 
     #[test]
     fn read_with_keys() {
         let keys = KeySet::all();
-        let req = Read::new("MyTable", vec!["col1", "col2"]).with_keys(keys.clone());
+        let req = ReadRequest::builder("MyTable", vec!["col1", "col2"])
+            .with_keys(keys.clone())
+            .build();
         assert_eq!(req.table, "MyTable");
         assert_eq!(req.index, None);
         assert_eq!(req.keys, keys);
@@ -162,7 +190,9 @@ mod tests {
     #[test]
     fn read_with_index() {
         let keys = KeySet::all();
-        let req = Read::new("MyTable", vec!["col1", "col2"]).with_index("MyIndex", keys.clone());
+        let req = ReadRequest::builder("MyTable", vec!["col1", "col2"])
+            .with_index("MyIndex", keys.clone())
+            .build();
         assert_eq!(req.table, "MyTable");
         assert_eq!(req.index, Some("MyIndex".to_string()));
         assert_eq!(req.keys, keys);
@@ -172,9 +202,10 @@ mod tests {
 
     #[test]
     fn with_limit() {
-        let req = Read::new("MyTable", vec!["col1"])
+        let req = ReadRequest::builder("MyTable", vec!["col1"])
             .with_keys(KeySet::all())
-            .with_limit(42);
+            .with_limit(42)
+            .build();
         assert_eq!(req.limit, Some(42));
     }
 }
