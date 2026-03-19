@@ -57,6 +57,86 @@ mod pubsub {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn run_basic_nack() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        let (topic_admin, topic) = pubsub_samples::create_test_topic()
+            .await
+            .inspect_err(anydump)?;
+        let (sub_admin, sub) = pubsub_samples::create_test_subscription(&topic.name)
+            .await
+            .inspect_err(anydump)?;
+
+        let result = integration_tests_pubsub::basic_nack(&topic.name, &sub.name)
+            .await
+            .inspect_err(anydump);
+
+        if let Err(e) = pubsub_samples::cleanup_test_subscription(&sub_admin, &sub.name)
+            .await
+            .inspect_err(anydump)
+        {
+            tracing::info!("Error cleaning up test subscription: {e:?}");
+        }
+        if let Err(e) = pubsub_samples::cleanup_test_topic(&topic_admin, &topic.name)
+            .await
+            .inspect_err(anydump)
+        {
+            tracing::info!("Error cleaning up test topic: {e:?}");
+        }
+        result
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn run_exactly_once_roundtrip() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        let (topic_admin, topic) = pubsub_samples::create_test_topic()
+            .await
+            .inspect_err(anydump)?;
+        let (sub_admin, sub) = pubsub_samples::create_exactly_once_test_subscription(&topic.name)
+            .await
+            .inspect_err(anydump)?;
+
+        let result = integration_tests_pubsub::exactly_once::roundtrip(&topic.name, &sub.name)
+            .await
+            .inspect_err(anydump);
+
+        let _ = pubsub_samples::cleanup_test_subscription(&sub_admin, &sub.name)
+            .await
+            .inspect_err(|e| tracing::info!("Error cleaning up test subscription: {e:?}"))
+            .inspect_err(anydump);
+        let _ = pubsub_samples::cleanup_test_topic(&topic_admin, &topic.name)
+            .await
+            .inspect_err(|e| tracing::info!("Error cleaning up test topic: {e:?}"))
+            .inspect_err(anydump);
+        result
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn run_exactly_once_nack_then_confirmed_ack() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        let (topic_admin, topic) = pubsub_samples::create_test_topic()
+            .await
+            .inspect_err(anydump)?;
+        let (sub_admin, sub) = pubsub_samples::create_exactly_once_test_subscription(&topic.name)
+            .await
+            .inspect_err(anydump)?;
+
+        let result =
+            integration_tests_pubsub::exactly_once::nack_then_confirmed_ack(&topic.name, &sub.name)
+                .await
+                .inspect_err(anydump);
+
+        let _ = pubsub_samples::cleanup_test_subscription(&sub_admin, &sub.name)
+            .await
+            .inspect_err(|e| tracing::info!("Error cleaning up test subscription: {e:?}"))
+            .inspect_err(anydump);
+        let _ = pubsub_samples::cleanup_test_topic(&topic_admin, &topic.name)
+            .await
+            .inspect_err(|e| tracing::info!("Error cleaning up test topic: {e:?}"))
+            .inspect_err(anydump);
+        result
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn run_ordered_roundtrip() -> anyhow::Result<()> {
         let _guard = enable_tracing();

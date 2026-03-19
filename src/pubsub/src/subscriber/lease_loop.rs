@@ -14,7 +14,8 @@
 
 use super::handler::Action;
 use super::lease_state::{LeaseEvent, LeaseOptions, LeaseState, NewMessage};
-use super::leaser::Leaser;
+use super::leaser::{ConfirmedAcks, Leaser};
+use super::shutdown_behavior::ShutdownBehavior;
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender, unbounded_channel};
 use tokio::task::JoinHandle;
 
@@ -29,17 +30,36 @@ pub(super) struct LeaseLoop {
 }
 
 impl LeaseLoop {
-    pub(super) fn new<L>(leaser: L, options: LeaseOptions) -> Self
+    pub(super) fn new<L>(
+        leaser: L,
+        mut confirmed_rx: UnboundedReceiver<ConfirmedAcks>,
+        options: LeaseOptions,
+    ) -> Self
     where
         L: Leaser + Clone + Send + 'static,
     {
         let (message_tx, mut message_rx) = unbounded_channel::<NewMessage>();
         let (ack_tx, mut ack_rx) = unbounded_channel();
+        let shutdown_guard = match options.shutdown_behavior {
+            // If the subscriber is configured to wait for processing, we do not
+            // want to break out of the lease loop when the stream drops its
+            // message sender. We want to continue extending leases for these
+            // messages as needed. So we hold a clone of the message sender.
+            ShutdownBehavior::WaitForProcessing => Some(message_tx.clone()),
+            ShutdownBehavior::NackImmediately => None,
+        };
         let mut state = LeaseState::new(leaser, options);
 
         let handle = tokio::spawn(async move {
             loop {
                 tokio::select! {
+                    // We use `biased` to make sure ack IDs from the stream are
+                    // added to lease management before acks/nacks for them are
+                    // processed.
+                    //
+                    // If these channels can race, we might accept an
+                    // application's acknowledgement, and then immediately
+                    // after, accept that message under lease management.
                     biased;
                     event = state.next_event() => {
                         match event {
@@ -53,17 +73,21 @@ impl LeaseLoop {
                             Some(m) => state.add(m.ack_id, m.lease_info),
                         }
                     },
-                    ack_id = ack_rx.recv() => {
-                        match ack_id {
+                    action = ack_rx.recv() => {
+                        match action {
+                            None => break state.shutdown().await,
+                            Some(a) => state.process(a),
+                        }
+                    },
+                    confirmed_acks = confirmed_rx.recv() => {
+                        match confirmed_acks {
                             None => break,
-                            Some(Action::Ack(ack_id)) => state.process(Action::Ack(ack_id)),
-                            Some(Action::Nack(ack_id)) => state.process(Action::Nack(ack_id)),
-                            // TODO(#3964) - process exactly-once acks/nacks in the lease state
-                            _ => unreachable!("we do not return exactly-once handlers yet."),
+                            Some(results) => state.confirm(results),
                         }
                     },
                 }
             }
+            drop(shutdown_guard);
         });
         LeaseLoop {
             handle,
@@ -91,12 +115,18 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::lease_state::tests::{at_least_once_info, sorted, test_id, test_ids};
+    use super::super::lease_state::tests::{
+        at_least_once_info, exactly_once_info, sorted, test_id, test_ids,
+    };
     use super::super::leaser::tests::MockLeaser;
     use super::*;
+    use crate::subscriber::lease_state::{ExactlyOnceInfo, LeaseInfo};
     use google_cloud_test_macros::tokio_test_no_panics;
+    use std::collections::HashMap;
     use std::sync::Arc;
+    use test_case::test_case;
     use tokio::sync::Mutex;
+    use tokio::sync::oneshot::channel;
     use tokio::time::{Duration, Instant};
 
     fn test_message(id: i32) -> NewMessage {
@@ -107,12 +137,115 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
+    async fn basic_exactly_once() -> anyhow::Result<()> {
+        const FLUSH_START: Duration = Duration::from_millis(200);
+
+        let mock = Arc::new(Mutex::new(MockLeaser::new()));
+
+        let (_confirmed_tx, confirmed_rx) = unbounded_channel();
+        let options = LeaseOptions {
+            flush_start: FLUSH_START,
+            // effectively disable extensions to simplify this test.
+            extend_start: Duration::from_secs(900),
+            ..Default::default()
+        };
+        let lease_loop = LeaseLoop::new(mock.clone(), confirmed_rx, options);
+        // Yield execution, so tokio can actually start the lease loop.
+        tokio::task::yield_now().await;
+
+        // Seed the lease loop with some messages
+        for i in 0..30 {
+            lease_loop.message_tx.send(NewMessage {
+                ack_id: test_id(i),
+                lease_info: exactly_once_info(),
+            })?;
+        }
+
+        // Ack 10 messages
+        for i in 0..10 {
+            lease_loop.ack_tx.send(Action::ExactlyOnceAck(test_id(i)))?;
+        }
+
+        // Nack 10 messages
+        for i in 10..20 {
+            lease_loop
+                .ack_tx
+                .send(Action::ExactlyOnceNack(test_id(i)))?;
+        }
+
+        mock.lock()
+            .await
+            .expect_confirmed_ack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..10))
+            .returning(|_| ());
+        mock.lock()
+            .await
+            .expect_nack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(10..20))
+            .returning(|_| ());
+        tokio::time::advance(FLUSH_START).await;
+
+        // Yield the current task, so tokio can execute the flush().
+        tokio::task::yield_now().await;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn confirmed_ack() -> anyhow::Result<()> {
+        const FLUSH_START: Duration = Duration::from_millis(200);
+
+        let mock = Arc::new(Mutex::new(MockLeaser::new()));
+
+        let (confirmed_tx, confirmed_rx) = unbounded_channel();
+        let options = LeaseOptions {
+            flush_start: FLUSH_START,
+            // effectively disable extensions to simplify this test.
+            extend_start: Duration::from_secs(900),
+            ..Default::default()
+        };
+        let lease_loop = LeaseLoop::new(mock.clone(), confirmed_rx, options);
+        // Yield execution, so tokio can actually start the lease loop.
+        tokio::task::yield_now().await;
+
+        // Add a message and confirm ack.
+        let (result_tx, mut result_rx) = channel();
+        lease_loop.message_tx.send(NewMessage {
+            ack_id: test_id(0),
+            lease_info: LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx)),
+        })?;
+        lease_loop.ack_tx.send(Action::ExactlyOnceAck(test_id(0)))?;
+        let mut ack_results = HashMap::new();
+        ack_results.insert(test_id(0), Ok(()));
+        confirmed_tx.send(ack_results)?;
+
+        mock.lock()
+            .await
+            .expect_confirmed_ack()
+            .times(1)
+            .withf(|v| *v == vec![test_id(0)])
+            .returning(|_| ());
+        tokio::time::advance(FLUSH_START).await;
+
+        // Yield the current task, so tokio can execute the flush().
+        tokio::task::yield_now().await;
+
+        // Validate confirmed ack was processed.
+        result_rx.try_recv()??;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
     async fn flush_acks_nacks_on_interval() -> anyhow::Result<()> {
         const FLUSH_PERIOD: Duration = Duration::from_secs(1);
         const FLUSH_START: Duration = Duration::from_millis(200);
 
         let mock = Arc::new(Mutex::new(MockLeaser::new()));
 
+        let (_confirmed_tx, confirmed_rx) = unbounded_channel();
         let options = LeaseOptions {
             flush_period: FLUSH_PERIOD,
             flush_start: FLUSH_START,
@@ -120,7 +253,7 @@ mod tests {
             extend_start: Duration::from_secs(900),
             ..Default::default()
         };
-        let lease_loop = LeaseLoop::new(mock.clone(), options);
+        let lease_loop = LeaseLoop::new(mock.clone(), confirmed_rx, options);
         // Yield execution, so tokio can actually start the lease loop.
         tokio::task::yield_now().await;
 
@@ -212,6 +345,7 @@ mod tests {
 
         let mock = Arc::new(Mutex::new(MockLeaser::new()));
 
+        let (_confirmed_tx, confirmed_rx) = unbounded_channel();
         let options = LeaseOptions {
             // effectively disable ack/nack flushes to simplify this test.
             flush_start: Duration::from_secs(900),
@@ -219,7 +353,7 @@ mod tests {
             extend_start: EXTEND_START,
             ..Default::default()
         };
-        let lease_loop = LeaseLoop::new(mock.clone(), options);
+        let lease_loop = LeaseLoop::new(mock.clone(), confirmed_rx, options);
         // Yield execution, so tokio can actually start the lease loop.
         tokio::task::yield_now().await;
 
@@ -273,7 +407,8 @@ mod tests {
     async fn drop_does_not_wait_for_pending_operations() -> anyhow::Result<()> {
         let start = Instant::now();
         let mock = MockLeaser::new();
-        let lease_loop = LeaseLoop::new(Arc::new(mock), LeaseOptions::default());
+        let (_confirmed_tx, confirmed_rx) = unbounded_channel();
+        let lease_loop = LeaseLoop::new(Arc::new(mock), confirmed_rx, LeaseOptions::default());
         // Yield execution, so tokio can actually start the lease loop.
         tokio::task::yield_now().await;
 
@@ -297,7 +432,101 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn close_waits_for_flush() -> anyhow::Result<()> {
+    async fn shutdown_nack_immediately() -> anyhow::Result<()> {
+        let mock = Arc::new(Mutex::new(MockLeaser::new()));
+        mock.lock()
+            .await
+            .expect_ack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..10))
+            .returning(|_| ());
+        mock.lock()
+            .await
+            .expect_nack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(10..30))
+            .returning(|_| ());
+
+        let (_confirmed_tx, confirmed_rx) = unbounded_channel();
+        let options = LeaseOptions {
+            shutdown_behavior: ShutdownBehavior::NackImmediately,
+            ..Default::default()
+        };
+        let lease_loop = LeaseLoop::new(mock, confirmed_rx, options);
+
+        // Seed the lease loop with some messages
+        for i in 0..30 {
+            lease_loop.message_tx.send(test_message(i))?;
+        }
+
+        // Ack 10 messages
+        for i in 0..10 {
+            lease_loop.ack_tx.send(Action::Ack(test_id(i)))?;
+        }
+
+        // Nack 10 messages
+        for i in 10..20 {
+            lease_loop.ack_tx.send(Action::Nack(test_id(i)))?;
+        }
+
+        // Shutdown the lease_loop.
+        drop(lease_loop.message_tx);
+        drop(lease_loop.ack_tx);
+        lease_loop.handle.await?;
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn shutdown_wait_for_processing() -> anyhow::Result<()> {
+        let mock = Arc::new(Mutex::new(MockLeaser::new()));
+        mock.lock()
+            .await
+            .expect_ack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..20))
+            .returning(|_| ());
+
+        let (_confirmed_tx, confirmed_rx) = unbounded_channel();
+        let options = LeaseOptions {
+            shutdown_behavior: ShutdownBehavior::WaitForProcessing,
+            ..Default::default()
+        };
+        let lease_loop = LeaseLoop::new(mock, confirmed_rx, options);
+        let ack_tx = lease_loop.ack_tx.clone();
+
+        // Seed the lease loop with some messages
+        for i in 0..20 {
+            lease_loop.message_tx.send(test_message(i))?;
+        }
+
+        // Ack 10 messages
+        for i in 0..10 {
+            ack_tx.send(Action::Ack(test_id(i)))?;
+        }
+
+        // Signal and await a shutdown of the lease_loop.
+        drop(lease_loop.message_tx);
+        drop(lease_loop.ack_tx);
+        // Yield execution to the lease loop. If it shuts down now while
+        // `ack_tx` is still in scope, the test will fail.
+        tokio::task::yield_now().await;
+
+        // Simulate the application using the rest of its handlers.
+        for i in 10..20 {
+            ack_tx.send(Action::Ack(test_id(i)))?;
+        }
+        drop(ack_tx);
+
+        lease_loop.handle.await?;
+
+        Ok(())
+    }
+
+    #[test_case(ShutdownBehavior::WaitForProcessing)]
+    #[test_case(ShutdownBehavior::NackImmediately)]
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn shutdown_waits_for_flush(shutdown_behavior: ShutdownBehavior) -> anyhow::Result<()> {
         const EXPECTED_SLEEP: Duration = Duration::from_millis(100);
 
         let start = Instant::now();
@@ -318,8 +547,12 @@ mod tests {
             async fn extend(&self, _ack_ids: Vec<String>) {}
             async fn confirmed_ack(&self, _ack_ids: Vec<String>) {}
         }
-
-        let lease_loop = LeaseLoop::new(FakeLeaser, LeaseOptions::default());
+        let (_confirmed_tx, confirmed_rx) = unbounded_channel();
+        let options = LeaseOptions {
+            shutdown_behavior,
+            ..Default::default()
+        };
+        let lease_loop = LeaseLoop::new(FakeLeaser, confirmed_rx, options);
 
         // Seed the lease loop with some messages
         for i in 0..30 {
@@ -333,6 +566,7 @@ mod tests {
 
         // Shutdown the lease_loop.
         drop(lease_loop.message_tx);
+        drop(lease_loop.ack_tx);
         lease_loop.handle.await?;
 
         // Verify that we flushed the acks immediately, and waited for them to
@@ -357,12 +591,13 @@ mod tests {
             // Run this test enough times to trigger a race, if one existed.
 
             let mock = Arc::new(Mutex::new(MockLeaser::new()));
+            let (_confirmed_tx, confirmed_rx) = unbounded_channel();
             let options = LeaseOptions {
                 flush_start: Duration::from_millis(100),
                 extend_start: Duration::from_millis(200),
                 ..Default::default()
             };
-            let lease_loop = LeaseLoop::new(mock.clone(), options);
+            let lease_loop = LeaseLoop::new(mock.clone(), confirmed_rx, options);
             // Yield execution, so tokio can actually start the lease loop.
             tokio::task::yield_now().await;
 

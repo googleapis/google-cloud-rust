@@ -28,6 +28,7 @@ pub struct Subscribe {
     pub(super) client_id: String,
     pub(super) grpc_subchannel_count: usize,
     pub(super) ack_deadline_seconds: i32,
+    pub(super) max_lease: Duration,
     pub(super) max_outstanding_messages: i64,
     pub(super) max_outstanding_bytes: i64,
 }
@@ -44,7 +45,8 @@ impl Subscribe {
             subscription,
             client_id,
             grpc_subchannel_count,
-            ack_deadline_seconds: 10,
+            ack_deadline_seconds: 60,
+            max_lease: Duration::from_secs(60 * 60),
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
         }
@@ -70,6 +72,30 @@ impl Subscribe {
     /// It is not established until [`MessageStream::next()`] is called.
     pub fn build(self) -> MessageStream {
         MessageStream::new(self)
+    }
+
+    /// Sets the maximum lease deadline for a message.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// # use std::time::Duration;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let client = Subscriber::builder().build().await?;
+    /// let stream = client.subscribe("projects/my-project/subscriptions/my-subscription")
+    ///     .set_max_lease(Duration::from_secs(3600))
+    ///     .build();
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The client holds a message for at most this amount. After a message has
+    /// been held for this long, the client will stop extending its lease.
+    ///
+    /// The default value is 60 minutes. If it takes your application longer
+    /// than 60 minutes to process a message, you should increase this value.
+    pub fn set_max_lease<T: Into<Duration>>(mut self, v: T) -> Self {
+        self.max_lease = v.into();
+        self
     }
 
     /// Sets the maximum duration to extend lease deadlines by.
@@ -99,7 +125,7 @@ impl Subscribe {
     /// you can specify is 10 minutes. The client clamps the supplied value to
     /// this range.
     ///
-    /// The default value is 10 seconds.
+    /// The default value is 60 seconds.
     pub fn set_max_lease_extension<T: Into<Duration>>(mut self, v: T) -> Self {
         self.ack_deadline_seconds = v.into().as_secs().clamp(10, 600) as i32;
         self
@@ -192,7 +218,12 @@ mod tests {
             "projects/my-project/subscriptions/my-subscription"
         );
         assert_eq!(builder.grpc_subchannel_count, 1);
-        assert_eq!(builder.ack_deadline_seconds, 10);
+        assert_eq!(builder.ack_deadline_seconds, 60);
+        assert!(
+            builder.max_lease >= Duration::from_secs(300),
+            "max_lease={:?}",
+            builder.max_lease
+        );
         assert!(
             100_000 > builder.max_outstanding_messages && builder.max_outstanding_messages > 100,
             "max_outstanding_messages={}",
@@ -215,6 +246,7 @@ mod tests {
             "client-id".to_string(),
             2_usize,
         )
+        .set_max_lease(Duration::from_secs(3600))
         .set_max_lease_extension(Duration::from_secs(20))
         .set_max_outstanding_messages(12345)
         .set_max_outstanding_bytes(6789 * KIB);
@@ -223,6 +255,7 @@ mod tests {
             "projects/my-project/subscriptions/my-subscription"
         );
         assert_eq!(builder.grpc_subchannel_count, 2);
+        assert_eq!(builder.max_lease, Duration::from_secs(3600));
         assert_eq!(builder.ack_deadline_seconds, 20);
         assert_eq!(builder.max_outstanding_messages, 12345);
         assert_eq!(builder.max_outstanding_bytes, 6789 * KIB);

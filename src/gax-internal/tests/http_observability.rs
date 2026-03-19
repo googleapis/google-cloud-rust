@@ -26,11 +26,12 @@ mod tests {
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use http::{Method, StatusCode};
-    use httptest::matchers::request::{body, method, path};
+    use httptest::matchers::request::{body, headers, method, path};
     use httptest::{Expectation, Server, all_of, responders::*};
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
     use serde::Deserialize;
     use std::collections::BTreeMap;
+    use std::sync::LazyLock;
     use test_case::test_case;
     use tracing::{Instrument, field};
 
@@ -44,16 +45,14 @@ mod tests {
     const TEST_ARTIFACT: &str = "google-cloud-test";
     const TEST_HOST: &str = "test.googleapis.com";
 
-    lazy_static::lazy_static! {
-        static ref TEST_INSTRUMENTATION_INFO: InstrumentationClientInfo = {
-            let mut info = InstrumentationClientInfo::default();
-            info.service_name = TEST_SERVICE;
-            info.client_version = TEST_VERSION;
-            info.client_artifact = TEST_ARTIFACT;
-            info.default_host = TEST_HOST;
-            info
-        };
-    }
+    static TEST_INSTRUMENTATION_INFO: LazyLock<InstrumentationClientInfo> = LazyLock::new(|| {
+        let mut info = InstrumentationClientInfo::default();
+        info.service_name = TEST_SERVICE;
+        info.client_version = TEST_VERSION;
+        info.client_artifact = TEST_ARTIFACT;
+        info.default_host = TEST_HOST;
+        info
+    });
 
     async fn create_client(tracing_enabled: bool, endpoint: String) -> ReqwestClient {
         let mut config = ClientConfig::default();
@@ -523,5 +522,43 @@ mod tests {
         .collect();
 
         assert_eq!(got, want);
+    }
+
+    #[tokio::test]
+    async fn propagate_trace_context() {
+        let server = Server::run();
+        let server_addr = server.addr();
+        let server_url = format!("http://{}", server_addr);
+        server.expect(
+            Expectation::matching(all_of![
+                method("GET"),
+                path("/test"),
+                headers(httptest::matchers::contains((
+                    "traceparent",
+                    httptest::matchers::any()
+                ))),
+            ])
+            .respond_with(status_code(200).body("{\"hello\": \"world\"}")),
+        );
+
+        let client = create_client(true, server_url.clone()).await;
+
+        let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
+        let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
+        let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
+        use tracing_subscriber::layer::SubscriberExt;
+        let subscriber = tracing_subscriber::registry().with(telemetry);
+        let _guard = tracing::subscriber::set_default(subscriber);
+
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
+        let request = client.builder(Method::GET, "/test".to_string());
+
+        let span = tracing::info_span!("parent_span");
+        let result: Result<Response<TestResponse>> = client
+            .execute(request, None::<NoBody>, options)
+            .instrument(span)
+            .await;
+
+        assert!(result.is_ok(), "{result:?}");
     }
 }

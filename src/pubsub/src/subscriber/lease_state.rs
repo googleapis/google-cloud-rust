@@ -19,6 +19,7 @@ use super::handler::AckResult;
 use super::handler::Action;
 use super::leaser::ConfirmedAcks;
 use super::leaser::Leaser;
+use super::shutdown_behavior::ShutdownBehavior;
 use at_least_once::Leases;
 use exactly_once::Leases as EoLeases;
 use tokio::sync::oneshot::Sender;
@@ -41,8 +42,10 @@ pub(super) struct LeaseOptions {
     /// How long we wait for the initial extensions
     pub(super) extend_start: Duration,
     /// How long messages can be kept under lease. A message's lease can be
-    /// extended as long as `max_lease_extension` has not elapsed.
-    pub(super) max_lease_extension: Duration,
+    /// extended as long as `max_lease` has not elapsed.
+    pub(super) max_lease: Duration,
+    /// The shutdown behavior of the lease loop
+    pub(super) shutdown_behavior: ShutdownBehavior,
 }
 
 impl Default for LeaseOptions {
@@ -52,11 +55,14 @@ impl Default for LeaseOptions {
             flush_start: Duration::from_millis(100),
             extend_period: Duration::from_secs(3),
             extend_start: Duration::from_millis(500),
-            max_lease_extension: Duration::from_secs(600),
+            max_lease: Duration::from_secs(600),
+            // TODO(#4869) - switch to `WaitForProcessing`
+            shutdown_behavior: ShutdownBehavior::NackImmediately,
         }
     }
 }
 
+#[derive(Debug)]
 pub(super) struct NewMessage {
     pub(super) ack_id: String,
     pub(super) lease_info: LeaseInfo,
@@ -81,6 +87,16 @@ pub(super) struct ExactlyOnceInfo {
     pending: bool,
 }
 
+impl ExactlyOnceInfo {
+    pub(super) fn new(result_tx: Sender<AckResult>) -> Self {
+        ExactlyOnceInfo {
+            receive_time: Instant::now(),
+            result_tx,
+            pending: false,
+        }
+    }
+}
+
 #[derive(Debug)]
 pub(super) struct LeaseState<L>
 where
@@ -99,7 +115,7 @@ where
     // A timer for extending leases
     extend_interval: Interval,
     // How long messages can be kept under lease
-    max_lease_extension: Duration,
+    max_lease: Duration,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -126,7 +142,7 @@ where
             leaser,
             flush_interval,
             extend_interval,
-            max_lease_extension: options.max_lease_extension,
+            max_lease: options.max_lease,
         }
     }
 
@@ -202,12 +218,12 @@ where
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(super) async fn extend(&mut self) {
         // TODO(#3975) - send RPCs concurrently.
-        let batches = self.leases.retain(self.max_lease_extension);
+        let batches = self.leases.retain(self.max_lease);
         for ack_ids in batches {
             self.leaser.extend(ack_ids).await;
         }
 
-        let batches = self.eo_leases.retain(self.max_lease_extension);
+        let batches = self.eo_leases.retain(self.max_lease);
         for ack_ids in batches {
             self.leaser.extend(ack_ids).await;
         }
@@ -218,14 +234,16 @@ where
     /// This flushes all pending acks and nacks all other messages.
     pub(super) async fn shutdown(mut self) {
         // TODO(#3975) - await these concurrently.
-        // TODO(#4869) - support `WaitForProcessing` shutdown behavior.
+
+        // Note that if `WaitForProcessing` was selected by the application,
+        // there are no messages under lease. They have all been processed.
         self.leases.evict();
         let (to_ack, to_nack) = self.leases.drain();
-        // TODO(#4847) - this nack needs to be broken into batches.
         if !to_ack.is_empty() {
             self.leaser.ack(to_ack).await;
         }
         if !to_nack.is_empty() {
+            // TODO(#4847) - this nack needs to be broken into batches.
             self.leaser.nack(to_nack).await;
         }
 
@@ -254,19 +272,9 @@ pub(super) mod tests {
     use test_case::test_case;
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::sync::oneshot::channel;
-    use tokio::time::interval;
 
     // Cover the constant, converting it to an integer for convenience.
-    const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
-
-    // Any valid `Interval` will do.
-    fn test_interval() -> Interval {
-        interval(Duration::from_secs(1))
-    }
-
-    fn test_duration() -> Duration {
-        Duration::from_secs(123)
-    }
+    pub(crate) const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
 
     #[derive(Debug)]
     pub(super) struct TestLeases {
@@ -295,12 +303,7 @@ pub(super) mod tests {
 
     pub(in super::super) fn exactly_once_info() -> LeaseInfo {
         let (result_tx, _result_rx) = channel();
-        let info = ExactlyOnceInfo {
-            receive_time: Instant::now(),
-            result_tx,
-            pending: false,
-        };
-        LeaseInfo::ExactlyOnce(info)
+        LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx))
     }
 
     #[tokio::test(start_paused = true)]
@@ -1056,7 +1059,7 @@ pub(super) mod tests {
     #[test_case(super::exactly_once_info)]
     #[tokio::test(start_paused = true)]
     async fn message_expiration(lease_info_factory: fn() -> LeaseInfo) -> anyhow::Result<()> {
-        const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(300);
+        const MAX_LEASE: Duration = Duration::from_secs(300);
         const DELTA: Duration = Duration::from_secs(1);
 
         let mut seq = mockall::Sequence::new();
@@ -1073,7 +1076,7 @@ pub(super) mod tests {
             .returning(|_| ());
 
         let options = LeaseOptions {
-            max_lease_extension: MAX_LEASE_EXTENSION,
+            max_lease: MAX_LEASE,
             ..Default::default()
         };
         let mut state = LeaseState::new(Arc::new(mock), options);
@@ -1091,7 +1094,7 @@ pub(super) mod tests {
         state.extend().await;
 
         // Advance the time past the expiration of the original 10 messages.
-        tokio::time::advance(MAX_LEASE_EXTENSION - DELTA).await;
+        tokio::time::advance(MAX_LEASE - DELTA).await;
         state.extend().await;
 
         // Advance the time past the expiration of the subsequent 10 messages.

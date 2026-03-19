@@ -34,7 +34,7 @@ wkt.workspace         = true
 tokio                 = { workspace = true, features = ["time"] }
 
 [dev-dependencies]
-test-case.workspace   = true
+test-case.workspace = true
 
 [features]
 # DO NOT USE: this allows us to detect semver changes in types used in the

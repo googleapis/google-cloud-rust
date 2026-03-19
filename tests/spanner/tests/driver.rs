@@ -270,6 +270,63 @@ ORDER BY col_int64
         Ok(())
     }
 
+    #[tokio::test]
+    async fn result_set_metadata() -> anyhow::Result<()> {
+        let db_client = match create_database_client().await {
+            Some(client) => client,
+            None => return Ok(()),
+        };
+
+        let rot = db_client.single_use().build();
+
+        // 1. Simple normal query
+        let sql = "SELECT 1 as num, 'Alice' as name";
+        let mut rs = rot.execute_query(Statement::builder(sql).build()).await?;
+
+        assert!(rs.next().await.transpose()?.is_some());
+        let metadata = rs.metadata()?;
+        assert_eq!(
+            metadata.column_names(),
+            &["num".to_string(), "name".to_string()]
+        );
+
+        // 2. Query that returns zero rows
+        let sql_zero_rows = r#"
+        WITH Data AS (
+            SELECT 1 as num, 'Alice' as name
+        )
+        SELECT num, name FROM Data WHERE 1=0
+        "#;
+        let mut rs_zero_rows = rot
+            .execute_query(Statement::builder(sql_zero_rows).build())
+            .await?;
+
+        assert!(rs_zero_rows.next().await.transpose()?.is_none());
+        let metadata_zero_rows = rs_zero_rows.metadata()?;
+        assert_eq!(
+            metadata_zero_rows.column_names(),
+            &["num".to_string(), "name".to_string()]
+        );
+
+        // 3. Query with duplicate aliases
+        let sql_dup = "SELECT 1 as dup, 2 as dup";
+        let mut rs_dup = rot
+            .execute_query(Statement::builder(sql_dup).build())
+            .await?;
+
+        let row_dup = rs_dup.next().await.transpose()?.unwrap();
+        let metadata_dup = rs_dup.metadata()?;
+        assert_eq!(
+            metadata_dup.column_names(),
+            &["dup".to_string(), "dup".to_string()]
+        );
+
+        let val: i64 = row_dup.get("dup");
+        assert_eq!(val, 1);
+
+        Ok(())
+    }
+
     fn verify_null_row(row: &google_cloud_spanner::client::Row) {
         let raw_values = row.raw_values();
         assert_eq!(raw_values.len(), 20, "Row should have exactly 20 columns");
@@ -392,5 +449,41 @@ ORDER BY col_int64
             raw_values[19].as_list().get(1).unwrap().as_string(),
             "2026-03-11T16:20:00Z"
         );
+    }
+
+    #[tokio::test]
+    async fn multi_use_read_only_transaction() -> anyhow::Result<()> {
+        let db_client = match create_database_client().await {
+            Some(client) => client,
+            None => return Ok(()),
+        };
+
+        // Start a multi-use read-only transaction.
+        let tx = db_client.read_only_transaction().build().await?;
+
+        // Expect a read timestamp to have been chosen.
+        assert!(tx.read_timestamp().is_some());
+
+        // Execute the first query.
+        let mut rs1 = tx
+            .execute_query(Statement::builder("SELECT 1 AS col_int").build())
+            .await?;
+        let row1 = rs1.next().await.transpose()?.expect("should yield a row");
+        let val1 = row1.raw_values()[0].as_string();
+        assert_eq!(val1, "1");
+        let next1 = rs1.next().await.transpose()?;
+        assert!(next1.is_none(), "{next1:?}");
+
+        // Execute the second query reusing the same transaction.
+        let mut rs2 = tx
+            .execute_query(Statement::builder("SELECT 2 AS col_int").build())
+            .await?;
+        let row2 = rs2.next().await.transpose()?.expect("should yield a row");
+        let val2 = row2.raw_values()[0].as_string();
+        assert_eq!(val2, "2");
+        let next2 = rs2.next().await.transpose()?;
+        assert!(next2.is_none(), "{next2:?}");
+
+        Ok(())
     }
 }

@@ -40,7 +40,6 @@ use tokio::time::{Duration, Instant, sleep};
 
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
-#[allow(dead_code)]
 // TTL: 6 hours
 const DEFAULT_TTL: Duration = Duration::from_secs(6 * 60 * 60);
 // Refresh slack: an hour before the TTL expires
@@ -117,7 +116,8 @@ impl AccessBoundary {
         }
     }
 
-    pub(crate) fn header_value(&self) -> Option<String> {
+    #[cfg(test)]
+    fn header_value(&self) -> Option<String> {
         let (val, _) = self.latest_header_value_and_entity_tag();
         val
     }
@@ -279,7 +279,7 @@ where
         }
     }
 
-    #[cfg(test)]
+    #[cfg(all(test, google_cloud_unstable_trusted_boundaries))]
     pub(crate) async fn wait_for_boundary(&self) {
         let mut rx = self.access_boundary.rx_header.clone();
         if rx.borrow().0.is_some() {

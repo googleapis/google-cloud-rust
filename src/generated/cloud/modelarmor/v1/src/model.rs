@@ -22,7 +22,6 @@ extern crate bytes;
 extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_location;
-extern crate lazy_static;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;

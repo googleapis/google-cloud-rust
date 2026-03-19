@@ -12,5 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# We need to support 1.85. Stop clippy from issuing newer warnings.
-msrv = "1.85.0"
+# We need to support 1.86. Stop clippy from issuing newer warnings.
+msrv = "1.86.0"

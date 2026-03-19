@@ -108,6 +108,13 @@ impl From<Type> for crate::generated::gapic_dataplane::model::Type {
     }
 }
 
+impl From<crate::google::spanner::v1::Type> for Type {
+    fn from(value: crate::google::spanner::v1::Type) -> Self {
+        use gaxi::prost::FromProto;
+        value.cnv().unwrap_or_default().into()
+    }
+}
+
 impl Type {
     /// Returns the type code.
     pub fn code(&self) -> TypeCode {

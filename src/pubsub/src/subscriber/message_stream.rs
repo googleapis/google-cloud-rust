@@ -13,9 +13,9 @@
 // limitations under the License.
 
 use super::builder::Subscribe;
-use super::handler::{Action, AtLeastOnce, Handler};
+use super::handler::{Action, AtLeastOnce, ExactlyOnce, Handler};
 use super::lease_loop::LeaseLoop;
-use super::lease_state::{LeaseInfo, LeaseOptions, NewMessage};
+use super::lease_state::{ExactlyOnceInfo, LeaseInfo, LeaseOptions, NewMessage};
 use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
 use super::stream::Stream;
@@ -108,7 +108,7 @@ impl MessageStream {
         let inner = builder.inner;
         let subscription = builder.subscription;
 
-        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (confirmed_tx, confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             inner.clone(),
             confirmed_tx,
@@ -116,11 +116,15 @@ impl MessageStream {
             builder.ack_deadline_seconds,
             builder.grpc_subchannel_count,
         );
+        let options = LeaseOptions {
+            max_lease: builder.max_lease,
+            ..Default::default()
+        };
         let LeaseLoop {
             handle: _lease_loop,
             message_tx,
             ack_tx,
-        } = LeaseLoop::new(leaser, LeaseOptions::default());
+        } = LeaseLoop::new(leaser, confirmed_rx, options);
 
         let initial_req = StreamingPullRequest {
             subscription,
@@ -270,6 +274,10 @@ impl MessageStream {
             Err(e) => return Some(Err(e)),
         };
 
+        let exactly_once = resp
+            .subscription_properties
+            .is_some_and(|m| m.exactly_once_delivery_enabled);
+
         // Process the received messages in the response.
         for rm in resp.received_messages {
             let Some(message) = rm.message else {
@@ -281,19 +289,33 @@ impl MessageStream {
                 // message.
                 continue;
             };
-            let lease_info = LeaseInfo::AtLeastOnce(Instant::now());
+
+            let (lease_info, handler) = if exactly_once {
+                let (result_tx, result_rx) = tokio::sync::oneshot::channel();
+                (
+                    LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx)),
+                    Handler::ExactlyOnce(ExactlyOnce::new(
+                        rm.ack_id.clone(),
+                        self.ack_tx.clone(),
+                        result_rx,
+                    )),
+                )
+            } else {
+                (
+                    LeaseInfo::AtLeastOnce(Instant::now()),
+                    Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id.clone(), self.ack_tx.clone())),
+                )
+            };
+
             let _ = self.message_tx.send(NewMessage {
-                ack_id: rm.ack_id.clone(),
+                ack_id: rm.ack_id,
                 lease_info,
             });
             let message = match message.cnv().map_err(Error::deser) {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
             };
-            self.pool.push_back((
-                message,
-                Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id, self.ack_tx.clone())),
-            ));
+            self.pool.push_back((message, handler));
         }
         Some(Ok(()))
     }
@@ -308,6 +330,7 @@ impl MessageStream {
 
         // Signal a shutdown to the lease management background task.
         drop(self.message_tx);
+        drop(self.ack_tx);
 
         // Wait for the lease management task to complete.
         self._lease_loop.await?;
@@ -320,7 +343,7 @@ impl MessageStream {
 mod tests {
     use super::super::client::Subscriber;
     use super::super::keepalive::KEEPALIVE_PERIOD;
-    use super::super::lease_state::tests::{test_id, test_ids};
+    use super::super::lease_state::tests::{MAX_IDS_PER_RPC, test_id, test_ids};
     use super::super::stream::{INITIAL_DELAY, MAXIMUM_DELAY};
     use super::*;
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
@@ -329,7 +352,7 @@ mod tests {
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
     use tokio::sync::mpsc::{channel, unbounded_channel};
-    use tokio::task::JoinHandle;
+    use tokio::task::{JoinHandle, JoinSet};
     use tokio::time::{Duration, Instant};
 
     fn sorted(mut v: Vec<String>) -> Vec<String> {
@@ -343,6 +366,27 @@ mod tests {
 
     fn test_response(range: std::ops::Range<i32>) -> v1::StreamingPullResponse {
         v1::StreamingPullResponse {
+            received_messages: range
+                .into_iter()
+                .map(|i| v1::ReceivedMessage {
+                    ack_id: test_id(i),
+                    message: Some(v1::PubsubMessage {
+                        data: test_data(i).to_vec(),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                })
+                .collect(),
+            ..Default::default()
+        }
+    }
+
+    fn test_exactly_once_response(range: std::ops::Range<i32>) -> v1::StreamingPullResponse {
+        v1::StreamingPullResponse {
+            subscription_properties: Some(v1::streaming_pull_response::SubscriptionProperties {
+                exactly_once_delivery_enabled: true,
+                ..Default::default()
+            }),
             received_messages: range
                 .into_iter()
                 .map(|i| v1::ReceivedMessage {
@@ -512,6 +556,66 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
+    async fn basic_success_exactly_once() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge().returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+
+        response_tx
+            .send(Ok(test_exactly_once_response(0..2)))
+            .await?;
+        response_tx
+            .send(Ok(test_exactly_once_response(2..4)))
+            .await?;
+        // We use MAX_IDS_PER_RPC total ids to indirectly force a flush in the subscriber.
+        // This is needed for exactly once because the current shutdown behavior does not
+        // send a final AcknowledgeRequest for application acknowledged ids.
+        response_tx
+            .send(Ok(test_exactly_once_response(4..MAX_IDS_PER_RPC)))
+            .await?;
+
+        let mut acks = JoinSet::new();
+        for i in 0..MAX_IDS_PER_RPC {
+            let Some((m, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/{MAX_IDS_PER_RPC}")
+            };
+            assert_eq!(m.data, test_data(i));
+            assert_eq!(h.ack_id(), test_id(i));
+            acks.spawn(h.confirmed_ack());
+        }
+        while let Some(r) = acks.join_next().await {
+            r?.inspect_err(|e| tracing::info!("received unexpected confirm_ack error: {e:?}"))?;
+        }
+
+        drop(response_tx);
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
+
+        // Wait for the stream to join its background tasks.
+        stream.close().await?;
+
+        // Verify the acks went through.
+        let ack_req = ack_rx.try_recv()?;
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(ack_req.ack_ids.len(), MAX_IDS_PER_RPC as usize);
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(0..MAX_IDS_PER_RPC));
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
     async fn basic_lease_management() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -540,7 +644,10 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_max_lease_extension(Duration::from_secs(10))
+            .build();
 
         response_tx.send(Ok(test_response(0..30))).await?;
         drop(response_tx);
@@ -568,8 +675,8 @@ mod tests {
             hold.push(h);
         }
 
-        // Advance the clock 10s, which is the default stream ack deadline. In
-        // this time, we should attempt at least one lease extension RPC.
+        // Advance the clock 10s, which is the stream ack deadline. In this
+        // time, we should attempt at least one lease extension RPC.
         tokio::time::advance(Duration::from_secs(10)).await;
 
         // Close the stream, to make sure pending operations complete.
@@ -728,7 +835,10 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_max_lease_extension(Duration::from_secs(10))
+            .build();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         // See if we can handle an empty range
@@ -748,8 +858,8 @@ mod tests {
         let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
 
-        // Advance the clock 10s, which is the default stream ack deadline. In
-        // this time, we should attempt at least one lease extension RPC.
+        // Advance the clock 10s, which is the stream ack deadline. In this
+        // time, we should attempt at least one lease extension RPC.
         tokio::time::advance(Duration::from_secs(10)).await;
 
         // Close the stream, to make sure pending operations complete.
@@ -1217,6 +1327,68 @@ mod tests {
             .expect("should receive acknowledgements");
         assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
         assert_eq!(sorted(ack_req.ack_ids), test_ids(1..3));
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn basic_lease_expiration() -> anyhow::Result<()> {
+        const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(10);
+        const MAX_LEASE: Duration = Duration::from_secs(30);
+        // We configure a max lease for this test (30s) that differs from the
+        // default (600s) to verify that an application's configuration
+        // overrides the default.
+
+        let start_time = Instant::now();
+        let (response_tx, response_rx) = channel(10);
+        let (extend_tx, mut extend_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_modify_ack_deadline().returning(move |r| {
+            extend_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_max_lease(MAX_LEASE)
+            .set_max_lease_extension(MAX_LEASE_EXTENSION)
+            .build();
+
+        response_tx.send(Ok(test_response(0..1))).await?;
+        drop(response_tx);
+
+        let (_m, _h) = stream
+            .next()
+            .await
+            .expect("stream should yield a message")?;
+
+        // Advance the clock well past the expected message expiration,
+        // recording the time at which we sent the last lease extension.
+        let mut latest = None;
+        for _ in 0..MAX_LEASE.as_secs() * 2 {
+            while let Ok(r) = extend_rx.try_recv() {
+                assert_ne!(r.ack_deadline_seconds, 0, "unexpectedly received a nack");
+                latest = Some(start_time.elapsed());
+            }
+            tokio::time::advance(Duration::from_secs(1)).await;
+            tokio::task::yield_now().await;
+        }
+
+        // Verify when we stop sending lease extensions.
+        let expected_range = (MAX_LEASE - MAX_LEASE_EXTENSION)..=MAX_LEASE;
+        assert!(
+            latest.is_some_and(|t| expected_range.contains(&t)),
+            "{latest:?}"
+        );
+
+        // Close the stream, to make sure pending operations complete.
+        stream.close().await?;
 
         Ok(())
     }

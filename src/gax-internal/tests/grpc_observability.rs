@@ -19,12 +19,23 @@ mod tests {
     use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
     use google_cloud_gax::retry_policy::Aip194Strict;
     use google_cloud_gax_internal::grpc;
+    use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
     use google_cloud_test_utils::test_layer::TestLayer;
     use grpc_server::{google, start_echo_server};
+    use std::sync::LazyLock;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
     }
+
+    static TEST_INFO: LazyLock<InstrumentationClientInfo> = LazyLock::new(|| {
+        let mut info = InstrumentationClientInfo::default();
+        info.service_name = "test-service";
+        info.client_version = "1.0.0";
+        info.client_artifact = "test-artifact";
+        info.default_host = "example.com";
+        info
+    });
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_grpc_basic_span() -> anyhow::Result<()> {
@@ -35,20 +46,9 @@ mod tests {
         let guard = TestLayer::initialize();
 
         // Configure client with tracing enabled
-        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        let mut config = ClientConfig::default();
         config.tracing = true;
         config.cred = Some(test_credentials());
-
-        lazy_static::lazy_static! {
-            static ref TEST_INFO: google_cloud_gax_internal::options::InstrumentationClientInfo = {
-                let mut info = google_cloud_gax_internal::options::InstrumentationClientInfo::default();
-                info.service_name = "test-service";
-                info.client_version = "1.0.0";
-                info.client_artifact = "test-artifact";
-                info.default_host = "example.com";
-                info
-            };
-        }
 
         let client = grpc::Client::new_with_instrumentation(config, &endpoint, &TEST_INFO).await?;
 
@@ -692,6 +692,59 @@ mod tests {
             &google_cloud_test_utils::test_layer::AttributeValue::String(
                 "projects/p/locations/l/resources/r".into()
             )
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn propagate_trace_context() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        config.tracing = true;
+        config.cred = Some(test_credentials());
+        let client = grpc::Client::new(config, &endpoint).await?;
+
+        let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
+        let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
+        let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
+        use tracing_subscriber::layer::SubscriberExt;
+        let subscriber = tracing_subscriber::registry().with(telemetry);
+        let _guard = tracing::subscriber::set_default(subscriber);
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
+        let request = google::test::v1::EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+
+        use tracing::Instrument;
+        let span = tracing::info_span!("parent_span");
+        let response = client
+            .execute::<_, google::test::v1::EchoResponse>(
+                extensions,
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+                request,
+                RequestOptions::default(),
+                "test-client",
+                "",
+            )
+            .instrument(span)
+            .await?;
+
+        let inner = response.into_inner();
+        assert!(
+            inner.metadata.contains_key("traceparent"),
+            "Metadata should contain traceparent. Metadata: {:?}",
+            inner.metadata
         );
 
         Ok(())
