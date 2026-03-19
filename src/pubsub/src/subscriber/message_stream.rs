@@ -1406,7 +1406,6 @@ mod tests {
             .times(1)
             .returning(|_| Ok(TonicResponse::from(())));
         mock.expect_modify_ack_deadline()
-            .times(1)
             .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
