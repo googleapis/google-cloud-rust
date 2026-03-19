@@ -19,6 +19,7 @@
 use crate::build_errors::Error as BuilderError;
 use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
+use crate::signer::Signer;
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
@@ -117,7 +118,7 @@ pub struct Credentials {
     // They also need to derive `Clone`, as the
     // `google_cloud_gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
     // `Box` will not do.
-    pub(crate) inner: Arc<dyn dynamic::CredentialsProvider>,
+    inner: Arc<dyn dynamic::CredentialsProvider>,
 }
 
 impl<T> std::convert::From<T> for Credentials
@@ -600,12 +601,12 @@ impl Builder {
         build_credentials(json_data, quota_project_id, self.scopes)
     }
 
-    /// Returns a [crate::signer::Signer] instance with the configured settings.
+    /// Returns a [Signer] instance with the configured settings.
     ///
     /// This method automatically loads Application Default Credentials (ADC)
     /// from the environment and uses them to create a signer.
     ///
-    /// The returned [crate::signer::Signer] might perform signing locally (e.g. if a service
+    /// The returned [Signer] might perform signing locally (e.g. if a service
     /// account key is found) or via a remote API (e.g. if running on GCE).
     ///
     /// # Example
@@ -618,7 +619,7 @@ impl Builder {
     /// # Ok::<(), anyhow::Error>(())
     /// # });
     /// ```
-    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
+    pub fn build_signer(self) -> BuildResult<Signer> {
         let json_data = match load_adc()? {
             AdcContents::Contents(contents) => {
                 Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
@@ -753,7 +754,7 @@ fn build_signer(
     json: Option<Value>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
-) -> BuildResult<crate::signer::Signer> {
+) -> BuildResult<Signer> {
     match json {
         None => config_signer!(
             mds::Builder::from_adc(),

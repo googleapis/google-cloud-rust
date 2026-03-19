@@ -104,6 +104,8 @@ use crate::headers_util::{
     self, ACCESS_TOKEN_REQUEST_TYPE, AuthHeadersBuilder, metrics_header_value,
 };
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
+use crate::signer::Signer;
+use crate::signer::iam::IamSigner;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
@@ -521,9 +523,9 @@ impl Builder {
         ))
     }
 
-    /// Returns a [crate::signer::Signer] instance with the configured settings.
+    /// Returns a [Signer] instance with the configured settings.
     ///
-    /// The returned [crate::signer::Signer] uses the [IAM signBlob API] to sign content. This API
+    /// The returned [Signer] uses the [IAM signBlob API] to sign content. This API
     /// requires a network request for each signing operation.
     ///
     /// Note that if the source credentials are a service account, the signer
@@ -554,7 +556,7 @@ impl Builder {
     /// ```
     ///
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
-    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
+    pub fn build_signer(self) -> BuildResult<Signer> {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let source = self.source.clone();
         if let BuilderSource::FromJson(json) = source {
@@ -567,8 +569,8 @@ impl Builder {
         let service_account_impersonation_url = self.resolve_impersonation_url()?;
         let client_email = extract_client_email(&service_account_impersonation_url)?;
         let creds = self.build()?;
-        let signer = crate::signer::iam::IamSigner::new(client_email, creds, iam_endpoint);
-        Ok(crate::signer::Signer {
+        let signer = IamSigner::new(client_email, creds, iam_endpoint);
+        Ok(Signer {
             inner: Arc::new(signer),
         })
     }
@@ -669,7 +671,7 @@ pub(crate) fn build_components_from_json(
 // Check if the source credentials is a service account and if so, build a signer from it.
 // Service account signers can do signing locally, which is more efficient than using the
 // remote/API based signer.
-fn build_signer_from_json(json: Value) -> BuildResult<Option<crate::signer::Signer>> {
+fn build_signer_from_json(json: Value) -> BuildResult<Option<Signer>> {
     use crate::credentials::service_account::ServiceAccountKey;
     use crate::signer::service_account::ServiceAccountSigner;
 
@@ -685,7 +687,7 @@ fn build_signer_from_json(json: Value) -> BuildResult<Option<crate::signer::Sign
             service_account_key,
             client_email,
         );
-        let signer = crate::signer::Signer {
+        let signer = Signer {
             inner: Arc::new(signing_provider),
         };
         return Ok(Some(signer));

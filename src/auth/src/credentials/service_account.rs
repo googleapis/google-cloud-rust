@@ -79,6 +79,8 @@ use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsPro
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self};
 use crate::headers_util::AuthHeadersBuilder;
+use crate::signer::Signer;
+use crate::signer::service_account::ServiceAccountSigner;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
@@ -86,7 +88,6 @@ use async_trait::async_trait;
 use http::{Extensions, HeaderMap};
 use jws::{CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT, JwsClaims, JwsHeader};
 use rustls::crypto::CryptoProvider;
-use rustls::sign::Signer;
 use rustls_pki_types::{PrivateKeyDer, pem::PemObject};
 use serde_json::Value;
 use std::sync::Arc;
@@ -366,9 +367,9 @@ impl Builder {
         ))
     }
 
-    /// Returns a [crate::signer::Signer] instance with the configured settings.
+    /// Returns a [Signer] instance with the configured settings.
     ///
-    /// The returned [crate::signer::Signer] uses the service account's private key to sign blobs locally.
+    /// The returned [Signer] uses the service account's private key to sign blobs locally.
     /// It does not make any network requests to perform signing operations.
     ///
     /// # Example
@@ -394,13 +395,12 @@ impl Builder {
     ///
     /// Returns an error if the `service_account_key` provided to [`Builder::new`]
     /// cannot be successfully deserialized or doesn't contain a valid private key.
-    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
+    pub fn build_signer(self) -> BuildResult<Signer> {
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key.clone())
                 .map_err(BuilderError::parsing)?;
-        let signing_provider =
-            crate::signer::service_account::ServiceAccountSigner::new(service_account_key);
-        Ok(crate::signer::Signer {
+        let signing_provider = ServiceAccountSigner::new(service_account_key);
+        Ok(Signer {
             inner: Arc::new(signing_provider),
         })
     }
@@ -427,7 +427,7 @@ pub(crate) struct ServiceAccountKey {
 
 impl ServiceAccountKey {
     // Creates a signer using the private key stored in the service account file.
-    pub(crate) fn signer(&self) -> Result<Box<dyn Signer>> {
+    pub(crate) fn signer(&self) -> Result<Box<dyn rustls::sign::Signer>> {
         let private_key = self.private_key.clone();
         let key_provider = CryptoProvider::get_default().map(|p| p.key_provider);
         #[cfg(feature = "default-rustls-provider")]

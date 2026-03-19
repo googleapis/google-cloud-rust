@@ -80,6 +80,8 @@ use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource,
 use crate::headers_util::AuthHeadersBuilder;
 use crate::mds::client::Client as MDSClient;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
+use crate::signer::Signer;
+use crate::signer::mds::MDSSigner;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
@@ -338,9 +340,9 @@ impl Builder {
         ))
     }
 
-    /// Returns a [crate::signer::Signer] instance with the configured settings.
+    /// Returns a [Signer] instance with the configured settings.
     ///
-    /// The returned [crate::signer::Signer] uses the [IAM signBlob API] to sign content. This API
+    /// The returned [Signer] uses the [IAM signBlob API] to sign content. This API
     /// requires a network request for each signing operation.
     ///
     /// # Example
@@ -355,17 +357,17 @@ impl Builder {
     /// ```
     ///
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
-    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
+    pub fn build_signer(self) -> BuildResult<Signer> {
         let client = MDSClient::new(self.endpoint.clone());
         let iam_endpoint = self.iam_endpoint_override.clone();
         let credentials = self.build()?;
-        let signing_provider = crate::signer::mds::MDSSigner::new(client, credentials);
+        let signing_provider = MDSSigner::new(client, credentials);
         let signing_provider = iam_endpoint
             .iter()
             .fold(signing_provider, |signing_provider, endpoint| {
                 signing_provider.with_iam_endpoint_override(endpoint)
             });
-        Ok(crate::signer::Signer {
+        Ok(Signer {
             inner: Arc::new(signing_provider),
         })
     }

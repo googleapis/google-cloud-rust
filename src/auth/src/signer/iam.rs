@@ -12,18 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::{CacheableResource, Credentials};
+use crate::credentials::Credentials;
 use crate::signer::{Result, SigningError, dynamic::SigningProvider};
-use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
-use google_cloud_gax::exponential_backoff::ExponentialBackoff;
-use google_cloud_gax::retry_loop_internal::retry_loop;
-use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyArg, RetryPolicyExt};
-use google_cloud_gax::retry_throttler::{
-    AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
-};
-use http::{Extensions, HeaderMap};
-use reqwest::Client;
-use std::sync::Arc;
+use google_cloud_iam_credentials_v1::client::IAMCredentials;
 
 // Implements Signer using [IAM signBlob API] and reusing using existing [Credentials] to
 // authenticate to it.
@@ -34,18 +25,6 @@ pub(crate) struct IamSigner {
     client_email: String,
     inner: Credentials,
     endpoint: String,
-    client: Client,
-}
-
-#[derive(Debug, Clone, serde::Serialize)]
-struct SignBlobRequest {
-    payload: String,
-}
-
-#[derive(Debug, serde::Deserialize)]
-struct SignBlobResponse {
-    #[serde(rename = "signedBlob")]
-    signed_blob: String,
 }
 
 impl IamSigner {
@@ -54,7 +33,6 @@ impl IamSigner {
             client_email,
             inner,
             endpoint: endpoint.unwrap_or("https://iamcredentials.googleapis.com".to_string()),
-            client: Client::new(),
         }
     }
 }
@@ -66,113 +44,31 @@ impl SigningProvider for IamSigner {
     }
 
     async fn sign(&self, content: &[u8]) -> Result<bytes::Bytes> {
-        use base64::{Engine, prelude::BASE64_STANDARD};
+        let client = IAMCredentials::builder()
+            .with_credentials(self.inner.clone())
+            .with_endpoint(self.endpoint.clone())
+            .build()
+            .await
+            .map_err(SigningError::transport)?;
 
-        let payload = BASE64_STANDARD.encode(content);
-        let body = SignBlobRequest { payload };
-
+        let payload = bytes::Bytes::copy_from_slice(content);
         let client_email = self.client_email.clone();
-        let url = format!(
-            "{}/v1/projects/-/serviceAccounts/{client_email}:signBlob",
-            self.endpoint
-        );
-        let response =
-            sign_blob_call_with_retry(self.inner.clone(), self.client.clone(), url, body).await?;
-
-        if !response.status().is_success() {
-            let err_text = response.text().await.map_err(SigningError::transport)?;
-            return Err(SigningError::transport(format!("err status: {err_text:?}")));
-        }
-
-        let res = response
-            .json::<SignBlobResponse>()
+        let response = client
+            .sign_blob()
+            .set_name(format!("projects/-/serviceAccounts/{client_email}"))
+            .set_payload(payload)
+            .send()
             .await
             .map_err(SigningError::transport)?;
 
-        let signature = BASE64_STANDARD
-            .decode(res.signed_blob)
-            .map_err(SigningError::transport)?;
-
-        Ok(bytes::Bytes::from(signature))
+        Ok(response.signed_blob)
     }
-}
-
-async fn sign_blob_call_with_retry(
-    credentials: Credentials,
-    client: Client,
-    url: String,
-    body: SignBlobRequest,
-) -> Result<reqwest::Response> {
-    let sleep = async |d| tokio::time::sleep(d).await;
-
-    let retry_policy: RetryPolicyArg = Aip194Strict.with_attempt_limit(3).into();
-    let backoff_policy: BackoffPolicyArg = ExponentialBackoff::default().into();
-    let backoff_policy: Arc<dyn BackoffPolicy> = backoff_policy.into();
-    let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
-    let retry_throttler: SharedRetryThrottler = retry_throttler.into();
-
-    retry_loop(
-        async move |_| {
-            let source_headers = credentials
-                .headers(Extensions::new())
-                .await
-                .map_err(google_cloud_gax::error::Error::authentication)?;
-
-            sign_blob_call(&client, &url, source_headers, body.clone()).await
-        },
-        sleep,
-        true, // signBlob is idempotent
-        retry_throttler,
-        retry_policy.into(),
-        backoff_policy,
-    )
-    .await
-    .map_err(SigningError::transport)
-}
-
-async fn sign_blob_call(
-    client: &Client,
-    url: &str,
-    source_headers: CacheableResource<HeaderMap>,
-    body: SignBlobRequest,
-) -> google_cloud_gax::Result<reqwest::Response> {
-    let source_headers = match source_headers {
-        CacheableResource::New { data, .. } => data,
-        CacheableResource::NotModified => {
-            unreachable!("requested source credentials without a caching etag")
-        }
-    };
-
-    let response = client
-        .post(url)
-        .header("Content-Type", "application/json")
-        .headers(source_headers.clone())
-        .json(&body)
-        .send()
-        .await
-        .map_err(google_cloud_gax::error::Error::io)?;
-
-    let status = response.status();
-    if !status.is_success() {
-        let err_headers = response.headers().clone();
-        let err_payload = response
-            .bytes()
-            .await
-            .map_err(|e| google_cloud_gax::error::Error::transport(err_headers.clone(), e))?;
-        return Err(google_cloud_gax::error::Error::http(
-            status.as_u16(),
-            err_headers,
-            err_payload,
-        ));
-    }
-
-    Ok(response)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::credentials::{Credentials, CredentialsProvider, EntityTag};
+    use crate::credentials::{CacheableResource, Credentials, CredentialsProvider, EntityTag};
     use crate::errors::CredentialsError;
     use base64::{Engine, prelude::BASE64_STANDARD};
     use http::header::{HeaderName, HeaderValue};
@@ -208,6 +104,7 @@ mod tests {
                 ),
                 request::headers(contains(("authorization", "Bearer test-value"))),
                 request::body(json_decoded(eq(json!({
+                    "name": format!("projects/-/serviceAccounts/test@example.com"),
                     "payload": payload,
                 }))))
             ])
@@ -283,11 +180,6 @@ mod tests {
     async fn test_iam_sign_retry() -> TestResult {
         let server = Server::run();
         let signed_blob = BASE64_STANDARD.encode("signed_blob");
-        let invalid_res = http::Response::builder()
-            .version(http::Version::HTTP_3) // unsupported version
-            .status(204)
-            .body(Vec::new())
-            .unwrap();
         server.expect(
             Expectation::matching(all_of![request::method_path(
                 "POST",
@@ -295,7 +187,7 @@ mod tests {
             ),])
             .times(3)
             .respond_with(cycle![
-                invalid_res, // forces i/o error
+                status_code(503).body("try-again"),
                 status_code(503).body("try-again"),
                 json_encoded(json!({
                     "signedBlob": signed_blob,
