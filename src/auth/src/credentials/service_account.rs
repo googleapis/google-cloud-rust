@@ -75,6 +75,7 @@ pub(crate) mod jws;
 use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self};
 use crate::headers_util::AuthHeadersBuilder;
@@ -82,10 +83,6 @@ use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
-use google_cloud_auth_internal::credentials::dynamic::{
-    AccessTokenCredentialsProvider, CredentialsProvider,
-};
-use google_cloud_auth_internal::credentials::{new_access_token_credentials, new_credentials};
 use http::{Extensions, HeaderMap};
 use jws::{CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT, JwsClaims, JwsHeader};
 use rustls::crypto::CryptoProvider;
@@ -300,7 +297,9 @@ impl Builder {
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(new_credentials(self.build_credentials()?))
+        Ok(Credentials {
+            inner: Arc::new(self.build_credentials()?),
+        })
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -340,7 +339,9 @@ impl Builder {
     ///
     /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        Ok(new_access_token_credentials(self.build_credentials()?))
+        Ok(AccessTokenCredentials {
+            inner: Arc::new(self.build_credentials()?),
+        })
     }
 
     fn build_credentials(

@@ -32,7 +32,7 @@ type ArcError = Arc<dyn Error + Send + Sync>;
 ///
 /// # Example
 /// ```
-/// use google_cloud_gax::error::CredentialsError;
+/// use google_cloud_gax::error::InternalCredentialsError;
 /// let mut headers = fetch_headers();
 /// while let Err(e) = &headers {
 ///     if e.is_transient() {
@@ -40,7 +40,7 @@ type ArcError = Arc<dyn Error + Send + Sync>;
 ///     }
 /// }
 ///
-/// fn fetch_headers() -> Result<http::HeaderMap, CredentialsError> {
+/// fn fetch_headers() -> Result<http::HeaderMap, InternalCredentialsError> {
 ///   # Ok(http::HeaderMap::new())
 /// }
 /// ```
@@ -48,14 +48,14 @@ type ArcError = Arc<dyn Error + Send + Sync>;
 /// [access tokens]: https://cloud.google.com/docs/authentication/token-types
 /// [Credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credential.html
 #[derive(Clone, Debug)]
-pub struct CredentialsError {
+pub struct InternalCredentialsError {
     is_transient: bool,
     message: Option<String>,
     source: Option<ArcError>,
 }
 
-impl CredentialsError {
-    /// Creates a new `CredentialsError`.
+impl InternalCredentialsError {
+    /// Creates a new `InternalCredentialsError`.
     ///
     /// This function is only intended for use in the client libraries
     /// implementation. Application may use this in mocks, though we do not
@@ -64,7 +64,7 @@ impl CredentialsError {
     ///
     /// # Example
     /// ```
-    /// use google_cloud_gax::error::CredentialsError;
+    /// use google_cloud_gax::error::InternalCredentialsError;
     /// let mut headers = fetch_headers();
     /// while let Err(e) = &headers {
     ///     if e.is_transient() {
@@ -72,7 +72,7 @@ impl CredentialsError {
     ///     }
     /// }
     ///
-    /// fn fetch_headers() -> Result<http::HeaderMap, CredentialsError> {
+    /// fn fetch_headers() -> Result<http::HeaderMap, InternalCredentialsError> {
     ///   # Ok(http::HeaderMap::new())
     /// }
     /// ```
@@ -82,14 +82,14 @@ impl CredentialsError {
     /// * `source` - The underlying error that caused the auth failure.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn from_source<T: Error + Send + Sync + 'static>(is_transient: bool, source: T) -> Self {
-        CredentialsError {
+        InternalCredentialsError {
             is_transient,
             source: Some(Arc::new(source)),
             message: None,
         }
     }
 
-    /// Creates a new `CredentialsError`.
+    /// Creates a new `InternalCredentialsError`.
     ///
     /// This function is only intended for use in the client libraries
     /// implementation. Application may use this in mocks, though we do not
@@ -98,8 +98,8 @@ impl CredentialsError {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::error::CredentialsError;
-    /// let err = CredentialsError::from_msg(
+    /// # use google_cloud_gax::error::InternalCredentialsError;
+    /// let err = InternalCredentialsError::from_msg(
     ///     true, "simulated retryable error while trying to create credentials");
     /// assert!(err.is_transient());
     /// assert!(format!("{err}").contains("simulated retryable error"));
@@ -110,14 +110,14 @@ impl CredentialsError {
     /// * `message` - The underlying error that caused the auth failure.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn from_msg<T: Into<String>>(is_transient: bool, message: T) -> Self {
-        CredentialsError {
+        InternalCredentialsError {
             is_transient,
             message: Some(message.into()),
             source: None,
         }
     }
 
-    /// Creates a new `CredentialsError`.
+    /// Creates a new `InternalCredentialsError`.
     ///
     /// This function is only intended for use in the client libraries
     /// implementation. Application may use this in mocks, though we do not
@@ -126,9 +126,9 @@ impl CredentialsError {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::error::CredentialsError;
+    /// # use google_cloud_gax::error::InternalCredentialsError;
     /// let source = std::io::Error::new(std::io::ErrorKind::ConnectionRefused, "cannot connect");
-    /// let err = CredentialsError::new(
+    /// let err = InternalCredentialsError::new(
     ///     true,
     ///     "simulated retryable error while trying to create credentials",
     ///     source);
@@ -145,7 +145,7 @@ impl CredentialsError {
         M: Into<String>,
         S: std::error::Error + Send + Sync + 'static,
     {
-        CredentialsError {
+        InternalCredentialsError {
             is_transient,
             message: Some(message.into()),
             source: Some(Arc::new(source)),
@@ -156,7 +156,7 @@ impl CredentialsError {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::error::CredentialsError;
+    /// # use google_cloud_gax::error::InternalCredentialsError;
     /// let mut headers = fetch_headers();
     /// while let Err(e) = &headers {
     ///     if e.is_transient() {
@@ -164,7 +164,7 @@ impl CredentialsError {
     ///     }
     /// }
     ///
-    /// fn fetch_headers() -> Result<http::HeaderMap, CredentialsError> {
+    /// fn fetch_headers() -> Result<http::HeaderMap, InternalCredentialsError> {
     ///   # Ok(http::HeaderMap::new())
     /// }
     /// ```
@@ -173,7 +173,7 @@ impl CredentialsError {
     }
 }
 
-impl std::error::Error for CredentialsError {
+impl std::error::Error for InternalCredentialsError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         self.source
             .as_ref()
@@ -184,7 +184,7 @@ impl std::error::Error for CredentialsError {
 const TRANSIENT_MSG: &str = "but future attempts may succeed";
 const PERMANENT_MSG: &str = "and future attempts will not succeed";
 
-impl Display for CredentialsError {
+impl Display for InternalCredentialsError {
     /// Formats the error message to include retryability and source.
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         let msg = if self.is_transient {
@@ -199,10 +199,6 @@ impl Display for CredentialsError {
     }
 }
 
-pub(crate) fn non_retryable_from_str<T: Into<String>>(message: T) -> CredentialsError {
-    CredentialsError::from_msg(false, message)
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -212,7 +208,7 @@ mod tests {
     #[test_case(false)]
     fn from_source(transient: bool) {
         let source = wkt::TimestampError::OutOfRange;
-        let got = CredentialsError::from_source(transient, source);
+        let got = InternalCredentialsError::from_source(transient, source);
         assert_eq!(got.is_transient(), transient, "{got:?}");
         assert!(
             got.source()
@@ -229,7 +225,7 @@ mod tests {
     #[test_case(true)]
     #[test_case(false)]
     fn from_str(transient: bool) {
-        let got = CredentialsError::from_msg(transient, "test-only");
+        let got = InternalCredentialsError::from_msg(transient, "test-only");
         assert_eq!(got.is_transient(), transient, "{got:?}");
         assert!(got.source().is_none(), "{got:?}");
         assert!(got.to_string().contains("test-only"), "{got}");
@@ -239,7 +235,7 @@ mod tests {
     #[test_case(false)]
     fn new(transient: bool) {
         let source = wkt::TimestampError::OutOfRange;
-        let got = CredentialsError::new(transient, "additional information", source);
+        let got = InternalCredentialsError::new(transient, "additional information", source);
         assert_eq!(got.is_transient(), transient, "{got:?}");
         assert!(
             got.source()
@@ -255,12 +251,12 @@ mod tests {
 
     #[test]
     fn fmt() {
-        let e = CredentialsError::from_msg(true, "test-only-err-123");
+        let e = InternalCredentialsError::from_msg(true, "test-only-err-123");
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(TRANSIENT_MSG), "{got}");
 
-        let e = CredentialsError::from_msg(false, "test-only-err-123");
+        let e = InternalCredentialsError::from_msg(false, "test-only-err-123");
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
         assert!(got.contains(PERMANENT_MSG), "{got}");

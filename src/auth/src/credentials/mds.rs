@@ -75,6 +75,7 @@
 //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
 use crate::access_boundary::CredentialsWithAccessBoundary;
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::headers_util::AuthHeadersBuilder;
 use crate::mds::client::Client as MDSClient;
@@ -83,10 +84,6 @@ use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
-use google_cloud_auth_internal::credentials::dynamic::{
-    AccessTokenCredentialsProvider, CredentialsProvider,
-};
-use google_cloud_auth_internal::credentials::{new_access_token_credentials, new_credentials};
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::error::CredentialsError;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
@@ -294,7 +291,9 @@ impl Builder {
 
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(new_credentials(self.build_credentials()?))
+        Ok(Credentials {
+            inner: Arc::new(self.build_credentials()?),
+        })
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -314,7 +313,9 @@ impl Builder {
     /// # });
     /// ```
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        Ok(new_access_token_credentials(self.build_credentials()?))
+        Ok(AccessTokenCredentials {
+            inner: Arc::new(self.build_credentials()?),
+        })
     }
 
     fn build_credentials(

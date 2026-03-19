@@ -14,14 +14,12 @@
 
 use crate::constants::TRUST_BOUNDARY_HEADER;
 use crate::credentials::EntityTag;
+use crate::credentials::dynamic;
+use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, CacheableResource};
 use crate::errors::CredentialsError;
 use crate::mds::client::Client as MDSClient;
 use crate::{Result, errors};
-use google_cloud_auth_internal::credentials::dynamic;
-use google_cloud_auth_internal::credentials::dynamic::{
-    AccessTokenCredentialsProvider, CredentialsProvider,
-};
 use google_cloud_gax::Result as GaxResult;
 use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use google_cloud_gax::error::Error as GaxError;
@@ -629,11 +627,9 @@ pub(crate) fn external_account_lookup_url(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
     use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
     use crate::credentials::{AccessToken, EntityTag};
-    use google_cloud_auth_internal::credentials::dynamic::{
-        AccessTokenCredentialsProvider, CredentialsProvider,
-    };
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, cycle, matchers::*, responders::*};

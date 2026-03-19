@@ -19,9 +19,13 @@
 use crate::build_errors::Error as BuilderError;
 use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
+use crate::token::Token;
 use crate::{BuildResult, Result};
+use http::{Extensions, HeaderMap};
 use serde_json::Value;
-
+use std::future::Future;
+use std::sync::Arc;
+use std::sync::atomic::{AtomicU64, Ordering};
 pub mod anonymous;
 pub mod api_key_credentials;
 pub mod external_account;
@@ -34,17 +38,379 @@ pub mod mds;
 pub mod service_account;
 pub mod subject_token;
 pub mod user_account;
-
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
+
 #[cfg(test)]
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
-pub type Credentials = google_cloud_auth_internal::credentials::Credentials;
-pub use google_cloud_auth_internal::credentials::{
-    AccessTokenCredentials, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider,
-    EntityTag,
-};
-pub use google_cloud_auth_internal::token::AccessToken;
+/// Represents an Entity Tag for a [CacheableResource].
+///
+/// An `EntityTag` is an opaque token that can be used to determine if a
+/// cached resource has changed. The specific format of this tag is an
+/// implementation detail.
+///
+/// As the name indicates, these are inspired by the ETags prevalent in HTTP
+/// caching protocols. Their implementation is very different, and are only
+/// intended for use within a single program.
+#[derive(Clone, Debug, PartialEq, Default)]
+pub struct EntityTag(pub u64);
+
+static ENTITY_TAG_GENERATOR: AtomicU64 = AtomicU64::new(0);
+impl EntityTag {
+    pub fn new() -> Self {
+        let value = ENTITY_TAG_GENERATOR.fetch_add(1, Ordering::SeqCst);
+        Self(value)
+    }
+}
+
+/// Represents a resource that can be cached, along with its [EntityTag].
+///
+/// This enum is used to provide cacheable data to the consumers of the credential provider.
+/// It allows a data provider to return either new data (with an [EntityTag]) or
+/// indicate that the caller's cached version (identified by a previously provided [EntityTag])
+/// is still valid.
+#[derive(Clone, PartialEq, Debug)]
+pub enum CacheableResource<T> {
+    NotModified,
+    New { entity_tag: EntityTag, data: T },
+}
+
+/// An implementation of [crate::credentials::CredentialsProvider].
+///
+/// Represents a [Credentials] used to obtain the auth request headers.
+///
+/// In general, [Credentials][credentials-link] are "digital object that provide
+/// proof of identity", the archetype may be a username and password
+/// combination, but a private RSA key may be a better example.
+///
+/// Modern authentication protocols do not send the credentials to authenticate
+/// with a service. Even when sent over encrypted transports, the credentials
+/// may be accidentally exposed via logging or may be captured if there are
+/// errors in the transport encryption. Because the credentials are often
+/// long-lived, that risk of exposure is also long-lived.
+///
+/// Instead, modern authentication protocols exchange the credentials for a
+/// time-limited [Token][token-link], a digital object that shows the caller was
+/// in possession of the credentials. Because tokens are time limited, risk of
+/// misuse is also time limited. Tokens may be further restricted to only a
+/// certain subset of the RPCs in the service, or even to specific resources, or
+/// only when used from a given machine (virtual or not). Further limiting the
+/// risks associated with any leaks of these tokens.
+///
+/// This struct also abstracts token sources that are not backed by a specific
+/// digital object. The canonical example is the [Metadata Service]. This
+/// service is available in many Google Cloud environments, including
+/// [Google Compute Engine], and [Google Kubernetes Engine].
+///
+/// [credentials-link]: https://cloud.google.com/docs/authentication#credentials
+/// [token-link]: https://cloud.google.com/docs/authentication#token
+/// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
+/// [Google Compute Engine]: https://cloud.google.com/products/compute
+/// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
+#[derive(Clone, Debug)]
+pub struct Credentials {
+    // We use an `Arc` to hold the inner implementation.
+    //
+    // Credentials may be shared across threads (`Send + Sync`), so an `Rc`
+    // will not do.
+    //
+    // They also need to derive `Clone`, as the
+    // `google_cloud_gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
+    // `Box` will not do.
+    pub(crate) inner: Arc<dyn dynamic::CredentialsProvider>,
+}
+
+impl<T> std::convert::From<T> for Credentials
+where
+    T: crate::credentials::CredentialsProvider + Send + Sync + 'static,
+{
+    fn from(value: T) -> Self {
+        Self {
+            inner: Arc::new(value),
+        }
+    }
+}
+
+impl Credentials {
+    pub async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        self.inner.headers(extensions).await
+    }
+
+    pub async fn universe_domain(&self) -> Option<String> {
+        self.inner.universe_domain().await
+    }
+}
+
+#[async_trait::async_trait]
+impl google_cloud_auth_internal::credentials::InternalCredentials for Credentials {
+    async fn headers(
+        &self,
+        extensions: http::Extensions,
+    ) -> std::result::Result<
+        google_cloud_auth_internal::credentials::CacheableResource<http::HeaderMap>,
+        google_cloud_auth_internal::credentials::InternalCredentialsError,
+    > {
+        let res = self.headers(extensions).await;
+        match res {
+            Ok(CacheableResource::New { entity_tag, data }) => Ok(
+                google_cloud_auth_internal::credentials::CacheableResource::New {
+                    entity_tag: google_cloud_auth_internal::credentials::EntityTag(entity_tag.0),
+                    data,
+                },
+            ),
+            Ok(CacheableResource::NotModified) => {
+                Ok(google_cloud_auth_internal::credentials::CacheableResource::NotModified)
+            }
+            Err(e) => Err(
+                google_cloud_auth_internal::credentials::InternalCredentialsError::new(
+                    e.is_transient(),
+                    e.to_string(),
+                ),
+            ),
+        }
+    }
+
+    async fn universe_domain(&self) -> Option<String> {
+        self.universe_domain().await
+    }
+}
+
+impl From<Credentials> for Arc<dyn google_cloud_auth_internal::credentials::InternalCredentials> {
+    fn from(v: Credentials) -> Self {
+        Arc::new(v)
+    }
+}
+
+/// An implementation of [crate::credentials::CredentialsProvider] that can also
+/// provide direct access to the underlying access token.
+///
+/// This struct is returned by the `build_access_token_credentials()` method on
+/// the various credential builders. It can be used to obtain an access token
+/// directly via the `access_token()` method, or it can be converted into a `Credentials`
+/// object to be used with the Google Cloud client libraries.
+#[derive(Clone, Debug)]
+pub struct AccessTokenCredentials {
+    // We use an `Arc` to hold the inner implementation.
+    //
+    // AccessTokenCredentials may be shared across threads (`Send + Sync`), so an `Rc`
+    // will not do.
+    //
+    // They also need to derive `Clone`, as the
+    // `google_cloud_gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
+    // `Box` will not do.
+    pub(crate) inner: Arc<dyn dynamic::AccessTokenCredentialsProvider>,
+}
+
+impl<T> std::convert::From<T> for AccessTokenCredentials
+where
+    T: crate::credentials::AccessTokenCredentialsProvider + Send + Sync + 'static,
+{
+    fn from(value: T) -> Self {
+        Self {
+            inner: Arc::new(value),
+        }
+    }
+}
+
+impl AccessTokenCredentials {
+    pub async fn access_token(&self) -> Result<AccessToken> {
+        self.inner.access_token().await
+    }
+}
+
+/// Makes [AccessTokenCredentials] compatible with clients that expect
+/// a [Credentials] and/or a [CredentialsProvider].
+impl CredentialsProvider for AccessTokenCredentials {
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        self.inner.headers(extensions).await
+    }
+
+    async fn universe_domain(&self) -> Option<String> {
+        self.inner.universe_domain().await
+    }
+}
+
+/// Represents an OAuth 2.0 access token.
+#[derive(Clone)]
+pub struct AccessToken {
+    /// The access token string.
+    pub token: String,
+}
+
+impl std::fmt::Debug for AccessToken {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("AccessToken")
+            .field("token", &"[censored]")
+            .finish()
+    }
+}
+
+impl std::convert::From<CacheableResource<Token>> for Result<AccessToken> {
+    fn from(token: CacheableResource<Token>) -> Self {
+        match token {
+            CacheableResource::New { data, .. } => Ok(data.into()),
+            CacheableResource::NotModified => Err(errors::CredentialsError::from_msg(
+                false,
+                "Expecting token to be present",
+            )),
+        }
+    }
+}
+
+impl std::convert::From<Token> for AccessToken {
+    fn from(token: Token) -> Self {
+        Self { token: token.token }
+    }
+}
+
+/// A trait for credential types that can provide direct access to an access token.
+///
+/// This trait is primarily intended for interoperability with other libraries that
+/// require a raw access token, or for calling Google Cloud APIs that are not yet
+/// supported by the SDK.
+pub trait AccessTokenCredentialsProvider: CredentialsProvider + std::fmt::Debug {
+    /// Asynchronously retrieves an access token.
+    fn access_token(&self) -> impl Future<Output = Result<AccessToken>> + Send;
+}
+
+/// Represents a [Credentials] used to obtain auth request headers.
+///
+/// In general, [Credentials][credentials-link] are "digital object that
+/// provide proof of identity", the archetype may be a username and password
+/// combination, but a private RSA key may be a better example.
+///
+/// Modern authentication protocols do not send the credentials to
+/// authenticate with a service. Even when sent over encrypted transports,
+/// the credentials may be accidentally exposed via logging or may be
+/// captured if there are errors in the transport encryption. Because the
+/// credentials are often long-lived, that risk of exposure is also
+/// long-lived.
+///
+/// Instead, modern authentication protocols exchange the credentials for a
+/// time-limited [Token][token-link], a digital object that shows the caller
+/// was in possession of the credentials. Because tokens are time limited,
+/// risk of misuse is also time limited. Tokens may be further restricted to
+/// only a certain subset of the RPCs in the service, or even to specific
+/// resources, or only when used from a given machine (virtual or not).
+/// Further limiting the risks associated with any leaks of these tokens.
+///
+/// This struct also abstracts token sources that are not backed by a
+/// specific digital object. The canonical example is the
+/// [Metadata Service]. This service is available in many Google Cloud
+/// environments, including [Google Compute Engine], and
+/// [Google Kubernetes Engine].
+///
+/// # Notes
+///
+/// Application developers who directly use the Auth SDK can use this trait,
+/// along with [crate::credentials::Credentials::from()] to mock the credentials.
+/// Application developers who use the Google Cloud Rust SDK directly should not
+/// need this functionality.
+///
+/// [credentials-link]: https://cloud.google.com/docs/authentication#credentials
+/// [token-link]: https://cloud.google.com/docs/authentication#token
+/// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
+/// [Google Compute Engine]: https://cloud.google.com/products/compute
+/// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
+pub trait CredentialsProvider: std::fmt::Debug {
+    /// Asynchronously constructs the auth headers.
+    ///
+    /// Different auth tokens are sent via different headers. The
+    /// [Credentials] constructs the headers (and header values) that should be
+    /// sent with a request.
+    ///
+    /// # Parameters
+    /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+    ///   context to the credential provider. For caching purposes, this can include
+    ///   an [EntityTag] from a previously returned [`CacheableResource<HeaderMap>`].
+    ///   If a valid `EntityTag` is provided and the underlying authentication data
+    ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+    ///
+    /// # Returns
+    /// A `Future` that resolves to a `Result` containing:
+    /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+    ///   are available.
+    /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+    ///   the ETag provided via `extensions` was issued.
+    /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+    ///   generating the headers.
+    fn headers(
+        &self,
+        extensions: Extensions,
+    ) -> impl Future<Output = Result<CacheableResource<HeaderMap>>> + Send;
+
+    /// Retrieves the universe domain associated with the credentials, if any.
+    fn universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
+}
+
+pub(crate) mod dynamic {
+    use super::Result;
+    use super::{CacheableResource, Extensions, HeaderMap};
+
+    /// A dyn-compatible, crate-private version of `CredentialsProvider`.
+    #[async_trait::async_trait]
+    pub trait CredentialsProvider: Send + Sync + std::fmt::Debug {
+        /// Asynchronously constructs the auth headers.
+        ///
+        /// Different auth tokens are sent via different headers. The
+        /// [Credentials] constructs the headers (and header values) that should be
+        /// sent with a request.
+        ///
+        /// # Parameters
+        /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+        ///   context to the credential provider. For caching purposes, this can include
+        ///   an [EntityTag] from a previously returned [CacheableResource<HeaderMap>].
+        ///   If a valid `EntityTag` is provided and the underlying authentication data
+        ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+        ///
+        /// # Returns
+        /// A `Future` that resolves to a `Result` containing:
+        /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+        ///   are available.
+        /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+        ///   the ETag provided via `extensions` was issued.
+        /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+        ///   generating the headers.
+        async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
+
+        /// Retrieves the universe domain associated with the credentials, if any.
+        async fn universe_domain(&self) -> Option<String> {
+            Some("googleapis.com".to_string())
+        }
+    }
+
+    /// The public CredentialsProvider implements the dyn-compatible CredentialsProvider.
+    #[async_trait::async_trait]
+    impl<T> CredentialsProvider for T
+    where
+        T: super::CredentialsProvider + Send + Sync,
+    {
+        async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+            T::headers(self, extensions).await
+        }
+        async fn universe_domain(&self) -> Option<String> {
+            T::universe_domain(self).await
+        }
+    }
+
+    /// A dyn-compatible, crate-private version of `AccessTokenCredentialsProvider`.
+    #[async_trait::async_trait]
+    pub trait AccessTokenCredentialsProvider:
+        CredentialsProvider + Send + Sync + std::fmt::Debug
+    {
+        async fn access_token(&self) -> Result<super::AccessToken>;
+    }
+
+    #[async_trait::async_trait]
+    impl<T> AccessTokenCredentialsProvider for T
+    where
+        T: super::AccessTokenCredentialsProvider + Send + Sync,
+    {
+        async fn access_token(&self) -> Result<super::AccessToken> {
+            T::access_token(self).await
+        }
+    }
+}
 
 /// A builder for constructing [`Credentials`] instances.
 ///
@@ -498,19 +864,23 @@ pub mod testing {
     use super::CacheableResource;
     use crate::Result;
     use crate::credentials::Credentials;
-    use google_cloud_auth_internal::credentials::CredentialsProvider;
+    use crate::credentials::dynamic::CredentialsProvider;
     use http::{Extensions, HeaderMap};
+    use std::sync::Arc;
 
     /// A simple credentials implementation to use in tests.
     ///
     /// Always return an error in `headers()`.
     pub fn error_credentials(retryable: bool) -> Credentials {
-        ErrorCredentials(retryable).into()
+        Credentials {
+            inner: Arc::from(ErrorCredentials(retryable)),
+        }
     }
 
     #[derive(Debug, Default)]
     struct ErrorCredentials(bool);
 
+    #[async_trait::async_trait]
     impl CredentialsProvider for ErrorCredentials {
         async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
             Err(super::CredentialsError::from_msg(self.0, "test-only"))
@@ -522,18 +892,31 @@ pub mod testing {
     }
 }
 
+pub fn register_default_credentials_builder() {
+    google_cloud_auth_internal::factory::set_default_credentials_builder(Box::new(|| {
+        let creds = Builder::default().build().map_err(|e| {
+            google_cloud_auth_internal::credentials::InternalCredentialsError::new(
+                false, // loading from environment is not transient
+                e.to_string(),
+            )
+        })?;
+        let creds: std::sync::Arc<
+            dyn google_cloud_auth_internal::credentials::InternalCredentials,
+        > = std::sync::Arc::new(creds);
+        Ok(creds)
+    }));
+}
+
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
     use crate::constants::TRUST_BOUNDARY_HEADER;
     use base64::Engine;
-    use google_cloud_auth_internal::token::Token;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::retry_policy::RetryPolicy;
     use google_cloud_gax::retry_result::RetryResult;
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_gax::retry_throttler::RetryThrottler;
-    use http::{Extensions, HeaderMap};
     use mockall::mock;
     use reqwest::header::AUTHORIZATION;
     use rsa::BigUint;

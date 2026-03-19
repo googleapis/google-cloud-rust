@@ -12,32 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
-use crate::credentials::Credentials;
-use std::sync::OnceLock;
+use crate::credentials::{InternalCredentials, InternalCredentialsError};
+use std::sync::{Arc, OnceLock};
 
-pub type CredentialsBuilderFn = Box<dyn Fn() -> Result<Credentials> + Send + Sync>;
+pub type CredentialsBuilderFn = Box<
+    dyn Fn() -> std::result::Result<Arc<dyn InternalCredentials>, InternalCredentialsError>
+        + Send
+        + Sync,
+>;
 
 static BUILDER: OnceLock<CredentialsBuilderFn> = OnceLock::new();
 
 /// Registers a builder function for default credentials.
-///
-/// This is typically called by the `google-cloud-auth` crate to register itself
-/// as the provider of default credentials.
 pub fn set_default_credentials_builder(f: CredentialsBuilderFn) {
     let _ = BUILDER.set(f);
 }
 
 /// Builds the default credentials using the registered builder function.
-///
-/// If no builder function has been registered, this returns an error.
-pub fn build_default_credentials() -> Result<Credentials> {
+pub fn build_default_credentials()
+-> std::result::Result<Arc<dyn InternalCredentials>, InternalCredentialsError> {
     match BUILDER.get() {
         Some(f) => f(),
-        None => Err(crate::errors::non_retryable_from_str(
-            "no default credentials builder registered. \
-             Ensure google-cloud-auth is used or a builder is registered via \
-             set_default_credentials_builder()",
+        None => Err(InternalCredentialsError::new(
+            false,
+            "no default credentials builder registered",
         )),
     }
 }

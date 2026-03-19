@@ -246,7 +246,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
     pub fn with_credentials<T: Into<Cr>>(mut self, v: T) -> Self {
-        self.config.credentials = Some(v.into());
+        self.config.cred = Some(v.into());
         self
     }
 
@@ -416,7 +416,7 @@ pub mod internal {
     #[non_exhaustive]
     pub struct ClientConfig<Cr> {
         pub endpoint: Option<String>,
-        pub credentials: Option<Cr>,
+        pub cred: Option<Cr>,
         pub tracing: bool,
         pub retry_policy: Option<Arc<dyn RetryPolicy>>,
         pub backoff_policy: Option<Arc<dyn BackoffPolicy>>,
@@ -435,7 +435,7 @@ pub mod internal {
             use std::sync::{Arc, Mutex};
             Self {
                 endpoint: None,
-                credentials: None,
+                cred: None,
                 tracing: false,
                 retry_policy: None,
                 backoff_policy: None,

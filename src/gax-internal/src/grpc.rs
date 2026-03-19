@@ -21,7 +21,7 @@ pub mod tonic;
 use ::tonic::client::Grpc;
 use ::tonic::transport::Channel;
 use from_status::to_gax_error;
-use google_cloud_auth_internal::credentials::{CacheableResource, Credentials};
+use google_cloud_auth_internal::credentials::{CacheableResource, InternalCredentials};
 use google_cloud_auth_internal::factory::build_default_credentials;
 use google_cloud_gax::Result;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
@@ -62,7 +62,7 @@ pub type InnerClient = Grpc<GrpcService>;
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,
-    credentials: Credentials,
+    credentials: Arc<dyn InternalCredentials>,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
@@ -444,8 +444,8 @@ impl Client {
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> ClientBuilderResult<Credentials> {
-        if let Some(c) = config.credentials.clone() {
+    ) -> ClientBuilderResult<Arc<dyn InternalCredentials>> {
+        if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
         build_default_credentials().map_err(BuilderError::cred)
@@ -456,7 +456,12 @@ impl Client {
             .credentials
             .headers(http::Extensions::new())
             .await
-            .map_err(Error::authentication)?;
+            .map_err(|e| {
+                Error::authentication(google_cloud_gax::error::CredentialsError::from_msg(
+                    e.is_transient,
+                    e.to_string(),
+                ))
+            })?;
 
         let CacheableResource::New { data, .. } = h else {
             unreachable!("headers are not cached");

@@ -85,10 +85,12 @@ impl std::convert::From<CacheableResource<Token>> for Result<AccessToken> {
     fn from(token: CacheableResource<Token>) -> Self {
         match token {
             CacheableResource::New { data, .. } => Ok(data.into()),
-            CacheableResource::NotModified => Err(crate::errors::CredentialsError::from_msg(
-                false,
-                "Expecting token to be present",
-            )),
+            CacheableResource::NotModified => {
+                Err(crate::errors::InternalCredentialsError::from_msg(
+                    false,
+                    "Expecting token to be present",
+                ))
+            }
         }
     }
 }

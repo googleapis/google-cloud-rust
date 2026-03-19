@@ -25,4 +25,4 @@ pub use errors::CredentialsError;
 pub use token::{AccessToken, Token};*/
 
 /// A `Result` alias where the `Err` case is [CredentialsError][errors::CredentialsError].
-pub type Result<T> = std::result::Result<T, errors::CredentialsError>;
+pub type Result<T> = std::result::Result<T, errors::InternalCredentialsError>;

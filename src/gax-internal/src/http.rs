@@ -28,7 +28,7 @@ use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
 #[cfg(google_cloud_unstable_tracing)]
 use crate::observability::create_http_attempt_span;
-use google_cloud_auth_internal::credentials::{CacheableResource, Credentials};
+use google_cloud_auth_internal::credentials::{CacheableResource, InternalCredentials};
 use google_cloud_auth_internal::factory::build_default_credentials;
 use google_cloud_gax::Result;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
@@ -58,7 +58,7 @@ use tracing::Instrument;
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: ::reqwest::Client,
-    cred: Credentials,
+    cred: Arc<dyn InternalCredentials>,
     endpoint: String,
     host: String,
     retry_policy: Arc<dyn RetryPolicy>,
@@ -313,8 +313,8 @@ impl ReqwestClient {
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> ClientBuilderResult<Credentials> {
-        if let Some(c) = config.credentials.clone() {
+    ) -> ClientBuilderResult<std::sync::Arc<dyn InternalCredentials>> {
+        if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
         build_default_credentials().map_err(BuilderError::cred)
@@ -370,7 +370,14 @@ impl ReqwestClient {
             .fold(builder, |b, t| b.timeout(t));
 
         builder = match self.cred.headers(Extensions::new()).await {
-            Err(e) => return Err(Error::authentication(e)),
+            Err(e) => {
+                return Err(Error::authentication(
+                    google_cloud_gax::error::CredentialsError::from_msg(
+                        e.is_transient,
+                        e.to_string(),
+                    ),
+                ));
+            }
             Ok(CacheableResource::New { data, .. }) => builder.headers(data),
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
