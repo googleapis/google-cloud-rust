@@ -25,17 +25,18 @@ sha256sum -c <(echo 24e2ed32060b7c990d5eb00d642fde04869d7f77c6d443f609353f097799
 env -C /usr/local unzip -x /tmp/protoc.zip
 protoc --version
 
-echo "==== Install cargo-tarpaulin ===="
-cargo install cargo-tarpaulin --version 0.35.2 --locked
+echo "==== Install cargo-llvm-cov ===="
+cargo install cargo-llvm-cov --version 0.8.5 --locked
 
-cargo tarpaulin --out xml
+echo "==== Running cargo llvm-cov ===="
+cargo llvm-cov --lcov --output-path lcov.info </dev/null
 
 upload=(
     # Get the codecov.io token from secret manager.
     --token "${CODECOV_TOKEN:-}"
-    # We known where `cargo tarpaulin` outputs the coverage results, no need to
+    # We known where `cargo llvm-cov` outputs the coverage results, no need to
     # search for them.
-    --file "cobertura.xml"
+    --file "lcov.info"
     --disable-search
     # Exit with an error if the upload fails, we can return the build in that
     # case.
