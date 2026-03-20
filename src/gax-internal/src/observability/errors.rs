@@ -125,27 +125,16 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
             .map(|s| s.message.clone())
             .unwrap_or_else(|| format!("{err:?}"));
 
-        match http_status_code {
-            Some(http_code) => tracing::event!(
-                parent: span,
-                tracing::Level::INFO,
-                { ERROR_TYPE } = error_str,
-                { GCP_ERRORS_DOMAIN } = domain,
-                { GCP_ERRORS_METADATA } = metadata_json,
-                { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-                { HTTP_RESPONSE_STATUS_CODE } = http_code,
-                "{log_msg}"
-            ),
-            None => tracing::event!(
-                parent: span,
-                tracing::Level::INFO,
-                { ERROR_TYPE } = error_str,
-                { GCP_ERRORS_DOMAIN } = domain,
-                { GCP_ERRORS_METADATA } = metadata_json,
-                { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-                "{log_msg}"
-            ),
-        }
+        tracing::event!(
+            parent: span,
+            tracing::Level::INFO,
+            { ERROR_TYPE } = error_str,
+            { GCP_ERRORS_DOMAIN } = domain,
+            { GCP_ERRORS_METADATA } = metadata_json,
+            { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
+            { HTTP_RESPONSE_STATUS_CODE } = http_status_code,
+            "{log_msg}"
+        );
     }
 }
 
