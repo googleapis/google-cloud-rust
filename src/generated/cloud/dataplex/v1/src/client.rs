@@ -504,6 +504,13 @@ impl BusinessGlossaryService {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -1329,11 +1336,6 @@ impl CatalogService {
     }
 
     /// Lists Entries within an EntryGroup.
-    /// Caution: The Vertex AI, Bigtable, Spanner, Pub/Sub, Dataform, and Dataproc
-    /// Metastore metadata that is stored in Dataplex Universal Catalog is
-    /// changing. For more information, see [Changes to metadata stored in
-    /// Dataplex Universal
-    /// Catalog](https://cloud.google.com/dataplex/docs/metadata-changes).
     ///
     /// # Example
     /// ```
@@ -1357,11 +1359,6 @@ impl CatalogService {
     }
 
     /// Gets an Entry.
-    /// Caution: The Vertex AI, Bigtable, Spanner, Pub/Sub, Dataform, and Dataproc
-    /// Metastore metadata that is stored in Dataplex Universal Catalog is
-    /// changing. For more information, see [Changes to metadata stored in
-    /// Dataplex Universal
-    /// Catalog](https://cloud.google.com/dataplex/docs/metadata-changes).
     ///
     /// # Example
     /// ```
@@ -1382,11 +1379,6 @@ impl CatalogService {
     }
 
     /// Looks up an entry by name using the permission on the source system.
-    /// Caution: The Vertex AI, Bigtable, Spanner, Pub/Sub, Dataform, and Dataproc
-    /// Metastore metadata that is stored in Dataplex Universal Catalog is
-    /// changing. For more information, see [Changes to metadata stored in
-    /// Dataplex Universal
-    /// Catalog](https://cloud.google.com/dataplex/docs/metadata-changes).
     ///
     /// # Example
     /// ```
@@ -1556,6 +1548,29 @@ impl CatalogService {
         super::builder::catalog_service::CreateEntryLink::new(self.inner.clone())
     }
 
+    /// Updates an Entry Link.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// use google_cloud_dataplex_v1::model::EntryLink;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &CatalogService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_entry_link()
+    ///         .set_entry_link(
+    ///             EntryLink::new().set_name(name)/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_entry_link(&self) -> super::builder::catalog_service::UpdateEntryLink {
+        super::builder::catalog_service::UpdateEntryLink::new(self.inner.clone())
+    }
+
     /// Deletes an Entry Link.
     ///
     /// # Example
@@ -1574,6 +1589,49 @@ impl CatalogService {
     /// ```
     pub fn delete_entry_link(&self) -> super::builder::catalog_service::DeleteEntryLink {
         super::builder::catalog_service::DeleteEntryLink::new(self.inner.clone())
+    }
+
+    /// Looks up Entry Links referencing the specified Entry.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> Result<()> {
+    ///     let mut list = client.lookup_entry_links()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn lookup_entry_links(&self) -> super::builder::catalog_service::LookupEntryLinks {
+        super::builder::catalog_service::LookupEntryLinks::new(self.inner.clone())
+    }
+
+    /// Looks up LLM Context for the specified resources.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> Result<()> {
+    ///     let response = client.lookup_context()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn lookup_context(&self) -> super::builder::catalog_service::LookupContext {
+        super::builder::catalog_service::LookupContext::new(self.inner.clone())
     }
 
     /// Gets an Entry Link.
@@ -1596,7 +1654,159 @@ impl CatalogService {
         super::builder::catalog_service::GetEntryLink::new(self.inner.clone())
     }
 
+    /// Creates a MetadataFeed.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataplex_v1::model::MetadataFeed;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &CatalogService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_metadata_feed()
+    ///         .set_parent(parent)
+    ///         .set_metadata_feed(
+    ///             MetadataFeed::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_metadata_feed(&self) -> super::builder::catalog_service::CreateMetadataFeed {
+        super::builder::catalog_service::CreateMetadataFeed::new(self.inner.clone())
+    }
+
+    /// Gets a MetadataFeed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &CatalogService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_metadata_feed()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_metadata_feed(&self) -> super::builder::catalog_service::GetMetadataFeed {
+        super::builder::catalog_service::GetMetadataFeed::new(self.inner.clone())
+    }
+
+    /// Retrieve a list of MetadataFeeds.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &CatalogService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_metadata_feeds()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_metadata_feeds(&self) -> super::builder::catalog_service::ListMetadataFeeds {
+        super::builder::catalog_service::ListMetadataFeeds::new(self.inner.clone())
+    }
+
+    /// Deletes a MetadataFeed.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &CatalogService, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_metadata_feed()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_metadata_feed(&self) -> super::builder::catalog_service::DeleteMetadataFeed {
+        super::builder::catalog_service::DeleteMetadataFeed::new(self.inner.clone())
+    }
+
+    /// Updates a MetadataFeed.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dataplex_v1::model::MetadataFeed;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &CatalogService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_metadata_feed()
+    ///         .set_metadata_feed(
+    ///             MetadataFeed::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_metadata_feed(&self) -> super::builder::catalog_service::UpdateMetadataFeed {
+        super::builder::catalog_service::UpdateMetadataFeed::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -2055,6 +2265,13 @@ impl CmekService {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -2266,9 +2483,8 @@ impl CmekService {
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = ContentService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_content()
-///         .set_parent(parent)
+///     let mut list = client.list_locations()
+///         /* set fields */
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
@@ -2368,197 +2584,14 @@ impl ContentService {
             .map(super::tracing::ContentService::new)
     }
 
-    /// Create a content.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::ContentService;
-    /// use google_cloud_dataplex_v1::model::Content;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &ContentService, parent: &str
-    /// ) -> Result<()> {
-    ///     let response = client.create_content()
-    ///         .set_parent(parent)
-    ///         .set_content(
-    ///             Content::new()/* set fields */
-    ///         )
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn create_content(&self) -> super::builder::content_service::CreateContent {
-        super::builder::content_service::CreateContent::new(self.inner.clone())
-    }
-
-    /// Update a content. Only supports full resource update.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::ContentService;
-    /// # extern crate wkt as google_cloud_wkt;
-    /// use google_cloud_wkt::FieldMask;
-    /// use google_cloud_dataplex_v1::model::Content;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &ContentService, name: &str
-    /// ) -> Result<()> {
-    ///     let response = client.update_content()
-    ///         .set_content(
-    ///             Content::new().set_name(name)/* set fields */
-    ///         )
-    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn update_content(&self) -> super::builder::content_service::UpdateContent {
-        super::builder::content_service::UpdateContent::new(self.inner.clone())
-    }
-
-    /// Delete a content.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::ContentService;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &ContentService, name: &str
-    /// ) -> Result<()> {
-    ///     client.delete_content()
-    ///         .set_name(name)
-    ///         .send().await?;
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn delete_content(&self) -> super::builder::content_service::DeleteContent {
-        super::builder::content_service::DeleteContent::new(self.inner.clone())
-    }
-
-    /// Get a content resource.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::ContentService;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &ContentService, name: &str
-    /// ) -> Result<()> {
-    ///     let response = client.get_content()
-    ///         .set_name(name)
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn get_content(&self) -> super::builder::content_service::GetContent {
-        super::builder::content_service::GetContent::new(self.inner.clone())
-    }
-
-    /// Gets the access control policy for a contentitem resource. A `NOT_FOUND`
-    /// error is returned if the resource does not exist. An empty policy is
-    /// returned if the resource exists but does not have a policy set on it.
-    ///
-    /// Caller must have Google IAM `dataplex.content.getIamPolicy` permission
-    /// on the resource.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::ContentService;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &ContentService
-    /// ) -> Result<()> {
-    ///     let response = client.get_iam_policy()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn get_iam_policy(&self) -> super::builder::content_service::GetIamPolicy {
-        super::builder::content_service::GetIamPolicy::new(self.inner.clone())
-    }
-
-    /// Sets the access control policy on the specified contentitem resource.
-    /// Replaces any existing policy.
-    ///
-    /// Caller must have Google IAM `dataplex.content.setIamPolicy` permission
-    /// on the resource.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::ContentService;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &ContentService
-    /// ) -> Result<()> {
-    ///     let response = client.set_iam_policy()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn set_iam_policy(&self) -> super::builder::content_service::SetIamPolicy {
-        super::builder::content_service::SetIamPolicy::new(self.inner.clone())
-    }
-
-    /// Returns the caller's permissions on a resource.
-    /// If the resource does not exist, an empty set of
-    /// permissions is returned (a `NOT_FOUND` error is not returned).
-    ///
-    /// A caller is not required to have Google IAM permission to make this
-    /// request.
-    ///
-    /// Note: This operation is designed to be used for building permission-aware
-    /// UIs and command-line tools, not for authorization checking. This operation
-    /// may "fail open" without warning.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::ContentService;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &ContentService
-    /// ) -> Result<()> {
-    ///     let response = client.test_iam_permissions()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::content_service::TestIamPermissions {
-        super::builder::content_service::TestIamPermissions::new(self.inner.clone())
-    }
-
-    /// List content.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::ContentService;
-    /// use google_cloud_gax::paginator::ItemPaginator as _;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &ContentService, parent: &str
-    /// ) -> Result<()> {
-    ///     let mut list = client.list_content()
-    ///         .set_parent(parent)
-    ///         .by_item();
-    ///     while let Some(item) = list.next().await.transpose()? {
-    ///         println!("{:?}", item);
-    ///     }
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn list_content(&self) -> super::builder::content_service::ListContent {
-        super::builder::content_service::ListContent::new(self.inner.clone())
-    }
-
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -2599,6 +2632,77 @@ impl ContentService {
     /// ```
     pub fn get_location(&self) -> super::builder::content_service::GetLocation {
         super::builder::content_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::content_service::SetIamPolicy {
+        super::builder::content_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::content_service::GetIamPolicy {
+        super::builder::content_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::content_service::TestIamPermissions {
+        super::builder::content_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2688,6 +2792,619 @@ impl ContentService {
     /// ```
     pub fn cancel_operation(&self) -> super::builder::content_service::CancelOperation {
         super::builder::content_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Cloud Dataplex API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_dataplex_v1::client::DataProductService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DataProductService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_data_products()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// `DataProductService` provides APIs for managing data products and
+/// the underlying data assets.
+///
+/// # Configuration
+///
+/// To configure `DataProductService` use the `with_*` methods in the type returned
+/// by [builder()][DataProductService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dataplex.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::data_product_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::data_product_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `DataProductService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `DataProductService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct DataProductService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataProductService>,
+}
+
+impl DataProductService {
+    /// Returns a builder for [DataProductService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// let client = DataProductService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::data_product_service::ClientBuilder {
+        crate::new_client_builder(super::builder::data_product_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::DataProductService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::DataProductService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DataProductService> {
+        super::transport::DataProductService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DataProductService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DataProductService::new)
+    }
+
+    /// Creates a data product.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataplex_v1::model::DataProduct;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_data_product()
+    ///         .set_parent(parent)
+    ///         .set_data_product(
+    ///             DataProduct::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_data_product(&self) -> super::builder::data_product_service::CreateDataProduct {
+        super::builder::data_product_service::CreateDataProduct::new(self.inner.clone())
+    }
+
+    /// Deletes a data product. The deletion will fail if the data product is not
+    /// empty (i.e. contains at least one data asset).
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_data_product()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_data_product(&self) -> super::builder::data_product_service::DeleteDataProduct {
+        super::builder::data_product_service::DeleteDataProduct::new(self.inner.clone())
+    }
+
+    /// Gets a data product.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_product()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_data_product(&self) -> super::builder::data_product_service::GetDataProduct {
+        super::builder::data_product_service::GetDataProduct::new(self.inner.clone())
+    }
+
+    /// Lists data products for a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_data_products()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_data_products(&self) -> super::builder::data_product_service::ListDataProducts {
+        super::builder::data_product_service::ListDataProducts::new(self.inner.clone())
+    }
+
+    /// Updates a data product.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dataplex_v1::model::DataProduct;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_data_product()
+    ///         .set_data_product(
+    ///             DataProduct::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_data_product(&self) -> super::builder::data_product_service::UpdateDataProduct {
+        super::builder::data_product_service::UpdateDataProduct::new(self.inner.clone())
+    }
+
+    /// Creates a data asset.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataplex_v1::model::DataAsset;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_data_asset()
+    ///         .set_parent(parent)
+    ///         .set_data_asset(
+    ///             DataAsset::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_data_asset(&self) -> super::builder::data_product_service::CreateDataAsset {
+        super::builder::data_product_service::CreateDataAsset::new(self.inner.clone())
+    }
+
+    /// Updates a data asset.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dataplex_v1::model::DataAsset;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_data_asset()
+    ///         .set_data_asset(
+    ///             DataAsset::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_data_asset(&self) -> super::builder::data_product_service::UpdateDataAsset {
+        super::builder::data_product_service::UpdateDataAsset::new(self.inner.clone())
+    }
+
+    /// Deletes a data asset.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_data_asset()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_data_asset(&self) -> super::builder::data_product_service::DeleteDataAsset {
+        super::builder::data_product_service::DeleteDataAsset::new(self.inner.clone())
+    }
+
+    /// Gets a data asset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_asset()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_data_asset(&self) -> super::builder::data_product_service::GetDataAsset {
+        super::builder::data_product_service::GetDataAsset::new(self.inner.clone())
+    }
+
+    /// Lists data assets for a given data product.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_data_assets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_data_assets(&self) -> super::builder::data_product_service::ListDataAssets {
+        super::builder::data_product_service::ListDataAssets::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_locations(&self) -> super::builder::data_product_service::ListLocations {
+        super::builder::data_product_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::data_product_service::GetLocation {
+        super::builder::data_product_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::data_product_service::SetIamPolicy {
+        super::builder::data_product_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::data_product_service::GetIamPolicy {
+        super::builder::data_product_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::data_product_service::TestIamPermissions {
+        super::builder::data_product_service::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::data_product_service::ListOperations {
+        super::builder::data_product_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::data_product_service::GetOperation {
+        super::builder::data_product_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::data_product_service::DeleteOperation {
+        super::builder::data_product_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataProductService;
+    /// use google_cloud_dataplex_v1::Result;
+    /// async fn sample(
+    ///    client: &DataProductService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::data_product_service::CancelOperation {
+        super::builder::data_product_service::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -3283,6 +4000,13 @@ impl DataTaxonomyService {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -3833,6 +4557,13 @@ impl DataScanService {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -4342,6 +5073,13 @@ impl MetadataService {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -5396,177 +6134,14 @@ impl DataplexService {
         super::builder::dataplex_service::CancelJob::new(self.inner.clone())
     }
 
-    /// Create an environment resource.
-    ///
-    /// # Long running operations
-    ///
-    /// This method is used to start, and/or poll a [long-running Operation].
-    /// The [Working with long-running operations] chapter in the [user guide]
-    /// covers these operations in detail.
-    ///
-    /// [long-running operation]: https://google.aip.dev/151
-    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
-    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::DataplexService;
-    /// use google_cloud_lro::Poller;
-    /// use google_cloud_dataplex_v1::model::Environment;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &DataplexService, parent: &str
-    /// ) -> Result<()> {
-    ///     let response = client.create_environment()
-    ///         .set_parent(parent)
-    ///         .set_environment_id("environment_id_value")
-    ///         .set_environment(
-    ///             Environment::new()/* set fields */
-    ///         )
-    ///         .poller().until_done().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn create_environment(&self) -> super::builder::dataplex_service::CreateEnvironment {
-        super::builder::dataplex_service::CreateEnvironment::new(self.inner.clone())
-    }
-
-    /// Update the environment resource.
-    ///
-    /// # Long running operations
-    ///
-    /// This method is used to start, and/or poll a [long-running Operation].
-    /// The [Working with long-running operations] chapter in the [user guide]
-    /// covers these operations in detail.
-    ///
-    /// [long-running operation]: https://google.aip.dev/151
-    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
-    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::DataplexService;
-    /// use google_cloud_lro::Poller;
-    /// # extern crate wkt as google_cloud_wkt;
-    /// use google_cloud_wkt::FieldMask;
-    /// use google_cloud_dataplex_v1::model::Environment;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &DataplexService, name: &str
-    /// ) -> Result<()> {
-    ///     let response = client.update_environment()
-    ///         .set_environment(
-    ///             Environment::new().set_name(name)/* set fields */
-    ///         )
-    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
-    ///         .poller().until_done().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn update_environment(&self) -> super::builder::dataplex_service::UpdateEnvironment {
-        super::builder::dataplex_service::UpdateEnvironment::new(self.inner.clone())
-    }
-
-    /// Delete the environment resource. All the child resources must have been
-    /// deleted before environment deletion can be initiated.
-    ///
-    /// # Long running operations
-    ///
-    /// This method is used to start, and/or poll a [long-running Operation].
-    /// The [Working with long-running operations] chapter in the [user guide]
-    /// covers these operations in detail.
-    ///
-    /// [long-running operation]: https://google.aip.dev/151
-    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
-    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::DataplexService;
-    /// use google_cloud_lro::Poller;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &DataplexService, name: &str
-    /// ) -> Result<()> {
-    ///     client.delete_environment()
-    ///         .set_name(name)
-    ///         .poller().until_done().await?;
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn delete_environment(&self) -> super::builder::dataplex_service::DeleteEnvironment {
-        super::builder::dataplex_service::DeleteEnvironment::new(self.inner.clone())
-    }
-
-    /// Lists environments under the given lake.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::DataplexService;
-    /// use google_cloud_gax::paginator::ItemPaginator as _;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &DataplexService, parent: &str
-    /// ) -> Result<()> {
-    ///     let mut list = client.list_environments()
-    ///         .set_parent(parent)
-    ///         .by_item();
-    ///     while let Some(item) = list.next().await.transpose()? {
-    ///         println!("{:?}", item);
-    ///     }
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn list_environments(&self) -> super::builder::dataplex_service::ListEnvironments {
-        super::builder::dataplex_service::ListEnvironments::new(self.inner.clone())
-    }
-
-    /// Get environment resource.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::DataplexService;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &DataplexService, name: &str
-    /// ) -> Result<()> {
-    ///     let response = client.get_environment()
-    ///         .set_name(name)
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn get_environment(&self) -> super::builder::dataplex_service::GetEnvironment {
-        super::builder::dataplex_service::GetEnvironment::new(self.inner.clone())
-    }
-
-    /// Lists session resources in an environment.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::client::DataplexService;
-    /// use google_cloud_gax::paginator::ItemPaginator as _;
-    /// use google_cloud_dataplex_v1::Result;
-    /// async fn sample(
-    ///    client: &DataplexService, parent: &str
-    /// ) -> Result<()> {
-    ///     let mut list = client.list_sessions()
-    ///         .set_parent(parent)
-    ///         .by_item();
-    ///     while let Some(item) = list.next().await.transpose()? {
-    ///         println!("{:?}", item);
-    ///     }
-    ///     Ok(())
-    /// }
-    /// ```
-    pub fn list_sessions(&self) -> super::builder::dataplex_service::ListSessions {
-        super::builder::dataplex_service::ListSessions::new(self.inner.clone())
-    }
-
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```

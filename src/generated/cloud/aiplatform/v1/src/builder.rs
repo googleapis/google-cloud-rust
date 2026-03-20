@@ -48789,6 +48789,7 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [title][crate::model::EmbedContentRequest::title].
+        #[deprecated]
         pub fn set_title<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -48798,6 +48799,7 @@ pub mod prediction_service {
         }
 
         /// Sets or clears the value of [title][crate::model::EmbedContentRequest::title].
+        #[deprecated]
         pub fn set_or_clear_title<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -48807,6 +48809,7 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [task_type][crate::model::EmbedContentRequest::task_type].
+        #[deprecated]
         pub fn set_task_type<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::embed_content_request::EmbeddingTaskType>,
@@ -48816,6 +48819,7 @@ pub mod prediction_service {
         }
 
         /// Sets or clears the value of [task_type][crate::model::EmbedContentRequest::task_type].
+        #[deprecated]
         pub fn set_or_clear_task_type<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::embed_content_request::EmbeddingTaskType>,
@@ -48825,6 +48829,7 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [output_dimensionality][crate::model::EmbedContentRequest::output_dimensionality].
+        #[deprecated]
         pub fn set_output_dimensionality<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -48834,6 +48839,7 @@ pub mod prediction_service {
         }
 
         /// Sets or clears the value of [output_dimensionality][crate::model::EmbedContentRequest::output_dimensionality].
+        #[deprecated]
         pub fn set_or_clear_output_dimensionality<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -48843,6 +48849,7 @@ pub mod prediction_service {
         }
 
         /// Sets the value of [auto_truncate][crate::model::EmbedContentRequest::auto_truncate].
+        #[deprecated]
         pub fn set_auto_truncate<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -48852,11 +48859,30 @@ pub mod prediction_service {
         }
 
         /// Sets or clears the value of [auto_truncate][crate::model::EmbedContentRequest::auto_truncate].
+        #[deprecated]
         pub fn set_or_clear_auto_truncate<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
         {
             self.0.request.auto_truncate = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [embed_content_config][crate::model::EmbedContentRequest::embed_content_config].
+        pub fn set_embed_content_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::embed_content_request::EmbedContentConfig>,
+        {
+            self.0.request.embed_content_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [embed_content_config][crate::model::EmbedContentRequest::embed_content_config].
+        pub fn set_or_clear_embed_content_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::embed_content_request::EmbedContentConfig>,
+        {
+            self.0.request.embed_content_config = v.map(|x| x.into());
             self
         }
     }

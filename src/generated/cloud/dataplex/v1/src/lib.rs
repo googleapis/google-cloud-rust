@@ -31,6 +31,7 @@
 //! * [CatalogService](client/struct.CatalogService.html)
 //! * [CmekService](client/struct.CmekService.html)
 //! * [ContentService](client/struct.ContentService.html)
+//! * [DataProductService](client/struct.DataProductService.html)
 //! * [DataTaxonomyService](client/struct.DataTaxonomyService.html)
 //! * [DataScanService](client/struct.DataScanService.html)
 //! * [MetadataService](client/struct.MetadataService.html)

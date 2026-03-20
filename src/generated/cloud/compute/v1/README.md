@@ -4,7 +4,7 @@
 
 Creates and runs virtual machines on Google Cloud Platform.
 
-This client library was generated from the "20260227" revision of the API.
+This client library was generated from the "20260306" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
@@ -83,6 +83,7 @@ The main types to work with this crate are the clients:
 - [RegionHealthCheckServices]: enabled by the `region-health-check-services` feature.
 - [RegionHealthChecks]: enabled by the `region-health-checks` feature.
 - [RegionHealthSources]: enabled by the `region-health-sources` feature.
+- [RegionInstanceGroupManagerResizeRequests]: enabled by the `region-instance-group-manager-resize-requests` feature.
 - [RegionInstanceGroupManagers]: enabled by the `region-instance-group-managers` feature.
 - [RegionInstanceGroups]: enabled by the `region-instance-groups` feature.
 - [RegionInstanceTemplates]: enabled by the `region-instance-templates` feature.
@@ -130,6 +131,7 @@ The main types to work with this crate are the clients:
 - [VpnTunnels]: enabled by the `vpn-tunnels` feature.
 - [WireGroups]: enabled by the `wire-groups` feature.
 - [ZoneOperations]: enabled by the `zone-operations` feature.
+- [ZoneVmExtensionPolicies]: enabled by the `zone-vm-extension-policies` feature.
 - [Zones]: enabled by the `zones` feature.
 
 ## Features
@@ -215,6 +217,7 @@ The main types to work with this crate are the clients:
 [RegionHealthCheckServices]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionHealthCheckServices.html
 [RegionHealthChecks]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionHealthChecks.html
 [RegionHealthSources]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionHealthSources.html
+[RegionInstanceGroupManagerResizeRequests]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionInstanceGroupManagerResizeRequests.html
 [RegionInstanceGroupManagers]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionInstanceGroupManagers.html
 [RegionInstanceGroups]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionInstanceGroups.html
 [RegionInstanceTemplates]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionInstanceTemplates.html
@@ -262,4 +265,5 @@ The main types to work with this crate are the clients:
 [VpnTunnels]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.VpnTunnels.html
 [WireGroups]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.WireGroups.html
 [ZoneOperations]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.ZoneOperations.html
+[ZoneVmExtensionPolicies]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.ZoneVmExtensionPolicies.html
 [Zones]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.Zones.html

@@ -4932,6 +4932,12 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Policy>>;
 
+    async fn get_partner_metadata(
+        &self,
+        req: crate::model::instances::GetPartnerMetadataRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PartnerMetadata>>;
+
     async fn get_screenshot(
         &self,
         req: crate::model::instances::GetScreenshotRequest,
@@ -4967,6 +4973,12 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         req: crate::model::instances::ListReferrersRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::InstanceListReferrers>>;
+
+    async fn patch_partner_metadata(
+        &self,
+        req: crate::model::instances::PatchPartnerMetadataRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
     async fn perform_maintenance(
         &self,
@@ -5302,6 +5314,15 @@ impl<T: super::Instances> Instances for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn get_partner_metadata(
+        &self,
+        req: crate::model::instances::GetPartnerMetadataRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::PartnerMetadata>> {
+        T::get_partner_metadata(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn get_screenshot(
         &self,
         req: crate::model::instances::GetScreenshotRequest,
@@ -5353,6 +5374,15 @@ impl<T: super::Instances> Instances for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::InstanceListReferrers>> {
         T::list_referrers(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn patch_partner_metadata(
+        &self,
+        req: crate::model::instances::PatchPartnerMetadataRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::patch_partner_metadata(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -11414,6 +11444,136 @@ impl<T: super::RegionHealthSources> RegionHealthSources for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::RegionInstanceGroupManagerResizeRequests].
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+#[async_trait::async_trait]
+pub trait RegionInstanceGroupManagerResizeRequests: std::fmt::Debug + Send + Sync {
+    async fn cancel(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::CancelRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn delete(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InstanceGroupManagerResizeRequest>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        crate::Response<crate::model::RegionInstanceGroupManagerResizeRequestsListResponse>,
+    >;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::RegionInstanceGroupManagerResizeRequests] also implement [RegionInstanceGroupManagerResizeRequests].
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+#[async_trait::async_trait]
+impl<T: super::RegionInstanceGroupManagerResizeRequests> RegionInstanceGroupManagerResizeRequests
+    for T
+{
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::CancelRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::cancel(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InstanceGroupManagerResizeRequest>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<
+        crate::Response<crate::model::RegionInstanceGroupManagerResizeRequestsListResponse>,
+    > {
+        T::list(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -18800,6 +18960,130 @@ impl<T: super::ZoneOperations> ZoneOperations for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::wait(self, req, options).await
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::ZoneVmExtensionPolicies].
+#[cfg(feature = "zone-vm-extension-policies")]
+#[async_trait::async_trait]
+pub trait ZoneVmExtensionPolicies: std::fmt::Debug + Send + Sync {
+    async fn delete(
+        &self,
+        req: crate::model::zone_vm_extension_policies::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::zone_vm_extension_policies::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VmExtensionPolicy>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::zone_vm_extension_policies::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::zone_vm_extension_policies::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VmExtensionPolicyList>>;
+
+    async fn update(
+        &self,
+        req: crate::model::zone_vm_extension_policies::UpdateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::ZoneVmExtensionPolicies] also implement [ZoneVmExtensionPolicies].
+#[cfg(feature = "zone-vm-extension-policies")]
+#[async_trait::async_trait]
+impl<T: super::ZoneVmExtensionPolicies> ZoneVmExtensionPolicies for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::zone_vm_extension_policies::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::zone_vm_extension_policies::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VmExtensionPolicy>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::zone_vm_extension_policies::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::zone_vm_extension_policies::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::VmExtensionPolicyList>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update(
+        &self,
+        req: crate::model::zone_vm_extension_policies::UpdateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::update(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
     }
 }
 
