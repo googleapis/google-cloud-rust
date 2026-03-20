@@ -26,6 +26,7 @@ pub mod create_bucket_class_location;
 pub mod create_bucket_dual_region;
 pub mod create_bucket_hierarchical_namespace;
 pub mod create_bucket_turbo_replication;
+pub mod create_bucket_with_encryption_enforcement;
 pub mod create_bucket_with_object_retention;
 pub mod define_bucket_website_configuration;
 pub mod delete_bucket;
@@ -71,6 +72,7 @@ pub mod remove_retention_policy;
 pub mod set_autoclass;
 #[allow(dead_code)]
 pub mod set_bucket_default_kms_key;
+pub mod set_bucket_encryption_enforcement;
 #[allow(dead_code)]
 pub mod set_bucket_public_iam;
 pub mod set_lifecycle_abort_multipart_upload;
