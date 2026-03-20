@@ -117,16 +117,24 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
         };
 
         let metadata_json = metadata.map(|m| {
-            let mut parts = Vec::with_capacity(m.len());
-            for (k, v) in m {
-                let k_escaped = k.replace('"', "\\\"");
-                let v_escaped = v.replace('"', "\\\"");
-                parts.push(format!("\"{k_escaped}\":\"{v_escaped}\""));
-            }
-            format!("{{{}}}", parts.join(","))
+            let fields: Vec<String> = m
+                .iter()
+                .map(|(k, v)| {
+                    format!(
+                        "\"{}\":\"{}\"",
+                        k.replace('"', "\\\""),
+                        v.replace('"', "\\\"")
+                    )
+                })
+                .collect();
+            format!("{{{}}}", fields.join(","))
         });
 
         let error_str = error_type.as_str();
+        let log_msg = err
+            .status()
+            .map(|s| s.message.clone())
+            .unwrap_or_else(|| format!("{err:?}"));
 
         match http_status_code {
             Some(http_code) => tracing::event!(
@@ -137,7 +145,7 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
                 { GCP_ERRORS_METADATA } = metadata_json,
                 { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
                 { HTTP_RESPONSE_STATUS_CODE } = http_code,
-                "{err:?}"
+                "{log_msg}"
             ),
             None => tracing::event!(
                 parent: span,
@@ -146,7 +154,7 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
                 { GCP_ERRORS_DOMAIN } = domain,
                 { GCP_ERRORS_METADATA } = metadata_json,
                 { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-                "{err:?}"
+                "{log_msg}"
             ),
         }
     }
