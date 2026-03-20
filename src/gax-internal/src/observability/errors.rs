@@ -116,10 +116,6 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
             _ => (None, None),
         };
 
-        if let Some(domain) = domain {
-            span.record(GCP_ERRORS_DOMAIN, domain);
-        }
-
         if let Some(meta) = metadata {
             use opentelemetry::trace::TraceContextExt;
             use tracing_opentelemetry::OpenTelemetrySpanExt;
