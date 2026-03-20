@@ -40,11 +40,61 @@ impl std::fmt::Debug for super::ExcludeByHotword {
     }
 }
 
+impl std::fmt::Debug for super::ExcludeByImageFindings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExcludeByImageFindings");
+        debug_struct.field("info_types", &self.info_types);
+        debug_struct.field("image_containment_type", &self.image_containment_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ExclusionRule {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExclusionRule");
         debug_struct.field("matching_type", &self.matching_type);
         debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AdjustByMatchingInfoTypes {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdjustByMatchingInfoTypes");
+        debug_struct.field("info_types", &self.info_types);
+        debug_struct.field("min_likelihood", &self.min_likelihood);
+        debug_struct.field("matching_type", &self.matching_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AdjustByImageFindings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdjustByImageFindings");
+        debug_struct.field("info_types", &self.info_types);
+        debug_struct.field("min_likelihood", &self.min_likelihood);
+        debug_struct.field("image_containment_type", &self.image_containment_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AdjustmentRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AdjustmentRule");
+        debug_struct.field("likelihood_adjustment", &self.likelihood_adjustment);
+        debug_struct.field("conditions", &self.conditions);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -261,6 +311,17 @@ impl std::fmt::Debug for super::MetadataLocation {
 impl std::fmt::Debug for super::StorageMetadataLabel {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StorageMetadataLabel");
+        debug_struct.field("key", &self.key);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::KeyValueMetadataLabel {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("KeyValueMetadataLabel");
         debug_struct.field("key", &self.key);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -671,6 +732,7 @@ impl std::fmt::Debug for super::InfoTypeDescription {
         debug_struct.field("categories", &self.categories);
         debug_struct.field("sensitivity_score", &self.sensitivity_score);
         debug_struct.field("specific_info_types", &self.specific_info_types);
+        debug_struct.field("launch_status", &self.launch_status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3581,6 +3643,47 @@ impl std::fmt::Debug for super::HybridInspectResponse {
     }
 }
 
+impl std::fmt::Debug for super::ImageContainmentType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageContainmentType");
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Overlap {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Overlap");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Encloses {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Encloses");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FullyInside {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FullyInside");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ListProjectDataProfilesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListProjectDataProfilesRequest");
@@ -4436,6 +4539,18 @@ impl std::fmt::Debug for super::custom_info_type::Regex {
 impl std::fmt::Debug for super::custom_info_type::SurrogateType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SurrogateType");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::custom_info_type::MetadataKeyValueExpression {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetadataKeyValueExpression");
+        debug_struct.field("key_regex", &self.key_regex);
+        debug_struct.field("value_regex", &self.value_regex);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

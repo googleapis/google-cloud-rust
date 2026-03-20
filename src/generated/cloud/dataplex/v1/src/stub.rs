@@ -619,6 +619,16 @@ pub trait CatalogService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::CatalogService::update_entry_link].
+    fn update_entry_link(
+        &self,
+        _req: crate::model::UpdateEntryLinkRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::EntryLink>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::CatalogService::delete_entry_link].
     fn delete_entry_link(
         &self,
@@ -629,6 +639,28 @@ pub trait CatalogService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::CatalogService::lookup_entry_links].
+    fn lookup_entry_links(
+        &self,
+        _req: crate::model::LookupEntryLinksRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::LookupEntryLinksResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CatalogService::lookup_context].
+    fn lookup_context(
+        &self,
+        _req: crate::model::LookupContextRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::LookupContextResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::CatalogService::get_entry_link].
     fn get_entry_link(
         &self,
@@ -636,6 +668,61 @@ pub trait CatalogService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::EntryLink>>> + Send
     {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CatalogService::create_metadata_feed].
+    fn create_metadata_feed(
+        &self,
+        _req: crate::model::CreateMetadataFeedRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CatalogService::get_metadata_feed].
+    fn get_metadata_feed(
+        &self,
+        _req: crate::model::GetMetadataFeedRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::MetadataFeed>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CatalogService::list_metadata_feeds].
+    fn list_metadata_feeds(
+        &self,
+        _req: crate::model::ListMetadataFeedsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListMetadataFeedsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CatalogService::delete_metadata_feed].
+    fn delete_metadata_feed(
+        &self,
+        _req: crate::model::DeleteMetadataFeedRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::CatalogService::update_metadata_feed].
+    fn update_metadata_feed(
+        &self,
+        _req: crate::model::UpdateMetadataFeedRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -966,91 +1053,6 @@ pub trait CmekService: std::fmt::Debug + Send + Sync {
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait ContentService: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::ContentService::create_content].
-    fn create_content(
-        &self,
-        _req: crate::model::CreateContentRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Content>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::ContentService::update_content].
-    fn update_content(
-        &self,
-        _req: crate::model::UpdateContentRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Content>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::ContentService::delete_content].
-    fn delete_content(
-        &self,
-        _req: crate::model::DeleteContentRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::ContentService::get_content].
-    fn get_content(
-        &self,
-        _req: crate::model::GetContentRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Content>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::ContentService::get_iam_policy].
-    fn get_iam_policy(
-        &self,
-        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::ContentService::set_iam_policy].
-    fn set_iam_policy(
-        &self,
-        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::ContentService::test_iam_permissions].
-    fn test_iam_permissions(
-        &self,
-        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
-        >,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::ContentService::list_content].
-    fn list_content(
-        &self,
-        _req: crate::model::ListContentRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::ListContentResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::ContentService::list_locations].
     fn list_locations(
         &self,
@@ -1071,6 +1073,41 @@ pub trait ContentService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ContentService::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ContentService::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ContentService::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1115,6 +1152,250 @@ pub trait ContentService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::DataProductService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::DataProductService`.  In other use-cases, application developers only
+/// use `client::DataProductService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait DataProductService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::DataProductService::create_data_product].
+    fn create_data_product(
+        &self,
+        _req: crate::model::CreateDataProductRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::delete_data_product].
+    fn delete_data_product(
+        &self,
+        _req: crate::model::DeleteDataProductRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::get_data_product].
+    fn get_data_product(
+        &self,
+        _req: crate::model::GetDataProductRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::DataProduct>>>
+    + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::list_data_products].
+    fn list_data_products(
+        &self,
+        _req: crate::model::ListDataProductsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListDataProductsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::update_data_product].
+    fn update_data_product(
+        &self,
+        _req: crate::model::UpdateDataProductRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::create_data_asset].
+    fn create_data_asset(
+        &self,
+        _req: crate::model::CreateDataAssetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::update_data_asset].
+    fn update_data_asset(
+        &self,
+        _req: crate::model::UpdateDataAssetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::delete_data_asset].
+    fn delete_data_asset(
+        &self,
+        _req: crate::model::DeleteDataAssetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::get_data_asset].
+    fn get_data_asset(
+        &self,
+        _req: crate::model::GetDataAssetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::DataAsset>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::list_data_assets].
+    fn list_data_assets(
+        &self,
+        _req: crate::model::ListDataAssetsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListDataAssetsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::list_locations].
+    fn list_locations(
+        &self,
+        _req: google_cloud_location::model::ListLocationsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_location::model::ListLocationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::get_location].
+    fn get_location(
+        &self,
+        _req: google_cloud_location::model::GetLocationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_location::model::Location>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::list_operations].
+    fn list_operations(
+        &self,
+        _req: google_cloud_longrunning::model::ListOperationsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::get_operation].
+    fn get_operation(
+        &self,
+        _req: google_cloud_longrunning::model::GetOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::delete_operation].
+    fn delete_operation(
+        &self,
+        _req: google_cloud_longrunning::model::DeleteOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DataProductService::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: google_cloud_longrunning::model::CancelOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 
@@ -2155,71 +2436,6 @@ pub trait DataplexService: std::fmt::Debug + Send + Sync {
         _req: crate::model::CancelJobRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataplexService::create_environment].
-    fn create_environment(
-        &self,
-        _req: crate::model::CreateEnvironmentRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataplexService::update_environment].
-    fn update_environment(
-        &self,
-        _req: crate::model::UpdateEnvironmentRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataplexService::delete_environment].
-    fn delete_environment(
-        &self,
-        _req: crate::model::DeleteEnvironmentRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataplexService::list_environments].
-    fn list_environments(
-        &self,
-        _req: crate::model::ListEnvironmentsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::ListEnvironmentsResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataplexService::get_environment].
-    fn get_environment(
-        &self,
-        _req: crate::model::GetEnvironmentRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Environment>>>
-    + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataplexService::list_sessions].
-    fn list_sessions(
-        &self,
-        _req: crate::model::ListSessionsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::ListSessionsResponse>>,
-    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 

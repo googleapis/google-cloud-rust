@@ -5310,6 +5310,7 @@ impl serde::ser::Serialize for super::BulkInsertInstanceResourcePerInstancePrope
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -5354,6 +5355,7 @@ impl serde::ser::Serialize for super::BulkInsertInstanceResourcePerInstancePrope
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::BulkInsertOperationStatus {
@@ -8389,6 +8391,7 @@ impl serde::ser::Serialize for super::DistributionPolicyZoneConfiguration {
     feature = "node-groups",
     feature = "region-backend-services",
     feature = "region-commitments",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-templates",
     feature = "region-instances",
     feature = "region-notification-endpoints",
@@ -8500,6 +8503,7 @@ impl serde::ser::Serialize for super::Duration {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -8544,6 +8548,7 @@ impl serde::ser::Serialize for super::Duration {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ErrorInfo {
@@ -10641,6 +10646,9 @@ impl serde::ser::Serialize for super::FutureReservation {
         if self.commitment_info.is_some() {
             state.serialize_entry("commitmentInfo", &self.commitment_info)?;
         }
+        if self.confidential_compute_type.is_some() {
+            state.serialize_entry("confidentialComputeType", &self.confidential_compute_type)?;
+        }
         if self.creation_timestamp.is_some() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
         }
@@ -11722,6 +11730,7 @@ impl serde::ser::Serialize for super::GRPCTLSHealthCheck {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -11766,6 +11775,7 @@ impl serde::ser::Serialize for super::GRPCTLSHealthCheck {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GetVersionOperationMetadata {
@@ -11846,6 +11856,7 @@ impl serde::ser::Serialize for super::GetVersionOperationMetadata {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -11890,6 +11901,7 @@ impl serde::ser::Serialize for super::GetVersionOperationMetadata {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GetVersionOperationMetadataSbomInfo {
@@ -14278,6 +14290,7 @@ impl serde::ser::Serialize for super::HealthStatusForNetworkEndpoint {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -14322,6 +14335,7 @@ impl serde::ser::Serialize for super::HealthStatusForNetworkEndpoint {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Help {
@@ -14402,6 +14416,7 @@ impl serde::ser::Serialize for super::Help {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -14446,6 +14461,7 @@ impl serde::ser::Serialize for super::Help {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::HelpLink {
@@ -15946,6 +15962,9 @@ impl serde::ser::Serialize for super::Instance {
         if self.params.is_some() {
             state.serialize_entry("params", &self.params)?;
         }
+        if !self.partner_metadata.is_empty() {
+            state.serialize_entry("partnerMetadata", &self.partner_metadata)?;
+        }
         if self.private_ipv_6_google_access.is_some() {
             state.serialize_entry("privateIpv6GoogleAccess", &self.private_ipv_6_google_access)?;
         }
@@ -17310,7 +17329,10 @@ impl serde::ser::Serialize for super::instance_group_manager_list::warning::Data
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::InstanceGroupManagerResizeRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -17346,6 +17368,9 @@ impl serde::ser::Serialize for super::InstanceGroupManagerResizeRequest {
         }
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
+        }
+        if self.region.is_some() {
+            state.serialize_entry("region", &self.region)?;
         }
         if self.requested_run_duration.is_some() {
             state.serialize_entry("requestedRunDuration", &self.requested_run_duration)?;
@@ -17388,7 +17413,10 @@ impl serde::ser::Serialize for super::InstanceGroupManagerResizeRequest {
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::InstanceGroupManagerResizeRequestStatus {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -17414,7 +17442,10 @@ impl serde::ser::Serialize for super::InstanceGroupManagerResizeRequestStatus {
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::instance_group_manager_resize_request_status::Error {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -17437,7 +17468,10 @@ impl serde::ser::Serialize for super::instance_group_manager_resize_request_stat
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::instance_group_manager_resize_request_status::error::Errors {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -17469,7 +17503,10 @@ impl serde::ser::Serialize for super::instance_group_manager_resize_request_stat
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize
     for super::instance_group_manager_resize_request_status::error::errors::ErrorDetails
@@ -17503,7 +17540,10 @@ impl serde::ser::Serialize
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::InstanceGroupManagerResizeRequestStatusLastAttempt {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -17526,7 +17566,10 @@ impl serde::ser::Serialize for super::InstanceGroupManagerResizeRequestStatusLas
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize
     for super::instance_group_manager_resize_request_status_last_attempt::Error
@@ -17551,7 +17594,10 @@ impl serde::ser::Serialize
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize
     for super::instance_group_manager_resize_request_status_last_attempt::error::Errors
@@ -17585,7 +17631,10 @@ impl serde::ser::Serialize
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::instance_group_manager_resize_request_status_last_attempt::error::errors::ErrorDetails {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -17808,6 +17857,9 @@ impl serde::ser::Serialize for super::InstanceGroupManagerStatus {
         }
         if self.bulk_instance_operation.is_some() {
             state.serialize_entry("bulkInstanceOperation", &self.bulk_instance_operation)?;
+        }
+        if self.current_instance_statuses.is_some() {
+            state.serialize_entry("currentInstanceStatuses", &self.current_instance_statuses)?;
         }
         if self.is_stable.is_some() {
             state.serialize_entry("isStable", &self.is_stable)?;
@@ -18163,6 +18215,211 @@ impl serde::ser::Serialize for super::instance_group_manager_status_bulk_instanc
         }
         if self.quota_info.is_some() {
             state.serialize_entry("quotaInfo", &self.quota_info)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstanceGroupManagerStatusInstanceStatusSummary {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.deprovisioning.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("deprovisioning", &__With(&self.deprovisioning))?;
+        }
+        if self.non_existent.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("nonExistent", &__With(&self.non_existent))?;
+        }
+        if self.pending.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("pending", &__With(&self.pending))?;
+        }
+        if self.pending_stop.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("pendingStop", &__With(&self.pending_stop))?;
+        }
+        if self.provisioning.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("provisioning", &__With(&self.provisioning))?;
+        }
+        if self.repairing.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("repairing", &__With(&self.repairing))?;
+        }
+        if self.running.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("running", &__With(&self.running))?;
+        }
+        if self.staging.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("staging", &__With(&self.staging))?;
+        }
+        if self.stopped.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("stopped", &__With(&self.stopped))?;
+        }
+        if self.stopping.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("stopping", &__With(&self.stopping))?;
+        }
+        if self.suspended.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("suspended", &__With(&self.suspended))?;
+        }
+        if self.suspending.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("suspending", &__With(&self.suspending))?;
+        }
+        if self.terminated.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("terminated", &__With(&self.terminated))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -19617,6 +19874,9 @@ impl serde::ser::Serialize for super::InstanceProperties {
         if self.network_performance_config.is_some() {
             state.serialize_entry("networkPerformanceConfig", &self.network_performance_config)?;
         }
+        if !self.partner_metadata.is_empty() {
+            state.serialize_entry("partnerMetadata", &self.partner_metadata)?;
+        }
         if self.private_ipv_6_google_access.is_some() {
             state.serialize_entry("privateIpv6GoogleAccess", &self.private_ipv_6_google_access)?;
         }
@@ -20213,6 +20473,7 @@ impl serde::ser::Serialize for super::InstancesAddResourcePoliciesRequest {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -20257,6 +20518,7 @@ impl serde::ser::Serialize for super::InstancesAddResourcePoliciesRequest {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::InstancesBulkInsertOperationMetadata {
@@ -25146,6 +25408,7 @@ impl serde::ser::Serialize for super::LocalDisk {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -25190,6 +25453,7 @@ impl serde::ser::Serialize for super::LocalDisk {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::LocalizedMessage {
@@ -31258,6 +31522,7 @@ impl serde::ser::Serialize for super::notification_endpoints_scoped_list::warnin
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -31302,6 +31567,7 @@ impl serde::ser::Serialize for super::notification_endpoints_scoped_list::warnin
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Operation {
@@ -31516,6 +31782,7 @@ impl serde::ser::Serialize for super::Operation {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -31560,6 +31827,7 @@ impl serde::ser::Serialize for super::Operation {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation::Error {
@@ -31640,6 +31908,7 @@ impl serde::ser::Serialize for super::operation::Error {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -31684,6 +31953,7 @@ impl serde::ser::Serialize for super::operation::Error {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation::error::Errors {
@@ -31773,6 +32043,7 @@ impl serde::ser::Serialize for super::operation::error::Errors {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -31817,6 +32088,7 @@ impl serde::ser::Serialize for super::operation::error::Errors {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
@@ -31906,6 +32178,7 @@ impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -31950,6 +32223,7 @@ impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation::Warnings {
@@ -32036,6 +32310,7 @@ impl serde::ser::Serialize for super::operation::Warnings {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -32080,6 +32355,7 @@ impl serde::ser::Serialize for super::operation::Warnings {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::operation::warnings::Data {
@@ -33175,6 +33451,45 @@ impl serde::ser::Serialize for super::packet_mirrorings_scoped_list::warning::Da
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "instances")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PartnerMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.fingerprint.is_some() {
+            struct __With<'a>(&'a std::option::Option<::bytes::Bytes>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<
+                        std::option::Option<
+                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                        >,
+                    >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
+        }
+        if !self.partner_metadata.is_empty() {
+            state.serialize_entry("partnerMetadata", &self.partner_metadata)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -34836,6 +35151,7 @@ impl serde::ser::Serialize for super::Quota {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -34880,6 +35196,7 @@ impl serde::ser::Serialize for super::Quota {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::QuotaExceededInfo {
@@ -35631,6 +35948,109 @@ impl serde::ser::Serialize for super::RegionInstanceGroupManagerPatchInstanceCon
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.per_instance_configs.is_empty() {
             state.serialize_entry("perInstanceConfigs", &self.per_instance_configs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RegionInstanceGroupManagerResizeRequestsListResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.etag.is_some() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self.unreachables.is_empty() {
+            state.serialize_entry("unreachables", &self.unreachables)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::region_instance_group_manager_resize_requests_list_response::Warning
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::region_instance_group_manager_resize_requests_list_response::warning::Data
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -36677,6 +37097,9 @@ impl serde::ser::Serialize for super::Reservation {
         }
         if self.commitment.is_some() {
             state.serialize_entry("commitment", &self.commitment)?;
+        }
+        if self.confidential_compute_type.is_some() {
+            state.serialize_entry("confidentialComputeType", &self.confidential_compute_type)?;
         }
         if self.creation_timestamp.is_some() {
             state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
@@ -44202,6 +44625,7 @@ impl serde::ser::Serialize for super::service_attachments_scoped_list::warning::
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -44246,6 +44670,7 @@ impl serde::ser::Serialize for super::service_attachments_scoped_list::warning::
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata {
@@ -44329,6 +44754,7 @@ impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -44373,6 +44799,7 @@ impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize
@@ -46167,6 +46594,7 @@ impl serde::ser::Serialize for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -46211,6 +46639,7 @@ impl serde::ser::Serialize for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Status {
@@ -47629,6 +48058,35 @@ impl serde::ser::Serialize for super::storage_pools_scoped_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "machine-images",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StructuredEntries {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.entries.is_empty() {
+            state.serialize_entry("entries", &self.entries)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -52651,6 +53109,261 @@ impl serde::ser::Serialize for super::vm_endpoint_nat_mappings_list::Warning {
 #[cfg(feature = "routers")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::vm_endpoint_nat_mappings_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::VmExtensionPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.creation_timestamp.is_some() {
+            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if self.description.is_some() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.extension_policies.is_empty() {
+            state.serialize_entry("extensionPolicies", &self.extension_policies)?;
+        }
+        if self.global_resource_link.is_some() {
+            state.serialize_entry("globalResourceLink", &self.global_resource_link)?;
+        }
+        if self.id.is_some() {
+            struct __With<'a>(&'a std::option::Option<u64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("id", &__With(&self.id))?;
+        }
+        if !self.instance_selectors.is_empty() {
+            state.serialize_entry("instanceSelectors", &self.instance_selectors)?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.managed_by_global.is_some() {
+            state.serialize_entry("managedByGlobal", &self.managed_by_global)?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.priority.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("priority", &__With(&self.priority))?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.self_link_with_id.is_some() {
+            state.serialize_entry("selfLinkWithId", &self.self_link_with_id)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.update_timestamp.is_some() {
+            state.serialize_entry("updateTimestamp", &self.update_timestamp)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::VmExtensionPolicyExtensionPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.pinned_version.is_some() {
+            state.serialize_entry("pinnedVersion", &self.pinned_version)?;
+        }
+        if self.string_config.is_some() {
+            state.serialize_entry("stringConfig", &self.string_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::VmExtensionPolicyInstanceSelector {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.label_selector.is_some() {
+            state.serialize_entry("labelSelector", &self.label_selector)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::VmExtensionPolicyLabelSelector {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.inclusion_labels.is_empty() {
+            state.serialize_entry("inclusionLabels", &self.inclusion_labels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::VmExtensionPolicyList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.etag.is_some() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self.unreachables.is_empty() {
+            state.serialize_entry("unreachables", &self.unreachables)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::vm_extension_policy_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::vm_extension_policy_list::warning::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,

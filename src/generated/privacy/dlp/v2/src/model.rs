@@ -182,6 +182,101 @@ impl wkt::message::Message for ExcludeByHotword {
     }
 }
 
+/// The rule to exclude image findings based on spatial relationships with
+/// other image findings. For example, exclude an image finding if it overlaps
+/// with another image finding.
+/// This rule is silently ignored if the content being inspected is not an image.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExcludeByImageFindings {
+    /// A list of image-supported infoTypes—excluding [document
+    /// infoTypes](https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference#documents)—to
+    /// be used as context for the exclusion rule. A finding is excluded if
+    /// its bounding box has the specified spatial relationship (defined by
+    /// `image_containment_type`) with a finding of an infoType in this list.
+    ///
+    /// For example, if `InspectionRuleSet.info_types` includes
+    /// `OBJECT_TYPE/PERSON` and this `exclusion_rule` specifies `info_types` as
+    /// `OBJECT_TYPE/PERSON/PASSPORT` with `image_containment_type` set to
+    /// `encloses`, then `OBJECT_TYPE/PERSON` findings will be excluded if they
+    /// are fully contained within the bounding box of an
+    /// `OBJECT_TYPE/PERSON/PASSPORT` finding.
+    pub info_types: std::vec::Vec<crate::model::InfoType>,
+
+    /// Specifies the required spatial relationship between the bounding boxes
+    /// of the target finding and the context infoType findings.
+    pub image_containment_type: std::option::Option<crate::model::ImageContainmentType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExcludeByImageFindings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [info_types][crate::model::ExcludeByImageFindings::info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExcludeByImageFindings;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = ExcludeByImageFindings::new()
+    ///     .set_info_types([
+    ///         InfoType::default()/* use setters */,
+    ///         InfoType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_info_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InfoType>,
+    {
+        use std::iter::Iterator;
+        self.info_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [image_containment_type][crate::model::ExcludeByImageFindings::image_containment_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExcludeByImageFindings;
+    /// use google_cloud_privacy_dlp_v2::model::ImageContainmentType;
+    /// let x = ExcludeByImageFindings::new().set_image_containment_type(ImageContainmentType::default()/* use setters */);
+    /// ```
+    pub fn set_image_containment_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageContainmentType>,
+    {
+        self.image_containment_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image_containment_type][crate::model::ExcludeByImageFindings::image_containment_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExcludeByImageFindings;
+    /// use google_cloud_privacy_dlp_v2::model::ImageContainmentType;
+    /// let x = ExcludeByImageFindings::new().set_or_clear_image_containment_type(Some(ImageContainmentType::default()/* use setters */));
+    /// let x = ExcludeByImageFindings::new().set_or_clear_image_containment_type(None::<ImageContainmentType>);
+    /// ```
+    pub fn set_or_clear_image_containment_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageContainmentType>,
+    {
+        self.image_containment_type = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExcludeByImageFindings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.ExcludeByImageFindings"
+    }
+}
+
 /// The rule that specifies conditions when findings of infoTypes specified in
 /// `InspectionRuleSet` are removed from results.
 #[derive(Clone, Default, PartialEq)]
@@ -269,6 +364,7 @@ impl ExclusionRule {
     /// assert!(x.regex().is_none());
     /// assert!(x.exclude_info_types().is_none());
     /// assert!(x.exclude_by_hotword().is_none());
+    /// assert!(x.exclude_by_image_findings().is_none());
     /// ```
     pub fn set_dictionary<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Dictionary>>,
@@ -309,6 +405,7 @@ impl ExclusionRule {
     /// assert!(x.dictionary().is_none());
     /// assert!(x.exclude_info_types().is_none());
     /// assert!(x.exclude_by_hotword().is_none());
+    /// assert!(x.exclude_by_image_findings().is_none());
     /// ```
     pub fn set_regex<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Regex>>,
@@ -349,6 +446,7 @@ impl ExclusionRule {
     /// assert!(x.dictionary().is_none());
     /// assert!(x.regex().is_none());
     /// assert!(x.exclude_by_hotword().is_none());
+    /// assert!(x.exclude_by_image_findings().is_none());
     /// ```
     pub fn set_exclude_info_types<
         T: std::convert::Into<std::boxed::Box<crate::model::ExcludeInfoTypes>>,
@@ -390,6 +488,7 @@ impl ExclusionRule {
     /// assert!(x.dictionary().is_none());
     /// assert!(x.regex().is_none());
     /// assert!(x.exclude_info_types().is_none());
+    /// assert!(x.exclude_by_image_findings().is_none());
     /// ```
     pub fn set_exclude_by_hotword<
         T: std::convert::Into<std::boxed::Box<crate::model::ExcludeByHotword>>,
@@ -399,6 +498,50 @@ impl ExclusionRule {
     ) -> Self {
         self.r#type = std::option::Option::Some(
             crate::model::exclusion_rule::Type::ExcludeByHotword(v.into()),
+        );
+        self
+    }
+
+    /// The value of [r#type][crate::model::ExclusionRule::r#type]
+    /// if it holds a `ExcludeByImageFindings`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn exclude_by_image_findings(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ExcludeByImageFindings>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::exclusion_rule::Type::ExcludeByImageFindings(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::ExclusionRule::r#type]
+    /// to hold a `ExcludeByImageFindings`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ExclusionRule;
+    /// use google_cloud_privacy_dlp_v2::model::ExcludeByImageFindings;
+    /// let x = ExclusionRule::new().set_exclude_by_image_findings(ExcludeByImageFindings::default()/* use setters */);
+    /// assert!(x.exclude_by_image_findings().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// assert!(x.regex().is_none());
+    /// assert!(x.exclude_info_types().is_none());
+    /// assert!(x.exclude_by_hotword().is_none());
+    /// ```
+    pub fn set_exclude_by_image_findings<
+        T: std::convert::Into<std::boxed::Box<crate::model::ExcludeByImageFindings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::exclusion_rule::Type::ExcludeByImageFindings(v.into()),
         );
         self
     }
@@ -428,6 +571,415 @@ pub mod exclusion_rule {
         /// Drop if the hotword rule is contained in the proximate context. For
         /// tabular data, the context includes the column name.
         ExcludeByHotword(std::boxed::Box<crate::model::ExcludeByHotword>),
+        /// Exclude findings based on image containment rules. For example, exclude
+        /// an image finding if it overlaps with another image finding.
+        ExcludeByImageFindings(std::boxed::Box<crate::model::ExcludeByImageFindings>),
+    }
+}
+
+/// AdjustmentRule condition for matching infoTypes.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AdjustByMatchingInfoTypes {
+    /// Sensitive Data Protection adjusts the likelihood of a finding if that
+    /// finding also matches one of these infoTypes.
+    ///
+    /// For example, you can create a rule to adjust the likelihood of a
+    /// `PHONE_NUMBER` finding if the string is found within a document that is
+    /// classified as `DOCUMENT_TYPE/HR/RESUME`. To configure this, set
+    /// `PHONE_NUMBER` in `InspectionRuleSet.info_types`. Add an `adjustment_rule`
+    /// with an `adjust_by_matching_info_types.info_types` that contains
+    /// `DOCUMENT_TYPE/HR/RESUME`. In this case, the likelihood of the
+    /// `PHONE_NUMBER` finding is adjusted, but the likelihood of the
+    /// `DOCUMENT_TYPE/HR/RESUME` finding is not.
+    pub info_types: std::vec::Vec<crate::model::InfoType>,
+
+    /// Required. Minimum likelihood of the
+    /// `adjust_by_matching_info_types.info_types` finding. If the likelihood is
+    /// lower than this value, Sensitive Data Protection doesn't adjust the
+    /// likelihood of the `InspectionRuleSet.info_types` finding.
+    pub min_likelihood: crate::model::Likelihood,
+
+    /// How the adjustment rule is applied.
+    ///
+    /// Only `MATCHING_TYPE_PARTIAL_MATCH` is supported:
+    ///
+    /// - Partial match: adjusts the findings of infoTypes specified in the
+    ///   inspection rule when they have a nonempty intersection with a finding of an
+    ///   infoType specified in this adjustment rule.
+    pub matching_type: crate::model::MatchingType,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AdjustByMatchingInfoTypes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [info_types][crate::model::AdjustByMatchingInfoTypes::info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustByMatchingInfoTypes;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = AdjustByMatchingInfoTypes::new()
+    ///     .set_info_types([
+    ///         InfoType::default()/* use setters */,
+    ///         InfoType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_info_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InfoType>,
+    {
+        use std::iter::Iterator;
+        self.info_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [min_likelihood][crate::model::AdjustByMatchingInfoTypes::min_likelihood].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustByMatchingInfoTypes;
+    /// use google_cloud_privacy_dlp_v2::model::Likelihood;
+    /// let x0 = AdjustByMatchingInfoTypes::new().set_min_likelihood(Likelihood::VeryUnlikely);
+    /// let x1 = AdjustByMatchingInfoTypes::new().set_min_likelihood(Likelihood::Unlikely);
+    /// let x2 = AdjustByMatchingInfoTypes::new().set_min_likelihood(Likelihood::Possible);
+    /// ```
+    pub fn set_min_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.min_likelihood = v.into();
+        self
+    }
+
+    /// Sets the value of [matching_type][crate::model::AdjustByMatchingInfoTypes::matching_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustByMatchingInfoTypes;
+    /// use google_cloud_privacy_dlp_v2::model::MatchingType;
+    /// let x0 = AdjustByMatchingInfoTypes::new().set_matching_type(MatchingType::FullMatch);
+    /// let x1 = AdjustByMatchingInfoTypes::new().set_matching_type(MatchingType::PartialMatch);
+    /// let x2 = AdjustByMatchingInfoTypes::new().set_matching_type(MatchingType::InverseMatch);
+    /// ```
+    pub fn set_matching_type<T: std::convert::Into<crate::model::MatchingType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.matching_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AdjustByMatchingInfoTypes {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.AdjustByMatchingInfoTypes"
+    }
+}
+
+/// AdjustmentRule condition for image findings.
+/// This rule is silently ignored if the content being inspected is not an image.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AdjustByImageFindings {
+    /// A list of image-supported infoTypes—excluding [document
+    /// infoTypes](https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference#documents)—to
+    /// be used as context for the adjustment rule. Sensitive Data Protection
+    /// adjusts the likelihood of an image finding if its bounding box has the
+    /// specified spatial relationship (defined by `image_containment_type`) with a
+    /// finding of an infoType in this list.
+    ///
+    /// For example, you can create a rule to adjust the likelihood of a
+    /// `US_PASSPORT` finding if it is enclosed by a finding of
+    /// `OBJECT_TYPE/PERSON/PASSPORT`. To configure this, set `US_PASSPORT` in
+    /// `InspectionRuleSet.info_types`. Add an `adjustment_rule` with an
+    /// `adjust_by_image_findings.info_types` that contains
+    /// `OBJECT_TYPE/PERSON/PASSPORT` and `image_containment_type` set
+    /// to `encloses`. In this case, the likelihood of the `US_PASSPORT` finding is
+    /// adjusted, but the likelihood of the `OBJECT_TYPE/PERSON/PASSPORT`
+    /// finding is not.
+    pub info_types: std::vec::Vec<crate::model::InfoType>,
+
+    /// Required. Minimum likelihood of the
+    /// `adjust_by_image_findings.info_types` finding. If the likelihood is
+    /// lower than this value, Sensitive Data Protection doesn't adjust the
+    /// likelihood of the `InspectionRuleSet.info_types` finding.
+    pub min_likelihood: crate::model::Likelihood,
+
+    /// Specifies the required spatial relationship between the bounding boxes
+    /// of the target finding and the context infoType findings.
+    pub image_containment_type: std::option::Option<crate::model::ImageContainmentType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AdjustByImageFindings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [info_types][crate::model::AdjustByImageFindings::info_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustByImageFindings;
+    /// use google_cloud_privacy_dlp_v2::model::InfoType;
+    /// let x = AdjustByImageFindings::new()
+    ///     .set_info_types([
+    ///         InfoType::default()/* use setters */,
+    ///         InfoType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_info_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InfoType>,
+    {
+        use std::iter::Iterator;
+        self.info_types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [min_likelihood][crate::model::AdjustByImageFindings::min_likelihood].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustByImageFindings;
+    /// use google_cloud_privacy_dlp_v2::model::Likelihood;
+    /// let x0 = AdjustByImageFindings::new().set_min_likelihood(Likelihood::VeryUnlikely);
+    /// let x1 = AdjustByImageFindings::new().set_min_likelihood(Likelihood::Unlikely);
+    /// let x2 = AdjustByImageFindings::new().set_min_likelihood(Likelihood::Possible);
+    /// ```
+    pub fn set_min_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.min_likelihood = v.into();
+        self
+    }
+
+    /// Sets the value of [image_containment_type][crate::model::AdjustByImageFindings::image_containment_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustByImageFindings;
+    /// use google_cloud_privacy_dlp_v2::model::ImageContainmentType;
+    /// let x = AdjustByImageFindings::new().set_image_containment_type(ImageContainmentType::default()/* use setters */);
+    /// ```
+    pub fn set_image_containment_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageContainmentType>,
+    {
+        self.image_containment_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image_containment_type][crate::model::AdjustByImageFindings::image_containment_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustByImageFindings;
+    /// use google_cloud_privacy_dlp_v2::model::ImageContainmentType;
+    /// let x = AdjustByImageFindings::new().set_or_clear_image_containment_type(Some(ImageContainmentType::default()/* use setters */));
+    /// let x = AdjustByImageFindings::new().set_or_clear_image_containment_type(None::<ImageContainmentType>);
+    /// ```
+    pub fn set_or_clear_image_containment_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageContainmentType>,
+    {
+        self.image_containment_type = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AdjustByImageFindings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.AdjustByImageFindings"
+    }
+}
+
+/// Rule that specifies conditions when a certain infoType's finding details
+/// should be adjusted.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AdjustmentRule {
+    /// Likelihood adjustment to apply to the infoType.
+    pub likelihood_adjustment:
+        std::option::Option<crate::model::custom_info_type::detection_rule::LikelihoodAdjustment>,
+
+    /// Condition under which the adjustment rule is applied.
+    pub conditions: std::option::Option<crate::model::adjustment_rule::Conditions>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AdjustmentRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [likelihood_adjustment][crate::model::AdjustmentRule::likelihood_adjustment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustmentRule;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::LikelihoodAdjustment;
+    /// let x = AdjustmentRule::new().set_likelihood_adjustment(LikelihoodAdjustment::default()/* use setters */);
+    /// ```
+    pub fn set_likelihood_adjustment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::custom_info_type::detection_rule::LikelihoodAdjustment>,
+    {
+        self.likelihood_adjustment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [likelihood_adjustment][crate::model::AdjustmentRule::likelihood_adjustment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustmentRule;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::detection_rule::LikelihoodAdjustment;
+    /// let x = AdjustmentRule::new().set_or_clear_likelihood_adjustment(Some(LikelihoodAdjustment::default()/* use setters */));
+    /// let x = AdjustmentRule::new().set_or_clear_likelihood_adjustment(None::<LikelihoodAdjustment>);
+    /// ```
+    pub fn set_or_clear_likelihood_adjustment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::custom_info_type::detection_rule::LikelihoodAdjustment>,
+    {
+        self.likelihood_adjustment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [conditions][crate::model::AdjustmentRule::conditions].
+    ///
+    /// Note that all the setters affecting `conditions` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustmentRule;
+    /// use google_cloud_privacy_dlp_v2::model::AdjustByMatchingInfoTypes;
+    /// let x = AdjustmentRule::new().set_conditions(Some(
+    ///     google_cloud_privacy_dlp_v2::model::adjustment_rule::Conditions::AdjustByMatchingInfoTypes(AdjustByMatchingInfoTypes::default().into())));
+    /// ```
+    pub fn set_conditions<
+        T: std::convert::Into<std::option::Option<crate::model::adjustment_rule::Conditions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.conditions = v.into();
+        self
+    }
+
+    /// The value of [conditions][crate::model::AdjustmentRule::conditions]
+    /// if it holds a `AdjustByMatchingInfoTypes`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn adjust_by_matching_info_types(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AdjustByMatchingInfoTypes>> {
+        #[allow(unreachable_patterns)]
+        self.conditions.as_ref().and_then(|v| match v {
+            crate::model::adjustment_rule::Conditions::AdjustByMatchingInfoTypes(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [conditions][crate::model::AdjustmentRule::conditions]
+    /// to hold a `AdjustByMatchingInfoTypes`.
+    ///
+    /// Note that all the setters affecting `conditions` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustmentRule;
+    /// use google_cloud_privacy_dlp_v2::model::AdjustByMatchingInfoTypes;
+    /// let x = AdjustmentRule::new().set_adjust_by_matching_info_types(AdjustByMatchingInfoTypes::default()/* use setters */);
+    /// assert!(x.adjust_by_matching_info_types().is_some());
+    /// assert!(x.adjust_by_image_findings().is_none());
+    /// ```
+    pub fn set_adjust_by_matching_info_types<
+        T: std::convert::Into<std::boxed::Box<crate::model::AdjustByMatchingInfoTypes>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.conditions = std::option::Option::Some(
+            crate::model::adjustment_rule::Conditions::AdjustByMatchingInfoTypes(v.into()),
+        );
+        self
+    }
+
+    /// The value of [conditions][crate::model::AdjustmentRule::conditions]
+    /// if it holds a `AdjustByImageFindings`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn adjust_by_image_findings(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AdjustByImageFindings>> {
+        #[allow(unreachable_patterns)]
+        self.conditions.as_ref().and_then(|v| match v {
+            crate::model::adjustment_rule::Conditions::AdjustByImageFindings(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [conditions][crate::model::AdjustmentRule::conditions]
+    /// to hold a `AdjustByImageFindings`.
+    ///
+    /// Note that all the setters affecting `conditions` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::AdjustmentRule;
+    /// use google_cloud_privacy_dlp_v2::model::AdjustByImageFindings;
+    /// let x = AdjustmentRule::new().set_adjust_by_image_findings(AdjustByImageFindings::default()/* use setters */);
+    /// assert!(x.adjust_by_image_findings().is_some());
+    /// assert!(x.adjust_by_matching_info_types().is_none());
+    /// ```
+    pub fn set_adjust_by_image_findings<
+        T: std::convert::Into<std::boxed::Box<crate::model::AdjustByImageFindings>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.conditions = std::option::Option::Some(
+            crate::model::adjustment_rule::Conditions::AdjustByImageFindings(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for AdjustmentRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.AdjustmentRule"
+    }
+}
+
+/// Defines additional types related to [AdjustmentRule].
+pub mod adjustment_rule {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Condition under which the adjustment rule is applied.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Conditions {
+        /// Set of infoTypes for which findings would affect this rule.
+        AdjustByMatchingInfoTypes(std::boxed::Box<crate::model::AdjustByMatchingInfoTypes>),
+        /// AdjustmentRule condition for image findings.
+        AdjustByImageFindings(std::boxed::Box<crate::model::AdjustByImageFindings>),
     }
 }
 
@@ -497,6 +1049,7 @@ impl InspectionRule {
     /// let x = InspectionRule::new().set_hotword_rule(HotwordRule::default()/* use setters */);
     /// assert!(x.hotword_rule().is_some());
     /// assert!(x.exclusion_rule().is_none());
+    /// assert!(x.adjustment_rule().is_none());
     /// ```
     pub fn set_hotword_rule<
         T: std::convert::Into<
@@ -537,6 +1090,7 @@ impl InspectionRule {
     /// let x = InspectionRule::new().set_exclusion_rule(ExclusionRule::default()/* use setters */);
     /// assert!(x.exclusion_rule().is_some());
     /// assert!(x.hotword_rule().is_none());
+    /// assert!(x.adjustment_rule().is_none());
     /// ```
     pub fn set_exclusion_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::ExclusionRule>>,
@@ -546,6 +1100,46 @@ impl InspectionRule {
     ) -> Self {
         self.r#type =
             std::option::Option::Some(crate::model::inspection_rule::Type::ExclusionRule(v.into()));
+        self
+    }
+
+    /// The value of [r#type][crate::model::InspectionRule::r#type]
+    /// if it holds a `AdjustmentRule`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn adjustment_rule(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AdjustmentRule>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::inspection_rule::Type::AdjustmentRule(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::InspectionRule::r#type]
+    /// to hold a `AdjustmentRule`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InspectionRule;
+    /// use google_cloud_privacy_dlp_v2::model::AdjustmentRule;
+    /// let x = InspectionRule::new().set_adjustment_rule(AdjustmentRule::default()/* use setters */);
+    /// assert!(x.adjustment_rule().is_some());
+    /// assert!(x.hotword_rule().is_none());
+    /// assert!(x.exclusion_rule().is_none());
+    /// ```
+    pub fn set_adjustment_rule<
+        T: std::convert::Into<std::boxed::Box<crate::model::AdjustmentRule>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::inspection_rule::Type::AdjustmentRule(v.into()),
+        );
         self
     }
 }
@@ -569,6 +1163,8 @@ pub mod inspection_rule {
         HotwordRule(std::boxed::Box<crate::model::custom_info_type::detection_rule::HotwordRule>),
         /// Exclusion rule.
         ExclusionRule(std::boxed::Box<crate::model::ExclusionRule>),
+        /// Adjustment rule.
+        AdjustmentRule(std::boxed::Box<crate::model::AdjustmentRule>),
     }
 }
 
@@ -719,7 +1315,8 @@ pub struct InspectConfig {
 
     /// Set of rules to apply to the findings for this InspectConfig.
     /// Exclusion rules, contained in the set are executed in the end, other
-    /// rules are executed in the order they are specified for each info type.
+    /// rules are executed in the order they are specified for each info type. Not
+    /// supported for the `metadata_key_value_expression` CustomInfoType.
     pub rule_set: std::vec::Vec<crate::model::InspectionRuleSet>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2708,6 +3305,7 @@ impl MetadataLocation {
     /// # use google_cloud_privacy_dlp_v2::model::MetadataLocation;
     /// use google_cloud_privacy_dlp_v2::model::MetadataType;
     /// let x0 = MetadataLocation::new().set_type(MetadataType::StorageMetadata);
+    /// let x1 = MetadataLocation::new().set_type(MetadataType::ContentMetadata);
     /// ```
     pub fn set_type<T: std::convert::Into<crate::model::MetadataType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -2761,6 +3359,7 @@ impl MetadataLocation {
     /// use google_cloud_privacy_dlp_v2::model::StorageMetadataLabel;
     /// let x = MetadataLocation::new().set_storage_label(StorageMetadataLabel::default()/* use setters */);
     /// assert!(x.storage_label().is_some());
+    /// assert!(x.key_value_metadata_label().is_none());
     /// ```
     pub fn set_storage_label<
         T: std::convert::Into<std::boxed::Box<crate::model::StorageMetadataLabel>>,
@@ -2770,6 +3369,47 @@ impl MetadataLocation {
     ) -> Self {
         self.label = std::option::Option::Some(
             crate::model::metadata_location::Label::StorageLabel(v.into()),
+        );
+        self
+    }
+
+    /// The value of [label][crate::model::MetadataLocation::label]
+    /// if it holds a `KeyValueMetadataLabel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn key_value_metadata_label(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::KeyValueMetadataLabel>> {
+        #[allow(unreachable_patterns)]
+        self.label.as_ref().and_then(|v| match v {
+            crate::model::metadata_location::Label::KeyValueMetadataLabel(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [label][crate::model::MetadataLocation::label]
+    /// to hold a `KeyValueMetadataLabel`.
+    ///
+    /// Note that all the setters affecting `label` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::MetadataLocation;
+    /// use google_cloud_privacy_dlp_v2::model::KeyValueMetadataLabel;
+    /// let x = MetadataLocation::new().set_key_value_metadata_label(KeyValueMetadataLabel::default()/* use setters */);
+    /// assert!(x.key_value_metadata_label().is_some());
+    /// assert!(x.storage_label().is_none());
+    /// ```
+    pub fn set_key_value_metadata_label<
+        T: std::convert::Into<std::boxed::Box<crate::model::KeyValueMetadataLabel>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.label = std::option::Option::Some(
+            crate::model::metadata_location::Label::KeyValueMetadataLabel(v.into()),
         );
         self
     }
@@ -2793,6 +3433,8 @@ pub mod metadata_location {
     pub enum Label {
         /// Storage metadata.
         StorageLabel(std::boxed::Box<crate::model::StorageMetadataLabel>),
+        /// Metadata key that contains the finding.
+        KeyValueMetadataLabel(std::boxed::Box<crate::model::KeyValueMetadataLabel>),
     }
 }
 
@@ -2827,6 +3469,45 @@ impl StorageMetadataLabel {
 impl wkt::message::Message for StorageMetadataLabel {
     fn typename() -> &'static str {
         "type.googleapis.com/google.privacy.dlp.v2.StorageMetadataLabel"
+    }
+}
+
+/// The metadata key that contains a finding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct KeyValueMetadataLabel {
+    /// The metadata key. The format depends on the source of the metadata.
+    ///
+    /// Example:
+    ///
+    /// - `MSIP_Label_122709e3-8f6b-4860-985f-7f722a94f61e_Enabled` (a Microsoft
+    ///   Purview Information Protection key example)
+    pub key: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl KeyValueMetadataLabel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [key][crate::model::KeyValueMetadataLabel::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::KeyValueMetadataLabel;
+    /// let x = KeyValueMetadataLabel::new().set_key("example");
+    /// ```
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for KeyValueMetadataLabel {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.KeyValueMetadataLabel"
     }
 }
 
@@ -4811,6 +5492,7 @@ pub struct OutputStorageConfig {
     pub output_schema: crate::model::output_storage_config::OutputSchema,
 
     /// Output storage types.
+    /// *
     pub r#type: std::option::Option<crate::model::output_storage_config::Type>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5106,6 +5788,7 @@ pub mod output_storage_config {
     }
 
     /// Output storage types.
+    /// *
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -6448,6 +7131,9 @@ pub struct InfoTypeDescription {
     /// field "LOCATION", "LOCATION_COORDINATES", and "STREET_ADDRESS".
     pub specific_info_types: std::vec::Vec<std::string::String>,
 
+    /// The launch status of the infoType.
+    pub launch_status: crate::model::info_type_description::InfoTypeLaunchStatus,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6651,11 +7337,178 @@ impl InfoTypeDescription {
         self.specific_info_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [launch_status][crate::model::InfoTypeDescription::launch_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::InfoTypeDescription;
+    /// use google_cloud_privacy_dlp_v2::model::info_type_description::InfoTypeLaunchStatus;
+    /// let x0 = InfoTypeDescription::new().set_launch_status(InfoTypeLaunchStatus::GeneralAvailability);
+    /// let x1 = InfoTypeDescription::new().set_launch_status(InfoTypeLaunchStatus::PublicPreview);
+    /// let x2 = InfoTypeDescription::new().set_launch_status(InfoTypeLaunchStatus::PrivatePreview);
+    /// ```
+    pub fn set_launch_status<
+        T: std::convert::Into<crate::model::info_type_description::InfoTypeLaunchStatus>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.launch_status = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for InfoTypeDescription {
     fn typename() -> &'static str {
         "type.googleapis.com/google.privacy.dlp.v2.InfoTypeDescription"
+    }
+}
+
+/// Defines additional types related to [InfoTypeDescription].
+pub mod info_type_description {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The launch status of an infoType.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum InfoTypeLaunchStatus {
+        /// Unspecified.
+        Unspecified,
+        /// InfoType is generally available.
+        GeneralAvailability,
+        /// InfoType is in public preview.
+        PublicPreview,
+        /// InfoType is in private preview.
+        PrivatePreview,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [InfoTypeLaunchStatus::value] or
+        /// [InfoTypeLaunchStatus::name].
+        UnknownValue(info_type_launch_status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod info_type_launch_status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl InfoTypeLaunchStatus {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GeneralAvailability => std::option::Option::Some(1),
+                Self::PublicPreview => std::option::Option::Some(2),
+                Self::PrivatePreview => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("INFO_TYPE_LAUNCH_STATUS_UNSPECIFIED")
+                }
+                Self::GeneralAvailability => std::option::Option::Some("GENERAL_AVAILABILITY"),
+                Self::PublicPreview => std::option::Option::Some("PUBLIC_PREVIEW"),
+                Self::PrivatePreview => std::option::Option::Some("PRIVATE_PREVIEW"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for InfoTypeLaunchStatus {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for InfoTypeLaunchStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for InfoTypeLaunchStatus {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GeneralAvailability,
+                2 => Self::PublicPreview,
+                3 => Self::PrivatePreview,
+                _ => Self::UnknownValue(info_type_launch_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for InfoTypeLaunchStatus {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "INFO_TYPE_LAUNCH_STATUS_UNSPECIFIED" => Self::Unspecified,
+                "GENERAL_AVAILABILITY" => Self::GeneralAvailability,
+                "PUBLIC_PREVIEW" => Self::PublicPreview,
+                "PRIVATE_PREVIEW" => Self::PrivatePreview,
+                _ => Self::UnknownValue(info_type_launch_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for InfoTypeLaunchStatus {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GeneralAvailability => serializer.serialize_i32(1),
+                Self::PublicPreview => serializer.serialize_i32(2),
+                Self::PrivatePreview => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for InfoTypeLaunchStatus {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<InfoTypeLaunchStatus>::new(
+                ".google.privacy.dlp.v2.InfoTypeDescription.InfoTypeLaunchStatus",
+            ))
+        }
     }
 }
 
@@ -36097,6 +36950,240 @@ impl wkt::message::Message for HybridInspectResponse {
     }
 }
 
+/// Specifies the relationship between bounding boxes for image findings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImageContainmentType {
+    /// The type of relationship to check between the target finding and the
+    /// context finding.
+    pub r#type: std::option::Option<crate::model::image_containment_type::Type>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImageContainmentType {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::ImageContainmentType::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ImageContainmentType;
+    /// use google_cloud_privacy_dlp_v2::model::Encloses;
+    /// let x = ImageContainmentType::new().set_type(Some(
+    ///     google_cloud_privacy_dlp_v2::model::image_containment_type::Type::Encloses(Encloses::default().into())));
+    /// ```
+    pub fn set_type<
+        T: std::convert::Into<std::option::Option<crate::model::image_containment_type::Type>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// The value of [r#type][crate::model::ImageContainmentType::r#type]
+    /// if it holds a `Encloses`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn encloses(&self) -> std::option::Option<&std::boxed::Box<crate::model::Encloses>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::image_containment_type::Type::Encloses(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::ImageContainmentType::r#type]
+    /// to hold a `Encloses`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ImageContainmentType;
+    /// use google_cloud_privacy_dlp_v2::model::Encloses;
+    /// let x = ImageContainmentType::new().set_encloses(Encloses::default()/* use setters */);
+    /// assert!(x.encloses().is_some());
+    /// assert!(x.fully_inside().is_none());
+    /// assert!(x.overlaps().is_none());
+    /// ```
+    pub fn set_encloses<T: std::convert::Into<std::boxed::Box<crate::model::Encloses>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::image_containment_type::Type::Encloses(v.into()),
+        );
+        self
+    }
+
+    /// The value of [r#type][crate::model::ImageContainmentType::r#type]
+    /// if it holds a `FullyInside`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn fully_inside(&self) -> std::option::Option<&std::boxed::Box<crate::model::FullyInside>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::image_containment_type::Type::FullyInside(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::ImageContainmentType::r#type]
+    /// to hold a `FullyInside`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ImageContainmentType;
+    /// use google_cloud_privacy_dlp_v2::model::FullyInside;
+    /// let x = ImageContainmentType::new().set_fully_inside(FullyInside::default()/* use setters */);
+    /// assert!(x.fully_inside().is_some());
+    /// assert!(x.encloses().is_none());
+    /// assert!(x.overlaps().is_none());
+    /// ```
+    pub fn set_fully_inside<T: std::convert::Into<std::boxed::Box<crate::model::FullyInside>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::image_containment_type::Type::FullyInside(v.into()),
+        );
+        self
+    }
+
+    /// The value of [r#type][crate::model::ImageContainmentType::r#type]
+    /// if it holds a `Overlaps`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn overlaps(&self) -> std::option::Option<&std::boxed::Box<crate::model::Overlap>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::image_containment_type::Type::Overlaps(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::ImageContainmentType::r#type]
+    /// to hold a `Overlaps`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ImageContainmentType;
+    /// use google_cloud_privacy_dlp_v2::model::Overlap;
+    /// let x = ImageContainmentType::new().set_overlaps(Overlap::default()/* use setters */);
+    /// assert!(x.overlaps().is_some());
+    /// assert!(x.encloses().is_none());
+    /// assert!(x.fully_inside().is_none());
+    /// ```
+    pub fn set_overlaps<T: std::convert::Into<std::boxed::Box<crate::model::Overlap>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::image_containment_type::Type::Overlaps(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ImageContainmentType {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.ImageContainmentType"
+    }
+}
+
+/// Defines additional types related to [ImageContainmentType].
+pub mod image_containment_type {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of relationship to check between the target finding and the
+    /// context finding.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// The context finding's bounding box must fully contain the target
+        /// finding's bounding box.
+        Encloses(std::boxed::Box<crate::model::Encloses>),
+        /// The context finding's bounding box must be fully inside the target
+        /// finding's bounding box.
+        FullyInside(std::boxed::Box<crate::model::FullyInside>),
+        /// The context finding's bounding box and the target finding's bounding box
+        /// must have a non-zero intersection.
+        Overlaps(std::boxed::Box<crate::model::Overlap>),
+    }
+}
+
+/// Defines a condition for overlapping bounding boxes.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Overlap {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Overlap {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for Overlap {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.Overlap"
+    }
+}
+
+/// Defines a condition where one bounding box encloses another.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Encloses {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Encloses {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for Encloses {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.Encloses"
+    }
+}
+
+/// Defines a condition where one bounding box is fully inside another.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FullyInside {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FullyInside {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for FullyInside {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.FullyInside"
+    }
+}
+
 /// Request to list the profiles generated for a given organization or project.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -44060,7 +45147,7 @@ impl Domain {
     /// let x = Domain::new().set_signals([
     ///     Signal::Model,
     ///     Signal::TextEmbedding,
-    ///     Signal::VertexPlugin,
+    ///     Signal::Embedding,
     /// ]);
     /// ```
     pub fn set_signals<T, V>(mut self, v: T) -> Self
@@ -44221,7 +45308,7 @@ pub mod domain {
     }
 
     /// The signal used to determine the category.
-    /// This list may increase over time.
+    /// New values may be added in the future.
     ///
     /// # Working with unknown values
     ///
@@ -44243,8 +45330,12 @@ pub mod domain {
         Unspecified,
         /// One or more machine learning models are present.
         Model,
-        /// A table appears to be a text embedding.
+        /// A table appears to contain text embeddings.
         TextEmbedding,
+        /// A table appears to contain embeddings of any type (for example, text,
+        /// image, multimodal). The `TEXT_EMBEDDING` signal might also be present if
+        /// the table contains text embeddings.
+        Embedding,
         /// The [Cloud SQL Vertex
         /// AI](https://cloud.google.com/sql/docs/postgres/integrate-cloud-sql-with-vertex-ai)
         /// plugin is installed on the database.
@@ -44283,6 +45374,7 @@ pub mod domain {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Model => std::option::Option::Some(1),
                 Self::TextEmbedding => std::option::Option::Some(2),
+                Self::Embedding => std::option::Option::Some(7),
                 Self::VertexPlugin => std::option::Option::Some(3),
                 Self::VectorPlugin => std::option::Option::Some(4),
                 Self::SourceCode => std::option::Option::Some(5),
@@ -44300,6 +45392,7 @@ pub mod domain {
                 Self::Unspecified => std::option::Option::Some("SIGNAL_UNSPECIFIED"),
                 Self::Model => std::option::Option::Some("MODEL"),
                 Self::TextEmbedding => std::option::Option::Some("TEXT_EMBEDDING"),
+                Self::Embedding => std::option::Option::Some("EMBEDDING"),
                 Self::VertexPlugin => std::option::Option::Some("VERTEX_PLUGIN"),
                 Self::VectorPlugin => std::option::Option::Some("VECTOR_PLUGIN"),
                 Self::SourceCode => std::option::Option::Some("SOURCE_CODE"),
@@ -44332,6 +45425,7 @@ pub mod domain {
                 4 => Self::VectorPlugin,
                 5 => Self::SourceCode,
                 6 => Self::Service,
+                7 => Self::Embedding,
                 _ => Self::UnknownValue(signal::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -44346,6 +45440,7 @@ pub mod domain {
                 "SIGNAL_UNSPECIFIED" => Self::Unspecified,
                 "MODEL" => Self::Model,
                 "TEXT_EMBEDDING" => Self::TextEmbedding,
+                "EMBEDDING" => Self::Embedding,
                 "VERTEX_PLUGIN" => Self::VertexPlugin,
                 "VECTOR_PLUGIN" => Self::VectorPlugin,
                 "SOURCE_CODE" => Self::SourceCode,
@@ -44366,6 +45461,7 @@ pub mod domain {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Model => serializer.serialize_i32(1),
                 Self::TextEmbedding => serializer.serialize_i32(2),
+                Self::Embedding => serializer.serialize_i32(7),
                 Self::VertexPlugin => serializer.serialize_i32(3),
                 Self::VectorPlugin => serializer.serialize_i32(4),
                 Self::SourceCode => serializer.serialize_i32(5),
@@ -44775,12 +45871,13 @@ pub struct CustomInfoType {
     pub likelihood: crate::model::Likelihood,
 
     /// Set of detection rules to apply to all findings of this CustomInfoType.
-    /// Rules are applied in order that they are specified. Not supported for the
-    /// `surrogate_type` CustomInfoType.
+    /// Rules are applied in the order that they are specified. Only supported
+    /// for the `dictionary`, `regex`, and `stored_type` CustomInfoTypes.
     pub detection_rules: std::vec::Vec<crate::model::custom_info_type::DetectionRule>,
 
     /// If set to EXCLUSION_TYPE_EXCLUDE this infoType will not cause a finding
-    /// to be returned. It still can be used for rules matching.
+    /// to be returned. It still can be used for rules matching. Only supported
+    /// for the `dictionary`, `regex`, and `stored_type` CustomInfoTypes.
     pub exclusion_type: crate::model::custom_info_type::ExclusionType,
 
     /// Sensitivity for this CustomInfoType. If this CustomInfoType extends an
@@ -44972,6 +46069,7 @@ impl CustomInfoType {
     /// assert!(x.regex().is_none());
     /// assert!(x.surrogate_type().is_none());
     /// assert!(x.stored_type().is_none());
+    /// assert!(x.metadata_key_value_expression().is_none());
     /// ```
     pub fn set_dictionary<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Dictionary>>,
@@ -45012,6 +46110,7 @@ impl CustomInfoType {
     /// assert!(x.dictionary().is_none());
     /// assert!(x.surrogate_type().is_none());
     /// assert!(x.stored_type().is_none());
+    /// assert!(x.metadata_key_value_expression().is_none());
     /// ```
     pub fn set_regex<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::Regex>>,
@@ -45052,6 +46151,7 @@ impl CustomInfoType {
     /// assert!(x.dictionary().is_none());
     /// assert!(x.regex().is_none());
     /// assert!(x.stored_type().is_none());
+    /// assert!(x.metadata_key_value_expression().is_none());
     /// ```
     pub fn set_surrogate_type<
         T: std::convert::Into<std::boxed::Box<crate::model::custom_info_type::SurrogateType>>,
@@ -45091,6 +46191,7 @@ impl CustomInfoType {
     /// assert!(x.dictionary().is_none());
     /// assert!(x.regex().is_none());
     /// assert!(x.surrogate_type().is_none());
+    /// assert!(x.metadata_key_value_expression().is_none());
     /// ```
     pub fn set_stored_type<T: std::convert::Into<std::boxed::Box<crate::model::StoredType>>>(
         mut self,
@@ -45098,6 +46199,54 @@ impl CustomInfoType {
     ) -> Self {
         self.r#type =
             std::option::Option::Some(crate::model::custom_info_type::Type::StoredType(v.into()));
+        self
+    }
+
+    /// The value of [r#type][crate::model::CustomInfoType::r#type]
+    /// if it holds a `MetadataKeyValueExpression`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn metadata_key_value_expression(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::custom_info_type::MetadataKeyValueExpression>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::custom_info_type::Type::MetadataKeyValueExpression(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::CustomInfoType::r#type]
+    /// to hold a `MetadataKeyValueExpression`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::CustomInfoType;
+    /// use google_cloud_privacy_dlp_v2::model::custom_info_type::MetadataKeyValueExpression;
+    /// let x = CustomInfoType::new().set_metadata_key_value_expression(MetadataKeyValueExpression::default()/* use setters */);
+    /// assert!(x.metadata_key_value_expression().is_some());
+    /// assert!(x.dictionary().is_none());
+    /// assert!(x.regex().is_none());
+    /// assert!(x.surrogate_type().is_none());
+    /// assert!(x.stored_type().is_none());
+    /// ```
+    pub fn set_metadata_key_value_expression<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::custom_info_type::MetadataKeyValueExpression>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(
+            crate::model::custom_info_type::Type::MetadataKeyValueExpression(v.into()),
+        );
         self
     }
 }
@@ -45405,6 +46554,57 @@ pub mod custom_info_type {
     impl wkt::message::Message for SurrogateType {
         fn typename() -> &'static str {
             "type.googleapis.com/google.privacy.dlp.v2.CustomInfoType.SurrogateType"
+        }
+    }
+
+    /// Configuration for a custom infoType that detects key-value pairs in the
+    /// metadata matching the specified regular expressions.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct MetadataKeyValueExpression {
+        /// The regular expression for the key. Key should be
+        /// non-empty.
+        pub key_regex: std::string::String,
+
+        /// The regular expression for the value. Value should be non-empty.
+        pub value_regex: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl MetadataKeyValueExpression {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [key_regex][crate::model::custom_info_type::MetadataKeyValueExpression::key_regex].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::MetadataKeyValueExpression;
+        /// let x = MetadataKeyValueExpression::new().set_key_regex("example");
+        /// ```
+        pub fn set_key_regex<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.key_regex = v.into();
+            self
+        }
+
+        /// Sets the value of [value_regex][crate::model::custom_info_type::MetadataKeyValueExpression::value_regex].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_privacy_dlp_v2::model::custom_info_type::MetadataKeyValueExpression;
+        /// let x = MetadataKeyValueExpression::new().set_value_regex("example");
+        /// ```
+        pub fn set_value_regex<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.value_regex = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for MetadataKeyValueExpression {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.CustomInfoType.MetadataKeyValueExpression"
         }
     }
 
@@ -46004,9 +47204,12 @@ pub mod custom_info_type {
         /// Message for detecting output from deidentification transformations that
         /// support reversing.
         SurrogateType(std::boxed::Box<crate::model::custom_info_type::SurrogateType>),
-        /// Load an existing `StoredInfoType` resource for use in
-        /// `InspectDataSource`. Not currently supported in `InspectContent`.
+        /// Loads an existing `StoredInfoType` resource.
         StoredType(std::boxed::Box<crate::model::StoredType>),
+        /// Key-value pair to detect in the metadata.
+        MetadataKeyValueExpression(
+            std::boxed::Box<crate::model::custom_info_type::MetadataKeyValueExpression>,
+        ),
     }
 }
 
@@ -50167,6 +51370,17 @@ pub enum MatchingType {
     /// - Regex: finding doesn't match the regex
     /// - Exclude infoType: no intersection with affecting infoTypes findings
     InverseMatch,
+    /// Rule-specific match.
+    ///
+    /// The matching logic is based on the specific rule being used. This is
+    /// required for rules where the matching behavior is not a simple string
+    /// comparison (e.g., image containment). This matching type can only be
+    /// used with the `ExcludeByImageFindings` rule.
+    ///
+    /// - Exclude by image findings: The matching logic is defined within
+    ///   `ExcludeByImageFindings` based on spatial relationships between bounding
+    ///   boxes.
+    RuleSpecific,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [MatchingType::value] or
@@ -50193,6 +51407,7 @@ impl MatchingType {
             Self::FullMatch => std::option::Option::Some(1),
             Self::PartialMatch => std::option::Option::Some(2),
             Self::InverseMatch => std::option::Option::Some(3),
+            Self::RuleSpecific => std::option::Option::Some(4),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -50207,6 +51422,7 @@ impl MatchingType {
             Self::FullMatch => std::option::Option::Some("MATCHING_TYPE_FULL_MATCH"),
             Self::PartialMatch => std::option::Option::Some("MATCHING_TYPE_PARTIAL_MATCH"),
             Self::InverseMatch => std::option::Option::Some("MATCHING_TYPE_INVERSE_MATCH"),
+            Self::RuleSpecific => std::option::Option::Some("MATCHING_TYPE_RULE_SPECIFIC"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -50232,6 +51448,7 @@ impl std::convert::From<i32> for MatchingType {
             1 => Self::FullMatch,
             2 => Self::PartialMatch,
             3 => Self::InverseMatch,
+            4 => Self::RuleSpecific,
             _ => Self::UnknownValue(matching_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -50247,6 +51464,7 @@ impl std::convert::From<&str> for MatchingType {
             "MATCHING_TYPE_FULL_MATCH" => Self::FullMatch,
             "MATCHING_TYPE_PARTIAL_MATCH" => Self::PartialMatch,
             "MATCHING_TYPE_INVERSE_MATCH" => Self::InverseMatch,
+            "MATCHING_TYPE_RULE_SPECIFIC" => Self::RuleSpecific,
             _ => Self::UnknownValue(matching_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -50264,6 +51482,7 @@ impl serde::ser::Serialize for MatchingType {
             Self::FullMatch => serializer.serialize_i32(1),
             Self::PartialMatch => serializer.serialize_i32(2),
             Self::InverseMatch => serializer.serialize_i32(3),
+            Self::RuleSpecific => serializer.serialize_i32(4),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -50434,6 +51653,8 @@ pub enum MetadataType {
     MetadatatypeUnspecified,
     /// General file metadata provided by Cloud Storage.
     StorageMetadata,
+    /// Metadata extracted from the files.
+    ContentMetadata,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [MetadataType::value] or
@@ -50458,6 +51679,7 @@ impl MetadataType {
         match self {
             Self::MetadatatypeUnspecified => std::option::Option::Some(0),
             Self::StorageMetadata => std::option::Option::Some(2),
+            Self::ContentMetadata => std::option::Option::Some(3),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -50470,6 +51692,7 @@ impl MetadataType {
         match self {
             Self::MetadatatypeUnspecified => std::option::Option::Some("METADATATYPE_UNSPECIFIED"),
             Self::StorageMetadata => std::option::Option::Some("STORAGE_METADATA"),
+            Self::ContentMetadata => std::option::Option::Some("CONTENT_METADATA"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -50493,6 +51716,7 @@ impl std::convert::From<i32> for MetadataType {
         match value {
             0 => Self::MetadatatypeUnspecified,
             2 => Self::StorageMetadata,
+            3 => Self::ContentMetadata,
             _ => Self::UnknownValue(metadata_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -50506,6 +51730,7 @@ impl std::convert::From<&str> for MetadataType {
         match value {
             "METADATATYPE_UNSPECIFIED" => Self::MetadatatypeUnspecified,
             "STORAGE_METADATA" => Self::StorageMetadata,
+            "CONTENT_METADATA" => Self::ContentMetadata,
             _ => Self::UnknownValue(metadata_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -50521,6 +51746,7 @@ impl serde::ser::Serialize for MetadataType {
         match self {
             Self::MetadatatypeUnspecified => serializer.serialize_i32(0),
             Self::StorageMetadata => serializer.serialize_i32(2),
+            Self::ContentMetadata => serializer.serialize_i32(3),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

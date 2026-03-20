@@ -3885,6 +3885,17 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Instances::get_partner_metadata].
+    fn get_partner_metadata(
+        &self,
+        _req: crate::model::instances::GetPartnerMetadataRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::PartnerMetadata>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Instances::get_screenshot].
     fn get_screenshot(
         &self,
@@ -3946,6 +3957,16 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::InstanceListReferrers>>,
     > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::patch_partner_metadata].
+    fn patch_partner_metadata(
+        &self,
+        _req: crate::model::instances::PatchPartnerMetadataRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -8706,6 +8727,110 @@ pub trait RegionHealthSources: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::RegionHealthSources::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
+/// Defines the trait used to implement [super::client::RegionInstanceGroupManagerResizeRequests].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionInstanceGroupManagerResizeRequests`.  In other use-cases, application developers only
+/// use `client::RegionInstanceGroupManagerResizeRequests` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+#[cfg_attr(
+    docsrs,
+    doc(cfg(feature = "region-instance-group-manager-resize-requests"))
+)]
+pub trait RegionInstanceGroupManagerResizeRequests: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionInstanceGroupManagerResizeRequests::cancel].
+    fn cancel(
+        &self,
+        _req: crate::model::region_instance_group_manager_resize_requests::CancelRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagerResizeRequests::delete].
+    fn delete(
+        &self,
+        _req: crate::model::region_instance_group_manager_resize_requests::DeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagerResizeRequests::get].
+    fn get(
+        &self,
+        _req: crate::model::region_instance_group_manager_resize_requests::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::InstanceGroupManagerResizeRequest>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagerResizeRequests::insert].
+    fn insert(
+        &self,
+        _req: crate::model::region_instance_group_manager_resize_requests::InsertRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagerResizeRequests::list].
+    fn list(
+        &self,
+        _req: crate::model::region_instance_group_manager_resize_requests::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::RegionInstanceGroupManagerResizeRequestsListResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstanceGroupManagerResizeRequests::get_operation].
     fn get_operation(
         &self,
         _req: crate::model::region_operations::GetRequest,
@@ -14422,6 +14547,105 @@ pub trait ZoneOperations: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {
         gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
+/// Defines the trait used to implement [super::client::ZoneVmExtensionPolicies].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ZoneVmExtensionPolicies`.  In other use-cases, application developers only
+/// use `client::ZoneVmExtensionPolicies` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "zone-vm-extension-policies")]
+#[cfg_attr(docsrs, doc(cfg(feature = "zone-vm-extension-policies")))]
+pub trait ZoneVmExtensionPolicies: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ZoneVmExtensionPolicies::delete].
+    fn delete(
+        &self,
+        _req: crate::model::zone_vm_extension_policies::DeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ZoneVmExtensionPolicies::get].
+    fn get(
+        &self,
+        _req: crate::model::zone_vm_extension_policies::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::VmExtensionPolicy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ZoneVmExtensionPolicies::insert].
+    fn insert(
+        &self,
+        _req: crate::model::zone_vm_extension_policies::InsertRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ZoneVmExtensionPolicies::list].
+    fn list(
+        &self,
+        _req: crate::model::zone_vm_extension_policies::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::VmExtensionPolicyList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ZoneVmExtensionPolicies::update].
+    fn update(
+        &self,
+        _req: crate::model::zone_vm_extension_policies::UpdateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ZoneVmExtensionPolicies::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::zone_operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 

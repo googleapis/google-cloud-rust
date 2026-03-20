@@ -18,6 +18,7 @@ The main types to work with this crate are the clients:
 - [CatalogService]
 - [CmekService]
 - [ContentService]
+- [DataProductService]
 - [DataTaxonomyService]
 - [DataScanService]
 - [MetadataService]
@@ -41,6 +42,7 @@ The main types to work with this crate are the clients:
 [CatalogService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.CatalogService.html
 [CmekService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.CmekService.html
 [ContentService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.ContentService.html
+[DataProductService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.DataProductService.html
 [DataTaxonomyService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.DataTaxonomyService.html
 [DataScanService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.DataScanService.html
 [MetadataService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.MetadataService.html

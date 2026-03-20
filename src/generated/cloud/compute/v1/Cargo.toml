@@ -167,6 +167,8 @@ region-health-check-services = []
 region-health-checks = []
 # Enables `client::RegionHealthSources` and all the types it depends on.
 region-health-sources = []
+# Enables `client::RegionInstanceGroupManagerResizeRequests` and all the types it depends on.
+region-instance-group-manager-resize-requests = []
 # Enables `client::RegionInstanceGroupManagers` and all the types it depends on.
 region-instance-group-managers = []
 # Enables `client::RegionInstanceGroups` and all the types it depends on.
@@ -261,6 +263,8 @@ vpn-tunnels = []
 wire-groups = []
 # Enables `client::ZoneOperations` and all the types it depends on.
 zone-operations = []
+# Enables `client::ZoneVmExtensionPolicies` and all the types it depends on.
+zone-vm-extension-policies = []
 # Enables `client::Zones` and all the types it depends on.
 zones = []
 
