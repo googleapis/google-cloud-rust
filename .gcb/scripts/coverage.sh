@@ -26,7 +26,7 @@ env -C /usr/local unzip -x /tmp/protoc.zip
 protoc --version
 
 echo "==== Install cargo-tarpaulin ===="
-cargo install cargo-tarpaulin --version 0.32.1 --locked
+cargo install cargo-tarpaulin --version 0.35.2 --locked
 
 cargo tarpaulin --out xml
 
