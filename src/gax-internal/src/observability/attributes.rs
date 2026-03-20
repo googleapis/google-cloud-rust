@@ -85,10 +85,10 @@ pub mod keys {
     ///
     /// Example: pubsub.googleapis.com
     pub const GCP_ERRORS_DOMAIN: &str = "gcp.errors.domain";
-    /// The prefix for Google Cloud error metadata entries.
+    /// A key-value map representing the metadata embedded into the `ErrorInfo` payload.
     ///
-    /// Example: "gcp.errors.metadata.zone"
-    pub const GCP_ERRORS_METADATA_PREFIX: &str = "gcp.errors.metadata.";
+    /// It is flattened into a JSON string implicitly evaluating standard OTel semantics.
+    pub const GCP_ERRORS_METADATA: &str = "gcp.errors.metadata";
 
     // Re-export these symbols so we can use them in the `client_request_span!()`
     // macro.

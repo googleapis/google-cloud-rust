@@ -116,19 +116,15 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
             _ => (None, None),
         };
 
-        if let Some(meta) = metadata {
-            use opentelemetry::trace::TraceContextExt;
-            use tracing_opentelemetry::OpenTelemetrySpanExt;
-
-            let ctx = span.context();
-            let otel_span = ctx.span();
-            for (k, v) in meta {
-                otel_span.set_attribute(opentelemetry::KeyValue::new(
-                    format!("{GCP_ERRORS_METADATA_PREFIX}{k}"),
-                    v.clone(),
-                ));
+        let metadata_json = metadata.map(|m| {
+            let mut parts = Vec::with_capacity(m.len());
+            for (k, v) in m {
+                let k_escaped = k.replace('"', "\\\"");
+                let v_escaped = v.replace('"', "\\\"");
+                parts.push(format!("\"{k_escaped}\":\"{v_escaped}\""));
             }
-        }
+            format!("{{{}}}", parts.join(","))
+        });
 
         let error_str = error_type.as_str();
 
@@ -138,6 +134,7 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
                 tracing::Level::INFO,
                 { ERROR_TYPE } = error_str,
                 { GCP_ERRORS_DOMAIN } = domain,
+                { GCP_ERRORS_METADATA } = metadata_json,
                 { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
                 { HTTP_RESPONSE_STATUS_CODE } = http_code,
                 "{err:?}"
@@ -147,6 +144,7 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
                 tracing::Level::INFO,
                 { ERROR_TYPE } = error_str,
                 { GCP_ERRORS_DOMAIN } = domain,
+                { GCP_ERRORS_METADATA } = metadata_json,
                 { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
                 "{err:?}"
             ),
