@@ -13240,6 +13240,24 @@ impl std::fmt::Debug for super::EmbedContentRequest {
         debug_struct.field("task_type", &self.task_type);
         debug_struct.field("output_dimensionality", &self.output_dimensionality);
         debug_struct.field("auto_truncate", &self.auto_truncate);
+        debug_struct.field("embed_content_config", &self.embed_content_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+impl std::fmt::Debug for super::embed_content_request::EmbedContentConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EmbedContentConfig");
+        debug_struct.field("title", &self.title);
+        debug_struct.field("task_type", &self.task_type);
+        debug_struct.field("auto_truncate", &self.auto_truncate);
+        debug_struct.field("output_dimensionality", &self.output_dimensionality);
+        debug_struct.field("document_ocr", &self.document_ocr);
+        debug_struct.field("audio_track_extraction", &self.audio_track_extraction);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

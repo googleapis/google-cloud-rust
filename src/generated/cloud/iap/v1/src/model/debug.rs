@@ -185,6 +185,9 @@ impl std::fmt::Debug for super::OAuthSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("OAuthSettings");
         debug_struct.field("login_hint", &self.login_hint);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("client_secret", &self.client_secret);
+        debug_struct.field("client_secret_sha256", &self.client_secret_sha256);
         debug_struct.field("programmatic_clients", &self.programmatic_clients);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

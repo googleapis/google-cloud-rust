@@ -112,6 +112,7 @@ impl Client {
 
     /// Fetches an ID token for the default service account.
     /// Used by idtoken feature.
+    #[cfg(feature = "idtoken")]
     pub(crate) async fn id_token(
         &self,
         target_audience: &str,
@@ -241,6 +242,7 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
+    #[cfg(feature = "idtoken")]
     async fn test_id_token_success() {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
@@ -269,6 +271,7 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
+    #[cfg(feature = "idtoken")]
     async fn test_id_token_failure() {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));

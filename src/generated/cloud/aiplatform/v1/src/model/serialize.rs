@@ -30094,6 +30094,58 @@ impl serde::ser::Serialize for super::EmbedContentRequest {
         if self.auto_truncate.is_some() {
             state.serialize_entry("autoTruncate", &self.auto_truncate)?;
         }
+        if self.embed_content_config.is_some() {
+            state.serialize_entry("embedContentConfig", &self.embed_content_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "prediction-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::embed_content_request::EmbedContentConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.title.is_some() {
+            state.serialize_entry("title", &self.title)?;
+        }
+        if self.task_type.is_some() {
+            state.serialize_entry("taskType", &self.task_type)?;
+        }
+        if self.auto_truncate.is_some() {
+            state.serialize_entry("autoTruncate", &self.auto_truncate)?;
+        }
+        if self.output_dimensionality.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("outputDimensionality", &__With(&self.output_dimensionality))?;
+        }
+        if self.document_ocr.is_some() {
+            state.serialize_entry("documentOcr", &self.document_ocr)?;
+        }
+        if self.audio_track_extraction.is_some() {
+            state.serialize_entry("audioTrackExtraction", &self.audio_track_extraction)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -1308,6 +1308,9 @@ impl<'de> serde::de::Deserialize<'de> for super::OAuthSettings {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __login_hint,
+            __client_id,
+            __client_secret,
+            __client_secret_sha256,
             __programmatic_clients,
             Unknown(std::string::String),
         }
@@ -1331,6 +1334,12 @@ impl<'de> serde::de::Deserialize<'de> for super::OAuthSettings {
                         match value {
                             "loginHint" => Ok(__FieldTag::__login_hint),
                             "login_hint" => Ok(__FieldTag::__login_hint),
+                            "clientId" => Ok(__FieldTag::__client_id),
+                            "client_id" => Ok(__FieldTag::__client_id),
+                            "clientSecret" => Ok(__FieldTag::__client_secret),
+                            "client_secret" => Ok(__FieldTag::__client_secret),
+                            "clientSecretSha256" => Ok(__FieldTag::__client_secret_sha256),
+                            "client_secret_sha256" => Ok(__FieldTag::__client_secret_sha256),
                             "programmaticClients" => Ok(__FieldTag::__programmatic_clients),
                             "programmatic_clients" => Ok(__FieldTag::__programmatic_clients),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -1365,6 +1374,33 @@ impl<'de> serde::de::Deserialize<'de> for super::OAuthSettings {
                                 ));
                             }
                             result.login_hint =
+                                map.next_value::<std::option::Option<wkt::StringValue>>()?;
+                        }
+                        __FieldTag::__client_id => {
+                            if !fields.insert(__FieldTag::__client_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_id",
+                                ));
+                            }
+                            result.client_id =
+                                map.next_value::<std::option::Option<wkt::StringValue>>()?;
+                        }
+                        __FieldTag::__client_secret => {
+                            if !fields.insert(__FieldTag::__client_secret) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_secret",
+                                ));
+                            }
+                            result.client_secret =
+                                map.next_value::<std::option::Option<wkt::StringValue>>()?;
+                        }
+                        __FieldTag::__client_secret_sha256 => {
+                            if !fields.insert(__FieldTag::__client_secret_sha256) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_secret_sha256",
+                                ));
+                            }
+                            result.client_secret_sha256 =
                                 map.next_value::<std::option::Option<wkt::StringValue>>()?;
                         }
                         __FieldTag::__programmatic_clients => {

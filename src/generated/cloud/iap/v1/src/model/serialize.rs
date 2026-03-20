@@ -382,6 +382,15 @@ impl serde::ser::Serialize for super::OAuthSettings {
         if self.login_hint.is_some() {
             state.serialize_entry("loginHint", &self.login_hint)?;
         }
+        if self.client_id.is_some() {
+            state.serialize_entry("clientId", &self.client_id)?;
+        }
+        if self.client_secret.is_some() {
+            state.serialize_entry("clientSecret", &self.client_secret)?;
+        }
+        if self.client_secret_sha256.is_some() {
+            state.serialize_entry("clientSecretSha256", &self.client_secret_sha256)?;
+        }
         if !self.programmatic_clients.is_empty() {
             state.serialize_entry("programmaticClients", &self.programmatic_clients)?;
         }

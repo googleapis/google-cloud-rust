@@ -534,6 +534,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn update_entry_link(
+        &self,
+        req: crate::model::UpdateEntryLinkRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::EntryLink>> {
+        self.inner.update_entry_link(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn delete_entry_link(
         &self,
         req: crate::model::DeleteEntryLinkRequest,
@@ -543,12 +552,75 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn lookup_entry_links(
+        &self,
+        req: crate::model::LookupEntryLinksRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::LookupEntryLinksResponse>> {
+        self.inner.lookup_entry_links(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn lookup_context(
+        &self,
+        req: crate::model::LookupContextRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::LookupContextResponse>> {
+        self.inner.lookup_context(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_entry_link(
         &self,
         req: crate::model::GetEntryLinkRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EntryLink>> {
         self.inner.get_entry_link(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_metadata_feed(
+        &self,
+        req: crate::model::CreateMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.create_metadata_feed(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_metadata_feed(
+        &self,
+        req: crate::model::GetMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MetadataFeed>> {
+        self.inner.get_metadata_feed(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_metadata_feeds(
+        &self,
+        req: crate::model::ListMetadataFeedsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMetadataFeedsResponse>> {
+        self.inner.list_metadata_feeds(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_metadata_feed(
+        &self,
+        req: crate::model::DeleteMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.delete_metadata_feed(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_metadata_feed(
+        &self,
+        req: crate::model::UpdateMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.update_metadata_feed(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -833,78 +905,6 @@ where
     T: super::stub::ContentService + std::fmt::Debug + Send + Sync,
 {
     #[tracing::instrument(ret)]
-    async fn create_content(
-        &self,
-        req: crate::model::CreateContentRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Content>> {
-        self.inner.create_content(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn update_content(
-        &self,
-        req: crate::model::UpdateContentRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Content>> {
-        self.inner.update_content(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn delete_content(
-        &self,
-        req: crate::model::DeleteContentRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
-        self.inner.delete_content(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn get_content(
-        &self,
-        req: crate::model::GetContentRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Content>> {
-        self.inner.get_content(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        self.inner.get_iam_policy(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn set_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        self.inner.set_iam_policy(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn list_content(
-        &self,
-        req: crate::model::ListContentRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ListContentResponse>> {
-        self.inner.list_content(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -920,6 +920,33 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
         self.inner.get_location(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        self.inner.set_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        self.inner.get_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -956,6 +983,214 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
         self.inner.cancel_operation(req, options).await
+    }
+}
+
+/// Implements a [DataProductService](super::stub::DataProductService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct DataProductService<T>
+where
+    T: super::stub::DataProductService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> DataProductService<T>
+where
+    T: super::stub::DataProductService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::DataProductService for DataProductService<T>
+where
+    T: super::stub::DataProductService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn create_data_product(
+        &self,
+        req: crate::model::CreateDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.create_data_product(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_data_product(
+        &self,
+        req: crate::model::DeleteDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.delete_data_product(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_data_product(
+        &self,
+        req: crate::model::GetDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataProduct>> {
+        self.inner.get_data_product(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_data_products(
+        &self,
+        req: crate::model::ListDataProductsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDataProductsResponse>> {
+        self.inner.list_data_products(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_data_product(
+        &self,
+        req: crate::model::UpdateDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.update_data_product(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_data_asset(
+        &self,
+        req: crate::model::CreateDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.create_data_asset(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_data_asset(
+        &self,
+        req: crate::model::UpdateDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.update_data_asset(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_data_asset(
+        &self,
+        req: crate::model::DeleteDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.delete_data_asset(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_data_asset(
+        &self,
+        req: crate::model::GetDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataAsset>> {
+        self.inner.get_data_asset(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_data_assets(
+        &self,
+        req: crate::model::ListDataAssetsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDataAssetsResponse>> {
+        self.inner.list_data_assets(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        self.inner.list_locations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        self.inner.get_location(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        self.inner.set_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        self.inner.get_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        self.inner.delete_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        self.inner.cancel_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 
@@ -1859,60 +2094,6 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
         self.inner.cancel_job(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn create_environment(
-        &self,
-        req: crate::model::CreateEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        self.inner.create_environment(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn update_environment(
-        &self,
-        req: crate::model::UpdateEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        self.inner.update_environment(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn delete_environment(
-        &self,
-        req: crate::model::DeleteEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        self.inner.delete_environment(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn list_environments(
-        &self,
-        req: crate::model::ListEnvironmentsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ListEnvironmentsResponse>> {
-        self.inner.list_environments(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn get_environment(
-        &self,
-        req: crate::model::GetEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Environment>> {
-        self.inner.get_environment(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn list_sessions(
-        &self,
-        req: crate::model::ListSessionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
-        self.inner.list_sessions(req, options).await
     }
 
     #[tracing::instrument(ret)]

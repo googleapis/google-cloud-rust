@@ -65,6 +65,31 @@ impl serde::ser::Serialize for super::ExcludeByHotword {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::ExcludeByImageFindings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.info_types.is_empty() {
+            state.serialize_entry("infoTypes", &self.info_types)?;
+        }
+        if self.image_containment_type.is_some() {
+            state.serialize_entry("imageContainmentType", &self.image_containment_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ExclusionRule {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -86,8 +111,95 @@ impl serde::ser::Serialize for super::ExclusionRule {
         if let Some(value) = self.exclude_by_hotword() {
             state.serialize_entry("excludeByHotword", value)?;
         }
+        if let Some(value) = self.exclude_by_image_findings() {
+            state.serialize_entry("excludeByImageFindings", value)?;
+        }
         if !wkt::internal::is_default(&self.matching_type) {
             state.serialize_entry("matchingType", &self.matching_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AdjustByMatchingInfoTypes {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.info_types.is_empty() {
+            state.serialize_entry("infoTypes", &self.info_types)?;
+        }
+        if !wkt::internal::is_default(&self.min_likelihood) {
+            state.serialize_entry("minLikelihood", &self.min_likelihood)?;
+        }
+        if !wkt::internal::is_default(&self.matching_type) {
+            state.serialize_entry("matchingType", &self.matching_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AdjustByImageFindings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.info_types.is_empty() {
+            state.serialize_entry("infoTypes", &self.info_types)?;
+        }
+        if !wkt::internal::is_default(&self.min_likelihood) {
+            state.serialize_entry("minLikelihood", &self.min_likelihood)?;
+        }
+        if self.image_containment_type.is_some() {
+            state.serialize_entry("imageContainmentType", &self.image_containment_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AdjustmentRule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.adjust_by_matching_info_types() {
+            state.serialize_entry("adjustByMatchingInfoTypes", value)?;
+        }
+        if let Some(value) = self.adjust_by_image_findings() {
+            state.serialize_entry("adjustByImageFindings", value)?;
+        }
+        if self.likelihood_adjustment.is_some() {
+            state.serialize_entry("likelihoodAdjustment", &self.likelihood_adjustment)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -113,6 +225,9 @@ impl serde::ser::Serialize for super::InspectionRule {
         }
         if let Some(value) = self.exclusion_rule() {
             state.serialize_entry("exclusionRule", value)?;
+        }
+        if let Some(value) = self.adjustment_rule() {
+            state.serialize_entry("adjustmentRule", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -584,6 +699,9 @@ impl serde::ser::Serialize for super::MetadataLocation {
         if let Some(value) = self.storage_label() {
             state.serialize_entry("storageLabel", value)?;
         }
+        if let Some(value) = self.key_value_metadata_label() {
+            state.serialize_entry("keyValueMetadataLabel", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -595,6 +713,28 @@ impl serde::ser::Serialize for super::MetadataLocation {
 
 #[doc(hidden)]
 impl serde::ser::Serialize for super::StorageMetadataLabel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::KeyValueMetadataLabel {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -1688,6 +1828,9 @@ impl serde::ser::Serialize for super::InfoTypeDescription {
         }
         if !self.specific_info_types.is_empty() {
             state.serialize_entry("specificInfoTypes", &self.specific_info_types)?;
+        }
+        if !wkt::internal::is_default(&self.launch_status) {
+            state.serialize_entry("launchStatus", &self.launch_status)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -8442,6 +8585,91 @@ impl serde::ser::Serialize for super::HybridInspectResponse {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::ImageContainmentType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.encloses() {
+            state.serialize_entry("encloses", value)?;
+        }
+        if let Some(value) = self.fully_inside() {
+            state.serialize_entry("fullyInside", value)?;
+        }
+        if let Some(value) = self.overlaps() {
+            state.serialize_entry("overlaps", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Overlap {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Encloses {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FullyInside {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ListProjectDataProfilesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -10345,6 +10573,9 @@ impl serde::ser::Serialize for super::CustomInfoType {
         if let Some(value) = self.stored_type() {
             state.serialize_entry("storedType", value)?;
         }
+        if let Some(value) = self.metadata_key_value_expression() {
+            state.serialize_entry("metadataKeyValueExpression", value)?;
+        }
         if !self.detection_rules.is_empty() {
             state.serialize_entry("detectionRules", &self.detection_rules)?;
         }
@@ -10456,6 +10687,31 @@ impl serde::ser::Serialize for super::custom_info_type::SurrogateType {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::custom_info_type::MetadataKeyValueExpression {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key_regex.is_empty() {
+            state.serialize_entry("keyRegex", &self.key_regex)?;
+        }
+        if !self.value_regex.is_empty() {
+            state.serialize_entry("valueRegex", &self.value_regex)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -5235,6 +5235,11 @@ impl Instances {
         super::builder::instances::GetIamPolicy::new(self.inner.clone())
     }
 
+    /// Gets partner metadata of the specified instance and namespaces.
+    pub fn get_partner_metadata(&self) -> super::builder::instances::GetPartnerMetadata {
+        super::builder::instances::GetPartnerMetadata::new(self.inner.clone())
+    }
+
     /// Returns the screenshot from the specified instance.
     pub fn get_screenshot(&self) -> super::builder::instances::GetScreenshot {
         super::builder::instances::GetScreenshot::new(self.inner.clone())
@@ -5271,6 +5276,11 @@ impl Instances {
     /// referrers to VM instances.
     pub fn list_referrers(&self) -> super::builder::instances::ListReferrers {
         super::builder::instances::ListReferrers::new(self.inner.clone())
+    }
+
+    /// Patches partner metadata of the specified instance.
+    pub fn patch_partner_metadata(&self) -> super::builder::instances::PatchPartnerMetadata {
+        super::builder::instances::PatchPartnerMetadata::new(self.inner.clone())
     }
 
     /// Perform a manual maintenance on the instance.
@@ -11389,6 +11399,169 @@ impl RegionHealthSources {
     /// Retrieves the specified region-specific Operations resource.
     pub fn get_operation(&self) -> super::builder::region_health_sources::GetOperation {
         super::builder::region_health_sources::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::RegionInstanceGroupManagerResizeRequests;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = RegionInstanceGroupManagerResizeRequests::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionInstanceGroupManagerResizeRequests` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionInstanceGroupManagerResizeRequests` use the `with_*` methods in the type returned
+/// by [builder()][RegionInstanceGroupManagerResizeRequests::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_instance_group_manager_resize_requests::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_instance_group_manager_resize_requests::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionInstanceGroupManagerResizeRequests` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `RegionInstanceGroupManagerResizeRequests` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+#[cfg_attr(
+    docsrs,
+    doc(cfg(feature = "region-instance-group-manager-resize-requests"))
+)]
+#[derive(Clone, Debug)]
+pub struct RegionInstanceGroupManagerResizeRequests {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionInstanceGroupManagerResizeRequests>,
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl RegionInstanceGroupManagerResizeRequests {
+    /// Returns a builder for [RegionInstanceGroupManagerResizeRequests].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagerResizeRequests;
+    /// let client = RegionInstanceGroupManagerResizeRequests::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::region_instance_group_manager_resize_requests::ClientBuilder
+    {
+        crate::new_client_builder(
+            super::builder::region_instance_group_manager_resize_requests::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionInstanceGroupManagerResizeRequests + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::RegionInstanceGroupManagerResizeRequests>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionInstanceGroupManagerResizeRequests>
+    {
+        super::transport::RegionInstanceGroupManagerResizeRequests::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionInstanceGroupManagerResizeRequests>
+    {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionInstanceGroupManagerResizeRequests::new)
+    }
+
+    /// Cancels the specified resize request.
+    /// Cancelled resize request no longer waits for the resources to be
+    /// provisioned. Cancel is only possible for requests that are in accepted
+    /// state.
+    pub fn cancel(&self) -> super::builder::region_instance_group_manager_resize_requests::Cancel {
+        super::builder::region_instance_group_manager_resize_requests::Cancel::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes the specified, inactive resize request. Requests that are still
+    /// active cannot be deleted. Deleting request does not delete instances that
+    /// were provisioned previously.
+    pub fn delete(&self) -> super::builder::region_instance_group_manager_resize_requests::Delete {
+        super::builder::region_instance_group_manager_resize_requests::Delete::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Returns all of the details about the specified resize request.
+    pub fn get(&self) -> super::builder::region_instance_group_manager_resize_requests::Get {
+        super::builder::region_instance_group_manager_resize_requests::Get::new(self.inner.clone())
+    }
+
+    /// Creates a new Resize Request that starts provisioning VMs immediately
+    /// or queues VM creation.
+    pub fn insert(&self) -> super::builder::region_instance_group_manager_resize_requests::Insert {
+        super::builder::region_instance_group_manager_resize_requests::Insert::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Retrieves a list of Resize Requests that are contained in the
+    /// managed instance group.
+    pub fn list(&self) -> super::builder::region_instance_group_manager_resize_requests::List {
+        super::builder::region_instance_group_manager_resize_requests::List::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(
+        &self,
+    ) -> super::builder::region_instance_group_manager_resize_requests::GetOperation {
+        super::builder::region_instance_group_manager_resize_requests::GetOperation::new(
+            self.inner.clone(),
+        )
     }
 }
 
@@ -18968,6 +19141,143 @@ impl ZoneOperations {
     ///   if the operation is not `DONE`.
     pub fn wait(&self) -> super::builder::zone_operations::Wait {
         super::builder::zone_operations::Wait::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::ZoneVmExtensionPolicies;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ZoneVmExtensionPolicies::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `zoneVmExtensionPolicies` resource.
+///
+/// # Configuration
+///
+/// To configure `ZoneVmExtensionPolicies` use the `with_*` methods in the type returned
+/// by [builder()][ZoneVmExtensionPolicies::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::zone_vm_extension_policies::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::zone_vm_extension_policies::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ZoneVmExtensionPolicies` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `ZoneVmExtensionPolicies` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "zone-vm-extension-policies")]
+#[cfg_attr(docsrs, doc(cfg(feature = "zone-vm-extension-policies")))]
+#[derive(Clone, Debug)]
+pub struct ZoneVmExtensionPolicies {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ZoneVmExtensionPolicies>,
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl ZoneVmExtensionPolicies {
+    /// Returns a builder for [ZoneVmExtensionPolicies].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::ZoneVmExtensionPolicies;
+    /// let client = ZoneVmExtensionPolicies::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::zone_vm_extension_policies::ClientBuilder {
+        crate::new_client_builder(super::builder::zone_vm_extension_policies::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::ZoneVmExtensionPolicies + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ZoneVmExtensionPolicies>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ZoneVmExtensionPolicies> {
+        super::transport::ZoneVmExtensionPolicies::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ZoneVmExtensionPolicies> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ZoneVmExtensionPolicies::new)
+    }
+
+    /// Deletes a specified zone VM extension policy.
+    pub fn delete(&self) -> super::builder::zone_vm_extension_policies::Delete {
+        super::builder::zone_vm_extension_policies::Delete::new(self.inner.clone())
+    }
+
+    /// Retrieves details of a specific zone VM extension policy.
+    pub fn get(&self) -> super::builder::zone_vm_extension_policies::Get {
+        super::builder::zone_vm_extension_policies::Get::new(self.inner.clone())
+    }
+
+    /// Creates a new zone-level VM extension policy within a project.
+    pub fn insert(&self) -> super::builder::zone_vm_extension_policies::Insert {
+        super::builder::zone_vm_extension_policies::Insert::new(self.inner.clone())
+    }
+
+    /// Lists all VM extension policies within a specific zone for a project.
+    pub fn list(&self) -> super::builder::zone_vm_extension_policies::List {
+        super::builder::zone_vm_extension_policies::List::new(self.inner.clone())
+    }
+
+    /// Modifies an existing zone VM extension policy.
+    pub fn update(&self) -> super::builder::zone_vm_extension_policies::Update {
+        super::builder::zone_vm_extension_policies::Update::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::zone_vm_extension_policies::GetOperation {
+        super::builder::zone_vm_extension_policies::GetOperation::new(self.inner.clone())
     }
 }
 

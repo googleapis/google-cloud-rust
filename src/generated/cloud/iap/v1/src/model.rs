@@ -1308,6 +1308,18 @@ pub struct OAuthSettings {
     /// since access behavior is managed by IAM policies.
     pub login_hint: std::option::Option<wkt::StringValue>,
 
+    /// Optional. OAuth 2.0 client ID used in the OAuth flow.
+    /// This allows for client sharing. The risks of client sharing
+    /// are outlined here:
+    /// <https://cloud.google.com/iap/docs/sharing-oauth-clients#risks>.
+    pub client_id: std::option::Option<wkt::StringValue>,
+
+    /// Optional. Input only. OAuth secret paired with client ID.
+    pub client_secret: std::option::Option<wkt::StringValue>,
+
+    /// Output only. OAuth secret SHA256 paired with client ID.
+    pub client_secret_sha256: std::option::Option<wkt::StringValue>,
+
     /// Optional. List of client ids allowed to use IAP programmatically.
     pub programmatic_clients: std::vec::Vec<std::string::String>,
 
@@ -1349,6 +1361,105 @@ impl OAuthSettings {
         T: std::convert::Into<wkt::StringValue>,
     {
         self.login_hint = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [client_id][crate::model::OAuthSettings::client_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iap_v1::model::OAuthSettings;
+    /// use wkt::StringValue;
+    /// let x = OAuthSettings::new().set_client_id(StringValue::default()/* use setters */);
+    /// ```
+    pub fn set_client_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.client_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_id][crate::model::OAuthSettings::client_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iap_v1::model::OAuthSettings;
+    /// use wkt::StringValue;
+    /// let x = OAuthSettings::new().set_or_clear_client_id(Some(StringValue::default()/* use setters */));
+    /// let x = OAuthSettings::new().set_or_clear_client_id(None::<StringValue>);
+    /// ```
+    pub fn set_or_clear_client_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.client_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [client_secret][crate::model::OAuthSettings::client_secret].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iap_v1::model::OAuthSettings;
+    /// use wkt::StringValue;
+    /// let x = OAuthSettings::new().set_client_secret(StringValue::default()/* use setters */);
+    /// ```
+    pub fn set_client_secret<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.client_secret = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_secret][crate::model::OAuthSettings::client_secret].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iap_v1::model::OAuthSettings;
+    /// use wkt::StringValue;
+    /// let x = OAuthSettings::new().set_or_clear_client_secret(Some(StringValue::default()/* use setters */));
+    /// let x = OAuthSettings::new().set_or_clear_client_secret(None::<StringValue>);
+    /// ```
+    pub fn set_or_clear_client_secret<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.client_secret = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [client_secret_sha256][crate::model::OAuthSettings::client_secret_sha256].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iap_v1::model::OAuthSettings;
+    /// use wkt::StringValue;
+    /// let x = OAuthSettings::new().set_client_secret_sha256(StringValue::default()/* use setters */);
+    /// ```
+    pub fn set_client_secret_sha256<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.client_secret_sha256 = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [client_secret_sha256][crate::model::OAuthSettings::client_secret_sha256].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iap_v1::model::OAuthSettings;
+    /// use wkt::StringValue;
+    /// let x = OAuthSettings::new().set_or_clear_client_secret_sha256(Some(StringValue::default()/* use setters */));
+    /// let x = OAuthSettings::new().set_or_clear_client_secret_sha256(None::<StringValue>);
+    /// ```
+    pub fn set_or_clear_client_secret_sha256<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.client_secret_sha256 = v.map(|x| x.into());
         self
     }
 

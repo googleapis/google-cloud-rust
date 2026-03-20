@@ -1017,6 +1017,30 @@ impl std::fmt::Debug for super::LookupEntryRequest {
     }
 }
 
+impl std::fmt::Debug for super::LookupContextRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupContextRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("resources", &self.resources);
+        debug_struct.field("options", &self.options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::LookupContextResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupContextResponse");
+        debug_struct.field("context", &self.context);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SearchEntriesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchEntriesRequest");
@@ -1280,6 +1304,7 @@ impl std::fmt::Debug for super::EntryLink {
         debug_struct.field("entry_link_type", &self.entry_link_type);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("aspects", &self.aspects);
         debug_struct.field("entry_references", &self.entry_references);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1314,6 +1339,19 @@ impl std::fmt::Debug for super::CreateEntryLinkRequest {
     }
 }
 
+impl std::fmt::Debug for super::UpdateEntryLinkRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateEntryLinkRequest");
+        debug_struct.field("entry_link", &self.entry_link);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("aspect_keys", &self.aspect_keys);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::DeleteEntryLinkRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeleteEntryLinkRequest");
@@ -1325,10 +1363,159 @@ impl std::fmt::Debug for super::DeleteEntryLinkRequest {
     }
 }
 
+impl std::fmt::Debug for super::LookupEntryLinksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupEntryLinksRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("entry", &self.entry);
+        debug_struct.field("entry_mode", &self.entry_mode);
+        debug_struct.field("entry_link_types", &self.entry_link_types);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::LookupEntryLinksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LookupEntryLinksResponse");
+        debug_struct.field("entry_links", &self.entry_links);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GetEntryLinkRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetEntryLinkRequest");
         debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::MetadataFeed {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetadataFeed");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("scope", &self.scope);
+        debug_struct.field("filters", &self.filters);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("endpoint", &self.endpoint);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::metadata_feed::Scope {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Scope");
+        debug_struct.field("organization_level", &self.organization_level);
+        debug_struct.field("projects", &self.projects);
+        debug_struct.field("entry_groups", &self.entry_groups);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::metadata_feed::Filters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Filters");
+        debug_struct.field("entry_types", &self.entry_types);
+        debug_struct.field("aspect_types", &self.aspect_types);
+        debug_struct.field("change_types", &self.change_types);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateMetadataFeedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateMetadataFeedRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("metadata_feed", &self.metadata_feed);
+        debug_struct.field("metadata_feed_id", &self.metadata_feed_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetMetadataFeedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetMetadataFeedRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListMetadataFeedsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMetadataFeedsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListMetadataFeedsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListMetadataFeedsResponse");
+        debug_struct.field("metadata_feeds", &self.metadata_feeds);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteMetadataFeedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteMetadataFeedRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateMetadataFeedRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateMetadataFeedRequest");
+        debug_struct.field("metadata_feed", &self.metadata_feed);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1438,81 +1625,6 @@ impl std::fmt::Debug for super::ListEncryptionConfigsResponse {
         debug_struct.field("encryption_configs", &self.encryption_configs);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("unreachable_locations", &self.unreachable_locations);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::CreateContentRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateContentRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("content", &self.content);
-        debug_struct.field("validate_only", &self.validate_only);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::UpdateContentRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateContentRequest");
-        debug_struct.field("update_mask", &self.update_mask);
-        debug_struct.field("content", &self.content);
-        debug_struct.field("validate_only", &self.validate_only);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::DeleteContentRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteContentRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::ListContentRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListContentRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("page_size", &self.page_size);
-        debug_struct.field("page_token", &self.page_token);
-        debug_struct.field("filter", &self.filter);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::ListContentResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListContentResponse");
-        debug_struct.field("content", &self.content);
-        debug_struct.field("next_page_token", &self.next_page_token);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::GetContentRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetContentRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1636,6 +1748,11 @@ impl std::fmt::Debug for super::data_discovery_result::ScanStatistics {
 impl std::fmt::Debug for super::DataDocumentationSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataDocumentationSpec");
+        debug_struct.field(
+            "catalog_publishing_enabled",
+            &self.catalog_publishing_enabled,
+        );
+        debug_struct.field("generation_scopes", &self.generation_scopes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1697,6 +1814,239 @@ impl std::fmt::Debug for super::data_documentation_result::Field {
         debug_struct.field("name", &self.name);
         debug_struct.field("description", &self.description);
         debug_struct.field("fields", &self.fields);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DataProduct {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProduct");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("icon", &self.icon);
+        debug_struct.field("owner_emails", &self.owner_emails);
+        debug_struct.field("asset_count", &self.asset_count);
+        debug_struct.field("access_groups", &self.access_groups);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_product::Principal {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Principal");
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_product::AccessGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessGroup");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("principal", &self.principal);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DataAsset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataAsset");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("access_group_configs", &self.access_group_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_asset::AccessGroupConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AccessGroupConfig");
+        debug_struct.field("iam_roles", &self.iam_roles);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateDataProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDataProductRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("data_product_id", &self.data_product_id);
+        debug_struct.field("data_product", &self.data_product);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteDataProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDataProductRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetDataProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDataProductRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDataProductsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataProductsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDataProductsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataProductsResponse");
+        debug_struct.field("data_products", &self.data_products);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateDataProductRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDataProductRequest");
+        debug_struct.field("data_product", &self.data_product);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateDataAssetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateDataAssetRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("data_asset_id", &self.data_asset_id);
+        debug_struct.field("data_asset", &self.data_asset);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateDataAssetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateDataAssetRequest");
+        debug_struct.field("data_asset", &self.data_asset);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteDataAssetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteDataAssetRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetDataAssetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDataAssetRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDataAssetsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataAssetsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDataAssetsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDataAssetsResponse");
+        debug_struct.field("data_assets", &self.data_assets);
+        debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2066,6 +2416,31 @@ impl std::fmt::Debug for super::DataQualityRuleResult {
         debug_struct.field("pass_ratio", &self.pass_ratio);
         debug_struct.field("failing_rows_query", &self.failing_rows_query);
         debug_struct.field("assertion_row_count", &self.assertion_row_count);
+        debug_struct.field("debug_queries_result_sets", &self.debug_queries_result_sets);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_quality_rule_result::DebugQueryResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DebugQueryResult");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_quality_rule_result::DebugQueryResultSet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DebugQueryResultSet");
+        debug_struct.field("results", &self.results);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2107,6 +2482,7 @@ impl std::fmt::Debug for super::DataQualityRule {
         debug_struct.field("name", &self.name);
         debug_struct.field("description", &self.description);
         debug_struct.field("suspended", &self.suspended);
+        debug_struct.field("debug_queries", &self.debug_queries);
         debug_struct.field("rule_type", &self.rule_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2211,6 +2587,18 @@ impl std::fmt::Debug for super::data_quality_rule::TableConditionExpectation {
 impl std::fmt::Debug for super::data_quality_rule::SqlAssertion {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SqlAssertion");
+        debug_struct.field("sql_statement", &self.sql_statement);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_quality_rule::DebugQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DebugQuery");
+        debug_struct.field("description", &self.description);
         debug_struct.field("sql_statement", &self.sql_statement);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -3428,6 +3816,17 @@ impl std::fmt::Debug for super::trigger::Schedule {
     }
 }
 
+impl std::fmt::Debug for super::trigger::OneTime {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OneTime");
+        debug_struct.field("ttl_after_scan_completion", &self.ttl_after_scan_completion);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::DataSource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DataSource");
@@ -4307,108 +4706,6 @@ impl std::fmt::Debug for super::CancelJobRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelJobRequest");
         debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::CreateEnvironmentRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateEnvironmentRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("environment_id", &self.environment_id);
-        debug_struct.field("environment", &self.environment);
-        debug_struct.field("validate_only", &self.validate_only);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::UpdateEnvironmentRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateEnvironmentRequest");
-        debug_struct.field("update_mask", &self.update_mask);
-        debug_struct.field("environment", &self.environment);
-        debug_struct.field("validate_only", &self.validate_only);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::DeleteEnvironmentRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteEnvironmentRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::ListEnvironmentsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListEnvironmentsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("page_size", &self.page_size);
-        debug_struct.field("page_token", &self.page_token);
-        debug_struct.field("filter", &self.filter);
-        debug_struct.field("order_by", &self.order_by);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::ListEnvironmentsResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListEnvironmentsResponse");
-        debug_struct.field("environments", &self.environments);
-        debug_struct.field("next_page_token", &self.next_page_token);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::GetEnvironmentRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetEnvironmentRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::ListSessionsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSessionsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("page_size", &self.page_size);
-        debug_struct.field("page_token", &self.page_token);
-        debug_struct.field("filter", &self.filter);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::ListSessionsResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListSessionsResponse");
-        debug_struct.field("sessions", &self.sessions);
-        debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -2179,6 +2179,7 @@ impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties 
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -2223,6 +2224,7 @@ impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties 
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::BulkInsertOperationStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -3517,6 +3519,7 @@ impl std::fmt::Debug for super::DistributionPolicyZoneConfiguration {
     feature = "node-groups",
     feature = "region-backend-services",
     feature = "region-commitments",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-templates",
     feature = "region-instances",
     feature = "region-notification-endpoints",
@@ -3593,6 +3596,7 @@ impl std::fmt::Debug for super::Duration {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -3637,6 +3641,7 @@ impl std::fmt::Debug for super::Duration {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::ErrorInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -4560,6 +4565,7 @@ impl std::fmt::Debug for super::FutureReservation {
             &self.auto_delete_auto_created_reservations,
         );
         debug_struct.field("commitment_info", &self.commitment_info);
+        debug_struct.field("confidential_compute_type", &self.confidential_compute_type);
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("deployment_type", &self.deployment_type);
         debug_struct.field("description", &self.description);
@@ -5061,6 +5067,7 @@ impl std::fmt::Debug for super::GRPCTLSHealthCheck {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -5105,6 +5112,7 @@ impl std::fmt::Debug for super::GRPCTLSHealthCheck {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::GetVersionOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -5174,6 +5182,7 @@ impl std::fmt::Debug for super::GetVersionOperationMetadata {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -5218,6 +5227,7 @@ impl std::fmt::Debug for super::GetVersionOperationMetadata {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::GetVersionOperationMetadataSbomInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -6263,6 +6273,7 @@ impl std::fmt::Debug for super::HealthStatusForNetworkEndpoint {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -6307,6 +6318,7 @@ impl std::fmt::Debug for super::HealthStatusForNetworkEndpoint {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::Help {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -6376,6 +6388,7 @@ impl std::fmt::Debug for super::Help {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -6420,6 +6433,7 @@ impl std::fmt::Debug for super::Help {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::HelpLink {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -6986,6 +7000,7 @@ impl std::fmt::Debug for super::Instance {
             &self.network_performance_config,
         );
         debug_struct.field("params", &self.params);
+        debug_struct.field("partner_metadata", &self.partner_metadata);
         debug_struct.field(
             "private_ipv_6_google_access",
             &self.private_ipv_6_google_access,
@@ -7482,7 +7497,10 @@ impl std::fmt::Debug for super::instance_group_manager_list::warning::Data {
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 impl std::fmt::Debug for super::InstanceGroupManagerResizeRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstanceGroupManagerResizeRequest");
@@ -7491,6 +7509,7 @@ impl std::fmt::Debug for super::InstanceGroupManagerResizeRequest {
         debug_struct.field("id", &self.id);
         debug_struct.field("kind", &self.kind);
         debug_struct.field("name", &self.name);
+        debug_struct.field("region", &self.region);
         debug_struct.field("requested_run_duration", &self.requested_run_duration);
         debug_struct.field("resize_by", &self.resize_by);
         debug_struct.field("self_link", &self.self_link);
@@ -7505,7 +7524,10 @@ impl std::fmt::Debug for super::InstanceGroupManagerResizeRequest {
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 impl std::fmt::Debug for super::InstanceGroupManagerResizeRequestStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstanceGroupManagerResizeRequestStatus");
@@ -7518,7 +7540,10 @@ impl std::fmt::Debug for super::InstanceGroupManagerResizeRequestStatus {
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 impl std::fmt::Debug for super::instance_group_manager_resize_request_status::Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Error");
@@ -7530,7 +7555,10 @@ impl std::fmt::Debug for super::instance_group_manager_resize_request_status::Er
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 impl std::fmt::Debug for super::instance_group_manager_resize_request_status::error::Errors {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Errors");
@@ -7545,7 +7573,10 @@ impl std::fmt::Debug for super::instance_group_manager_resize_request_status::er
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 impl std::fmt::Debug
     for super::instance_group_manager_resize_request_status::error::errors::ErrorDetails
 {
@@ -7562,7 +7593,10 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 impl std::fmt::Debug for super::InstanceGroupManagerResizeRequestStatusLastAttempt {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("InstanceGroupManagerResizeRequestStatusLastAttempt");
@@ -7574,7 +7608,10 @@ impl std::fmt::Debug for super::InstanceGroupManagerResizeRequestStatusLastAttem
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 impl std::fmt::Debug for super::instance_group_manager_resize_request_status_last_attempt::Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Error");
@@ -7586,7 +7623,10 @@ impl std::fmt::Debug for super::instance_group_manager_resize_request_status_las
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 impl std::fmt::Debug
     for super::instance_group_manager_resize_request_status_last_attempt::error::Errors
 {
@@ -7603,7 +7643,10 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "instance-group-manager-resize-requests")]
+#[cfg(any(
+    feature = "instance-group-manager-resize-requests",
+    feature = "region-instance-group-manager-resize-requests",
+))]
 impl std::fmt::Debug for super::instance_group_manager_resize_request_status_last_attempt::error::errors::ErrorDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ErrorDetails");
@@ -7709,6 +7752,7 @@ impl std::fmt::Debug for super::InstanceGroupManagerStatus {
         );
         debug_struct.field("autoscaler", &self.autoscaler);
         debug_struct.field("bulk_instance_operation", &self.bulk_instance_operation);
+        debug_struct.field("current_instance_statuses", &self.current_instance_statuses);
         debug_struct.field("is_stable", &self.is_stable);
         debug_struct.field("stateful", &self.stateful);
         debug_struct.field("version_target", &self.version_target);
@@ -7902,6 +7946,33 @@ impl std::fmt::Debug for super::instance_group_manager_status_bulk_instance_oper
         debug_struct.field("help", &self.help);
         debug_struct.field("localized_message", &self.localized_message);
         debug_struct.field("quota_info", &self.quota_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-group-managers",
+    feature = "region-instance-group-managers",
+))]
+impl std::fmt::Debug for super::InstanceGroupManagerStatusInstanceStatusSummary {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceGroupManagerStatusInstanceStatusSummary");
+        debug_struct.field("deprovisioning", &self.deprovisioning);
+        debug_struct.field("non_existent", &self.non_existent);
+        debug_struct.field("pending", &self.pending);
+        debug_struct.field("pending_stop", &self.pending_stop);
+        debug_struct.field("provisioning", &self.provisioning);
+        debug_struct.field("repairing", &self.repairing);
+        debug_struct.field("running", &self.running);
+        debug_struct.field("staging", &self.staging);
+        debug_struct.field("stopped", &self.stopped);
+        debug_struct.field("stopping", &self.stopping);
+        debug_struct.field("suspended", &self.suspended);
+        debug_struct.field("suspending", &self.suspending);
+        debug_struct.field("terminated", &self.terminated);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8637,6 +8708,7 @@ impl std::fmt::Debug for super::InstanceProperties {
             "network_performance_config",
             &self.network_performance_config,
         );
+        debug_struct.field("partner_metadata", &self.partner_metadata);
         debug_struct.field(
             "private_ipv_6_google_access",
             &self.private_ipv_6_google_access,
@@ -8944,6 +9016,7 @@ impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -8988,6 +9061,7 @@ impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::InstancesBulkInsertOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -11127,6 +11201,7 @@ impl std::fmt::Debug for super::LocalDisk {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -11171,6 +11246,7 @@ impl std::fmt::Debug for super::LocalDisk {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::LocalizedMessage {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -13873,6 +13949,7 @@ impl std::fmt::Debug for super::notification_endpoints_scoped_list::warning::Dat
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -13917,6 +13994,7 @@ impl std::fmt::Debug for super::notification_endpoints_scoped_list::warning::Dat
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::Operation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -14021,6 +14099,7 @@ impl std::fmt::Debug for super::Operation {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -14065,6 +14144,7 @@ impl std::fmt::Debug for super::Operation {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::operation::Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -14134,6 +14214,7 @@ impl std::fmt::Debug for super::operation::Error {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -14178,6 +14259,7 @@ impl std::fmt::Debug for super::operation::Error {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::operation::error::Errors {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -14250,6 +14332,7 @@ impl std::fmt::Debug for super::operation::error::Errors {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -14294,6 +14377,7 @@ impl std::fmt::Debug for super::operation::error::Errors {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -14366,6 +14450,7 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -14410,6 +14495,7 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::operation::Warnings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -14481,6 +14567,7 @@ impl std::fmt::Debug for super::operation::Warnings {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -14525,6 +14612,7 @@ impl std::fmt::Debug for super::operation::Warnings {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::operation::warnings::Data {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -14976,6 +15064,19 @@ impl std::fmt::Debug for super::packet_mirrorings_scoped_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::PartnerMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartnerMetadata");
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("partner_metadata", &self.partner_metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15748,6 +15849,7 @@ impl std::fmt::Debug for super::Quota {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -15792,6 +15894,7 @@ impl std::fmt::Debug for super::Quota {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::QuotaExceededInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -16128,6 +16231,57 @@ impl std::fmt::Debug for super::RegionInstanceGroupManagerPatchInstanceConfigReq
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RegionInstanceGroupManagerPatchInstanceConfigReq");
         debug_struct.field("per_instance_configs", &self.per_instance_configs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::RegionInstanceGroupManagerResizeRequestsListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("RegionInstanceGroupManagerResizeRequestsListResponse");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl std::fmt::Debug
+    for super::region_instance_group_manager_resize_requests_list_response::Warning
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl std::fmt::Debug
+    for super::region_instance_group_manager_resize_requests_list_response::warning::Data
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16628,6 +16782,7 @@ impl std::fmt::Debug for super::Reservation {
         );
         debug_struct.field("aggregate_reservation", &self.aggregate_reservation);
         debug_struct.field("commitment", &self.commitment);
+        debug_struct.field("confidential_compute_type", &self.confidential_compute_type);
         debug_struct.field("creation_timestamp", &self.creation_timestamp);
         debug_struct.field("delete_after_duration", &self.delete_after_duration);
         debug_struct.field("delete_at_time", &self.delete_at_time);
@@ -19879,6 +20034,7 @@ impl std::fmt::Debug for super::service_attachments_scoped_list::warning::Data {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -19923,6 +20079,7 @@ impl std::fmt::Debug for super::service_attachments_scoped_list::warning::Data {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -19993,6 +20150,7 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -20037,6 +20195,7 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadataPerLocationOperationInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -20891,6 +21050,7 @@ impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -20935,6 +21095,7 @@ impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::Status {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -21426,6 +21587,24 @@ impl std::fmt::Debug for super::storage_pools_scoped_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "machine-images",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl std::fmt::Debug for super::StructuredEntries {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StructuredEntries");
+        debug_struct.field("entries", &self.entries);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -23710,6 +23889,114 @@ impl std::fmt::Debug for super::vm_endpoint_nat_mappings_list::Warning {
 
 #[cfg(feature = "routers")]
 impl std::fmt::Debug for super::vm_endpoint_nat_mappings_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::VmExtensionPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmExtensionPolicy");
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("extension_policies", &self.extension_policies);
+        debug_struct.field("global_resource_link", &self.global_resource_link);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("instance_selectors", &self.instance_selectors);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("managed_by_global", &self.managed_by_global);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("priority", &self.priority);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("update_timestamp", &self.update_timestamp);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::VmExtensionPolicyExtensionPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmExtensionPolicyExtensionPolicy");
+        debug_struct.field("pinned_version", &self.pinned_version);
+        debug_struct.field("string_config", &self.string_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::VmExtensionPolicyInstanceSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmExtensionPolicyInstanceSelector");
+        debug_struct.field("label_selector", &self.label_selector);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::VmExtensionPolicyLabelSelector {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmExtensionPolicyLabelSelector");
+        debug_struct.field("inclusion_labels", &self.inclusion_labels);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::VmExtensionPolicyList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VmExtensionPolicyList");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::vm_extension_policy_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::vm_extension_policy_list::warning::Data {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
@@ -28216,6 +28503,7 @@ impl std::fmt::Debug for super::instance_templates::GetRequest {
         let mut debug_struct = f.debug_struct("GetRequest");
         debug_struct.field("instance_template", &self.instance_template);
         debug_struct.field("project", &self.project);
+        debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -28264,6 +28552,7 @@ impl std::fmt::Debug for super::instance_templates::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -28469,6 +28758,7 @@ impl std::fmt::Debug for super::instances::GetRequest {
         let mut debug_struct = f.debug_struct("GetRequest");
         debug_struct.field("instance", &self.instance);
         debug_struct.field("project", &self.project);
+        debug_struct.field("view", &self.view);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -28518,6 +28808,21 @@ impl std::fmt::Debug for super::instances::GetIamPolicyRequest {
         );
         debug_struct.field("project", &self.project);
         debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::GetPartnerMetadataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPartnerMetadataRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("namespaces", &self.namespaces);
+        debug_struct.field("project", &self.project);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -28597,6 +28902,7 @@ impl std::fmt::Debug for super::instances::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("view", &self.view);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -28617,6 +28923,22 @@ impl std::fmt::Debug for super::instances::ListReferrersRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instances")]
+impl std::fmt::Debug for super::instances::PatchPartnerMetadataRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchPartnerMetadataRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -33563,6 +33885,88 @@ impl std::fmt::Debug for super::region_health_sources::TestIamPermissionsRequest
     }
 }
 
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::region_instance_group_manager_resize_requests::CancelRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CancelRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("resize_request", &self.resize_request);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::region_instance_group_manager_resize_requests::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("resize_request", &self.resize_request);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::region_instance_group_manager_resize_requests::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resize_request", &self.resize_request);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::region_instance_group_manager_resize_requests::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl std::fmt::Debug for super::region_instance_group_manager_resize_requests::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("instance_group_manager", &self.instance_group_manager);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "region-instance-group-managers")]
 impl std::fmt::Debug for super::region_instance_group_managers::AbandonInstancesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -34041,6 +34445,7 @@ impl std::fmt::Debug for super::region_instance_templates::GetRequest {
         debug_struct.field("instance_template", &self.instance_template);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
+        debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -34074,6 +34479,7 @@ impl std::fmt::Debug for super::region_instance_templates::ListRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -34736,6 +35142,7 @@ impl std::fmt::Debug for super::region_operations::DeleteRequest {
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -39113,6 +39520,7 @@ impl std::fmt::Debug for super::zone_operations::DeleteRequest {
     feature = "storage-pools",
     feature = "target-instances",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
 ))]
 impl std::fmt::Debug for super::zone_operations::GetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -39152,6 +39560,84 @@ impl std::fmt::Debug for super::zone_operations::WaitRequest {
         debug_struct.field("operation", &self.operation);
         debug_struct.field("project", &self.project);
         debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::zone_vm_extension_policies::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("vm_extension_policy", &self.vm_extension_policy);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::zone_vm_extension_policies::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("vm_extension_policy", &self.vm_extension_policy);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::zone_vm_extension_policies::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::zone_vm_extension_policies::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl std::fmt::Debug for super::zone_vm_extension_policies::UpdateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("vm_extension_policy", &self.vm_extension_policy);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
