@@ -272,9 +272,9 @@ pub(crate) mod tests {
 
             let output = Arc::new(Mutex::new(Vec::new()));
             let subscriber = tracing_subscriber::fmt()
+                .json()
                 .with_writer(MockWriter(output.clone()))
                 .with_max_level(tracing::Level::DEBUG)
-                .with_ansi(false)
                 .finish();
 
             tracing::subscriber::with_default(subscriber, || {
@@ -299,16 +299,34 @@ pub(crate) mod tests {
             });
 
             let log_output = String::from_utf8(output.lock().unwrap().clone()).unwrap();
+            let json_val: serde_json::Value =
+                serde_json::from_str(&log_output).expect("valid JSON log");
 
-            assert!(log_output.contains("test_message"));
-            assert!(log_output.contains("error.type=\"BAD_TESTING\""));
-            assert!(log_output.contains("gcp.errors.domain=\"test.googleapis.com\""));
-            assert!(
-                log_output.contains(
-                    "gcp.errors.metadata=\"{\\\"k1\\\":\\\"v1\\\",\\\"k2\\\":\\\"v2\\\"}\""
-                )
+            let fields = &json_val["fields"];
+            assert_eq!(
+                fields["message"].as_str().expect("message field"),
+                "test_message"
             );
-            assert!(log_output.contains("rpc.response.status_code=\"INVALID_ARGUMENT\""));
+            assert_eq!(
+                fields["error.type"].as_str().expect("error.type field"),
+                "BAD_TESTING"
+            );
+            assert_eq!(
+                fields["gcp.errors.domain"].as_str().expect("domain field"),
+                "test.googleapis.com"
+            );
+            assert_eq!(
+                fields["gcp.errors.metadata"]
+                    .as_str()
+                    .expect("metadata field"),
+                "{\"k1\":\"v1\",\"k2\":\"v2\"}"
+            );
+            assert_eq!(
+                fields["rpc.response.status_code"]
+                    .as_str()
+                    .expect("status code field"),
+                "INVALID_ARGUMENT"
+            );
         }
     }
 }
