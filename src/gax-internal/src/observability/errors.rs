@@ -127,7 +127,7 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
 
         tracing::event!(
             parent: span,
-            tracing::Level::INFO,
+            tracing::Level::DEBUG,
             { ERROR_TYPE } = error_str,
             { GCP_ERRORS_DOMAIN } = domain,
             { GCP_ERRORS_METADATA } = metadata_json,
@@ -273,6 +273,7 @@ pub(crate) mod tests {
             let output = Arc::new(Mutex::new(Vec::new()));
             let subscriber = tracing_subscriber::fmt()
                 .with_writer(MockWriter(output.clone()))
+                .with_max_level(tracing::Level::DEBUG)
                 .with_ansi(false)
                 .finish();
 
