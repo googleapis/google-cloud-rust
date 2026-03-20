@@ -7915,6 +7915,9 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-storage",
  "humantime",
+ "integration-tests-o11y",
+ "opentelemetry",
+ "opentelemetry_sdk",
  "parse-size",
  "pin-project",
  "rand 0.10.0",
@@ -7923,6 +7926,7 @@ dependencies = [
  "tokio-metrics",
  "tracing",
  "tracing-log",
+ "tracing-opentelemetry",
  "tracing-subscriber",
 ]
 
