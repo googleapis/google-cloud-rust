@@ -116,19 +116,8 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
             _ => (None, None),
         };
 
-        let metadata_json = metadata.map(|m| {
-            let fields: Vec<String> = m
-                .iter()
-                .map(|(k, v)| {
-                    format!(
-                        "\"{}\":\"{}\"",
-                        k.replace('"', "\\\""),
-                        v.replace('"', "\\\"")
-                    )
-                })
-                .collect();
-            format!("{{{}}}", fields.join(","))
-        });
+        let metadata_json =
+            metadata.map(|m| serde_json::to_string(m).unwrap_or_else(|_| "{}".to_string()));
 
         let error_str = error_type.as_str();
         let log_msg = err
