@@ -253,4 +253,72 @@ pub(crate) mod tests {
             _ => panic!("Expected ErrorType::RpcError"),
         }
     }
+
+    #[test]
+    fn test_emit_error_log() {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use std::sync::{Arc, Mutex};
+            use tracing_subscriber::fmt::MakeWriter;
+
+            #[derive(Clone)]
+            struct MockWriter(Arc<Mutex<Vec<u8>>>);
+
+            impl std::io::Write for MockWriter {
+                fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
+                    self.0.lock().unwrap().extend_from_slice(buf);
+                    Ok(buf.len())
+                }
+                fn flush(&mut self) -> std::io::Result<()> {
+                    Ok(())
+                }
+            }
+
+            impl<'a> MakeWriter<'a> for MockWriter {
+                type Writer = Self;
+                fn make_writer(&'a self) -> Self::Writer {
+                    self.clone()
+                }
+            }
+
+            let output = Arc::new(Mutex::new(Vec::new()));
+            let subscriber = tracing_subscriber::fmt()
+                .with_writer(MockWriter(output.clone()))
+                .with_ansi(false)
+                .finish();
+
+            tracing::subscriber::with_default(subscriber, || {
+                let span = tracing::info_span!("test_t4_error_log_span");
+                let span_guard = span.enter();
+
+                let error_info = google_cloud_rpc::model::ErrorInfo::default()
+                    .set_reason("BAD_TESTING")
+                    .set_domain("test.googleapis.com")
+                    .set_metadata(std::collections::HashMap::from([
+                        ("k1".to_string(), "v1".to_string()),
+                        ("k2".to_string(), "v2".to_string()),
+                    ]));
+
+                let status = Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message("test_message")
+                    .set_details(vec![StatusDetails::ErrorInfo(error_info)]);
+
+                super::emit_error_log(&span, &Error::service(status));
+                drop(span_guard);
+            });
+
+            let log_output = String::from_utf8(output.lock().unwrap().clone()).unwrap();
+
+            assert!(log_output.contains("test_message"));
+            assert!(log_output.contains("error.type=\"BAD_TESTING\""));
+            assert!(log_output.contains("gcp.errors.domain=\"test.googleapis.com\""));
+            assert!(
+                log_output.contains(
+                    "gcp.errors.metadata=\"{\\\"k1\\\":\\\"v1\\\",\\\"k2\\\":\\\"v2\\\"}\""
+                )
+            );
+            assert!(log_output.contains("rpc.response.status_code=\"INVALID_ARGUMENT\""));
+        }
+    }
 }
