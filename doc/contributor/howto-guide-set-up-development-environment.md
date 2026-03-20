@@ -143,26 +143,27 @@ as you modify it.
 
 ### Install coverage tools (once)
 
-You will need to install `cargo-tarpaulin`:
+You will need to install `cargo-llvm-cov`:
 
 ```bash
-cargo install cargo-tarpaulin
-```
-
-On macOS you need to enable an extra feature:
-
-```bash
-cargo install cargo-tarpaulin --features vendored-openssl
+cargo install cargo-llvm-cov --locked
 ```
 
 ### Getting coverage in cobertura format
 
 ```bash
-cargo tarpaulin --out xml
+cargo llvm-cov
 ```
 
-Generated code and test helpers are excluded by default. The configuration is in
-the top level `.tarpaulin.toml`.
+You may want to use a different output format. For example, many IDEs can use
+cobertura files:
+
+```bash
+cargo llvm-cov --cobertura --output-path cobertura.xml
+```
+
+Unfortunately `llvm-cov` does not exclude the test modules, nor the generated
+code. Keep that in mind as you analyze the results.
 
 ## Integration tests
 
