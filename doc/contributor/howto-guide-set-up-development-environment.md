@@ -155,13 +155,15 @@ cargo install cargo-llvm-cov --locked
 cargo llvm-cov
 ```
 
-You may want to use a different output format. For example, many IDEs can use cobertura files:
+You may want to use a different output format. For example, many IDEs can use
+cobertura files:
 
 ```bash
 cargo llvm-cov --cobertura --output-path cobertura.xml
 ```
 
-Unfortunately `llvm-cov` does not exclude the test modules, nor the generated code. Keep that in mind as you analyze the results.
+Unfortunately `llvm-cov` does not exclude the test modules, nor the generated
+code. Keep that in mind as you analyze the results.
 
 ## Integration tests
 
