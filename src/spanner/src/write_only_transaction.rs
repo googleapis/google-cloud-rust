@@ -13,9 +13,9 @@
 // limitations under the License.
 
 use crate::client::{DatabaseClient, Mutation};
+use crate::model::transaction_options::ReadWrite;
 use crate::model::{
     BeginTransactionRequest, CommitRequest, CommitResponse, RequestOptions, TransactionOptions,
-    transaction_options::ReadWrite,
 };
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,

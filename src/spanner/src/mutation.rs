@@ -123,7 +123,7 @@ impl Mutation {
     /// Returns a mutation that will delete all rows with primary keys covered by `key_set`.
     ///
     /// # Example
-    /// ```rust
+    /// ```text
     /// // Example omitted temporarily until the new KeySet API is merged
     /// ```
     pub fn delete(table: impl Into<String>, key_set: KeySet) -> Mutation {
