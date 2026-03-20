@@ -85,9 +85,9 @@ pub mod keys {
     ///
     /// Example: pubsub.googleapis.com
     pub const GCP_ERRORS_DOMAIN: &str = "gcp.errors.domain";
-    /// A key-value map representing the metadata embedded into the `ErrorInfo` payload.
+    /// A key-value map representing the `ErrorInfo` payload metadata, flattened into a JSON string.
     ///
-    /// It is flattened into a JSON string implicitly evaluating standard OTel semantics.
+    /// Example: `{"zone": "us-east1-a", "instance": "instance-1"}`
     pub const GCP_ERRORS_METADATA: &str = "gcp.errors.metadata";
 
     // Re-export these symbols so we can use them in the `client_request_span!()`
