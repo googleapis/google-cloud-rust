@@ -22,6 +22,7 @@ pub use crate::from_value::{ConvertError, FromValue};
 pub use crate::key::{Key, KeyRange, KeySet, KeySetBuilder};
 pub use crate::model::transaction_options::IsolationLevel;
 pub use crate::model::transaction_options::read_write::ReadLockMode;
+pub use crate::mutation::{Mutation, ValueBinder, WriteBuilder};
 pub use crate::read::ConfiguredReadRequestBuilder;
 pub use crate::read::ReadRequest;
 pub use crate::read::ReadRequestBuilder;

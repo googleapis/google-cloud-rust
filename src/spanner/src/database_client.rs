@@ -145,6 +145,36 @@ impl DatabaseClient {
     pub fn read_write_transaction(&self) -> crate::transaction_runner::TransactionRunnerBuilder {
         crate::transaction_runner::TransactionRunnerBuilder::new(self.clone())
     }
+
+    /// Returns a builder for a write-only transaction.
+    ///
+    /// # Example
+    /// ```rust
+    /// # use google_cloud_spanner::client::{Mutation, Spanner};
+    /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
+    /// let client = Spanner::builder().build().await?;
+    /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    ///
+    /// let mutation = Mutation::new_insert_builder("Users")
+    ///     .set("UserId").to(&1)
+    ///     .set("UserName").to(&"Alice")
+    ///     .build();
+    ///
+    /// let response = db.write_only_transaction()
+    ///     .with_transaction_tag("my-tag")
+    ///     .build()
+    ///     .write(vec![mutation])
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// A write-only transaction is used to execute blind writes using mutations.
+    pub fn write_only_transaction(
+        &self,
+    ) -> crate::write_only_transaction::WriteOnlyTransactionBuilder {
+        crate::write_only_transaction::WriteOnlyTransactionBuilder::new(self.clone())
+    }
 }
 
 /// A builder for [DatabaseClient].
