@@ -160,6 +160,21 @@ impl ToValue for Vec<u8> {
     }
 }
 
+impl<T> ToValue for Vec<T>
+where
+    T: ToValue,
+{
+    fn to_value(&self) -> Value {
+        Value(ProtoValue {
+            kind: Some(prost_types::value::Kind::ListValue(
+                prost_types::ListValue {
+                    values: self.iter().map(|v| v.to_value().0).collect(),
+                },
+            )),
+        })
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -212,7 +227,7 @@ mod tests {
 
     #[test]
     fn test_to_value_bytes() {
-        let bytes = vec![1, 2, 3];
+        let bytes: Vec<u8> = vec![1, 2, 3];
         let v = bytes.to_value();
         assert_eq!(v.kind(), Kind::String);
         assert_eq!(v.as_string(), "AQID"); // Base64 encoded
@@ -275,5 +290,79 @@ mod tests {
         let v = v_proto.to_value();
         assert_eq!(v.kind(), Kind::Bool);
         assert!(v.as_bool());
+    }
+
+    #[test]
+    fn test_to_value_array() {
+        let str_array = vec!["one".to_string(), "two".to_string()];
+        let v = str_array.to_value();
+        assert_eq!(v.kind(), Kind::List);
+        let list = v.as_list();
+        assert_eq!(list.len(), 2);
+        assert_eq!(
+            list.get(0).expect("element 0 should exist").as_string(),
+            "one"
+        );
+        assert_eq!(
+            list.get(1).expect("element 1 should exist").as_string(),
+            "two"
+        );
+
+        let int_array = vec![42i64, 100i64];
+        let v = int_array.to_value();
+        assert_eq!(v.kind(), Kind::List);
+        let list = v.as_list();
+        assert_eq!(list.len(), 2);
+        assert_eq!(
+            list.get(0).expect("element 0 should exist").as_string(),
+            "42"
+        );
+        assert_eq!(
+            list.get(1).expect("element 1 should exist").as_string(),
+            "100"
+        );
+
+        let bool_array = vec![true, false];
+        let v = bool_array.to_value();
+        assert_eq!(v.kind(), Kind::List);
+        let list = v.as_list();
+        assert_eq!(list.len(), 2);
+        assert!(list.get(0).expect("element 0 should exist").as_bool());
+        assert!(!list.get(1).expect("element 1 should exist").as_bool());
+
+        let float_array = vec![9.9f64, -2.5f64];
+        let v = float_array.to_value();
+        assert_eq!(v.kind(), Kind::List);
+        let list = v.as_list();
+        assert_eq!(list.len(), 2);
+        assert_eq!(list.get(0).expect("element 0 should exist").as_f64(), 9.9);
+        assert_eq!(list.get(1).expect("element 1 should exist").as_f64(), -2.5);
+
+        let empty_array: Vec<f64> = vec![];
+        let v = empty_array.to_value();
+        assert_eq!(v.kind(), Kind::List);
+        assert_eq!(v.as_list().len(), 0);
+
+        let null_array: Option<Vec<i64>> = None;
+        let v = null_array.to_value();
+        assert_eq!(v.kind(), Kind::Null);
+
+        let opt_array: Vec<Option<i64>> = vec![Some(42), None, Some(100)];
+        let v = opt_array.to_value();
+        assert_eq!(v.kind(), Kind::List);
+        let list = v.as_list();
+        assert_eq!(list.len(), 3);
+        assert_eq!(
+            list.get(0).expect("element 0 should exist").as_string(),
+            "42"
+        );
+        assert_eq!(
+            list.get(1).expect("element 1 should exist").kind(),
+            Kind::Null
+        );
+        assert_eq!(
+            list.get(2).expect("element 2 should exist").as_string(),
+            "100"
+        );
     }
 }

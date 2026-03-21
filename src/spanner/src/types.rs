@@ -120,6 +120,14 @@ impl Type {
     pub fn code(&self) -> TypeCode {
         self.0.code.clone().into()
     }
+
+    /// Returns the element type of the array, or `None` if this type is not an array.
+    pub fn array_element_type(&self) -> Option<Type> {
+        self.0
+            .array_element_type
+            .as_deref()
+            .map(|t| Type(t.clone()))
+    }
 }
 
 impl gaxi::prost::ToProto<i32> for TypeCode {
@@ -396,6 +404,17 @@ mod tests {
 
         assert_eq!(pg_oid().code(), TypeCode::Int64);
         assert_eq!(pg_oid().0.type_annotation, TypeAnnotationCode::PgOid);
+    }
+
+    #[test]
+    fn test_array_element_type() {
+        let arr = array(int64());
+        assert_eq!(arr.array_element_type(), Some(int64()));
+
+        // Non-array types should return None
+        assert_eq!(int64().array_element_type(), None);
+        assert_eq!(string().array_element_type(), None);
+        assert_eq!(Type::default().array_element_type(), None);
     }
 
     #[test]
