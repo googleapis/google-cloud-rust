@@ -142,6 +142,42 @@ impl SingleUseReadOnlyTransaction {
     ) -> crate::Result<ResultSet> {
         self.context.execute_query(statement).await
     }
+
+    /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, ReadRequest, KeySet};
+    /// # use google_cloud_spanner::key;
+    /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.single_use().build();
+    ///
+    /// // Read using the primary key
+    /// let read_by_pk = ReadRequest::builder("Users", vec!["Id", "Name"]).with_keys(KeySet::all()).build();
+    /// let mut result_set = transaction.execute_read(read_by_pk).await?;
+    /// while let Some(row) = result_set.next().await {
+    ///     let _row = row?;
+    ///     // process row
+    /// }
+    ///
+    /// // Read using a secondary index
+    /// let read_by_index = ReadRequest::builder("Users", vec!["Id", "Name"])
+    ///     .with_index("UsersByIndex", key![1_i64]).build();
+    /// let mut result_set = transaction.execute_read(read_by_index).await?;
+    /// while let Some(row) = result_set.next().await {
+    ///     let _row = row?;
+    ///     // process row
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
+        &self,
+        read: T,
+    ) -> crate::Result<ResultSet> {
+        self.context.execute_read(read).await
+    }
 }
 
 /// A builder for [MultiUseReadOnlyTransaction].
@@ -285,6 +321,42 @@ impl MultiUseReadOnlyTransaction {
     ) -> crate::Result<ResultSet> {
         self.context.execute_query(statement).await
     }
+
+    /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, ReadRequest, KeySet};
+    /// # use google_cloud_spanner::key;
+    /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.read_only_transaction().build().await?;
+    ///
+    /// // Read using the primary key
+    /// let read_by_pk = ReadRequest::builder("Users", vec!["Id", "Name"]).with_keys(KeySet::all()).build();
+    /// let mut result_set = transaction.execute_read(read_by_pk).await?;
+    /// while let Some(row) = result_set.next().await {
+    ///     let _row = row?;
+    ///     // process row
+    /// }
+    ///
+    /// // Read using a secondary index
+    /// let read_by_index = ReadRequest::builder("Users", vec!["Id", "Name"])
+    ///     .with_index("UsersByIndex", key![1_i64]).build();
+    /// let mut result_set = transaction.execute_read(read_by_index).await?;
+    /// while let Some(row) = result_set.next().await {
+    ///     let _row = row?;
+    ///     // process row
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
+        &self,
+        read: T,
+    ) -> crate::Result<ResultSet> {
+        self.context.execute_read(read).await
+    }
 }
 
 #[derive(Clone, Debug)]
@@ -322,6 +394,38 @@ impl ReadContext {
             .spanner
             // TODO(#4972): make request options configurable
             .execute_streaming_sql(request, crate::RequestOptions::default())
+            .send()
+            .await?;
+
+        Ok(ResultSet::new(stream))
+    }
+
+    pub(crate) async fn execute_read<T: Into<crate::read::ReadRequest>>(
+        &self,
+        read: T,
+    ) -> crate::Result<ResultSet> {
+        let read = read.into();
+
+        let mut request = crate::model::ReadRequest::default()
+            .set_session(self.client.session.name.clone())
+            .set_transaction(self.transaction_selector.clone())
+            .set_table(read.table)
+            .set_columns(read.columns)
+            .set_key_set(read.keys.into_proto());
+
+        if let Some(index) = read.index {
+            request = request.set_index(index);
+        }
+
+        if let Some(limit) = read.limit {
+            request = request.set_limit(limit);
+        }
+
+        let stream = self
+            .client
+            .spanner
+            // TODO(#4972): make request options configurable
+            .streaming_read(request, crate::RequestOptions::default())
             .send()
             .await?;
 
@@ -545,5 +649,41 @@ pub(crate) mod tests {
             let result = rs.next().await;
             assert!(result.is_none(), "expected None, got {result:?}");
         }
+    }
+
+    #[tokio::test]
+    async fn execute_single_read() {
+        use super::super::result_set::tests::string_val;
+        use crate::client::{KeySet, ReadRequest};
+        use crate::value::Value;
+
+        let mut mock = create_session_mock();
+
+        mock.expect_streaming_read().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.session,
+                "projects/p/instances/i/databases/d/sessions/123"
+            );
+            assert_eq!(req.table, "Users");
+            assert_eq!(req.columns, vec!["Id".to_string(), "Name".to_string()]);
+
+            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
+                tokio_stream::iter(vec![Ok(setup_select1())]),
+            )))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = db_client.single_use().build();
+        let read = ReadRequest::builder("Users", vec!["Id", "Name"])
+            .with_keys(KeySet::all())
+            .build();
+        let mut rs = tx.execute_read(read).await.expect("Failed to execute read");
+
+        let row = rs.next().await.expect("has row").expect("has valid row");
+        assert_eq!(row.raw_values(), [Value(string_val("1"))]);
+        let result = rs.next().await;
+        assert!(result.is_none(), "expected None, got {result:?}");
     }
 }
