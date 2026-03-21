@@ -573,17 +573,65 @@ pub trait CatalogService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::EntryLink>>;
 
+    async fn update_entry_link(
+        &self,
+        req: crate::model::UpdateEntryLinkRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EntryLink>>;
+
     async fn delete_entry_link(
         &self,
         req: crate::model::DeleteEntryLinkRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::EntryLink>>;
 
+    async fn lookup_entry_links(
+        &self,
+        req: crate::model::LookupEntryLinksRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LookupEntryLinksResponse>>;
+
+    async fn lookup_context(
+        &self,
+        req: crate::model::LookupContextRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LookupContextResponse>>;
+
     async fn get_entry_link(
         &self,
         req: crate::model::GetEntryLinkRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::EntryLink>>;
+
+    async fn create_metadata_feed(
+        &self,
+        req: crate::model::CreateMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_metadata_feed(
+        &self,
+        req: crate::model::GetMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MetadataFeed>>;
+
+    async fn list_metadata_feeds(
+        &self,
+        req: crate::model::ListMetadataFeedsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMetadataFeedsResponse>>;
+
+    async fn delete_metadata_feed(
+        &self,
+        req: crate::model::DeleteMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_metadata_feed(
+        &self,
+        req: crate::model::UpdateMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn list_locations(
         &self,
@@ -897,6 +945,15 @@ impl<T: super::CatalogService> CatalogService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_entry_link(
+        &self,
+        req: crate::model::UpdateEntryLinkRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::EntryLink>> {
+        T::update_entry_link(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_entry_link(
         &self,
         req: crate::model::DeleteEntryLinkRequest,
@@ -906,12 +963,75 @@ impl<T: super::CatalogService> CatalogService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn lookup_entry_links(
+        &self,
+        req: crate::model::LookupEntryLinksRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LookupEntryLinksResponse>> {
+        T::lookup_entry_links(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn lookup_context(
+        &self,
+        req: crate::model::LookupContextRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::LookupContextResponse>> {
+        T::lookup_context(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn get_entry_link(
         &self,
         req: crate::model::GetEntryLinkRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::EntryLink>> {
         T::get_entry_link(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_metadata_feed(
+        &self,
+        req: crate::model::CreateMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_metadata_feed(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_metadata_feed(
+        &self,
+        req: crate::model::GetMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::MetadataFeed>> {
+        T::get_metadata_feed(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_metadata_feeds(
+        &self,
+        req: crate::model::ListMetadataFeedsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListMetadataFeedsResponse>> {
+        T::list_metadata_feeds(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_metadata_feed(
+        &self,
+        req: crate::model::DeleteMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_metadata_feed(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_metadata_feed(
+        &self,
+        req: crate::model::UpdateMetadataFeedRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_metadata_feed(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1259,54 +1379,6 @@ impl<T: super::CmekService> CmekService for T {
 /// A dyn-compatible, crate-private version of [super::ContentService].
 #[async_trait::async_trait]
 pub trait ContentService: std::fmt::Debug + Send + Sync {
-    async fn create_content(
-        &self,
-        req: crate::model::CreateContentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Content>>;
-
-    async fn update_content(
-        &self,
-        req: crate::model::UpdateContentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Content>>;
-
-    async fn delete_content(
-        &self,
-        req: crate::model::DeleteContentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<()>>;
-
-    async fn get_content(
-        &self,
-        req: crate::model::GetContentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Content>>;
-
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
-
-    async fn set_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
-
-    async fn test_iam_permissions(
-        &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
-
-    async fn list_content(
-        &self,
-        req: crate::model::ListContentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ListContentResponse>>;
-
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -1318,6 +1390,24 @@ pub trait ContentService: std::fmt::Debug + Send + Sync {
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
 
     async fn list_operations(
         &self,
@@ -1348,79 +1438,6 @@ pub trait ContentService: std::fmt::Debug + Send + Sync {
 #[async_trait::async_trait]
 impl<T: super::ContentService> ContentService for T {
     /// Forwards the call to the implementation provided by `T`.
-    async fn create_content(
-        &self,
-        req: crate::model::CreateContentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Content>> {
-        T::create_content(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn update_content(
-        &self,
-        req: crate::model::UpdateContentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Content>> {
-        T::update_content(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn delete_content(
-        &self,
-        req: crate::model::DeleteContentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<()>> {
-        T::delete_content(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get_content(
-        &self,
-        req: crate::model::GetContentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Content>> {
-        T::get_content(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        T::get_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn set_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        T::set_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
-    {
-        T::test_iam_permissions(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn list_content(
-        &self,
-        req: crate::model::ListContentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ListContentResponse>> {
-        T::list_content(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -1436,6 +1453,34 @@ impl<T: super::ContentService> ContentService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
         T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
+        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1473,6 +1518,325 @@ impl<T: super::ContentService> ContentService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::cancel_operation(self, req, options).await
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::DataProductService].
+#[async_trait::async_trait]
+pub trait DataProductService: std::fmt::Debug + Send + Sync {
+    async fn create_data_product(
+        &self,
+        req: crate::model::CreateDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_data_product(
+        &self,
+        req: crate::model::DeleteDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_data_product(
+        &self,
+        req: crate::model::GetDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataProduct>>;
+
+    async fn list_data_products(
+        &self,
+        req: crate::model::ListDataProductsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataProductsResponse>>;
+
+    async fn update_data_product(
+        &self,
+        req: crate::model::UpdateDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn create_data_asset(
+        &self,
+        req: crate::model::CreateDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_data_asset(
+        &self,
+        req: crate::model::UpdateDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_data_asset(
+        &self,
+        req: crate::model::DeleteDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_data_asset(
+        &self,
+        req: crate::model::GetDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataAsset>>;
+
+    async fn list_data_assets(
+        &self,
+        req: crate::model::ListDataAssetsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataAssetsResponse>>;
+
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
+
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::DataProductService] also implement [DataProductService].
+#[async_trait::async_trait]
+impl<T: super::DataProductService> DataProductService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_data_product(
+        &self,
+        req: crate::model::CreateDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_data_product(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_data_product(
+        &self,
+        req: crate::model::DeleteDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_data_product(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_data_product(
+        &self,
+        req: crate::model::GetDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataProduct>> {
+        T::get_data_product(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_data_products(
+        &self,
+        req: crate::model::ListDataProductsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataProductsResponse>> {
+        T::list_data_products(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_data_product(
+        &self,
+        req: crate::model::UpdateDataProductRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_data_product(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_data_asset(
+        &self,
+        req: crate::model::CreateDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_data_asset(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_data_asset(
+        &self,
+        req: crate::model::UpdateDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_data_asset(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_data_asset(
+        &self,
+        req: crate::model::DeleteDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_data_asset(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_data_asset(
+        &self,
+        req: crate::model::GetDataAssetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataAsset>> {
+        T::get_data_asset(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_data_assets(
+        &self,
+        req: crate::model::ListDataAssetsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataAssetsResponse>> {
+        T::list_data_assets(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_location::model::Location>> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
     }
 }
 
@@ -2619,42 +2983,6 @@ pub trait DataplexService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
 
-    async fn create_environment(
-        &self,
-        req: crate::model::CreateEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
-
-    async fn update_environment(
-        &self,
-        req: crate::model::UpdateEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
-
-    async fn delete_environment(
-        &self,
-        req: crate::model::DeleteEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
-
-    async fn list_environments(
-        &self,
-        req: crate::model::ListEnvironmentsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ListEnvironmentsResponse>>;
-
-    async fn get_environment(
-        &self,
-        req: crate::model::GetEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Environment>>;
-
-    async fn list_sessions(
-        &self,
-        req: crate::model::ListSessionsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ListSessionsResponse>>;
-
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -2964,60 +3292,6 @@ impl<T: super::DataplexService> DataplexService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::cancel_job(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn create_environment(
-        &self,
-        req: crate::model::CreateEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        T::create_environment(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn update_environment(
-        &self,
-        req: crate::model::UpdateEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        T::update_environment(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn delete_environment(
-        &self,
-        req: crate::model::DeleteEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        T::delete_environment(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn list_environments(
-        &self,
-        req: crate::model::ListEnvironmentsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ListEnvironmentsResponse>> {
-        T::list_environments(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get_environment(
-        &self,
-        req: crate::model::GetEnvironmentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Environment>> {
-        T::get_environment(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn list_sessions(
-        &self,
-        req: crate::model::ListSessionsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::ListSessionsResponse>> {
-        T::list_sessions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

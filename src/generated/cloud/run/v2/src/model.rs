@@ -15560,7 +15560,8 @@ pub struct WorkerPool {
     /// enabled for the parent project of this worker pool.
     pub threat_detection_enabled: bool,
 
-    /// Not supported, and ignored by Cloud Run.
+    /// Deprecated: Not supported, and ignored by Cloud Run.
+    #[deprecated]
     pub custom_audiences: std::vec::Vec<std::string::String>,
 
     /// Output only. Reserved for future use.
@@ -16149,6 +16150,7 @@ impl WorkerPool {
     /// # use google_cloud_run_v2::model::WorkerPool;
     /// let x = WorkerPool::new().set_custom_audiences(["a", "b", "c"]);
     /// ```
+    #[deprecated]
     pub fn set_custom_audiences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

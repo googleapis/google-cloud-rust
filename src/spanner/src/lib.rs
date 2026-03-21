@@ -41,6 +41,7 @@ pub(crate) mod model {
 pub(crate) mod from_value;
 pub(crate) mod key;
 pub(crate) mod partitioned_dml_transaction;
+pub(crate) mod read;
 pub(crate) mod read_only_transaction;
 pub(crate) mod read_write_transaction;
 pub(crate) mod result_set;

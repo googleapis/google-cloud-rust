@@ -5323,6 +5323,99 @@ pub mod catalog_service {
         }
     }
 
+    /// The request builder for [CatalogService::update_entry_link][crate::client::CatalogService::update_entry_link] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::UpdateEntryLink;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateEntryLink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateEntryLink(RequestBuilder<crate::model::UpdateEntryLinkRequest>);
+
+    impl UpdateEntryLink {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateEntryLinkRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::EntryLink> {
+            (*self.0.stub)
+                .update_entry_link(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [entry_link][crate::model::UpdateEntryLinkRequest::entry_link].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_entry_link<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryLink>,
+        {
+            self.0.request.entry_link = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_link][crate::model::UpdateEntryLinkRequest::entry_link].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry_link<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryLink>,
+        {
+            self.0.request.entry_link = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [allow_missing][crate::model::UpdateEntryLinkRequest::allow_missing].
+        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.allow_missing = v.into();
+            self
+        }
+
+        /// Sets the value of [aspect_keys][crate::model::UpdateEntryLinkRequest::aspect_keys].
+        pub fn set_aspect_keys<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.aspect_keys = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateEntryLink {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [CatalogService::delete_entry_link][crate::client::CatalogService::delete_entry_link] calls.
     ///
     /// # Example
@@ -5385,6 +5478,229 @@ pub mod catalog_service {
         }
     }
 
+    /// The request builder for [CatalogService::lookup_entry_links][crate::client::CatalogService::lookup_entry_links] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::LookupEntryLinks;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> LookupEntryLinks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct LookupEntryLinks(RequestBuilder<crate::model::LookupEntryLinksRequest>);
+
+    impl LookupEntryLinks {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::LookupEntryLinksRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::LookupEntryLinksResponse> {
+            (*self.0.stub)
+                .lookup_entry_links(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::LookupEntryLinksResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::LookupEntryLinksResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][crate::model::LookupEntryLinksRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [entry][crate::model::LookupEntryLinksRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_entry<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.entry = v.into();
+            self
+        }
+
+        /// Sets the value of [entry_mode][crate::model::LookupEntryLinksRequest::entry_mode].
+        pub fn set_entry_mode<T: Into<crate::model::lookup_entry_links_request::EntryMode>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.entry_mode = v.into();
+            self
+        }
+
+        /// Sets the value of [entry_link_types][crate::model::LookupEntryLinksRequest::entry_link_types].
+        pub fn set_entry_link_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.entry_link_types = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::LookupEntryLinksRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::LookupEntryLinksRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for LookupEntryLinks {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [CatalogService::lookup_context][crate::client::CatalogService::lookup_context] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::LookupContext;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> LookupContext {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct LookupContext(RequestBuilder<crate::model::LookupContextRequest>);
+
+    impl LookupContext {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::LookupContextRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::LookupContextResponse> {
+            (*self.0.stub)
+                .lookup_context(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::LookupContextRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [resources][crate::model::LookupContextRequest::resources].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.resources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [options][crate::model::LookupContextRequest::options].
+        pub fn set_options<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.options = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for LookupContext {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [CatalogService::get_entry_link][crate::client::CatalogService::get_entry_link] calls.
     ///
     /// # Example
@@ -5442,6 +5758,592 @@ pub mod catalog_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for GetEntryLink {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [CatalogService::create_metadata_feed][crate::client::CatalogService::create_metadata_feed] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::CreateMetadataFeed;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateMetadataFeed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateMetadataFeed(RequestBuilder<crate::model::CreateMetadataFeedRequest>);
+
+    impl CreateMetadataFeed {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateMetadataFeedRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_metadata_feed][crate::client::CatalogService::create_metadata_feed].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_metadata_feed(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_metadata_feed`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::MetadataFeed, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MetadataFeed,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMetadataFeedRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [metadata_feed][crate::model::CreateMetadataFeedRequest::metadata_feed].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_metadata_feed<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataFeed>,
+        {
+            self.0.request.metadata_feed = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata_feed][crate::model::CreateMetadataFeedRequest::metadata_feed].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metadata_feed<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataFeed>,
+        {
+            self.0.request.metadata_feed = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [metadata_feed_id][crate::model::CreateMetadataFeedRequest::metadata_feed_id].
+        pub fn set_metadata_feed_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.metadata_feed_id = v.into();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::CreateMetadataFeedRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateMetadataFeed {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [CatalogService::get_metadata_feed][crate::client::CatalogService::get_metadata_feed] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::GetMetadataFeed;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetMetadataFeed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetMetadataFeed(RequestBuilder<crate::model::GetMetadataFeedRequest>);
+
+    impl GetMetadataFeed {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMetadataFeedRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::MetadataFeed> {
+            (*self.0.stub)
+                .get_metadata_feed(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetMetadataFeedRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetMetadataFeed {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [CatalogService::list_metadata_feeds][crate::client::CatalogService::list_metadata_feeds] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::ListMetadataFeeds;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListMetadataFeeds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListMetadataFeeds(RequestBuilder<crate::model::ListMetadataFeedsRequest>);
+
+    impl ListMetadataFeeds {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMetadataFeedsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMetadataFeedsResponse> {
+            (*self.0.stub)
+                .list_metadata_feeds(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMetadataFeedsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMetadataFeedsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListMetadataFeedsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMetadataFeedsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMetadataFeedsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListMetadataFeedsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListMetadataFeedsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListMetadataFeeds {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [CatalogService::delete_metadata_feed][crate::client::CatalogService::delete_metadata_feed] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::DeleteMetadataFeed;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteMetadataFeed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteMetadataFeed(RequestBuilder<crate::model::DeleteMetadataFeedRequest>);
+
+    impl DeleteMetadataFeed {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteMetadataFeedRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_metadata_feed][crate::client::CatalogService::delete_metadata_feed].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_metadata_feed(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_metadata_feed`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMetadataFeedRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteMetadataFeed {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [CatalogService::update_metadata_feed][crate::client::CatalogService::update_metadata_feed] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::UpdateMetadataFeed;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateMetadataFeed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateMetadataFeed(RequestBuilder<crate::model::UpdateMetadataFeedRequest>);
+
+    impl UpdateMetadataFeed {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CatalogService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateMetadataFeedRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_metadata_feed][crate::client::CatalogService::update_metadata_feed].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_metadata_feed(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_metadata_feed`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::MetadataFeed, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MetadataFeed,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [metadata_feed][crate::model::UpdateMetadataFeedRequest::metadata_feed].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_metadata_feed<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataFeed>,
+        {
+            self.0.request.metadata_feed = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata_feed][crate::model::UpdateMetadataFeedRequest::metadata_feed].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metadata_feed<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataFeed>,
+        {
+            self.0.request.metadata_feed = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMetadataFeedRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMetadataFeedRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::UpdateMetadataFeedRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateMetadataFeed {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -7662,711 +8564,6 @@ pub mod content_service {
         }
     }
 
-    /// The request builder for [ContentService::create_content][crate::client::ContentService::create_content] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::content_service::CreateContent;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> CreateContent {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct CreateContent(RequestBuilder<crate::model::CreateContentRequest>);
-
-    impl CreateContent {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateContentRequest>>(mut self, v: V) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::Content> {
-            (*self.0.stub)
-                .create_content(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Sets the value of [parent][crate::model::CreateContentRequest::parent].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [content][crate::model::CreateContentRequest::content].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_content<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Content>,
-        {
-            self.0.request.content = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [content][crate::model::CreateContentRequest::content].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Content>,
-        {
-            self.0.request.content = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [validate_only][crate::model::CreateContentRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for CreateContent {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [ContentService::update_content][crate::client::ContentService::update_content] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::content_service::UpdateContent;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> UpdateContent {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct UpdateContent(RequestBuilder<crate::model::UpdateContentRequest>);
-
-    impl UpdateContent {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateContentRequest>>(mut self, v: V) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::Content> {
-            (*self.0.stub)
-                .update_content(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Sets the value of [update_mask][crate::model::UpdateContentRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
-        {
-            self.0.request.update_mask = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [update_mask][crate::model::UpdateContentRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
-        {
-            self.0.request.update_mask = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [content][crate::model::UpdateContentRequest::content].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_content<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Content>,
-        {
-            self.0.request.content = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [content][crate::model::UpdateContentRequest::content].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Content>,
-        {
-            self.0.request.content = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [validate_only][crate::model::UpdateContentRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for UpdateContent {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [ContentService::delete_content][crate::client::ContentService::delete_content] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::content_service::DeleteContent;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> DeleteContent {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct DeleteContent(RequestBuilder<crate::model::DeleteContentRequest>);
-
-    impl DeleteContent {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteContentRequest>>(mut self, v: V) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<()> {
-            (*self.0.stub)
-                .delete_content(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Sets the value of [name][crate::model::DeleteContentRequest::name].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for DeleteContent {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [ContentService::get_content][crate::client::ContentService::get_content] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::content_service::GetContent;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> GetContent {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct GetContent(RequestBuilder<crate::model::GetContentRequest>);
-
-    impl GetContent {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetContentRequest>>(mut self, v: V) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::Content> {
-            (*self.0.stub)
-                .get_content(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Sets the value of [name][crate::model::GetContentRequest::name].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [view][crate::model::GetContentRequest::view].
-        pub fn set_view<T: Into<crate::model::get_content_request::ContentView>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.view = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for GetContent {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [ContentService::get_iam_policy][crate::client::ContentService::get_iam_policy] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::content_service::GetIamPolicy;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> GetIamPolicy {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
-
-    impl GetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
-            (*self.0.stub)
-                .get_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.resource = v.into();
-            self
-        }
-
-        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
-        {
-            self.0.request.options = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
-        {
-            self.0.request.options = v.map(|x| x.into());
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for GetIamPolicy {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [ContentService::set_iam_policy][crate::client::ContentService::set_iam_policy] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::content_service::SetIamPolicy;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> SetIamPolicy {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
-
-    impl SetIamPolicy {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
-            (*self.0.stub)
-                .set_iam_policy(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.resource = v.into();
-            self
-        }
-
-        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_policy<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
-        {
-            self.0.request.policy = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
-        {
-            self.0.request.policy = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
-        {
-            self.0.request.update_mask = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
-        {
-            self.0.request.update_mask = v.map(|x| x.into());
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for SetIamPolicy {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [ContentService::test_iam_permissions][crate::client::ContentService::test_iam_permissions] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::content_service::TestIamPermissions;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> TestIamPermissions {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct TestIamPermissions(
-        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
-    );
-
-    impl TestIamPermissions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
-            (*self.0.stub)
-                .test_iam_permissions(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.resource = v.into();
-            self
-        }
-
-        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_permissions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for TestIamPermissions {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [ContentService::list_content][crate::client::ContentService::list_content] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::content_service::ListContent;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    /// use google_cloud_gax::paginator::ItemPaginator;
-    ///
-    /// let builder = prepare_request_builder();
-    /// let mut items = builder.by_item();
-    /// while let Some(result) = items.next().await {
-    ///   let item = result?;
-    /// }
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> ListContent {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct ListContent(RequestBuilder<crate::model::ListContentRequest>);
-
-    impl ListContent {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListContentRequest>>(mut self, v: V) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::ListContentResponse> {
-            (*self.0.stub)
-                .list_content(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListContentResponse, crate::Error>
-        {
-            use std::clone::Clone;
-            let token = self.0.request.page_token.clone();
-            let execute = move |token: String| {
-                let mut builder = self.clone();
-                builder.0.request = builder.0.request.set_page_token(token);
-                builder.send()
-            };
-            google_cloud_gax::paginator::internal::new_paginator(token, execute)
-        }
-
-        /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl google_cloud_gax::paginator::ItemPaginator<
-            crate::model::ListContentResponse,
-            crate::Error,
-        > {
-            use google_cloud_gax::paginator::Paginator;
-            self.by_page().items()
-        }
-
-        /// Sets the value of [parent][crate::model::ListContentRequest::parent].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [page_size][crate::model::ListContentRequest::page_size].
-        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
-            self
-        }
-
-        /// Sets the value of [page_token][crate::model::ListContentRequest::page_token].
-        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [filter][crate::model::ListContentRequest::filter].
-        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.filter = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for ListContent {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
     /// The request builder for [ContentService::list_locations][crate::client::ContentService::list_locations] calls.
     ///
     /// # Example
@@ -8538,6 +8735,274 @@ pub mod content_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ContentService::set_iam_policy][crate::client::ContentService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::SetIamPolicy;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+
+    impl SetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ContentService::get_iam_policy][crate::client::ContentService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::GetIamPolicy;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+
+    impl GetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ContentService::test_iam_permissions][crate::client::ContentService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::TestIamPermissions;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
+
+    impl TestIamPermissions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for TestIamPermissions {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }
@@ -8816,6 +9281,2005 @@ pub mod content_service {
     impl CancelOperation {
         pub(crate) fn new(
             stub: std::sync::Arc<dyn super::super::stub::dynamic::ContentService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+pub mod data_product_service {
+    use crate::Result;
+
+    /// A builder for [DataProductService][crate::client::DataProductService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_dataplex_v1::*;
+    /// # use builder::data_product_service::ClientBuilder;
+    /// # use client::DataProductService;
+    /// let builder : ClientBuilder = DataProductService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://dataplex.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DataProductService;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = DataProductService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::DataProductService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [DataProductService::create_data_product][crate::client::DataProductService::create_data_product] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::CreateDataProduct;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateDataProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateDataProduct(RequestBuilder<crate::model::CreateDataProductRequest>);
+
+    impl CreateDataProduct {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateDataProductRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_data_product][crate::client::DataProductService::create_data_product].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_data_product(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_data_product`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::DataProduct, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::DataProduct,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateDataProductRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [data_product_id][crate::model::CreateDataProductRequest::data_product_id].
+        pub fn set_data_product_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.data_product_id = v.into();
+            self
+        }
+
+        /// Sets the value of [data_product][crate::model::CreateDataProductRequest::data_product].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_data_product<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataProduct>,
+        {
+            self.0.request.data_product = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_product][crate::model::CreateDataProductRequest::data_product].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_product<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataProduct>,
+        {
+            self.0.request.data_product = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::CreateDataProductRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateDataProduct {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::delete_data_product][crate::client::DataProductService::delete_data_product] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::DeleteDataProduct;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteDataProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteDataProduct(RequestBuilder<crate::model::DeleteDataProductRequest>);
+
+    impl DeleteDataProduct {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteDataProductRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_data_product][crate::client::DataProductService::delete_data_product].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_data_product(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_data_product`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteDataProductRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteDataProductRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::DeleteDataProductRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteDataProduct {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::get_data_product][crate::client::DataProductService::get_data_product] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::GetDataProduct;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetDataProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetDataProduct(RequestBuilder<crate::model::GetDataProductRequest>);
+
+    impl GetDataProduct {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetDataProductRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DataProduct> {
+            (*self.0.stub)
+                .get_data_product(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetDataProductRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetDataProduct {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::list_data_products][crate::client::DataProductService::list_data_products] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::ListDataProducts;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListDataProducts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListDataProducts(RequestBuilder<crate::model::ListDataProductsRequest>);
+
+    impl ListDataProducts {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListDataProductsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListDataProductsResponse> {
+            (*self.0.stub)
+                .list_data_products(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDataProductsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListDataProductsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListDataProductsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListDataProductsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListDataProductsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListDataProductsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListDataProductsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListDataProducts {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::update_data_product][crate::client::DataProductService::update_data_product] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::UpdateDataProduct;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateDataProduct {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateDataProduct(RequestBuilder<crate::model::UpdateDataProductRequest>);
+
+    impl UpdateDataProduct {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateDataProductRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_data_product][crate::client::DataProductService::update_data_product].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_data_product(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_data_product`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::DataProduct, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::DataProduct,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [data_product][crate::model::UpdateDataProductRequest::data_product].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_data_product<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataProduct>,
+        {
+            self.0.request.data_product = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_product][crate::model::UpdateDataProductRequest::data_product].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_product<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataProduct>,
+        {
+            self.0.request.data_product = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateDataProductRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataProductRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::UpdateDataProductRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateDataProduct {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::create_data_asset][crate::client::DataProductService::create_data_asset] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::CreateDataAsset;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateDataAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateDataAsset(RequestBuilder<crate::model::CreateDataAssetRequest>);
+
+    impl CreateDataAsset {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateDataAssetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_data_asset][crate::client::DataProductService::create_data_asset].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_data_asset(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_data_asset`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::DataAsset, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::DataAsset,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateDataAssetRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [data_asset_id][crate::model::CreateDataAssetRequest::data_asset_id].
+        pub fn set_data_asset_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.data_asset_id = v.into();
+            self
+        }
+
+        /// Sets the value of [data_asset][crate::model::CreateDataAssetRequest::data_asset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_data_asset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAsset>,
+        {
+            self.0.request.data_asset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_asset][crate::model::CreateDataAssetRequest::data_asset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_asset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAsset>,
+        {
+            self.0.request.data_asset = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::CreateDataAssetRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateDataAsset {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::update_data_asset][crate::client::DataProductService::update_data_asset] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::UpdateDataAsset;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateDataAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateDataAsset(RequestBuilder<crate::model::UpdateDataAssetRequest>);
+
+    impl UpdateDataAsset {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateDataAssetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_data_asset][crate::client::DataProductService::update_data_asset].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_data_asset(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_data_asset`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::DataAsset, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::DataAsset,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [data_asset][crate::model::UpdateDataAssetRequest::data_asset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_data_asset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAsset>,
+        {
+            self.0.request.data_asset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_asset][crate::model::UpdateDataAssetRequest::data_asset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_asset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAsset>,
+        {
+            self.0.request.data_asset = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateDataAssetRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataAssetRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::UpdateDataAssetRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateDataAsset {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::delete_data_asset][crate::client::DataProductService::delete_data_asset] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::DeleteDataAsset;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteDataAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteDataAsset(RequestBuilder<crate::model::DeleteDataAssetRequest>);
+
+    impl DeleteDataAsset {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteDataAssetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_data_asset][crate::client::DataProductService::delete_data_asset].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_data_asset(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_data_asset`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteDataAssetRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteDataAssetRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::DeleteDataAssetRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteDataAsset {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::get_data_asset][crate::client::DataProductService::get_data_asset] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::GetDataAsset;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetDataAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetDataAsset(RequestBuilder<crate::model::GetDataAssetRequest>);
+
+    impl GetDataAsset {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetDataAssetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DataAsset> {
+            (*self.0.stub)
+                .get_data_asset(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetDataAssetRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetDataAsset {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::list_data_assets][crate::client::DataProductService::list_data_assets] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::ListDataAssets;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListDataAssets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListDataAssets(RequestBuilder<crate::model::ListDataAssetsRequest>);
+
+    impl ListDataAssets {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListDataAssetsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListDataAssetsResponse> {
+            (*self.0.stub)
+                .list_data_assets(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDataAssetsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListDataAssetsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListDataAssetsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListDataAssetsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListDataAssetsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListDataAssetsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListDataAssetsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListDataAssets {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::list_locations][crate::client::DataProductService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::ListLocations;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+
+    impl ListLocations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::get_location][crate::client::DataProductService::get_location] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::GetLocation;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+
+    impl GetLocation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::set_iam_policy][crate::client::DataProductService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::SetIamPolicy;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+
+    impl SetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::get_iam_policy][crate::client::DataProductService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::GetIamPolicy;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+
+    impl GetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::test_iam_permissions][crate::client::DataProductService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::TestIamPermissions;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
+
+    impl TestIamPermissions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::list_operations][crate::client::DataProductService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::ListOperations;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
+
+    impl ListOperations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::get_operation][crate::client::DataProductService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::GetOperation;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::delete_operation][crate::client::DataProductService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::DeleteOperation;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
+
+    impl DeleteOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DataProductService::cancel_operation][crate::client::DataProductService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_product_service::CancelOperation;
+    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
+
+    impl CancelOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataProductService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -17772,708 +20236,6 @@ pub mod dataplex_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for CancelJob {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [DataplexService::create_environment][crate::client::DataplexService::create_environment] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::dataplex_service::CreateEnvironment;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    /// use google_cloud_lro::Poller;
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.poller().until_done().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> CreateEnvironment {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct CreateEnvironment(RequestBuilder<crate::model::CreateEnvironmentRequest>);
-
-    impl CreateEnvironment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateEnvironmentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        ///
-        /// # Long running operations
-        ///
-        /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_environment][crate::client::DataplexService::create_environment].
-        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
-            (*self.0.stub)
-                .create_environment(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_environment`.
-        pub fn poller(
-            self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Environment, crate::model::OperationMetadata>
-        {
-            type Operation = google_cloud_lro::internal::Operation<
-                crate::model::Environment,
-                crate::model::OperationMetadata,
-            >;
-            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
-            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-
-            let stub = self.0.stub.clone();
-            let mut options = self.0.options.clone();
-            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
-            let query = move |name| {
-                let stub = stub.clone();
-                let options = options.clone();
-                async {
-                    let op = GetOperation::new(stub)
-                        .set_name(name)
-                        .with_options(options)
-                        .send()
-                        .await?;
-                    Ok(Operation::new(op))
-                }
-            };
-
-            let start = move || async {
-                let op = self.send().await?;
-                Ok(Operation::new(op))
-            };
-
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
-        }
-
-        /// Sets the value of [parent][crate::model::CreateEnvironmentRequest::parent].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [environment_id][crate::model::CreateEnvironmentRequest::environment_id].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_environment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.environment_id = v.into();
-            self
-        }
-
-        /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_environment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Environment>,
-        {
-            self.0.request.environment = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Environment>,
-        {
-            self.0.request.environment = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [validate_only][crate::model::CreateEnvironmentRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for CreateEnvironment {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [DataplexService::update_environment][crate::client::DataplexService::update_environment] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::dataplex_service::UpdateEnvironment;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    /// use google_cloud_lro::Poller;
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.poller().until_done().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> UpdateEnvironment {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct UpdateEnvironment(RequestBuilder<crate::model::UpdateEnvironmentRequest>);
-
-    impl UpdateEnvironment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::UpdateEnvironmentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        ///
-        /// # Long running operations
-        ///
-        /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_environment][crate::client::DataplexService::update_environment].
-        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
-            (*self.0.stub)
-                .update_environment(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_environment`.
-        pub fn poller(
-            self,
-        ) -> impl google_cloud_lro::Poller<crate::model::Environment, crate::model::OperationMetadata>
-        {
-            type Operation = google_cloud_lro::internal::Operation<
-                crate::model::Environment,
-                crate::model::OperationMetadata,
-            >;
-            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
-            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-
-            let stub = self.0.stub.clone();
-            let mut options = self.0.options.clone();
-            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
-            let query = move |name| {
-                let stub = stub.clone();
-                let options = options.clone();
-                async {
-                    let op = GetOperation::new(stub)
-                        .set_name(name)
-                        .with_options(options)
-                        .send()
-                        .await?;
-                    Ok(Operation::new(op))
-                }
-            };
-
-            let start = move || async {
-                let op = self.send().await?;
-                Ok(Operation::new(op))
-            };
-
-            google_cloud_lro::internal::new_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
-        }
-
-        /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_update_mask<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
-        {
-            self.0.request.update_mask = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<wkt::FieldMask>,
-        {
-            self.0.request.update_mask = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_environment<T>(mut self, v: T) -> Self
-        where
-            T: std::convert::Into<crate::model::Environment>,
-        {
-            self.0.request.environment = std::option::Option::Some(v.into());
-            self
-        }
-
-        /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
-        where
-            T: std::convert::Into<crate::model::Environment>,
-        {
-            self.0.request.environment = v.map(|x| x.into());
-            self
-        }
-
-        /// Sets the value of [validate_only][crate::model::UpdateEnvironmentRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for UpdateEnvironment {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [DataplexService::delete_environment][crate::client::DataplexService::delete_environment] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::dataplex_service::DeleteEnvironment;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    /// use google_cloud_lro::Poller;
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.poller().until_done().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> DeleteEnvironment {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct DeleteEnvironment(RequestBuilder<crate::model::DeleteEnvironmentRequest>);
-
-    impl DeleteEnvironment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::DeleteEnvironmentRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        ///
-        /// # Long running operations
-        ///
-        /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_environment][crate::client::DataplexService::delete_environment].
-        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
-            (*self.0.stub)
-                .delete_environment(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_environment`.
-        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
-            type Operation =
-                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
-            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
-            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
-
-            let stub = self.0.stub.clone();
-            let mut options = self.0.options.clone();
-            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
-            let query = move |name| {
-                let stub = stub.clone();
-                let options = options.clone();
-                async {
-                    let op = GetOperation::new(stub)
-                        .set_name(name)
-                        .with_options(options)
-                        .send()
-                        .await?;
-                    Ok(Operation::new(op))
-                }
-            };
-
-            let start = move || async {
-                let op = self.send().await?;
-                Ok(Operation::new(op))
-            };
-
-            google_cloud_lro::internal::new_unit_response_poller(
-                polling_error_policy,
-                polling_backoff_policy,
-                start,
-                query,
-            )
-        }
-
-        /// Sets the value of [name][crate::model::DeleteEnvironmentRequest::name].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for DeleteEnvironment {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [DataplexService::list_environments][crate::client::DataplexService::list_environments] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListEnvironments;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    /// use google_cloud_gax::paginator::ItemPaginator;
-    ///
-    /// let builder = prepare_request_builder();
-    /// let mut items = builder.by_item();
-    /// while let Some(result) = items.next().await {
-    ///   let item = result?;
-    /// }
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> ListEnvironments {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct ListEnvironments(RequestBuilder<crate::model::ListEnvironmentsRequest>);
-
-    impl ListEnvironments {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListEnvironmentsRequest>>(
-            mut self,
-            v: V,
-        ) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::ListEnvironmentsResponse> {
-            (*self.0.stub)
-                .list_environments(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl google_cloud_gax::paginator::Paginator<
-            crate::model::ListEnvironmentsResponse,
-            crate::Error,
-        > {
-            use std::clone::Clone;
-            let token = self.0.request.page_token.clone();
-            let execute = move |token: String| {
-                let mut builder = self.clone();
-                builder.0.request = builder.0.request.set_page_token(token);
-                builder.send()
-            };
-            google_cloud_gax::paginator::internal::new_paginator(token, execute)
-        }
-
-        /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl google_cloud_gax::paginator::ItemPaginator<
-            crate::model::ListEnvironmentsResponse,
-            crate::Error,
-        > {
-            use google_cloud_gax::paginator::Paginator;
-            self.by_page().items()
-        }
-
-        /// Sets the value of [parent][crate::model::ListEnvironmentsRequest::parent].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [page_size][crate::model::ListEnvironmentsRequest::page_size].
-        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
-            self
-        }
-
-        /// Sets the value of [page_token][crate::model::ListEnvironmentsRequest::page_token].
-        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [filter][crate::model::ListEnvironmentsRequest::filter].
-        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.filter = v.into();
-            self
-        }
-
-        /// Sets the value of [order_by][crate::model::ListEnvironmentsRequest::order_by].
-        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.order_by = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for ListEnvironments {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [DataplexService::get_environment][crate::client::DataplexService::get_environment] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::dataplex_service::GetEnvironment;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    ///
-    /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> GetEnvironment {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
-
-    impl GetEnvironment {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetEnvironmentRequest>>(mut self, v: V) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::Environment> {
-            (*self.0.stub)
-                .get_environment(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for GetEnvironment {
-        fn request_options(&mut self) -> &mut crate::RequestOptions {
-            &mut self.0.options
-        }
-    }
-
-    /// The request builder for [DataplexService::list_sessions][crate::client::DataplexService::list_sessions] calls.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListSessions;
-    /// # async fn sample() -> google_cloud_dataplex_v1::Result<()> {
-    /// use google_cloud_gax::paginator::ItemPaginator;
-    ///
-    /// let builder = prepare_request_builder();
-    /// let mut items = builder.by_item();
-    /// while let Some(result) = items.next().await {
-    ///   let item = result?;
-    /// }
-    /// # Ok(()) }
-    ///
-    /// fn prepare_request_builder() -> ListSessions {
-    ///   # panic!();
-    ///   // ... details omitted ...
-    /// }
-    /// ```
-    #[derive(Clone, Debug)]
-    pub struct ListSessions(RequestBuilder<crate::model::ListSessionsRequest>);
-
-    impl ListSessions {
-        pub(crate) fn new(
-            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataplexService>,
-        ) -> Self {
-            Self(RequestBuilder::new(stub))
-        }
-
-        /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::ListSessionsRequest>>(mut self, v: V) -> Self {
-            self.0.request = v.into();
-            self
-        }
-
-        /// Sets all the options, replacing any prior values.
-        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
-            self.0.options = v.into();
-            self
-        }
-
-        /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::ListSessionsResponse> {
-            (*self.0.stub)
-                .list_sessions(self.0.request, self.0.options)
-                .await
-                .map(crate::Response::into_body)
-        }
-
-        /// Streams each page in the collection.
-        pub fn by_page(
-            self,
-        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListSessionsResponse, crate::Error>
-        {
-            use std::clone::Clone;
-            let token = self.0.request.page_token.clone();
-            let execute = move |token: String| {
-                let mut builder = self.clone();
-                builder.0.request = builder.0.request.set_page_token(token);
-                builder.send()
-            };
-            google_cloud_gax::paginator::internal::new_paginator(token, execute)
-        }
-
-        /// Streams each item in the collection.
-        pub fn by_item(
-            self,
-        ) -> impl google_cloud_gax::paginator::ItemPaginator<
-            crate::model::ListSessionsResponse,
-            crate::Error,
-        > {
-            use google_cloud_gax::paginator::Paginator;
-            self.by_page().items()
-        }
-
-        /// Sets the value of [parent][crate::model::ListSessionsRequest::parent].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [page_size][crate::model::ListSessionsRequest::page_size].
-        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
-            self
-        }
-
-        /// Sets the value of [page_token][crate::model::ListSessionsRequest::page_token].
-        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.page_token = v.into();
-            self
-        }
-
-        /// Sets the value of [filter][crate::model::ListSessionsRequest::filter].
-        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.filter = v.into();
-            self
-        }
-    }
-
-    #[doc(hidden)]
-    impl crate::RequestBuilder for ListSessions {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

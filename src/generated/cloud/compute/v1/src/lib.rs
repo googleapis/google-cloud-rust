@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20260227" revision of the API.
+//! This client library was generated from the "20260306" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -96,6 +96,7 @@
 //! * [RegionHealthCheckServices](client/struct.RegionHealthCheckServices.html)
 //! * [RegionHealthChecks](client/struct.RegionHealthChecks.html)
 //! * [RegionHealthSources](client/struct.RegionHealthSources.html)
+//! * [RegionInstanceGroupManagerResizeRequests](client/struct.RegionInstanceGroupManagerResizeRequests.html)
 //! * [RegionInstanceGroupManagers](client/struct.RegionInstanceGroupManagers.html)
 //! * [RegionInstanceGroups](client/struct.RegionInstanceGroups.html)
 //! * [RegionInstanceTemplates](client/struct.RegionInstanceTemplates.html)
@@ -143,6 +144,7 @@
 //! * [VpnTunnels](client/struct.VpnTunnels.html)
 //! * [WireGroups](client/struct.WireGroups.html)
 //! * [ZoneOperations](client/struct.ZoneOperations.html)
+//! * [ZoneVmExtensionPolicies](client/struct.ZoneVmExtensionPolicies.html)
 //! * [Zones](client/struct.Zones.html)
 //!
 //! # Features
@@ -262,6 +264,7 @@ pub(crate) mod transport;
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -309,6 +312,7 @@ pub(crate) mod transport;
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
     feature = "zones",
 ))]
 const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
@@ -381,6 +385,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -428,6 +433,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
     feature = "zones",
 ))]
 pub(crate) mod info {

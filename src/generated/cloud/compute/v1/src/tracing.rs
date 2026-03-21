@@ -81,6 +81,7 @@
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-health-sources",
+    feature = "region-instance-group-manager-resize-requests",
     feature = "region-instance-group-managers",
     feature = "region-instance-groups",
     feature = "region-instance-templates",
@@ -128,6 +129,7 @@
     feature = "vpn-tunnels",
     feature = "wire-groups",
     feature = "zone-operations",
+    feature = "zone-vm-extension-policies",
     feature = "zones",
 ))]
 use crate::Result;
@@ -3771,6 +3773,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn get_partner_metadata(
+        &self,
+        req: crate::model::instances::GetPartnerMetadataRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::PartnerMetadata>> {
+        self.inner.get_partner_metadata(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_screenshot(
         &self,
         req: crate::model::instances::GetScreenshotRequest,
@@ -3824,6 +3835,15 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InstanceListReferrers>> {
         self.inner.list_referrers(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn patch_partner_metadata(
+        &self,
+        req: crate::model::instances::PatchPartnerMetadataRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.patch_partner_metadata(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -8282,6 +8302,102 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [RegionInstanceGroupManagerResizeRequests](super::stub::RegionInstanceGroupManagerResizeRequests) decorator for logging and tracing.
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+#[derive(Clone, Debug)]
+pub struct RegionInstanceGroupManagerResizeRequests<T>
+where
+    T: super::stub::RegionInstanceGroupManagerResizeRequests + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl<T> RegionInstanceGroupManagerResizeRequests<T>
+where
+    T: super::stub::RegionInstanceGroupManagerResizeRequests + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(feature = "region-instance-group-manager-resize-requests")]
+impl<T> super::stub::RegionInstanceGroupManagerResizeRequests
+    for RegionInstanceGroupManagerResizeRequests<T>
+where
+    T: super::stub::RegionInstanceGroupManagerResizeRequests + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn cancel(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::CancelRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.cancel(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.delete(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InstanceGroupManagerResizeRequest>> {
+        self.inner.get(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn insert(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.insert(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list(
+        &self,
+        req: crate::model::region_instance_group_manager_resize_requests::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RegionInstanceGroupManagerResizeRequestsListResponse>>
+    {
+        self.inner.list(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -13642,6 +13758,100 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.wait(req, options).await
+    }
+}
+
+/// Implements a [ZoneVmExtensionPolicies](super::stub::ZoneVmExtensionPolicies) decorator for logging and tracing.
+#[cfg(feature = "zone-vm-extension-policies")]
+#[derive(Clone, Debug)]
+pub struct ZoneVmExtensionPolicies<T>
+where
+    T: super::stub::ZoneVmExtensionPolicies + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl<T> ZoneVmExtensionPolicies<T>
+where
+    T: super::stub::ZoneVmExtensionPolicies + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(feature = "zone-vm-extension-policies")]
+impl<T> super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies<T>
+where
+    T: super::stub::ZoneVmExtensionPolicies + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn delete(
+        &self,
+        req: crate::model::zone_vm_extension_policies::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.delete(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get(
+        &self,
+        req: crate::model::zone_vm_extension_policies::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VmExtensionPolicy>> {
+        self.inner.get(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn insert(
+        &self,
+        req: crate::model::zone_vm_extension_policies::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.insert(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list(
+        &self,
+        req: crate::model::zone_vm_extension_policies::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::VmExtensionPolicyList>> {
+        self.inner.list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update(
+        &self,
+        req: crate::model::zone_vm_extension_policies::UpdateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.update(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 

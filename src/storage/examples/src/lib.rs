@@ -201,6 +201,13 @@ pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     let id = random_bucket_id();
     buckets.push(id.clone());
+    tracing::info!("running create_bucket_with_encryption_enforcement example");
+    buckets::create_bucket_with_encryption_enforcement::sample(&client, &project_id, &id).await?;
+    tracing::info!("running set_bucket_encryption_enforcement example");
+    buckets::set_bucket_encryption_enforcement::sample(&client, &id).await?;
+
+    let id = random_bucket_id();
+    buckets.push(id.clone());
     tracing::info!("running create_bucket_dual_region example");
     buckets::create_bucket_dual_region::sample(&client, &project_id, &id).await?;
 
