@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,18 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! This crate contains a number of guides showing how to use the
-//! Google Cloud Client Libraries for Rust.
-
-pub mod authentication;
-pub mod binding_errors;
-pub mod compute;
-pub mod endpoint;
-pub mod error_handling;
-pub mod examine_error_details;
-pub mod gemini;
-pub mod logging;
-pub mod occ;
-pub mod pagination;
-pub mod retry_policies;
-pub mod update_resource;
+pub mod set_iam_policy;
