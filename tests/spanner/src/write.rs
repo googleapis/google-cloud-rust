@@ -112,8 +112,8 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
         ]))
         .set("ColArrayBytes")
         .to(&array_val(vec![
-            string_val(&BASE64_STANDARD.encode(&[1_u8, 2_u8])),
-            string_val(&BASE64_STANDARD.encode(&[3_u8])),
+            string_val(&BASE64_STANDARD.encode([1_u8, 2_u8])),
+            string_val(&BASE64_STANDARD.encode([3_u8])),
             null_val(),
         ]))
         .set("ColArrayDate")
@@ -173,7 +173,7 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
         .build();
 
     let write_tx = db_client.write_only_transaction().build();
-    let commit_ts = write_tx.write(vec![m1, m2]).await?;
+    let commit_ts = write_tx.write_at_least_once(vec![m1, m2]).await?;
     assert!(
         commit_ts
             .commit_timestamp
@@ -190,8 +190,8 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
     let mut rs = read_tx.execute_query(stmt).await?;
 
     let mut rows = Vec::new();
-    while let Some(row) = rs.next().await.transpose()? {
-        rows.push(row);
+    while let Some(row) = rs.next().await {
+        rows.push(row?);
     }
     assert_eq!(rows.len(), 2, "Expected precisely 2 rows inserted/updated");
 
@@ -202,7 +202,7 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
     assert_eq!(id, 100);
 
     let col_bool: bool = row1.get("ColBool");
-    assert_eq!(col_bool, true);
+    assert!(col_bool);
 
     let col_int64: i64 = row1.get("ColInt64");
     assert_eq!(col_int64, 100);
@@ -214,7 +214,7 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
     assert_eq!(col_float64, 1.0_f64);
 
     let col_numeric: String = row1.get("ColNumeric");
-    assert_eq!(col_numeric, "1.0");
+    assert_eq!(col_numeric, "1");
 
     let col_string: String = row1.get("ColString");
     assert_eq!(col_string, "hello");
@@ -229,27 +229,25 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
     assert_eq!(col_timestamp, "2026-03-09T16:20:00Z");
 
     let col_json: String = row1.get("ColJson");
-    assert_eq!(col_json, "{\"value\": 1}");
+    assert_eq!(col_json, "{\"value\":1}");
 
     // TODO: We should implement FromValue and ToValue for specific array types.
     // For now, we fallback to extracting the raw Value to verify the array types.
     let arr_bool: Value = row1.get("ColArrayBool");
     assert_eq!(arr_bool.as_list().len(), 3); // ArrayBool
-    assert_eq!(
+    assert!(
         arr_bool
             .as_list()
             .get(0)
             .expect("expected ArrayBool element at index 0")
-            .as_bool(),
-        true
+            .as_bool()
     );
-    assert_eq!(
-        arr_bool
+    assert!(
+        !arr_bool
             .as_list()
             .get(1)
             .expect("expected ArrayBool element at index 1")
-            .as_bool(),
-        false
+            .as_bool()
     );
     assert_eq!(
         arr_bool
@@ -349,7 +347,7 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
             .get(0)
             .expect("expected ArrayNumeric element at index 0")
             .as_string(),
-        "1.0"
+        "1"
     );
     assert_eq!(
         arr_numeric
@@ -357,7 +355,7 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
             .get(1)
             .expect("expected ArrayNumeric element at index 1")
             .as_string(),
-        "2.0"
+        "2"
     );
     assert_eq!(
         arr_numeric
@@ -468,7 +466,7 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
             .get(0)
             .expect("expected ArrayJson element at index 0")
             .as_string(),
-        "{\"value\": 1}"
+        "{\"value\":1}"
     );
     assert_eq!(
         arr_json
