@@ -94,7 +94,7 @@ impl ReadWriteTransaction {
     }
 
     /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
-    pub(crate) async fn execute_read<T: Into<crate::read::ReadRequest>>(
+    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
         &self,
         read: T,
     ) -> crate::Result<ResultSet> {

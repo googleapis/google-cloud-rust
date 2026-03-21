@@ -30,11 +30,11 @@ use crate::transaction_retry_policy::{
 /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
 /// let runner = db_client.read_write_transaction().build().await?;
 ///
-/// let result = runner.run(|transaction| Box::pin(async move {
+/// let result = runner.run(async |transaction| {
 ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1").build();
 ///     transaction.execute_update(statement).await?;
 ///     Ok(42)
-/// })).await?;
+/// }).await?;
 /// # Ok(())
 /// # }
 /// ```
@@ -138,7 +138,7 @@ impl TransactionRunnerBuilder {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction().build().await?;
     ///
-    /// let result = runner.run(|transaction| async move {
+    /// let result = runner.run(async |transaction| {
     ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1").build();
     ///     transaction.execute_update(statement).await?;
     ///     Ok(42)
@@ -171,7 +171,7 @@ impl TransactionRunner {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction().build().await?;
     ///
-    /// let result = runner.run(|transaction| async move {
+    /// let result = runner.run(async |transaction| {
     ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1").build();
     ///     transaction.execute_update(statement).await?;
     ///     Ok(42) // This will be returned by runner.run()
@@ -186,10 +186,9 @@ impl TransactionRunner {
     /// The transaction is automatically committed if the closure returns `Ok`.
     /// If the closure returns `Err`, the transaction will be rolled back and
     /// the error will be propagated.
-    pub async fn run<T, F, Fut>(self, mut work: F) -> crate::Result<T>
+    pub async fn run<T, F>(self, mut work: F) -> crate::Result<T>
     where
-        F: FnMut(ReadWriteTransaction) -> Fut,
-        Fut: std::future::Future<Output = crate::Result<T>>,
+        F: std::ops::AsyncFnMut(ReadWriteTransaction) -> crate::Result<T>,
     {
         let start_time = tokio::time::Instant::now();
         let mut attempts: u32 = 0;
@@ -271,7 +270,7 @@ mod tests {
             .await
             .unwrap();
         runner
-            .run(|tx| async move {
+            .run(async |tx| {
                 let count = tx.execute_update("UPDATE Users SET active = true").await?;
                 Ok(count)
             })

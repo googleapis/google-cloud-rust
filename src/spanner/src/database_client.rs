@@ -130,7 +130,7 @@ impl DatabaseClient {
     /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client.read_write_transaction().build().await?;
-    /// let result = runner.run(|transaction| async move {
+    /// let result = runner.run(async |transaction| {
     ///     let statement = Statement::builder("UPDATE users SET active = true WHERE id = 1").build();
     ///     transaction.execute_update(statement).await?;
     ///     Ok(())
