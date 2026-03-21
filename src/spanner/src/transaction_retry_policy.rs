@@ -15,7 +15,7 @@
 use crate::Error;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::rpc::StatusDetails;
-use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use std::time::Duration;
@@ -84,36 +84,14 @@ where
     let mut attempts: u32 = 0;
 
     // This backoff is only used if Spanner does not return a retry delay.
-    let backoff = ExponentialBackoffBuilder::new()
-        .with_initial_delay(Duration::from_millis(10))
-        .with_maximum_delay(Duration::from_secs(1))
-        .with_scaling(1.3)
-        .build()
-        .unwrap();
+    let backoff = default_retry_backoff();
 
     loop {
         attempts += 1;
         match f().await {
             Ok(v) => return Ok(v),
             Err(e) => {
-                if !is_aborted(&e) {
-                    return Err(e);
-                }
-
-                let e = match policy.on_abort(e, attempts, start_time.elapsed()) {
-                    RetryResult::Continue(err) => err,
-                    RetryResult::Exhausted(err) | RetryResult::Permanent(err) => return Err(err),
-                };
-
-                let delay = extract_retry_delay(&e);
-                let sleep_duration = match delay {
-                    Some(d) => d,
-                    None => {
-                        let retry_state = RetryState::new(true).set_attempt_count(attempts);
-                        backoff.on_failure(&retry_state)
-                    }
-                };
-                tokio::time::sleep(sleep_duration).await;
+                backoff_if_aborted(e, attempts, start_time.elapsed(), policy, &backoff).await?;
             }
         }
     }
@@ -124,7 +102,7 @@ pub(crate) fn is_aborted(err: &crate::Error) -> bool {
         .is_some_and(|s| s.code == google_cloud_gax::error::rpc::Code::Aborted)
 }
 
-fn extract_retry_delay(err: &crate::Error) -> Option<Duration> {
+pub(crate) fn extract_retry_delay(err: &crate::Error) -> Option<Duration> {
     err.status()?.details.iter().find_map(|detail| {
         let StatusDetails::RetryInfo(retry_info) = detail else {
             return None;
@@ -133,8 +111,42 @@ fn extract_retry_delay(err: &crate::Error) -> Option<Duration> {
     })
 }
 
+pub(crate) fn default_retry_backoff() -> ExponentialBackoff {
+    ExponentialBackoffBuilder::new()
+        .with_initial_delay(Duration::from_millis(10))
+        .with_maximum_delay(Duration::from_secs(1))
+        .with_scaling(1.3)
+        .build()
+        .unwrap()
+}
+
+/// Evaluates the error against the retry policy and delays execution if a retry is warranted.
+/// Returns Ok(()) after sleeping if a retry should occur, otherwise returns Err with the original error.
+pub(crate) async fn backoff_if_aborted(
+    err: crate::Error,
+    attempts: u32,
+    elapsed: Duration,
+    policy: &dyn TransactionRetryPolicy,
+    backoff: &ExponentialBackoff,
+) -> crate::Result<()> {
+    if !is_aborted(&err) {
+        return Err(err);
+    }
+
+    let e = match policy.on_abort(err, attempts, elapsed) {
+        RetryResult::Continue(err) => err,
+        RetryResult::Exhausted(err) | RetryResult::Permanent(err) => return Err(err),
+    };
+
+    let sleep_duration = extract_retry_delay(&e)
+        .unwrap_or_else(|| backoff.on_failure(&RetryState::new(true).set_attempt_count(attempts)));
+
+    tokio::time::sleep(sleep_duration).await;
+    Ok(())
+}
+
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use crate::Error;
     use google_cloud_gax::error::rpc::{Code, Status};
@@ -157,6 +169,46 @@ mod tests {
         }
 
         Error::service(status)
+    }
+
+    pub(crate) fn create_aborted_status(
+        retry_delay: std::time::Duration,
+    ) -> gaxi::grpc::tonic::Status {
+        use prost::Message;
+
+        #[derive(Clone, PartialEq, prost::Message)]
+        struct MockRetryInfo {
+            #[prost(message, optional, tag = "1")]
+            retry_delay: Option<prost_types::Duration>,
+        }
+
+        let retry_info = MockRetryInfo {
+            retry_delay: Some(prost_types::Duration {
+                seconds: retry_delay.as_secs() as i64,
+                nanos: retry_delay.subsec_nanos() as i32,
+            }),
+        };
+
+        let mut retry_buf = vec![];
+        retry_info.encode(&mut retry_buf).unwrap();
+
+        let status = spanner_grpc_mock::google::rpc::Status {
+            code: gaxi::grpc::tonic::Code::Aborted as i32,
+            message: "test transaction aborted".to_string(),
+            details: vec![prost_types::Any {
+                type_url: "type.googleapis.com/google.rpc.RetryInfo".to_string(),
+                value: retry_buf,
+            }],
+        };
+
+        let mut buf = vec![];
+        status.encode(&mut buf).unwrap();
+
+        gaxi::grpc::tonic::Status::with_details(
+            gaxi::grpc::tonic::Code::Aborted,
+            "test transaction aborted",
+            bytes::Bytes::from(buf),
+        )
     }
 
     #[test]
@@ -229,7 +281,7 @@ mod tests {
             async move {
                 let current = attempts.fetch_add(1, Ordering::SeqCst);
                 if current == 0 {
-                    Err::<i32, Error>(create_aborted_error(Some(Duration::from_millis(10))))
+                    Err::<i32, Error>(create_aborted_error(Some(Duration::from_nanos(1))))
                 } else {
                     Ok::<i32, Error>(100)
                 }
@@ -241,8 +293,8 @@ mod tests {
         assert_eq!(res.expect("Transaction should succeed after 1 retry"), 100);
         assert_eq!(attempts.load(Ordering::SeqCst), 2);
         assert!(
-            elapsed >= Duration::from_millis(10),
-            "Expected elapsed time to be at least 10ms, but was {:?}",
+            elapsed >= Duration::from_nanos(1),
+            "Expected elapsed time to be at least 1ns, but was {:?}",
             elapsed
         );
     }
