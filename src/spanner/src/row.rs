@@ -82,7 +82,7 @@ impl Row {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
+    /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.single_use().build();
@@ -114,7 +114,7 @@ impl Row {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
+    /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.single_use().build();
@@ -142,7 +142,7 @@ impl Row {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
+    /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.single_use().build();
@@ -185,7 +185,7 @@ impl Row {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
+    /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.single_use().build();
