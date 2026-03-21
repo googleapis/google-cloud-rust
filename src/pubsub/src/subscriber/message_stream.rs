@@ -555,7 +555,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics(start_paused = true)]
+    #[tokio_test_no_panics]
     async fn basic_success_exactly_once() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
