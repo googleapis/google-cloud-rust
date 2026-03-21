@@ -315,12 +315,13 @@ pub(crate) mod tests {
                 fields["gcp.errors.domain"].as_str().expect("domain field"),
                 "test.googleapis.com"
             );
-            assert_eq!(
-                fields["gcp.errors.metadata"]
-                    .as_str()
-                    .expect("metadata field"),
-                "{\"k1\":\"v1\",\"k2\":\"v2\"}"
-            );
+            let metadata_str = fields["gcp.errors.metadata"]
+                .as_str()
+                .expect("metadata field");
+            let metadata_json: serde_json::Value =
+                serde_json::from_str(metadata_str).expect("valid JSON in metadata");
+            assert_eq!(metadata_json["k1"], "v1");
+            assert_eq!(metadata_json["k2"], "v2");
             assert_eq!(
                 fields["rpc.response.status_code"]
                     .as_str()
