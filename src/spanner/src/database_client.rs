@@ -122,12 +122,28 @@ impl DatabaseClient {
         PartitionedDmlTransactionBuilder::new(self.clone())
     }
 
-    /// Returns a builder for a read-write transaction.
-    #[allow(dead_code)]
-    pub(crate) fn read_write_transaction(
-        &self,
-    ) -> crate::read_write_transaction::ReadWriteTransactionBuilder {
-        crate::read_write_transaction::ReadWriteTransactionBuilder::new(self.clone())
+    /// Returns a builder for a read-write transaction runner.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction().build().await?;
+    /// let result = runner.run(async |transaction| {
+    ///     let statement = Statement::builder("UPDATE users SET active = true WHERE id = 1").build();
+    ///     transaction.execute_update(statement).await?;
+    ///     Ok(())
+    /// }).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Read-write transactions can be used to execute multiple queries and updates
+    /// atomically. If the transaction is aborted by Spanner, the `run` method will
+    /// automatically retry the transaction.
+    pub fn read_write_transaction(&self) -> crate::transaction_runner::TransactionRunnerBuilder {
+        crate::transaction_runner::TransactionRunnerBuilder::new(self.clone())
     }
 }
 

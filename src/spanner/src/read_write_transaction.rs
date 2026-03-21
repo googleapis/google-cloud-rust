@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Parts of this module will be public when the read-write transaction implementation is complete.
-#![allow(dead_code)]
-
 use crate::database_client::DatabaseClient;
 use crate::model::BeginTransactionRequest;
 use crate::model::CommitRequest;
@@ -60,12 +57,10 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    /// Builds the [ReadWriteTransaction] and starts the transaction
-    /// by calling the `BeginTransaction` RPC.
-    pub(crate) async fn build(self) -> crate::Result<ReadWriteTransaction> {
+    pub(crate) async fn begin_transaction(&self) -> crate::Result<ReadWriteTransaction> {
         let request = BeginTransactionRequest::default()
             .set_session(self.client.session.name.clone())
-            .set_options(self.options);
+            .set_options(self.options.clone());
 
         // TODO(#4972): make request options configurable
         let response = self
@@ -76,22 +71,22 @@ impl ReadWriteTransactionBuilder {
 
         let transaction_selector = TransactionSelector::default().set_id(response.id);
         Ok(ReadWriteTransaction {
-            context: ReadContext::new(self.client, transaction_selector),
-            seqno: std::sync::atomic::AtomicI64::new(1),
+            context: ReadContext::new(self.client.clone(), transaction_selector),
+            seqno: std::sync::Arc::new(std::sync::atomic::AtomicI64::new(1)),
         })
     }
 }
 
 /// A read-write transaction.
-#[derive(Debug)]
-pub(crate) struct ReadWriteTransaction {
+#[derive(Clone, Debug)]
+pub struct ReadWriteTransaction {
     pub(crate) context: ReadContext,
-    seqno: std::sync::atomic::AtomicI64,
+    seqno: std::sync::Arc<std::sync::atomic::AtomicI64>,
 }
 
 impl ReadWriteTransaction {
     /// Executes a query using this transaction.
-    pub(crate) async fn execute_query<T: Into<Statement>>(
+    pub async fn execute_query<T: Into<Statement>>(
         &self,
         statement: T,
     ) -> crate::Result<ResultSet> {
@@ -99,7 +94,7 @@ impl ReadWriteTransaction {
     }
 
     /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
-    pub(crate) async fn execute_read<T: Into<crate::read::ReadRequest>>(
+    pub async fn execute_read<T: Into<crate::read::ReadRequest>>(
         &self,
         read: T,
     ) -> crate::Result<ResultSet> {
@@ -107,10 +102,7 @@ impl ReadWriteTransaction {
     }
 
     /// Executes an update using this transaction.
-    pub(crate) async fn execute_update<T: Into<Statement>>(
-        &self,
-        statement: T,
-    ) -> crate::Result<i64> {
+    pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
         let seqno = self.seqno.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
         let statement = statement.into();
         let request = ExecuteSqlRequest::default()
@@ -249,9 +241,8 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let tx = db_client
-            .read_write_transaction()
-            .build()
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .begin_transaction()
             .await
             .expect("Failed to build transaction");
         let count = tx
@@ -287,9 +278,8 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let tx = db_client
-            .read_write_transaction()
-            .build()
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .begin_transaction()
             .await
             .expect("Failed to build transaction");
 
@@ -333,9 +323,8 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let tx = db_client
-            .read_write_transaction()
-            .build()
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .begin_transaction()
             .await
             .expect("Failed to build transaction");
 
@@ -376,9 +365,8 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let tx = db_client
-            .read_write_transaction()
-            .build()
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .begin_transaction()
             .await
             .expect("Failed to build transaction");
 
@@ -428,9 +416,8 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let tx = db_client
-            .read_write_transaction()
-            .build()
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .begin_transaction()
             .await
             .expect("Failed to build transaction");
 
@@ -479,11 +466,10 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let _tx = db_client
-            .read_write_transaction()
+        let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_isolation_level(IsolationLevel::Serializable)
             .with_read_lock_mode(ReadLockMode::Pessimistic)
-            .build()
+            .begin_transaction()
             .await
             .expect("Failed to build transaction");
     }

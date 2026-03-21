@@ -194,6 +194,7 @@ async fn extract_lower_bound_update_count_from_stream(
 mod tests {
     use super::*;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
+    use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
     use spanner_grpc_mock::google::spanner::v1;
     type MockExecuteStreamingSqlStream =
@@ -249,7 +250,7 @@ mod tests {
         assert_eq!(res, 500);
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test]
     async fn execute_update_with_aborted_retry() {
         let mut mock = create_session_mock();
 
@@ -267,9 +268,8 @@ mod tests {
                 attempt += 1;
                 if attempt == 1 {
                     // Return an error stream on first try
-                    let stream = tokio_stream::iter(vec![Err(tonic::Status::new(
-                        tonic::Code::Aborted,
-                        "aborted",
+                    let stream = tokio_stream::iter(vec![Err(create_aborted_status(
+                        std::time::Duration::from_nanos(1),
                     ))]);
                     Ok(tonic::Response::new(
                         Box::pin(stream) as MockExecuteStreamingSqlStream
