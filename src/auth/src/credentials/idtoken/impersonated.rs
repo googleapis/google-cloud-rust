@@ -28,7 +28,7 @@
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use serde_json::json;
 //! # use reqwest;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let source_credentials = json!({
 //!     "type": "authorized_user",
 //!     "client_id": "test-client-id",
@@ -54,8 +54,7 @@
 //!     .bearer_auth(id_token)
 //!     .send()
 //!     .await?;
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! [Impersonated service accounts]: https://cloud.google.com/docs/authentication/use-service-account-impersonation
@@ -97,7 +96,7 @@ use std::sync::Arc;
 /// # Example
 /// ```
 /// # use google_cloud_auth::credentials::idtoken;
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// let impersonated_credential = serde_json::json!({
 ///     "type": "impersonated_service_account",
 ///     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
@@ -110,8 +109,9 @@ use std::sync::Arc;
 /// });
 ///
 /// let audience = "https://my-service.a.run.app";
-/// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential).build();
-/// # });
+/// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential).build()?;
+/// # Ok(()) }
+/// ```
 pub struct Builder {
     source: BuilderSource,
     delegates: Option<Vec<String>>,
@@ -149,14 +149,13 @@ impl Builder {
     /// # use google_cloud_auth::credentials::user_account;
     /// # use serde_json::json;
     /// #
-    /// # fn example() -> Result<(), anyhow::Error> {
+    /// # fn example() -> anyhow::Result<()> {
     /// let source_credentials = user_account::Builder::new(json!({ /* add details here */ })).build()?;
     ///
     /// let audience = "https://my-service.a.run.app";
     /// let credentials = idtoken::impersonated::Builder::from_source_credentials(audience, "test-principal", source_credentials)
-    ///     .build();
-    /// # Ok::<(), anyhow::Error>(())
-    /// # }
+    ///     .build()?;
+    /// # Ok(()) }
     /// // Now you can use credentials.id_token().await to fetch the token.
     /// ```
     pub fn from_source_credentials<SA: Into<String>, SP: Into<String>>(

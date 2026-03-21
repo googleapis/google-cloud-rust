@@ -1558,7 +1558,6 @@ dependencies = [
  "thiserror 2.0.18",
  "time",
  "tokio",
- "tokio-test",
  "url",
 ]
 
@@ -2666,7 +2665,6 @@ dependencies = [
  "serde_json",
  "serde_with",
  "tokio",
- "tokio-test",
  "tracing",
 ]
 
@@ -2729,7 +2727,6 @@ dependencies = [
  "test-case",
  "thiserror 2.0.18",
  "tokio",
- "tokio-test",
 ]
 
 [[package]]
@@ -3269,7 +3266,6 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio",
- "tokio-test",
 ]
 
 [[package]]
@@ -3921,7 +3917,6 @@ dependencies = [
  "thiserror 2.0.18",
  "tokio",
  "tokio-stream",
- "tokio-test",
  "tokio-util",
  "tracing",
  "uuid",
@@ -4477,7 +4472,6 @@ dependencies = [
  "thiserror 2.0.18",
  "tokio",
  "tokio-stream",
- "tokio-test",
  "tracing",
  "url",
  "uuid",

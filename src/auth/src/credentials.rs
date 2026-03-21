@@ -410,14 +410,13 @@ pub(crate) mod dynamic {
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
 /// # use http::Extensions;
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// let credentials = Builder::default()
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
 /// let headers = credentials.headers(Extensions::new()).await?;
 /// println!("Headers: {headers:?}");
-/// # Ok::<(), anyhow::Error>(())
-/// # });
+/// # Ok(()) }
 /// ```
 ///
 /// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
@@ -438,9 +437,9 @@ impl Default for Builder {
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::Builder;
-    /// # tokio_test::block_on(async {
-    /// let credentials = Builder::default().build();
-    /// # });
+    /// # fn sample() -> anyhow::Result<()> {
+    /// let credentials = Builder::default().build()?;
+    /// # Ok(()) }
     /// ```
     ///
     /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
@@ -466,11 +465,11 @@ impl Builder {
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::Builder;
-    /// # tokio_test::block_on(async {
+    /// # fn sample() -> anyhow::Result<()> {
     /// let credentials = Builder::default()
     ///     .with_quota_project_id("my-project")
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
@@ -526,16 +525,15 @@ impl Builder {
     ///
     /// # Example
     ///
-    /// ```no_run
+    /// ```
     /// # use google_cloud_auth::credentials::{Builder, AccessTokenCredentials, AccessTokenCredentialsProvider};
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// // This will search for Application Default Credentials and build AccessTokenCredentials.
     /// let credentials: AccessTokenCredentials = Builder::default()
     ///     .build_access_token_credentials()?;
     /// let access_token = credentials.access_token().await?;
     /// println!("Token: {}", access_token.token);
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
+    /// # Ok(()) }
     /// ```
     ///
     /// # Errors
@@ -573,10 +571,9 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::Builder;
     /// # use google_cloud_auth::signer::Signer;
-    /// # tokio_test::block_on(async {
+    /// # fn sample() -> anyhow::Result<()> {
     /// let signer: Signer = Builder::default().build_signer()?;
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
+    /// # Ok(()) }
     /// ```
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         let json_data = match load_adc()? {
