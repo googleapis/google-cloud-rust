@@ -5985,10 +5985,12 @@ name = "integration-tests-spanner"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "base64",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-lro",
  "google-cloud-spanner",
+ "prost-types",
  "reqwest 0.13.2",
  "serde_json",
  "tokio",
