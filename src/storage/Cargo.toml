@@ -98,7 +98,7 @@ serial_test.workspace       = true
 static_assertions           = { workspace = true }
 test-case.workspace         = true
 tempfile.workspace          = true
-tokio.workspace             = true
+tokio                       = { workspace = true, features = ["test-util"] }
 pretty_assertions.workspace = true
 # The tests use `unstable-stream`, which is not enabled by default.
 google-cloud-storage    = { path = ".", features = ["unstable-stream"] }
