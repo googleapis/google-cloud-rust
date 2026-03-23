@@ -316,7 +316,10 @@ mod tests {
                 ("rpc.method", FULL_METHOD),
                 ("rpc.response.status_code", "NOT_FOUND"),
                 ("exception.type", "NOT_FOUND"),
-                ("exception.message", "the service reports an error with code NOT_FOUND described as: NOT FOUND"),
+                (
+                    "exception.message",
+                    "the service reports an error with code NOT_FOUND described as: NOT FOUND",
+                ),
             ],
         );
         Ok(())
