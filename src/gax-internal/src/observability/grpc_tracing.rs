@@ -354,6 +354,7 @@ fn record_status_from_headers(span: &tracing::Span, headers: &http::HeaderMap) {
                 otel_trace::ERROR_TYPE,
                 ErrorType::from_gax_error(&gax_error).as_str(),
             );
+            crate::observability::errors::emit_error_log(span, &gax_error);
         }
     }
 }
@@ -365,6 +366,7 @@ fn record_error_status<Error: std::fmt::Display>(span: &tracing::Span, error: &E
         otel_trace::ERROR_TYPE,
         ErrorType::from_gax_error(&gax_error).as_str(),
     );
+    crate::observability::errors::emit_error_log(span, &gax_error);
 }
 
 fn create_grpc_span(

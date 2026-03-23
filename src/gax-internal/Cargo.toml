@@ -141,7 +141,7 @@ test-case.workspace               = true
 tokio                             = { workspace = true, features = ["test-util"] }
 tracing                           = { workspace = true, features = ["std"] }
 tracing-opentelemetry             = { workspace = true }
-tracing-subscriber                = { workspace = true, features = ["registry", "std"] }
+tracing-subscriber                = { workspace = true, features = ["json", "registry", "std"] }
 # Local crates
 echo-server = { path = "echo-server" }
 grpc-server = { path = "grpc-server" }

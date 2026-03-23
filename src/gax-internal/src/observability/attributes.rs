@@ -81,6 +81,14 @@ pub mod keys {
     ///
     /// 1 for the first retry.
     pub const GCP_GRPC_RESEND_COUNT: &str = "gcp.grpc.resend_count";
+    /// The Google Cloud error domain.
+    ///
+    /// Example: pubsub.googleapis.com
+    pub const GCP_ERRORS_DOMAIN: &str = "gcp.errors.domain";
+    /// A key-value map representing the `ErrorInfo` payload metadata, flattened into a JSON string.
+    ///
+    /// Example: `{"zone": "us-east1-a", "instance": "instance-1"}`
+    pub const GCP_ERRORS_METADATA: &str = "gcp.errors.metadata";
 
     // Re-export these symbols so we can use them in the `client_request_span!()`
     // macro.
