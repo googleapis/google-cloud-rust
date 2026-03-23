@@ -53,8 +53,26 @@ use tokio::time::Instant;
 /// ```
 #[derive(Debug)]
 pub struct MessageStream {
+    /// Implementation of the `MessageStream`.
+    ///
+    /// To avoid atomic increments in the critical path, we separate the
+    /// shutdown token from the rest of the struct. This way we can hold a
+    /// mutable reference to `self.inner`, and a reference to `self.shutdown` at
+    /// the same time.
+    inner: MessageStreamImpl,
+
+    #[allow(dead_code)] // TODO(#5024) - implementation in progress...
+    /// This future is ready when the lease loop shutdown completes.
+    lease_loop: Shared<BoxFuture<'static, ()>>,
+
+    // TODO(#5024) - cancel message stream
+    //shutdown: CancellationToken,
+}
+
+#[derive(Debug)]
+pub struct MessageStreamImpl {
     /// The stub implementing this struct.
-    inner: Arc<Transport>,
+    stub: Arc<Transport>,
 
     /// The initial request used to start a stream.
     initial_req: StreamingPullRequest,
@@ -85,10 +103,6 @@ pub struct MessageStream {
     /// A sender for forwarding acks/nacks from the application to the lease
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<Action>,
-
-    #[allow(dead_code)] // TODO(#5024) - implementation in progress...
-    /// This future is ready when the lease loop shutdown completes.
-    lease_loop: Shared<BoxFuture<'static, ()>>,
 }
 
 // We would rather always allocate enough space to hold the stream on the stack
@@ -104,12 +118,12 @@ enum StreamState {
 
 impl MessageStream {
     pub(super) fn new(builder: Subscribe) -> Self {
-        let inner = builder.inner;
+        let stub = builder.inner;
         let subscription = builder.subscription;
 
         let (confirmed_tx, confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
-            inner.clone(),
+            stub.clone(),
             confirmed_tx,
             subscription.clone(),
             builder.ack_deadline_seconds,
@@ -139,15 +153,15 @@ impl MessageStream {
             ..Default::default()
         };
 
-        Self {
-            inner,
+        let inner = MessageStreamImpl {
+            stub,
             initial_req,
             stream: None,
             pool: VecDeque::new(),
             message_tx,
             ack_tx,
-            lease_loop,
-        }
+        };
+        Self { inner, lease_loop }
     }
 
     /// Returns the next message received on this subscription.
@@ -172,6 +186,53 @@ impl MessageStream {
     /// `None` represents the end of a stream, but in practice, the stream stays
     /// open until it is cancelled or encounters a permanent error.
     pub async fn next(&mut self) -> Option<Result<(Message, Handler)>> {
+        self.inner.next().await
+    }
+
+    #[cfg(feature = "unstable-stream")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Converts the `MessageStream` to a [`futures::Stream`].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::MessageStream;
+    /// # async fn sample(stream: MessageStream) -> anyhow::Result<()> {
+    /// use futures::TryStreamExt;
+    /// let mut stream = stream.into_stream();
+    /// while let Some((m, h)) = stream.try_next().await? { /* ... */ }
+    /// # Ok(()) }
+    /// ```
+    pub fn into_stream(self) -> impl futures::Stream<Item = Result<(Message, Handler)>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(Some(self), move |state| async move {
+            if let Some(mut this) = state {
+                if let Some(chunk) = this.next().await {
+                    return Some((chunk, Some(this)));
+                }
+            };
+            None
+        }))
+    }
+
+    #[cfg(test)]
+    /// Close the stream, awaiting all pending acks and nacks.
+    ///
+    /// This is a useful method for setting clean test expectations.
+    async fn close(self) {
+        // Shutdown the stream and its keepalive task.
+        drop(self.inner.stream);
+
+        // Signal a shutdown to the lease management background task.
+        drop(self.inner.message_tx);
+        drop(self.inner.ack_tx);
+
+        // Wait for the lease management task to complete.
+        self.lease_loop.await;
+    }
+}
+
+impl MessageStreamImpl {
+    async fn next(&mut self) -> Option<Result<(Message, Handler)>> {
         loop {
             // Serve a message if we have one ready.
             if let Some(item) = self.pool.pop_front() {
@@ -202,34 +263,9 @@ impl MessageStream {
         }
     }
 
-    #[cfg(feature = "unstable-stream")]
-    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    /// Converts the `MessageStream` to a [`futures::Stream`].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_pubsub::subscriber::MessageStream;
-    /// # async fn sample(stream: MessageStream) -> anyhow::Result<()> {
-    /// use futures::TryStreamExt;
-    /// let mut stream = stream.into_stream();
-    /// while let Some((m, h)) = stream.try_next().await? { /* ... */ }
-    /// # Ok(()) }
-    /// ```
-    pub fn into_stream(self) -> impl futures::Stream<Item = Result<(Message, Handler)>> + Unpin {
-        use futures::stream::unfold;
-        Box::pin(unfold(Some(self), move |state| async move {
-            if let Some(mut this) = state {
-                if let Some(chunk) = this.next().await {
-                    return Some((chunk, Some(this)));
-                }
-            };
-            None
-        }))
-    }
-
     /// Make a new attempt to open the underlying gRPC stream.
     async fn open_stream(&mut self) -> Result<()> {
-        let stream = Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await?;
+        let stream = Stream::<Transport>::new(self.stub.clone(), self.initial_req.clone()).await?;
         self.stream = Some(StreamState::Active(stream));
         Ok(())
     }
@@ -319,22 +355,6 @@ impl MessageStream {
             self.pool.push_back((message, handler));
         }
         Some(Ok(()))
-    }
-
-    #[cfg(test)]
-    /// Close the stream, awaiting all pending acks and nacks.
-    ///
-    /// This is a useful method for setting clean test expectations.
-    async fn close(self) {
-        // Shutdown the stream and its keepalive task.
-        drop(self.stream);
-
-        // Signal a shutdown to the lease management background task.
-        drop(self.message_tx);
-        drop(self.ack_tx);
-
-        // Wait for the lease management task to complete.
-        self.lease_loop.await;
     }
 }
 
