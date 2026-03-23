@@ -4351,7 +4351,6 @@ dependencies = [
  "tokio-stream",
  "tracing",
  "url",
- "uuid",
 ]
 
 [[package]]
@@ -5781,6 +5780,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-lro",
  "google-cloud-spanner",
+ "google-cloud-test-utils",
  "prost-types",
  "reqwest 0.13.2",
  "serde_json",

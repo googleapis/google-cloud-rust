@@ -13,10 +13,10 @@
 // limitations under the License.
 
 use google_cloud_spanner::client::{KeySet, Mutation, Spanner};
+use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 
 const PROJECT_ID: &str = "test-project";
 const INSTANCE_ID: &str = "test-instance";
-const DATABASE_ID: &str = "test-db";
 
 pub fn get_emulator_host() -> Option<String> {
     std::env::var("SPANNER_EMULATOR_HOST").ok()
@@ -38,6 +38,16 @@ pub async fn wait_for_emulator(endpoint: &str) {
 }
 
 static PROVISION_EMULATOR: tokio::sync::OnceCell<()> = tokio::sync::OnceCell::const_new();
+static DATABASE_ID: tokio::sync::OnceCell<String> = tokio::sync::OnceCell::const_new();
+
+async fn get_database_id() -> &'static str {
+    DATABASE_ID
+        .get_or_init(|| async {
+            std::env::var("SPANNER_EMULATOR_TEST_DB")
+                .unwrap_or_else(|_| format!("db-{}", LowercaseAlphanumeric.random_string(20)))
+        })
+        .await
+}
 
 // Provisions the Spanner Emulator with a test instance and database.
 // ALREADY_EXISTS errors that are returned when creating an instance or database are ignored.
@@ -51,7 +61,8 @@ pub async fn provision_emulator(endpoint: &str) {
 
 async fn do_provision_emulator(endpoint: &str) {
     // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
-    let rest_endpoint = endpoint.replace("9010", "9020");
+    let rest_endpoint = std::env::var("SPANNER_EMULATOR_REST_HOST")
+        .unwrap_or_else(|_| endpoint.replace("9010", "9020"));
     let rest_endpoint =
         if rest_endpoint.starts_with("http://") || rest_endpoint.starts_with("https://") {
             rest_endpoint
@@ -86,7 +97,7 @@ async fn do_provision_emulator(endpoint: &str) {
 
     // Create a test database and ignore any ALREADY_EXISTS errors.
     let database_payload = serde_json::json!({
-        "createStatement": format!("CREATE DATABASE `{}`", DATABASE_ID),
+        "createStatement": format!("CREATE DATABASE `{}`", get_database_id().await),
         "extraStatements": [
             "CREATE TABLE AllTypes ( \
                 Id INT64 NOT NULL, \
@@ -135,7 +146,9 @@ async fn do_provision_emulator(endpoint: &str) {
     let db_client = spanner_client
         .database_client(format!(
             "projects/{}/instances/{}/databases/{}",
-            PROJECT_ID, INSTANCE_ID, DATABASE_ID
+            PROJECT_ID,
+            INSTANCE_ID,
+            get_database_id().await
         ))
         .build()
         .await
@@ -172,7 +185,9 @@ pub async fn create_database_client() -> Option<google_cloud_spanner::client::Da
     let db_client = client
         .database_client(format!(
             "projects/{}/instances/{}/databases/{}",
-            PROJECT_ID, INSTANCE_ID, DATABASE_ID
+            PROJECT_ID,
+            INSTANCE_ID,
+            get_database_id().await
         ))
         .build()
         .await
