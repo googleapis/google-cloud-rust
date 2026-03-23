@@ -1484,7 +1484,7 @@ mod tests {
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await?;
+        stream.close().await;
 
         Ok(())
     }
