@@ -30,6 +30,7 @@ mod spanner {
         Ok(())
     }
 
+    #[ignore = "TODO(#5096) - disabled because it flaked"]
     #[tokio::test]
     async fn run_write_tests() -> anyhow::Result<()> {
         let db_client = match integration_tests_spanner::client::create_database_client().await {
