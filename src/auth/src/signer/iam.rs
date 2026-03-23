@@ -136,8 +136,8 @@ async fn sign_blob_call_with_retry(
         sleep,
         true, // signBlob is idempotent
         retry_throttler,
-        retry_policy.into(),
-        backoff_policy.into(),
+        retry_policy,
+        backoff_policy,
     )
     .await
     .map_err(SigningError::transport)
