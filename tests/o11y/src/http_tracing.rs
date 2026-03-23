@@ -132,6 +132,141 @@ pub async fn to_otlp() -> anyhow::Result<()> {
     Ok(())
 }
 
+/// Validates that an HTTP error carrying AIP-193 ErrorInfo extracts
+/// the metadata and records them as attributes and events exported to OTLP.
+pub async fn to_otlp_debug_event() -> anyhow::Result<()> {
+    let mock_collector = MockCollector::default();
+    let otlp_endpoint = mock_collector.start().await;
+
+    let provider = TracerProviderBuilder::new("test-project", "integration-tests")
+        .with_endpoint(otlp_endpoint)
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let _guard = tracing_subscriber::Registry::default()
+        .with(crate::tracing::layer(provider.clone()))
+        .set_default();
+
+    let echo_server = Server::run();
+    // A mock structured ErrorInfo response matching what GCP would return in JSON
+    let error_body = r#"{
+        "error": {
+            "code": 400,
+            "message": "API key not valid",
+            "status": "INVALID_ARGUMENT",
+            "details": [
+                {
+                    "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+                    "reason": "API_KEY_INVALID",
+                    "domain": "pubsub.googleapis.com",
+                    "metadata": {
+                        "zone": "us-east1-a",
+                        "project": "test-project"
+                    }
+                }
+            ]
+        }
+    }"#;
+
+    echo_server.expect(
+        Expectation::matching(all_of![
+            request::method("POST"),
+            request::path("/v1beta1/echo:echo"),
+        ])
+        .respond_with(status_code(400).body(error_body)),
+    );
+
+    let endpoint = echo_server.url("/").to_string();
+    let endpoint = endpoint.trim_end_matches('/');
+    let client = Echo::builder()
+        .with_endpoint(endpoint)
+        .with_credentials(Anonymous::new().build())
+        .with_tracing()
+        .build()
+        .await?;
+
+    // Execute the request; expect evaluating to Err
+    let result = client.echo().set_content("test").send().await;
+    assert!(
+        result.is_err(),
+        "Expected the request to fail with an HTTP 400 error"
+    );
+
+    provider
+        .force_flush()
+        .expect("Failed to flush tracing provider");
+
+    let (_metadata, _, request) = mock_collector
+        .traces
+        .lock()
+        .expect("never poisoned")
+        .pop()
+        .expect("should have received trace export request")
+        .into_parts();
+
+    let resource_span = request
+        .resource_spans
+        .first()
+        .expect("request should have resource spans");
+    let scope_span = resource_span
+        .scope_spans
+        .first()
+        .expect("should have scope spans");
+    let spans = &scope_span.spans;
+
+    let attempt_span = spans
+        .iter()
+        .find(|s| s.kind == 3 /* CLIENT */)
+        .expect("Should have found a SPAN_KIND_CLIENT span");
+
+    let error_event = attempt_span
+        .events
+        .iter()
+        .find(|e| e.attributes.iter().any(|kv| kv.key == "error.type"))
+        .expect("Should have logged an ErrorInfo event natively mapped conditionally");
+
+    let expected_event_attributes: std::collections::BTreeMap<String, String> = [
+        ("error.type", "API_KEY_INVALID"),
+        ("gcp.errors.domain", "pubsub.googleapis.com"),
+        (
+            "gcp.errors.metadata",
+            r#"{"project":"test-project","zone":"us-east1-a"}"#,
+        ),
+        ("http.response.status_code", "400"),
+        ("rpc.response.status_code", "INVALID_ARGUMENT"),
+    ]
+    .into_iter()
+    .map(|(k, v)| (k.to_string(), v.to_string()))
+    .collect();
+
+    let got = std::collections::BTreeMap::from_iter(error_event.attributes.iter().map(|kv| {
+        let val_str = match kv.value.as_ref().and_then(|v| v.value.as_ref()) {
+            Some(opentelemetry_proto::tonic::common::v1::any_value::Value::StringValue(s)) => {
+                s.clone()
+            }
+            Some(opentelemetry_proto::tonic::common::v1::any_value::Value::IntValue(i)) => {
+                i.to_string()
+            }
+            _ => format!("{:?}", kv.value),
+        };
+        (kv.key.clone(), val_str)
+    }));
+
+    for (key, expected) in &expected_event_attributes {
+        assert_eq!(
+            got.get(key),
+            Some(expected),
+            "mismatch for key: {key} in got: {got:?}"
+        );
+    }
+
+    // Verify debug level was propagated!
+    assert_eq!(got.get("level"), Some(&"DEBUG".to_string()));
+
+    Ok(())
+}
+
 async fn setup_echo_client() -> (
     google_cloud_test_utils::test_layer::TestLayerGuard,
     httptest::Server,
