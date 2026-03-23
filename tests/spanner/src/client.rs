@@ -37,9 +37,19 @@ pub async fn wait_for_emulator(endpoint: &str) {
     }
 }
 
+static PROVISION_EMULATOR: tokio::sync::OnceCell<()> = tokio::sync::OnceCell::const_new();
+
 // Provisions the Spanner Emulator with a test instance and database.
 // ALREADY_EXISTS errors that are returned when creating an instance or database are ignored.
 pub async fn provision_emulator(endpoint: &str) {
+    PROVISION_EMULATOR
+        .get_or_init(|| async {
+            do_provision_emulator(endpoint).await;
+        })
+        .await;
+}
+
+async fn do_provision_emulator(endpoint: &str) {
     // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
     let rest_endpoint = endpoint.replace("9010", "9020");
     let rest_endpoint =
