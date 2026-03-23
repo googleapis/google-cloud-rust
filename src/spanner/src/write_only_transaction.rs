@@ -152,12 +152,14 @@ impl WriteOnlyTransaction {
             RequestOptions::default().set_transaction_tag(self.transaction_tag.unwrap_or_default());
 
         let mutations_proto: Vec<_> = mutations.into_iter().map(|m| m.build_proto()).collect();
+        let mutation_key = Mutation::select_mutation_key(&mutations_proto);
         let client = self.client;
 
         retry_aborted(&*self.retry_policy, || {
             let client = client.clone();
             let req_options = req_options.clone();
             let mutations_proto = mutations_proto.clone();
+            let mutation_key = mutation_key.clone();
 
             async move {
                 let begin_req = BeginTransactionRequest::default()
@@ -166,7 +168,8 @@ impl WriteOnlyTransaction {
                         TransactionOptions::default()
                             .set_read_write(Box::new(ReadWrite::default())),
                     )
-                    .set_request_options(req_options.clone());
+                    .set_request_options(req_options.clone())
+                    .set_or_clear_mutation_key(mutation_key.clone());
 
                 let tx = client
                     .spanner
@@ -176,13 +179,30 @@ impl WriteOnlyTransaction {
                 let commit_req = CommitRequest::default()
                     .set_session(client.session.name.clone())
                     .set_mutations(mutations_proto)
-                    .set_transaction_id(tx.id)
-                    .set_request_options(req_options);
+                    .set_transaction_id(tx.id.clone())
+                    .set_request_options(req_options.clone())
+                    .set_or_clear_precommit_token(tx.precommit_token);
 
-                client
+                let response = client
                     .spanner
                     .commit(commit_req, crate::RequestOptions::default())
-                    .await
+                    .await?;
+
+                // If a commit_response with a precommit_token is returned, then we need to
+                // retry the commit with the new precommit_token and without any mutations.
+                if let Some(new_token) = response.precommit_token().map(|b| *b.clone()) {
+                    let retry_commit_req = CommitRequest::default()
+                        .set_session(client.session.name.clone())
+                        .set_transaction_id(tx.id)
+                        .set_request_options(req_options)
+                        .set_precommit_token(new_token);
+                    client
+                        .spanner
+                        .commit(retry_commit_req, crate::RequestOptions::default())
+                        .await
+                } else {
+                    Ok(response)
+                }
             }
         })
         .await
@@ -363,10 +383,17 @@ mod tests {
                 "projects/p/instances/i/databases/d/sessions/123"
             );
             assert!(req.options.is_some());
+            assert!(req.mutation_key.is_some());
 
             Ok(gaxi::grpc::tonic::Response::new(
                 spanner_grpc_mock::google::spanner::v1::Transaction {
                     id: vec![42],
+                    precommit_token: Some(
+                        spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![1, 2, 3],
+                            seq_num: 1,
+                        },
+                    ),
                     ..Default::default()
                 },
             ))
@@ -375,6 +402,10 @@ mod tests {
         mock.expect_commit().once().returning(|req| {
             let req = req.into_inner();
             assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/123");
+            assert_eq!(
+                req.precommit_token.expect("precommit_token required").precommit_token,
+                vec![1, 2, 3]
+            );
 
             // Validate that we pass down the transaction ID from BeginTransaction.
             match req.transaction {
@@ -416,6 +447,93 @@ mod tests {
                 .expect("commit_timestamp should be present")
                 .seconds(),
             5678
+        );
+    }
+
+    #[tokio::test]
+    async fn write_with_commit_retry() {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Session {
+                    name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                    ..Default::default()
+                },
+            ))
+        });
+
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            assert!(req.mutation_key.is_some());
+
+            Ok(gaxi::grpc::tonic::Response::new(
+                spanner_grpc_mock::google::spanner::v1::Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                },
+            ))
+        });
+
+        let commit_call_count = std::sync::Arc::new(std::sync::atomic::AtomicUsize::new(0));
+        mock.expect_commit().times(2).returning(move |req| {
+            let count = commit_call_count.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+            let req = req.into_inner();
+            assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/123");
+
+            if count == 0 {
+                assert!(!req.mutations.is_empty());
+                Ok(gaxi::grpc::tonic::Response::new(
+                    spanner_grpc_mock::google::spanner::v1::CommitResponse {
+                        multiplexed_session_retry: Some(
+                            spanner_grpc_mock::google::spanner::v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
+                                spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
+                                    precommit_token: vec![4, 5, 6],
+                                    seq_num: 2,
+                                }
+                            )
+                        ),
+                        ..Default::default()
+                    },
+                ))
+            } else {
+                assert!(req.mutations.is_empty());
+                assert_eq!(
+                    req.precommit_token.expect("precommit_token required").precommit_token,
+                    vec![4, 5, 6]
+                );
+                Ok(gaxi::grpc::tonic::Response::new(
+                    spanner_grpc_mock::google::spanner::v1::CommitResponse {
+                        commit_timestamp: Some(prost_types::Timestamp {
+                            seconds: 9999,
+                            nanos: 0,
+                        }),
+                        ..Default::default()
+                    },
+                ))
+            }
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .build()
+            .write(vec![mutation])
+            .await;
+
+        assert!(res.is_ok());
+        let res = res.expect("write should succeed");
+        assert!(res.commit_timestamp.is_some());
+        assert_eq!(
+            res.commit_timestamp
+                .expect("commit_timestamp should be present")
+                .seconds(),
+            9999
         );
     }
 }
