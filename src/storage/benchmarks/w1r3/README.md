@@ -42,6 +42,10 @@ TS=$(date +%s); cargo run --release --package storage-w1r3 -- \
 
 Wait for the program to finish.
 
+## Logging
+
+`EnvFilter` is used to control the log verbosity.
+
 ## Upload results to BigQuery
 
 You can upload the results to BigQuery for analysis using your favorite

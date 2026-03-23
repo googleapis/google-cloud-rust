@@ -519,6 +519,7 @@ secretmanager-openapi-v1             = { default-features = false, path = "src/g
 google-cloud-test-macros = { path = "src/test-macros" }
 google-cloud-test-utils  = { default-features = false, path = "src/test-utils" }
 integration-tests        = { path = "tests/integration" }
+integration-tests-o11y   = { default-features = false, path = "tests/o11y" }
 pubsub-samples           = { path = "src/pubsub/examples" }
 storage-samples          = { path = "src/storage/examples" }
 

@@ -24,20 +24,26 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-anyhow.workspace            = true
-bytes.workspace             = true
-clap                        = { workspace = true, features = ["derive", "help", "std", "usage"] }
-futures.workspace           = true
-google-cloud-auth.workspace = true
-google-cloud-gax.workspace  = true
-google-cloud-storage        = { workspace = true, features = ["default-rustls-provider"] }
-humantime.workspace         = true
-parse-size.workspace        = true
-pin-project.workspace       = true
-rand.workspace              = true
-regex.workspace             = true
-tokio                       = { workspace = true, features = ["macros"] }
-tokio-metrics               = { workspace = true, features = ["rt"] }
-tracing.workspace           = true
-tracing-log                 = { workspace = true, features = ["log-tracer", "std"] }
-tracing-subscriber          = { workspace = true, features = ["fmt", "std"] }
+anyhow.workspace                 = true
+bytes.workspace                  = true
+clap                             = { workspace = true, features = ["derive", "help", "std", "usage"] }
+futures.workspace                = true
+google-cloud-auth.workspace      = true
+google-cloud-gax.workspace       = true
+google-cloud-storage             = { workspace = true, features = ["default-rustls-provider"] }
+humantime.workspace              = true
+integration-tests-o11y.workspace = true
+opentelemetry                    = { workspace = true, features = ["trace"] }
+opentelemetry_sdk                = { workspace = true, features = ["rt-tokio", "trace"] }
+parse-size.workspace             = true
+pin-project.workspace            = true
+rand.workspace                   = true
+regex.workspace                  = true
+tokio                            = { workspace = true, features = ["macros"] }
+tokio-metrics                    = { workspace = true, features = ["rt"] }
+tracing.workspace                = true
+tracing-log                      = { workspace = true, features = ["log-tracer", "std"] }
+tracing-subscriber               = { workspace = true, features = ["env-filter", "fmt", "std"] }
+
+[lints]
+workspace = true
