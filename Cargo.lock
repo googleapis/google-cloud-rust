@@ -7928,7 +7928,6 @@ dependencies = [
  "tokio-metrics",
  "tracing",
  "tracing-log",
- "tracing-opentelemetry",
  "tracing-subscriber",
 ]
 
