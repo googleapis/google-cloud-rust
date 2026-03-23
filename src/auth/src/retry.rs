@@ -152,6 +152,7 @@ mod tests {
     use super::*;
     use crate::credentials::tests::find_source_error;
     use crate::token::{Token, TokenProvider, tests::MockTokenProvider};
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::retry_policy::RetryPolicy;
     use google_cloud_gax::retry_result::RetryResult;
     use google_cloud_gax::retry_state::RetryState;
@@ -162,6 +163,7 @@ mod tests {
     use std::sync::Arc;
     use std::sync::atomic::{AtomicBool, Ordering};
     use test_case::test_case;
+    use tokio::time::Duration;
 
     mock! {
         #[derive(Debug)]
@@ -274,6 +276,7 @@ mod tests {
 
         let provider = Builder::default()
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
+            .with_backoff_policy(test_backoff_policy().into())
             .build(mock_provider);
 
         let token = provider.token().await.unwrap();
@@ -290,6 +293,7 @@ mod tests {
 
         let provider = Builder::default()
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
+            .with_backoff_policy(test_backoff_policy().into())
             .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
@@ -312,6 +316,7 @@ mod tests {
 
         let provider = Builder::default()
             .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
+            .with_backoff_policy(test_backoff_policy().into())
             .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
@@ -532,5 +537,13 @@ mod tests {
     #[test]
     fn test_unwind_safe() {
         assert_impl_all!(Builder: std::panic::UnwindSafe, std::panic::RefUnwindSafe);
+    }
+
+    fn test_backoff_policy() -> ExponentialBackoff {
+        ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_millis(1))
+            .with_maximum_delay(Duration::from_millis(1))
+            .build()
+            .expect("hard-coded policy succeeds")
     }
 }
