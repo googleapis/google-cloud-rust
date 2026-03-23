@@ -185,18 +185,26 @@ libraries:
       quickstart_service_override: PredictionService
   - name: google-cloud-aiplatform-v1-schema-predict-instance
     version: 1.0.0
+    apis:
+      - path: google/cloud/aiplatform/v1/schema/predict/instance
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/predict/instance
   - name: google-cloud-aiplatform-v1-schema-predict-params
     version: 1.0.0
+    apis:
+      - path: google/cloud/aiplatform/v1/schema/predict/params
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/predict/params
   - name: google-cloud-aiplatform-v1-schema-predict-prediction
     version: 1.0.0
+    apis:
+      - path: google/cloud/aiplatform/v1/schema/predict/prediction
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/predict/prediction
   - name: google-cloud-aiplatform-v1-schema-trainingjob-definition
     version: 1.0.0
+    apis:
+      - path: google/cloud/aiplatform/v1/schema/trainingjob/definition
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/trainingjob/definition
   - name: google-cloud-alloydb-connectors-v1
@@ -1141,6 +1149,8 @@ libraries:
         - invalid_html_tags
   - name: google-cloud-oslogin-common
     version: 1.2.0
+    apis:
+      - path: google/cloud/oslogin/common
     copyright_year: "2025"
     output: src/generated/oslogin/common
   - name: google-cloud-oslogin-v1
