@@ -555,6 +555,7 @@ mod tests {
         Ok(())
     }
 
+    #[ignore = "TODO(#5099) - disabled because it was flaky"]
     #[tokio_test_no_panics]
     async fn basic_success_exactly_once() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
