@@ -53,7 +53,7 @@ where
     S: Subscriber + for<'span> LookupSpan<'span>,
 {
     let tracer = tracer_provider.tracer(INSTRUMENTATION_SCOPE_NAME);
-    let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("info"));
+    let env_filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("debug"));
 
     tracing_opentelemetry::layer()
         .with_tracer(tracer)
@@ -126,7 +126,7 @@ mod tests {
 
         let exported_spans = spans.lock().unwrap();
 
-        // Should only have info, warn, error (default filter is "info")
+        // Should have info, warn, error, debug, and not trace (default filter is "debug")
         let span_names: Vec<&str> = exported_spans.iter().map(|s| s.name.as_ref()).collect();
         assert!(
             span_names.contains(&"info_span"),
@@ -144,13 +144,13 @@ mod tests {
             span_names
         );
         assert!(
-            !span_names.contains(&"trace_span"),
-            "Did not expect 'trace_span' to be present in: {:?}",
+            span_names.contains(&"debug_span"),
+            "Expected 'debug_span' to be present in: {:?}",
             span_names
         );
         assert!(
-            !span_names.contains(&"debug_span"),
-            "Did not expect 'debug_span' to be present in: {:?}",
+            !span_names.contains(&"trace_span"),
+            "Did not expect 'trace_span' to be present in: {:?}",
             span_names
         );
     }
