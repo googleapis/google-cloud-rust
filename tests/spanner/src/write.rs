@@ -49,11 +49,36 @@ fn null_val() -> ProtoValue {
     }
 }
 
+pub enum WriteMethod {
+    WriteAtLeastOnce,
+    Write,
+}
+
 pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    write_internal(
+        db_client,
+        WriteMethod::WriteAtLeastOnce,
+        /* offset = */ 0,
+    )
+    .await
+}
+
+pub async fn write(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    write_internal(db_client, WriteMethod::Write, /* offset = */ 2).await
+}
+
+async fn write_internal(
+    db_client: &DatabaseClient,
+    method: WriteMethod,
+    offset: i64,
+) -> anyhow::Result<()> {
+    let id1 = 100_i64 + offset;
+    let id2 = 200_i64 + offset;
+
     // Write 1 row with values, 1 row with explicit nulls.
     let m1 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
-        .to(&100_i64)
+        .to(&id1)
         .set("ColBool")
         .to(&true)
         .set("ColInt64")
@@ -129,7 +154,7 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
 
     let m2 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
-        .to(&200_i64)
+        .to(&id2)
         .set("ColBool")
         .to::<Option<bool>>(&None)
         .set("ColInt64")
@@ -173,7 +198,10 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
         .build();
 
     let write_tx = db_client.write_only_transaction().build();
-    let commit_ts = write_tx.write_at_least_once(vec![m1, m2]).await?;
+    let commit_ts = match method {
+        WriteMethod::WriteAtLeastOnce => write_tx.write_at_least_once(vec![m1, m2]).await?,
+        WriteMethod::Write => write_tx.write(vec![m1, m2]).await?,
+    };
     assert!(
         commit_ts
             .commit_timestamp
@@ -185,8 +213,11 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
 
     // Read it back to verify
     let read_tx = db_client.single_use().build();
-    let stmt =
-        Statement::builder("SELECT * FROM AllTypes WHERE Id IN (100, 200) ORDER BY Id").build();
+    let stmt = Statement::builder(format!(
+        "SELECT * FROM AllTypes WHERE Id IN ({}, {}) ORDER BY Id",
+        id1, id2
+    ))
+    .build();
     let mut rs = read_tx.execute_query(stmt).await?;
 
     let mut rows = Vec::new();
@@ -199,7 +230,7 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
     let row1 = &rows[0];
 
     let id: i64 = row1.get("Id");
-    assert_eq!(id, 100);
+    assert_eq!(id, id1);
 
     let col_bool: bool = row1.get("ColBool");
     assert!(col_bool);
@@ -480,7 +511,7 @@ pub async fn write_only_transaction(db_client: &DatabaseClient) -> anyhow::Resul
     // Verify row 2 (200) - explicitly NULL fields
     let row2 = &rows[1];
     let row2_id: i64 = row2.get("Id");
-    assert_eq!(row2_id, 200);
+    assert_eq!(row2_id, id2);
 
     let metadata = rs
         .metadata()

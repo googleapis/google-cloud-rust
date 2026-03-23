@@ -38,6 +38,7 @@ mod spanner {
         };
 
         integration_tests_spanner::write::write_only_transaction(&db_client).await?;
+        integration_tests_spanner::write::write(&db_client).await?;
 
         Ok(())
     }
