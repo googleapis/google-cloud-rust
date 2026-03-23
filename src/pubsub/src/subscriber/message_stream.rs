@@ -24,6 +24,8 @@ use super::transport::Transport;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use crate::model::Message;
 use crate::{Error, Result};
+use futures::FutureExt;
+use futures::future::{BoxFuture, Shared};
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use google_cloud_gax::retry_result::RetryResult;
@@ -84,12 +86,9 @@ pub struct MessageStream {
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<Action>,
 
-    /// A handle on the lease loop task.
-    ///
-    /// We hold onto this handle so we can await pending lease operations. While awaiting pending
-    /// lease operations is useful for setting expectations in our unit tests, it is not that
-    /// helpful to applications in practice.
-    _lease_loop: tokio::task::JoinHandle<()>,
+    #[allow(dead_code)] // TODO(#5024) - implementation in progress...
+    /// This future is ready when the lease loop shutdown completes.
+    lease_loop: Shared<BoxFuture<'static, ()>>,
 }
 
 // We would rather always allocate enough space to hold the stream on the stack
@@ -122,10 +121,11 @@ impl MessageStream {
             ..Default::default()
         };
         let LeaseLoop {
-            handle: _lease_loop,
+            handle,
             message_tx,
             ack_tx,
         } = LeaseLoop::new(leaser, confirmed_rx, options);
+        let lease_loop = handle.map(|_| ()).boxed().shared();
 
         let initial_req = StreamingPullRequest {
             subscription,
@@ -146,7 +146,7 @@ impl MessageStream {
             pool: VecDeque::new(),
             message_tx,
             ack_tx,
-            _lease_loop,
+            lease_loop,
         }
     }
 
@@ -325,7 +325,7 @@ impl MessageStream {
     /// Close the stream, awaiting all pending acks and nacks.
     ///
     /// This is a useful method for setting clean test expectations.
-    async fn close(self) -> anyhow::Result<()> {
+    async fn close(self) {
         // Shutdown the stream and its keepalive task.
         drop(self.stream);
 
@@ -334,9 +334,7 @@ impl MessageStream {
         drop(self.ack_tx);
 
         // Wait for the lease management task to complete.
-        self._lease_loop.await?;
-
-        Ok(())
+        self.lease_loop.await;
     }
 }
 
@@ -547,7 +545,7 @@ mod tests {
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await?;
+        stream.close().await;
 
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
@@ -606,7 +604,7 @@ mod tests {
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await?;
+        stream.close().await;
 
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
@@ -682,7 +680,7 @@ mod tests {
         tokio::time::advance(Duration::from_secs(10)).await;
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await?;
+        stream.close().await;
 
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
@@ -865,7 +863,7 @@ mod tests {
         tokio::time::advance(Duration::from_secs(10)).await;
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await?;
+        stream.close().await;
 
         // Verify at least one lease extension attempt was made.
         let extend_req = extend_rx.try_recv()?;
@@ -1172,7 +1170,7 @@ mod tests {
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await?;
+        stream.close().await;
 
         // Verify the acks went through.
         let mut got = Vec::new();
@@ -1246,7 +1244,7 @@ mod tests {
         assert_eq!(status.message, "fail");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await?;
+        stream.close().await;
 
         // Verify the acks went through.
         let mut got = Vec::new();
@@ -1390,7 +1388,7 @@ mod tests {
         );
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await?;
+        stream.close().await;
 
         Ok(())
     }
@@ -1430,7 +1428,7 @@ mod tests {
         });
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await?;
+        stream.close().await;
 
         Ok(())
     }
