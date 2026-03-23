@@ -50,11 +50,11 @@ pub use super::client_builder::BasePublisherBuilder;
 impl BasePublisher {
     /// Returns a builder for [BasePublisher].
     ///
-    /// ```no_run
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// let client: BasePublisher = BasePublisher::builder().build().await?;
-    /// # google_cloud_gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> BasePublisherBuilder {
         BasePublisherBuilder::new()

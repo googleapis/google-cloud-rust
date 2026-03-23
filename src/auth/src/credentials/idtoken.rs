@@ -57,20 +57,18 @@
 //! [Verifier][verifier::Verifier] to check if the token is valid.
 //!
 //! ```
-//! # use google_cloud_auth::credentials::idtoken;
-//! # use google_cloud_auth::credentials::idtoken::verifier::Verifier;
+//! use google_cloud_auth::credentials::idtoken::verifier::{Verifier, Builder};
 //! # use std::time::Duration;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let audience = "https://my-service.a.run.app";
-//! let verifier = idtoken::verifier::Builder::new([audience]).build();
+//! let verifier = Builder::new([audience]).build();
 //!
 //! async fn verify_id_token(verifier: &Verifier, token: &str) -> anyhow::Result<()> {
 //!     let claims = verifier.verify(token).await?;
-//!
 //!     println!("Hello: {:?}", claims["email"]);
-//! #   Ok(())
+//!     Ok(())
 //! }
-//! # });
+//! # Ok(()) }
 //! ```
 //! [Verifier]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/idtoken/struct.Verifier.html
 //! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens

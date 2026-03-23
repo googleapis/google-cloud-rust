@@ -45,17 +45,17 @@
 //!     #    start, query
 //!     # )
 //! }
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let response = start_lro()
 //!     .await
 //!     .until_done()
 //!     .await?;
 //! println!("response = {response:?}");
-//! # google_cloud_gax::Result::<()>::Ok(()) });
+//! # Ok(()) }
 //! ```
 //!
 //! # Example: poll with metadata
-//! ```no_run
+//! ```
 //! # use google_cloud_lro::{internal::Operation, Poller, PollingResult};
 //! # use serde::{Deserialize, Serialize};
 //! # use google_cloud_gax::Result;
@@ -72,7 +72,7 @@
 //!     #    start, query
 //!     # )
 //! }
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let mut poller = start_lro().await;
 //! while let Some(p) = poller.poll().await {
 //!     match p {
@@ -82,7 +82,7 @@
 //!     }
 //!     tokio::time::sleep(std::time::Duration::from_millis(100)).await;
 //! }
-//! # google_cloud_gax::Result::<()>::Ok(()) });
+//! # Ok(()) }
 //! ```
 
 #![cfg_attr(docsrs, feature(doc_cfg))]

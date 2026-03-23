@@ -36,14 +36,13 @@
 //! # use google_cloud_auth::credentials::mds::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use http::Extensions;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let credentials: Credentials = Builder::default()
 //!     .with_quota_project_id("my-quota-project")
 //!     .build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! ## Example: Creating credentials with custom retry behavior
@@ -53,7 +52,7 @@
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use http::Extensions;
 //! # use std::time::Duration;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
 //! use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 //! let backoff = ExponentialBackoff::default();
@@ -63,8 +62,7 @@
 //!     .build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
@@ -155,11 +153,11 @@ impl Builder {
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let credentials = Builder::default()
     ///     .with_endpoint("https://metadata.google.foobar")
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
@@ -203,12 +201,12 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let credentials = Builder::default()
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_retry_policy(v.into());
@@ -222,13 +220,13 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
     /// # use std::time::Duration;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// let policy = ExponentialBackoff::default();
     /// let credentials = Builder::default()
     ///     .with_backoff_policy(policy)
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
@@ -248,12 +246,12 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let credentials = Builder::default()
     ///     .with_retry_throttler(AdaptiveThrottler::default())
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
@@ -301,14 +299,13 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
     /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let credentials: AccessTokenCredentials = Builder::default()
     ///     .with_quota_project_id("my-quota-project")
     ///     .build_access_token_credentials()?;
     /// let access_token = credentials.access_token().await?;
     /// println!("Token: {}", access_token.token);
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
+    /// # Ok(()) }
     /// ```
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         Ok(self.build_credentials()?.into())
@@ -344,10 +341,9 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::mds::Builder;
     /// # use google_cloud_auth::signer::Signer;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let signer: Signer = Builder::default().build_signer()?;
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
+    /// # Ok(()) }
     /// ```
     ///
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob

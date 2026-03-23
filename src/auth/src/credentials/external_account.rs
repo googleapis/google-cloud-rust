@@ -31,7 +31,7 @@
 //! # use google_cloud_auth::credentials::external_account;
 //! # use http::Extensions;
 //! #
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let project_id = "your-gcp-project-id";
 //! let pool_id = "your-workload-identity-pool-id";
 //! let provider_id = "your-provider-id";
@@ -58,8 +58,7 @@
 //!     .unwrap();
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! ## Example: Creating credentials with custom retry behavior
@@ -68,7 +67,7 @@
 //! # use google_cloud_auth::credentials::external_account;
 //! # use http::Extensions;
 //! # use std::time::Duration;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
 //! use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 //! # let project_id = "your-gcp-project-id";
@@ -97,8 +96,7 @@
 //!     .unwrap();
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! [Workload Identity Federation]: https://cloud.google.com/iam/docs/workload-identity-federation
@@ -535,7 +533,7 @@ where
 /// # Example
 /// ```
 /// # use google_cloud_auth::credentials::external_account::Builder;
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// let project_id = project_id();
 /// let workload_identity_pool_id = workload_identity_pool();
 /// let provider_id = workload_identity_provider();
@@ -560,8 +558,8 @@ where
 /// });
 /// let credentials = Builder::new(config)
 ///     .with_quota_project_id("quota_project")
-///     .build();
-/// });
+///     .build()?;
+/// # Ok(()) }
 ///
 /// # fn project_id() -> String {
 /// #     "test-only".to_string()
@@ -627,7 +625,7 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::external_account::Builder;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let config = serde_json::json!({
     ///     "type": "external_account",
@@ -638,8 +636,8 @@ impl Builder {
     /// });
     /// let credentials = Builder::new(config)
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_retry_policy(v.into());
@@ -653,7 +651,7 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::external_account::Builder;
     /// # use std::time::Duration;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// let config = serde_json::json!({
     ///     "type": "external_account",
@@ -665,8 +663,8 @@ impl Builder {
     /// let policy = ExponentialBackoff::default();
     /// let credentials = Builder::new(config)
     ///     .with_backoff_policy(policy)
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
@@ -686,7 +684,7 @@ impl Builder {
     ///
     /// ```
     /// # use google_cloud_auth::credentials::external_account::Builder;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let config = serde_json::json!({
     ///     "type": "external_account",
@@ -697,8 +695,8 @@ impl Builder {
     /// });
     /// let credentials = Builder::new(config)
     ///     .with_retry_throttler(AdaptiveThrottler::default())
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
@@ -810,7 +808,7 @@ impl Builder {
 /// #     }
 /// # }
 /// #
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// let provider = Arc::new(MyTokenProvider);
 ///
 /// let credentials = ProgrammaticBuilder::new(provider)
@@ -821,7 +819,7 @@ impl Builder {
 ///     .with_scopes(vec!["https://www.googleapis.com/auth/devstorage.read_only".to_string()])
 ///     .build()
 ///     .unwrap();
-/// # });
+/// # Ok(()) }
 /// ```
 /// [SubjectTokenProvider]: crate::credentials::subject_token::SubjectTokenProvider
 pub struct ProgrammaticBuilder {
@@ -1262,15 +1260,15 @@ impl ProgrammaticBuilder {
     /// #     }
     /// # }
     /// #
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let provider = Arc::new(MyTokenProvider);
     /// let credentials = ProgrammaticBuilder::new(provider)
     ///     .with_audience("test-audience")
     ///     .with_subject_token_type("test-token-type")
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_retry_policy(v.into());
@@ -1305,7 +1303,7 @@ impl ProgrammaticBuilder {
     /// #     }
     /// # }
     /// #
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// let provider = Arc::new(MyTokenProvider);
     /// let policy = ExponentialBackoff::default();
@@ -1313,8 +1311,8 @@ impl ProgrammaticBuilder {
     ///     .with_audience("test-audience")
     ///     .with_subject_token_type("test-token-type")
     ///     .with_backoff_policy(policy)
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
@@ -1356,15 +1354,15 @@ impl ProgrammaticBuilder {
     /// #     }
     /// # }
     /// #
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let provider = Arc::new(MyTokenProvider);
     /// let credentials = ProgrammaticBuilder::new(provider)
     ///     .with_audience("test-audience")
     ///     .with_subject_token_type("test-token-type")
     ///     .with_retry_throttler(AdaptiveThrottler::default())
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_retry_throttler(v.into());

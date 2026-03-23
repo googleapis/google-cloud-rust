@@ -28,7 +28,7 @@ pub type SizeHint = http_body::SizeHint;
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_storage::streaming_source::Payload;
 /// use google_cloud_storage::streaming_source::StreamingSource;
 /// let buffer : &[u8] = b"the quick brown fox jumps over the lazy dog";
@@ -38,7 +38,7 @@ pub type SizeHint = http_body::SizeHint;
 ///     size += bytes.len();
 /// }
 /// assert_eq!(size, buffer.len());
-/// # anyhow::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 pub struct Payload<T> {
     payload: T,

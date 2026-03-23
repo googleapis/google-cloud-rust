@@ -82,10 +82,9 @@ impl Builder {
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::api_key_credentials::Builder;
-    /// # tokio_test::block_on(async {
-    /// let credentials = Builder::new("my-api-key")
-    ///     .build();
-    /// # });
+    /// # async fn sample() {
+    /// let credentials = Builder::new("my-api-key").build();
+    /// # }
     /// ```
     pub fn new<T: Into<String>>(api_key: T) -> Self {
         Self {

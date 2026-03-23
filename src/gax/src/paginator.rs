@@ -42,13 +42,13 @@
 //!     # fn execute(_: String) -> Result<Page> { panic!(); }
 //!     # paginator::internal::new_paginator(String::new(), get_page)
 //! }
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let mut items = list().items();
 //! while let Some(item) = items.next().await {
 //!     let item = item?;
 //!     println!("  item = {item}");
 //! }
-//! # Result::<()>::Ok(()) });
+//! # Ok(()) }
 //! ```
 //!
 //! # Example: manually iterate over all the pages for a list operation
@@ -67,14 +67,14 @@
 //!     # fn execute(_: String) -> Result<Page> { panic!(); }
 //!     # paginator::internal::new_paginator(String::new(), get_page)
 //! }
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let mut pages = list();
 //! while let Some(page) = pages.next().await {
 //!     let page = page?;
 //!     println!("a page with {} items", page.items.len());
 //!     page.items.into_iter().enumerate().for_each(|(n, i)| println!("  item[{n}]= {i}"));
 //! }
-//! # Result::<()>::Ok(()) });
+//! # Ok(()) }
 //! ```
 //!
 //! [AIP-4233]: https://google.aip.dev/client-libraries/4233

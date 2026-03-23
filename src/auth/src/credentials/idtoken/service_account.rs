@@ -31,7 +31,7 @@
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use serde_json::json;
 //! # use reqwest;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let service_account_key = json!({
 //!     "client_email": "test-client-email",
 //!     "private_key_id": "test-private-key-id",
@@ -51,8 +51,7 @@
 //!     .bearer_auth(id_token)
 //!     .send()
 //!     .await?;
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! [Best practices for using service accounts]: https://cloud.google.com/iam/docs/best-practices-service-accounts#choose-when-to-use

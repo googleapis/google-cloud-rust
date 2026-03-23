@@ -36,14 +36,14 @@
 //! # panic!()
 //! }
 //!
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let response = make_google_service_rpc("my-project").await?;
 //! if let Some(date) = response.headers().get("Date") {
 //!     // do something with the date
 //! }
 //! let resource = response.body();
 //! // do something with
-//! # Result::<()>::Ok(()) });
+//! # Ok(()) }
 //! ```
 //!
 //! Creating a response for mocks
@@ -88,14 +88,14 @@
 /// # panic!()
 /// }
 ///
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// let response = make_google_service_rpc("my-project").await?;
 /// if let Some(date) = response.headers().get("Date") {
 ///     // do something with the date
 /// }
 /// let resource = response.body();
 /// // do something with
-/// # Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// Creating a response for mocks
