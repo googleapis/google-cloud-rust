@@ -1,0 +1,491 @@
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+use crate::database_client::DatabaseClient;
+use crate::model::transaction_options::IsolationLevel;
+use crate::model::transaction_options::read_write::ReadLockMode;
+use crate::read_write_transaction::{ReadWriteTransaction, ReadWriteTransactionBuilder};
+use crate::transaction_retry_policy::{
+    BasicTransactionRetryPolicy, TransactionRetryPolicy, backoff_if_aborted, is_aborted,
+};
+
+/// A builder for a [TransactionRunner] for a read/write transaction.
+///
+/// # Example
+/// ```
+/// # use google_cloud_spanner::client::Spanner;
+/// # use google_cloud_spanner::client::Statement;
+/// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+/// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+/// let runner = db_client.read_write_transaction().build().await?;
+///
+/// let result = runner.run(async |transaction| {
+///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1").build();
+///     transaction.execute_update(statement).await?;
+///     Ok(42)
+/// }).await?;
+/// # Ok(())
+/// # }
+/// ```
+///
+/// Spanner can abort any read/write transaction at any time. A [TransactionRunner]
+/// automatically retries aborted transactions according to the configured retry policy.
+pub struct TransactionRunnerBuilder {
+    builder: ReadWriteTransactionBuilder,
+    retry_policy: Box<dyn TransactionRetryPolicy>,
+}
+
+impl TransactionRunnerBuilder {
+    pub(crate) fn new(client: DatabaseClient) -> Self {
+        Self {
+            builder: ReadWriteTransactionBuilder::new(client),
+            retry_policy: Box::new(BasicTransactionRetryPolicy::default()),
+        }
+    }
+
+    /// Sets the isolation level for the transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::client::IsolationLevel;
+    /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client
+    ///     .read_write_transaction()
+    ///     .with_isolation_level(IsolationLevel::Serializable)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// See also: <https://docs.cloud.google.com/spanner/docs/isolation-levels>
+    pub fn with_isolation_level(mut self, isolation_level: IsolationLevel) -> Self {
+        self.builder = self.builder.with_isolation_level(isolation_level);
+        self
+    }
+
+    /// Sets the read lock mode for the transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::client::ReadLockMode;
+    /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client
+    ///     .read_write_transaction()
+    ///     .with_read_lock_mode(ReadLockMode::Pessimistic)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// See also: <https://docs.cloud.google.com/spanner/docs/concurrency-control>
+    pub fn with_read_lock_mode(mut self, read_lock_mode: ReadLockMode) -> Self {
+        self.builder = self.builder.with_read_lock_mode(read_lock_mode);
+        self
+    }
+
+    /// Sets the retry policy for the transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use std::time::Duration;
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::client::BasicTransactionRetryPolicy;
+    /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    ///
+    /// let retry_policy = BasicTransactionRetryPolicy {
+    ///     max_attempts: 5,
+    ///     total_timeout: Duration::from_secs(60),
+    /// };
+    ///
+    /// let runner = db_client
+    ///     .read_write_transaction()
+    ///     .with_retry_policy(retry_policy)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_retry_policy<P: TransactionRetryPolicy + 'static>(mut self, policy: P) -> Self {
+        self.retry_policy = Box::new(policy);
+        self
+    }
+
+    /// Builds a [TransactionRunner] for a read/write transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::client::Statement;
+    /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction().build().await?;
+    ///
+    /// let result = runner.run(async |transaction| {
+    ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1").build();
+    ///     transaction.execute_update(statement).await?;
+    ///     Ok(42)
+    /// }).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn build(self) -> crate::Result<TransactionRunner> {
+        Ok(TransactionRunner {
+            builder: self.builder,
+            retry_policy: self.retry_policy,
+        })
+    }
+}
+
+/// A runner for read/write transactions. Aborted transactions are automatically retried.
+pub struct TransactionRunner {
+    builder: ReadWriteTransactionBuilder,
+    retry_policy: Box<dyn TransactionRetryPolicy>,
+}
+
+impl TransactionRunner {
+    /// Runs the provided closure within the context of a read/write transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::client::Statement;
+    /// # async fn run_tx(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction().build().await?;
+    ///
+    /// let result = runner.run(async |transaction| {
+    ///     let statement = Statement::builder("UPDATE MyTable SET MyColumn = 'MyValue' WHERE Id = 1").build();
+    ///     transaction.execute_update(statement).await?;
+    ///     Ok(42) // This will be returned by runner.run()
+    /// }).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// If the transaction is aborted by Spanner, the closure will be retried
+    /// automatically according to the configured `TransactionRetryPolicy`.
+    ///
+    /// The transaction is automatically committed if the closure returns `Ok`.
+    /// If the closure returns `Err`, the transaction will be rolled back and
+    /// the error will be propagated.
+    pub async fn run<T, F>(self, mut work: F) -> crate::Result<T>
+    where
+        F: std::ops::AsyncFnMut(ReadWriteTransaction) -> crate::Result<T>,
+    {
+        let start_time = tokio::time::Instant::now();
+        let mut attempts: u32 = 0;
+        let backoff = crate::transaction_retry_policy::default_retry_backoff();
+
+        loop {
+            attempts += 1;
+
+            let attempt_result = async {
+                let transaction = self.builder.begin_transaction().await?;
+
+                let result = match work(transaction.clone()).await {
+                    Ok(res) => res,
+                    Err(e) => {
+                        // Rollback if the closure failed and it was not an Aborted error.
+                        if !is_aborted(&e) {
+                            let _ = transaction.rollback().await;
+                        }
+                        return Err(e);
+                    }
+                };
+
+                transaction.commit().await?;
+                Ok::<T, crate::Error>(result)
+            }
+            .await;
+
+            match attempt_result {
+                Ok(res) => return Ok(res),
+                Err(e) => {
+                    backoff_if_aborted(
+                        e,
+                        attempts,
+                        start_time.elapsed(),
+                        self.retry_policy.as_ref(),
+                        &backoff,
+                    )
+                    .await?;
+                }
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
+    use crate::transaction_retry_policy::tests::create_aborted_status;
+    use gaxi::grpc::tonic;
+    use spanner_grpc_mock::google::spanner::v1;
+
+    fn expect_begin_transaction(
+        mock: &mut spanner_grpc_mock::MockSpanner,
+        times: usize,
+        transaction_id: Vec<u8>,
+    ) {
+        mock.expect_begin_transaction()
+            .times(times)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.session,
+                    "projects/p/instances/i/databases/d/sessions/123"
+                );
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: transaction_id.clone(),
+                    ..Default::default()
+                }))
+            });
+    }
+
+    async fn execute_test_runner(
+        mock: spanner_grpc_mock::MockSpanner,
+    ) -> Result<i64, crate::Error> {
+        let (db_client, _server) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .build()
+            .await
+            .unwrap();
+        runner
+            .run(async |tx| {
+                let count = tx.execute_update("UPDATE Users SET active = true").await?;
+                Ok(count)
+            })
+            .await
+    }
+
+    fn commit_response() -> Result<tonic::Response<v1::CommitResponse>, tonic::Status> {
+        Ok(tonic::Response::new(v1::CommitResponse {
+            commit_timestamp: Some(prost_types::Timestamp {
+                seconds: 123456789,
+                nanos: 0,
+            }),
+            ..Default::default()
+        }))
+    }
+
+    fn row_count_exact_response(
+        count: i64,
+    ) -> Result<tonic::Response<v1::ResultSet>, tonic::Status> {
+        Ok(tonic::Response::new(v1::ResultSet {
+            stats: Some(v1::ResultSetStats {
+                row_count: Some(v1::result_set_stats::RowCount::RowCountExact(count)),
+                ..Default::default()
+            }),
+            ..Default::default()
+        }))
+    }
+
+    #[test]
+    fn auto_traits() {
+        static_assertions::assert_impl_all!(TransactionRunnerBuilder: Send, Sync);
+        static_assertions::assert_impl_all!(TransactionRunner: Send, Sync);
+    }
+
+    #[tokio::test]
+    async fn run_success() {
+        let mut mock = create_session_mock();
+
+        expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
+
+        mock.expect_execute_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.sql, "UPDATE Users SET active = true");
+            assert_eq!(req.seqno, 1);
+            row_count_exact_response(1)
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.transaction,
+                Some(v1::commit_request::Transaction::TransactionId(vec![
+                    1, 2, 3
+                ]))
+            );
+            commit_response()
+        });
+
+        let res = execute_test_runner(mock).await.unwrap();
+        assert_eq!(res, 1);
+    }
+
+    #[tokio::test]
+    async fn run_with_aborted_retry() {
+        let mut mock = create_session_mock();
+
+        expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
+
+        let mut attempt = 0;
+        mock.expect_execute_sql().times(2).returning(move |_req| {
+            attempt += 1;
+            if attempt == 1 {
+                Err(create_aborted_status(std::time::Duration::from_nanos(1)))
+            } else {
+                row_count_exact_response(5)
+            }
+        });
+
+        mock.expect_commit()
+            .once()
+            .returning(|_req| commit_response());
+
+        let res = execute_test_runner(mock).await.unwrap();
+        assert_eq!(res, 5);
+    }
+
+    #[tokio::test]
+    async fn run_with_non_aborted_error() {
+        let mut mock = create_session_mock();
+
+        expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
+
+        // Let execute_sql return an error to trigger a rollback.
+        mock.expect_execute_sql().once().returning(move |_req| {
+            Err(tonic::Status::new(
+                tonic::Code::PermissionDenied,
+                "permission denied",
+            ))
+        });
+
+        // Must explicitly trigger rollback
+        mock.expect_rollback()
+            .once()
+            .returning(|_req| Ok(tonic::Response::new(())));
+
+        let res = execute_test_runner(mock).await;
+
+        assert!(res.is_err());
+        let err = res.unwrap_err();
+        if let Some(status) = err.status() {
+            assert_eq!(
+                status.code,
+                google_cloud_gax::error::rpc::Code::PermissionDenied
+            );
+        } else {
+            panic!("Expected GRPC error");
+        }
+    }
+
+    #[tokio::test]
+    async fn run_with_non_aborted_error_and_rollback_fails() {
+        let mut mock = create_session_mock();
+
+        expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
+
+        // Let execute_sql return an error to trigger a rollback.
+        mock.expect_execute_sql().once().returning(move |_req| {
+            Err(tonic::Status::new(
+                tonic::Code::PermissionDenied,
+                "permission denied",
+            ))
+        });
+
+        // Force the rollback itself to fail as well
+        mock.expect_rollback()
+            .once()
+            .returning(|_req| Err(tonic::Status::new(tonic::Code::Internal, "rollback failed")));
+
+        let res = execute_test_runner(mock).await;
+
+        // Verify the user unequivocally receives the PRIMARY original error
+        assert!(res.is_err());
+        let err = res.unwrap_err();
+        if let Some(status) = err.status() {
+            assert_eq!(
+                status.code,
+                google_cloud_gax::error::rpc::Code::PermissionDenied
+            );
+        } else {
+            panic!("Expected GRPC error");
+        }
+    }
+
+    #[tokio::test]
+    async fn run_commit_aborted_retry() {
+        let mut mock = create_session_mock();
+
+        expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
+
+        mock.expect_execute_sql()
+            .times(2)
+            .returning(|_req| row_count_exact_response(5));
+
+        let mut attempt = 0;
+        mock.expect_commit().times(2).returning(move |_req| {
+            attempt += 1;
+            if attempt == 1 {
+                Err(create_aborted_status(std::time::Duration::from_nanos(1)))
+            } else {
+                commit_response()
+            }
+        });
+
+        let res = execute_test_runner(mock).await.unwrap();
+        assert_eq!(res, 5);
+    }
+
+    #[tokio::test]
+    async fn run_begin_transaction_fails() {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction()
+            .once()
+            .returning(|_req| Err(tonic::Status::new(tonic::Code::Internal, "internal error")));
+
+        let res = execute_test_runner(mock).await;
+
+        assert!(res.is_err());
+        let err = res.unwrap_err();
+        if let Some(status) = err.status() {
+            assert_eq!(status.code, google_cloud_gax::error::rpc::Code::Internal);
+        } else {
+            panic!("Expected GRPC error");
+        }
+    }
+
+    #[tokio::test]
+    async fn builder_options() {
+        use crate::transaction_retry_policy::BasicTransactionRetryPolicy;
+
+        let mock = create_session_mock();
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let retry_policy = BasicTransactionRetryPolicy {
+            max_attempts: 1,
+            total_timeout: std::time::Duration::from_secs(10),
+        };
+
+        // Validate builder chaining safely accepts and compiles options dynamically
+        let _runner = TransactionRunnerBuilder::new(db_client)
+            .with_isolation_level(IsolationLevel::Serializable)
+            .with_read_lock_mode(ReadLockMode::Pessimistic)
+            .with_retry_policy(retry_policy)
+            .build()
+            .await
+            .unwrap();
+    }
+}

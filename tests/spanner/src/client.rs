@@ -1,0 +1,172 @@
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+use google_cloud_spanner::client::{KeySet, Mutation, Spanner};
+
+const PROJECT_ID: &str = "test-project";
+const INSTANCE_ID: &str = "test-instance";
+const DATABASE_ID: &str = "test-db";
+
+pub fn get_emulator_host() -> Option<String> {
+    std::env::var("SPANNER_EMULATOR_HOST").ok()
+}
+
+// Waits for up to 10 seconds for the Spanner Emulator to be available.
+pub async fn wait_for_emulator(endpoint: &str) {
+    let mut connected = false;
+    for _ in 0..10 {
+        if tokio::net::TcpStream::connect(endpoint).await.is_ok() {
+            connected = true;
+            break;
+        }
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    }
+    if !connected {
+        panic!("Failed to connect to emulator at {}", endpoint);
+    }
+}
+
+// Provisions the Spanner Emulator with a test instance and database.
+// ALREADY_EXISTS errors that are returned when creating an instance or database are ignored.
+pub async fn provision_emulator(endpoint: &str) {
+    // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
+    let rest_endpoint = endpoint.replace("9010", "9020");
+    let rest_endpoint =
+        if rest_endpoint.starts_with("http://") || rest_endpoint.starts_with("https://") {
+            rest_endpoint
+        } else {
+            format!("http://{}", rest_endpoint)
+        };
+    let client = reqwest::Client::new();
+
+    // Create a test instance and ignore any ALREADY_EXISTS errors.
+    let instance_payload = serde_json::json!({
+        "instanceId": INSTANCE_ID,
+        "instance": {
+            "config": "emulator-config",
+            "displayName": "Test Instance",
+            "nodeCount": 1
+        }
+    });
+    let res: reqwest::Response = client
+        .post(format!(
+            "{}/v1/projects/{}/instances",
+            rest_endpoint, PROJECT_ID
+        ))
+        .json(&instance_payload)
+        .send()
+        .await
+        .expect("Failed to send create instance request");
+    assert!(
+        res.status().is_success() || res.status() == reqwest::StatusCode::CONFLICT,
+        "Failed to create instance: {}",
+        res.text().await.unwrap()
+    );
+
+    // Create a test database and ignore any ALREADY_EXISTS errors.
+    let database_payload = serde_json::json!({
+        "createStatement": format!("CREATE DATABASE `{}`", DATABASE_ID),
+        "extraStatements": [
+            "CREATE TABLE AllTypes ( \
+                Id INT64 NOT NULL, \
+                ColBool BOOL, \
+                ColInt64 INT64, \
+                ColFloat32 FLOAT32, \
+                ColFloat64 FLOAT64, \
+                ColNumeric NUMERIC, \
+                ColString STRING(MAX), \
+                ColBytes BYTES(MAX), \
+                ColDate DATE, \
+                ColTimestamp TIMESTAMP, \
+                ColJson JSON, \
+                ColArrayBool ARRAY<BOOL>, \
+                ColArrayInt64 ARRAY<INT64>, \
+                ColArrayFloat32 ARRAY<FLOAT32>, \
+                ColArrayFloat64 ARRAY<FLOAT64>, \
+                ColArrayNumeric ARRAY<NUMERIC>, \
+                ColArrayString ARRAY<STRING(MAX)>, \
+                ColArrayBytes ARRAY<BYTES(MAX)>, \
+                ColArrayDate ARRAY<DATE>, \
+                ColArrayTimestamp ARRAY<TIMESTAMP>, \
+                ColArrayJson ARRAY<JSON> \
+             ) PRIMARY KEY (Id)"
+        ]
+    });
+    let res: reqwest::Response = client
+        .post(format!(
+            "{}/v1/projects/{}/instances/{}/databases",
+            rest_endpoint, PROJECT_ID, INSTANCE_ID
+        ))
+        .json(&database_payload)
+        .send()
+        .await
+        .expect("Failed to send create database request");
+    assert!(
+        res.status().is_success() || res.status() == reqwest::StatusCode::CONFLICT,
+        "Failed to create database: {}",
+        res.text().await.unwrap()
+    );
+
+    let spanner_client = Spanner::builder()
+        .build()
+        .await
+        .expect("Failed to create Spanner client in provision_emulator");
+    let db_client = spanner_client
+        .database_client(format!(
+            "projects/{}/instances/{}/databases/{}",
+            PROJECT_ID, INSTANCE_ID, DATABASE_ID
+        ))
+        .build()
+        .await
+        .expect("Failed to build database client in provision_emulator");
+
+    let write_tx = db_client.write_only_transaction().build();
+    let mutation = Mutation::delete("AllTypes", KeySet::all());
+    write_tx
+        .write_at_least_once(vec![mutation])
+        .await
+        .expect("Failed to delete all data from AllTypes");
+}
+
+/// Creates a database client for the test instance and database.
+/// Returns None if the SPANNER_EMULATOR_HOST environment variable is not set.
+/// This indicates that integration tests should be skipped.
+pub async fn create_database_client() -> Option<google_cloud_spanner::client::DatabaseClient> {
+    let endpoint = match get_emulator_host() {
+        Some(host) => host,
+        None => {
+            println!("Skipping emulator E2E test as SPANNER_EMULATOR_HOST is not set");
+            return None;
+        }
+    };
+
+    wait_for_emulator(&endpoint).await;
+    provision_emulator(&endpoint).await;
+
+    let client = Spanner::builder()
+        .build()
+        .await
+        .expect("Failed to create Spanner client");
+
+    let db_client = client
+        .database_client(format!(
+            "projects/{}/instances/{}/databases/{}",
+            PROJECT_ID, INSTANCE_ID, DATABASE_ID
+        ))
+        .build()
+        .await
+        .expect("Failed to build database client");
+
+    Some(db_client)
+}

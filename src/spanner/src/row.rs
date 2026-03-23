@@ -77,19 +77,79 @@ impl Row {
         &self.values
     }
 
+    /// Returns true if the value at the specified column name or index is null.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # async fn test_doc() -> anyhow::Result<()> {
+    /// let client = Spanner::builder().build().await?;
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.single_use().build();
+    /// let mut result_set = transaction.execute_query(Statement::builder("SELECT NULL AS Age").build()).await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let is_null = row?.try_is_null("Age")?;
+    ///     println!("Is null: {}", is_null);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// # Arguments
+    ///
+    /// * `index` - The column name (string) or index (zero-based integer).
+    ///
+    /// # Returns
+    ///
+    /// * `Ok(bool)` if the value is null or not.
+    /// * `Err(Error)` if the column name or index is invalid.
+    pub fn try_is_null<I: ColumnIndex>(&self, index: I) -> crate::Result<bool> {
+        let (_, value) = self.get_value(index)?;
+        Ok(value.kind() == crate::value::Kind::Null)
+    }
+
+    /// Returns true if the value at the specified column name or index is null, panicking on error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # async fn test_doc() -> anyhow::Result<()> {
+    /// let client = Spanner::builder().build().await?;
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.single_use().build();
+    /// let mut result_set = transaction.execute_query(Statement::builder("SELECT NULL AS Age").build()).await?;
+    ///
+    /// if let Some(row) = result_set.next().await {
+    ///     let is_null = row?.is_null("Age");
+    ///     println!("Is null: {}", is_null);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This is a convenience wrapper around [`try_is_null`](Row::try_is_null).
+    ///
+    /// # Panics
+    ///
+    /// Panics if the column name or index is invalid.
+    pub fn is_null<I: ColumnIndex>(&self, index: I) -> bool {
+        self.try_is_null(index).unwrap()
+    }
+
     /// Retrieves a value from the row by column name or zero-based index.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
+    /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
-    /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let tx = db.single_use().build();
-    /// let mut rs = tx.execute_query(Statement::builder("SELECT 42 AS Age").build()).await?;
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.single_use().build();
+    /// let mut result_set = transaction.execute_query(Statement::builder("SELECT 42 AS Age").build()).await?;
     ///
-    /// if let Some(row) = rs.next().await.transpose()? {
-    ///     let age: i64 = row.try_get("Age")?;
+    /// if let Some(row) = result_set.next().await {
+    ///     let age: i64 = row?.try_get("Age")?;
     ///     println!("Age: {}", age);
     /// }
     /// # Ok(())
@@ -110,15 +170,7 @@ impl Row {
         &self,
         index: I,
     ) -> crate::Result<T> {
-        let idx = index
-            .index(self)
-            .ok_or_else(|| crate::Error::deser(RowError::ColumnNotFound(format!("{:?}", index))))?;
-        let value = self.values.get(idx).ok_or_else(|| {
-            crate::Error::deser(RowError::IndexOutOfRange {
-                index: idx,
-                len: self.values.len(),
-            })
-        })?;
+        let (idx, value) = self.get_value(index)?;
         let r#type = self.metadata.column_types.get(idx).ok_or_else(|| {
             crate::Error::deser(RowError::IndexOutOfRange {
                 index: idx,
@@ -133,14 +185,14 @@ impl Row {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # async fn test_doc() -> Result<(), Box<dyn std::error::Error>> {
+    /// # async fn test_doc() -> anyhow::Result<()> {
     /// let client = Spanner::builder().build().await?;
-    /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let tx = db.single_use().build();
-    /// let mut rs = tx.execute_query(Statement::builder("SELECT 42 AS Age").build()).await?;
+    /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.single_use().build();
+    /// let mut result_set = transaction.execute_query(Statement::builder("SELECT 42 AS Age").build()).await?;
     ///
-    /// if let Some(row) = rs.next().await.transpose()? {
-    ///     let age: i64 = row.get("Age");
+    /// if let Some(row) = result_set.next().await {
+    ///     let age: i64 = row?.get("Age");
     ///     println!("Age: {}", age);
     /// }
     /// # Ok(())
@@ -156,6 +208,19 @@ impl Row {
     /// * The column value is incompatible with type `T`.
     pub fn get<T: crate::from_value::FromValue, I: ColumnIndex>(&self, index: I) -> T {
         self.try_get(index).unwrap()
+    }
+
+    fn get_value<I: ColumnIndex>(&self, index: I) -> crate::Result<(usize, &Value)> {
+        let idx = index
+            .index(self)
+            .ok_or_else(|| crate::Error::deser(RowError::ColumnNotFound(format!("{:?}", index))))?;
+        let value = self.values.get(idx).ok_or_else(|| {
+            crate::Error::deser(RowError::IndexOutOfRange {
+                index: idx,
+                len: self.values.len(),
+            })
+        })?;
+        Ok((idx, value))
     }
 }
 

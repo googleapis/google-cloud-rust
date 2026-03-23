@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::model::KeySet;
+use crate::key::KeySet;
 use crate::to_value::ToValue;
 use crate::value::Value;
 
@@ -123,7 +123,7 @@ impl Mutation {
     /// Returns a mutation that will delete all rows with primary keys covered by `key_set`.
     ///
     /// # Example
-    /// ```rust
+    /// ```text
     /// // Example omitted temporarily until the new KeySet API is merged
     /// ```
     pub fn delete(table: impl Into<String>, key_set: KeySet) -> Mutation {
@@ -133,7 +133,6 @@ impl Mutation {
         })
     }
 
-    #[allow(dead_code)]
     pub(crate) fn build_proto(self) -> crate::model::Mutation {
         match self {
             Mutation::Insert(write) => crate::model::Mutation::new().set_insert(write.into_proto()),
@@ -152,27 +151,24 @@ impl Mutation {
 }
 
 impl Write {
-    #[allow(dead_code)]
     fn into_proto(self) -> crate::model::mutation::Write {
-        crate::model::mutation::Write {
-            table: self.table,
-            columns: self.columns,
-            values: vec![self
-                .values
-                .into_iter()
-                .map(Value::into_serde_value)
-                .collect()],
-        }
+        crate::model::mutation::Write::new()
+            .set_table(self.table)
+            .set_columns(self.columns)
+            .set_values(vec![
+                self.values
+                    .into_iter()
+                    .map(Value::into_serde_value)
+                    .collect::<wkt::ListValue>(),
+            ])
     }
 }
 
 impl Delete {
-    #[allow(dead_code)]
     fn into_proto(self) -> crate::model::mutation::Delete {
-        crate::model::mutation::Delete {
-            table: self.table,
-            key_set: Some(self.key_set),
-        }
+        crate::model::mutation::Delete::new()
+            .set_table(self.table)
+            .set_key_set(self.key_set.into_proto())
     }
 }
 
@@ -414,8 +410,8 @@ mod tests {
 
     #[test]
     fn build_proto_delete() {
-        let key_set = crate::model::KeySet::new();
-        let mutation = Mutation::delete("Users", key_set.clone());
+        let key_set = crate::key::KeySet::builder().build();
+        let mutation = Mutation::delete("Users", key_set);
         let proto = mutation.build_proto();
         match proto.operation {
             Some(crate::model::mutation::Operation::Delete(delete)) => {
