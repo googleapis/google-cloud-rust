@@ -274,7 +274,7 @@ pub(super) mod tests {
     use tokio::sync::oneshot::channel;
 
     // Cover the constant, converting it to an integer for convenience.
-    pub(crate) const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
+    const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
 
     #[derive(Debug)]
     pub(super) struct TestLeases {

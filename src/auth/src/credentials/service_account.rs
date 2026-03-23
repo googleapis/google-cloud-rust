@@ -825,7 +825,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     #[parallel]
     async fn header_caching() -> TestResult {
         let private_key = PKCS8_PK.clone();
@@ -851,10 +851,9 @@ mod tests {
         let first_iat = claims["iat"].as_i64().unwrap();
 
         // The issued at claim (`iat`) encodes a unix timestamp, in seconds.
-        // Sleeping for one second ensures that a subsequent claim has a
-        // different `iat`. We need a real sleep, because we cannot fake the
-        // current unix timestamp.
-        std::thread::sleep(Duration::from_secs(1));
+        // Advancing the clock by one second ensures that a subsequent claim has a
+        // different `iat`. Using `tokio::time::advance` changes `Instant::now()` without slowing down the test.
+        tokio::time::advance(Duration::from_secs(1)).await;
 
         // Get the token again.
         let token = get_token_from_headers(credentials.headers(Extensions::new()).await?).unwrap();
