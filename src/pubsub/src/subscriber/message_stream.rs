@@ -64,7 +64,6 @@ pub struct MessageStream {
     #[allow(dead_code)] // TODO(#5024) - implementation in progress...
     /// This future is ready when the lease loop shutdown completes.
     lease_loop: Shared<BoxFuture<'static, ()>>,
-
     // TODO(#5024) - cancel message stream
     //shutdown: CancellationToken,
 }
