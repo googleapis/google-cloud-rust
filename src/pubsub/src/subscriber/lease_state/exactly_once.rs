@@ -20,9 +20,7 @@ use std::collections::HashMap;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant};
 
-// TODO(#4868) - mention alternative shutdown options, when implemented.
-const NACK_SHUTDOWN_ERROR: &str =
-    "subscriber is configured to nack all pending messages on shutdown.";
+const NACK_SHUTDOWN_ERROR: &str = "subscriber is configured to `NackImmediately` on shutdown. To avoid this error, consider setting the shutdown behavior to `WaitForProcessing`.";
 
 /// Leases for messages with exactly-once delivery semantics.
 #[derive(Debug, Default)]
