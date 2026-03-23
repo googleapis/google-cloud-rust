@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use google_cloud_spanner::client::{KeySet, Mutation, Spanner};
+use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 
 const PROJECT_ID: &str = "test-project";
 const INSTANCE_ID: &str = "test-instance";
@@ -42,9 +43,8 @@ static DATABASE_ID: tokio::sync::OnceCell<String> = tokio::sync::OnceCell::const
 async fn get_database_id() -> &'static str {
     DATABASE_ID
         .get_or_init(|| async {
-            std::env::var("SPANNER_EMULATOR_TEST_DB").unwrap_or_else(|_| {
-                format!("db-{}", &uuid::Uuid::new_v4().simple().to_string()[..20])
-            })
+            std::env::var("SPANNER_EMULATOR_TEST_DB")
+                .unwrap_or_else(|_| format!("db-{}", LowercaseAlphanumeric.random_string(20)))
         })
         .await
 }
