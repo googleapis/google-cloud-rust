@@ -343,7 +343,7 @@ mod tests {
     use super::super::ShutdownBehavior;
     use super::super::client::Subscriber;
     use super::super::keepalive::KEEPALIVE_PERIOD;
-    use super::super::lease_state::tests::{MAX_IDS_PER_RPC, test_id, test_ids};
+    use super::super::lease_state::tests::{test_id, test_ids};
     use super::super::stream::{INITIAL_DELAY, MAXIMUM_DELAY};
     use super::*;
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
@@ -555,8 +555,7 @@ mod tests {
         Ok(())
     }
 
-    #[ignore = "TODO(#5099) - disabled because it was flaky"]
-    #[tokio_test_no_panics]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn basic_success_exactly_once() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -565,42 +564,44 @@ mod tests {
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         mock.expect_acknowledge().returning(move |r| {
-            ack_tx
-                .send(r.into_inner())
-                .expect("sending on channel always succeeds");
+            let r = r.into_inner();
+            assert_eq!(r.subscription, "projects/p/subscriptions/s");
+            for ack_id in r.ack_ids {
+                ack_tx
+                    .send(ack_id)
+                    .expect("sending on channel always succeeds");
+            }
             Ok(TonicResponse::from(()))
         });
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_shutdown_behavior(ShutdownBehavior::WaitForProcessing)
+            .build();
 
         response_tx
-            .send(Ok(test_exactly_once_response(0..2)))
+            .send(Ok(test_exactly_once_response(1..2)))
             .await?;
         response_tx
             .send(Ok(test_exactly_once_response(2..4)))
             .await?;
-        // We use MAX_IDS_PER_RPC total ids to indirectly force a flush in the subscriber.
-        // This is needed for exactly once because the current shutdown behavior does not
-        // send a final AcknowledgeRequest for application acknowledged ids.
         response_tx
-            .send(Ok(test_exactly_once_response(4..MAX_IDS_PER_RPC)))
+            .send(Ok(test_exactly_once_response(4..7)))
             .await?;
+        drop(response_tx);
 
         let mut acks = JoinSet::new();
-        for i in 0..MAX_IDS_PER_RPC {
+        for i in 1..7 {
             let Some((m, Handler::ExactlyOnce(h))) = stream.next().await.transpose()? else {
-                anyhow::bail!("expected message {i}/{MAX_IDS_PER_RPC}")
+                anyhow::bail!("expected message {i}/6")
             };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
             acks.spawn(h.confirmed_ack());
         }
-        while let Some(r) = acks.join_next().await {
-            r?.inspect_err(|e| tracing::info!("received unexpected confirm_ack error: {e:?}"))?;
-        }
-
-        drop(response_tx);
         let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
 
@@ -608,10 +609,14 @@ mod tests {
         stream.close().await;
 
         // Verify the acks went through.
-        let ack_req = ack_rx.try_recv()?;
-        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
-        assert_eq!(ack_req.ack_ids.len(), MAX_IDS_PER_RPC as usize);
-        assert_eq!(sorted(ack_req.ack_ids), test_ids(0..MAX_IDS_PER_RPC));
+        while let Some(r) = acks.join_next().await {
+            r??;
+        }
+        let mut ack_ids = Vec::new();
+        while let Ok(msg) = ack_rx.try_recv() {
+            ack_ids.push(msg);
+        }
+        assert_eq!(sorted(ack_ids), test_ids(1..7));
 
         Ok(())
     }
