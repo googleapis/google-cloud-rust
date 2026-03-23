@@ -604,7 +604,7 @@ mod tests {
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await?;
+        stream.close().await;
 
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
@@ -1428,7 +1428,7 @@ mod tests {
         });
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await?;
+        stream.close().await;
 
         Ok(())
     }
