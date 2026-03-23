@@ -21,14 +21,12 @@ use crate::errors::CredentialsError;
 use crate::mds::client::Client as MDSClient;
 use crate::{Result, errors};
 use google_cloud_gax::Result as GaxResult;
-use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
+use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_loop_internal::retry_loop;
-use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyArg, RetryPolicyExt};
-use google_cloud_gax::retry_throttler::{
-    AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
-};
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt};
+use google_cloud_gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg};
 use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::Client;
 use std::clone::Clone;
@@ -414,7 +412,10 @@ where
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
         match self.url.as_ref() {
-            Some(url) => fetch_access_boundary(self.credentials.clone(), url.clone()).await,
+            Some(url) => {
+                let client = AccessBoundaryClient::new(self.credentials.clone(), url.clone());
+                client.fetch().await
+            }
             None => Ok(None), // No URL means no access boundary
         }
     }
@@ -448,8 +449,8 @@ where
         }
 
         let url = self.url.get().unwrap().to_string();
-
-        fetch_access_boundary(self.credentials.clone(), url).await
+        let client = AccessBoundaryClient::new(self.credentials.clone(), url);
+        client.fetch().await
     }
 }
 
@@ -461,13 +462,38 @@ struct AllowedLocationsResponse {
     encoded_locations: String,
 }
 
-async fn fetch_access_boundary<T>(credentials: Arc<T>, url: String) -> Result<Option<String>>
+/// Makes the `fetch()` function easier to test.
+///
+/// In the tests we need to override the retry policies, that is easier to do if the policies are
+/// part of some struct.
+#[derive(Debug)]
+struct AccessBoundaryClient<T> {
+    credentials: Arc<T>,
+    url: String,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
+}
+
+impl<T> AccessBoundaryClient<T> {
+    fn new(credentials: Arc<T>, url: String) -> Self {
+        let retry_policy = Aip194Strict.with_time_limit(Duration::from_secs(60));
+        let backoff_policy = ExponentialBackoff::default();
+
+        Self {
+            credentials,
+            url,
+            retry_policy: Arc::new(retry_policy),
+            backoff_policy: Arc::new(backoff_policy),
+        }
+    }
+}
+
+impl<T> AccessBoundaryClient<T>
 where
-    T: dynamic::AccessTokenCredentialsProvider + 'static,
+    T: dynamic::AccessTokenCredentialsProvider + Send + Sync + 'static,
 {
-    let resp = fetch_access_boundary_with_retry(credentials, url)
-        .await
-        .map_err(|e| {
+    async fn fetch(self) -> Result<Option<String>> {
+        let resp = self.fetch_with_retry().await.map_err(|e| {
             let is_transient = e
                 .source()
                 .and_then(|s| s.downcast_ref::<CredentialsError>())
@@ -475,37 +501,27 @@ where
             CredentialsError::new(is_transient, "failed to fetch access boundary", e)
         })?;
 
-    if !resp.encoded_locations.is_empty() {
-        return Ok(Some(resp.encoded_locations));
+        if !resp.encoded_locations.is_empty() {
+            return Ok(Some(resp.encoded_locations));
+        }
+
+        Ok(None)
     }
 
-    Ok(None)
-}
+    async fn fetch_with_retry(self) -> GaxResult<AllowedLocationsResponse> {
+        let client = Client::new();
+        let sleep = async |d| tokio::time::sleep(d).await;
 
-async fn fetch_access_boundary_with_retry<T>(
-    credentials: Arc<T>,
-    url: String,
-) -> GaxResult<AllowedLocationsResponse>
-where
-    T: dynamic::AccessTokenCredentialsProvider + 'static,
-{
-    let client = Client::new();
-    let sleep = async |d| tokio::time::sleep(d).await;
-
-    let retry_policy: RetryPolicyArg = Aip194Strict.with_time_limit(Duration::from_secs(60)).into();
-    let backoff_policy: BackoffPolicyArg = ExponentialBackoff::default().into();
-    let backoff_policy: Arc<dyn BackoffPolicy> = backoff_policy.into();
-    let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
-    let retry_throttler: SharedRetryThrottler = retry_throttler.into();
-
-    retry_loop(
-        async move |d| {
-            let headers = credentials
+        let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
+        let creds = self.credentials;
+        let url = self.url;
+        let inner = async move |d| {
+            let headers = creds
                 .headers(Extensions::new())
                 .await
                 .map_err(GaxError::authentication)?;
 
-            let attempt = fetch_access_boundary_call(&client, &url, headers);
+            let attempt = self::fetch_access_boundary_call(&client, &url, headers);
             match d {
                 Some(timeout) => match tokio::time::timeout(timeout, attempt).await {
                     Ok(r) => r,
@@ -513,14 +529,18 @@ where
                 },
                 None => attempt.await,
             }
-        },
-        sleep,
-        true, // fetch access boundary is idempotent
-        retry_throttler,
-        retry_policy.into(),
-        backoff_policy,
-    )
-    .await
+        };
+
+        retry_loop(
+            inner,
+            sleep,
+            true, // fetch access boundary is idempotent
+            retry_throttler.into(),
+            self.retry_policy.clone(),
+            self.backoff_policy.clone(),
+        )
+        .await
+    }
 }
 
 async fn fetch_access_boundary_call(
@@ -631,6 +651,7 @@ pub(crate) mod tests {
     use super::*;
     use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
     use crate::credentials::{AccessToken, EntityTag};
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, cycle, matchers::*, responders::*};
@@ -828,8 +849,8 @@ pub(crate) mod tests {
             })
         });
         let url = server.url("/allowedLocations").to_string();
-
-        let val = fetch_access_boundary(Arc::new(mock), url).await?;
+        let client = AccessBoundaryClient::new(Arc::new(mock), url);
+        let val = client.fetch().await?;
         assert!(val.is_none(), "{val:?}");
 
         Ok(())
@@ -858,8 +879,11 @@ pub(crate) mod tests {
         });
 
         let url = server.url("/allowedLocations").to_string();
+        let mut client = AccessBoundaryClient::new(Arc::new(mock), url);
+        client.retry_policy = Arc::new(Aip194Strict.with_attempt_limit(3));
+        client.backoff_policy = Arc::new(test_backoff_policy());
 
-        let result = fetch_access_boundary(Arc::new(mock), url).await;
+        let result = client.fetch().await;
         let err = result.unwrap_err();
         assert!(!err.is_transient(), "{err:?}");
     }
@@ -875,8 +899,8 @@ pub(crate) mod tests {
             ))
         });
 
-        let result = fetch_access_boundary(Arc::new(mock), "http://localhost".to_string()).await;
-        let err = result.unwrap_err();
+        let client = AccessBoundaryClient::new(Arc::new(mock), "http://localhost".to_string());
+        let err = client.fetch().await.unwrap_err();
         assert!(!err.is_transient(), "{err:?}");
     }
 
@@ -1216,10 +1240,20 @@ pub(crate) mod tests {
         });
 
         let url = server.url("/allowedLocations").to_string();
-
-        let val = fetch_access_boundary(Arc::new(mock), url).await?;
+        let mut client = AccessBoundaryClient::new(Arc::new(mock), url);
+        client.backoff_policy = Arc::new(test_backoff_policy());
+        let val = client.fetch().await?;
         assert_eq!(val.as_deref(), Some("0x123"));
 
         Ok(())
+    }
+
+    /// Makes the tests go faster.
+    fn test_backoff_policy() -> ExponentialBackoff {
+        ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_millis(1))
+            .with_maximum_delay(Duration::from_millis(1))
+            .build()
+            .expect("hard-coded policy succeeds")
     }
 }
