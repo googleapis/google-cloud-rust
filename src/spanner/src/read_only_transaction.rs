@@ -15,6 +15,7 @@
 use crate::database_client::DatabaseClient;
 use crate::model::TransactionOptions;
 use crate::model::transaction_options::ReadOnly;
+use crate::precommit::PrecommitTokenTracker;
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
@@ -88,7 +89,11 @@ impl SingleUseReadOnlyTransactionBuilder {
             .set_single_use(TransactionOptions::default().set_read_only(read_only));
 
         SingleUseReadOnlyTransaction {
-            context: ReadContext::new(self.client, transaction_selector),
+            context: ReadContext::new(
+                self.client,
+                transaction_selector,
+                PrecommitTokenTracker::new_noop(),
+            ),
         }
     }
 }
@@ -256,7 +261,11 @@ impl MultiUseReadOnlyTransactionBuilder {
 
         let transaction_selector = crate::model::TransactionSelector::default().set_id(response.id);
         Ok(MultiUseReadOnlyTransaction {
-            context: ReadContext::new(self.client, transaction_selector),
+            context: ReadContext::new(
+                self.client,
+                transaction_selector,
+                PrecommitTokenTracker::new_noop(),
+            ),
             read_timestamp: response.read_timestamp,
         })
     }
@@ -363,16 +372,19 @@ impl MultiUseReadOnlyTransaction {
 pub(crate) struct ReadContext {
     pub(crate) client: DatabaseClient,
     pub(crate) transaction_selector: crate::model::TransactionSelector,
+    pub(crate) precommit_token_tracker: PrecommitTokenTracker,
 }
 
 impl ReadContext {
     pub(crate) fn new(
         client: DatabaseClient,
         transaction_selector: crate::model::TransactionSelector,
+        precommit_token_tracker: PrecommitTokenTracker,
     ) -> Self {
         Self {
             client,
             transaction_selector,
+            precommit_token_tracker,
         }
     }
 
@@ -397,7 +409,7 @@ impl ReadContext {
             .send()
             .await?;
 
-        Ok(ResultSet::new(stream))
+        Ok(ResultSet::new(stream, self.precommit_token_tracker.clone()))
     }
 
     pub(crate) async fn execute_read<T: Into<crate::read::ReadRequest>>(
@@ -429,7 +441,7 @@ impl ReadContext {
             .send()
             .await?;
 
-        Ok(ResultSet::new(stream))
+        Ok(ResultSet::new(stream, self.precommit_token_tracker.clone()))
     }
 }
 

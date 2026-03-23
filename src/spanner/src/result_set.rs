@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::error::internal_error;
+use crate::precommit::PrecommitTokenTracker;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::row::Row;
 use crate::server_streaming::stream::PartialResultSetStream;
@@ -38,6 +39,7 @@ pub struct ResultSet {
     chunked: bool,
     ready_rows: VecDeque<Row>,
     metadata: Option<ResultSetMetadata>,
+    precommit_token_tracker: PrecommitTokenTracker,
 }
 
 /// Errors that can occur when interacting with a [`ResultSet`].
@@ -51,13 +53,17 @@ pub enum ResultSetError {
 
 impl ResultSet {
     /// Creates a new result set.
-    pub(crate) fn new(stream: PartialResultSetStream) -> Self {
+    pub(crate) fn new(
+        stream: PartialResultSetStream,
+        precommit_token_tracker: PrecommitTokenTracker,
+    ) -> Self {
         Self {
             stream,
             buffered_values: Vec::new(),
             chunked: false,
             ready_rows: VecDeque::new(),
             metadata: None,
+            precommit_token_tracker,
         }
     }
 
@@ -109,6 +115,7 @@ impl ResultSet {
                 Ok(prs) => prs,
                 Err(e) => return Some(Err(e)),
             };
+            self.precommit_token_tracker.update(prs.precommit_token);
 
             match (self.metadata.as_ref(), prs.metadata) {
                 (Some(_), None) => {}
@@ -589,5 +596,39 @@ pub(crate) mod tests {
         assert_eq!(row3.raw_values()[0].0, list_val(vec![string_val("20")]));
 
         assert!(rs.next().await.is_none());
+    }
+
+    #[tokio::test]
+    async fn test_result_set_precommit_token_tracked() {
+        let mut rs = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(1),
+            values: vec![],
+            chunked_value: false,
+            resume_token: vec![],
+            stats: None,
+            precommit_token: Some(
+                spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: b"test_token".to_vec(),
+                    seq_num: 99,
+                },
+            ),
+            last: true,
+            cache_update: None,
+        }])
+        .await;
+
+        // Force tracking mode since run_mock_query uses a ReadOnly transaction (NoOp).
+        rs.precommit_token_tracker = PrecommitTokenTracker::new();
+
+        // Read a row to trigger precommit token extraction
+        assert!(rs.next().await.is_none());
+
+        // Validate the tracker correctly intercepted and preserved the token
+        let token = rs
+            .precommit_token_tracker
+            .get()
+            .expect("token should be tracked");
+        assert_eq!(token.seq_num, 99);
+        assert_eq!(token.precommit_token, bytes::Bytes::from("test_token"));
     }
 }
