@@ -131,6 +131,9 @@ where
                     .status()
                     .map(|s| s.code.name())
                     .unwrap_or(Code::Unknown.name());
+                let error_str = error_type.as_str();
+                let err_msg = error.to_string();
+
                 // TODO(#4795) - use the correct name and target
                 tracing::event!(
                     name: NAME,
@@ -141,9 +144,9 @@ where
                     { URL_TEMPLATE } = this.start.url_template(),
                     { RPC_METHOD } = this.start.method(),
                     { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-                    { HTTP_RESPONSE_STATUS_CODE } = error.http_status_code().map(|c| c as i64),
-                    { EXCEPTION_TYPE } = error_type.as_str(),
-                    { EXCEPTION_MESSAGE } = %error,
+                    { HTTP_RESPONSE_STATUS_CODE } = error.http_status_code(),
+                    { EXCEPTION_TYPE } = error_str,
+                    { EXCEPTION_MESSAGE } = err_msg,
                     "{error:?}"
                 );
                 this.metric.record_error(&this.start, error)
