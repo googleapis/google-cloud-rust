@@ -648,6 +648,7 @@ mod tests {
         let mut stream = client
             .subscribe("projects/p/subscriptions/s")
             .set_max_lease_extension(Duration::from_secs(10))
+            .set_shutdown_behavior(ShutdownBehavior::NackImmediately)
             .build();
 
         response_tx.send(Ok(test_response(0..30))).await?;
@@ -826,8 +827,6 @@ mod tests {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
-        mock.expect_acknowledge()
-            .returning(|_| Ok(TonicResponse::from(())));
         mock.expect_modify_ack_deadline().returning(move |r| {
             extend_tx
                 .send(r.into_inner())
@@ -839,6 +838,7 @@ mod tests {
         let mut stream = client
             .subscribe("projects/p/subscriptions/s")
             .set_max_lease_extension(Duration::from_secs(10))
+            .set_shutdown_behavior(ShutdownBehavior::NackImmediately)
             .build();
 
         response_tx.send(Ok(test_response(1..4))).await?;
@@ -1359,6 +1359,7 @@ mod tests {
             .subscribe("projects/p/subscriptions/s")
             .set_max_lease(MAX_LEASE)
             .set_max_lease_extension(MAX_LEASE_EXTENSION)
+            .set_shutdown_behavior(ShutdownBehavior::NackImmediately)
             .build();
 
         response_tx.send(Ok(test_response(0..1))).await?;
