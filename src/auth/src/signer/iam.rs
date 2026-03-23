@@ -14,16 +14,17 @@
 
 use crate::credentials::{CacheableResource, Credentials};
 use crate::signer::{Result, SigningError, dynamic::SigningProvider};
-use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
+use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_loop_internal::retry_loop;
-use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyArg, RetryPolicyExt};
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt};
 use google_cloud_gax::retry_throttler::{
     AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
 };
 use http::{Extensions, HeaderMap};
 use reqwest::Client;
 use std::sync::Arc;
+use std::time::Duration;
 
 // Implements Signer using [IAM signBlob API] and reusing using existing [Credentials] to
 // authenticate to it.
@@ -35,6 +36,8 @@ pub(crate) struct IamSigner {
     inner: Credentials,
     endpoint: String,
     client: Client,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
@@ -50,11 +53,15 @@ struct SignBlobResponse {
 
 impl IamSigner {
     pub(crate) fn new(client_email: String, inner: Credentials, endpoint: Option<String>) -> Self {
+        let retry_policy = Aip194Strict.with_time_limit(Duration::from_secs(60));
+        let backoff_policy = ExponentialBackoff::default();
         Self {
             client_email,
             inner,
             endpoint: endpoint.unwrap_or("https://iamcredentials.googleapis.com".to_string()),
             client: Client::new(),
+            retry_policy: Arc::new(retry_policy),
+            backoff_policy: Arc::new(backoff_policy),
         }
     }
 }
@@ -76,8 +83,15 @@ impl SigningProvider for IamSigner {
             "{}/v1/projects/-/serviceAccounts/{client_email}:signBlob",
             self.endpoint
         );
-        let response =
-            sign_blob_call_with_retry(self.inner.clone(), self.client.clone(), url, body).await?;
+        let response = sign_blob_call_with_retry(
+            self.inner.clone(),
+            self.client.clone(),
+            url,
+            body,
+            self.retry_policy.clone(),
+            self.backoff_policy.clone(),
+        )
+        .await?;
 
         if !response.status().is_success() {
             let err_text = response.text().await.map_err(SigningError::transport)?;
@@ -102,12 +116,11 @@ async fn sign_blob_call_with_retry(
     client: Client,
     url: String,
     body: SignBlobRequest,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
 ) -> Result<reqwest::Response> {
     let sleep = async |d| tokio::time::sleep(d).await;
 
-    let retry_policy: RetryPolicyArg = Aip194Strict.with_attempt_limit(3).into();
-    let backoff_policy: BackoffPolicyArg = ExponentialBackoff::default().into();
-    let backoff_policy: Arc<dyn BackoffPolicy> = backoff_policy.into();
     let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
     let retry_throttler: SharedRetryThrottler = retry_throttler.into();
 
@@ -124,7 +137,7 @@ async fn sign_blob_call_with_retry(
         true, // signBlob is idempotent
         retry_throttler,
         retry_policy.into(),
-        backoff_policy,
+        backoff_policy.into(),
     )
     .await
     .map_err(SigningError::transport)
@@ -182,6 +195,7 @@ mod tests {
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
     use serde_json::json;
+    use tokio::time::Duration;
 
     type TestResult = anyhow::Result<()>;
 
@@ -313,11 +327,21 @@ mod tests {
         });
         let creds = Credentials::from(mock);
 
-        let signer = IamSigner::new("test@example.com".to_string(), creds, Some(endpoint));
+        let mut signer = IamSigner::new("test@example.com".to_string(), creds, Some(endpoint));
+        signer.backoff_policy = Arc::new(test_backoff_policy());
         let signature = signer.sign(b"test").await.unwrap();
 
         assert_eq!(signature.as_ref(), b"signed_blob");
 
         Ok(())
+    }
+
+    fn test_backoff_policy() -> ExponentialBackoff {
+        use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+        ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_millis(1))
+            .with_maximum_delay(Duration::from_millis(1))
+            .build()
+            .expect("hard-coded policy succeeds")
     }
 }
