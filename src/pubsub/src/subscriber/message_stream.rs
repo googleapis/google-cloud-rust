@@ -564,13 +564,9 @@ mod tests {
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         mock.expect_acknowledge().returning(move |r| {
-            let r = r.into_inner();
-            assert_eq!(r.subscription, "projects/p/subscriptions/s");
-            for ack_id in r.ack_ids {
-                ack_tx
-                    .send(ack_id)
-                    .expect("sending on channel always succeeds");
-            }
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
             Ok(TonicResponse::from(()))
         });
         mock.expect_modify_ack_deadline()
@@ -612,11 +608,9 @@ mod tests {
         while let Some(r) = acks.join_next().await {
             r??;
         }
-        let mut ack_ids = Vec::new();
-        while let Ok(msg) = ack_rx.try_recv() {
-            ack_ids.push(msg);
-        }
-        assert_eq!(sorted(ack_ids), test_ids(1..7));
+        let ack_req = ack_rx.try_recv()?;
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(1..7));
 
         Ok(())
     }
