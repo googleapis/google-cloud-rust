@@ -262,6 +262,41 @@ impl FromValue for Vec<u8> {
     }
 }
 
+impl<T> FromValue for Vec<T>
+where
+    T: FromValue,
+{
+    fn from_value(value: &Value, r#type: &Type) -> Result<Self, ConvertError> {
+        if r#type.code() != TypeCode::Array {
+            return Err(ConvertError::KindMismatch {
+                want: crate::value::Kind::List,
+                got: value.kind(),
+            });
+        }
+        let element_type = r#type
+            .array_element_type()
+            .ok_or_else(|| ConvertError::Convert("Array type missing element type".into()))?;
+
+        match &value.0.kind {
+            Some(prost_types::value::Kind::ListValue(list)) => {
+                let mut vec = Vec::with_capacity(list.values.len());
+                for v in &list.values {
+                    // `Value` is a `#[repr(transparent)]` wrapper around `ProtoValue`.
+                    // We use `from_ref` to safely cast the pointer and avoid cloning elements.
+                    let val = crate::value::Value::from_ref(v);
+                    vec.push(T::from_value(val, &element_type)?);
+                }
+                Ok(vec)
+            }
+            Some(prost_types::value::Kind::NullValue(_)) => Err(ConvertError::NotNull),
+            _ => Err(ConvertError::KindMismatch {
+                want: crate::value::Kind::List,
+                got: value.kind(),
+            }),
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -318,8 +353,69 @@ mod tests {
     }
 
     #[test]
+    fn test_from_value_array() {
+        // String array
+        let str_array = vec!["one".to_string(), "two".to_string()];
+        let v = str_array.to_value();
+        let res = Vec::<String>::from_value(&v, &types::array(types::string()))
+            .expect("parsed string array");
+        assert_eq!(res, str_array);
+
+        // Int array
+        let int_array = vec![42i64, 100i64];
+        let v = int_array.to_value();
+        let res =
+            Vec::<i64>::from_value(&v, &types::array(types::int64())).expect("parsed int array");
+        assert_eq!(res, int_array);
+
+        // Bool array
+        let bool_array = vec![true, false];
+        let v = bool_array.to_value();
+        let res =
+            Vec::<bool>::from_value(&v, &types::array(types::bool())).expect("parsed bool array");
+        assert_eq!(res, bool_array);
+
+        // Float array
+        let float_array = vec![9.9f64, -2.5f64];
+        let v = float_array.to_value();
+        let res = Vec::<f64>::from_value(&v, &types::array(types::float64()))
+            .expect("parsed float array");
+        assert_eq!(res, float_array);
+
+        // Empty array
+        let empty_array: Vec<f64> = vec![];
+        let v = empty_array.to_value();
+        let res = Vec::<f64>::from_value(&v, &types::array(types::float64()))
+            .expect("parsed empty array");
+        assert_eq!(res, empty_array);
+
+        // Array with nulls
+        let opt_array: Vec<Option<i64>> = vec![Some(42), None, Some(100)];
+        let v = opt_array.to_value();
+        let res = Vec::<Option<i64>>::from_value(&v, &types::array(types::int64()))
+            .expect("parsed optional array");
+        assert_eq!(res, opt_array);
+
+        // Null array entirely
+        let null_array: Option<Vec<i64>> = None;
+        let v = null_array.to_value();
+        let res = Option::<Vec<i64>>::from_value(&v, &types::array(types::int64()))
+            .expect("parsed null array");
+        assert_eq!(res, null_array);
+
+        // Wrong TypeCode test
+        let err = Vec::<i64>::from_value(&int_array.to_value(), &types::int64()).unwrap_err();
+        assert!(format!("{}", err).contains("expected List"));
+
+        // Invalid array element values
+        let err = Vec::<i64>::from_value(&str_array.to_value(), &types::array(types::int64()))
+            .unwrap_err();
+        assert!(format!("{}", err).contains("cannot convert value, source="));
+    }
+
+    #[test]
     fn test_from_value_bytes() {
-        let bytes = vec![1, 2, 3];
+        let bytes: Vec<u8> = vec![1, 2, 3];
         let v = bytes.to_value();
         let b = Vec::<u8>::from_value(&v, &types::bytes()).unwrap();
         assert_eq!(b, bytes);
