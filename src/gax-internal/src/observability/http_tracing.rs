@@ -269,6 +269,7 @@ mod tests {
         client_version: "1.2.3",
         client_artifact: "google-cloud-test",
         default_host: "example.com",
+        disable_actionable_error_logging: false,
     };
 
     #[track_caller]

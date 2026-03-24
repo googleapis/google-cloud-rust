@@ -425,6 +425,7 @@ pub mod internal {
         pub polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
         pub disable_automatic_decompression: bool,
         pub disable_follow_redirects: bool,
+        pub disable_actionable_error_logging: bool,
         pub grpc_subchannel_count: Option<usize>,
         pub grpc_request_buffer_capacity: Option<usize>,
     }
@@ -444,6 +445,7 @@ pub mod internal {
                 polling_backoff_policy: None,
                 disable_automatic_decompression: false,
                 disable_follow_redirects: false,
+                disable_actionable_error_logging: false,
                 grpc_subchannel_count: None,
                 grpc_request_buffer_capacity: None,
             }
@@ -473,6 +475,19 @@ pub mod internal {
         v: bool,
     ) -> super::ClientBuilder<F, Cr> {
         builder.config.disable_follow_redirects = !v;
+        builder
+    }
+
+    /// Configure actionable error logging.
+    ///
+    /// By default, the client libraries emit actionable error logs for top-level
+    /// failures. Internal users can disable this behavior if they are wrapping
+    /// this client and want to emit their own actionable errors.
+    pub fn with_actionable_error_logging<F, Cr>(
+        mut builder: super::ClientBuilder<F, Cr>,
+        v: bool,
+    ) -> super::ClientBuilder<F, Cr> {
+        builder.config.disable_actionable_error_logging = !v;
         builder
     }
 }
@@ -578,6 +593,25 @@ pub mod examples {
                 .unwrap();
             let config = client.0;
             assert_eq!(config.endpoint.as_deref(), Some("http://example.com"));
+        }
+
+        #[tokio::test]
+        async fn actionable_error_logging() {
+            let client = Client::builder();
+            let client = super::super::internal::with_actionable_error_logging(client, false)
+                .build()
+                .await
+                .unwrap();
+            let config = client.0;
+            assert!(config.disable_actionable_error_logging);
+
+            let client = Client::builder();
+            let client = super::super::internal::with_actionable_error_logging(client, true)
+                .build()
+                .await
+                .unwrap();
+            let config = client.0;
+            assert!(!config.disable_actionable_error_logging);
         }
 
         #[tokio::test]

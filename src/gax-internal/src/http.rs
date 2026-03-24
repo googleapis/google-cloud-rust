@@ -697,6 +697,7 @@ mod tests {
         client_version: "1.2.3",
         client_artifact: "test-artifact",
         default_host: "test.googleapis.com",
+        disable_actionable_error_logging: false,
     };
 
     #[tokio::test]

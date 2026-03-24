@@ -31,6 +31,8 @@ pub struct InstrumentationClientInfo {
     pub client_artifact: &'static str,
     /// The default hostname of the service.
     pub default_host: &'static str,
+    /// Whether to disable emission of actionable error logs.
+    pub disable_actionable_error_logging: bool,
 }
 
 // Returns true if the environment or client configuration enables tracing.
