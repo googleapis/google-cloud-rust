@@ -54,4 +54,20 @@ mod spanner {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn run_read_tests() -> anyhow::Result<()> {
+        let db_client = match integration_tests_spanner::client::create_database_client().await {
+            Some(c) => c,
+            None => return Ok(()),
+        };
+
+        integration_tests_spanner::read::read_single_key(&db_client).await?;
+        integration_tests_spanner::read::read_all_keys(&db_client).await?;
+        integration_tests_spanner::read::read_key_range(&db_client).await?;
+        integration_tests_spanner::read::read_with_limit(&db_client).await?;
+        integration_tests_spanner::read::read_with_index(&db_client).await?;
+
+        Ok(())
+    }
 }
