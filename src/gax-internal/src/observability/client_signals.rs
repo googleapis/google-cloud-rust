@@ -17,12 +17,14 @@ mod duration_metric;
 mod recorder;
 mod request_start;
 mod with_client_signals;
+mod with_logging;
 
 pub use client_signals_ext::ClientSignalsExt;
 pub use duration_metric::DurationMetric;
 pub use recorder::RequestRecorder;
 pub use request_start::RequestStart;
 pub use with_client_signals::WithClientSignals;
+pub use with_logging::WithLogging;
 
 /// Creates a [Span] and [RequestStart] for a client request.
 ///

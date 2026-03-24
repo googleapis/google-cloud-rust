@@ -1,0 +1,283 @@
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+//! Implements [WithLogging] a decorator for [Future] adding error logs.
+//!
+//! This is a private module, it is not exposed in the public API.
+
+use super::RequestRecorder;
+use crate::observability::attributes::keys::{RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME};
+use crate::observability::errors::ErrorType;
+use google_cloud_gax::error::Error;
+use opentelemetry_semantic_conventions::attribute::{
+    HTTP_RESPONSE_STATUS_CODE, RPC_METHOD, URL_DOMAIN, URL_TEMPLATE,
+};
+use opentelemetry_semantic_conventions::trace::ERROR_TYPE;
+use pin_project::pin_project;
+use std::future::Future;
+use std::pin::Pin;
+use std::task::{Context, Poll};
+
+// A tentative name for the error logs.
+pub const NAME: &str = "experimental.client.request.error";
+// A tentative target for the error logs.
+pub const TARGET: &str = "experimental.client.request";
+
+/// A future instrumented to generate the client request logs.
+///
+/// Decorates the `F` future, which represents a pending client request,
+/// to emit the error logs. Typically this is used in the tracing layer:
+///
+/// ```ignore
+/// # struct Client;
+/// # impl Client {
+/// #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+/// async fn echo(
+///     &self,
+///     req: crate::model::EchoRequest,
+///     options: crate::RequestOptions,
+/// ) -> Result<crate::Response<crate::model::EchoResponse>> {
+///     use google_cloud_gax_internal::observability::client_signals::WithLogging;
+///     let pending = self.inner.echo(req, options);
+///     WithLogging::new(pending).await
+/// }
+/// # }
+/// ```
+///
+#[must_use = "futures do nothing unless you `.await` or poll them"]
+#[pin_project]
+pub struct WithLogging<F> {
+    #[pin]
+    inner: F,
+}
+
+impl<F, R> WithLogging<F>
+where
+    F: Future<Output = Result<R, Error>>,
+{
+    pub fn new(inner: F) -> Self {
+        Self { inner }
+    }
+}
+
+impl<F, R> Future for WithLogging<F>
+where
+    F: Future<Output = Result<R, Error>>,
+{
+    type Output = <F as Future>::Output;
+    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        let this = self.project();
+        let output = futures::ready!(this.inner.poll(cx));
+        let Some(snapshot) = RequestRecorder::current().map(|r| r.client_snapshot()) else {
+            return Poll::Ready(output);
+        };
+        match &output {
+            Ok(_) => (),
+            Err(error) => {
+                let rpc_status_code = error.status().map(|s| s.code.name());
+                let error_type = ErrorType::from_gax_error(error);
+                // TODO(#4795) - use the correct name and target
+                tracing::event!(
+                    name: NAME,
+                    target: TARGET,
+                    tracing::Level::ERROR,
+                    { RPC_SYSTEM_NAME } = snapshot.rpc_system(),
+                    { URL_DOMAIN } = snapshot.default_host(),
+                    { URL_TEMPLATE } = snapshot.url_template(),
+                    { RPC_METHOD } = snapshot.rpc_method(),
+                    { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
+                    { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code(),
+                    { ERROR_TYPE } = error_type.as_str(),
+                    "{error:?}"
+                );
+            }
+        }
+        Poll::Ready(output)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::super::tests::TEST_INFO;
+    use super::*;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+    use google_cloud_test_utils::tracing::Buffer;
+    use httptest::Server;
+    use serde_json::Value;
+    use serde_json::json;
+    use tracing::Level;
+    use tracing::subscriber::DefaultGuard;
+    use tracing_subscriber::fmt::format::FmtSpan;
+
+    fn capture_traces() -> (DefaultGuard, Buffer) {
+        let buffer = Buffer::default();
+        let make_writer = {
+            let shared = buffer.clone();
+            move || shared.clone()
+        };
+        let subscriber = tracing_subscriber::fmt()
+            .with_span_events(FmtSpan::NONE)
+            .with_level(true)
+            .with_writer(make_writer)
+            .json()
+            .with_max_level(Level::ERROR)
+            .finish();
+        let guard = tracing::subscriber::set_default(subscriber);
+        (guard, buffer)
+    }
+
+    #[tokio::test]
+    async fn ok() -> anyhow::Result<()> {
+        let (_guard, buffer) = capture_traces();
+
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let scoped = recorder.clone();
+        let logging = WithLogging::new(async {
+            let _current =
+                RequestRecorder::current().expect("current recorder should be available");
+            Ok(123)
+        });
+        let got = scoped.scope(logging).await;
+        assert!(matches!(got, Ok(123)), "{got:?}");
+        let contents = String::from_utf8(buffer.captured())?;
+        assert!(contents.is_empty(), "{contents}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn error_with_partial_recorder() -> anyhow::Result<()> {
+        let (_guard, buffer) = capture_traces();
+
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let scoped = recorder.clone();
+        let logging = WithLogging::new(async {
+            let current = RequestRecorder::current().expect("current recorder should be available");
+            let err = Error::deser("cannot deserialize");
+            current.on_http_error(&err);
+            Err::<i32, _>(err)
+        });
+        let got = scoped.scope(logging).await;
+        assert!(got.is_err(), "{got:?}");
+        let contents = String::from_utf8(buffer.captured())?;
+        let mut s = contents.split('\n');
+        let parsed = match (s.next(), s.next(), s.next()) {
+            (Some(line), Some(""), None) => serde_json::from_str::<Value>(line)?,
+            _ => panic!("unexpected number of lines: {contents}"),
+        };
+        let mut object = parsed
+            .as_object()
+            .unwrap_or_else(|| panic!("error is serialized as JSON object, got: {parsed:?}"))
+            .clone();
+        // Don't care about the timestamp value.
+        assert!(object.remove("timestamp").is_some(), "{parsed:?}");
+        let want = json!({
+            "level": "ERROR",
+            "target": "experimental.client.request",
+            "fields": {
+                "message": "Error { kind: Deserialization, source: Some(\"cannot deserialize\") }",
+                "url.domain": "example.com",
+                "error.type": "CLIENT_RESPONSE_DECODE_ERROR",
+            },
+            "target": "experimental.client.request",
+        });
+        assert_eq!(Some(&object), want.as_object(), "{parsed:?}");
+
+        Ok(())
+    }
+
+    use httptest::Expectation;
+    use httptest::matchers::request::method_path;
+    use httptest::responders::status_code;
+
+    const TEST_URL_TEMPLATE: &str = "/v42/{name}";
+
+    // Mock a request that fills the `RequestRecorder` data.
+    async fn recorded_request() -> google_cloud_gax::Result<i32> {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(method_path("GET", "/v42/test-only"))
+                .respond_with(status_code(404).body("NOT FOUND")),
+        );
+
+        let recorder = RequestRecorder::current().expect("current recorder should be available");
+
+        let client = reqwest::Client::new();
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let request = client
+            .get(server.url_str("/v42/test-only"))
+            .build()
+            .map_err(Error::io)?;
+
+        recorder.on_http_request(&options, &request);
+        let response = client.execute(request).await.map_err(Error::io)?;
+        recorder.on_http_response(&response);
+        let err = Error::http(
+            response.status().as_u16(),
+            response.headers().clone(),
+            bytes::Bytes::from_owner("SIMULATED NOT FOUND"),
+        );
+        recorder.on_http_error(&err);
+        Err(err)
+    }
+
+    #[tokio::test]
+    async fn error_with_full_recorder() -> anyhow::Result<()> {
+        let (_guard, buffer) = capture_traces();
+
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let scoped = recorder.clone();
+        let got = scoped.scope(WithLogging::new(recorded_request())).await;
+        assert!(matches!(got, Err(ref e) if e.is_transport()), "{got:?}");
+        let contents = String::from_utf8(buffer.captured())?;
+        let mut s = contents.split('\n');
+        let parsed = match (s.next(), s.next(), s.next()) {
+            (Some(line), Some(""), None) => serde_json::from_str::<Value>(line)?,
+            _ => panic!(
+                "unexpected number of lines: {contents}: {:?}",
+                contents.split('\n').collect::<Vec<_>>()
+            ),
+        };
+        let mut object = parsed
+            .as_object()
+            .unwrap_or_else(|| panic!("error is serialized as JSON object, got: {parsed:?}"))
+            .clone();
+        // Extract the fields to check them in detail later.
+        let mut fields = object
+            .remove("fields")
+            .and_then(|v| v.as_object().cloned())
+            .unwrap_or_else(|| panic!("serialized error should have fields"));
+        // Don't care about the timestamp value, just that it exists.
+        assert!(object.remove("timestamp").is_some(), "{parsed:?}");
+        let want = json!({
+            "level": "ERROR",
+            "target": "experimental.client.request",
+            "target": "experimental.client.request",
+        });
+        assert_eq!(Some(&object), want.as_object(), "{parsed:?}");
+
+        // Don't care about the formatted message, this is not a test for Error formatting.
+        assert!(fields.remove("message").is_some(), "{parsed:?}");
+        let want = json!({
+            "rpc.system.name": "http",
+            "url.domain": "example.com",
+            "url.template": TEST_URL_TEMPLATE,
+            "http.response.status_code": 404,
+            "error.type": "404",
+        });
+        assert_eq!(Some(&fields), want.as_object(), "{parsed:?}");
+
+        Ok(())
+    }
+}

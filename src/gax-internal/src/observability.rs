@@ -42,7 +42,9 @@ pub mod grpc_tracing;
 mod client_signals;
 
 #[cfg(google_cloud_unstable_tracing)]
-pub use client_signals::{ClientSignalsExt, DurationMetric, RequestRecorder, RequestStart};
+pub use client_signals::{
+    ClientSignalsExt, DurationMetric, RequestRecorder, RequestStart, WithLogging,
+};
 
 #[cfg(google_cloud_unstable_tracing)]
 mod client_tracing;
