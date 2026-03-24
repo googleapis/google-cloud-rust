@@ -1646,6 +1646,9 @@ libraries:
   - name: google-cloud-vision-v1
     version: 1.7.0
     copyright_year: "2025"
+  - name: google-cloud-visionai-v1
+    copyright_year: "2026"
+    rust: {}
   - name: google-cloud-vmmigration-v1
     version: 1.8.0
     copyright_year: "2025"
