@@ -214,6 +214,7 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
             "mismatch for {key:?} in {value:?}"
         );
     }
+
     assert!(
         fields
             .get("exception.message")
