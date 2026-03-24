@@ -4616,6 +4616,7 @@ dependencies = [
  "anyhow",
  "once_cell",
  "opentelemetry-semantic-conventions",
+ "pretty_assertions",
  "rand 0.10.0",
  "scoped-env",
  "serial_test",
