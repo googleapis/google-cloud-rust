@@ -39,15 +39,21 @@ steps:
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - id: 'Start Spanner Emulator'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['run', '-d', '--network=cloudbuild', '--name=spanner-emulator', 'gcr.io/cloud-spanner-emulator/emulator']
-    waitFor: ['-']
-  - id: Run integration tests
-    name: 'rust:${_RUST_VERSION}-bookworm'
-    env:
-      - 'SPANNER_EMULATOR_HOST=spanner-emulator:9010'
     script: |
       #!/usr/bin/env bash
       set -e
+      CONTAINER=$(docker run -d --network=cloudbuild gcr.io/cloud-spanner-emulator/emulator)
+      CONTAINER_IP=$(docker inspect -f '{{(index .NetworkSettings.Networks "cloudbuild").IPAddress}}' $CONTAINER)
+      echo "$CONTAINER_IP" > /workspace/spanner_emulator_ip.txt
+    waitFor: ['-']
+  - id: Run integration tests
+    name: 'rust:${_RUST_VERSION}-bookworm'
+    script: |
+      #!/usr/bin/env bash
+      set -e
+      CONTAINER_IP=$(cat /workspace/spanner_emulator_ip.txt)
+      export SPANNER_EMULATOR_HOST="$CONTAINER_IP:9010"
+      export SPANNER_EMULATOR_REST_HOST="$CONTAINER_IP:9020"
       cargo test --features run-integration-tests --tests
   - id: Validate default crypto provider behavior
     name: 'rust:${_RUST_VERSION}-bookworm'

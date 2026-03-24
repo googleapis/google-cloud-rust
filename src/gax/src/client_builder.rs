@@ -28,10 +28,10 @@
 //! ```
 //! # use google_cloud_gax::client_builder::examples;
 //! # use google_cloud_gax::client_builder::Result;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! pub use examples::Client; // Placeholder for examples
 //! let client = Client::builder().build().await?;
-//! # Result::<()>::Ok(()) });
+//! # Ok(()) }
 //! ```
 //!
 //! ## Example: create a client with a different endpoint
@@ -39,12 +39,12 @@
 //! ```
 //! # use google_cloud_gax::client_builder::examples;
 //! # use google_cloud_gax::client_builder::Result;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! pub use examples::Client; // Placeholder for examples
 //! let client = Client::builder()
 //!     .with_endpoint("https://private.googleapis.com")
 //!     .build().await?;
-//! # Result::<()>::Ok(()) });
+//! # Ok(()) }
 //! ```
 
 use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
@@ -60,11 +60,11 @@ pub type Result<T> = std::result::Result<T, Error>;
 /// Indicates a problem while constructing a client.
 ///
 /// # Examples
-/// ```no_run
+/// ```
 /// # use google_cloud_gax::client_builder::examples;
 /// use google_cloud_gax::client_builder::Error as Error;
 /// use examples::Client; // Placeholder for examples
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> Result<(), Error> {
 /// let client = match Client::builder().build().await {
 ///     Ok(c) => c,
 ///     Err(e) if e.is_default_credentials() => {
@@ -77,7 +77,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 ///         return Err(e);
 ///     }
 /// };
-/// # Ok::<(), Error>(()) });
+/// # Ok(()) }
 /// ```
 #[derive(thiserror::Error, Debug)]
 #[error(transparent)]
@@ -128,10 +128,10 @@ type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 /// ```
 /// # use google_cloud_gax::client_builder::examples;
 /// # use google_cloud_gax::client_builder::Result;
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// use examples::Client; // Placeholder for examples
 /// let builder = Client::builder();
-/// # Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// To create a client with the default configuration just invoke the
@@ -139,10 +139,10 @@ type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 /// ```
 /// # use google_cloud_gax::client_builder::examples;
 /// # use google_cloud_gax::client_builder::Result;
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// use examples::Client; // Placeholder for examples
 /// let client = Client::builder().build().await?;
-/// # Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// As usual, the builder offers several method to configure the client, and a
@@ -150,12 +150,12 @@ type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 /// ```
 /// # use google_cloud_gax::client_builder::examples;
 /// # use google_cloud_gax::client_builder::Result;
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// use examples::Client; // Placeholder for examples
 /// let client = Client::builder()
 ///     .with_endpoint("http://private.googleapis.com")
 ///     .build().await?;
-/// # Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 #[derive(Clone, Debug)]
 pub struct ClientBuilder<F, Cr> {
@@ -169,11 +169,11 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub async fn build<C>(self) -> Result<C>
     where
@@ -187,12 +187,12 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
     ///     .with_endpoint("http://private.googleapis.com")
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_endpoint<V: Into<String>>(mut self, v: V) -> Self {
         self.config.endpoint = Some(v.into());
@@ -207,12 +207,12 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use examples::Client; // Placeholder for examples
     /// let client = Client::builder()
     ///     .with_tracing()
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [tracing]: https://docs.rs/tracing/latest/tracing/
@@ -231,7 +231,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use examples::Client; // Placeholder for examples
     /// // Placeholder, normally use google_cloud_auth::credentials
     /// use examples::credentials;
@@ -241,7 +241,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///             .scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
     ///             .build())
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
@@ -260,13 +260,13 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
     /// # use google_cloud_gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use examples::Client; // Placeholder for examples
     /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let client = Client::builder()
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.config.retry_policy = Some(v.into().into());
@@ -282,7 +282,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
     /// # use google_cloud_gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
@@ -290,7 +290,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// let client = Client::builder()
     ///     .with_backoff_policy(policy)
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.config.backoff_policy = Some(v.into().into());
@@ -312,13 +312,13 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
     /// # use google_cloud_gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use examples::Client; // Placeholder for examples
     /// use gax::retry_throttler::AdaptiveThrottler;
     /// let client = Client::builder()
     ///     .with_retry_throttler(AdaptiveThrottler::default())
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.config.retry_throttler = v.into().into();
@@ -338,7 +338,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
     /// # use google_cloud_gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use examples::Client; // Placeholder for examples
     /// use gax::polling_error_policy::Aip194Strict;
     /// use gax::polling_error_policy::PollingErrorPolicyExt;
@@ -348,7 +348,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///         .with_time_limit(Duration::from_secs(15 * 60))
     ///         .with_attempt_limit(50))
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_polling_error_policy<V: Into<PollingErrorPolicyArg>>(mut self, v: V) -> Self {
         self.config.polling_error_policy = Some(v.into().0);
@@ -366,7 +366,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax as gax;
     /// # use google_cloud_gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use examples::Client; // Placeholder for examples
     /// use gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
@@ -374,7 +374,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// let client = Client::builder()
     ///     .with_polling_backoff_policy(policy)
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.config.polling_backoff_policy = Some(v.into().0);

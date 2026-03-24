@@ -48,7 +48,7 @@
 //! # use google_cloud_auth::credentials::service_account::Builder;
 //! # use google_cloud_auth::credentials::Credentials;
 //! # use http::Extensions;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let service_account_key = serde_json::json!({
 //!     "client_email": "test-client-email",
 //!     "private_key_id": "test-private-key-id",
@@ -61,8 +61,7 @@
 //!     .build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! [Best practices for using service accounts]: https://cloud.google.com/iam/docs/best-practices-service-accounts#choose-when-to-use
@@ -191,7 +190,7 @@ impl AccessSpecifier {
 /// # Example
 /// ```
 /// # use google_cloud_auth::credentials::service_account::{AccessSpecifier, Builder};
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// let key = serde_json::json!({
 ///     "client_email": "test-client-email",
 ///     "private_key_id": "test-private-key-id",
@@ -201,8 +200,8 @@ impl AccessSpecifier {
 /// });
 /// let credentials = Builder::new(key)
 ///     .with_access_specifier(AccessSpecifier::from_audience("https://pubsub.googleapis.com"))
-///     .build();
-/// })
+///     .build()?;
+/// # Ok(()) }
 /// ```
 pub struct Builder {
     service_account_key: Value,
@@ -308,7 +307,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::service_account::Builder;
     /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
     /// # use serde_json::json;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let service_account_key = json!({
     ///     "client_email": "test-client-email",
     ///     "private_key_id": "test-private-key-id",
@@ -321,8 +320,7 @@ impl Builder {
     ///     .build_access_token_credentials()?;
     /// let access_token = credentials.access_token().await?;
     /// println!("Token: {}", access_token.token);
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
+    /// # Ok(()) }
     /// ```
     ///
     /// # Errors
@@ -373,7 +371,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::service_account::Builder;
     /// # use google_cloud_auth::signer::Signer;
     /// # use serde_json::json;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let service_account_key = json!({
     ///     "client_email": "test-client-email",
     ///     "private_key_id": "test-private-key-id",
@@ -382,8 +380,7 @@ impl Builder {
     /// });
     ///
     /// let signer: Signer = Builder::new(service_account_key).build_signer()?;
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
+    /// # Ok(()) }
     /// ```
     ///
     /// # Errors
@@ -825,7 +822,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     #[parallel]
     async fn header_caching() -> TestResult {
         let private_key = PKCS8_PK.clone();
@@ -851,10 +848,9 @@ mod tests {
         let first_iat = claims["iat"].as_i64().unwrap();
 
         // The issued at claim (`iat`) encodes a unix timestamp, in seconds.
-        // Sleeping for one second ensures that a subsequent claim has a
-        // different `iat`. We need a real sleep, because we cannot fake the
-        // current unix timestamp.
-        std::thread::sleep(Duration::from_secs(1));
+        // Advancing the clock by one second ensures that a subsequent claim has a
+        // different `iat`. Using `tokio::time::advance` changes `Instant::now()` without slowing down the test.
+        tokio::time::advance(Duration::from_secs(1)).await;
 
         // Get the token again.
         let token = get_token_from_headers(credentials.headers(Extensions::new()).await?).unwrap();

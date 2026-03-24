@@ -174,7 +174,7 @@ pub async fn set_up_providers(
                     .with_thread_ids(true)
                     .with_writer(make_writer)
                     .event_format(formatter.clone())
-                    .with_filter(LevelFilter::ERROR),
+                    .with_filter(LevelFilter::WARN),
             )
             .with(crate::tracing::layer(tracer_provider.clone())),
     )?;

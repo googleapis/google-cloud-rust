@@ -30,7 +30,7 @@
 //! # use std::time::Duration;
 //! # use http::Extensions;
 //! #
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let source_credentials = json!({
 //!     "type": "authorized_user",
 //!     "client_id": "test-client-id",
@@ -49,8 +49,7 @@
 //!     .build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! ## Example: Creating credentials with custom retry behavior
@@ -60,7 +59,7 @@
 //! # use serde_json::json;
 //! # use std::time::Duration;
 //! # use http::Extensions;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
 //! use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 //! # let source_credentials = json!({
@@ -82,8 +81,7 @@
 //!     .build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
 //! println!("Headers: {headers:?}");
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! [Impersonated service account]: https://cloud.google.com/docs/authentication/use-service-account-impersonation
@@ -135,7 +133,7 @@ pub(crate) enum BuilderSource {
 /// # Example
 /// ```
 /// # use google_cloud_auth::credentials::impersonated::Builder;
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// let impersonated_credential = serde_json::json!({
 ///     "type": "impersonated_service_account",
 ///     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
@@ -147,7 +145,7 @@ pub(crate) enum BuilderSource {
 ///     }
 /// });
 /// let credentials = Builder::new(impersonated_credential).build();
-/// # });
+/// # Ok(()) }
 /// ```
 pub struct Builder {
     source: BuilderSource,
@@ -191,14 +189,13 @@ impl Builder {
     /// # use google_cloud_auth::credentials::user_account;
     /// # use serde_json::json;
     /// #
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let source_credentials = user_account::Builder::new(json!({ /* add details here */ })).build()?;
     ///
     /// let creds = impersonated::Builder::from_source_credentials(source_credentials)
     ///     .with_target_principal("test-principal")
     ///     .build()?;
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
+    /// # Ok(()) }
     /// ```
     pub fn from_source_credentials(source_credentials: Credentials) -> Self {
         Self {
@@ -222,13 +219,13 @@ impl Builder {
     /// # use google_cloud_auth::credentials::impersonated;
     /// # use serde_json::json;
     /// #
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let impersonated_credential = json!({ /* add details here */ });
     ///
     /// let creds = impersonated::Builder::new(impersonated_credential.into())
     ///     .with_target_principal("test-principal")
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_target_principal<S: Into<String>>(mut self, target_principal: S) -> Self {
         self.service_account_impersonation_url = Some(format!(
@@ -245,13 +242,13 @@ impl Builder {
     /// # use google_cloud_auth::credentials::impersonated;
     /// # use serde_json::json;
     /// #
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let impersonated_credential = json!({ /* add details here */ });
     ///
     /// let creds = impersonated::Builder::new(impersonated_credential.into())
     ///     .with_delegates(["delegate1", "delegate2"])
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_delegates<I, S>(mut self, delegates: I) -> Self
     where
@@ -274,13 +271,13 @@ impl Builder {
     /// # use google_cloud_auth::credentials::impersonated;
     /// # use serde_json::json;
     /// #
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let impersonated_credential = json!({ /* add details here */ });
     ///
     /// let creds = impersonated::Builder::new(impersonated_credential.into())
     ///     .with_scopes(["https://www.googleapis.com/auth/pubsub"])
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
@@ -308,13 +305,13 @@ impl Builder {
     /// # use google_cloud_auth::credentials::impersonated;
     /// # use serde_json::json;
     /// #
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let impersonated_credential = json!({ /* add details here */ });
     ///
     /// let creds = impersonated::Builder::new(impersonated_credential.into())
     ///     .with_quota_project_id("my-project")
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
@@ -330,13 +327,13 @@ impl Builder {
     /// # use serde_json::json;
     /// # use std::time::Duration;
     /// #
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let impersonated_credential = json!({ /* add details here */ });
     ///
     /// let creds = impersonated::Builder::new(impersonated_credential.into())
     ///     .with_lifetime(Duration::from_secs(500))
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_lifetime(mut self, lifetime: Duration) -> Self {
         self.lifetime = Some(lifetime);
@@ -351,13 +348,13 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::impersonated::Builder;
     /// # use serde_json::json;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let impersonated_credential = json!({ /* add details here */ });
     /// let credentials = Builder::new(impersonated_credential.into())
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_retry_policy(v.into());
@@ -372,14 +369,14 @@ impl Builder {
     /// # use google_cloud_auth::credentials::impersonated::Builder;
     /// # use serde_json::json;
     /// # use std::time::Duration;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// let policy = ExponentialBackoff::default();
     /// let impersonated_credential = json!({ /* add details here */ });
     /// let credentials = Builder::new(impersonated_credential.into())
     ///     .with_backoff_policy(policy)
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
@@ -400,13 +397,13 @@ impl Builder {
     /// ```
     /// # use google_cloud_auth::credentials::impersonated::Builder;
     /// # use serde_json::json;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let impersonated_credential = json!({ /* add details here */ });
     /// let credentials = Builder::new(impersonated_credential.into())
     ///     .with_retry_throttler(AdaptiveThrottler::default())
-    ///     .build();
-    /// # });
+    ///     .build()?;
+    /// # Ok(()) }
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
@@ -453,7 +450,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::impersonated::Builder;
     /// # use google_cloud_auth::credentials::{AccessTokenCredentials, AccessTokenCredentialsProvider};
     /// # use serde_json::json;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let impersonated_credential = json!({
     ///     "type": "impersonated_service_account",
     ///     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
@@ -468,8 +465,7 @@ impl Builder {
     ///     .build_access_token_credentials()?;
     /// let access_token = credentials.access_token().await?;
     /// println!("Token: {}", access_token.token);
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
+    /// # Ok(()) }
     /// ```
     ///
     /// # Errors
@@ -532,7 +528,7 @@ impl Builder {
     /// # use google_cloud_auth::credentials::impersonated::Builder;
     /// # use google_cloud_auth::signer::Signer;
     /// # use serde_json::json;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// let impersonated_credential = json!({
     ///     "type": "impersonated_service_account",
     ///     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
@@ -545,8 +541,7 @@ impl Builder {
     /// });
     ///
     /// let signer: Signer = Builder::new(impersonated_credential).build_signer()?;
-    /// # Ok::<(), anyhow::Error>(())
-    /// # });
+    /// # Ok(()) }
     /// ```
     ///
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob

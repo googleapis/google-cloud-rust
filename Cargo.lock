@@ -1072,7 +1072,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "tokio-test",
 ]
 
 [[package]]
@@ -1084,7 +1083,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "tokio-test",
 ]
 
 [[package]]
@@ -1096,7 +1094,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "tokio-test",
 ]
 
 [[package]]
@@ -1108,7 +1105,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "tokio-test",
 ]
 
 [[package]]
@@ -1558,7 +1554,6 @@ dependencies = [
  "thiserror 2.0.18",
  "time",
  "tokio",
- "tokio-test",
  "url",
 ]
 
@@ -2666,7 +2661,6 @@ dependencies = [
  "serde_json",
  "serde_with",
  "tokio",
- "tokio-test",
  "tracing",
 ]
 
@@ -2729,7 +2723,6 @@ dependencies = [
  "test-case",
  "thiserror 2.0.18",
  "tokio",
- "tokio-test",
 ]
 
 [[package]]
@@ -3269,7 +3262,6 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio",
- "tokio-test",
 ]
 
 [[package]]
@@ -3729,7 +3721,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "tokio-test",
 ]
 
 [[package]]
@@ -3921,7 +3912,6 @@ dependencies = [
  "thiserror 2.0.18",
  "tokio",
  "tokio-stream",
- "tokio-test",
  "tokio-util",
  "tracing",
  "uuid",
@@ -4351,7 +4341,6 @@ dependencies = [
  "tokio-stream",
  "tracing",
  "url",
- "uuid",
 ]
 
 [[package]]
@@ -4478,7 +4467,6 @@ dependencies = [
  "thiserror 2.0.18",
  "tokio",
  "tokio-stream",
- "tokio-test",
  "tracing",
  "url",
  "uuid",
@@ -5781,6 +5769,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-lro",
  "google-cloud-spanner",
+ "google-cloud-test-utils",
  "prost-types",
  "reqwest 0.13.2",
  "serde_json",
@@ -8090,17 +8079,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tokio-test"
-version = "0.4.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3f6d24790a10a7af737693a3e8f1d03faef7e6ca0cc99aae5066f533766de545"
-dependencies = [
- "futures-core",
- "tokio",
- "tokio-stream",
-]
-
-[[package]]
 name = "tokio-util"
 version = "0.7.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8348,12 +8326,15 @@ dependencies = [
  "nu-ansi-term",
  "once_cell",
  "regex-automata",
+ "serde",
+ "serde_json",
  "sharded-slab",
  "smallvec",
  "thread_local",
  "tracing",
  "tracing-core",
  "tracing-log",
+ "tracing-serde",
 ]
 
 [[package]]

@@ -31,7 +31,7 @@
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use serde_json::json;
 //! # use reqwest;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let authorized_user = json!({
 //!     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
 //!     "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
@@ -48,8 +48,7 @@
 //!     .bearer_auth(id_token)
 //!     .send()
 //!     .await?;
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
@@ -108,7 +107,7 @@ where
 /// ```
 /// # use google_cloud_auth::credentials::idtoken;
 /// # use serde_json::json;
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> anyhow::Result<()> {
 /// let authorized_user = json!({
 ///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
 ///     "client_secret": "YOUR_CLIENT_SECRET",
@@ -116,7 +115,7 @@ where
 ///     "type": "authorized_user",
 /// });
 /// let credentials = idtoken::user_account::Builder::new(authorized_user).build();
-/// })
+/// # Ok(()) }
 /// ```
 pub struct Builder {
     authorized_user: Value,
