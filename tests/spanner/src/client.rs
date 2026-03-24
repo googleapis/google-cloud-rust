@@ -100,7 +100,7 @@ async fn do_provision_emulator(endpoint: &str) {
         "createStatement": format!("CREATE DATABASE `{}`", get_database_id().await),
         "extraStatements": [
             "CREATE TABLE AllTypes ( \
-                Id INT64 NOT NULL, \
+                Id STRING(MAX) NOT NULL, \
                 ColBool BOOL, \
                 ColInt64 INT64, \
                 ColFloat32 FLOAT32, \

@@ -42,4 +42,16 @@ mod spanner {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn run_partitioned_dml_tests() -> anyhow::Result<()> {
+        let db_client = match integration_tests_spanner::client::create_database_client().await {
+            Some(c) => c,
+            None => return Ok(()),
+        };
+
+        integration_tests_spanner::partitioned_dml::partitioned_dml_update(&db_client).await?;
+
+        Ok(())
+    }
 }
