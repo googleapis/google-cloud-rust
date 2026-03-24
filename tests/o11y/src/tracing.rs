@@ -117,7 +117,7 @@ mod tests {
             .with_simple_exporter(exporter)
             .build();
 
-        let layer = layer(provider.clone());
+        let layer = trace_layer(provider.clone());
         let subscriber = Registry::default().with(layer);
 
         tracing::subscriber::with_default(subscriber, || {
