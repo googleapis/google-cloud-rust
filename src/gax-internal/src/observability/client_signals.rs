@@ -16,12 +16,14 @@ mod client_signals_ext;
 mod duration_metric;
 mod recorder;
 mod request_start;
+mod with_client_logging;
 mod with_client_signals;
 
 pub use client_signals_ext::ClientSignalsExt;
 pub use duration_metric::DurationMetric;
 pub use recorder::{ClientRequestAttributes, RequestRecorder};
 pub use request_start::RequestStart;
+pub use with_client_logging::WithClientLogging;
 pub use with_client_signals::WithClientSignals;
 
 /// An extension to disable terminal actionable error logging.
@@ -213,7 +215,7 @@ mod tests {
         default_host: "example.com",
     };
     pub(crate) static URL_TEMPLATE: &str = "/v1/projects/{}:test_method";
-    pub(crate) static METHOD: &str = "test-method";
+    pub(crate) static METHOD: &str = "google.test.v1.Service/TestMethod";
     pub(crate) const DELAY: Duration = Duration::from_millis(750);
     const COMMON_ATTRIBUTES: [(&str, &str); 3] = [
         ("rpc.system.name", "http"),

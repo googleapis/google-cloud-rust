@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::observability::attributes::RPC_SYSTEM_HTTP;
+use crate::observability::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, RPC_SYSTEM_HTTP};
 use crate::options::InstrumentationClientInfo;
 #[cfg(feature = "_internal-http-client")]
 use google_cloud_gax::error::Error;
@@ -259,6 +259,34 @@ impl ClientSnapshot {
         self.info.default_host
     }
 
+    /// Returns the service name (e.g. `storage`).
+    ///
+    /// Use with the "url.domain" attribute.
+    pub fn service_name(&self) -> &'static str {
+        self.info.service_name
+    }
+
+    /// Returns the service name (e.g. `1.2.3`).
+    ///
+    /// Use with the "gcp.client.version" attribute.
+    pub fn client_version(&self) -> &'static str {
+        self.info.client_version
+    }
+
+    /// Returns the GitHub repository.
+    ///
+    /// Use with the "gcp.client.repo" attribute.
+    pub fn client_repo(&self) -> &'static str {
+        GCP_CLIENT_REPO_GOOGLEAPIS
+    }
+
+    /// Returns the Rust crate.
+    ///
+    /// Use with the "gcp.client.artifact" attribute.
+    pub fn client_artifact(&self) -> &'static str {
+        self.info.client_artifact
+    }
+
     /// Returns the RPC system (HTTP or gRPC) used in the last low-level request.
     ///
     /// Use with the "rpc.system.name" attribute.
@@ -311,6 +339,29 @@ impl ClientSnapshot {
         self.transport_snapshot
             .as_ref()
             .and_then(|s| s.http_status_code)
+    }
+
+    /// Returns the HTTP method (e.g. POST) used in the last request.
+    ///
+    /// Note that this may not be populated for gRPC requests.
+    ///
+    /// Use with the "http.request.method" attribute.
+    pub fn http_method(&self) -> Option<&str> {
+        self.transport_snapshot
+            .as_ref()
+            .and_then(|s| s.http_method.as_ref().map(|m| m.as_str()))
+    }
+
+    /// Returns the HTTP method (e.g. POST) used in the last request.
+    ///
+    /// Note that this may not be populated for gRPC requests.
+    ///
+    /// Use with the "http.request.method" attribute.
+    pub fn http_resend_count(&self) -> Option<u32> {
+        if self.attempt_count <= 1 {
+            return None;
+        }
+        Some(self.attempt_count - 1)
     }
 
     /// Returns the full URL used in the last request.

@@ -210,7 +210,7 @@ mod tests {
             .build();
         let metric = DurationMetric::new_with_provider(&TEST_INFO, Arc::new(provider.clone()));
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, "test-method");
+        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
         let error = Error::service(
@@ -241,7 +241,7 @@ mod tests {
             .build();
         let metric = DurationMetric::new_with_provider(&TEST_INFO, Arc::new(provider.clone()));
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, "test-method");
+        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
         let error = Error::http(429, http::HeaderMap::new(), bytes::Bytes::new());
