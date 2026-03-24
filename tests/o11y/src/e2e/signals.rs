@@ -205,6 +205,7 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
         "rpc.system.name": "http",
         "url.domain": "localhost:7469", // the showcase domain...
         "url.template": "", // TODO(#...)
+        "exception.type": "404",
     });
     for (key, expected) in want.as_object().unwrap() {
         assert_eq!(
@@ -213,10 +214,7 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
             "mismatch for {key:?} in {value:?}"
         );
     }
-    assert_eq!(
-        fields.get("exception.type").unwrap().as_str().unwrap(),
-        "404"
-    );
+
     assert!(
         fields
             .get("exception.message")
