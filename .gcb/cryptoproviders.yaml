@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ options:
     - GOOGLE_CLOUD_RUST_TEST_STORAGE_KMS_RING=us-central1
     - SCCACHE_GCS_BUCKET=${PROJECT_ID}-build-cache
     - SCCACHE_GCS_RW_MODE=READ_WRITE
-    - SCCACHE_GCS_KEY_PREFIX=sccache/integration
+    - SCCACHE_GCS_KEY_PREFIX=sccache/crypto
     - RUSTC_WRAPPER=/workspace/.bin/sccache
     - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
     - RUSTDOCFLAGS=${_UNSTABLE_CFG_FLAGS}
@@ -37,24 +37,27 @@ steps:
     env:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
-  - id: 'Start Spanner Emulator'
-    name: 'gcr.io/cloud-builders/docker'
-    script: |
-      #!/usr/bin/env bash
-      set -e
-      CONTAINER=$(docker run -d --network=cloudbuild gcr.io/cloud-spanner-emulator/emulator)
-      CONTAINER_IP=$(docker inspect -f '{{(index .NetworkSettings.Networks "cloudbuild").IPAddress}}' $CONTAINER)
-      echo "$CONTAINER_IP" > /workspace/spanner_emulator_ip.txt
-    waitFor: ['-']
-  - id: Run integration tests
+  - id: Validate default crypto provider behavior
     name: 'rust:${_RUST_VERSION}-bookworm'
     script: |
       #!/usr/bin/env bash
       set -e
-      CONTAINER_IP=$(cat /workspace/spanner_emulator_ip.txt)
-      export SPANNER_EMULATOR_HOST="$CONTAINER_IP:9010"
-      export SPANNER_EMULATOR_REST_HOST="$CONTAINER_IP:9020"
-      cargo test --features run-integration-tests --tests
+      rustup component add clippy
+      echo "Verify crypto providers behavior"
+      mapfile -t directories < <(git ls-files -- 'tests/crypto-providers/**Cargo.toml' |
+          xargs -I{} dirname {} |
+          grep -v test-)
+      for dir in "${directories[@]}"; do
+        echo "Running test in ${dir}"
+        # Handle problems updating the `Cargo.lock` files. The first
+        # `cargo check` attempt may flake due to network problems. It needs to
+        # download data from crates.io and then create the `Cargo.lock` file and
+        # (maybe) download some crates. The second attempt should fix most
+        # flakes.
+        env -C ${dir} cargo check || env -C ${dir} cargo check
+        cargo clippy --all-targets --profile=test -- --deny warnings
+        env -C ${dir} cargo run
+      done
 
 substitutions:
   _RUST_VERSION: '1.94'

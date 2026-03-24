@@ -125,16 +125,17 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
             .map(|s| s.message.clone())
             .unwrap_or_else(|| format!("{err:?}"));
 
-        tracing::event!(
-            parent: span,
-            tracing::Level::DEBUG,
-            { ERROR_TYPE } = error_str,
-            { GCP_ERRORS_DOMAIN } = domain,
-            { GCP_ERRORS_METADATA } = metadata_json,
-            { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-            { HTTP_RESPONSE_STATUS_CODE } = http_status_code,
-            "{log_msg}"
-        );
+        span.in_scope(|| {
+            tracing::event!(
+                tracing::Level::DEBUG,
+                { ERROR_TYPE } = error_str,
+                { GCP_ERRORS_DOMAIN } = domain,
+                { GCP_ERRORS_METADATA } = metadata_json,
+                { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
+                { HTTP_RESPONSE_STATUS_CODE } = http_status_code,
+                "{log_msg}"
+            );
+        });
     }
 }
 

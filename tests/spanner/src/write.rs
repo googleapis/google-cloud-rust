@@ -72,8 +72,16 @@ async fn write_internal(
     method: WriteMethod,
     offset: i64,
 ) -> anyhow::Result<()> {
-    let id1 = 100_i64 + offset;
-    let id2 = 200_i64 + offset;
+    let id1 = format!(
+        "write1-{}-{}",
+        offset,
+        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
+    );
+    let id2 = format!(
+        "write2-{}-{}",
+        offset,
+        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
+    );
 
     // Write 1 row with values, 1 row with explicit nulls.
     let m1 = Mutation::new_insert_or_update_builder("AllTypes")
@@ -214,7 +222,7 @@ async fn write_internal(
     // Read it back to verify
     let read_tx = db_client.single_use().build();
     let stmt = Statement::builder(format!(
-        "SELECT * FROM AllTypes WHERE Id IN ({}, {}) ORDER BY Id",
+        "SELECT * FROM AllTypes WHERE Id IN ('{}', '{}') ORDER BY Id",
         id1, id2
     ))
     .build();
@@ -229,7 +237,7 @@ async fn write_internal(
     // Verify row 1 (100)
     let row1 = &rows[0];
 
-    let id: i64 = row1.get("Id");
+    let id: String = row1.get("Id");
     assert_eq!(id, id1);
 
     let col_bool: bool = row1.get("ColBool");
@@ -510,7 +518,7 @@ async fn write_internal(
 
     // Verify row 2 (200) - explicitly NULL fields
     let row2 = &rows[1];
-    let row2_id: i64 = row2.get("Id");
+    let row2_id: String = row2.get("Id");
     assert_eq!(row2_id, id2);
 
     let metadata = rs
