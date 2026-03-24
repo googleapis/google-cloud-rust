@@ -14,6 +14,7 @@
 
 use super::Anonymous;
 use crate::mock_collector::MockCollector;
+use crate::otlp::logs::Builder as LoggerProviderBuilder;
 use crate::otlp::trace::Builder as TracerProviderBuilder;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
@@ -52,7 +53,7 @@ pub async fn to_otlp() -> anyhow::Result<()> {
 
     // 3. Install Tracing Subscriber
     let _guard = tracing_subscriber::Registry::default()
-        .with(crate::tracing::layer(provider.clone()))
+        .with(crate::tracing::trace_layer(provider.clone()))
         .set_default();
 
     // 4. Start Mock HTTP Server (Showcase Echo)
@@ -138,14 +139,21 @@ pub async fn to_otlp_debug_event() -> anyhow::Result<()> {
     let mock_collector = MockCollector::default();
     let otlp_endpoint = mock_collector.start().await;
 
-    let provider = TracerProviderBuilder::new("test-project", "integration-tests")
-        .with_endpoint(otlp_endpoint)
+    let tracer_provider = TracerProviderBuilder::new("test-project", "integration-tests")
+        .with_endpoint(otlp_endpoint.clone())
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let logger_provider = LoggerProviderBuilder::new("test-project", "integration-tests")
+        .with_endpoint(otlp_endpoint.parse().expect("Failed to parse URI"))
         .with_credentials(Anonymous::new().build())
         .build()
         .await?;
 
     let _guard = tracing_subscriber::Registry::default()
-        .with(crate::tracing::layer(provider.clone()))
+        .with(crate::tracing::trace_layer(tracer_provider.clone()))
+        .with(crate::tracing::log_layer(logger_provider.clone()))
         .set_default();
 
     let echo_server = Server::run();
@@ -193,7 +201,7 @@ pub async fn to_otlp_debug_event() -> anyhow::Result<()> {
         "Expected the request to fail with an HTTP 400 error"
     );
 
-    provider
+    tracer_provider
         .force_flush()
         .expect("Failed to flush tracing provider");
 
@@ -220,11 +228,26 @@ pub async fn to_otlp_debug_event() -> anyhow::Result<()> {
         .find(|s| s.kind == 3 /* CLIENT */)
         .expect("Should have found a SPAN_KIND_CLIENT span");
 
-    let error_event = attempt_span
-        .events
+    logger_provider
+        .force_flush()
+        .expect("Failed to flush logger provider");
+
+    let logs_requests = mock_collector.logs.lock().unwrap();
+    let log_event = logs_requests
         .iter()
-        .find(|e| e.attributes.iter().any(|kv| kv.key == "error.type"))
-        .expect("Should have logged an ErrorInfo event natively mapped conditionally");
+        .flat_map(|r| r.get_ref().resource_logs.clone())
+        .flat_map(|rl| rl.scope_logs)
+        .flat_map(|sl| sl.log_records)
+        .find(|l| l.attributes.iter().any(|kv| kv.key == "error.type"))
+        .expect("Should have logged an ErrorInfo log natively mapped conditionally");
+
+    // Ensure the log was correctly correlated back to the original client request trace buffer (attempt span)
+    assert_eq!(
+        log_event.trace_id, attempt_span.trace_id,
+        "Log traceId correlation failed"
+    );
+    // Span ID might be a deep nested span, but the traceId must correlate perfectly!
+    // We omit asserting exact span_id equal to attempt_span because the macro could be inside an inner retry span.
 
     let expected_event_attributes: std::collections::BTreeMap<String, String> = [
         ("error.type", "API_KEY_INVALID"),
@@ -240,7 +263,7 @@ pub async fn to_otlp_debug_event() -> anyhow::Result<()> {
     .map(|(k, v)| (k.to_string(), v.to_string()))
     .collect();
 
-    let got = std::collections::BTreeMap::from_iter(error_event.attributes.iter().map(|kv| {
+    let got = std::collections::BTreeMap::from_iter(log_event.attributes.iter().map(|kv| {
         let val_str = match kv.value.as_ref().and_then(|v| v.value.as_ref()) {
             Some(opentelemetry_proto::tonic::common::v1::any_value::Value::StringValue(s)) => {
                 s.clone()
@@ -261,8 +284,8 @@ pub async fn to_otlp_debug_event() -> anyhow::Result<()> {
         );
     }
 
-    // Verify debug level was propagated!
-    assert_eq!(got.get("level"), Some(&"DEBUG".to_string()));
+    // Verify DEBUG level was correctly mapped to the OTLP log object.
+    assert_eq!(log_event.severity_text, "DEBUG", "severity_text mismatch");
 
     Ok(())
 }
