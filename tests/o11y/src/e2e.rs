@@ -176,7 +176,7 @@ pub async fn set_up_providers(
                     .event_format(formatter.clone())
                     .with_filter(LevelFilter::WARN),
             )
-            .with(crate::tracing::layer(tracer_provider.clone())),
+            .with(crate::tracing::trace_layer(tracer_provider.clone())),
     )?;
     opentelemetry::global::set_tracer_provider(tracer_provider.clone());
     opentelemetry::global::set_meter_provider(meter_provider.clone());
