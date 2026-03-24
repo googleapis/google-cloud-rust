@@ -139,9 +139,9 @@ impl ReadWriteTransaction {
         }
     }
 
-    fn transaction_id(&self) -> crate::Result<Vec<u8>> {
+    fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
         match &self.context.transaction_selector.selector {
-            Some(Selector::Id(id)) => Ok(id.to_vec()),
+            Some(Selector::Id(id)) => Ok(id.clone()),
             _ => Err(crate::error::internal_error("Transaction ID is missing")),
         }
     }

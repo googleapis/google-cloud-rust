@@ -14,27 +14,8 @@
 
 use std::sync::{Arc, RwLock};
 
-pub(crate) trait AsPrecommitToken {
-    fn into_model(self) -> crate::model::MultiplexedSessionPrecommitToken;
-}
-
-impl AsPrecommitToken for crate::model::MultiplexedSessionPrecommitToken {
-    fn into_model(self) -> crate::model::MultiplexedSessionPrecommitToken {
-        self
-    }
-}
-
-impl AsPrecommitToken for crate::google::spanner::v1::MultiplexedSessionPrecommitToken {
-    fn into_model(self) -> crate::model::MultiplexedSessionPrecommitToken {
-        crate::model::MultiplexedSessionPrecommitToken::new()
-            .set_precommit_token(self.precommit_token)
-            .set_seq_num(self.seq_num)
-    }
-}
-
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub(crate) enum PrecommitTokenTracker {
-    #[default]
     NoOp,
     Track(Arc<RwLock<Option<crate::model::MultiplexedSessionPrecommitToken>>>),
 }
@@ -51,11 +32,11 @@ impl PrecommitTokenTracker {
     }
 
     /// Updates the tracker with an optional precommit token from a response.
-    pub(crate) fn update<T: AsPrecommitToken>(&self, token: Option<T>) {
+    pub(crate) fn update(&self, token: Option<crate::model::MultiplexedSessionPrecommitToken>) {
         let Some(token) = token else { return };
         let Self::Track(tracker) = self else { return };
 
-        let new_token = token.into_model();
+        let new_token = token;
         let mut guard = tracker.write().unwrap();
 
         if guard.as_ref().is_none_or(|c| c.seq_num < new_token.seq_num) {
@@ -85,16 +66,22 @@ mod tests {
     #[test]
     fn test_noop_tracker() {
         let tracker = PrecommitTokenTracker::new_noop();
-        assert!(tracker.get().is_none());
+        assert!(
+            tracker.get().is_none(),
+            "NoOp tracker should not return a token"
+        );
 
         tracker.update(Some(MultiplexedSessionPrecommitToken::new().set_seq_num(1)));
-        assert!(tracker.get().is_none());
+        assert!(
+            tracker.get().is_none(),
+            "NoOp tracker should ignore updates"
+        );
     }
 
     #[test]
     fn test_tracker_update_highest_seq() {
         let tracker = PrecommitTokenTracker::new();
-        assert!(tracker.get().is_none());
+        assert!(tracker.get().is_none(), "Tracker should initially be empty");
 
         let token1 = MultiplexedSessionPrecommitToken::new()
             .set_precommit_token(bytes::Bytes::from("token1"))
@@ -130,29 +117,5 @@ mod tests {
         let retrieved = tracker.get().expect("expected token 2 to be unmodified");
         assert_eq!(retrieved.precommit_token, "token2");
         assert_eq!(retrieved.seq_num, 2);
-    }
-
-    #[test]
-    fn test_tracker_default_derivation() {
-        // Enforce that default returns the NoOp variant properly
-        let tracker = PrecommitTokenTracker::default();
-        assert!(tracker.get().is_none());
-    }
-
-    #[test]
-    fn test_tracker_v1_token_conversion() {
-        let tracker = PrecommitTokenTracker::new();
-
-        let grpc_token = crate::google::spanner::v1::MultiplexedSessionPrecommitToken {
-            precommit_token: bytes::Bytes::from("grpc_token"),
-            seq_num: 5,
-        };
-
-        // Assert that the AsPrecommitToken trait correctly maps it to `model`
-        tracker.update(Some(grpc_token));
-
-        let retrieved = tracker.get().expect("expected v1 token to map natively");
-        assert_eq!(retrieved.precommit_token, "grpc_token");
-        assert_eq!(retrieved.seq_num, 5);
     }
 }

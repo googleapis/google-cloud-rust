@@ -17,6 +17,7 @@ use crate::precommit::PrecommitTokenTracker;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::row::Row;
 use crate::server_streaming::stream::PartialResultSetStream;
+use gaxi::prost::FromProto;
 use std::collections::VecDeque;
 
 /// `ResultSet` contains the rows of a query result.
@@ -115,7 +116,10 @@ impl ResultSet {
                 Ok(prs) => prs,
                 Err(e) => return Some(Err(e)),
             };
-            self.precommit_token_tracker.update(prs.precommit_token);
+            self.precommit_token_tracker.update(
+                prs.precommit_token
+                    .map(|t| t.cnv().expect("failed to convert precommit token")),
+            );
 
             match (self.metadata.as_ref(), prs.metadata) {
                 (Some(_), None) => {}
@@ -602,18 +606,13 @@ pub(crate) mod tests {
     async fn test_result_set_precommit_token_tracked() {
         let mut rs = run_mock_query(vec![PartialResultSet {
             metadata: metadata(1),
-            values: vec![],
-            chunked_value: false,
-            resume_token: vec![],
-            stats: None,
             precommit_token: Some(
                 spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
                     precommit_token: b"test_token".to_vec(),
                     seq_num: 99,
                 },
             ),
-            last: true,
-            cache_update: None,
+            ..Default::default()
         }])
         .await;
 
@@ -621,7 +620,10 @@ pub(crate) mod tests {
         rs.precommit_token_tracker = PrecommitTokenTracker::new();
 
         // Read a row to trigger precommit token extraction
-        assert!(rs.next().await.is_none());
+        assert!(
+            rs.next().await.is_none(),
+            "Expected no rows, but received one"
+        );
 
         // Validate the tracker correctly intercepted and preserved the token
         let token = rs
