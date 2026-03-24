@@ -22,6 +22,13 @@ pub use duration_metric::DurationMetric;
 pub use request_start::RequestStart;
 pub use with_client_signals::WithClientSignals;
 
+/// An extension to disable terminal actionable error logging.
+///
+/// If this extension is present in the `RequestOptions` supplied to a GAX call,
+/// the terminal application logs will be suppressed.
+#[derive(Clone, Copy, Debug)]
+pub struct SuppressActionableErrorLog;
+
 /// Creates a [Span] and [RequestStart] for a client request.
 ///
 /// # Parameters

@@ -135,7 +135,7 @@ where
                 let err_msg = error.to_string();
 
                 // TODO(#4795) - use the correct name and target
-                if !this.start.info().disable_actionable_error_logging {
+                if !this.start.disable_actionable_error_logging() {
                     tracing::event!(
                         name: NAME,
                         target: TARGET,
@@ -451,15 +451,15 @@ mod tests {
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty
         );
 
-        let mut disabled_info = TEST_INFO;
-        disabled_info.disable_actionable_error_logging = true;
-
         let metric = DurationMetric::new_with_provider(
-            &disabled_info,
+            &TEST_INFO,
             Arc::new(providers.metric_provider.clone()),
         );
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&disabled_info, &options, METHOD);
+        use google_cloud_gax::options::internal::RequestOptionsExt;
+        let options = RequestOptions::default()
+            .insert_extension(PathTemplate(URL_TEMPLATE))
+            .insert_extension(crate::observability::client_signals::SuppressActionableErrorLog);
+        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
 
         let future = ready(Err::<String, Error>(not_found()));
         let future = WithClientSignals::new(future, metric.clone(), start, span.clone());

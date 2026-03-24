@@ -49,6 +49,7 @@ pub struct RequestStart {
     info: InstrumentationClientInfo,
     url_template: &'static str,
     method: &'static str,
+    disable_actionable_error_logging: bool,
 }
 
 impl RequestStart {
@@ -64,11 +65,15 @@ impl RequestStart {
             .get_extension::<PathTemplate>()
             .map(|p| p.0)
             .unwrap_or_default();
+        let disable_actionable_error_logging = options
+            .get_extension::<super::SuppressActionableErrorLog>()
+            .is_some();
         Self {
             start,
             info: *info,
             method,
             url_template,
+            disable_actionable_error_logging,
         }
     }
 
@@ -87,6 +92,10 @@ impl RequestStart {
 
     pub(crate) fn method(&self) -> &'static str {
         self.method
+    }
+
+    pub(crate) fn disable_actionable_error_logging(&self) -> bool {
+        self.disable_actionable_error_logging
     }
 }
 
