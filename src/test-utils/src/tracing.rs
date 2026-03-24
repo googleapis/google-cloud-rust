@@ -74,9 +74,9 @@ mod tests {
     fn buffer() -> anyhow::Result<()> {
         const TEXT: &str = "The quick brown fox jumps over the lazy dog";
         let mut buffer = Buffer::default();
-        write!(buffer, "{}\n", TEXT)?;
-        write!(buffer, "{}\n", TEXT)?;
-        write!(buffer, "{}\n", TEXT)?;
+        writeln!(buffer, "{}", TEXT)?;
+        writeln!(buffer, "{}", TEXT)?;
+        writeln!(buffer, "{}", TEXT)?;
         buffer.flush()?;
         let captured = buffer.captured();
         let contents = String::from_utf8(captured)?;
