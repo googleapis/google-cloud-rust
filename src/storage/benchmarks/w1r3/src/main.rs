@@ -689,8 +689,8 @@ async fn enable_tracing(
                 .build()
                 .await
                 .inspect_err(|e| eprintln!("failed to create tracer provider: {e:?}"))?;
-        // integration_tests_o11y::tracing::layer already has an EnvFilter set on it.
-        let otel_layer = integration_tests_o11y::tracing::layer(tracer_provider.clone());
+        // integration_tests_o11y::tracing::trace_layer already has an EnvFilter set on it.
+        let otel_layer = integration_tests_o11y::tracing::trace_layer(tracer_provider.clone());
         tracing::subscriber::set_global_default(registry.with(otel_layer))
             .expect("setting global subscriber succeeds");
         return Ok(Some(tracer_provider));
