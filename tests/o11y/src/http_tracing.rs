@@ -246,8 +246,11 @@ pub async fn to_otlp_debug_event() -> anyhow::Result<()> {
         log_event.trace_id, attempt_span.trace_id,
         "Log traceId correlation failed"
     );
-    // Span ID might be a deep nested span, but the traceId must correlate perfectly!
-    // We omit asserting exact span_id equal to attempt_span because the macro could be inside an inner retry span.
+    // Span ID might be a deep nested span, but the traceId must correlate perfectly.
+    assert_eq!(
+        log_event.span_id, attempt_span.span_id,
+        "Log spanId correlation failed"
+    );
 
     let expected_event_attributes: std::collections::BTreeMap<String, String> = [
         ("error.type", "API_KEY_INVALID"),
