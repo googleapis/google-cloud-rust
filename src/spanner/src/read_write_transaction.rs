@@ -25,6 +25,7 @@ use crate::model::transaction_options::Mode;
 use crate::model::transaction_options::ReadWrite;
 use crate::model::transaction_options::read_write::ReadLockMode;
 use crate::model::transaction_selector::Selector;
+use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::ReadContext;
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
@@ -71,7 +72,11 @@ impl ReadWriteTransactionBuilder {
 
         let transaction_selector = TransactionSelector::default().set_id(response.id);
         Ok(ReadWriteTransaction {
-            context: ReadContext::new(self.client.clone(), transaction_selector),
+            context: ReadContext::new(
+                self.client.clone(),
+                transaction_selector,
+                PrecommitTokenTracker::new(),
+            ),
             seqno: std::sync::Arc::new(std::sync::atomic::AtomicI64::new(1)),
         })
     }
@@ -119,6 +124,9 @@ impl ReadWriteTransaction {
             .spanner
             .execute_sql(request, crate::RequestOptions::default())
             .await?;
+        self.context
+            .precommit_token_tracker
+            .update(response.precommit_token);
 
         let stats = response
             .stats
@@ -131,9 +139,9 @@ impl ReadWriteTransaction {
         }
     }
 
-    fn transaction_id(&self) -> crate::Result<Vec<u8>> {
+    fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
         match &self.context.transaction_selector.selector {
-            Some(Selector::Id(id)) => Ok(id.to_vec()),
+            Some(Selector::Id(id)) => Ok(id.clone()),
             _ => Err(crate::error::internal_error("Transaction ID is missing")),
         }
     }
@@ -141,9 +149,11 @@ impl ReadWriteTransaction {
     /// Commits the transaction.
     pub(crate) async fn commit(self) -> crate::Result<wkt::Timestamp> {
         let transaction_id = self.transaction_id()?;
+        let precommit_token = self.context.precommit_token_tracker.get();
         let request = CommitRequest::default()
             .set_session(self.context.client.session.name.clone())
-            .set_transaction_id(transaction_id);
+            .set_transaction_id(transaction_id.clone())
+            .set_or_clear_precommit_token(precommit_token);
 
         let response = self
             .context
@@ -151,6 +161,22 @@ impl ReadWriteTransaction {
             .spanner
             .commit(request, crate::RequestOptions::default())
             .await?;
+
+        let response =
+            if let Some(new_precommit_token) = response.precommit_token().map(|b| (*b).clone()) {
+                let retry_commit_req = CommitRequest::default()
+                    .set_session(self.context.client.session.name.clone())
+                    .set_transaction_id(transaction_id)
+                    .set_precommit_token(*new_precommit_token);
+
+                self.context
+                    .client
+                    .spanner
+                    .commit(retry_commit_req, crate::RequestOptions::default())
+                    .await?
+            } else {
+                response
+            };
 
         let timestamp = response
             .commit_timestamp
@@ -187,6 +213,104 @@ mod tests {
     fn auto_traits() {
         static_assertions::assert_impl_all!(ReadWriteTransactionBuilder: Send, Sync);
         static_assertions::assert_impl_all!(ReadWriteTransaction: Send, Sync, std::fmt::Debug);
+    }
+
+    #[tokio::test]
+    async fn read_write_transaction_commit_retry() {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.session,
+                "projects/p/instances/i/databases/d/sessions/123"
+            );
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![0, 0, 7],
+                ..Default::default()
+            }))
+        });
+
+        // execute_update returns a precommit token.
+        mock.expect_execute_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.sql, "UPDATE Users SET Name = 'Bob' WHERE Id = 1");
+            Ok(tonic::Response::new(v1::ResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![101],
+                    seq_num: 1,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Simulate that commit returns a precommit token in the response.
+        // This would normally not happen, but we test it here to verify
+        // that the commit is retried.
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.precommit_token,
+                Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![101],
+                    seq_num: 1,
+                })
+            );
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                multiplexed_session_retry: Some(
+                    v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
+                        v1::MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![202],
+                            seq_num: 2,
+                        },
+                    ),
+                ),
+                ..Default::default()
+            }))
+        });
+
+        // Second commit retry is automatically issued with the new token
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.precommit_token,
+                Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![202],
+                    seq_num: 2,
+                })
+            );
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1001,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .begin_transaction()
+            .await
+            .expect("Failed to build transaction");
+
+        let count = tx
+            .execute_update("UPDATE Users SET Name = 'Bob' WHERE Id = 1")
+            .await
+            .unwrap();
+        assert_eq!(count, 1);
+
+        let timestamp = tx.commit().await.unwrap();
+        assert_eq!(timestamp.seconds(), 1001);
     }
 
     #[tokio::test]
@@ -472,5 +596,142 @@ mod tests {
             .begin_transaction()
             .await
             .expect("Failed to build transaction");
+    }
+
+    #[tokio::test]
+    async fn read_write_transaction_tracks_highest_precommit_token() {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![4, 2],
+                ..Default::default()
+            }))
+        });
+
+        // 3 sequential updates returning tokens [seq 2, seq 5, seq 3]
+        let tokens_iter = vec![2, 5, 3].into_iter();
+        let counter_mutex = std::sync::Mutex::new(tokens_iter);
+
+        mock.expect_execute_sql().times(3).returning(move |_req| {
+            let seq = counter_mutex
+                .lock()
+                .expect("Failed to lock mutex")
+                .next()
+                .expect("Failed to get next token");
+            Ok(tonic::Response::new(v1::ResultSet {
+                stats: Some(v1::ResultSetStats {
+                    row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                precommit_token: Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![seq as u8],
+                    seq_num: seq,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // Commit should only use the highest token (seq 5)
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.precommit_token,
+                Some(v1::MultiplexedSessionPrecommitToken {
+                    precommit_token: vec![5],
+                    seq_num: 5,
+                })
+            );
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 12345,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .begin_transaction()
+            .await
+            .expect("Failed to build transaction");
+
+        for _ in 0..3 {
+            tx.execute_update("UPDATE Y")
+                .await
+                .expect("Failed to execute update");
+        }
+        let ts = tx.commit().await.expect("Failed to commit transaction");
+        assert_eq!(ts.seconds(), 12345);
+    }
+
+    #[tokio::test]
+    async fn read_write_transaction_commit_retry_exactly_once() {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![7, 7],
+                ..Default::default()
+            }))
+        });
+
+        // Initial commit returns a retry token (seq 2)
+        mock.expect_commit().once().returning(|_| {
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1000,
+                    nanos: 0,
+                }),
+                multiplexed_session_retry: Some(
+                    v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
+                        v1::MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![2],
+                            seq_num: 2,
+                        },
+                    ),
+                ),
+                ..Default::default()
+            }))
+        });
+
+        // Retry commit returns another retry token (seq 3).
+        // The library should not retry multiple times.
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.precommit_token
+                    .as_ref()
+                    .expect("Missing precommit token in retry req")
+                    .seq_num,
+                2
+            );
+
+            Ok(tonic::Response::new(v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 9999,
+                    nanos: 0,
+                }),
+                multiplexed_session_retry: Some(
+                    v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
+                        v1::MultiplexedSessionPrecommitToken {
+                            precommit_token: vec![3],
+                            seq_num: 3,
+                        },
+                    ),
+                ),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .begin_transaction()
+            .await
+            .expect("Failed to build transaction");
+
+        let ts = tx.commit().await.expect("Failed to commit transaction");
+        assert_eq!(ts.seconds(), 9999);
     }
 }

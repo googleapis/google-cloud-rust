@@ -55,6 +55,9 @@ locals {
       script = "coverage"
       flags  = local.unstable_flags
     }
+    crypto-providers = {
+      config = "cryptoproviders.yaml"
+    }
     deny = {
       config = "complex.yaml"
       script = "deny"

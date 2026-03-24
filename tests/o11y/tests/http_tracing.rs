@@ -24,6 +24,13 @@ mod http_tracing {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn to_otlp_debug_event() -> anyhow::Result<()> {
+        integration_tests_o11y::http_tracing::to_otlp_debug_event()
+            .await
+            .inspect_err(anydump)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn success_testlayer() -> anyhow::Result<()> {
         integration_tests_o11y::http_tracing::success_testlayer()
             .await
