@@ -14,11 +14,13 @@
 
 mod client_signals_ext;
 mod duration_metric;
+mod recorder;
 mod request_start;
 mod with_client_signals;
 
 pub use client_signals_ext::ClientSignalsExt;
 pub use duration_metric::DurationMetric;
+pub use recorder::RequestRecorder;
 pub use request_start::RequestStart;
 pub use with_client_signals::WithClientSignals;
 
