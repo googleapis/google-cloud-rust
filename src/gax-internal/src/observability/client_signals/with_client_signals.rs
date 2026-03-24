@@ -450,7 +450,7 @@ mod tests {
             { ERROR_TYPE } = ::tracing::field::Empty,
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty
         );
-        
+
         let mut disabled_info = TEST_INFO.clone();
         disabled_info.disable_actionable_error_logging = true;
 
@@ -460,11 +460,11 @@ mod tests {
         );
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
         let start = RequestStart::new(&disabled_info, &options, METHOD);
-        
+
         let future = ready(Err::<String, Error>(not_found()));
         let future = WithClientSignals::new(future, metric.clone(), start, span.clone());
         let result = future.await;
-        
+
         assert!(
             matches!(result, Err(ref e) if e.status() == not_found().status()),
             "{result:?}"
@@ -477,7 +477,7 @@ mod tests {
         let record = captured
             .iter()
             .find(|r| r.record.target().is_some_and(|v| v == TARGET));
-            
+
         assert!(
             record.is_none(),
             "unexpected actionable log record found: {record:?}"
