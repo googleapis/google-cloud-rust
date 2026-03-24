@@ -64,7 +64,7 @@ impl LeaseLoop {
                     event = state.next_event() => {
                         match event {
                             LeaseEvent::Flush => state.flush().await,
-                            LeaseEvent::Extend => state.extend().await,
+                            LeaseEvent::Extend => state.extend(),
                         }
                     },
                     message = message_rx.recv() => {

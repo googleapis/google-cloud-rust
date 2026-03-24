@@ -24,6 +24,7 @@ use at_least_once::Leases;
 use exactly_once::Leases as EoLeases;
 use tokio::sync::oneshot::Sender;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
+use tokio::task::JoinSet;
 use tokio::time::{Duration, Instant, Interval, interval_at};
 
 // An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
@@ -99,7 +100,7 @@ impl ExactlyOnceInfo {
 #[derive(Debug)]
 pub(super) struct LeaseState<L>
 where
-    L: Leaser + Clone,
+    L: Leaser + Clone + Send + 'static,
 {
     // Ack IDs with at-least-once semantics under lease management.
     leases: Leases,
@@ -115,6 +116,12 @@ where
     extend_interval: Interval,
     // How long messages can be kept under lease
     max_lease: Duration,
+
+    // In flight lease extension operations.
+    //
+    // These are held separate from pending acks/nacks because we do not need to
+    // await them on shutdown.
+    pending_extends: JoinSet<()>,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -128,7 +135,7 @@ pub(super) enum LeaseEvent {
 
 impl<L> LeaseState<L>
 where
-    L: Leaser + Clone,
+    L: Leaser + Clone + Send + 'static,
 {
     pub(super) fn new(leaser: L, options: LeaseOptions) -> Self {
         let flush_interval =
@@ -142,6 +149,7 @@ where
             flush_interval,
             extend_interval,
             max_lease: options.max_lease,
+            pending_extends: JoinSet::new(),
         }
     }
 
@@ -215,16 +223,19 @@ where
     /// Extends leases for messages under lease management
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
-    pub(super) async fn extend(&mut self) {
-        // TODO(#3975) - send RPCs concurrently.
+    pub(super) fn extend(&mut self) {
         let batches = self.leases.retain(self.max_lease);
         for ack_ids in batches {
-            self.leaser.extend(ack_ids).await;
+            let leaser = self.leaser.clone();
+            self.pending_extends
+                .spawn(async move { leaser.extend(ack_ids).await });
         }
 
         let batches = self.eo_leases.retain(self.max_lease);
         for ack_ids in batches {
-            self.leaser.extend(ack_ids).await;
+            let leaser = self.leaser.clone();
+            self.pending_extends
+                .spawn(async move { leaser.extend(ack_ids).await });
         }
     }
 
@@ -257,6 +268,12 @@ where
             // TODO(#4847) - this nack needs to be broken into batches.
             self.leaser.nack(to_nack).await;
         }
+
+        // Wait for pending lease extensions to complete. This is not useful in
+        // practice, because we are nacking all the messages, but it simplifies
+        // our tests.
+        #[cfg(test)]
+        self.pending_extends.join_all().await;
     }
 }
 
@@ -303,6 +320,15 @@ pub(super) mod tests {
     pub(in super::super) fn exactly_once_info() -> LeaseInfo {
         let (result_tx, _result_rx) = channel();
         LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx))
+    }
+
+    async fn extend_and_await<L>(state: &mut LeaseState<L>)
+    where
+        L: Leaser + Clone + Send + 'static,
+    {
+        state.extend();
+        let pending_extends = std::mem::take(&mut state.pending_extends);
+        let _ = pending_extends.join_all().await;
     }
 
     #[tokio::test(start_paused = true)]
@@ -499,7 +525,7 @@ pub(super) mod tests {
         // Note that there are no calls expected into the leaser, as there are
         // no messages under lease management.
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
-        state.extend().await;
+        extend_and_await(&mut state).await;
         state.flush().await;
         state.shutdown().await;
     }
@@ -623,25 +649,25 @@ pub(super) mod tests {
         for i in 0..10 {
             state.add(test_id(i), at_least_once_info());
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Add another 10 messages. These are now under lease management.
         for i in 10..20 {
             state.add(test_id(i), at_least_once_info());
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Ack the first 5 messages. We should not extend these leases.
         for i in 0..5 {
             state.process(Ack(test_id(i)));
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Nack the next 5 messages. We should not extend these leases.
         for i in 5..10 {
             state.process(Nack(test_id(i)));
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
     }
 
     #[tokio::test(start_paused = true)]
@@ -680,13 +706,13 @@ pub(super) mod tests {
         for i in 0..10 {
             state.add(test_id(i), exactly_once_info());
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Add another 10 messages. These are now under lease management.
         for i in 10..20 {
             state.add(test_id(i), exactly_once_info());
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Ack the first 5 messages. We should continue to extend these leases
         // as they are not yet confirmed.
@@ -695,20 +721,20 @@ pub(super) mod tests {
             state.process(ExactlyOnceAck(test_id(i)));
             ack_results.insert(test_id(i), Ok(()));
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Flush the acks and confirm.
         state.flush().await;
         state.confirm(ack_results);
 
         // We should not extend the confirmed acks.
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Nack the next 5 messages. We should not extend these leases.
         for i in 0..5 {
             state.process(ExactlyOnceNack(test_id(i)));
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
     }
 
     #[tokio::test]
@@ -1031,7 +1057,7 @@ pub(super) mod tests {
             // All ack IDs should be extended.
             want.insert(test_id(i));
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         let mut got = HashSet::new();
         for i in 0..NUM_BATCHES {
@@ -1089,15 +1115,15 @@ pub(super) mod tests {
         for i in 10..20 {
             state.add(test_id(i), lease_info_factory());
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Advance the time past the expiration of the original 10 messages.
         tokio::time::advance(MAX_LEASE - DELTA).await;
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Advance the time past the expiration of the subsequent 10 messages.
         tokio::time::advance(DELTA * 2).await;
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         Ok(())
     }
