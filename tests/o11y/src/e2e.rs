@@ -20,8 +20,6 @@ pub mod storage;
 
 use crate::e2e::resource_detector::TestResourceDetector;
 use crate::otlp::logs::EventFormatter;
-use std::io::Write;
-use std::sync::{Arc, Mutex};
 use tracing_subscriber::Layer;
 
 use super::otlp::metrics::Builder as MeterProviderBuilder;
@@ -30,6 +28,7 @@ use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials}
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_monitoring_v3::client::MetricService;
 use google_cloud_monitoring_v3::model::{ListTimeSeriesResponse, TimeInterval};
+use google_cloud_test_utils::tracing::Buffer;
 use google_cloud_trace_v1::client::TraceService;
 use google_cloud_trace_v1::model::Trace;
 use google_cloud_wkt::Timestamp;
@@ -176,33 +175,11 @@ pub async fn set_up_providers(
                     .event_format(formatter.clone())
                     .with_filter(LevelFilter::WARN),
             )
-            .with(crate::tracing::trace_layer(tracer_provider.clone())),
+            .with(crate::tracing::layer(tracer_provider.clone())),
     )?;
     opentelemetry::global::set_tracer_provider(tracer_provider.clone());
     opentelemetry::global::set_meter_provider(meter_provider.clone());
     Ok((tracer_provider, meter_provider, buffer))
-}
-
-#[derive(Clone, Debug, Default)]
-pub struct Buffer(Arc<Mutex<Vec<u8>>>);
-
-impl Buffer {
-    pub fn captured(&self) -> Vec<u8> {
-        let guard = self.0.lock().expect("never poisoned");
-        guard.clone()
-    }
-}
-
-impl Write for Buffer {
-    fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
-        let mut guard = self.0.lock().expect("never poisoned");
-        guard.extend_from_slice(buf);
-        Ok(buf.len())
-    }
-
-    fn flush(&mut self) -> std::io::Result<()> {
-        Ok(())
-    }
 }
 
 async fn new_credentials(project_id: &str) -> anyhow::Result<Credentials> {
