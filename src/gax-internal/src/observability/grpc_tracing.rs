@@ -544,7 +544,6 @@ mod tests {
             client_version: "1.0.0",
             client_artifact: "test-artifact",
             default_host: "example.com",
-            disable_actionable_error_logging: false,
         };
 
         let layer = TracingTowerLayer::new(

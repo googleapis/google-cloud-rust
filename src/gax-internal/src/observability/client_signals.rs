@@ -202,7 +202,6 @@ mod tests {
         client_version: "1.2.3",
         client_artifact: "test-artifact",
         default_host: "example.com",
-        disable_actionable_error_logging: false,
     };
     pub(crate) static URL_TEMPLATE: &str = "/v1/projects/{}:test_method";
     pub(crate) static METHOD: &str = "test-method";
