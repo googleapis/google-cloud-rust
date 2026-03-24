@@ -22,6 +22,12 @@ use tracing_subscriber::{EnvFilter, Layer, registry::LookupSpan};
 const INSTRUMENTATION_SCOPE_NAME: &str = "google-cloud-rust";
 
 use opentelemetry_sdk::logs::SdkLoggerProvider;
+use tracing_subscriber::filter::filter_fn;
+
+fn env_filter() -> EnvFilter {
+    EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("debug"))
+}
+
 /// Creates a `tracing` layer that exports spans to the provided OpenTelemetry `SdkTracerProvider`.
 ///
 /// The layer is filtered by the `RUST_LOG` environment variable (defaulting to "info").
@@ -36,7 +42,7 @@ use opentelemetry_sdk::logs::SdkLoggerProvider;
 /// // Assume you have a configured SdkTracerProvider
 /// let tracer_provider = SdkTracerProvider::builder().build();
 ///
-/// let subscriber = Registry::default().with(layer(tracer_provider));
+/// let subscriber = Registry::default().with(trace_layer(tracer_provider));
 ///
 /// tracing::subscriber::set_global_default(subscriber).expect("setting default subscriber failed");
 /// ```
@@ -49,12 +55,6 @@ use opentelemetry_sdk::logs::SdkLoggerProvider;
 ///
 /// * `S` - The type of the `tracing` Subscriber that this layer will be added to. For example,
 ///   `tracing_subscriber::Registry`.
-use tracing_subscriber::filter::filter_fn;
-
-fn env_filter() -> EnvFilter {
-    EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("debug"))
-}
-
 pub fn trace_layer<S>(tracer_provider: SdkTracerProvider) -> impl Layer<S>
 where
     S: Subscriber + for<'span> LookupSpan<'span>,
