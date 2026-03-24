@@ -1452,4 +1452,59 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn at_least_once_and_exactly_once() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_shutdown_behavior(ShutdownBehavior::NackImmediately)
+            .build();
+
+        response_tx.send(Ok(test_response(0..1))).await?;
+        response_tx
+            .send(Ok(test_exactly_once_response(1..2)))
+            .await?;
+        response_tx.send(Ok(test_response(2..3))).await?;
+        response_tx
+            .send(Ok(test_exactly_once_response(3..4)))
+            .await?;
+        drop(response_tx);
+
+        let (m, h) = stream.next().await.expect("should yield a message")?;
+        assert_eq!(m.data, test_data(0));
+        assert_eq!(h.ack_id(), test_id(0));
+        assert!(matches!(h, Handler::AtLeastOnce(_)), "{h:?}");
+
+        let (m, h) = stream.next().await.expect("should yield a message")?;
+        assert_eq!(m.data, test_data(1));
+        assert_eq!(h.ack_id(), test_id(1));
+        assert!(matches!(h, Handler::ExactlyOnce(_)), "{h:?}");
+
+        let (m, h) = stream.next().await.expect("should yield a message")?;
+        assert_eq!(m.data, test_data(2));
+        assert_eq!(h.ack_id(), test_id(2));
+        assert!(matches!(h, Handler::AtLeastOnce(_)), "{h:?}");
+
+        let (m, h) = stream.next().await.expect("should yield a message")?;
+        assert_eq!(m.data, test_data(3));
+        assert_eq!(h.ack_id(), test_id(3));
+        assert!(matches!(h, Handler::ExactlyOnce(_)), "{h:?}");
+
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
+
+        // Wait for the stream to join its background tasks.
+        stream.close().await;
+
+        Ok(())
+    }
 }
