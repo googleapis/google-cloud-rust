@@ -451,7 +451,7 @@ mod tests {
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty
         );
 
-        let mut disabled_info = TEST_INFO.clone();
+        let mut disabled_info = TEST_INFO;
         disabled_info.disable_actionable_error_logging = true;
 
         let metric = DurationMetric::new_with_provider(
