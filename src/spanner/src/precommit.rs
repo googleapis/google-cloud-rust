@@ -33,14 +33,11 @@ impl PrecommitTokenTracker {
 
     /// Updates the tracker with an optional precommit token from a response.
     pub(crate) fn update(&self, token: Option<crate::model::MultiplexedSessionPrecommitToken>) {
-        let Some(token) = token else { return };
-        let Self::Track(tracker) = self else { return };
-
-        let new_token = token;
-        let mut guard = tracker.write().unwrap();
-
-        if guard.as_ref().is_none_or(|c| c.seq_num < new_token.seq_num) {
-            *guard = Some(new_token);
+        if let (Some(token), Self::Track(tracker)) = (token, self) {
+            let mut guard = tracker.write().unwrap();
+            if guard.as_ref().is_none_or(|c| c.seq_num < token.seq_num) {
+                *guard = Some(token);
+            }
         }
     }
 
