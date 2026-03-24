@@ -31,7 +31,7 @@ use opentelemetry_sdk::logs::SdkLoggerProvider;
 /// ```
 /// use opentelemetry_sdk::trace::SdkTracerProvider;
 /// use tracing_subscriber::{Registry, layer::SubscriberExt};
-/// use integration_tests_o11y::tracing::layer;
+/// use integration_tests_o11y::tracing::trace_layer;
 ///
 /// // Assume you have a configured SdkTracerProvider
 /// let tracer_provider = SdkTracerProvider::builder().build();
