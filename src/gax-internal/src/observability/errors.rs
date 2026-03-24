@@ -13,18 +13,24 @@
 // limitations under the License.
 
 use super::attributes::error_type_values::*;
+use crate::observability::attributes::keys::*;
 use google_cloud_gax::error::{Error, rpc::Code, rpc::StatusDetails};
 use http::StatusCode;
+use std::collections::BTreeMap;
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum ErrorType {
     HttpError {
         code: StatusCode,
         reason: Option<String>,
+        domain: Option<String>,
+        metadata: Option<BTreeMap<String, String>>,
     },
     RpcError {
         code: Code,
         reason: Option<String>,
+        domain: Option<String>,
+        metadata: Option<BTreeMap<String, String>>,
     },
     ClientTimeout,
     ClientConnectionError,
@@ -47,19 +53,26 @@ impl ErrorType {
             e if e.is_io() || e.is_connect() => ErrorType::ClientConnectionError,
             e if e.status().is_some() => {
                 let status = e.status().unwrap();
-                let reason = status.details.iter().find_map(|d| match d {
-                    StatusDetails::ErrorInfo(info) => Some(info.reason.clone()),
+                let error_info = status.details.iter().find_map(|d| match d {
+                    StatusDetails::ErrorInfo(info) => Some(info),
                     _ => None,
                 });
                 ErrorType::RpcError {
                     code: status.code,
-                    reason,
+                    reason: error_info.map(|i| i.reason.clone()),
+                    domain: error_info.map(|i| i.domain.clone()),
+                    metadata: error_info.map(|i| i.metadata.clone().into_iter().collect()),
                 }
             }
             e if e.is_transport() => e
                 .http_status_code()
                 .and_then(|s| http::StatusCode::from_u16(s).ok())
-                .map(|code| ErrorType::HttpError { code, reason: None })
+                .map(|code| ErrorType::HttpError {
+                    code,
+                    reason: None,
+                    domain: None,
+                    metadata: None,
+                })
                 .unwrap_or(ErrorType::Unknown),
             _ => ErrorType::Unknown,
         }
@@ -86,6 +99,45 @@ impl ErrorType {
     }
 }
 
+pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
+    let error_type = ErrorType::from_gax_error(err);
+    let rpc_status_code = err.status().map(|s| s.code.name());
+    let http_status_code = err.http_status_code();
+
+    #[cfg(google_cloud_unstable_tracing)]
+    {
+        let (domain, metadata) = match &error_type {
+            ErrorType::HttpError {
+                domain, metadata, ..
+            }
+            | ErrorType::RpcError {
+                domain, metadata, ..
+            } => (domain.as_deref(), metadata.as_ref()),
+            _ => (None, None),
+        };
+
+        let metadata_json =
+            metadata.map(|m| serde_json::to_string(m).unwrap_or_else(|_| "{}".to_string()));
+
+        let error_str = error_type.as_str();
+        let log_msg = err
+            .status()
+            .map(|s| s.message.clone())
+            .unwrap_or_else(|| format!("{err:?}"));
+
+        tracing::event!(
+            parent: span,
+            tracing::Level::DEBUG,
+            { ERROR_TYPE } = error_str,
+            { GCP_ERRORS_DOMAIN } = domain,
+            { GCP_ERRORS_METADATA } = metadata_json,
+            { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
+            { HTTP_RESPONSE_STATUS_CODE } = http_status_code,
+            "{log_msg}"
+        );
+    }
+}
+
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
@@ -96,26 +148,28 @@ pub(crate) mod tests {
     use http::{HeaderMap, StatusCode};
     use test_case::test_case;
 
-    #[test_case(ErrorType::HttpError { code: StatusCode::OK, reason: None }, "200"; "OK")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: None }, "400"; "Bad Request")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::UNAUTHORIZED, reason: None }, "401"; "Unauthorized")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::FORBIDDEN, reason: None }, "403"; "Forbidden")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::NOT_FOUND, reason: None }, "404"; "Not Found")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::CONFLICT, reason: None }, "409"; "Conflict")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::TOO_MANY_REQUESTS, reason: None }, "429"; "Too Many Requests")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::INTERNAL_SERVER_ERROR, reason: None }, "500"; "Internal Server Error")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::NOT_IMPLEMENTED, reason: None }, "501"; "Not Implemented")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::SERVICE_UNAVAILABLE, reason: None }, "503"; "Service Unavailable")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::GATEWAY_TIMEOUT, reason: None }, "504"; "Gateway Timeout")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::IM_A_TEAPOT, reason: None }, "418"; "I'm a teapot")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::CREATED, reason: None }, "201"; "Created")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::METHOD_NOT_ALLOWED, reason: None }, "405"; "Method Not Allowed")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_GATEWAY, reason: None }, "502"; "Bad Gateway")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::from_u16(499).unwrap(), reason: None }, "499"; "Client Closed Request")]
-    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: Some("REASON".to_string()) }, "REASON"; "Bad Request with Reason")]
-    #[test_case(ErrorType::RpcError { code: Code::NotFound, reason: None }, "NOT_FOUND"; "RPC Not Found")]
-    #[test_case(ErrorType::RpcError { code: Code::Unavailable, reason: None }, "UNAVAILABLE"; "RPC Unavailable")]
-    #[test_case(ErrorType::RpcError { code: Code::InvalidArgument, reason: Some("API_KEY_INVALID".to_string()) }, "API_KEY_INVALID"; "RPC Invalid Argument with Reason")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::OK, reason: None, domain: None, metadata: None }, "200"; "OK")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: None, domain: None, metadata: None }, "400"; "Bad Request")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::UNAUTHORIZED, reason: None, domain: None, metadata: None }, "401"; "Unauthorized")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::FORBIDDEN, reason: None, domain: None, metadata: None }, "403"; "Forbidden")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::NOT_FOUND, reason: None, domain: None, metadata: None }, "404"; "Not Found")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::CONFLICT, reason: None, domain: None, metadata: None }, "409"; "Conflict")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::TOO_MANY_REQUESTS, reason: None, domain: None, metadata: None }, "429"; "Too Many Requests")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::INTERNAL_SERVER_ERROR, reason: None, domain: None, metadata: None }, "500"; "Internal Server Error")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::NOT_IMPLEMENTED, reason: None, domain: None, metadata: None }, "501"; "Not Implemented")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::SERVICE_UNAVAILABLE, reason: None, domain: None, metadata: None }, "503"; "Service Unavailable")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::GATEWAY_TIMEOUT, reason: None, domain: None, metadata: None }, "504"; "Gateway Timeout")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::IM_A_TEAPOT, reason: None, domain: None, metadata: None }, "418"; "I'm a teapot")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::CREATED, reason: None, domain: None, metadata: None }, "201"; "Created")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::METHOD_NOT_ALLOWED, reason: None, domain: None, metadata: None }, "405"; "Method Not Allowed")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_GATEWAY, reason: None, domain: None, metadata: None }, "502"; "Bad Gateway")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::from_u16(499).unwrap(), reason: None, domain: None, metadata: None }, "499"; "Client Closed Request")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::BAD_REQUEST, reason: Some("REASON".to_string()), domain: None, metadata: None }, "REASON"; "Bad Request with Reason")]
+    #[test_case(ErrorType::HttpError { code: StatusCode::METHOD_NOT_ALLOWED, reason: None, domain: Some("pubsub.googleapis.com".to_string()), metadata: Some(std::collections::BTreeMap::from([("zone".to_string(), "us-east1-a".to_string())])) }, "405"; "Method Not Allowed with Meta")]
+    #[test_case(ErrorType::RpcError { code: Code::NotFound, reason: None, domain: None, metadata: None }, "NOT_FOUND"; "RPC Not Found")]
+    #[test_case(ErrorType::RpcError { code: Code::Unavailable, reason: None, domain: None, metadata: None }, "UNAVAILABLE"; "RPC Unavailable")]
+    #[test_case(ErrorType::RpcError { code: Code::InvalidArgument, reason: Some("API_KEY_INVALID".to_string()), domain: None, metadata: None }, "API_KEY_INVALID"; "RPC Invalid Argument with Reason")]
+    #[test_case(ErrorType::RpcError { code: Code::Unavailable, reason: None, domain: Some("pubsub.googleapis.com".to_string()), metadata: Some(std::collections::BTreeMap::from([("zone".to_string(), "us-east1-a".to_string())])) }, "UNAVAILABLE"; "RPC Unavailable with Meta")]
     #[test_case(ErrorType::ClientTimeout, CLIENT_TIMEOUT; "Client Timeout")]
     #[test_case(ErrorType::ClientConnectionError, CLIENT_CONNECTION_ERROR; "Client Connection Error")]
     #[test_case(ErrorType::ClientRequestError, CLIENT_REQUEST_ERROR; "Client Request Error")]
@@ -150,15 +204,130 @@ pub(crate) mod tests {
 
     #[test]
     fn test_from_gax_error_with_error_info() {
+        let mut metadata = std::collections::HashMap::new();
+        metadata.insert("zone".to_string(), "us-central1-a".to_string());
+        metadata.insert("project".to_string(), "test-project".to_string());
+
         let error_info = google_cloud_rpc::model::ErrorInfo::default()
             .set_reason("API_KEY_INVALID")
-            .set_domain("googleapis.com");
+            .set_domain("pubsub.googleapis.com")
+            .set_metadata(metadata.clone());
         let status = Status::default()
             .set_code(Code::InvalidArgument)
             .set_message("Invalid API Key")
             .set_details(vec![StatusDetails::ErrorInfo(error_info)]);
         let err = Error::service(status);
 
-        assert_eq!(ErrorType::from_gax_error(&err).as_str(), "API_KEY_INVALID");
+        let error_type = ErrorType::from_gax_error(&err);
+        assert_eq!(error_type.as_str(), "API_KEY_INVALID");
+
+        // Verify that the domain and metadata are correctly extracted.
+        match error_type {
+            ErrorType::RpcError {
+                code,
+                reason,
+                domain,
+                metadata: parsed_metadata,
+            } => {
+                assert_eq!(code, Code::InvalidArgument);
+                assert_eq!(reason, Some("API_KEY_INVALID".to_string()));
+                assert_eq!(domain, Some("pubsub.googleapis.com".to_string()));
+                // Since ErrorType uses BTreeMap for sortedness but StatusDetails might use HashMap,
+                // we iterate to check values or rely on their respective Eq implementations if the struct allows it.
+                // The implementation uses `.clone()`, meaning it's the exact type ErrorInfo uses.
+                let parsed_metadata = parsed_metadata.expect("metadata should be present");
+                assert_eq!(parsed_metadata.get("zone").unwrap(), "us-central1-a");
+                assert_eq!(parsed_metadata.get("project").unwrap(), "test-project");
+            }
+            _ => panic!("Expected ErrorType::RpcError"),
+        }
+    }
+
+    #[test]
+    fn test_emit_error_log() {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use std::sync::{Arc, Mutex};
+            use tracing_subscriber::fmt::MakeWriter;
+
+            #[derive(Clone)]
+            struct MockWriter(Arc<Mutex<Vec<u8>>>);
+
+            impl std::io::Write for MockWriter {
+                fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
+                    self.0.lock().unwrap().extend_from_slice(buf);
+                    Ok(buf.len())
+                }
+                fn flush(&mut self) -> std::io::Result<()> {
+                    Ok(())
+                }
+            }
+
+            impl<'a> MakeWriter<'a> for MockWriter {
+                type Writer = Self;
+                fn make_writer(&'a self) -> Self::Writer {
+                    self.clone()
+                }
+            }
+
+            let output = Arc::new(Mutex::new(Vec::new()));
+            let subscriber = tracing_subscriber::fmt()
+                .json()
+                .with_writer(MockWriter(output.clone()))
+                .with_max_level(tracing::Level::DEBUG)
+                .finish();
+
+            tracing::subscriber::with_default(subscriber, || {
+                let span = tracing::info_span!("test_t4_error_log_span");
+                let span_guard = span.enter();
+
+                let error_info = google_cloud_rpc::model::ErrorInfo::default()
+                    .set_reason("BAD_TESTING")
+                    .set_domain("test.googleapis.com")
+                    .set_metadata(std::collections::HashMap::from([
+                        ("k1".to_string(), "v1".to_string()),
+                        ("k2".to_string(), "v2".to_string()),
+                    ]));
+
+                let status = Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message("test_message")
+                    .set_details(vec![StatusDetails::ErrorInfo(error_info)]);
+
+                super::emit_error_log(&span, &Error::service(status));
+                drop(span_guard);
+            });
+
+            let log_output = String::from_utf8(output.lock().unwrap().clone()).unwrap();
+            let json_val: serde_json::Value =
+                serde_json::from_str(&log_output).expect("valid JSON log");
+
+            let fields = &json_val["fields"];
+            assert_eq!(
+                fields["message"].as_str().expect("message field"),
+                "test_message"
+            );
+            assert_eq!(
+                fields["error.type"].as_str().expect("error.type field"),
+                "BAD_TESTING"
+            );
+            assert_eq!(
+                fields["gcp.errors.domain"].as_str().expect("domain field"),
+                "test.googleapis.com"
+            );
+            let metadata_str = fields["gcp.errors.metadata"]
+                .as_str()
+                .expect("metadata field");
+            let metadata_json: serde_json::Value =
+                serde_json::from_str(metadata_str).expect("valid JSON in metadata");
+            assert_eq!(metadata_json["k1"], "v1");
+            assert_eq!(metadata_json["k2"], "v2");
+            assert_eq!(
+                fields["rpc.response.status_code"]
+                    .as_str()
+                    .expect("status code field"),
+                "INVALID_ARGUMENT"
+            );
+        }
     }
 }

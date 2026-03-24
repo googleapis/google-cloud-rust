@@ -33,10 +33,9 @@
 //! use google_cloud_auth::credentials::Builder;
 //! use google_cloud_auth::signer::Signer;
 //!
-//! # tokio_test::block_on(async {
+//! # fn sample() -> anyhow::Result<()> {
 //! let signer: Signer = Builder::default().build_signer()?;
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! ## Example: Creating a Signer using a Service Account Key File
@@ -57,12 +56,11 @@
 //! use google_cloud_auth::credentials::service_account::Builder;
 //! use google_cloud_auth::signer::Signer;
 //!
-//! # tokio_test::block_on(async {
+//! # fn sample() -> anyhow::Result<()> {
 //! let service_account_key = serde_json::json!({ /* add details here */ });
 //!
 //! let signer: Signer = Builder::new(service_account_key).build_signer()?;
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! [Application Default Credentials]: https://docs.cloud.google.com/docs/authentication/application-default-credentials
@@ -89,10 +87,9 @@ pub type Result<T> = std::result::Result<T, SigningError>;
 /// use google_cloud_auth::credentials::Builder;
 /// use google_cloud_auth::signer::Signer;
 ///
-/// # tokio_test::block_on(async {
+/// # fn sample() -> anyhow::Result<()> {
 /// let signer: Signer = Builder::default().build_signer()?;
-/// # Ok::<(), anyhow::Error>(())
-/// # });
+/// # Ok(()) }
 /// ```
 #[derive(Clone, Debug)]
 pub struct Signer {

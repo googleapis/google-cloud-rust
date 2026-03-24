@@ -70,7 +70,6 @@ serial_test.workspace = true
 tempfile.workspace    = true
 test-case.workspace   = true
 tokio                 = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
-tokio-test.workspace  = true
 url.workspace         = true
 mutants.workspace     = true
 static_assertions     = { workspace = true }

@@ -53,9 +53,8 @@ default = ["default-rustls-provider"]
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
 
 [dev-dependencies]
-anyhow.workspace     = true
-tokio                = { workspace = true, features = ["full", "macros"] }
-tokio-test.workspace = true
+anyhow.workspace = true
+tokio            = { workspace = true, features = ["full", "macros"] }
 
 [lints]
 workspace = true

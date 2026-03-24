@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::key::KeySet;
+use crate::model::mutation::Operation;
 use crate::to_value::ToValue;
 use crate::value::Value;
 
@@ -147,6 +148,27 @@ impl Mutation {
                 crate::model::Mutation::new().set_delete(delete.into_proto())
             }
         }
+    }
+
+    /// Selects the best mutation to act as a routing `mutation_key`.
+    /// Prefers any non-`Insert` and non-`InsertOrUpdate` variation (like `Delete`, `Replace`, `Update`)
+    /// since inserts more often use auto-generated columns (e.g. for primary key generation).
+    /// Using a mutation with only non-generated values as the mutation key is preferred, as it reduces
+    /// the overhead internally in Spanner.
+    pub(crate) fn select_mutation_key(
+        mutations: &[crate::model::Mutation],
+    ) -> Option<crate::model::Mutation> {
+        mutations
+            .iter()
+            .find(|m| {
+                if let Some(op) = &m.operation {
+                    !matches!(op, Operation::Insert(_) | Operation::InsertOrUpdate(_))
+                } else {
+                    false
+                }
+            })
+            .or_else(|| mutations.first())
+            .cloned()
     }
 }
 
@@ -342,7 +364,7 @@ mod tests {
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
-            Some(crate::model::mutation::Operation::Insert(write)) => {
+            Some(Operation::Insert(write)) => {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId", "UserName"]);
                 assert_eq!(write.values.len(), 1);
@@ -362,7 +384,7 @@ mod tests {
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
-            Some(crate::model::mutation::Operation::Update(write)) => {
+            Some(Operation::Update(write)) => {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
@@ -379,7 +401,7 @@ mod tests {
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
-            Some(crate::model::mutation::Operation::InsertOrUpdate(write)) => {
+            Some(Operation::InsertOrUpdate(write)) => {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
@@ -399,7 +421,7 @@ mod tests {
             .build();
         let proto = mutation.build_proto();
         match proto.operation {
-            Some(crate::model::mutation::Operation::Replace(write)) => {
+            Some(Operation::Replace(write)) => {
                 assert_eq!(write.table, "Users");
                 assert_eq!(write.columns, vec!["UserId"]);
                 assert_eq!(write.values.len(), 1);
@@ -414,10 +436,82 @@ mod tests {
         let mutation = Mutation::delete("Users", key_set);
         let proto = mutation.build_proto();
         match proto.operation {
-            Some(crate::model::mutation::Operation::Delete(delete)) => {
+            Some(Operation::Delete(delete)) => {
                 assert_eq!(delete.table, "Users");
             }
             _ => panic!("Expected Delete operation, got {:?}", proto.operation),
         }
+    }
+
+    #[test]
+    fn test_select_mutation_key_empty() {
+        let mutations = vec![];
+        let key = Mutation::select_mutation_key(&mutations);
+        assert!(key.is_none());
+    }
+
+    #[test]
+    fn test_select_mutation_key_only_insert() {
+        let m1 = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build()
+            .build_proto();
+        let m2 = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&2)
+            .build()
+            .build_proto();
+        let mutations = vec![m1.clone(), m2.clone()];
+        let key = Mutation::select_mutation_key(&mutations);
+        assert_eq!(key, Some(m1));
+    }
+
+    #[test]
+    fn test_select_mutation_key_mix() {
+        let m1 = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build()
+            .build_proto();
+        let m2 = Mutation::new_update_builder("Users")
+            .set("UserId")
+            .to(&2)
+            .build()
+            .build_proto();
+        let m3 = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&3)
+            .build()
+            .build_proto();
+        let mutations = vec![m1.clone(), m2.clone(), m3.clone()];
+        let key = Mutation::select_mutation_key(&mutations);
+        assert_eq!(key, Some(m2));
+    }
+
+    #[test]
+    fn test_select_mutation_key_only_non_insert() {
+        let m1 = Mutation::new_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build()
+            .build_proto();
+        let m2 = Mutation::new_replace_builder("Users")
+            .set("UserId")
+            .to(&2)
+            .build()
+            .build_proto();
+        let mutations = vec![m1.clone(), m2.clone()];
+        let key = Mutation::select_mutation_key(&mutations);
+        assert_eq!(key, Some(m1));
+    }
+
+    #[test]
+    fn test_select_mutation_key_operation_none() {
+        let m1 = crate::model::Mutation::default();
+        let m2 = crate::model::Mutation::default();
+        let mutations = vec![m1.clone(), m2.clone()];
+        let key = Mutation::select_mutation_key(&mutations);
+        assert_eq!(key, Some(m1));
     }
 }

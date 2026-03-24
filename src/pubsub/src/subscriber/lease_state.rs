@@ -56,8 +56,7 @@ impl Default for LeaseOptions {
             extend_period: Duration::from_secs(3),
             extend_start: Duration::from_millis(500),
             max_lease: Duration::from_secs(600),
-            // TODO(#4869) - switch to `WaitForProcessing`
-            shutdown_behavior: ShutdownBehavior::NackImmediately,
+            shutdown_behavior: ShutdownBehavior::WaitForProcessing,
         }
     }
 }
@@ -247,8 +246,8 @@ where
             self.leaser.nack(to_nack).await;
         }
 
+        // TODO(#5109) - evicting exactly-once leases is ok, but not ideal.
         self.eo_leases.evict();
-        // TODO(#4869) - default shutdown behavior needs to be more clearly defined.
         // Currently, evict returns NACK_SHUTDOWN_ERROR for all exactly once
         // leases. This includes the to_ack leases. Specifically,
         // the leases that have been acknowledged by the application but not yet
@@ -274,7 +273,7 @@ pub(super) mod tests {
     use tokio::sync::oneshot::channel;
 
     // Cover the constant, converting it to an integer for convenience.
-    pub(crate) const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
+    const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
 
     #[derive(Debug)]
     pub(super) struct TestLeases {
@@ -714,7 +713,6 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn shutdown() {
-        // TODO(#4869) - update test when shutdown behavior for exactly once is defined.
         let mut mock = MockLeaser::new();
         // For exactly once, the current behavior is to Nack everything that has not yet
         // been confirmed.

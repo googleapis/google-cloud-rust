@@ -51,8 +51,7 @@ impl Subscribe {
             max_lease: Duration::from_secs(60 * 60),
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
-            // TODO(#4869) - switch the default.
-            shutdown_behavior: ShutdownBehavior::NackImmediately,
+            shutdown_behavior: ShutdownBehavior::WaitForProcessing,
         }
     }
 
@@ -260,8 +259,10 @@ mod tests {
             "max_outstanding_bytes={}",
             builder.max_outstanding_bytes
         );
-        // TODO(#4869) - switch the default.
-        //assert_eq!(builder.shutdown_behavior, ShutdownBehavior::WaitForProcessing);
+        assert_eq!(
+            builder.shutdown_behavior,
+            ShutdownBehavior::WaitForProcessing
+        );
 
         Ok(())
     }

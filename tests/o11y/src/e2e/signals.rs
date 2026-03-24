@@ -183,7 +183,7 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
     let want = serde_json::json!({
         "logging.googleapis.com/trace": needle,
         "logging.googleapis.com/trace_sampled": true,
-        "severity": "ERROR",
+        "severity": "WARN",
         "target": "experimental.client.request",
     });
     assert_eq!(Some(&got), want.as_object(), "{value:?}");
@@ -205,8 +205,24 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
         "rpc.system.name": "http",
         "url.domain": "localhost:7469", // the showcase domain...
         "url.template": "", // TODO(#...)
+        "exception.type": "404",
     });
-    assert_eq!(Some(&fields), want.as_object(), "{value:?}");
+    for (key, expected) in want.as_object().unwrap() {
+        assert_eq!(
+            fields.get(key),
+            Some(expected),
+            "mismatch for {key:?} in {value:?}"
+        );
+    }
+
+    assert!(
+        fields
+            .get("exception.message")
+            .unwrap()
+            .as_str()
+            .unwrap()
+            .starts_with("the HTTP transport reports a [404] error:")
+    );
 
     let ts = timestamp
         .as_ref()

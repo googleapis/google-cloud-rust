@@ -38,7 +38,7 @@
 //! ```
 //! # use google_cloud_auth::credentials::idtoken;
 //! # use reqwest;
-//! # tokio_test::block_on(async {
+//! # async fn sample() -> anyhow::Result<()> {
 //! let audience = "https://my-service.a.run.app";
 //! let credentials = idtoken::mds::Builder::new(audience)
 //!     .build()?;
@@ -51,8 +51,7 @@
 //!     .bearer_auth(id_token)
 //!     .send()
 //!     .await?;
-//! # Ok::<(), anyhow::Error>(())
-//! # });
+//! # Ok(()) }
 //! ```
 //!
 //! [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
