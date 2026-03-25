@@ -48,6 +48,7 @@ use std::collections::BTreeMap;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{Duration, Instant};
 use tokio::sync::mpsc::Sender;
+use tokio::task::JoinSet;
 use tracing::Instrument;
 
 const DEFAULT_TIMEOUT: Duration = Duration::from_secs(900);
@@ -92,25 +93,24 @@ async fn main() -> anyhow::Result<()> {
             .collect::<Vec<_>>(),
     );
     tracing::info!("random data ready");
+
     let (tx, mut rx) = tokio::sync::mpsc::channel(1024 * args.task_count);
     let test_start = Instant::now();
-    let tasks = (0..args.task_count)
-        .map(|task| {
-            let span = tracing::info_span!("w1r3.task", task_id = task);
-            tokio::spawn(
-                runner(
-                    task,
-                    test_start,
-                    client.clone(),
-                    credentials.clone(),
-                    buffer.clone(),
-                    tx.clone(),
-                    args.clone(),
-                )
-                .instrument(span),
-            )
-        })
-        .collect::<Vec<_>>();
+    let mut tasks = JoinSet::new();
+    for task in 0..args.task_count {
+        let span = tracing::info_span!("w1r3.task", task_id = task);
+        let client = client.clone();
+        let credentials = credentials.clone();
+        let buffer = buffer.clone();
+        let tx = tx.clone();
+        let args = args.clone();
+        tasks.spawn(async move {
+            let result = runner(task, test_start, client, credentials, buffer, tx, args)
+                .instrument(span)
+                .await;
+            (task, result)
+        });
+    }
     drop(tx);
 
     println!("{}", Sample::HEADER);
@@ -121,14 +121,17 @@ async fn main() -> anyhow::Result<()> {
     let counters = BTreeMap::from_iter(counters());
     tracing::info!("Counters = {counters:?}");
 
-    for (id, t) in tasks.into_iter().enumerate() {
-        match t.await {
-            Err(e) => tracing::error!("cannot join task {id}: {e}"),
-            Ok(Err(e)) => tracing::error!("error in task {id}: {e}"),
-            Ok(Ok(_)) => {}
+    while let Some(result) = tasks.join_next().await {
+        match result {
+            Ok((_, Ok(_))) => {}
+            Ok((id, Err(e))) => tracing::error!("error in task {id}: {e}"),
+            // If tracking which task failed to join ever becomes important, note that
+            // AbortHandle returned by JoinSet::spawn has an id() method which returns
+            // a tokio::task::Id. Since JoinError::id() also returns this exact same
+            // tokio::task::Id, the task_id can be retrieved if a suitable map is created.
+            Err(e) => tracing::error!("a task failed to join: {e}"),
         }
     }
-
     tracing::info!("DONE");
 
     if let Some(tracer_provider) = tracer_provider {
