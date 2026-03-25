@@ -250,6 +250,27 @@ impl<F, Cr> ClientBuilder<F, Cr> {
         self
     }
 
+    /// Configure the universe domain.
+    ///
+    /// The universe domain is a tenant of Google Cloud that determines the
+    /// base URL for Google Cloud services. It is used to route requests to the
+    /// correct Google Cloud environment.
+    ///
+    /// ```
+    /// # use google_cloud_gax::client_builder::examples;
+    /// # use google_cloud_gax::client_builder::Result;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use examples::Client; // Placeholder for examples
+    /// let client = Client::builder()
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_universe_domain<V: Into<String>>(mut self, v: V) -> Self {
+        self.config.universe_domain = Some(v.into());
+        self
+    }
+
     /// Configure the retry policy.
     ///
     /// The client libraries can automatically retry operations that fail. The
@@ -427,6 +448,7 @@ pub mod internal {
         pub disable_follow_redirects: bool,
         pub grpc_subchannel_count: Option<usize>,
         pub grpc_request_buffer_capacity: Option<usize>,
+        pub universe_domain: Option<String>,
     }
 
     impl<Cr> std::default::Default for ClientConfig<Cr> {
@@ -446,6 +468,7 @@ pub mod internal {
                 disable_follow_redirects: false,
                 grpc_subchannel_count: None,
                 grpc_request_buffer_capacity: None,
+                universe_domain: None,
             }
         }
     }

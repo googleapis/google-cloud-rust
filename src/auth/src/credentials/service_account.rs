@@ -73,7 +73,7 @@ pub(crate) mod jws;
 
 use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::build_errors::Error as BuilderError;
-use crate::constants::DEFAULT_SCOPE;
+use crate::constants::{DEFAULT_SCOPE, DEFAULT_UNIVERSE_DOMAIN};
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self};
@@ -207,6 +207,7 @@ pub struct Builder {
     service_account_key: Value,
     access_specifier: AccessSpecifier,
     quota_project_id: Option<String>,
+    universe_domain: Option<String>,
     iam_endpoint_override: Option<String>,
 }
 
@@ -222,6 +223,7 @@ impl Builder {
             service_account_key,
             access_specifier: AccessSpecifier::Scopes([DEFAULT_SCOPE].map(str::to_string).to_vec()),
             quota_project_id: None,
+            universe_domain: None,
             iam_endpoint_override: None,
         }
     }
@@ -262,6 +264,33 @@ impl Builder {
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Sets the [universe domain] for this credentials.
+    ///
+    /// The universe domain is the default service domain for a given Cloud universe.
+    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::service_account::Builder;
+    /// # use serde_json::json;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let config = json!({
+    /// #     "type": "service_account",
+    /// #     "client_email": "foo@bar.com",
+    /// #     "private_key": "---BEGIN---"
+    /// # });
+    /// let credentials = Builder::new(config)
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+        self.universe_domain = Some(universe_domain.into());
         self
     }
 
@@ -343,15 +372,22 @@ impl Builder {
     ) -> BuildResult<CredentialsWithAccessBoundary<ServiceAccountCredentials<TokenCache>>> {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let quota_project_id = self.quota_project_id.clone();
+        let universe_domain_override = self.universe_domain.clone();
         let token_provider = self.build_token_provider()?;
         let client_email = token_provider.service_account_key.client_email.clone();
+        let universe_domain =
+            universe_domain_override.or(token_provider.service_account_key.universe_domain.clone());
         let access_boundary_url = crate::access_boundary::service_account_lookup_url(
             &client_email,
+            universe_domain
+                .as_deref()
+                .unwrap_or(DEFAULT_UNIVERSE_DOMAIN),
             iam_endpoint.as_deref(),
         );
         let creds = ServiceAccountCredentials {
             quota_project_id,
             token_provider: TokenCache::new(token_provider),
+            universe_domain,
         };
 
         Ok(CredentialsWithAccessBoundary::new(
@@ -485,6 +521,7 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+    universe_domain: Option<String>,
 }
 
 #[derive(Debug)]
@@ -601,6 +638,10 @@ where
             .maybe_quota_project_id(self.quota_project_id.as_deref())
             .build()
     }
+
+    async fn universe_domain(&self) -> Option<String> {
+        self.universe_domain.clone()
+    }
 }
 
 #[async_trait::async_trait]
@@ -686,6 +727,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
+            universe_domain: None,
         };
 
         let mut extensions = Extensions::new();
@@ -729,6 +771,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: Some(quota_project.to_string()),
+            universe_domain: None,
         };
 
         let headers = get_headers_from_cache(sac.headers(Extensions::new()).await.unwrap())?;
@@ -757,6 +800,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
+            universe_domain: None,
         };
         let result = sac.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");

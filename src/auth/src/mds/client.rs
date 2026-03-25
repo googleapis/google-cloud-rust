@@ -166,6 +166,27 @@ impl Client {
         Ok(email)
     }
 
+    /// Fetches the universe domain from the Metadata Service.
+    pub(crate) async fn universe_domain(&self) -> crate::Result<String> {
+        let path = super::MDS_UNIVERSE_DOMAIN_URI;
+        let request = self.get(path);
+        let error_message = "failed to fetch universe domain";
+
+        let response = request
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, error_message))?;
+
+        let response = Self::check_response_status(response, error_message).await?;
+
+        let universe_domain = response
+            .text()
+            .await
+            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+
+        Ok(universe_domain.trim().to_string())
+    }
+
     async fn check_response_status(
         response: reqwest::Response,
         error_message: &str,

@@ -104,12 +104,21 @@ impl Client {
         >,
     ) -> ClientBuilderResult<Self> {
         let credentials = Self::make_credentials(&config).await?;
+
+        let universe_domain = google_cloud_auth::universe_domain::resolve(
+            config.universe_domain.as_deref(),
+            &credentials,
+        )
+        .await
+        .map_err(BuilderError::cred)?;
+
         let tracing_enabled = crate::options::tracing_enabled(&config);
 
         let inner = Self::make_inner(
             &config,
             default_endpoint,
             tracing_enabled,
+            &universe_domain,
             #[cfg(google_cloud_unstable_tracing)]
             instrumentation,
         )
@@ -373,12 +382,14 @@ impl Client {
         config: &crate::options::ClientConfig,
         default_endpoint: &str,
         tracing_enabled: bool,
+        universe_domain: &str,
         #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
             &'static crate::options::InstrumentationClientInfo,
         >,
     ) -> ClientBuilderResult<InnerClient> {
         use ::tonic::transport::{Channel, channel::Change};
-        let endpoint = Self::make_endpoint(config.endpoint.clone(), default_endpoint).await?;
+        let endpoint =
+            Self::make_endpoint(config.endpoint.clone(), default_endpoint, universe_domain).await?;
         let (channel, tx) = Channel::balance_channel(
             config
                 .grpc_request_buffer_capacity
@@ -421,10 +432,11 @@ impl Client {
     async fn make_endpoint(
         endpoint: Option<String>,
         default_endpoint: &str,
+        universe_domain: &str,
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
-        let origin = crate::host::origin(endpoint.as_deref(), default_endpoint)
+        let origin = crate::host::origin(endpoint.as_deref(), default_endpoint, universe_domain)
             .map_err(|e| e.client_builder())?;
         let endpoint =
             Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))

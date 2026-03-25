@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::constants::TRUST_BOUNDARY_HEADER;
+use crate::constants::{DEFAULT_UNIVERSE_DOMAIN, TRUST_BOUNDARY_HEADER};
 use crate::credentials::EntityTag;
 use crate::credentials::{
     AccessToken, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider, dynamic,
@@ -253,12 +253,14 @@ where
         credentials: T,
         mds_client: MDSClient,
         iam_endpoint_override: Option<String>,
+        universe_domain: Option<String>,
     ) -> Self {
         let credentials = Arc::new(credentials);
         let provider = MDSAccessBoundaryProvider {
             credentials: credentials.clone(),
             mds_client,
             iam_endpoint_override,
+            universe_domain,
             url: OnceLock::new(),
         };
         let access_boundary = Arc::new(AccessBoundary::new(provider));
@@ -430,6 +432,7 @@ where
     credentials: Arc<T>,
     mds_client: MDSClient,
     iam_endpoint_override: Option<String>,
+    universe_domain: Option<String>,
     url: OnceLock<String>,
 }
 
@@ -441,10 +444,15 @@ where
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
         if self.url.get().is_none() {
             let email = self.mds_client.email().await?;
+            let universe = self
+                .universe_domain
+                .as_deref()
+                .unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
 
             // Ignore error if we can't set the client email.
             // Might be due to multiple tasks trying to set value
-            let url = service_account_lookup_url(&email, self.iam_endpoint_override.as_deref());
+            let url =
+                service_account_lookup_url(&email, universe, self.iam_endpoint_override.as_deref());
             let _ = self.url.set(url);
         }
 
@@ -594,17 +602,23 @@ where
 
 pub(crate) fn service_account_lookup_url(
     email: &str,
+    universe_domain: &str,
     iam_endpoint_override: Option<&str>,
 ) -> String {
-    let iam_endpoint = iam_endpoint_override.unwrap_or("https://iamcredentials.googleapis.com");
+    let iam_endpoint = iam_endpoint_override
+        .map(String::from)
+        .unwrap_or_else(|| format!("https://iamcredentials.{}", universe_domain));
     format!("{iam_endpoint}/v1/projects/-/serviceAccounts/{email}/allowedLocations")
 }
 
 pub(crate) fn external_account_lookup_url(
     audience: &str,
+    universe_domain: &str,
     iam_endpoint_override: Option<&str>,
 ) -> Option<String> {
-    let iam_endpoint = iam_endpoint_override.unwrap_or("https://iamcredentials.googleapis.com");
+    let iam_endpoint = iam_endpoint_override
+        .map(String::from)
+        .unwrap_or_else(|| format!("https://iamcredentials.{}", universe_domain));
 
     // Strip common domain and scheme prefixes to normalize the relative path.
     let path = audience
@@ -691,7 +705,11 @@ pub(crate) mod tests {
     #[parallel]
     fn test_service_account_url() {
         assert_eq!(
-            service_account_lookup_url("sa@project.iam.gserviceaccount.com", None),
+            service_account_lookup_url(
+                "sa@project.iam.gserviceaccount.com",
+                "googleapis.com",
+                None
+            ),
             "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/sa@project.iam.gserviceaccount.com/allowedLocations"
         );
     }
@@ -717,7 +735,7 @@ pub(crate) mod tests {
         expected: Option<&str>,
         iam_endpoint_override: Option<&str>,
     ) {
-        let actual = external_account_lookup_url(audience, iam_endpoint_override);
+        let actual = external_account_lookup_url(audience, "googleapis.com", iam_endpoint_override);
         assert_eq!(actual.as_deref(), expected);
     }
 

@@ -115,7 +115,7 @@ use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, 
 use super::{CacheableResource, Credentials};
 use crate::access_boundary::{CredentialsWithAccessBoundary, external_account_lookup_url};
 use crate::build_errors::Error as BuilderError;
-use crate::constants::{DEFAULT_SCOPE, STS_TOKEN_URL};
+use crate::constants::{DEFAULT_SCOPE, DEFAULT_UNIVERSE_DOMAIN, STS_TOKEN_URL};
 use crate::credentials::dynamic::AccessTokenCredentialsProvider;
 use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
 use crate::credentials::subject_token::dynamic;
@@ -211,6 +211,7 @@ struct ExternalAccountFile {
     scopes: Option<Vec<String>>,
     credential_source: CredentialSourceFile,
     workforce_pool_user_project: Option<String>,
+    universe_domain: Option<String>,
 }
 
 impl From<ExternalAccountFile> for ExternalAccountConfig {
@@ -232,6 +233,7 @@ impl From<ExternalAccountFile> for ExternalAccountConfig {
             ),
             scopes: scope,
             workforce_pool_user_project: config.workforce_pool_user_project,
+            universe_domain: config.universe_domain,
         }
     }
 }
@@ -278,6 +280,7 @@ struct ExternalAccountConfig {
     scopes: Vec<String>,
     credential_source: CredentialSource,
     workforce_pool_user_project: Option<String>,
+    universe_domain: Option<String>,
 }
 
 #[derive(Debug, Default)]
@@ -291,6 +294,7 @@ struct ExternalAccountConfigBuilder {
     scopes: Option<Vec<String>>,
     credential_source: Option<CredentialSource>,
     workforce_pool_user_project: Option<String>,
+    universe_domain: Option<String>,
 }
 
 impl ExternalAccountConfigBuilder {
@@ -339,6 +343,11 @@ impl ExternalAccountConfigBuilder {
         self
     }
 
+    fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+        self.universe_domain = Some(universe_domain.into());
+        self
+    }
+
     fn build(self) -> BuildResult<ExternalAccountConfig> {
         let audience = self
             .audience
@@ -369,6 +378,7 @@ impl ExternalAccountConfigBuilder {
             client_id: self.client_id,
             client_secret: self.client_secret,
             workforce_pool_user_project: self.workforce_pool_user_project,
+            universe_domain: self.universe_domain,
         })
     }
 }
@@ -417,6 +427,7 @@ impl ExternalAccountConfig {
     where
         T: dynamic::SubjectTokenProvider + 'static,
     {
+        let universe_domain = config.universe_domain.clone();
         let token_provider = ExternalAccountTokenProvider {
             subject_token_provider,
             config,
@@ -426,6 +437,7 @@ impl ExternalAccountConfig {
         ExternalAccountCredentials {
             token_provider: cache,
             quota_project_id,
+            universe_domain,
         }
     }
 }
@@ -526,6 +538,7 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+    universe_domain: Option<String>,
 }
 
 /// A builder for external account [Credentials] instances.
@@ -575,6 +588,7 @@ pub struct Builder {
     external_account_config: Value,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
+    universe_domain: Option<String>,
     retry_builder: RetryTokenProviderBuilder,
     iam_endpoint_override: Option<String>,
 }
@@ -588,6 +602,7 @@ impl Builder {
             external_account_config,
             quota_project_id: None,
             scopes: None,
+            universe_domain: None,
             retry_builder: RetryTokenProviderBuilder::default(),
             iam_endpoint_override: None,
         }
@@ -603,6 +618,34 @@ impl Builder {
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Sets the [universe domain] for this credentials.
+    ///
+    /// The universe domain is the default service domain for a given Cloud universe.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::Builder;
+    /// # use serde_json::json;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let config = json!({
+    /// #     "type": "external_account",
+    /// #     "audience": "audience",
+    /// #     "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+    /// #     "token_url": "https://sts.googleapis.com/v1beta/token",
+    /// #     "credential_source": { "url": "url" }
+    /// # });
+    /// let credentials = Builder::new(config)
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+        self.universe_domain = Some(universe_domain.into());
         self
     }
 
@@ -753,6 +796,10 @@ impl Builder {
             file.scopes = Some(scopes);
         }
 
+        if let Some(ref ud) = self.universe_domain {
+            file.universe_domain = Some(ud.clone());
+        }
+
         if file.workforce_pool_user_project.is_some()
             && !is_valid_workforce_pool_audience(&file.audience)
         {
@@ -763,8 +810,13 @@ impl Builder {
 
         let config: ExternalAccountConfig = file.into();
 
-        let access_boundary_url =
-            external_account_lookup_url(&config.audience, self.iam_endpoint_override.as_deref());
+        let access_boundary_url = external_account_lookup_url(
+            &config.audience,
+            self.universe_domain
+                .as_deref()
+                .unwrap_or(DEFAULT_UNIVERSE_DOMAIN),
+            self.iam_endpoint_override.as_deref(),
+        );
 
         let creds = config.make_credentials(self.quota_project_id, self.retry_builder);
 
@@ -962,6 +1014,35 @@ impl ProgrammaticBuilder {
                 .map(|s| s.into())
                 .collect::<Vec<String>>(),
         );
+        self
+    }
+
+    /// Sets the optional [universe domain] for this credentials.
+    ///
+    /// The universe domain is the default service domain for a given Cloud universe.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::sync::Arc;
+    /// # #[derive(Debug)] struct MyProvider;
+    /// # #[derive(Debug)] struct MyError;
+    /// # impl std::fmt::Display for MyError { fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result { write!(f, "err") } }
+    /// # impl std::error::Error for MyError {}
+    /// # impl SubjectTokenProviderError for MyError { fn is_transient(&self) -> bool { false } }
+    /// # impl SubjectTokenProvider for MyProvider { type Error = MyError; async fn subject_token(&self) -> Result<SubjectToken, Self::Error> { Ok(SubjectTokenBuilder::new("token".to_string()).build()) } }
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let provider = Arc::new(MyProvider);
+    /// let credentials = ProgrammaticBuilder::new(provider)
+    ///     .with_universe_domain("googleapis.com");
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+        self.config = self.config.with_universe_domain(universe_domain);
         self
     }
 
@@ -1421,6 +1502,10 @@ where
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
             .build()
+    }
+
+    async fn universe_domain(&self) -> Option<String> {
+        self.universe_domain.clone()
     }
 }
 

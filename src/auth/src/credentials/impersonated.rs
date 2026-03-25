@@ -91,7 +91,7 @@
 
 use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::build_errors::Error as BuilderError;
-use crate::constants::DEFAULT_SCOPE;
+use crate::constants::{DEFAULT_SCOPE, DEFAULT_UNIVERSE_DOMAIN};
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{
     AccessToken, AccessTokenCredentials, CacheableResource, Credentials, build_credentials,
@@ -153,6 +153,7 @@ pub struct Builder {
     delegates: Option<Vec<String>>,
     scopes: Option<Vec<String>>,
     quota_project_id: Option<String>,
+    universe_domain: Option<String>,
     lifetime: Option<Duration>,
     retry_builder: RetryTokenProviderBuilder,
     iam_endpoint_override: Option<String>,
@@ -174,6 +175,7 @@ impl Builder {
             delegates: None,
             scopes: None,
             quota_project_id: None,
+            universe_domain: None,
             lifetime: None,
             retry_builder: RetryTokenProviderBuilder::default(),
             iam_endpoint_override: None,
@@ -204,6 +206,7 @@ impl Builder {
             delegates: None,
             scopes: None,
             quota_project_id: None,
+            universe_domain: None,
             lifetime: None,
             retry_builder: RetryTokenProviderBuilder::default(),
             iam_endpoint_override: None,
@@ -316,6 +319,32 @@ impl Builder {
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Sets the [universe domain] for this credentials.
+    ///
+    /// The universe domain is the default service domain for a given Cloud universe.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::impersonated::Builder;
+    /// # use serde_json::json;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let config = json!({
+    /// #     "type": "impersonated_service_account",
+    /// #     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+    /// #     "source_credentials": { "type": "authorized_user", "client_id": "id", "client_secret": "secret", "refresh_token": "token" }
+    /// # });
+    /// let credentials = Builder::new(config)
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+        self.universe_domain = Some(universe_domain.into());
         self
     }
 
@@ -490,17 +519,23 @@ impl Builder {
         self,
     ) -> BuildResult<CredentialsWithAccessBoundary<ImpersonatedServiceAccount<TokenCache>>> {
         let is_access_boundary_enabled = self.is_access_boundary_enabled;
+        let universe_domain = self.universe_domain.clone();
         let service_account_impersonation_url = self.resolve_impersonation_url()?;
         let client_email = extract_client_email(&service_account_impersonation_url)?;
         let iam_endpoint_override = self.iam_endpoint_override.clone();
+        // TODO: source credentials can contain universe domain
         let (token_provider, quota_project_id) = self.build_components()?;
         let access_boundary_url = crate::access_boundary::service_account_lookup_url(
             &client_email,
+            universe_domain
+                .as_deref()
+                .unwrap_or(DEFAULT_UNIVERSE_DOMAIN),
             iam_endpoint_override.as_deref(),
         );
         let creds = ImpersonatedServiceAccount {
             token_provider: TokenCache::new(token_provider),
             quota_project_id,
+            universe_domain,
         };
 
         if !is_access_boundary_enabled {
@@ -646,7 +681,8 @@ pub(crate) fn build_components_from_json(
     // the quota project and they typically need different scopes.
     // If user does want some specific scopes or quota, they can build using the
     // from_source_credentials method.
-    let source_credentials = build_credentials(Some(config.source_credentials), None, None)?.into();
+    let source_credentials =
+        build_credentials(Some(config.source_credentials), None, None, None)?.into();
 
     Ok(ImpersonatedCredentialComponents {
         source_credentials,
@@ -728,6 +764,7 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+    universe_domain: Option<String>,
 }
 
 #[async_trait::async_trait]
@@ -741,6 +778,10 @@ where
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
             .build()
+    }
+
+    async fn universe_domain(&self) -> Option<String> {
+        self.universe_domain.clone()
     }
 }
 

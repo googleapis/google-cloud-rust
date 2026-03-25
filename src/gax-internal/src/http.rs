@@ -51,6 +51,7 @@ use google_cloud_gax::retry_throttler::SharedRetryThrottler;
 use http::Extensions;
 pub use http_request_builder::HttpRequestBuilder;
 use reqwest::Method;
+use std::str::FromStr;
 use std::sync::Arc;
 use std::time::Duration;
 #[cfg(google_cloud_unstable_tracing)]
@@ -69,6 +70,7 @@ pub struct ReqwestClient {
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     _tracing_enabled: bool,
+    universe_domain: String,
 }
 
 impl ReqwestClient {
@@ -77,6 +79,12 @@ impl ReqwestClient {
         default_endpoint: &str,
     ) -> ClientBuilderResult<Self> {
         let cred = Self::make_credentials(&config).await?;
+
+        let universe_domain =
+            google_cloud_auth::universe_domain::resolve(config.universe_domain.as_deref(), &cred)
+                .await
+                .map_err(BuilderError::cred)?;
+
         let mut builder = ::reqwest::Client::builder();
         // Force http1 as http2 with not currently supported.
         // TODO(#4298): Remove after adding HTTP2 support.
@@ -88,12 +96,28 @@ impl ReqwestClient {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
-        let host = crate::host::header(config.endpoint.as_deref(), default_endpoint)
+
+        // Modify default endpoint if using custom universe
+        let mut endpoint = config
+            .endpoint
+            .clone()
+            .unwrap_or_else(|| default_endpoint.to_string());
+
+        if config.endpoint.is_none() && universe_domain != "googleapis.com" {
+            if let Ok(uri) = http::Uri::from_str(&endpoint) {
+                if let Some(host) = uri.host() {
+                    if let Some(service) = host.strip_suffix(".googleapis.com") {
+                        let new_host = format!("{}.{}", service, universe_domain);
+                        endpoint = endpoint.replace(host, &new_host);
+                    }
+                }
+            }
+        }
+
+        let host = crate::host::header(Some(endpoint.as_ref()), default_endpoint, &universe_domain)
             .map_err(|e| e.client_builder())?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
-        let endpoint = config
-            .endpoint
-            .unwrap_or_else(|| default_endpoint.to_string());
+
         Ok(Self {
             inner,
             cred,
@@ -118,6 +142,7 @@ impl ReqwestClient {
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             instrumentation: None,
             _tracing_enabled: tracing_enabled,
+            universe_domain,
         })
     }
 
@@ -215,7 +240,8 @@ impl ReqwestClient {
         url: &str,
         default_endpoint: &str,
     ) -> Result<HttpRequestBuilder> {
-        let host = crate::host::header(Some(url), default_endpoint).map_err(|e| e.gax())?;
+        let host = crate::host::header(Some(url), default_endpoint, &self.universe_domain)
+            .map_err(|e| e.gax())?;
         let builder = self
             .inner
             .request(method, url)

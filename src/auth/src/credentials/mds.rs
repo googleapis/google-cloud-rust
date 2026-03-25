@@ -105,7 +105,9 @@ where
     T: CachedTokenProvider,
 {
     quota_project_id: Option<String>,
+    universe_domain: Option<String>,
     token_provider: T,
+    mds_client: MDSClient,
 }
 
 /// Creates [Credentials] instances backed by the [Metadata Service].
@@ -123,6 +125,7 @@ where
 pub struct Builder {
     endpoint: Option<String>,
     quota_project_id: Option<String>,
+    universe_domain: Option<String>,
     scopes: Option<Vec<String>>,
     created_by_adc: bool,
     retry_builder: RetryTokenProviderBuilder,
@@ -135,6 +138,7 @@ impl Default for Builder {
         Self {
             endpoint: None,
             quota_project_id: None,
+            universe_domain: None,
             scopes: None,
             created_by_adc: false,
             retry_builder: RetryTokenProviderBuilder::default(),
@@ -174,6 +178,26 @@ impl Builder {
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Sets the [universe domain] for this credentials.
+    ///
+    /// The universe domain is the default service domain for a given Cloud universe.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::Builder;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let credentials = Builder::default()
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+        self.universe_domain = Some(universe_domain.into());
         self
     }
 
@@ -316,10 +340,13 @@ impl Builder {
     ) -> BuildResult<CredentialsWithAccessBoundary<MDSCredentials<TokenCache>>> {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let is_access_boundary_enabled = self.is_access_boundary_enabled;
+        let universe_domain = self.universe_domain.clone();
         let mds_client = MDSClient::new(self.endpoint.clone());
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
+            universe_domain: universe_domain.clone(),
             token_provider: TokenCache::new(self.build_token_provider()),
+            mds_client: mds_client.clone(),
         };
         if !is_access_boundary_enabled {
             return Ok(CredentialsWithAccessBoundary::new_no_op(mdsc));
@@ -328,6 +355,7 @@ impl Builder {
             mdsc,
             mds_client,
             iam_endpoint,
+            universe_domain,
         ))
     }
 
@@ -374,6 +402,13 @@ where
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
             .build()
+    }
+
+    async fn universe_domain(&self) -> Option<String> {
+        if let Some(ud) = &self.universe_domain {
+            return Some(ud.clone());
+        }
+        self.mds_client.universe_domain().await.ok()
     }
 }
 
@@ -468,7 +503,6 @@ impl TokenProvider for MDSAccessTokenProvider {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
@@ -610,6 +644,8 @@ mod tests {
         let mdsc = MDSCredentials {
             quota_project_id: None,
             token_provider: TokenCache::new(mock),
+            universe_domain: None,
+            mds_client: MDSClient::new(None),
         };
 
         let mut extensions = Extensions::new();
@@ -671,6 +707,8 @@ mod tests {
         let mdsc = MDSCredentials {
             quota_project_id: None,
             token_provider: TokenCache::new(mock),
+            universe_domain: None,
+            mds_client: MDSClient::new(None),
         };
         let result = mdsc.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");
@@ -1076,8 +1114,8 @@ mod tests {
     #[tokio::test]
     #[parallel]
     async fn get_default_universe_domain_success() -> TestResult {
-        let universe_domain_response = Builder::default().build()?.universe_domain().await.unwrap();
-        assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
+        let universe_domain_response = Builder::default().build()?.universe_domain().await;
+        assert!(universe_domain_response.is_none());
         Ok(())
     }
 
