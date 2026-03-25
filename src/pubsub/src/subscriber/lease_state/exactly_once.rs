@@ -127,10 +127,10 @@ impl Leases {
     }
 
     /// Nacks all messages under lease management that have not been acked by
-    /// the application.
+    /// the application and drains all messages from the lease state.
     ///
     /// Called during shutdown, if configured to `NackImmediately`.
-    pub fn evict(&mut self) {
+    pub fn evict_and_drain(&mut self) -> (Vec<String>, Vec<Vec<String>>) {
         let under_lease = std::mem::take(&mut self.under_lease);
         for (ack_id, info) in under_lease {
             let _ = info
@@ -138,6 +138,7 @@ impl Leases {
                 .send(Err(AckError::Shutdown(NACK_SHUTDOWN_ERROR.into())));
             self.to_nack.push(ack_id);
         }
+        super::batch_drained(self.drain())
     }
 }
 
@@ -664,12 +665,93 @@ mod tests {
             leases
         );
 
-        leases.evict();
+        let (to_ack, to_nack) = leases.evict_and_drain();
+
+        assert_eq!(to_nack.len(), 1);
         assert_eq!(
             TestLeases {
                 under_lease: Vec::new(),
                 to_ack: Vec::new(),
                 to_nack: test_ids(1..4),
+            },
+            Leases {
+                to_ack,
+                to_nack: to_nack.into_iter().flatten().collect(),
+                ..Default::default()
+            }
+        );
+
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+        let err = result_rx1.await?.expect_err("error should be returned");
+        assert!(matches!(err, AckError::Shutdown(_)), "{err:?}");
+        let err = result_rx2.await?.expect_err("error should be returned");
+        assert!(matches!(err, AckError::Shutdown(_)), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn evict_overflow_batches() -> anyhow::Result<()> {
+        let mut leases = Leases::default();
+
+        let (result_tx, result_rx1) = channel();
+        leases.add(
+            test_id(1),
+            ExactlyOnceInfo {
+                receive_time: Instant::now(),
+                result_tx,
+                // Even pending acks will be evicted, and satisfied with
+                // `Shutdown` errors.
+                pending: true,
+            },
+        );
+        let (result_tx, result_rx2) = channel();
+        leases.add(
+            test_id(2),
+            ExactlyOnceInfo {
+                receive_time: Instant::now(),
+                result_tx,
+                pending: false,
+            },
+        );
+
+        // Add MAX_IDS_PER_RPC + 10 messages under lease management. Nack some and evict.
+        for i in 3..MAX_IDS_PER_RPC + 20 {
+            leases.add(test_id(i), test_info());
+            if i % 2 == 0 {
+                leases.nack(test_id(i));
+            }
+        }
+        let (to_ack, to_nack) = leases.evict_and_drain();
+        assert_eq!(to_nack.len(), 2);
+        assert_eq!(to_nack[0].len(), MAX_IDS_PER_RPC as usize);
+        assert_eq!(to_nack[1].len(), 19);
+
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: test_ids(1..MAX_IDS_PER_RPC + 20),
+            },
+            Leases {
+                to_ack,
+                to_nack: to_nack.into_iter().flatten().collect(),
+                ..Default::default()
+            }
+        );
+
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
             },
             leases
         );

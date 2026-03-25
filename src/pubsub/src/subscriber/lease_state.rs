@@ -34,6 +34,18 @@ use tokio_util::task::TaskTracker;
 // https://docs.cloud.google.com/pubsub/quotas
 const MAX_IDS_PER_RPC: usize = 2500;
 
+// Helper function to chunk nack ids into chunks of MAX_IDS_PER_RPC.
+fn batch_drained(drained: (Vec<String>, Vec<String>)) -> (Vec<String>, Vec<Vec<String>>) {
+    (
+        drained.0, // acks
+        drained
+            .1
+            .chunks(MAX_IDS_PER_RPC)
+            .map(|c| c.to_vec())
+            .collect(), // nacks
+    )
+}
+
 pub(super) struct LeaseOptions {
     /// How often we flush acks/nacks
     pub(super) flush_period: Duration,
@@ -260,29 +272,25 @@ where
     pub(super) async fn shutdown(mut self) {
         // Note that if `WaitForProcessing` was selected by the application,
         // there are no messages under lease. They have all been processed.
-        self.leases.evict();
-        let (to_ack, to_nack) = self.leases.drain();
+        let (to_ack, to_nack) = self.leases.evict_and_drain();
         if !to_ack.is_empty() {
             let leaser = self.leaser.clone();
             self.pending_acks_nacks
                 .spawn(async move { leaser.ack(to_ack).await });
         }
-        if !to_nack.is_empty() {
-            // TODO(#4847) - this nack needs to be broken into batches.
+        for to_nack in to_nack {
             let leaser = self.leaser.clone();
             self.pending_acks_nacks
                 .spawn(async move { leaser.nack(to_nack).await });
         }
 
         // TODO(#5109) - evicting exactly-once leases is ok, but not ideal.
-        self.eo_leases.evict();
         // Currently, evict returns NACK_SHUTDOWN_ERROR for all exactly once
         // leases. This includes the to_ack leases. Specifically,
         // the leases that have been acknowledged by the application but not yet
         // flushed. Therefore, we do not need to flush those leases.
-        let (_, to_nack) = self.eo_leases.drain();
-        if !to_nack.is_empty() {
-            // TODO(#4847) - this nack needs to be broken into batches.
+        let (_, to_nack) = self.eo_leases.evict_and_drain();
+        for to_nack in to_nack {
             let leaser = self.leaser.clone();
             self.pending_acks_nacks
                 .spawn(async move { leaser.nack(to_nack).await });

@@ -99,12 +99,13 @@ impl Leases {
     }
 
     /// Nacks all messages under lease management that have not been acked by
-    /// the application.
+    /// the application and drains all messages from the lease state.
     ///
     /// Called during shutdown, if configured to `NackImmediately`.
-    pub fn evict(&mut self) {
+    pub fn evict_and_drain(&mut self) -> (Vec<String>, Vec<Vec<String>>) {
         let under_lease = std::mem::take(&mut self.under_lease);
         self.to_nack.extend(under_lease.into_keys());
+        super::batch_drained(self.drain())
     }
 }
 
@@ -288,14 +289,79 @@ mod tests {
             leases
         );
 
-        leases.evict();
+        let (to_ack, to_nack) = leases.evict_and_drain();
+
         assert_eq!(
             TestLeases {
                 under_lease: Vec::new(),
                 to_ack: test_ids(0..10),
                 to_nack: test_ids(10..30),
             },
+            Leases {
+                to_ack,
+                to_nack: to_nack.into_iter().flatten().collect(),
+                ..Default::default()
+            }
+        );
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases,
+            "Leases should be empty after evict.",
+        );
+    }
+
+    #[test]
+    fn evict_overflow_batches() {
+        let mut leases = Leases::default();
+        for i in 0..MAX_IDS_PER_RPC * 3 {
+            leases.add(test_id(i), Instant::now());
+        }
+        for i in 0..10 {
+            leases.ack(test_id(i));
+        }
+        for i in 10..MAX_IDS_PER_RPC {
+            leases.nack(test_id(i));
+        }
+        assert_eq!(
+            TestLeases {
+                under_lease: test_ids(MAX_IDS_PER_RPC..MAX_IDS_PER_RPC * 3),
+                to_ack: test_ids(0..10),
+                to_nack: test_ids(10..MAX_IDS_PER_RPC),
+            },
             leases
+        );
+
+        let (to_ack, to_nack) = leases.evict_and_drain();
+        assert_eq!(to_nack.len(), 3);
+        assert_eq!(to_nack[0].len(), MAX_IDS_PER_RPC as usize);
+        assert_eq!(to_nack[1].len(), MAX_IDS_PER_RPC as usize);
+        assert_eq!(to_nack[2].len(), (MAX_IDS_PER_RPC - 10) as usize);
+
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: test_ids(0..10),
+                to_nack: test_ids(10..MAX_IDS_PER_RPC * 3),
+            },
+            Leases {
+                to_ack: to_ack,
+                to_nack: to_nack.into_iter().flatten().collect(),
+                ..Default::default()
+            },
+        );
+
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases,
+            "Leases should be empty after evict.",
         );
     }
 
