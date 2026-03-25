@@ -64,8 +64,6 @@ where
             inner: self.inner.clone(),
             confirmed_tx: self.confirmed_tx.clone(),
             options: self.options.clone(),
-            // TODO(#3975) - We can save some clones of the subscription if we
-            // make the `Leaser` API functional.
             subscription: self.subscription.clone(),
             ack_deadline_seconds: self.ack_deadline_seconds,
         }
