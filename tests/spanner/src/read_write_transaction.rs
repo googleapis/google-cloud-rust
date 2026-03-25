@@ -34,7 +34,7 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
         .await?;
 
     let runner = db_client.read_write_transaction().build().await?;
-    let _ = runner
+    runner
         .run(async |transaction| {
             let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
                 .add_param("id", &id)
@@ -118,8 +118,7 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
                     .build();
             transaction.execute_update(update_statement).await?;
 
-            Err(google_cloud_spanner::Error::io(std::io::Error::new(
-                std::io::ErrorKind::Other,
+            Err(google_cloud_spanner::Error::io(std::io::Error::other(
                 "Simulated error to trigger rollback",
             )))
         })
