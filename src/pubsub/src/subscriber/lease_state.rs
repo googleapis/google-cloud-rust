@@ -26,6 +26,7 @@ use tokio::sync::oneshot::Sender;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::task::JoinSet;
 use tokio::time::{Duration, Instant, Interval, interval_at};
+use tokio_util::task::TaskTracker;
 
 // An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
 // be safe to fit 2500 Ack IDs in a single RPC.
@@ -118,7 +119,7 @@ where
     max_lease: Duration,
 
     // In flight acks and nacks.
-    pending_acks_nacks: JoinSet<()>,
+    pending_acks_nacks: TaskTracker,
 
     // In flight lease extension operations.
     //
@@ -152,7 +153,7 @@ where
             flush_interval,
             extend_interval,
             max_lease: options.max_lease,
-            pending_acks_nacks: JoinSet::new(),
+            pending_acks_nacks: TaskTracker::new(),
             pending_extends: JoinSet::new(),
         }
     }
@@ -168,9 +169,6 @@ where
         if self.leases.needs_flush() || self.eo_leases.needs_flush() {
             return LeaseEvent::Flush;
         }
-
-        // Clean up the state of pending operations.
-        while self.pending_acks_nacks.try_join_next().is_some() {}
 
         tokio::select! {
             _ = self.flush_interval.tick() => LeaseEvent::Flush,
@@ -290,7 +288,9 @@ where
                 .spawn(async move { leaser.nack(to_nack).await });
         }
 
-        self.pending_acks_nacks.join_all().await;
+        // Wait for pending acks/nacks to complete.
+        self.pending_acks_nacks.close();
+        self.pending_acks_nacks.wait().await;
 
         // Wait for pending lease extensions to complete. This is not useful in
         // practice, because we are nacking all the messages, but it simplifies
@@ -360,7 +360,8 @@ pub(super) mod tests {
     {
         state.flush();
         let pending_acks_nacks = std::mem::take(&mut state.pending_acks_nacks);
-        let _ = pending_acks_nacks.join_all().await;
+        pending_acks_nacks.close();
+        pending_acks_nacks.wait().await;
     }
 
     #[tokio::test(start_paused = true)]
@@ -670,7 +671,6 @@ pub(super) mod tests {
         state.flush();
         // Yield execution so the ack attempt can execute.
         tokio::task::yield_now().await;
-        let _ = state.next_event().await;
         assert!(
             state.pending_acks_nacks.is_empty(),
             "The ack task should have completed. We should not hold onto it."
@@ -682,7 +682,6 @@ pub(super) mod tests {
         state.flush();
         // Yield execution so the nack attempt can execute.
         tokio::task::yield_now().await;
-        let _ = state.next_event().await;
         assert!(
             state.pending_acks_nacks.is_empty(),
             "The nack task should have completed. We should not hold onto it."
