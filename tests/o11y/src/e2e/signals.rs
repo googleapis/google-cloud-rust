@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::Buffer;
 use super::{new_credentials, set_up_providers, wait_for_trace};
 use crate::Anonymous;
 use google_cloud_auth::credentials::Credentials;
@@ -21,6 +20,7 @@ use google_cloud_monitoring_v3::client::MetricService;
 use google_cloud_monitoring_v3::model::TimeInterval;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::runtime_config::project_id;
+pub use google_cloud_test_utils::tracing::Buffer;
 use google_cloud_wkt::Timestamp;
 use httptest::responders::{delay_and_then, status_code};
 use httptest::{Expectation, Server, matchers::*};
