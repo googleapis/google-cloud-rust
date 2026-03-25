@@ -24,6 +24,7 @@ ignore:
   # Ignore tools and test helpers.
   - "src/gax-internal/echo-server"
   - "src/gax-internal/grpc-server"
+  - "src/test-utils"
   - "src/w1r3"
   - "tools/check-copyright"
   - "tools/golints"
