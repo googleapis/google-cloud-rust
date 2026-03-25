@@ -237,6 +237,9 @@ where
             self.pending_extends
                 .spawn(async move { leaser.extend(ack_ids).await });
         }
+
+        // TODO(#5048) - we could process the results as a lease event.
+        while self.pending_extends.try_join_next().is_some() {}
     }
 
     /// Shutdown the leaser
@@ -735,6 +738,34 @@ pub(super) mod tests {
             state.process(ExactlyOnceNack(test_id(i)));
         }
         extend_and_await(&mut state).await;
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn pending_extends_size_management() {
+        let mut mock = MockLeaser::new();
+        mock.expect_extend()
+            .times(2)
+            .withf(|v| *v == vec![test_id(1)])
+            .returning(|_| ());
+
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
+
+        state.add(test_id(1), at_least_once_info());
+        state.extend();
+        // Yield execution so the extend attempt can execute.
+        tokio::task::yield_now().await;
+
+        // TODO(#5048) - We currently clean up the completed pending extends in
+        // `LeaseState::extend()`. If we decide to clean up the pending extends
+        // elsewhere, this test will need an update.
+        state.extend();
+        let pending_extends = state.pending_extends.len();
+        assert!(
+            pending_extends < 2,
+            "The first lease extension attempt should have completed. We should not hold onto it."
+        );
+
+        let _ = state.pending_extends.join_all().await;
     }
 
     #[tokio::test]
