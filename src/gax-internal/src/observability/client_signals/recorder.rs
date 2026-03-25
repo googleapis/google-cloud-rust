@@ -42,6 +42,20 @@ tokio::task_local! {
 /// variable. Once the telemetry layer is ready to emit a signal it consults the variable and uses
 /// the latest snapshot to populate the attributes of the signal.
 ///
+/// Client library implementations must initialize a `RequestRecorder` and bring it into scope
+/// before calling its transport-level stub (and therefore before making any requests).
+///
+/// The transport-level stub in the client library must call `on_client_request()` before calling the
+/// transport client.
+///
+/// The transport clients ([ReqwestClient] and [GrpcClient]) must make matched calls to
+/// `on_<transport>_request` and one of `on_<transport>_response` or `on_<transport>_error()`. Any
+/// instrumentation on these clients can read the values directly from the `RequestRecorder` that is
+/// in scope.
+///
+/// The client library tracing-level stub reads the values directly from the `RequestRecorder` when
+/// the transport-level stub future is satisfied.
+///
 /// # Example
 /// ```
 /// # use google_cloud_gax_internal::observability::RequestRecorder;
@@ -59,6 +73,9 @@ tokio::task_local! {
 /// # panic!("")
 /// }
 /// ```
+///
+/// [ReqwestClient]: crate::http::ReqwestClient
+/// [GrpcClient]: crate::grpc::GrpcClient
 #[derive(Clone, Debug)]
 pub struct RequestRecorder {
     inner: Arc<Mutex<ClientSnapshot>>,
