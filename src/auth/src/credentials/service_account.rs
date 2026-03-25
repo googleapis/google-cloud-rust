@@ -78,6 +78,10 @@ use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsPro
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self};
 use crate::headers_util::AuthHeadersBuilder;
+use crate::io::{
+    EnvProvider, FsProvider, HttpClientProvider, IoConfig, SharedEnvProvider, SharedFsProvider,
+    SharedHttpClientProvider,
+};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
@@ -208,6 +212,7 @@ pub struct Builder {
     access_specifier: AccessSpecifier,
     quota_project_id: Option<String>,
     iam_endpoint_override: Option<String>,
+    providers: IoConfig,
 }
 
 impl Builder {
@@ -223,6 +228,7 @@ impl Builder {
             access_specifier: AccessSpecifier::Scopes([DEFAULT_SCOPE].map(str::to_string).to_vec()),
             quota_project_id: None,
             iam_endpoint_override: None,
+            providers: IoConfig::default(),
         }
     }
 
@@ -268,6 +274,43 @@ impl Builder {
     #[cfg(all(test, google_cloud_unstable_trusted_boundaries))]
     fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
         self.iam_endpoint_override = iam_endpoint_override;
+        self
+    }
+
+    /// Sets a custom environment variable provider.
+    ///
+    /// When set, the auth crate will use this provider for all environment
+    /// variable lookups during service account credential construction instead
+    /// of reading from the process environment directly.
+    pub fn with_env_provider(mut self, provider: impl EnvProvider + 'static) -> Self {
+        self.providers.env = SharedEnvProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom filesystem provider.
+    ///
+    /// When set, the auth crate will use this provider for all file read
+    /// operations during service account credential construction instead of
+    /// reading from the real filesystem directly.
+    pub fn with_fs_provider(mut self, provider: impl FsProvider + 'static) -> Self {
+        self.providers.fs = SharedFsProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during service account credential construction and token
+    /// retrieval instead of using `reqwest::Client` directly.
+    ///
+    /// Service account tokens are generated locally via JWT signing, so the
+    /// HTTP provider is mainly used for access boundary lookups and IAM
+    /// signer operations.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.providers.http = SharedHttpClientProvider::new(provider);
         self
     }
 
@@ -343,6 +386,7 @@ impl Builder {
     ) -> BuildResult<CredentialsWithAccessBoundary<ServiceAccountCredentials<TokenCache>>> {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let quota_project_id = self.quota_project_id.clone();
+        let http = SharedHttpClientProvider::clone(&self.providers.http);
         let token_provider = self.build_token_provider()?;
         let client_email = token_provider.service_account_key.client_email.clone();
         let access_boundary_url = crate::access_boundary::service_account_lookup_url(
@@ -357,6 +401,7 @@ impl Builder {
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             Some(access_boundary_url),
+            http,
         ))
     }
 

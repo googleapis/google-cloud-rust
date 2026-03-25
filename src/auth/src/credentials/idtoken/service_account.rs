@@ -68,13 +68,14 @@ use crate::credentials::CacheableResource;
 use crate::credentials::idtoken::dynamic::IDTokenCredentialsProvider;
 use crate::credentials::idtoken::parse_id_token_from_str;
 use crate::credentials::service_account::{ServiceAccountKey, ServiceAccountTokenGenerator};
+use crate::errors;
+use crate::io::{HttpClientProvider, HttpRequest, SharedHttpClientProvider};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, credentials::idtoken::IDTokenCredentials};
 use async_trait::async_trait;
 use google_cloud_gax::error::CredentialsError;
 use http::Extensions;
-use reqwest::Client;
 use serde_json::Value;
 use std::sync::Arc;
 
@@ -108,12 +109,15 @@ struct ServiceAccountTokenProvider {
     audience: String,
     target_audience: String,
     token_server_url: String,
+    http: SharedHttpClientProvider,
 }
 
 #[derive(serde::Deserialize)]
 struct IdTokenResponse {
     id_token: String,
 }
+
+const MSG: &str = "failed to exchange id token";
 
 #[async_trait]
 impl TokenProvider for ServiceAccountTokenProvider {
@@ -128,26 +132,27 @@ impl TokenProvider for ServiceAccountTokenProvider {
         );
         let assertion = tg.generate()?;
 
-        let client = Client::new();
-        let request = client.post(&self.token_server_url).form(&[
-            ("grant_type", JWT_BEARER_GRANT_TYPE.to_string()),
-            ("assertion", assertion),
-        ]);
+        let body = url::form_urlencoded::Serializer::new(String::new())
+            .append_pair("grant_type", JWT_BEARER_GRANT_TYPE)
+            .append_pair("assertion", &assertion)
+            .finish()
+            .into_bytes();
 
-        let response = request
-            .send()
+        let request = HttpRequest::post(&self.token_server_url).form(body);
+
+        let response = self
+            .http
+            .execute(request)
             .await
-            .map_err(|e| crate::errors::from_http_error(e, "failed to exchange id token"))?;
+            .map_err(|e| errors::from_http_error(e, MSG))?;
 
-        if !response.status().is_success() {
-            let err = crate::errors::from_http_response(response, "failed to fetch id token").await;
-            return Err(err);
+        if !response.is_success() {
+            return Err(errors::from_http_response(&response, MSG));
         }
 
         let token_res: IdTokenResponse = response
             .json()
-            .await
-            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+            .map_err(|e| CredentialsError::from_source(e.is_io(), e))?;
 
         parse_id_token_from_str(token_res.id_token)
     }
@@ -159,6 +164,7 @@ pub struct Builder {
     service_account_key: Value,
     target_audience: String,
     token_server_url: String,
+    http: SharedHttpClientProvider,
 }
 
 impl Builder {
@@ -170,12 +176,22 @@ impl Builder {
             service_account_key,
             target_audience: target_audience.into(),
             token_server_url: OAUTH2_TOKEN_SERVER_URL.to_string(),
+            http: SharedHttpClientProvider::default(),
         }
     }
 
     #[cfg(test)]
     pub(crate) fn with_token_server_url<S: Into<String>>(mut self, url: S) -> Self {
         self.token_server_url = url.into();
+        self
+    }
+
+    /// Sets a custom HTTP client provider.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.http = SharedHttpClientProvider::new(provider);
         self
     }
 
@@ -191,6 +207,7 @@ impl Builder {
             audience: OAUTH2_TOKEN_SERVER_URL.to_string(),
             target_audience,
             token_server_url: self.token_server_url,
+            http: self.http,
         })
     }
 

@@ -19,6 +19,10 @@
 use crate::build_errors::Error as BuilderError;
 use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
+use crate::io::{
+    EnvProvider, FsProvider, HttpClientProvider, IoConfig, SharedEnvProvider, SharedFsProvider,
+    SharedHttpClientProvider,
+};
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use http::{Extensions, HeaderMap};
@@ -429,6 +433,7 @@ pub(crate) mod dynamic {
 pub struct Builder {
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
+    providers: IoConfig,
 }
 
 impl Default for Builder {
@@ -447,6 +452,7 @@ impl Default for Builder {
         Self {
             quota_project_id: None,
             scopes: None,
+            providers: IoConfig::default(),
         }
     }
 }
@@ -506,6 +512,39 @@ impl Builder {
         self
     }
 
+    /// Sets a custom environment variable provider.
+    ///
+    /// When set, the auth crate will use this provider for all environment
+    /// variable lookups during credential construction instead of reading
+    /// from the process environment directly.
+    pub fn with_env_provider(mut self, provider: impl EnvProvider + 'static) -> Self {
+        self.providers.env = SharedEnvProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom filesystem provider.
+    ///
+    /// When set, the auth crate will use this provider for all file read
+    /// operations during credential construction instead of reading from
+    /// the real filesystem directly.
+    pub fn with_fs_provider(mut self, provider: impl FsProvider + 'static) -> Self {
+        self.providers.fs = SharedFsProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during credential construction and token retrieval instead
+    /// of using `reqwest::Client` directly.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.providers.http = SharedHttpClientProvider::new(provider);
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -546,16 +585,18 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        let json_data = match load_adc()? {
+        let json_data = match load_adc(&self.providers.env, &self.providers.fs)? {
             AdcContents::Contents(contents) => {
                 Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
             }
             AdcContents::FallbackToMds => None,
         };
-        let quota_project_id = std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
-            .ok()
+        let quota_project_id = self
+            .providers
+            .env
+            .var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
             .or(self.quota_project_id);
-        build_credentials(json_data, quota_project_id, self.scopes)
+        build_credentials(json_data, quota_project_id, self.scopes, self.providers)
     }
 
     /// Returns a [crate::signer::Signer] instance with the configured settings.
@@ -576,16 +617,18 @@ impl Builder {
     /// # Ok(()) }
     /// ```
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
-        let json_data = match load_adc()? {
+        let json_data = match load_adc(&self.providers.env, &self.providers.fs)? {
             AdcContents::Contents(contents) => {
                 Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
             }
             AdcContents::FallbackToMds => None,
         };
-        let quota_project_id = std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
-            .ok()
+        let quota_project_id = self
+            .providers
+            .env
+            .var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
             .or(self.quota_project_id);
-        build_signer(json_data, quota_project_id, self.scopes)
+        build_signer(json_data, quota_project_id, self.scopes, self.providers)
     }
 }
 
@@ -596,7 +639,7 @@ enum AdcPath {
 }
 
 #[derive(Debug, PartialEq)]
-enum AdcContents {
+pub(crate) enum AdcContents {
     Contents(String),
     FallbackToMds,
 }
@@ -616,12 +659,13 @@ fn extract_credential_type(json: &Value) -> BuildResult<&str> {
 /// `mds::Builder`, `service_account::Builder`, etc.) before calling `.build()`.
 /// It helps avoid repetitive code in the `build_credentials` function.
 macro_rules! config_builder {
-    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
+    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr, $providers:expr) => {{
         let builder = config_common_builder!(
             $builder_instance,
             $quota_project_id_option,
             $scopes_option,
-            $apply_scopes_closure
+            $apply_scopes_closure,
+            $providers
         );
         builder.build_access_token_credentials()
     }};
@@ -630,20 +674,25 @@ macro_rules! config_builder {
 /// Applies common optional configurations (quota project ID, scopes) to a
 /// specific credential builder instance and then return a signer for it.
 macro_rules! config_signer {
-    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
+    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr, $providers:expr) => {{
         let builder = config_common_builder!(
             $builder_instance,
             $quota_project_id_option,
             $scopes_option,
-            $apply_scopes_closure
+            $apply_scopes_closure,
+            $providers
         );
         builder.build_signer()
     }};
 }
 
 macro_rules! config_common_builder {
-    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
-        let builder = $builder_instance;
+    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr, $providers:expr) => {{
+        let providers = $providers;
+        let builder = $builder_instance
+            .with_env_provider(SharedEnvProvider::clone(&providers.env))
+            .with_fs_provider(SharedFsProvider::clone(&providers.fs))
+            .with_http_client_provider(SharedHttpClientProvider::clone(&providers.http));
         let builder = $quota_project_id_option
             .into_iter()
             .fold(builder, |b, qp| b.with_quota_project_id(qp));
@@ -660,13 +709,15 @@ fn build_credentials(
     json: Option<Value>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
+    providers: IoConfig,
 ) -> BuildResult<AccessTokenCredentials> {
     match json {
         None => config_builder!(
             mds::Builder::from_adc(),
             quota_project_id,
             scopes,
-            |b: mds::Builder, s: Vec<String>| b.with_scopes(s)
+            |b: mds::Builder, s: Vec<String>| b.with_scopes(s),
+            providers
         ),
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
@@ -676,7 +727,8 @@ fn build_credentials(
                         user_account::Builder::new(json),
                         quota_project_id,
                         scopes,
-                        |b: user_account::Builder, s: Vec<String>| b.with_scopes(s)
+                        |b: user_account::Builder, s: Vec<String>| b.with_scopes(s),
+                        providers
                     )
                 }
                 "service_account" => config_builder!(
@@ -684,21 +736,24 @@ fn build_credentials(
                     quota_project_id,
                     scopes,
                     |b: service_account::Builder, s: Vec<String>| b
-                        .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
+                        .with_access_specifier(service_account::AccessSpecifier::from_scopes(s)),
+                    providers
                 ),
                 "impersonated_service_account" => {
                     config_builder!(
                         impersonated::Builder::new(json),
                         quota_project_id,
                         scopes,
-                        |b: impersonated::Builder, s: Vec<String>| b.with_scopes(s)
+                        |b: impersonated::Builder, s: Vec<String>| b.with_scopes(s),
+                        providers
                     )
                 }
                 "external_account" => config_builder!(
                     external_account::Builder::new(json),
                     quota_project_id,
                     scopes,
-                    |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
+                    |b: external_account::Builder, s: Vec<String>| b.with_scopes(s),
+                    providers
                 ),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
@@ -710,13 +765,15 @@ fn build_signer(
     json: Option<Value>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
+    providers: IoConfig,
 ) -> BuildResult<crate::signer::Signer> {
     match json {
         None => config_signer!(
             mds::Builder::from_adc(),
             quota_project_id,
             scopes,
-            |b: mds::Builder, s: Vec<String>| b.with_scopes(s)
+            |b: mds::Builder, s: Vec<String>| b.with_scopes(s),
+            providers
         ),
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
@@ -729,14 +786,16 @@ fn build_signer(
                     quota_project_id,
                     scopes,
                     |b: service_account::Builder, s: Vec<String>| b
-                        .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
+                        .with_access_specifier(service_account::AccessSpecifier::from_scopes(s)),
+                    providers
                 ),
                 "impersonated_service_account" => {
                     config_signer!(
                         impersonated::Builder::new(json),
                         quota_project_id,
                         scopes,
-                        |b: impersonated::Builder, s: Vec<String>| b.with_scopes(s)
+                        |b: impersonated::Builder, s: Vec<String>| b.with_scopes(s),
+                        providers
                     )
                 }
                 "external_account" => Err(BuilderError::not_supported(
@@ -759,39 +818,37 @@ fn path_not_found(path: String) -> BuilderError {
     ))
 }
 
-fn load_adc() -> BuildResult<AdcContents> {
-    match adc_path() {
+pub(crate) fn load_adc(env: &SharedEnvProvider, fs: &SharedFsProvider) -> BuildResult<AdcContents> {
+    match adc_path(env) {
         None => Ok(AdcContents::FallbackToMds),
-        Some(AdcPath::FromEnv(path)) => match std::fs::read_to_string(&path) {
+        Some(AdcPath::FromEnv(path)) => match fs.read_to_string(&path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Err(path_not_found(path)),
             Err(e) => Err(BuilderError::loading(e)),
         },
-        Some(AdcPath::WellKnown(path)) => match std::fs::read_to_string(path) {
+        Some(AdcPath::WellKnown(path)) => match fs.read_to_string(&path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(AdcContents::FallbackToMds),
             Err(e) => Err(BuilderError::loading(e)),
         },
     }
 }
-
 /// The path to Application Default Credentials (ADC), as specified in [AIP-4110].
 ///
 /// [AIP-4110]: https://google.aip.dev/auth/4110
-fn adc_path() -> Option<AdcPath> {
-    if let Ok(path) = std::env::var("GOOGLE_APPLICATION_CREDENTIALS") {
+fn adc_path(env: &SharedEnvProvider) -> Option<AdcPath> {
+    if let Some(path) = env.var("GOOGLE_APPLICATION_CREDENTIALS") {
         return Some(AdcPath::FromEnv(path));
     }
-    Some(AdcPath::WellKnown(adc_well_known_path()?))
+    Some(AdcPath::WellKnown(adc_well_known_path(env)?))
 }
 
 /// The well-known path to ADC on Windows, as specified in [AIP-4113].
 ///
 /// [AIP-4113]: https://google.aip.dev/auth/4113
 #[cfg(target_os = "windows")]
-fn adc_well_known_path() -> Option<String> {
-    std::env::var("APPDATA")
-        .ok()
+fn adc_well_known_path(env: &SharedEnvProvider) -> Option<String> {
+    env.var("APPDATA")
         .map(|root| root + "/gcloud/application_default_credentials.json")
 }
 
@@ -799,9 +856,8 @@ fn adc_well_known_path() -> Option<String> {
 ///
 /// [AIP-4113]: https://google.aip.dev/auth/4113
 #[cfg(not(target_os = "windows"))]
-fn adc_well_known_path() -> Option<String> {
-    std::env::var("HOME")
-        .ok()
+fn adc_well_known_path(env: &SharedEnvProvider) -> Option<String> {
+    env.var("HOME")
         .map(|root| root + "/.config/gcloud/application_default_credentials.json")
 }
 
@@ -1050,12 +1106,13 @@ pub(crate) mod tests {
     fn adc_well_known_path_windows() {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _appdata = ScopedEnv::set("APPDATA", "C:/Users/foo");
+        let env = SharedEnvProvider::default();
         assert_eq!(
-            adc_well_known_path(),
+            adc_well_known_path(&env),
             Some("C:/Users/foo/gcloud/application_default_credentials.json".to_string())
         );
         assert_eq!(
-            adc_path(),
+            adc_path(&env),
             Some(AdcPath::WellKnown(
                 "C:/Users/foo/gcloud/application_default_credentials.json".to_string()
             ))
@@ -1068,8 +1125,9 @@ pub(crate) mod tests {
     fn adc_well_known_path_windows_no_appdata() {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _appdata = ScopedEnv::remove("APPDATA");
-        assert_eq!(adc_well_known_path(), None);
-        assert_eq!(adc_path(), None);
+        let env = SharedEnvProvider::default();
+        assert_eq!(adc_well_known_path(&env), None);
+        assert_eq!(adc_path(&env), None);
     }
 
     #[cfg(not(target_os = "windows"))]
@@ -1078,12 +1136,13 @@ pub(crate) mod tests {
     fn adc_well_known_path_posix() {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _home = ScopedEnv::set("HOME", "/home/foo");
+        let env = SharedEnvProvider::default();
         assert_eq!(
-            adc_well_known_path(),
+            adc_well_known_path(&env),
             Some("/home/foo/.config/gcloud/application_default_credentials.json".to_string())
         );
         assert_eq!(
-            adc_path(),
+            adc_path(&env),
             Some(AdcPath::WellKnown(
                 "/home/foo/.config/gcloud/application_default_credentials.json".to_string()
             ))
@@ -1096,8 +1155,9 @@ pub(crate) mod tests {
     fn adc_well_known_path_posix_no_home() {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _appdata = ScopedEnv::remove("HOME");
-        assert_eq!(adc_well_known_path(), None);
-        assert_eq!(adc_path(), None);
+        let env = SharedEnvProvider::default();
+        assert_eq!(adc_well_known_path(&env), None);
+        assert_eq!(adc_path(&env), None);
     }
 
     #[test]
@@ -1107,56 +1167,65 @@ pub(crate) mod tests {
             "GOOGLE_APPLICATION_CREDENTIALS",
             "/usr/bar/application_default_credentials.json",
         );
+        let env = SharedEnvProvider::default();
         assert_eq!(
-            adc_path(),
+            adc_path(&env),
             Some(AdcPath::FromEnv(
                 "/usr/bar/application_default_credentials.json".to_string()
             ))
         );
     }
 
-    #[test]
+    #[tokio::test]
     #[serial_test::serial]
-    fn load_adc_no_well_known_path_fallback_to_mds() {
+    async fn load_adc_no_well_known_path_fallback_to_mds() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
-        assert_eq!(load_adc().unwrap(), AdcContents::FallbackToMds);
+        let env = SharedEnvProvider::default();
+        let fs = SharedFsProvider::default();
+        assert_eq!(load_adc(&env, &fs).unwrap(), AdcContents::FallbackToMds);
     }
 
-    #[test]
+    #[tokio::test]
     #[serial_test::serial]
-    fn load_adc_no_file_at_well_known_path_fallback_to_mds() {
+    async fn load_adc_no_file_at_well_known_path_fallback_to_mds() {
         // Create a new temp directory. There is not an ADC file in here.
         let dir = tempfile::TempDir::new().unwrap();
         let path = dir.path().to_str().unwrap();
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::set("HOME", path); // For posix
         let _e3 = ScopedEnv::set("APPDATA", path); // For windows
-        assert_eq!(load_adc().unwrap(), AdcContents::FallbackToMds);
+        let env = SharedEnvProvider::default();
+        let fs = SharedFsProvider::default();
+        assert_eq!(load_adc(&env, &fs).unwrap(), AdcContents::FallbackToMds);
     }
 
-    #[test]
+    #[tokio::test]
     #[serial_test::serial]
-    fn load_adc_no_file_at_env_is_error() {
+    async fn load_adc_no_file_at_env_is_error() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
-        let err = load_adc().unwrap_err();
+        let env = SharedEnvProvider::default();
+        let fs = SharedFsProvider::default();
+        let err = load_adc(&env, &fs).unwrap_err();
         assert!(err.is_loading(), "{err:?}");
         let msg = format!("{err:?}");
         assert!(msg.contains("file-does-not-exist.json"), "{err:?}");
         assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"), "{err:?}");
     }
 
-    #[test]
+    #[tokio::test]
     #[serial_test::serial]
-    fn load_adc_success() {
+    async fn load_adc_success() {
         let file = tempfile::NamedTempFile::new().unwrap();
         let path = file.into_temp_path();
         std::fs::write(&path, "contents").expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+        let env = SharedEnvProvider::default();
+        let fs = SharedFsProvider::default();
 
         assert_eq!(
-            load_adc().unwrap(),
+            load_adc(&env, &fs).unwrap(),
             AdcContents::Contents("contents".to_string())
         );
     }

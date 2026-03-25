@@ -101,6 +101,10 @@ use crate::errors::{self, CredentialsError};
 use crate::headers_util::{
     self, ACCESS_TOKEN_REQUEST_TYPE, AuthHeadersBuilder, metrics_header_value,
 };
+use crate::io::{
+    EnvProvider, FsProvider, HttpClientProvider, HttpRequest, IoConfig, SharedEnvProvider,
+    SharedFsProvider, SharedHttpClientProvider,
+};
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -110,7 +114,6 @@ use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
-use reqwest::Client;
 use serde_json::Value;
 use std::fmt::Debug;
 use std::sync::Arc;
@@ -157,6 +160,7 @@ pub struct Builder {
     retry_builder: RetryTokenProviderBuilder,
     iam_endpoint_override: Option<String>,
     is_access_boundary_enabled: bool,
+    providers: IoConfig,
 }
 
 impl Builder {
@@ -178,6 +182,7 @@ impl Builder {
             retry_builder: RetryTokenProviderBuilder::default(),
             iam_endpoint_override: None,
             is_access_boundary_enabled: true,
+            providers: IoConfig::default(),
         }
     }
 
@@ -208,6 +213,7 @@ impl Builder {
             retry_builder: RetryTokenProviderBuilder::default(),
             iam_endpoint_override: None,
             is_access_boundary_enabled: true,
+            providers: IoConfig::default(),
         }
     }
 
@@ -410,6 +416,39 @@ impl Builder {
         self
     }
 
+    /// Sets a custom environment variable provider.
+    ///
+    /// When set, the auth crate will use this provider for all environment
+    /// variable lookups during impersonated credential construction instead
+    /// of reading from the process environment directly.
+    pub fn with_env_provider(mut self, provider: impl EnvProvider + 'static) -> Self {
+        self.providers.env = SharedEnvProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom filesystem provider.
+    ///
+    /// When set, the auth crate will use this provider for all file read
+    /// operations during impersonated credential construction instead of
+    /// reading from the real filesystem directly.
+    pub fn with_fs_provider(mut self, provider: impl FsProvider + 'static) -> Self {
+        self.providers.fs = SharedFsProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during impersonated credential construction and token
+    /// retrieval instead of using `reqwest::Client` directly.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.providers.http = SharedHttpClientProvider::new(provider);
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -493,6 +532,7 @@ impl Builder {
         let service_account_impersonation_url = self.resolve_impersonation_url()?;
         let client_email = extract_client_email(&service_account_impersonation_url)?;
         let iam_endpoint_override = self.iam_endpoint_override.clone();
+        let http = SharedHttpClientProvider::clone(&self.providers.http);
         let (token_provider, quota_project_id) = self.build_components()?;
         let access_boundary_url = crate::access_boundary::service_account_lookup_url(
             &client_email,
@@ -510,6 +550,7 @@ impl Builder {
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             Some(access_boundary_url),
+            http,
         ))
     }
 
@@ -547,6 +588,7 @@ impl Builder {
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         let iam_endpoint = self.iam_endpoint_override.clone();
+        let http = SharedHttpClientProvider::clone(&self.providers.http);
         let source = self.source.clone();
         if let BuilderSource::FromJson(json) = source {
             // try to build service account signer from json
@@ -558,7 +600,7 @@ impl Builder {
         let service_account_impersonation_url = self.resolve_impersonation_url()?;
         let client_email = extract_client_email(&service_account_impersonation_url)?;
         let creds = self.build()?;
-        let signer = crate::signer::iam::IamSigner::new(client_email, creds, iam_endpoint);
+        let signer = crate::signer::iam::IamSigner::new(client_email, creds, iam_endpoint, http);
         Ok(crate::signer::Signer {
             inner: Arc::new(signer),
         })
@@ -570,8 +612,11 @@ impl Builder {
         TokenProviderWithRetry<ImpersonatedTokenProvider>,
         Option<String>,
     )> {
+        let providers = IoConfig::clone(&self.providers);
         let components = match self.source {
-            BuilderSource::FromJson(json) => build_components_from_json(json)?,
+            BuilderSource::FromJson(json) => {
+                build_components_from_json(json, IoConfig::clone(&providers))?
+            }
             BuilderSource::FromCredentials(source_credentials) => {
                 build_components_from_credentials(
                     source_credentials,
@@ -594,6 +639,7 @@ impl Builder {
             delegates,
             scopes,
             lifetime: self.lifetime.unwrap_or(DEFAULT_LIFETIME),
+            http: providers.http,
         };
         let token_provider = self.retry_builder.build(token_provider);
         Ok((token_provider, quota_project_id))
@@ -630,6 +676,7 @@ fn config_from_json(json: Value) -> BuildResult<ImpersonatedConfig> {
 
 pub(crate) fn build_components_from_json(
     json: Value,
+    providers: IoConfig,
 ) -> BuildResult<ImpersonatedCredentialComponents> {
     let config = config_from_json(json)?;
 
@@ -646,7 +693,8 @@ pub(crate) fn build_components_from_json(
     // the quota project and they typically need different scopes.
     // If user does want some specific scopes or quota, they can build using the
     // from_source_credentials method.
-    let source_credentials = build_credentials(Some(config.source_credentials), None, None)?.into();
+    let source_credentials =
+        build_credentials(Some(config.source_credentials), None, None, providers)?.into();
 
     Ok(ImpersonatedCredentialComponents {
         source_credentials,
@@ -761,6 +809,7 @@ struct ImpersonatedTokenProvider {
     delegates: Option<Vec<String>>,
     scopes: Vec<String>,
     lifetime: Duration,
+    http: SharedHttpClientProvider,
 }
 
 impl Debug for ImpersonatedTokenProvider {
@@ -774,6 +823,7 @@ impl Debug for ImpersonatedTokenProvider {
             .field("delegates", &self.delegates)
             .field("scopes", &self.scopes)
             .field("lifetime", &self.lifetime)
+            .field("http", &self.http)
             .finish()
     }
 }
@@ -792,39 +842,35 @@ pub(crate) async fn generate_access_token(
     scopes: Vec<String>,
     lifetime: Duration,
     service_account_impersonation_url: &str,
+    http: &SharedHttpClientProvider,
 ) -> Result<Token> {
-    let client = Client::new();
     let body = GenerateAccessTokenRequest {
         delegates,
         scope: scopes,
         lifetime: format!("{}s", lifetime.as_secs_f64()),
     };
+    let body = serde_json::to_vec(&body).map_err(|e| CredentialsError::from_source(false, e))?;
 
-    let response = client
-        .post(service_account_impersonation_url)
-        .header("Content-Type", "application/json")
+    let request = HttpRequest::post(service_account_impersonation_url)
+        .json(body)
         .header(
             headers_util::X_GOOG_API_CLIENT,
             metrics_header_value(ACCESS_TOKEN_REQUEST_TYPE, IMPERSONATED_CREDENTIAL_TYPE),
         )
-        .headers(source_headers)
-        .json(&body)
-        .send()
+        .headers_from_map(&source_headers);
+
+    let response = http
+        .execute(request)
         .await
         .map_err(|e| errors::from_http_error(e, MSG))?;
 
-    if !response.status().is_success() {
-        let err = errors::from_http_response(response, MSG).await;
-        return Err(err);
+    if !response.is_success() {
+        return Err(errors::from_http_response(&response, MSG));
     }
 
-    let token_response = response
-        .json::<GenerateAccessTokenResponse>()
-        .await
-        .map_err(|e| {
-            let retryable = !e.is_decode();
-            CredentialsError::from_source(retryable, e)
-        })?;
+    let token_response: GenerateAccessTokenResponse = response
+        .json()
+        .map_err(|e| CredentialsError::from_source(e.is_io(), e))?;
 
     let parsed_dt = OffsetDateTime::parse(
         &token_response.expire_time,
@@ -860,6 +906,7 @@ impl TokenProvider for ImpersonatedTokenProvider {
             self.scopes.clone(),
             self.lifetime,
             &self.service_account_impersonation_url,
+            &self.http,
         )
         .await
     }
@@ -915,6 +962,7 @@ mod tests {
 
         let mut headers = HeaderMap::new();
         headers.insert("authorization", "Bearer test-token".parse().unwrap());
+        let http = SharedHttpClientProvider::default();
         let token = generate_access_token(
             headers,
             None,
@@ -923,6 +971,7 @@ mod tests {
             &server
                 .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
                 .to_string(),
+            &http,
         )
         .await?;
 
@@ -947,6 +996,7 @@ mod tests {
 
         let mut headers = HeaderMap::new();
         headers.insert("authorization", "Bearer test-token".parse().unwrap());
+        let http = SharedHttpClientProvider::default();
         let err = generate_access_token(
             headers,
             None,
@@ -955,6 +1005,7 @@ mod tests {
             &server
                 .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
                 .to_string(),
+            &http,
         )
         .await
         .unwrap_err();
@@ -975,6 +1026,7 @@ mod tests {
             .respond_with(status_code(401)),
         );
 
+        let http = SharedHttpClientProvider::default();
         let err = generate_access_token(
             HeaderMap::new(),
             None,
@@ -983,6 +1035,7 @@ mod tests {
             &server
                 .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
                 .to_string(),
+            &http,
         )
         .await
         .unwrap_err();
@@ -1285,6 +1338,7 @@ mod tests {
             delegates: Some(vec!["delegate1".to_string()]),
             scopes: vec!["scope1".to_string()],
             lifetime: Duration::from_secs(3600),
+            http: SharedHttpClientProvider::default(),
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("UserCredentials"), "{fmt}");
@@ -1373,6 +1427,7 @@ mod tests {
             delegates: Some(vec!["delegate1".to_string()]),
             scopes: vec!["scope1".to_string()],
             lifetime: DEFAULT_LIFETIME,
+            http: SharedHttpClientProvider::default(),
         };
 
         let err = token_provider.token().await.unwrap_err();

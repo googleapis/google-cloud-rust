@@ -98,6 +98,10 @@ use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsPro
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
 use crate::headers_util::AuthHeadersBuilder;
+use crate::io::{
+    EnvProvider, FsProvider, HttpClientProvider, HttpRequest, IoConfig, SharedEnvProvider,
+    SharedFsProvider, SharedHttpClientProvider,
+};
 use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -105,9 +109,7 @@ use crate::{BuildResult, Result};
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_throttler::RetryThrottlerArg;
-use http::header::CONTENT_TYPE;
-use http::{Extensions, HeaderMap, HeaderValue};
-use reqwest::{Client, Method};
+use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
@@ -128,6 +130,7 @@ pub struct Builder {
     quota_project_id: Option<String>,
     token_uri: Option<String>,
     retry_builder: RetryTokenProviderBuilder,
+    providers: IoConfig,
 }
 
 impl Builder {
@@ -144,6 +147,7 @@ impl Builder {
             quota_project_id: None,
             token_uri: None,
             retry_builder: RetryTokenProviderBuilder::default(),
+            providers: IoConfig::default(),
         }
     }
 
@@ -300,6 +304,39 @@ impl Builder {
         self
     }
 
+    /// Sets a custom environment variable provider.
+    ///
+    /// When set, the auth crate will use this provider for all environment
+    /// variable lookups during user account credential construction instead
+    /// of reading from the process environment directly.
+    pub fn with_env_provider(mut self, provider: impl EnvProvider + 'static) -> Self {
+        self.providers.env = SharedEnvProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom filesystem provider.
+    ///
+    /// When set, the auth crate will use this provider for all file read
+    /// operations during user account credential construction instead of
+    /// reading from the real filesystem directly.
+    pub fn with_fs_provider(mut self, provider: impl FsProvider + 'static) -> Self {
+        self.providers.fs = SharedFsProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during user account credential construction and token
+    /// retrieval instead of using `reqwest::Client` directly.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.providers.http = SharedHttpClientProvider::new(provider);
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -366,6 +403,7 @@ impl Builder {
             endpoint,
             scopes: self.scopes.map(|scopes| scopes.join(" ")),
             source: UserTokenSource::AccessToken,
+            http: self.providers.http,
         };
 
         let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
@@ -379,7 +417,6 @@ impl Builder {
     }
 }
 
-#[derive(PartialEq)]
 pub(crate) struct UserTokenProvider {
     client_id: String,
     client_secret: String,
@@ -387,6 +424,21 @@ pub(crate) struct UserTokenProvider {
     endpoint: String,
     scopes: Option<String>,
     source: UserTokenSource,
+    pub(crate) http: SharedHttpClientProvider,
+}
+
+// PartialEq is implemented manually because SharedHttpClientProvider
+// (Arc<dyn ...>) does not implement PartialEq. The http field is excluded
+// from comparison — it does not affect logical equality of the token provider.
+impl PartialEq for UserTokenProvider {
+    fn eq(&self, other: &Self) -> bool {
+        self.client_id == other.client_id
+            && self.client_secret == other.client_secret
+            && self.refresh_token == other.refresh_token
+            && self.endpoint == other.endpoint
+            && self.scopes == other.scopes
+            && self.source == other.source
+    }
 }
 
 #[derive(PartialEq)]
@@ -404,6 +456,7 @@ impl std::fmt::Debug for UserTokenProvider {
             .field("refresh_token", &"[censored]")
             .field("endpoint", &self.endpoint)
             .field("scopes", &self.scopes)
+            .field("http", &self.http)
             .finish()
     }
 }
@@ -413,6 +466,7 @@ impl UserTokenProvider {
     pub(crate) fn new_id_token_provider(
         authorized_user: AuthorizedUser,
         token_uri: Option<String>,
+        http: SharedHttpClientProvider,
     ) -> UserTokenProvider {
         let endpoint = token_uri
             .or(authorized_user.token_uri)
@@ -424,6 +478,7 @@ impl UserTokenProvider {
             endpoint,
             source: UserTokenSource::IdToken,
             scopes: None,
+            http,
         }
     }
 }
@@ -431,9 +486,7 @@ impl UserTokenProvider {
 #[async_trait::async_trait]
 impl TokenProvider for UserTokenProvider {
     async fn token(&self) -> Result<Token> {
-        let client = Client::new();
-
-        // Make the request
+        // Build the request body
         let req = Oauth2RefreshRequest {
             grant_type: RefreshGrantType::RefreshToken,
             client_id: self.client_id.clone(),
@@ -441,25 +494,25 @@ impl TokenProvider for UserTokenProvider {
             refresh_token: self.refresh_token.clone(),
             scopes: self.scopes.clone(),
         };
-        let header = HeaderValue::from_static("application/json");
-        let builder = client
-            .request(Method::POST, self.endpoint.as_str())
-            .header(CONTENT_TYPE, header)
-            .json(&req);
-        let resp = builder
-            .send()
+        let body = serde_json::to_vec(&req).map_err(|e| CredentialsError::from_source(false, e))?;
+
+        let request = HttpRequest::post(&self.endpoint).json(body);
+
+        // Execute the request via the HTTP provider
+        let response = self
+            .http
+            .execute(request)
             .await
             .map_err(|e| errors::from_http_error(e, MSG))?;
 
         // Process the response
-        if !resp.status().is_success() {
-            let err = errors::from_http_response(resp, MSG).await;
-            return Err(err);
+        if !response.is_success() {
+            return Err(errors::from_http_response(&response, MSG));
         }
-        let response = resp.json::<Oauth2RefreshResponse>().await.map_err(|e| {
-            let retryable = !e.is_decode();
-            CredentialsError::from_source(retryable, e)
-        })?;
+
+        let response: Oauth2RefreshResponse = response
+            .json()
+            .map_err(|e| CredentialsError::from_source(e.is_io(), e))?;
 
         let token = match self.source {
             UserTokenSource::AccessToken => Ok(response.access_token),
@@ -571,9 +624,10 @@ mod tests {
         get_token_type_from_headers,
     };
     use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
+    use crate::errors;
     use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
-    use http::StatusCode;
+    use http::HeaderValue;
     use http::header::AUTHORIZATION;
     use httptest::cycle;
     use httptest::matchers::{all_of, json_decoded, request};
@@ -680,6 +734,7 @@ mod tests {
             endpoint: OAUTH2_TOKEN_SERVER_URL.to_string(),
             scopes: Some("https://www.googleapis.com/auth/pubsub".to_string()),
             source: UserTokenSource::AccessToken,
+            http: SharedHttpClientProvider::default(),
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("test-client-id"), "{fmt}");
@@ -960,6 +1015,7 @@ mod tests {
             endpoint: server.url("/token").to_string(),
             scopes: Some("scope1 scope2".to_string()),
             source: UserTokenSource::AccessToken,
+            http: SharedHttpClientProvider::default(),
         };
         let now = Instant::now();
         let token = tp.token().await?;
@@ -1266,12 +1322,6 @@ mod tests {
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(original_err.is_transient());
 
-        let source = find_source_error::<reqwest::Error>(&err);
-        assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
-            "{err:?}"
-        );
-
         Ok(())
     }
 
@@ -1293,12 +1343,6 @@ mod tests {
         let err = uc.headers(Extensions::new()).await.unwrap_err();
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(!original_err.is_transient());
-
-        let source = find_source_error::<reqwest::Error>(&err);
-        assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
-            "{err:?}"
-        );
 
         Ok(())
     }

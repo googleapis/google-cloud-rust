@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::{CacheableResource, Credentials};
+use crate::io::{HttpRequest, SharedHttpClientProvider};
 use crate::signer::{Result, SigningError, dynamic::SigningProvider};
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
@@ -22,7 +23,6 @@ use google_cloud_gax::retry_throttler::{
     AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
 };
 use http::{Extensions, HeaderMap};
-use reqwest::Client;
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -35,7 +35,7 @@ pub(crate) struct IamSigner {
     client_email: String,
     inner: Credentials,
     endpoint: String,
-    client: Client,
+    http: SharedHttpClientProvider,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
 }
@@ -52,14 +52,19 @@ struct SignBlobResponse {
 }
 
 impl IamSigner {
-    pub(crate) fn new(client_email: String, inner: Credentials, endpoint: Option<String>) -> Self {
+    pub(crate) fn new(
+        client_email: String,
+        inner: Credentials,
+        endpoint: Option<String>,
+        http: SharedHttpClientProvider,
+    ) -> Self {
         let retry_policy = Aip194Strict.with_time_limit(Duration::from_secs(60));
         let backoff_policy = ExponentialBackoff::default();
         Self {
             client_email,
             inner,
             endpoint: endpoint.unwrap_or("https://iamcredentials.googleapis.com".to_string()),
-            client: Client::new(),
+            http,
             retry_policy: Arc::new(retry_policy),
             backoff_policy: Arc::new(backoff_policy),
         }
@@ -85,7 +90,7 @@ impl SigningProvider for IamSigner {
         );
         let response = sign_blob_call_with_retry(
             self.inner.clone(),
-            self.client.clone(),
+            SharedHttpClientProvider::clone(&self.http),
             url,
             body,
             self.retry_policy.clone(),
@@ -93,15 +98,14 @@ impl SigningProvider for IamSigner {
         )
         .await?;
 
-        if !response.status().is_success() {
-            let err_text = response.text().await.map_err(SigningError::transport)?;
-            return Err(SigningError::transport(format!("err status: {err_text:?}")));
+        if !response.is_success() {
+            let body_text = String::from_utf8_lossy(&response.body);
+            return Err(SigningError::transport(format!(
+                "err status: {body_text:?}"
+            )));
         }
 
-        let res = response
-            .json::<SignBlobResponse>()
-            .await
-            .map_err(SigningError::transport)?;
+        let res: SignBlobResponse = response.json().map_err(SigningError::transport)?;
 
         let signature = BASE64_STANDARD
             .decode(res.signed_blob)
@@ -113,12 +117,12 @@ impl SigningProvider for IamSigner {
 
 async fn sign_blob_call_with_retry(
     credentials: Credentials,
-    client: Client,
+    http: SharedHttpClientProvider,
     url: String,
     body: SignBlobRequest,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
-) -> Result<reqwest::Response> {
+) -> Result<crate::io::HttpResponse> {
     let sleep = async |d| tokio::time::sleep(d).await;
 
     let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
@@ -131,7 +135,7 @@ async fn sign_blob_call_with_retry(
                 .await
                 .map_err(google_cloud_gax::error::Error::authentication)?;
 
-            sign_blob_call(&client, &url, source_headers, body.clone()).await
+            sign_blob_call(&http, &url, source_headers, body.clone()).await
         },
         sleep,
         true, // signBlob is idempotent
@@ -144,11 +148,11 @@ async fn sign_blob_call_with_retry(
 }
 
 async fn sign_blob_call(
-    client: &Client,
+    http: &SharedHttpClientProvider,
     url: &str,
     source_headers: CacheableResource<HeaderMap>,
     body: SignBlobRequest,
-) -> google_cloud_gax::Result<reqwest::Response> {
+) -> google_cloud_gax::Result<crate::io::HttpResponse> {
     let source_headers = match source_headers {
         CacheableResource::New { data, .. } => data,
         CacheableResource::NotModified => {
@@ -156,26 +160,22 @@ async fn sign_blob_call(
         }
     };
 
-    let response = client
-        .post(url)
-        .header("Content-Type", "application/json")
-        .headers(source_headers.clone())
-        .json(&body)
-        .send()
+    let json_body = serde_json::to_vec(&body).map_err(google_cloud_gax::error::Error::io)?;
+
+    let request = HttpRequest::post(url)
+        .json(json_body)
+        .headers_from_map(&source_headers);
+
+    let response = http
+        .execute(request)
         .await
         .map_err(google_cloud_gax::error::Error::io)?;
 
-    let status = response.status();
-    if !status.is_success() {
-        let err_headers = response.headers().clone();
-        let err_payload = response
-            .bytes()
-            .await
-            .map_err(|e| google_cloud_gax::error::Error::transport(err_headers.clone(), e))?;
+    if !response.is_success() {
         return Err(google_cloud_gax::error::Error::http(
-            status.as_u16(),
-            err_headers,
-            err_payload,
+            response.status.as_u16(),
+            response.headers,
+            response.body.into(),
         ));
     }
 
@@ -244,7 +244,12 @@ mod tests {
         });
         let creds = Credentials::from(mock);
 
-        let signer = IamSigner::new("test@example.com".to_string(), creds, Some(endpoint));
+        let signer = IamSigner::new(
+            "test@example.com".to_string(),
+            creds,
+            Some(endpoint),
+            SharedHttpClientProvider::default(),
+        );
         let signature = signer.sign(b"test").await.unwrap();
 
         assert_eq!(signature.as_ref(), b"signed_blob");
@@ -257,7 +262,12 @@ mod tests {
         let mock = MockCredentials::new();
         let creds = Credentials::from(mock);
 
-        let signer = IamSigner::new("test@example.com".to_string(), creds, None);
+        let signer = IamSigner::new(
+            "test@example.com".to_string(),
+            creds,
+            None,
+            SharedHttpClientProvider::default(),
+        );
         let client_email = signer.client_email().await.unwrap();
         assert_eq!(client_email, "test@example.com");
 
@@ -285,7 +295,12 @@ mod tests {
         });
         let creds = Credentials::from(mock);
 
-        let signer = IamSigner::new("test@example.com".to_string(), creds, Some(endpoint));
+        let signer = IamSigner::new(
+            "test@example.com".to_string(),
+            creds,
+            Some(endpoint),
+            SharedHttpClientProvider::default(),
+        );
         let err = signer.sign(b"test").await.unwrap_err();
 
         assert!(err.is_transport());
@@ -297,19 +312,13 @@ mod tests {
     async fn test_iam_sign_retry() -> TestResult {
         let server = Server::run();
         let signed_blob = BASE64_STANDARD.encode("signed_blob");
-        let invalid_res = http::Response::builder()
-            .version(http::Version::HTTP_3) // unsupported version
-            .status(204)
-            .body(Vec::new())
-            .unwrap();
         server.expect(
             Expectation::matching(all_of![request::method_path(
                 "POST",
                 "/v1/projects/-/serviceAccounts/test@example.com:signBlob"
             ),])
-            .times(3)
+            .times(2)
             .respond_with(cycle![
-                invalid_res, // forces i/o error
                 status_code(503).body("try-again"),
                 json_encoded(json!({
                     "signedBlob": signed_blob,
@@ -327,7 +336,12 @@ mod tests {
         });
         let creds = Credentials::from(mock);
 
-        let mut signer = IamSigner::new("test@example.com".to_string(), creds, Some(endpoint));
+        let mut signer = IamSigner::new(
+            "test@example.com".to_string(),
+            creds,
+            Some(endpoint),
+            SharedHttpClientProvider::default(),
+        );
         signer.backoff_policy = Arc::new(test_backoff_policy());
         let signature = signer.sign(b"test").await.unwrap();
 

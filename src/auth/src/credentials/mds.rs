@@ -76,6 +76,10 @@ use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::headers_util::AuthHeadersBuilder;
+use crate::io::{
+    EnvProvider, FsProvider, HttpClientProvider, IoConfig, SharedEnvProvider, SharedFsProvider,
+    SharedHttpClientProvider,
+};
 use crate::mds::client::Client as MDSClient;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
@@ -128,6 +132,7 @@ pub struct Builder {
     retry_builder: RetryTokenProviderBuilder,
     iam_endpoint_override: Option<String>,
     is_access_boundary_enabled: bool,
+    providers: IoConfig,
 }
 
 impl Default for Builder {
@@ -140,6 +145,7 @@ impl Default for Builder {
             retry_builder: RetryTokenProviderBuilder::default(),
             iam_endpoint_override: None,
             is_access_boundary_enabled: true,
+            providers: IoConfig::default(),
         }
     }
 }
@@ -258,6 +264,39 @@ impl Builder {
         self
     }
 
+    /// Sets a custom environment variable provider.
+    ///
+    /// When set, the auth crate will use this provider for all environment
+    /// variable lookups during MDS credential construction instead of reading
+    /// from the process environment directly.
+    pub fn with_env_provider(mut self, provider: impl EnvProvider + 'static) -> Self {
+        self.providers.env = SharedEnvProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom filesystem provider.
+    ///
+    /// When set, the auth crate will use this provider for all file read
+    /// operations during MDS credential construction instead of reading from
+    /// the real filesystem directly.
+    pub fn with_fs_provider(mut self, provider: impl FsProvider + 'static) -> Self {
+        self.providers.fs = SharedFsProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during MDS credential construction and token retrieval instead
+    /// of using `reqwest::Client` directly.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.providers.http = SharedHttpClientProvider::new(provider);
+        self
+    }
+
     #[cfg(test)]
     fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
         self.iam_endpoint_override = iam_endpoint_override;
@@ -283,6 +322,8 @@ impl Builder {
             .endpoint(self.endpoint)
             .maybe_scopes(self.scopes)
             .created_by_adc(self.created_by_adc)
+            .env_provider(self.providers.env)
+            .http_provider(self.providers.http)
             .build();
         self.retry_builder.build(tp)
     }
@@ -316,7 +357,12 @@ impl Builder {
     ) -> BuildResult<CredentialsWithAccessBoundary<MDSCredentials<TokenCache>>> {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let is_access_boundary_enabled = self.is_access_boundary_enabled;
-        let mds_client = MDSClient::new(self.endpoint.clone());
+        let http = SharedHttpClientProvider::clone(&self.providers.http);
+        let mds_client = MDSClient::new(
+            self.endpoint.clone(),
+            SharedEnvProvider::clone(&self.providers.env),
+            SharedHttpClientProvider::clone(&self.providers.http),
+        );
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
             token_provider: TokenCache::new(self.build_token_provider()),
@@ -328,6 +374,7 @@ impl Builder {
             mdsc,
             mds_client,
             iam_endpoint,
+            http,
         ))
     }
 
@@ -348,10 +395,15 @@ impl Builder {
     ///
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
-        let client = MDSClient::new(self.endpoint.clone());
+        let client = MDSClient::new(
+            self.endpoint.clone(),
+            SharedEnvProvider::clone(&self.providers.env),
+            SharedHttpClientProvider::clone(&self.providers.http),
+        );
         let iam_endpoint = self.iam_endpoint_override.clone();
+        let http = SharedHttpClientProvider::clone(&self.providers.http);
         let credentials = self.build()?;
-        let signing_provider = crate::signer::mds::MDSSigner::new(client, credentials);
+        let signing_provider = crate::signer::mds::MDSSigner::new(client, credentials, http);
         let signing_provider = iam_endpoint
             .iter()
             .fold(signing_provider, |signing_provider, endpoint| {
@@ -393,12 +445,18 @@ struct MDSAccessTokenProviderBuilder {
     scopes: Option<Vec<String>>,
     endpoint: Option<String>,
     created_by_adc: bool,
+    env: Option<SharedEnvProvider>,
+    http: Option<SharedHttpClientProvider>,
 }
 
 impl MDSAccessTokenProviderBuilder {
     fn build(self) -> MDSAccessTokenProvider {
         MDSAccessTokenProvider {
-            client: MDSClient::new(self.endpoint),
+            client: MDSClient::new(
+                self.endpoint,
+                self.env.unwrap_or_default(),
+                self.http.unwrap_or_default(),
+            ),
             scopes: self.scopes,
             created_by_adc: self.created_by_adc,
         }
@@ -419,6 +477,16 @@ impl MDSAccessTokenProviderBuilder {
 
     fn created_by_adc(mut self, v: bool) -> Self {
         self.created_by_adc = v;
+        self
+    }
+
+    fn env_provider(mut self, v: SharedEnvProvider) -> Self {
+        self.env = Some(v);
+        self
+    }
+
+    fn http_provider(mut self, v: SharedHttpClientProvider) -> Self {
+        self.http = Some(v);
         self
     }
 }
@@ -487,7 +555,6 @@ mod tests {
     use httptest::matchers::{all_of, contains, request, url_decoded};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
-    use reqwest::StatusCode;
     use scoped_env::ScopedEnv;
     use serde_json::json;
     use serial_test::{parallel, serial};
@@ -1006,13 +1073,8 @@ mod tests {
             .without_access_boundary()
             .build()?;
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
-        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
-        assert!(original_err.is_transient());
-        let source = find_source_error::<reqwest::Error>(&err);
-        assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
-            "{err:?}"
-        );
+        assert!(err.is_transient(), "{err:?}");
+        assert!(format!("{err:?}").contains("503"), "{err:?}");
 
         Ok(())
     }
@@ -1037,13 +1099,8 @@ mod tests {
             .build()?;
 
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
-        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
-        assert!(!original_err.is_transient());
-        let source = find_source_error::<reqwest::Error>(&err);
-        assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
-            "{err:?}"
-        );
+        assert!(!err.is_transient(), "{err:?}");
+        assert!(format!("{err:?}").contains("401"), "{err:?}");
 
         Ok(())
     }

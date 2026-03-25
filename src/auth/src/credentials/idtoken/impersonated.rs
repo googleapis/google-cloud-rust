@@ -75,8 +75,8 @@ use crate::{
             build_components_from_json,
         },
     },
-    errors,
     headers_util::{self, ID_TOKEN_REQUEST_TYPE, metrics_header_value},
+    io::{HttpClientProvider, HttpRequest, IoConfig, SharedHttpClientProvider},
     retry::Builder as RetryTokenProviderBuilder,
     token::{CachedTokenProvider, Token, TokenProvider},
     token_cache::TokenCache,
@@ -87,7 +87,6 @@ use google_cloud_gax::error::CredentialsError;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
-use reqwest::Client;
 use serde_json::Value;
 use std::sync::Arc;
 
@@ -119,6 +118,7 @@ pub struct Builder {
     target_audience: String,
     service_account_impersonation_url: Option<String>,
     retry_builder: RetryTokenProviderBuilder,
+    http: SharedHttpClientProvider,
 }
 
 impl Builder {
@@ -137,6 +137,7 @@ impl Builder {
             target_audience: target_audience.into(),
             service_account_impersonation_url: None,
             retry_builder: RetryTokenProviderBuilder::default(),
+            http: SharedHttpClientProvider::default(),
         }
     }
 
@@ -173,6 +174,7 @@ impl Builder {
                 target_principal.into()
             )),
             retry_builder: RetryTokenProviderBuilder::default(),
+            http: SharedHttpClientProvider::default(),
         }
     }
 
@@ -306,6 +308,19 @@ impl Builder {
         self
     }
 
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during ID token retrieval instead of using
+    /// `reqwest::Client` directly.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.http = SharedHttpClientProvider::new(provider);
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -322,7 +337,7 @@ impl Builder {
     pub fn build(self) -> BuildResult<IDTokenCredentials> {
         let components = match self.source {
             BuilderSource::FromJson(json) => {
-                let mut components = build_components_from_json(json)?;
+                let mut components = build_components_from_json(json, IoConfig::default())?;
                 components.service_account_impersonation_url = components
                     .service_account_impersonation_url
                     .replace("generateAccessToken", "generateIdToken");
@@ -341,6 +356,7 @@ impl Builder {
             delegates: self.delegates.or(components.delegates),
             include_email: self.include_email,
             target_audience: self.target_audience,
+            http: self.http,
         };
         let token_provider = self.retry_builder.build(token_provider);
         Ok(IDTokenCredentials {
@@ -382,6 +398,7 @@ pub(crate) struct ImpersonatedTokenProvider {
     pub(crate) delegates: Option<Vec<String>>,
     pub(crate) target_audience: String,
     pub(crate) include_email: Option<bool>,
+    pub(crate) http: SharedHttpClientProvider,
 }
 
 #[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq)]
@@ -399,40 +416,35 @@ async fn generate_id_token(
     audience: String,
     include_email: Option<bool>,
     service_account_impersonation_url: &str,
+    http: &SharedHttpClientProvider,
 ) -> Result<Token> {
-    let client = Client::new();
-
     let body = GenerateIdTokenRequest {
         audience,
         delegates,
         include_email,
     };
+    let body = serde_json::to_vec(&body).map_err(|e| CredentialsError::from_source(false, e))?;
 
-    let response = client
-        .post(service_account_impersonation_url)
-        .header("Content-Type", "application/json")
+    let request = HttpRequest::post(service_account_impersonation_url)
+        .json(body)
         .header(
             headers_util::X_GOOG_API_CLIENT,
             metrics_header_value(ID_TOKEN_REQUEST_TYPE, IMPERSONATED_CREDENTIAL_TYPE),
         )
-        .headers(source_headers)
-        .json(&body)
-        .send()
-        .await
-        .map_err(|e| errors::from_http_error(e, MSG))?;
+        .headers_from_map(&source_headers);
 
-    if !response.status().is_success() {
-        let err = errors::from_http_response(response, MSG).await;
-        return Err(err);
+    let response = http
+        .execute(request)
+        .await
+        .map_err(|e| crate::errors::from_http_error(e, MSG))?;
+
+    if !response.is_success() {
+        return Err(crate::errors::from_http_response(&response, MSG));
     }
 
-    let token_response = response
-        .json::<GenerateIdTokenResponse>()
-        .await
-        .map_err(|e| {
-            let retryable = !e.is_decode();
-            CredentialsError::from_source(retryable, e)
-        })?;
+    let token_response: GenerateIdTokenResponse = response
+        .json()
+        .map_err(|e| CredentialsError::from_source(e.is_io(), e))?;
 
     parse_id_token_from_str(token_response.token)
 }
@@ -454,6 +466,7 @@ impl TokenProvider for ImpersonatedTokenProvider {
             self.target_audience.clone(),
             self.include_email,
             &self.service_account_impersonation_url,
+            &self.http,
         )
         .await
     }

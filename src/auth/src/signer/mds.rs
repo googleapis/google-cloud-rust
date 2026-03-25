@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::Credentials;
+use crate::io::SharedHttpClientProvider;
 use crate::mds::client::Client as MDSClient;
 use crate::signer::{Result, SigningError, dynamic::SigningProvider};
 use std::sync::OnceLock;
@@ -25,15 +26,21 @@ pub(crate) struct MDSSigner {
     iam_endpoint_override: Option<String>,
     client_email: OnceLock<String>,
     inner: Credentials,
+    http: SharedHttpClientProvider,
 }
 
 impl MDSSigner {
-    pub(crate) fn new(client: MDSClient, inner: Credentials) -> Self {
+    pub(crate) fn new(
+        client: MDSClient,
+        inner: Credentials,
+        http: SharedHttpClientProvider,
+    ) -> Self {
         Self {
             client,
             client_email: OnceLock::new(),
             inner,
             iam_endpoint_override: None,
+            http,
         }
     }
 
@@ -65,6 +72,7 @@ impl SigningProvider for MDSSigner {
             client_email,
             self.inner.clone(),
             self.iam_endpoint_override.clone(),
+            SharedHttpClientProvider::clone(&self.http),
         );
 
         signer.sign(content).await
@@ -82,6 +90,7 @@ mod tests {
     use super::*;
     use crate::credentials::{CacheableResource, Credentials, CredentialsProvider, EntityTag};
     use crate::errors::CredentialsError;
+    use crate::io::{SharedEnvProvider, SharedHttpClientProvider};
     use crate::mds::MDS_DEFAULT_URI;
     use base64::{Engine, prelude::BASE64_STANDARD};
     use http::header::{HeaderName, HeaderValue};
@@ -113,8 +122,12 @@ mod tests {
         );
         let mock = MockCredentials::new();
         let creds = Credentials::from(mock);
-        let client = MDSClient::new(Some(format!("http://{}", server.addr())));
-        let signer = MDSSigner::new(client, creds);
+        let client = MDSClient::new(
+            Some(format!("http://{}", server.addr())),
+            SharedEnvProvider::default(),
+            SharedHttpClientProvider::default(),
+        );
+        let signer = MDSSigner::new(client, creds, SharedHttpClientProvider::default());
 
         let client_email = signer.client_email().await?;
         assert_eq!(client_email, "test-client-email");
@@ -159,8 +172,12 @@ mod tests {
 
         let creds = Credentials::from(mock);
         let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
-        let client = MDSClient::new(Some(endpoint.clone()));
-        let mut signer = MDSSigner::new(client, creds);
+        let client = MDSClient::new(
+            Some(endpoint.clone()),
+            SharedEnvProvider::default(),
+            SharedHttpClientProvider::default(),
+        );
+        let mut signer = MDSSigner::new(client, creds, SharedHttpClientProvider::default());
         signer.iam_endpoint_override = Some(endpoint);
 
         let client_email = signer.client_email().await?;

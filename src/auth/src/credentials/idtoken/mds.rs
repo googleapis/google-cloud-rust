@@ -66,6 +66,10 @@
 use crate::Result;
 use crate::credentials::CacheableResource;
 use crate::errors::CredentialsError;
+use crate::io::{
+    EnvProvider, FsProvider, HttpClientProvider, IoConfig, SharedEnvProvider, SharedFsProvider,
+    SharedHttpClientProvider,
+};
 use crate::mds::client::Client as MDSClient;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
@@ -135,6 +139,7 @@ pub struct Builder {
     licenses: Option<String>,
     target_audience: String,
     retry_builder: RetryTokenProviderBuilder,
+    providers: IoConfig,
 }
 
 impl Builder {
@@ -150,6 +155,7 @@ impl Builder {
             licenses: None,
             target_audience: target_audience.into(),
             retry_builder: RetryTokenProviderBuilder::default(),
+            providers: IoConfig::default(),
         }
     }
 
@@ -291,8 +297,41 @@ impl Builder {
         self
     }
 
+    /// Sets a custom environment variable provider.
+    ///
+    /// When set, the auth crate will use this provider for all environment
+    /// variable lookups during ID token credential construction instead of
+    /// reading from the process environment directly.
+    pub fn with_env_provider(mut self, provider: impl EnvProvider + 'static) -> Self {
+        self.providers.env = SharedEnvProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom filesystem provider.
+    ///
+    /// When set, the auth crate will use this provider for all file read
+    /// operations during ID token credential construction instead of reading
+    /// from the real filesystem directly.
+    pub fn with_fs_provider(mut self, provider: impl FsProvider + 'static) -> Self {
+        self.providers.fs = SharedFsProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during ID token credential construction and token retrieval
+    /// instead of using `reqwest::Client` directly.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.providers.http = SharedHttpClientProvider::new(provider);
+        self
+    }
+
     fn build_token_provider(self) -> TokenProviderWithRetry<MDSTokenProvider> {
-        let client = MDSClient::new(self.endpoint);
+        let client = MDSClient::new(self.endpoint, self.providers.env, self.providers.http);
         let tp = MDSTokenProvider {
             format: self.format,
             licenses: self.licenses,
@@ -340,15 +379,13 @@ mod tests {
     use super::*;
     use crate::credentials::idtoken::tests::generate_test_id_token;
     use crate::credentials::tests::{
-        find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
-        get_mock_retry_throttler,
+        get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
     };
     use crate::mds::{GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI};
     use httptest::cycle;
     use httptest::matchers::{all_of, contains, request, url_decoded};
     use httptest::responders::status_code;
     use httptest::{Expectation, Server};
-    use reqwest::StatusCode;
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
     use test_case::test_case;
@@ -377,11 +414,8 @@ mod tests {
             .build()?;
 
         let err = creds.id_token().await.unwrap_err();
-        let source = find_source_error::<reqwest::Error>(&err);
-        assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
-            "{err:?}"
-        );
+        assert!(!err.is_transient(), "{err:?}");
+        assert!(format!("{err:?}").contains("401"), "{err:?}");
 
         Ok(())
     }
@@ -494,11 +528,8 @@ mod tests {
             .build()?;
 
         let err = creds.id_token().await.unwrap_err();
-        let source = find_source_error::<reqwest::Error>(&err);
-        assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
-            "{err:?}"
-        );
+        assert!(err.is_transient(), "{err:?}");
+        assert!(format!("{err:?}").contains("503"), "{err:?}");
         Ok(())
     }
 

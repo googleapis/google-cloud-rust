@@ -14,6 +14,7 @@
 
 use crate::Result;
 use crate::errors::CredentialsError;
+use crate::io::{HttpClientProvider, HttpRequest, SharedHttpClientProvider};
 use jsonwebtoken::{Algorithm, DecodingKey, jwk::JwkSet};
 use std::{
     collections::HashMap,
@@ -36,6 +37,7 @@ struct CacheEntry {
 pub struct JwkClient {
     cache: Arc<RwLock<HashMap<String, CacheEntry>>>, // KeyID -> Certificate
     ttl: Duration,
+    http: SharedHttpClientProvider,
 }
 
 impl JwkClient {
@@ -43,7 +45,13 @@ impl JwkClient {
         Self {
             cache: Arc::new(RwLock::new(HashMap::new())),
             ttl: CACHE_TTL,
+            http: SharedHttpClientProvider::default(),
         }
+    }
+
+    pub fn with_http_client_provider(mut self, http: impl HttpClientProvider + 'static) -> Self {
+        self.http = SharedHttpClientProvider::new(http);
+        self
     }
 
     #[cfg(test)]
@@ -51,6 +59,7 @@ impl JwkClient {
         Self {
             cache: Arc::new(RwLock::new(HashMap::new())),
             ttl,
+            http: SharedHttpClientProvider::default(),
         }
     }
 
@@ -105,23 +114,25 @@ impl JwkClient {
     }
 
     async fn fetch_certs(&self, jwks_url: String) -> Result<JwkSet> {
-        let client = reqwest::Client::new();
+        let request = HttpRequest::get(jwks_url);
+
         // TODO(#3592): add retries
-        let response = client
-            .get(jwks_url)
-            .send()
+        let response = self
+            .http
+            .execute(request)
             .await
             .map_err(|e| crate::errors::from_http_error(e, "failed to fetch JWK set"))?;
 
-        if !response.status().is_success() {
-            let err = crate::errors::from_http_response(response, "failed to fetch JWK set").await;
-            return Err(err);
+        if !response.is_success() {
+            return Err(crate::errors::from_http_response(
+                &response,
+                "failed to fetch JWK set",
+            ));
         }
 
         let jwk_set: JwkSet = response
             .json()
-            .await
-            .map_err(|e| CredentialsError::new(!e.is_decode(), "failed to parse JWK set", e))?;
+            .map_err(|e| CredentialsError::new(e.is_io(), "failed to parse JWK set", e))?;
 
         Ok(jwk_set)
     }

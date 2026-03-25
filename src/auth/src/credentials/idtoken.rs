@@ -76,6 +76,10 @@
 
 use crate::build_errors::Error as BuilderError;
 use crate::credentials::{AdcContents, CredentialsError, extract_credential_type, load_adc};
+use crate::io::{
+    EnvProvider, FsProvider, HttpClientProvider, IoConfig, SharedEnvProvider, SharedFsProvider,
+    SharedHttpClientProvider,
+};
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
@@ -181,6 +185,7 @@ pub(crate) mod dynamic {
 pub struct Builder {
     target_audience: String,
     include_email: bool,
+    providers: IoConfig,
 }
 
 impl Builder {
@@ -195,6 +200,7 @@ impl Builder {
         Self {
             target_audience: target_audience.into(),
             include_email: false,
+            providers: IoConfig::default(),
         }
     }
 
@@ -205,6 +211,39 @@ impl Builder {
     /// This option is only relevant for credentials sources that do not include the `email` claim by default.
     pub fn with_include_email(mut self) -> Self {
         self.include_email = true;
+        self
+    }
+
+    /// Sets a custom environment variable provider.
+    ///
+    /// When set, the auth crate will use this provider for all environment
+    /// variable lookups during ID token credential construction instead of
+    /// reading from the process environment directly.
+    pub fn with_env_provider(mut self, provider: impl EnvProvider + 'static) -> Self {
+        self.providers.env = SharedEnvProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom filesystem provider.
+    ///
+    /// When set, the auth crate will use this provider for all file read
+    /// operations during ID token credential construction instead of reading
+    /// from the real filesystem directly.
+    pub fn with_fs_provider(mut self, provider: impl FsProvider + 'static) -> Self {
+        self.providers.fs = SharedFsProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during ID token credential construction and token retrieval
+    /// instead of using `reqwest::Client` directly.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.providers.http = SharedHttpClientProvider::new(provider);
         self
     }
 
@@ -219,14 +258,20 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<IDTokenCredentials> {
-        let json_data = match load_adc()? {
+        let providers = self.providers;
+        let json_data = match load_adc(&providers.env, &providers.fs)? {
             AdcContents::Contents(contents) => {
                 Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
             }
             AdcContents::FallbackToMds => None,
         };
 
-        build_id_token_credentials(self.target_audience, self.include_email, json_data)
+        build_id_token_credentials(
+            self.target_audience,
+            self.include_email,
+            json_data,
+            providers,
+        )
     }
 }
 enum IDTokenBuilder {
@@ -239,8 +284,9 @@ fn build_id_token_credentials(
     audience: String,
     include_email: bool,
     json: Option<Value>,
+    providers: IoConfig,
 ) -> BuildResult<IDTokenCredentials> {
-    let builder = build_id_token_credentials_internal(audience, include_email, json)?;
+    let builder = build_id_token_credentials_internal(audience, include_email, json, &providers)?;
     match builder {
         IDTokenBuilder::Mds(builder) => builder.build(),
         IDTokenBuilder::ServiceAccount(builder) => builder.build(),
@@ -252,6 +298,7 @@ fn build_id_token_credentials_internal(
     audience: String,
     include_email: bool,
     json: Option<Value>,
+    providers: &IoConfig,
 ) -> BuildResult<IDTokenBuilder> {
     match json {
         None => {
@@ -262,7 +309,11 @@ fn build_id_token_credentials_internal(
                 mds::Format::Standard
             };
             Ok(IDTokenBuilder::Mds(
-                mds::Builder::new(audience).with_format(format),
+                mds::Builder::new(audience)
+                    .with_format(format)
+                    .with_env_provider(SharedEnvProvider::clone(&providers.env))
+                    .with_fs_provider(SharedFsProvider::clone(&providers.fs))
+                    .with_http_client_provider(SharedHttpClientProvider::clone(&providers.http)),
             ))
         }
         Some(json) => {
@@ -275,7 +326,10 @@ fn build_id_token_credentials_internal(
                     service_account::Builder::new(audience, json),
                 )),
                 "impersonated_service_account" => {
-                    let builder = impersonated::Builder::new(audience, json);
+                    let builder = impersonated::Builder::new(audience, json)
+                        .with_http_client_provider(SharedHttpClientProvider::clone(
+                            &providers.http,
+                        ));
                     let builder = if include_email {
                         builder.with_include_email()
                     } else {
@@ -465,7 +519,7 @@ pub(crate) mod tests {
             "refresh_token": "test_refresh_token",
         });
 
-        let result = build_id_token_credentials(audience, false, Some(json));
+        let result = build_id_token_credentials(audience, false, Some(json), IoConfig::default());
         assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_not_supported());
@@ -493,7 +547,7 @@ pub(crate) mod tests {
             }
         });
 
-        let result = build_id_token_credentials(audience, false, Some(json));
+        let result = build_id_token_credentials(audience, false, Some(json), IoConfig::default());
         assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_not_supported());
@@ -509,7 +563,7 @@ pub(crate) mod tests {
             "type": "unknown_credential_type",
         });
 
-        let result = build_id_token_credentials(audience, false, Some(json));
+        let result = build_id_token_credentials(audience, false, Some(json), IoConfig::default());
         assert!(result.is_err(), "{result:?}");
         let err = result.unwrap_err();
         assert!(err.is_unknown_type());
@@ -523,14 +577,24 @@ pub(crate) mod tests {
         let audience = "test_audience".to_string();
 
         // Test with include_email = true and no source credentials (MDS Fallback)
-        let creds = build_id_token_credentials_internal(audience.clone(), true, None)?;
+        let creds = build_id_token_credentials_internal(
+            audience.clone(),
+            true,
+            None,
+            &IoConfig::default(),
+        )?;
         assert!(matches!(creds, IDTokenBuilder::Mds(_)));
         if let IDTokenBuilder::Mds(builder) = creds {
             assert!(matches!(builder.format, Some(Format::Full)));
         }
 
         // Test with include_email = false and no source credentials (MDS Fallback)
-        let creds = build_id_token_credentials_internal(audience.clone(), false, None)?;
+        let creds = build_id_token_credentials_internal(
+            audience.clone(),
+            false,
+            None,
+            &IoConfig::default(),
+        )?;
         assert!(matches!(creds, IDTokenBuilder::Mds(_)));
         if let IDTokenBuilder::Mds(builder) = creds {
             assert!(matches!(builder.format, Some(Format::Standard)));
@@ -561,15 +625,24 @@ pub(crate) mod tests {
         });
 
         // Test with include_email = true and impersonated source credentials
-        let creds =
-            build_id_token_credentials_internal(audience.clone(), true, Some(json.clone()))?;
+        let creds = build_id_token_credentials_internal(
+            audience.clone(),
+            true,
+            Some(json.clone()),
+            &IoConfig::default(),
+        )?;
         assert!(matches!(creds, IDTokenBuilder::Impersonated(_)));
         if let IDTokenBuilder::Impersonated(builder) = creds {
             assert_eq!(builder.include_email, Some(true));
         }
 
         // Test with include_email = false and impersonated source credentials
-        let creds = build_id_token_credentials_internal(audience.clone(), false, Some(json))?;
+        let creds = build_id_token_credentials_internal(
+            audience.clone(),
+            false,
+            Some(json),
+            &IoConfig::default(),
+        )?;
         assert!(matches!(creds, IDTokenBuilder::Impersonated(_)));
         if let IDTokenBuilder::Impersonated(builder) = creds {
             assert_eq!(builder.include_email, None);

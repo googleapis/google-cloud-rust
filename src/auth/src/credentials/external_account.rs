@@ -122,6 +122,10 @@ use crate::credentials::subject_token::dynamic;
 use crate::credentials::{AccessToken, AccessTokenCredentials};
 use crate::errors::non_retryable;
 use crate::headers_util::AuthHeadersBuilder;
+use crate::io::{
+    EnvProvider, FsProvider, HttpClientProvider, IoConfig, SharedEnvProvider, SharedFsProvider,
+    SharedHttpClientProvider,
+};
 use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -219,50 +223,44 @@ impl From<ExternalAccountFile> for ExternalAccountConfig {
         if scope.is_empty() {
             scope.push(DEFAULT_SCOPE.to_string());
         }
-        Self {
-            audience: config.audience.clone(),
-            client_id: config.client_id,
-            client_secret: config.client_secret,
-            subject_token_type: config.subject_token_type,
-            token_url: config.token_url,
-            service_account_impersonation_url: config.service_account_impersonation_url,
-            credential_source: CredentialSource::from_file(
-                config.credential_source,
-                &config.audience,
-            ),
-            scopes: scope,
-            workforce_pool_user_project: config.workforce_pool_user_project,
-        }
-    }
-}
-
-impl CredentialSource {
-    fn from_file(source: CredentialSourceFile, audience: &str) -> Self {
-        match source {
+        let credential_source = match config.credential_source {
             CredentialSourceFile::Url {
                 url,
                 headers,
                 format,
-            } => Self::Url(UrlSourcedCredentials::new(url, headers, format)),
+            } => CredentialSource::Url {
+                url,
+                headers,
+                format,
+            },
             CredentialSourceFile::Executable { executable } => {
-                Self::Executable(ExecutableSourcedCredentials::new(executable))
+                CredentialSource::Executable(executable)
             }
-            CredentialSourceFile::File { file, format } => {
-                Self::File(FileSourcedCredentials::new(file, format))
-            }
+            CredentialSourceFile::File { file, format } => CredentialSource::File { file, format },
             CredentialSourceFile::Aws {
                 region_url,
                 url,
                 regional_cred_verification_url,
                 imdsv2_session_token_url,
                 ..
-            } => Self::Aws(AwsSourcedCredentials::new(
+            } => CredentialSource::Aws {
                 region_url,
                 url,
                 regional_cred_verification_url,
                 imdsv2_session_token_url,
-                audience.to_string(),
-            )),
+                audience: config.audience.clone(),
+            },
+        };
+        Self {
+            audience: config.audience,
+            client_id: config.client_id,
+            client_secret: config.client_secret,
+            subject_token_type: config.subject_token_type,
+            token_url: config.token_url,
+            service_account_impersonation_url: config.service_account_impersonation_url,
+            credential_source,
+            scopes: scope,
+            workforce_pool_user_project: config.workforce_pool_user_project,
         }
     }
 }
@@ -375,10 +373,23 @@ impl ExternalAccountConfigBuilder {
 
 #[derive(Debug, Clone)]
 enum CredentialSource {
-    Url(UrlSourcedCredentials),
-    Executable(ExecutableSourcedCredentials),
-    File(FileSourcedCredentials),
-    Aws(AwsSourcedCredentials),
+    Url {
+        url: String,
+        headers: Option<HashMap<String, String>>,
+        format: Option<CredentialSourceFormat>,
+    },
+    Executable(ExecutableConfig),
+    File {
+        file: String,
+        format: Option<CredentialSourceFormat>,
+    },
+    Aws {
+        region_url: Option<String>,
+        url: Option<String>,
+        regional_cred_verification_url: Option<String>,
+        imdsv2_session_token_url: Option<String>,
+        audience: String,
+    },
     Programmatic(ProgrammaticSourcedCredentials),
 }
 
@@ -387,24 +398,65 @@ impl ExternalAccountConfig {
         self,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
+        http: SharedHttpClientProvider,
+        fs: SharedFsProvider,
+        env: SharedEnvProvider,
     ) -> ExternalAccountCredentials<TokenCache> {
         let config = self.clone();
         match self.credential_source {
-            CredentialSource::Url(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
-            }
-            CredentialSource::Executable(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
-            }
-            CredentialSource::Programmatic(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
-            }
-            CredentialSource::File(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
-            }
-            CredentialSource::Aws(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
-            }
+            CredentialSource::Url {
+                url,
+                headers,
+                format,
+            } => Self::make_credentials_from_source(
+                UrlSourcedCredentials::new(url, headers, format, http.clone()),
+                config,
+                quota_project_id,
+                retry_builder,
+                http,
+            ),
+            CredentialSource::Executable(executable) => Self::make_credentials_from_source(
+                ExecutableSourcedCredentials::new(executable, env, fs),
+                config,
+                quota_project_id,
+                retry_builder,
+                http,
+            ),
+            CredentialSource::Programmatic(source) => Self::make_credentials_from_source(
+                source,
+                config,
+                quota_project_id,
+                retry_builder,
+                http,
+            ),
+            CredentialSource::File { file, format } => Self::make_credentials_from_source(
+                FileSourcedCredentials::new(file, format, fs),
+                config,
+                quota_project_id,
+                retry_builder,
+                http,
+            ),
+            CredentialSource::Aws {
+                region_url,
+                url,
+                regional_cred_verification_url,
+                imdsv2_session_token_url,
+                audience,
+            } => Self::make_credentials_from_source(
+                AwsSourcedCredentials::new(
+                    region_url,
+                    url,
+                    regional_cred_verification_url,
+                    imdsv2_session_token_url,
+                    audience,
+                    env,
+                    http.clone(),
+                ),
+                config,
+                quota_project_id,
+                retry_builder,
+                http,
+            ),
         }
     }
 
@@ -413,6 +465,7 @@ impl ExternalAccountConfig {
         config: ExternalAccountConfig,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
+        http: SharedHttpClientProvider,
     ) -> ExternalAccountCredentials<TokenCache>
     where
         T: dynamic::SubjectTokenProvider + 'static,
@@ -420,6 +473,7 @@ impl ExternalAccountConfig {
         let token_provider = ExternalAccountTokenProvider {
             subject_token_provider,
             config,
+            http,
         };
         let token_provider_with_retry = retry_builder.build(token_provider);
         let cache = TokenCache::new(token_provider_with_retry);
@@ -437,6 +491,7 @@ where
 {
     subject_token_provider: T,
     config: ExternalAccountConfig,
+    http: SharedHttpClientProvider,
 }
 
 #[async_trait::async_trait]
@@ -489,7 +544,7 @@ where
             ..ExchangeTokenRequest::default()
         };
 
-        let token_res = STSHandler::exchange_token(req).await?;
+        let token_res = STSHandler::exchange_token(req, &self.http).await?;
 
         if let Some(impersonation_url) = &self.config.service_account_impersonation_url {
             let mut headers = HeaderMap::new();
@@ -505,6 +560,7 @@ where
                 user_scopes,
                 impersonated::DEFAULT_LIFETIME,
                 impersonation_url,
+                &self.http,
             )
             .await;
         }
@@ -577,6 +633,7 @@ pub struct Builder {
     scopes: Option<Vec<String>>,
     retry_builder: RetryTokenProviderBuilder,
     iam_endpoint_override: Option<String>,
+    providers: IoConfig,
 }
 
 impl Builder {
@@ -590,6 +647,7 @@ impl Builder {
             scopes: None,
             retry_builder: RetryTokenProviderBuilder::default(),
             iam_endpoint_override: None,
+            providers: IoConfig::default(),
         }
     }
 
@@ -709,6 +767,39 @@ impl Builder {
         self
     }
 
+    /// Sets a custom environment variable provider.
+    ///
+    /// When set, the auth crate will use this provider for all environment
+    /// variable lookups during external account credential construction
+    /// instead of reading from the process environment directly.
+    pub fn with_env_provider(mut self, provider: impl EnvProvider + 'static) -> Self {
+        self.providers.env = SharedEnvProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom filesystem provider.
+    ///
+    /// When set, the auth crate will use this provider for all file read
+    /// operations during external account credential construction instead
+    /// of reading from the real filesystem directly.
+    pub fn with_fs_provider(mut self, provider: impl FsProvider + 'static) -> Self {
+        self.providers.fs = SharedFsProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during external account credential construction and token
+    /// retrieval instead of using `reqwest::Client` directly.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.providers.http = SharedHttpClientProvider::new(provider);
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -766,11 +857,21 @@ impl Builder {
         let access_boundary_url =
             external_account_lookup_url(&config.audience, self.iam_endpoint_override.as_deref());
 
-        let creds = config.make_credentials(self.quota_project_id, self.retry_builder);
+        let http = SharedHttpClientProvider::clone(&self.providers.http);
+        let fs = SharedFsProvider::clone(&self.providers.fs);
+        let env = SharedEnvProvider::clone(&self.providers.env);
+        let creds = config.make_credentials(
+            self.quota_project_id,
+            self.retry_builder,
+            http.clone(),
+            fs,
+            env,
+        );
 
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             access_boundary_url,
+            http,
         ))
     }
 }
@@ -826,6 +927,7 @@ pub struct ProgrammaticBuilder {
     quota_project_id: Option<String>,
     config: ExternalAccountConfigBuilder,
     retry_builder: RetryTokenProviderBuilder,
+    providers: IoConfig,
 }
 
 impl ProgrammaticBuilder {
@@ -871,6 +973,7 @@ impl ProgrammaticBuilder {
             quota_project_id: None,
             config,
             retry_builder: RetryTokenProviderBuilder::default(),
+            providers: IoConfig::default(),
         }
     }
 
@@ -1369,6 +1472,39 @@ impl ProgrammaticBuilder {
         self
     }
 
+    /// Sets a custom environment variable provider.
+    ///
+    /// When set, the auth crate will use this provider for all environment
+    /// variable lookups during external account credential construction
+    /// instead of reading from the process environment directly.
+    pub fn with_env_provider(mut self, provider: impl EnvProvider + 'static) -> Self {
+        self.providers.env = SharedEnvProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom filesystem provider.
+    ///
+    /// When set, the auth crate will use this provider for all file read
+    /// operations during external account credential construction instead
+    /// of reading from the real filesystem directly.
+    pub fn with_fs_provider(mut self, provider: impl FsProvider + 'static) -> Self {
+        self.providers.fs = SharedFsProvider::new(provider);
+        self
+    }
+
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during external account credential construction and token
+    /// retrieval instead of using `reqwest::Client` directly.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.providers.http = SharedHttpClientProvider::new(provider);
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -1376,8 +1512,11 @@ impl ProgrammaticBuilder {
     /// Returns a [BuilderError] if any of the required fields (such as
     /// `audience` or `subject_token_type`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
+        let http = SharedHttpClientProvider::clone(&self.providers.http);
+        let fs = SharedFsProvider::clone(&self.providers.fs);
+        let env = SharedEnvProvider::clone(&self.providers.env);
         let (config, quota_project_id, retry_builder) = self.build_components()?;
-        let creds = config.make_credentials(quota_project_id, retry_builder);
+        let creds = config.make_credentials(quota_project_id, retry_builder, http, fs, env);
         Ok(Credentials {
             inner: Arc::new(creds),
         })
@@ -1395,6 +1534,7 @@ impl ProgrammaticBuilder {
             quota_project_id,
             config,
             retry_builder,
+            providers: _,
         } = self;
 
         let mut config_builder = config;
@@ -1536,14 +1676,25 @@ mod tests {
         let source = config.credential_source;
 
         match source {
-            CredentialSource::Url(source) => {
-                assert_eq!(source.url, "https://example.com/token");
+            CredentialSource::Url {
+                url,
+                headers,
+                format,
+            } => {
+                assert_eq!(url, "https://example.com/token");
                 assert_eq!(
-                    source.headers,
-                    HashMap::from([("Metadata".to_string(), "True".to_string()),]),
+                    headers,
+                    Some(HashMap::from([(
+                        "Metadata".to_string(),
+                        "True".to_string()
+                    ),])),
                 );
-                assert_eq!(source.format, "json");
-                assert_eq!(source.subject_token_field_name, "access_token");
+                let fmt = format.unwrap();
+                assert_eq!(fmt.format_type, "json");
+                assert_eq!(
+                    fmt.subject_token_field_name,
+                    Some("access_token".to_string())
+                );
             }
             _ => {
                 unreachable!("expected Url Sourced credential")
@@ -1573,11 +1724,10 @@ mod tests {
         let source = config.credential_source;
 
         match source {
-            CredentialSource::Executable(source) => {
-                assert_eq!(source.command, "cat");
-                assert_eq!(source.args, vec!["/some/file"]);
-                assert_eq!(source.output_file.as_deref(), Some("/some/file"));
-                assert_eq!(source.timeout, Duration::from_secs(5));
+            CredentialSource::Executable(executable) => {
+                assert_eq!(executable.command, "cat /some/file");
+                assert_eq!(executable.output_file.as_deref(), Some("/some/file"));
+                assert_eq!(executable.timeout_millis, Some(5000));
             }
             _ => {
                 unreachable!("expected Executable Sourced credential")
@@ -1607,10 +1757,11 @@ mod tests {
         let source = config.credential_source;
 
         match source {
-            CredentialSource::File(source) => {
-                assert_eq!(source.file, "/foo/bar");
-                assert_eq!(source.format, "json");
-                assert_eq!(source.subject_token_field_name, "token");
+            CredentialSource::File { file, format } => {
+                assert_eq!(file, "/foo/bar");
+                let fmt = format.unwrap();
+                assert_eq!(fmt.format_type, "json");
+                assert_eq!(fmt.subject_token_field_name, Some("token".to_string()));
             }
             _ => {
                 unreachable!("expected File Sourced credential")
@@ -2393,10 +2544,9 @@ mod tests {
         let config: ExternalAccountConfig = file.into();
 
         match config.credential_source {
-            CredentialSource::File(source) => {
-                assert_eq!(source.file, "/var/run/service-account/token");
-                assert_eq!(source.format, "text"); // Default format
-                assert_eq!(source.subject_token_field_name, ""); // Default empty
+            CredentialSource::File { file, format } => {
+                assert_eq!(file, "/var/run/service-account/token");
+                assert!(format.is_none()); // No format specified
             }
             _ => {
                 unreachable!("expected File sourced credential")
@@ -2426,10 +2576,11 @@ mod tests {
         let config: ExternalAccountConfig = file.into();
 
         match config.credential_source {
-            CredentialSource::File(source) => {
-                assert_eq!(source.file, "/var/run/service-account/token");
-                assert_eq!(source.format, "text");
-                assert_eq!(source.subject_token_field_name, ""); // Empty for text format
+            CredentialSource::File { file, format } => {
+                assert_eq!(file, "/var/run/service-account/token");
+                let fmt = format.unwrap();
+                assert_eq!(fmt.format_type, "text");
+                assert_eq!(fmt.subject_token_field_name, None); // No field name for text format
             }
             _ => {
                 unreachable!("expected File sourced credential")
@@ -2463,23 +2614,28 @@ mod tests {
         let config: ExternalAccountConfig = file.into();
 
         match config.credential_source {
-            CredentialSource::Aws(source) => {
+            CredentialSource::Aws {
+                region_url,
+                regional_cred_verification_url,
+                imdsv2_session_token_url,
+                ..
+            } => {
                 assert_eq!(
-                    source.region_url,
+                    region_url,
                     Some(
                         "http://169.254.169.254/latest/meta-data/placement/availability-zone"
                             .to_string()
                     )
                 );
                 assert_eq!(
-                    source.regional_cred_verification_url,
+                    regional_cred_verification_url,
                     Some(
                         "https://sts.{region}.amazonaws.com?Action=GetCallerIdentity&Version=2011-06-15"
                             .to_string()
                     )
                 );
                 assert_eq!(
-                    source.imdsv2_session_token_url,
+                    imdsv2_session_token_url,
                     Some("http://169.254.169.254/latest/api/token".to_string())
                 );
             }

@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::errors::{self, CredentialsError};
+use crate::errors::CredentialsError;
+use crate::io::{HttpRequest, HttpResponse, SharedEnvProvider, SharedHttpClientProvider};
 use crate::token::Token;
-use reqwest::{Client as ReqwestClient, RequestBuilder};
 use std::time::Duration;
 use tokio::time::Instant;
 
@@ -24,6 +24,7 @@ pub(crate) struct Client {
     endpoint: String,
     /// True if the endpoint was NOT overridden by env var or constructor arg.
     pub(crate) is_default_endpoint: bool,
+    http: SharedHttpClientProvider,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -36,19 +37,27 @@ pub(crate) struct MDSTokenResponse {
 
 impl Client {
     /// Creates a new client for the Metadata Service.
-    pub(crate) fn new(endpoint_override: Option<String>) -> Self {
-        let (endpoint, is_default_endpoint) = Self::resolve_endpoint(endpoint_override);
+    pub(crate) fn new(
+        endpoint_override: Option<String>,
+        env: SharedEnvProvider,
+        http: SharedHttpClientProvider,
+    ) -> Self {
+        let (endpoint, is_default_endpoint) = Self::resolve_endpoint(endpoint_override, &env);
         let endpoint = endpoint.trim_end_matches('/').to_string();
 
         Self {
             endpoint,
             is_default_endpoint,
+            http,
         }
     }
 
     /// Determine the endpoint and whether it was overridden
-    fn resolve_endpoint(endpoint_override: Option<String>) -> (String, bool) {
-        if let Ok(host) = std::env::var(super::GCE_METADATA_HOST_ENV_VAR) {
+    fn resolve_endpoint(
+        endpoint_override: Option<String>,
+        env: &SharedEnvProvider,
+    ) -> (String, bool) {
+        if let Some(host) = env.var(super::GCE_METADATA_HOST_ENV_VAR) {
             // Check GCE_METADATA_HOST environment variable first
             (format!("http://{host}"), false)
         } else if let Some(e) = endpoint_override {
@@ -61,11 +70,24 @@ impl Client {
     }
 
     /// Creates a GET request to the MDS service with the correct headers.
-    fn get(&self, path: &str) -> RequestBuilder {
+    fn get(&self, path: &str) -> HttpRequest {
         let url = format!("{}{}", self.endpoint, path);
-        ReqwestClient::new()
-            .get(url)
-            .header(super::METADATA_FLAVOR, super::METADATA_FLAVOR_VALUE)
+        HttpRequest::get(url).header(super::METADATA_FLAVOR, super::METADATA_FLAVOR_VALUE)
+    }
+
+    /// Executes an HTTP request via the provider and maps transport errors.
+    async fn execute(
+        &self,
+        request: HttpRequest,
+        error_message: &str,
+    ) -> crate::Result<HttpResponse> {
+        let response = self
+            .http
+            .execute(request)
+            .await
+            .map_err(|e| crate::errors::from_http_error(e, error_message))?;
+
+        Self::check_response_status(response, error_message)
     }
 
     /// Fetches an access token for the default service account.
@@ -78,7 +100,7 @@ impl Client {
         let scopes = scopes.as_ref().map(|v| v.join(","));
         let request = scopes
             .into_iter()
-            .fold(request, |r, s| r.query(&[("scopes", s)]));
+            .fold(request, |r, s| r.query("scopes", s));
 
         let error_message = "failed to fetch access token";
 
@@ -86,24 +108,19 @@ impl Client {
         // running on MDS environments and not useful if there is no MDS. We will mark the error
         // as retryable and let the retry policy determine whether to retry or not. Whenever we
         // define a default retry policy, we can skip retrying this case.
-        let response = request
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, error_message))?;
+        let response = self.execute(request, error_message).await?;
 
-        let response = Self::check_response_status(response, error_message).await?;
-
-        let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
+        let mds_response: MDSTokenResponse = response.json().map_err(|e| {
             // Decoding errors are not transient. Typically they indicate a badly
             // configured MDS endpoint, or DNS redirecting the request to a random
             // server, e.g., ISPs that redirect unknown services to HTTP.
-            CredentialsError::from_source(!e.is_decode(), e)
+            CredentialsError::from_source(e.is_io(), e)
         })?;
 
         Ok(Token {
-            token: response.access_token,
-            token_type: response.token_type,
-            expires_at: response
+            token: mds_response.access_token,
+            token_type: mds_response.token_type,
+            expires_at: mds_response
                 .expires_in
                 .map(|d| Instant::now() + Duration::from_secs(d)),
             metadata: None,
@@ -120,27 +137,17 @@ impl Client {
         licenses: Option<String>,
     ) -> crate::Result<String> {
         let path = format!("{}/identity", super::MDS_DEFAULT_URI);
-        let request = self.get(&path).query(&[("audience", target_audience)]);
-        let request = format.iter().fold(request, |builder, format| {
-            builder.query(&[("format", format)])
-        });
-        let request = licenses.iter().fold(request, |builder, licenses| {
-            builder.query(&[("licenses", licenses)])
-        });
+        let request = self.get(&path).query("audience", target_audience);
+        let request = format.iter().fold(request, |r, f| r.query("format", f));
+        let request = licenses.iter().fold(request, |r, l| r.query("licenses", l));
 
         let error_message = "failed to fetch id token";
 
-        let response = request
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, error_message))?;
-
-        let response = Self::check_response_status(response, error_message).await?;
+        let response = self.execute(request, error_message).await?;
 
         let token = response
             .text()
-            .await
-            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+            .map_err(|e| CredentialsError::from_source(false, e))?;
 
         Ok(token)
     }
@@ -151,28 +158,21 @@ impl Client {
         let request = self.get(&path);
         let error_message = "failed to fetch email";
 
-        let response = request
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, error_message))?;
-
-        let response = Self::check_response_status(response, error_message).await?;
+        let response = self.execute(request, error_message).await?;
 
         let email = response
             .text()
-            .await
-            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+            .map_err(|e| CredentialsError::from_source(false, e))?;
 
         Ok(email)
     }
 
-    async fn check_response_status(
-        response: reqwest::Response,
+    fn check_response_status(
+        response: HttpResponse,
         error_message: &str,
-    ) -> crate::Result<reqwest::Response> {
-        if !response.status().is_success() {
-            let err = errors::from_http_response(response, error_message).await;
-            Err(err)
+    ) -> crate::Result<HttpResponse> {
+        if !response.is_success() {
+            Err(crate::errors::from_http_response(&response, error_message))
         } else {
             Ok(response)
         }
@@ -182,16 +182,25 @@ impl Client {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::io::{SharedEnvProvider, SharedHttpClientProvider};
     use crate::mds::MDS_DEFAULT_URI;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
 
+    fn new_test_client(endpoint: Option<String>) -> Client {
+        Client::new(
+            endpoint,
+            SharedEnvProvider::default(),
+            SharedHttpClientProvider::default(),
+        )
+    }
+
     #[tokio::test]
     #[parallel]
     async fn test_access_token_success() {
         let server = Server::run();
-        let client = Client::new(Some(format!("http://{}", server.addr())));
+        let client = new_test_client(Some(format!("http://{}", server.addr())));
         let response = MDSTokenResponse {
             access_token: "test-token".to_string(),
             expires_in: Some(3600),
@@ -226,7 +235,7 @@ mod tests {
     #[parallel]
     async fn test_access_token_failure() {
         let server = Server::run();
-        let client = Client::new(Some(format!("http://{}", server.addr())));
+        let client = new_test_client(Some(format!("http://{}", server.addr())));
 
         server.expect(
             Expectation::matching(all_of![
@@ -245,7 +254,7 @@ mod tests {
     #[cfg(feature = "idtoken")]
     async fn test_id_token_success() {
         let server = Server::run();
-        let client = Client::new(Some(format!("http://{}", server.addr())));
+        let client = new_test_client(Some(format!("http://{}", server.addr())));
 
         server.expect(
             Expectation::matching(all_of![
@@ -274,7 +283,7 @@ mod tests {
     #[cfg(feature = "idtoken")]
     async fn test_id_token_failure() {
         let server = Server::run();
-        let client = Client::new(Some(format!("http://{}", server.addr())));
+        let client = new_test_client(Some(format!("http://{}", server.addr())));
 
         server.expect(
             Expectation::matching(all_of![
@@ -292,7 +301,7 @@ mod tests {
     #[parallel]
     async fn test_email_success() {
         let server = Server::run();
-        let client = Client::new(Some(format!("http://{}", server.addr())));
+        let client = new_test_client(Some(format!("http://{}", server.addr())));
 
         server.expect(
             Expectation::matching(all_of![
@@ -310,7 +319,7 @@ mod tests {
     #[parallel]
     async fn test_email_failure() {
         let server = Server::run();
-        let client = Client::new(Some(format!("http://{}", server.addr())));
+        let client = new_test_client(Some(format!("http://{}", server.addr())));
 
         server.expect(
             Expectation::matching(all_of![
@@ -327,14 +336,14 @@ mod tests {
     #[test]
     #[parallel]
     fn test_resolve_endpoint_default() {
-        let client = Client::new(None);
+        let client = new_test_client(None);
         assert_eq!(client.endpoint, "http://metadata.google.internal");
     }
 
     #[test]
     #[parallel]
     fn test_resolve_endpoint_override() {
-        let client = Client::new(Some("http://custom.endpoint".to_string()));
+        let client = new_test_client(Some("http://custom.endpoint".to_string()));
         assert_eq!(client.endpoint, "http://custom.endpoint");
     }
 
@@ -342,7 +351,7 @@ mod tests {
     #[serial]
     fn test_resolve_endpoint_env_var() {
         let _s = ScopedEnv::set(super::super::GCE_METADATA_HOST_ENV_VAR, "env.var.host");
-        let client = Client::new(None);
+        let client = new_test_client(None);
         assert_eq!(client.endpoint, "http://env.var.host");
     }
 
@@ -351,7 +360,7 @@ mod tests {
     fn test_resolve_endpoint_priority() {
         let _s = ScopedEnv::set(super::super::GCE_METADATA_HOST_ENV_VAR, "env.priority.host");
         // Env var should take precedence over constructor argument
-        let client = Client::new(Some("http://custom.endpoint".to_string()));
+        let client = new_test_client(Some("http://custom.endpoint".to_string()));
         assert_eq!(client.endpoint, "http://env.priority.host");
     }
 }

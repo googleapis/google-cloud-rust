@@ -17,12 +17,11 @@ use crate::{
     credentials::subject_token::{
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     },
-    errors,
+    io::{HttpRequest, SharedEnvProvider, SharedHttpClientProvider},
 };
 use chrono::Utc;
 use google_cloud_gax::error::CredentialsError;
 use hmac::{Hmac, Mac};
-use reqwest::{Client, Response};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
@@ -68,6 +67,10 @@ pub(crate) struct AwsSourcedCredentials {
     pub imdsv2_session_token_url: Option<String>,
     /// The audience for the x-goog-cloud-target-resource header.
     pub audience: String,
+    /// The environment variable provider.
+    pub env: SharedEnvProvider,
+    /// The HTTP client provider.
+    pub http: SharedHttpClientProvider,
 }
 
 impl AwsSourcedCredentials {
@@ -77,6 +80,8 @@ impl AwsSourcedCredentials {
         regional_cred_verification_url: Option<String>,
         imdsv2_session_token_url: Option<String>,
         audience: String,
+        env: SharedEnvProvider,
+        http: SharedHttpClientProvider,
     ) -> Self {
         Self {
             region_url,
@@ -84,6 +89,8 @@ impl AwsSourcedCredentials {
             regional_cred_verification_url,
             imdsv2_session_token_url,
             audience,
+            env,
+            http,
         }
     }
 }
@@ -116,16 +123,10 @@ impl SubjectTokenProvider for AwsSourcedCredentials {
     type Error = CredentialsError;
 
     async fn subject_token(&self) -> Result<SubjectToken> {
-        let client = Client::new();
+        let imdsv2_token = self.resolve_imdsv2_token().await?;
 
-        let imdsv2_token = self.resolve_imdsv2_token(&client).await?;
-
-        let region = self
-            .resolve_region(&client, imdsv2_token.as_deref())
-            .await?;
-        let creds = self
-            .resolve_credentials(&client, imdsv2_token.as_deref())
-            .await?;
+        let region = self.resolve_region(imdsv2_token.as_deref()).await?;
+        let creds = self.resolve_credentials(imdsv2_token.as_deref()).await?;
 
         let now = Utc::now();
         let amz_date = now.format("%Y%m%dT%H%M%SZ").to_string();
@@ -287,25 +288,27 @@ fn parse_region_from_zone(zone: &str) -> Option<&str> {
 }
 
 impl AwsSourcedCredentials {
-    async fn resolve_imdsv2_token(&self, client: &Client) -> Result<Option<String>> {
+    async fn resolve_imdsv2_token(&self) -> Result<Option<String>> {
         if let Some(url) = &self.imdsv2_session_token_url {
-            let response = client
-                .put(url)
-                .header(IMDSV2_TOKEN_TTL_HEADER, IMDSV2_DEFAULT_TOKEN_TTL_SECONDS)
-                .send()
-                .await
-                .map_err(|e| errors::from_http_error(e, MSG))?;
+            let request = HttpRequest::put(url)
+                .header(IMDSV2_TOKEN_TTL_HEADER, IMDSV2_DEFAULT_TOKEN_TTL_SECONDS);
 
-            if !response.status().is_success() {
-                return Err(
-                    errors::from_http_response(response, "failed to resolve IMDSv2 token").await,
-                );
+            let response = self
+                .http
+                .execute(request)
+                .await
+                .map_err(|e| crate::errors::from_http_error(e, MSG))?;
+
+            if !response.is_success() {
+                return Err(crate::errors::from_http_response(
+                    &response,
+                    "failed to resolve IMDSv2 token",
+                ));
             }
 
             let token = response
                 .text()
-                .await
-                .map_err(|e| errors::from_http_error(e, "failed to read IMDSv2 token body"))?;
+                .map_err(|e| CredentialsError::from_source(false, e))?;
 
             return Ok(Some(token));
         }
@@ -314,44 +317,42 @@ impl AwsSourcedCredentials {
 
     async fn get_with_imdsv2_token(
         &self,
-        client: &Client,
         url: &str,
         imdsv2_token: Option<&str>,
         error_msg: &str,
-    ) -> Result<Response> {
-        let request = client.get(url);
-        let request = if let Some(token) = imdsv2_token {
-            request.header(IMDSV2_TOKEN_HEADER, token)
-        } else {
-            request
-        };
-        let response = request
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, MSG))?;
-        if !response.status().is_success() {
-            return Err(errors::from_http_response(response, error_msg).await);
+    ) -> Result<Vec<u8>> {
+        let mut request = HttpRequest::get(url);
+        if let Some(token) = imdsv2_token {
+            request = request.header(IMDSV2_TOKEN_HEADER, token);
         }
-        Ok(response)
+
+        let response = self
+            .http
+            .execute(request)
+            .await
+            .map_err(|e| crate::errors::from_http_error(e, MSG))?;
+
+        if !response.is_success() {
+            return Err(crate::errors::from_http_response(&response, error_msg));
+        }
+        Ok(response.body)
     }
 
-    async fn resolve_region(&self, client: &Client, imdsv2_token: Option<&str>) -> Result<String> {
-        if let Ok(region) = std::env::var(AWS_REGION) {
+    async fn resolve_region(&self, imdsv2_token: Option<&str>) -> Result<String> {
+        if let Some(region) = self.env.var(AWS_REGION) {
             return Ok(region);
         }
-        if let Ok(region) = std::env::var(AWS_DEFAULT_REGION) {
+        if let Some(region) = self.env.var(AWS_DEFAULT_REGION) {
             return Ok(region);
         }
 
         if let Some(url) = &self.region_url {
-            let response = self
-                .get_with_imdsv2_token(client, url, imdsv2_token, "could not resolve AWS region")
+            let body = self
+                .get_with_imdsv2_token(url, imdsv2_token, "could not resolve AWS region")
                 .await?;
 
-            let zone = response
-                .text()
-                .await
-                .map_err(|e| errors::from_http_error(e, "failed to read AWS region body"))?;
+            let zone =
+                String::from_utf8(body).map_err(|e| CredentialsError::from_source(false, e))?;
             if let Some(region) = parse_region_from_zone(&zone) {
                 return Ok(region.to_string());
             }
@@ -362,20 +363,14 @@ impl AwsSourcedCredentials {
         ))
     }
 
-    async fn resolve_role_name(
-        &self,
-        client: &Client,
-        imdsv2_token: Option<&str>,
-    ) -> Result<String> {
+    async fn resolve_role_name(&self, imdsv2_token: Option<&str>) -> Result<String> {
         if let Some(url) = &self.role_url {
-            let response = self
-                .get_with_imdsv2_token(client, url, imdsv2_token, "could not resolve AWS role name")
+            let body = self
+                .get_with_imdsv2_token(url, imdsv2_token, "could not resolve AWS role name")
                 .await?;
 
-            let role_name = response
-                .text()
-                .await
-                .map_err(|e| errors::from_http_error(e, "failed to read AWS role name body"))?;
+            let role_name =
+                String::from_utf8(body).map_err(|e| CredentialsError::from_source(false, e))?;
 
             return Ok(role_name.trim().to_string());
         }
@@ -387,25 +382,17 @@ impl AwsSourcedCredentials {
 
     async fn resolve_role_credentials(
         &self,
-        client: &Client,
         role_name: &str,
         imdsv2_token: Option<&str>,
     ) -> Result<AwsSecurityCredentials> {
         if let Some(url) = &self.role_url {
             let role_url = format!("{}/{}", url.trim_end_matches('/'), role_name.trim());
-            let response = self
-                .get_with_imdsv2_token(
-                    client,
-                    &role_url,
-                    imdsv2_token,
-                    "could not resolve AWS credentials",
-                )
+            let body = self
+                .get_with_imdsv2_token(&role_url, imdsv2_token, "could not resolve AWS credentials")
                 .await?;
 
-            let creds = response
-                .json()
-                .await
-                .map_err(|e| errors::from_http_error(e, "failed to parse AWS credentials JSON"))?;
+            let creds: AwsSecurityCredentials = serde_json::from_slice(&body)
+                .map_err(|e| CredentialsError::from_source(e.is_io(), e))?;
             return Ok(creds);
         }
         Err(CredentialsError::from_msg(
@@ -416,23 +403,22 @@ impl AwsSourcedCredentials {
 
     async fn resolve_credentials(
         &self,
-        client: &Client,
         imdsv2_token: Option<&str>,
     ) -> Result<AwsSecurityCredentials> {
-        if let (Ok(ak), Ok(sk)) = (
-            std::env::var(AWS_ACCESS_KEY_ID),
-            std::env::var(AWS_SECRET_ACCESS_KEY),
+        if let (Some(ak), Some(sk)) = (
+            self.env.var(AWS_ACCESS_KEY_ID),
+            self.env.var(AWS_SECRET_ACCESS_KEY),
         ) {
             return Ok(AwsSecurityCredentials {
                 access_key_id: ak,
                 secret_access_key: sk,
-                token: std::env::var(AWS_SESSION_TOKEN).ok(),
+                token: self.env.var(AWS_SESSION_TOKEN),
             });
         }
 
-        let role_name = self.resolve_role_name(client, imdsv2_token).await?;
+        let role_name = self.resolve_role_name(imdsv2_token).await?;
         let role_credentials = self
-            .resolve_role_credentials(client, &role_name, imdsv2_token)
+            .resolve_role_credentials(&role_name, imdsv2_token)
             .await?;
 
         Ok(role_credentials)
@@ -488,13 +474,10 @@ mod tests {
             Some("sts.{region}.amazonaws.com".into()),
             None,
             "aud".into(),
+            SharedEnvProvider::default(),
+            SharedHttpClientProvider::default(),
         );
-        let client = Client::new();
-        assert_eq!(
-            creds.resolve_region(&client, None).await?,
-            "us-west-2",
-            "{creds:?}"
-        );
+        assert_eq!(creds.resolve_region(None).await?, "us-west-2", "{creds:?}");
         Ok(())
     }
 
@@ -513,13 +496,10 @@ mod tests {
             Some("sts.{region}.amazonaws.com".into()),
             None,
             "aud".into(),
+            SharedEnvProvider::default(),
+            SharedHttpClientProvider::default(),
         );
-        let client = Client::new();
-        assert_eq!(
-            creds.resolve_region(&client, None).await?,
-            "us-east-1",
-            "{creds:?}"
-        );
+        assert_eq!(creds.resolve_region(None).await?, "us-east-1", "{creds:?}");
         Ok(())
     }
 
@@ -535,9 +515,10 @@ mod tests {
             Some("sts.{region}.amazonaws.com".into()),
             None,
             "aud".into(),
+            SharedEnvProvider::default(),
+            SharedHttpClientProvider::default(),
         );
-        let client = Client::new();
-        let resolved = creds.resolve_credentials(&client, None).await?;
+        let resolved = creds.resolve_credentials(None).await?;
         assert_eq!(resolved.access_key_id, "ACCESS_KEY_ID", "{resolved:?}");
         assert_eq!(resolved.secret_access_key, "SECRET", "{resolved:?}");
         Ok(())
@@ -570,9 +551,10 @@ mod tests {
             Some("sts.{region}.amazonaws.com".into()),
             None,
             "aud".into(),
+            SharedEnvProvider::default(),
+            SharedHttpClientProvider::default(),
         );
-        let client = Client::new();
-        let resolved = creds.resolve_credentials(&client, None).await?;
+        let resolved = creds.resolve_credentials(None).await?;
         assert_eq!(resolved.access_key_id, "ACCESS_KEY_ID_IMDS", "{resolved:?}");
         assert_eq!(resolved.secret_access_key, "SECRET_IMDS", "{resolved:?}");
         assert_eq!(
@@ -605,9 +587,10 @@ mod tests {
             Some("sts.{region}.amazonaws.com".into()),
             Some(server.url("/token").to_string()),
             "aud".into(),
+            SharedEnvProvider::default(),
+            SharedHttpClientProvider::default(),
         );
-        let client = Client::new();
-        let token = creds.resolve_imdsv2_token(&client).await?;
+        let token = creds.resolve_imdsv2_token().await?;
         assert_eq!(token, Some("test-token".to_string()), "{token:?}");
         Ok(())
     }
@@ -666,6 +649,8 @@ mod tests {
             Some("sts.{region}.amazonaws.com".into()),
             Some(server.url("/token").to_string()),
             "another_audience".into(),
+            SharedEnvProvider::default(),
+            SharedHttpClientProvider::default(),
         );
 
         let subject_token = creds.subject_token().await?;
@@ -729,6 +714,8 @@ mod tests {
             Some("sts.{region}.amazonaws.com".into()),
             None,
             "some_audience".into(),
+            SharedEnvProvider::default(),
+            SharedHttpClientProvider::default(),
         );
 
         let subject_token = creds.subject_token().await?;

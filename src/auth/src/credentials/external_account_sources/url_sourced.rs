@@ -13,10 +13,9 @@
 // limitations under the License.
 
 use google_cloud_gax::error::CredentialsError;
-use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::{collections::HashMap, time::Duration};
+use std::collections::HashMap;
 
 use crate::{
     Result,
@@ -24,7 +23,7 @@ use crate::{
     credentials::subject_token::{
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     },
-    errors,
+    io::{HttpRequest, SharedHttpClientProvider},
 };
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -33,6 +32,8 @@ pub(crate) struct UrlSourcedCredentials {
     pub headers: HashMap<String, String>,
     pub format: String,
     pub subject_token_field_name: String,
+    #[serde(skip)]
+    pub http: SharedHttpClientProvider,
 }
 
 impl UrlSourcedCredentials {
@@ -40,6 +41,7 @@ impl UrlSourcedCredentials {
         url: String,
         headers: Option<HashMap<String, String>>,
         format_source: Option<CredentialSourceFormat>,
+        http: SharedHttpClientProvider,
     ) -> Self {
         let (format, subject_token_field_name) = format_source
             .map(|f| {
@@ -54,6 +56,7 @@ impl UrlSourcedCredentials {
             headers: headers.unwrap_or_default(),
             format,
             subject_token_field_name,
+            http,
         }
     }
 }
@@ -64,31 +67,24 @@ const JSON_FORMAT_TYPE: &str = "json";
 impl SubjectTokenProvider for UrlSourcedCredentials {
     type Error = CredentialsError;
     async fn subject_token(&self) -> Result<SubjectToken> {
-        let client = Client::builder()
-            .timeout(Duration::from_secs(10))
-            .build()
-            .unwrap();
-
-        let request = client.get(self.url.clone());
-        let request = self
-            .headers
-            .iter()
-            .fold(request, |r, (k, v)| r.header(k.as_str(), v.as_str()));
-
-        let response = request
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, MSG))?;
-
-        if !response.status().is_success() {
-            let err = errors::from_http_response(response, MSG).await;
-            return Err(err);
+        let mut request = HttpRequest::get(&self.url);
+        for (k, v) in &self.headers {
+            request = request.header(k, v);
         }
 
-        let response_text = response.text().await.map_err(|e| {
-            let retryable = !e.is_body();
-            CredentialsError::from_source(retryable, e)
-        })?;
+        let response = self
+            .http
+            .execute(request)
+            .await
+            .map_err(|e| crate::errors::from_http_error(e, MSG))?;
+
+        if !response.is_success() {
+            return Err(crate::errors::from_http_response(&response, MSG));
+        }
+
+        let response_text = response
+            .text()
+            .map_err(|e| CredentialsError::from_source(false, e))?;
 
         match self.format.as_str() {
             JSON_FORMAT_TYPE => {
@@ -144,6 +140,7 @@ mod tests {
             format: "json".into(),
             subject_token_field_name: "access_token".into(),
             headers: HashMap::from([("Metadata".to_string(), "True".to_string())]),
+            http: SharedHttpClientProvider::default(),
         };
         let resp = token_provider.subject_token().await?;
 
@@ -168,6 +165,7 @@ mod tests {
             format: "text".into(),
             subject_token_field_name: "".into(),
             headers: HashMap::new(),
+            http: SharedHttpClientProvider::default(),
         };
         let resp = token_provider.subject_token().await?;
 
@@ -198,6 +196,7 @@ mod tests {
             format: "json".into(),
             subject_token_field_name: "access_token".into(),
             headers: HashMap::from([("Metadata".to_string(), "True".to_string())]),
+            http: SharedHttpClientProvider::default(),
         };
 
         let err = token_provider

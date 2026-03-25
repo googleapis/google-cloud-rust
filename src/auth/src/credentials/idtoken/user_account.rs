@@ -58,6 +58,7 @@
 use crate::build_errors::Error as BuilderError;
 use crate::credentials::CacheableResource;
 use crate::credentials::user_account::UserTokenProvider;
+use crate::io::{HttpClientProvider, SharedHttpClientProvider};
 use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::CachedTokenProvider;
 use crate::token_cache::TokenCache;
@@ -121,6 +122,7 @@ pub struct Builder {
     authorized_user: Value,
     token_uri: Option<String>,
     retry_builder: RetryTokenProviderBuilder,
+    http: SharedHttpClientProvider,
 }
 
 impl Builder {
@@ -136,6 +138,7 @@ impl Builder {
             authorized_user,
             token_uri: None,
             retry_builder: RetryTokenProviderBuilder::default(),
+            http: SharedHttpClientProvider::default(),
         }
     }
 
@@ -234,6 +237,19 @@ impl Builder {
         self
     }
 
+    /// Sets a custom HTTP client provider.
+    ///
+    /// When set, the auth crate will use this provider for all HTTP
+    /// requests during ID token retrieval instead of using
+    /// `reqwest::Client` directly.
+    pub fn with_http_client_provider(
+        mut self,
+        provider: impl HttpClientProvider + 'static,
+    ) -> Self {
+        self.http = SharedHttpClientProvider::new(provider);
+        self
+    }
+
     fn build_token_provider(&self) -> BuildResult<UserTokenProvider> {
         let authorized_user =
             serde_json::from_value::<AuthorizedUser>(self.authorized_user.clone())
@@ -241,6 +257,7 @@ impl Builder {
         Ok(UserTokenProvider::new_id_token_provider(
             authorized_user,
             self.token_uri.clone(),
+            SharedHttpClientProvider::clone(&self.http),
         ))
     }
 
@@ -283,7 +300,7 @@ mod tests {
     use crate::credentials::user_account::{
         Oauth2RefreshRequest, Oauth2RefreshResponse, RefreshGrantType,
     };
-    use http::StatusCode;
+    use crate::errors::CredentialsError;
     use httptest::cycle;
     use httptest::matchers::{all_of, json_decoded, request};
     use httptest::responders::{json_encoded, status_code};
@@ -396,11 +413,9 @@ mod tests {
         let err = creds.id_token().await.unwrap_err();
         assert!(!err.is_transient());
 
-        let source = find_source_error::<reqwest::Error>(&err);
-        assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
-            "{err:?}"
-        );
+        let source = find_source_error::<CredentialsError>(&err);
+        assert!(source.is_some(), "{err:?}");
+        assert!(!source.unwrap().is_transient(), "{err:?}");
         Ok(())
     }
 

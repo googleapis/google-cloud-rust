@@ -19,6 +19,7 @@ use crate::{
     credentials::subject_token::{
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     },
+    io::{SharedEnvProvider, SharedFsProvider},
 };
 use google_cloud_gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
@@ -34,6 +35,10 @@ pub(crate) struct ExecutableSourcedCredentials {
     pub args: Vec<String>,
     pub timeout: Duration,
     pub output_file: Option<String>,
+    #[serde(skip)]
+    pub env: SharedEnvProvider,
+    #[serde(skip)]
+    pub fs: SharedFsProvider,
 }
 
 /// Executable command should adere to this format.
@@ -101,13 +106,14 @@ impl SubjectTokenProvider for ExecutableSourcedCredentials {
 
     async fn subject_token(&self) -> Result<SubjectToken> {
         if let Some(output_file) = self.output_file.clone() {
-            let token = Self::from_output_file(output_file).await;
+            let token = self.read_output_file(output_file).await;
             if let Ok(token) = token {
                 return Ok(SubjectTokenBuilder::new(token).build());
             }
         }
-        let token =
-            Self::from_command(self.command.clone(), self.args.clone(), self.timeout).await?;
+        let token = self
+            .run_command(self.command.clone(), self.args.clone(), self.timeout)
+            .await?;
         if token.is_empty() {
             let msg = format!("{MSG}, subject token is empty");
             return Err(CredentialsError::from_msg(false, msg));
@@ -118,7 +124,11 @@ impl SubjectTokenProvider for ExecutableSourcedCredentials {
 }
 
 impl ExecutableSourcedCredentials {
-    pub(crate) fn new(executable: ExecutableConfig) -> Self {
+    pub(crate) fn new(
+        executable: ExecutableConfig,
+        env: SharedEnvProvider,
+        fs: SharedFsProvider,
+    ) -> Self {
         let (command, args) = Self::split_command(executable.command);
         let timeout = match executable.timeout_millis {
             Some(timeout) => Duration::from_millis(timeout.into()),
@@ -130,11 +140,15 @@ impl ExecutableSourcedCredentials {
             args,
             timeout,
             output_file,
+            env,
+            fs,
         }
     }
 
-    async fn from_output_file(output_file: String) -> Result<String> {
-        let content = std::fs::read_to_string(output_file)
+    async fn read_output_file(&self, output_file: String) -> Result<String> {
+        let content = self
+            .fs
+            .read_to_string(&output_file)
             .map_err(|e| CredentialsError::from_source(false, e))?;
 
         Self::parse_token(content)
@@ -142,10 +156,16 @@ impl ExecutableSourcedCredentials {
 
     /// See details on security reason on [executable sourced credentials].
     /// [executable sourced credentials]: https://google.aip.dev/auth/4117#determining-the-subject-token-in-executable-sourced-credentials
-    async fn from_command(command: String, args: Vec<String>, timeout: Duration) -> Result<String> {
+    async fn run_command(
+        &self,
+        command: String,
+        args: Vec<String>,
+        timeout: Duration,
+    ) -> Result<String> {
         // For security reasons, we need our consumers to set this environment variable to allow executables to be run.
-        let allow_executable = std::env::var(ALLOW_EXECUTABLE_ENV)
-            .ok()
+        let allow_executable = self
+            .env
+            .var(ALLOW_EXECUTABLE_ENV)
             .unwrap_or("0".to_string());
         if allow_executable != "1" {
             return Err(CredentialsError::from_msg(
@@ -283,7 +303,11 @@ mod tests {
             command: format!("cat {}", path.to_str().unwrap()),
             ..ExecutableConfig::default()
         };
-        let token_provider = ExecutableSourcedCredentials::new(config);
+        let token_provider = ExecutableSourcedCredentials::new(
+            config,
+            SharedEnvProvider::default(),
+            SharedFsProvider::default(),
+        );
         let resp = token_provider.subject_token().await?;
 
         assert_eq!(resp.token, "an_example_token".to_string());
@@ -311,7 +335,11 @@ mod tests {
             command: format!("cat {path}"),
             ..ExecutableConfig::default()
         };
-        let token_provider = ExecutableSourcedCredentials::new(config);
+        let token_provider = ExecutableSourcedCredentials::new(
+            config,
+            SharedEnvProvider::default(),
+            SharedFsProvider::default(),
+        );
         let err = token_provider
             .subject_token()
             .await
@@ -345,7 +373,11 @@ mod tests {
             command: "do nothing".to_string(),
             ..ExecutableConfig::default()
         };
-        let token_provider = ExecutableSourcedCredentials::new(config);
+        let token_provider = ExecutableSourcedCredentials::new(
+            config,
+            SharedEnvProvider::default(),
+            SharedFsProvider::default(),
+        );
         let resp = token_provider.subject_token().await?;
 
         assert_eq!(resp.token, "an_example_token");
@@ -391,7 +423,11 @@ mod tests {
             command: format!("cat {}", valid_path.to_str().unwrap()),
             ..ExecutableConfig::default()
         };
-        let token_provider = ExecutableSourcedCredentials::new(config);
+        let token_provider = ExecutableSourcedCredentials::new(
+            config,
+            SharedEnvProvider::default(),
+            SharedFsProvider::default(),
+        );
         let resp = token_provider.subject_token().await?;
 
         assert_eq!(resp.token, "a_valid_token");
@@ -488,7 +524,11 @@ done";
             timeout_millis: Some(1000),
             ..ExecutableConfig::default()
         };
-        let token_provider = ExecutableSourcedCredentials::new(config);
+        let token_provider = ExecutableSourcedCredentials::new(
+            config,
+            SharedEnvProvider::default(),
+            SharedFsProvider::default(),
+        );
         let err = token_provider
             .subject_token()
             .await

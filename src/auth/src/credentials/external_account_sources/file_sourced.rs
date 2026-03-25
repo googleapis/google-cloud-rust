@@ -22,6 +22,7 @@ use crate::{
     credentials::subject_token::{
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     },
+    io::SharedFsProvider,
 };
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -29,10 +30,16 @@ pub(crate) struct FileSourcedCredentials {
     pub file: String,
     pub format: String,
     pub subject_token_field_name: String,
+    #[serde(skip)]
+    pub fs: SharedFsProvider,
 }
 
 impl FileSourcedCredentials {
-    pub(crate) fn new(file: String, format_source: Option<CredentialSourceFormat>) -> Self {
+    pub(crate) fn new(
+        file: String,
+        format_source: Option<CredentialSourceFormat>,
+        fs: SharedFsProvider,
+    ) -> Self {
         let (format, subject_token_field_name) = format_source
             .map(|f| {
                 (
@@ -45,6 +52,7 @@ impl FileSourcedCredentials {
             file,
             format,
             subject_token_field_name,
+            fs,
         }
     }
 }
@@ -54,7 +62,9 @@ const JSON_FORMAT_TYPE: &str = "json";
 impl SubjectTokenProvider for FileSourcedCredentials {
     type Error = CredentialsError;
     async fn subject_token(&self) -> Result<SubjectToken> {
-        let content = std::fs::read_to_string(&self.file)
+        let content = self
+            .fs
+            .read_to_string(&self.file)
             .map_err(|e| CredentialsError::from_source(false, e))?;
 
         match self.format.as_str() {
@@ -102,6 +112,7 @@ mod tests {
             file: file.path().to_str().unwrap().to_string(),
             format: "text".into(),
             subject_token_field_name: "".into(),
+            fs: SharedFsProvider::default(),
         };
         let resp = token_provider.subject_token().await?;
         assert_eq!(resp.token, "an_example_token".to_string());
@@ -119,6 +130,7 @@ mod tests {
             file: file.path().to_str().unwrap().to_string(),
             format: "json".into(),
             subject_token_field_name: "access_token".into(),
+            fs: SharedFsProvider::default(),
         };
         let resp = token_provider.subject_token().await?;
         assert_eq!(resp.token, "an_example_token".to_string());
@@ -136,6 +148,7 @@ mod tests {
             file: file.path().to_str().unwrap().to_string(),
             format: "json".into(),
             subject_token_field_name: "access_token".into(),
+            fs: SharedFsProvider::default(),
         };
         let err = token_provider
             .subject_token()
@@ -158,6 +171,7 @@ mod tests {
             file: "/path/to/non/existent/file".to_string(),
             format: "text".into(),
             subject_token_field_name: "".into(),
+            fs: SharedFsProvider::default(),
         };
         let err = token_provider
             .subject_token()
@@ -175,6 +189,7 @@ mod tests {
             file: file.path().to_str().unwrap().to_string(),
             format: "text".into(),
             subject_token_field_name: "".into(),
+            fs: SharedFsProvider::default(),
         };
         let resp = token_provider.subject_token().await?;
         assert_eq!(resp.token, "".to_string());
@@ -188,6 +203,7 @@ mod tests {
             file: file.path().to_str().unwrap().to_string(),
             format: "json".into(),
             subject_token_field_name: "access_token".into(),
+            fs: SharedFsProvider::default(),
         };
         let err = token_provider
             .subject_token()

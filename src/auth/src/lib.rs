@@ -58,6 +58,7 @@ pub(crate) mod constants;
 pub mod credentials;
 pub mod errors;
 pub(crate) mod headers_util;
+pub mod io;
 pub(crate) mod mds;
 pub(crate) mod retry;
 pub mod signer;

@@ -14,7 +14,8 @@
 
 use crate::{
     constants::{ACCESS_TOKEN_TYPE, TOKEN_EXCHANGE_GRANT_TYPE},
-    credentials::errors::{self, CredentialsError},
+    credentials::errors::CredentialsError,
+    io::{HttpRequest, SharedHttpClientProvider},
 };
 use base64::Engine;
 use serde::Deserialize;
@@ -28,7 +29,10 @@ pub struct STSHandler {}
 
 impl STSHandler {
     /// Performs an oauth2 token exchange with the provided [ExchangeTokenRequest] information.
-    pub(crate) async fn exchange_token(req: ExchangeTokenRequest) -> Result<TokenResponse> {
+    pub(crate) async fn exchange_token(
+        req: ExchangeTokenRequest,
+        http: &SharedHttpClientProvider,
+    ) -> Result<TokenResponse> {
         let mut params = HashMap::new();
 
         params.insert("grant_type", TOKEN_EXCHANGE_GRANT_TYPE.to_string());
@@ -60,7 +64,7 @@ impl STSHandler {
             }
         }
 
-        Self::execute(req.url, req.authentication, req.headers, params).await
+        Self::execute(req.url, req.authentication, req.headers, params, http).await
     }
 
     /// Execute http request and token exchange
@@ -69,29 +73,43 @@ impl STSHandler {
         client_auth: ClientAuthentication,
         headers: http::HeaderMap,
         params: HashMap<&str, String>,
+        http: &SharedHttpClientProvider,
     ) -> Result<TokenResponse> {
-        let client = reqwest::Client::new();
-
+        // Inject client authentication into headers
         let mut headers = headers.clone();
         client_auth.inject_auth(&mut headers)?;
 
-        let res = client
-            .post(url)
-            .form(&params)
-            .headers(headers)
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, MSG))?;
+        // Build form-encoded body
+        let body = url::form_urlencoded::Serializer::new(String::new())
+            .extend_pairs(params.iter())
+            .finish()
+            .into_bytes();
 
-        let status = res.status();
-        if !status.is_success() {
-            let err = errors::from_http_response(res, MSG).await;
-            return Err(err);
+        // Start with form-encoded request (sets content-type automatically)
+        let mut request = HttpRequest::post(url).form(body);
+
+        // Copy headers from the HeaderMap, but skip content-type since .form() already set it
+        for (name, value) in headers.iter() {
+            if name.as_str().eq_ignore_ascii_case("content-type") {
+                continue;
+            }
+            if let Ok(v) = value.to_str() {
+                request = request.header(name.as_str(), v);
+            }
         }
-        let token_res = res
-            .json::<TokenResponse>()
+
+        let response = http
+            .execute(request)
             .await
-            .map_err(|err| CredentialsError::from_source(false, err))?;
+            .map_err(|e| crate::errors::from_http_error(e, MSG))?;
+
+        if !response.is_success() {
+            return Err(crate::errors::from_http_response(&response, MSG));
+        }
+
+        let token_res: TokenResponse = response
+            .json()
+            .map_err(|err| CredentialsError::from_source(err.is_io(), err))?;
         Ok(token_res)
     }
 }
@@ -157,10 +175,8 @@ pub struct ExchangeTokenRequest {
 mod tests {
     use super::*;
     use crate::constants::{DEFAULT_SCOPE, JWT_TOKEN_TYPE};
-    use http::StatusCode;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
-    use std::error::Error as _;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -227,12 +243,14 @@ mod tests {
             headers,
             authentication,
             audience: Some("32555940559.apps.googleusercontent.com".to_string()),
+
             scope: [DEFAULT_SCOPE.to_string()].to_vec(),
             subject_token: "an_example_token".to_string(),
             subject_token_type: JWT_TOKEN_TYPE.to_string(),
             ..ExchangeTokenRequest::default()
         };
-        let resp = STSHandler::exchange_token(token_req).await?;
+        let http = SharedHttpClientProvider::default();
+        let resp = STSHandler::exchange_token(token_req, &http).await?;
 
         assert_eq!(
             resp,
@@ -302,19 +320,15 @@ mod tests {
             subject_token_type: JWT_TOKEN_TYPE.to_string(),
             ..ExchangeTokenRequest::default()
         };
-        let err = STSHandler::exchange_token(token_req).await.unwrap_err();
+        let http = SharedHttpClientProvider::default();
+        let err = STSHandler::exchange_token(token_req, &http)
+            .await
+            .unwrap_err();
         assert!(!err.is_transient(), "{err:?}");
         assert!(err.to_string().contains(MSG), "{err}, debug={err:?}");
         assert!(
             err.to_string().contains("bad request"),
             "{err}, debug={err:?}"
-        );
-        let source = err
-            .source()
-            .and_then(|e| e.downcast_ref::<reqwest::Error>());
-        assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::BAD_REQUEST)),
-            "{err:?}"
         );
 
         Ok(())
