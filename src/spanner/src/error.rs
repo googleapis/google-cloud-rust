@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use google_cloud_gax::error::rpc::Status;
+use std::error::Error;
+
 /// An unexpected error that occurs when the client receives data from Spanner
 /// that it cannot properly parse or handle. This typically indicates a bug in
 /// the client library or the Spanner service itself, though other causes are possible.
@@ -37,4 +40,88 @@ impl SpannerInternalError {
 
 pub(crate) fn internal_error(message: impl Into<String>) -> crate::Error {
     crate::Error::deser(SpannerInternalError::new(message))
+}
+
+/// An error that occurs when a `execute_batch_update` partially succeeds.
+/// It contains the update counts for each statement evaluated prior to the failure,
+/// as well as the underlying error that caused the batch to fail.
+///
+/// Statements are executed serially in the order provided in the batch.
+/// The `update_counts` correspond to the executed statements in the original
+/// request based on their relative order. The statement that failed is the
+/// one that follows directly after the last statement with an update count.
+/// Execution stops at the first failed statement, and the remaining statements
+/// are not executed.
+#[derive(thiserror::Error, Debug)]
+#[error("{status}")]
+pub struct BatchUpdateError {
+    /// The number of rows modified by each successful statement before the failure.
+    pub update_counts: Vec<i64>,
+    /// The error that caused the batch to fail.
+    #[source]
+    pub status: crate::Error,
+}
+
+impl BatchUpdateError {
+    /// Extracts a `BatchUpdateError` from a `google_cloud_spanner::Error`, if present.
+    pub fn extract(err: &crate::Error) -> Option<&Self> {
+        err.source()
+            .and_then(|source| source.downcast_ref::<BatchUpdateError>())
+    }
+
+    pub(crate) fn build_error(update_counts: Vec<i64>, grpc_status: Status) -> crate::Error {
+        let status = crate::Error::service(grpc_status.clone());
+        let err = Self {
+            update_counts,
+            status,
+        };
+        crate::Error::service_full(grpc_status, None, None, Some(Box::new(err)))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use google_cloud_gax::error::rpc::Code;
+    use static_assertions::assert_impl_all;
+
+    #[test]
+    fn auto_traits() {
+        assert_impl_all!(BatchUpdateError: Send, Sync, std::fmt::Debug);
+    }
+
+    #[test]
+    fn extract_success() {
+        let update_counts = vec![1, 2, 3];
+        let grpc_status = Status::default()
+            .set_code(Code::Aborted)
+            .set_message("Batch failed");
+
+        let err = BatchUpdateError::build_error(update_counts.clone(), grpc_status);
+
+        let extracted = BatchUpdateError::extract(&err).expect("should extract BatchUpdateError");
+        assert_eq!(extracted.update_counts, update_counts);
+        assert_eq!(
+            extracted
+                .status
+                .status()
+                .expect("status should be populated")
+                .code,
+            Code::Aborted
+        );
+    }
+
+    #[test]
+    fn extract_failure() {
+        let grpc_status = Status::default()
+            .set_code(Code::Unknown)
+            .set_message("Regular error");
+        let err = crate::Error::service(grpc_status);
+
+        let extracted = BatchUpdateError::extract(&err);
+        assert!(
+            extracted.is_none(),
+            "should not extract BatchUpdateError from standard service error"
+        );
+    }
 }
