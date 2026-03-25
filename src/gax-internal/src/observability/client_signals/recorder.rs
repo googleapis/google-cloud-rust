@@ -16,8 +16,6 @@ use crate::observability::attributes::RPC_SYSTEM_HTTP;
 use crate::options::InstrumentationClientInfo;
 #[cfg(feature = "_internal-http-client")]
 use google_cloud_gax::error::Error;
-use google_cloud_gax::options::RequestOptions;
-use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
 use reqwest::Method;
 use std::future::Future;
 use std::net::SocketAddr;
@@ -121,16 +119,29 @@ impl RequestRecorder {
         guard.clone()
     }
 
+    /// Call before starting the retry loop the client request.
+    ///
+    /// # Parameters
+    /// - `rpc_method`: the name (in gRPC format) of the RPC being invoked. Some client
+    ///   requests do not use a RPC. For example, storage `read_object()` calls a plain HTTP
+    ///   GET request. Most client requests use a single RPC, for example:
+    ///   `google.storage.v2.Storage/BidiStreamingRead`,
+    ///   `google.cloud.secretmanager.v1.SecretManagerService/ListSecrets`
+    pub fn on_client_request(&self, attributes: ClientRequestAttributes) {
+        let mut guard = self.inner.lock().expect("never poisoned");
+        guard.rpc_method = attributes.rpc_method;
+        guard.url_template = attributes.url_template;
+        guard.resource_name = attributes.resource_name;
+    }
+
     /// Call before issuing a HTTP request to capture its data.
     #[cfg(feature = "_internal-http-client")]
-    pub fn on_http_request(&self, options: &RequestOptions, request: &reqwest::Request) {
+    pub fn on_http_request(&self, request: &reqwest::Request) {
         let mut guard = self.inner.lock().expect("never poisoned");
         let snapshot = TransportSnapshot {
             start: Instant::now(),
             server_address: None,
-            url_template: options.get_extension::<PathTemplate>().map(|e| e.0),
             rpc_system: Some(RPC_SYSTEM_HTTP),
-            rpc_method: None,
             http_method: Some(request.method().clone()),
             http_status_code: None,
             url: Some(request.url().to_string()),
@@ -160,13 +171,53 @@ impl RequestRecorder {
     }
 }
 
+/// The attributes captured at the start of the request.
+///
+/// # Example
+/// ```
+/// let attributes = ClientRequestAttributes::default()
+///     .set_rpc_method("google.test.v1.TestService/SomeMethod")
+///     .set_url_template("/v42/{parent}")
+///     .set_resource_name("//test.googleapis.com/projects/my-project");
+/// ```
+///
+/// The generated code can provide these attributes at the beginning of the request, in the transport.rs file.
+///
+/// For hand-crafted clients, the client layer can provide these attributes just after initializing the request recorder.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct ClientRequestAttributes {
+    pub rpc_method: Option<&'static str>,
+    pub url_template: Option<&'static str>,
+    pub resource_name: Option<String>,
+}
+
+impl ClientRequestAttributes {
+    pub fn set_rpc_method(mut self, v: &'static str) -> Self {
+        self.rpc_method = Some(v);
+        self
+    }
+
+    pub fn set_url_template(mut self, v: &'static str) -> Self {
+        self.url_template = Some(v);
+        self
+    }
+
+    pub fn set_resource_name(mut self, v: String) -> Self {
+        self.resource_name = Some(v);
+        self
+    }
+}
+
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub struct ClientSnapshot {
-    pub start: Instant,
-    pub info: InstrumentationClientInfo,
-    pub attempt_count: u32,
-    pub transport_snapshot: Option<TransportSnapshot>,
+    start: Instant,
+    info: InstrumentationClientInfo,
+    rpc_method: Option<&'static str>,
+    url_template: Option<&'static str>,
+    resource_name: Option<String>,
+    attempt_count: u32,
+    transport_snapshot: Option<TransportSnapshot>,
 }
 
 impl ClientSnapshot {
@@ -175,6 +226,9 @@ impl ClientSnapshot {
         Self {
             start,
             info,
+            rpc_method: None,
+            url_template: None,
+            resource_name: None,
             attempt_count: 0_u32,
             transport_snapshot: None,
         }
@@ -205,16 +259,14 @@ impl ClientSnapshot {
     ///
     /// Use with the "url.template" attribute.
     pub fn url_template(&self) -> Option<&'static str> {
-        self.transport_snapshot
-            .as_ref()
-            .and_then(|s| s.url_template)
+        self.url_template
     }
 
     /// Returns the RPC method (e.g. "cloud.google.secretmanager.v1.SecretManager/GetSecret") used in the request.
     ///
     /// Use with the "rpc.method" attribute.
     pub fn rpc_method(&self) -> Option<&'static str> {
-        self.transport_snapshot.as_ref().and_then(|s| s.rpc_method)
+        self.rpc_method
     }
 
     /// Returns the HTTP status code (e.g. 404) returned in the last request.
@@ -246,8 +298,6 @@ pub struct TransportSnapshot {
     start: Instant,
     server_address: Option<SocketAddr>,
     rpc_system: Option<&'static str>,
-    rpc_method: Option<&'static str>,
-    url_template: Option<&'static str>,
     http_method: Option<Method>,
     http_status_code: Option<u16>,
     url: Option<String>,
@@ -261,85 +311,143 @@ mod tests {
     use httptest::responders::status_code;
     use httptest::{Expectation, Server};
 
-    #[tokio::test]
-    async fn scope() {
-        let recorder = RequestRecorder::new(TEST_INFO);
+    const TEST_METHOD_NAME: &str = "google.test.v1.Service/SomeMethod";
+    const TEST_PATH_TEMPLATE: &str = "/v42/{parent}";
+    const STORAGE_PATH_TEMPLATE: &str = "/v1/storage/b/{bucket}/o/{object}";
 
-        let scoped = recorder.clone();
-        let got = scoped
-            .scope(async {
-                let current =
-                    RequestRecorder::current().expect("current recorder should be available");
-                let snap = current.client_snapshot();
-                assert_eq!(snap.attempt_count, 0, "{snap:?}");
-                assert_eq!(snap.default_host(), TEST_INFO.default_host, "{snap:?}");
-                current.on_http_error(&Error::deser("cannot deserialize"));
-                Ok(123)
-            })
-            .await;
-
-        assert!(matches!(got, Ok(ref v) if v == &123), "{got:?}");
-        let snap = recorder.client_snapshot();
-        assert_eq!(snap.attempt_count, 1, "{snap:?}");
-    }
-
-    #[tokio::test(start_paused = true)]
-    async fn on_http_request() -> anyhow::Result<()> {
-        let recorder = RequestRecorder::new(TEST_INFO);
-        let options = RequestOptions::default().insert_extension(PathTemplate("/v7/{funny}"));
+    async fn simulate_http_client_gaxi(url: &str) -> Result<String, Error> {
         let client = reqwest::Client::new();
-        let request = client.get("http://127.0.0.1:1/v7/will-not-work").build()?;
+        let current = RequestRecorder::current().expect("current recorder should be available");
+        let request = client
+            .get(url)
+            .build()
+            .map_err(Error::io)
+            .inspect_err(|e| current.on_http_error(e))?;
+        current.on_http_request(&request);
+        let response = client
+            .execute(request)
+            .await
+            .map_err(Error::io)
+            .inspect_err(|e| current.on_http_error(e))?;
+        current.on_http_response(&response);
+        Err(Error::deser("fake error"))
+    }
 
-        recorder.on_http_request(&options, &request);
-        let snap = recorder.client_snapshot();
-        assert_eq!(snap.start, Instant::now(), "{snap:?}");
-        assert_eq!(snap.url_template(), Some("/v7/{funny}"), "{snap:?}");
-        assert_eq!(snap.rpc_system(), Some("http"), "{snap:?}");
-        assert!(snap.rpc_method().is_none(), "{snap:?}");
-        assert!(snap.http_status_code().is_none(), "{snap:?}");
-        assert_eq!(
-            snap.url(),
-            Some("http://127.0.0.1:1/v7/will-not-work"),
-            "{snap:?}"
+    async fn simulate_http_client_transport_layer(url: &str) -> Result<String, Error> {
+        let current = RequestRecorder::current().expect("current recorder should be available");
+        // The generator knows the RPC method and determines the URL path template and resource.
+        current.on_client_request(
+            ClientRequestAttributes::default()
+                .set_rpc_method(TEST_METHOD_NAME)
+                .set_url_template(TEST_PATH_TEMPLATE)
+                .set_resource_name("//test.googleapis.com/test-only".to_string()),
         );
-        Ok(())
+        simulate_http_client_gaxi(url).await
     }
 
     #[tokio::test(start_paused = true)]
-    async fn on_http_response() -> anyhow::Result<()> {
+    async fn http_full_cycle() {
         let server = Server::run();
         server.expect(
             Expectation::matching(method_path("GET", "/v1/test-only"))
                 .respond_with(status_code(404).body("NOT FOUND")),
         );
-        let client = reqwest::Client::new();
-        let request = client.get(server.url_str("/v1/test-only")).build()?;
-        let options = RequestOptions::default();
+
+        let url = server.url_str("/v1/test-only");
 
         let recorder = RequestRecorder::new(TEST_INFO);
-        recorder.on_http_request(&options, &request);
+        let scoped = recorder.clone();
+        // Normally this code would be in the `tracing.rs` layer. Inline it here so we can examine the
+        // effects on the `RequestRecorder`.
+        let got = scoped
+            .scope(simulate_http_client_transport_layer(&url))
+            .await;
+        assert!(
+            matches!(got, Err(ref e) if e.is_deserialization()),
+            "{got:?}"
+        );
         let snap = recorder.client_snapshot();
-        assert_eq!(snap.attempt_count, 0, "{snap:?}");
 
-        let response = client.execute(request).await?;
-        recorder.on_http_response(&response);
-        let snap = recorder.client_snapshot();
+        assert_eq!(snap.start, Instant::now(), "{snap:?}");
+        assert_eq!(snap.rpc_method(), Some(TEST_METHOD_NAME), "{snap:?}");
+        assert_eq!(snap.url_template(), Some(TEST_PATH_TEMPLATE), "{snap:?}");
+        assert_eq!(snap.rpc_system(), Some("http"), "{snap:?}");
+        assert_eq!(snap.url(), Some(url.as_str()), "{snap:?}");
+
         assert_eq!(snap.attempt_count, 1, "{snap:?}");
         assert_eq!(snap.http_status_code(), Some(404), "{snap:?}");
         assert_eq!(snap.server_address(), Some(server.addr()), "{snap:?}");
-
-        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
-    async fn on_http_error() -> anyhow::Result<()> {
+    async fn http_cannot_send() {
+        const BAD_URL: &str = "https://127.0.0.1:1/v1/test-only";
+
         let recorder = RequestRecorder::new(TEST_INFO);
+        let scoped = recorder.clone();
+        // Normally this code would be in the `tracing.rs` layer. Inline it here so we can examine the
+        // effects on the `RequestRecorder`.
+        let got = scoped
+            .scope(simulate_http_client_transport_layer(BAD_URL))
+            .await;
+        assert!(matches!(got, Err(ref e) if e.is_io()), "{got:?}");
         let snap = recorder.client_snapshot();
-        assert_eq!(snap.attempt_count, 0, "{snap:?}");
-        recorder.on_http_error(&Error::deser("fake error"));
-        let snap = recorder.client_snapshot();
+
+        assert_eq!(snap.start, Instant::now(), "{snap:?}");
+        assert_eq!(snap.rpc_method(), Some(TEST_METHOD_NAME), "{snap:?}");
+        assert_eq!(snap.url_template(), Some(TEST_PATH_TEMPLATE), "{snap:?}");
+        assert_eq!(snap.rpc_system(), Some("http"), "{snap:?}");
+        assert_eq!(snap.url(), Some(BAD_URL), "{snap:?}");
+
         assert_eq!(snap.attempt_count, 1, "{snap:?}");
-        recorder.on_http_error(&Error::deser("fake error"));
-        Ok(())
+        assert!(snap.http_status_code().is_none(), "{snap:?}");
+        assert!(snap.server_address().is_none(), "{snap:?}");
+    }
+
+    async fn simulate_storage_client_transport_layer(url: &str) -> Result<String, Error> {
+        let current = RequestRecorder::current().expect("current recorder should be available");
+        // The generator knows the RPC method and determines the URL path template and resource.
+        current.on_client_request(
+            ClientRequestAttributes::default()
+                .set_url_template(STORAGE_PATH_TEMPLATE)
+                .set_resource_name(
+                    "//storage.googleapis.com/projects/_/buckets/my-bucket".to_string(),
+                ),
+        );
+        simulate_http_client_gaxi(url).await
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn storage_full_cycle() {
+        const PATH: &str = "/v1/storage/b/my-bucket/o/my-object";
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(method_path("GET", PATH))
+                .respond_with(status_code(404).body("NOT FOUND")),
+        );
+
+        let url = server.url_str(PATH);
+
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let scoped = recorder.clone();
+        // Normally this code would be in the `storage/src/transport.rs` file. Inline it here so we can examine the
+        // effects on the `RequestRecorder`.
+        let got = scoped
+            .scope(simulate_storage_client_transport_layer(&url))
+            .await;
+        assert!(
+            matches!(got, Err(ref e) if e.is_deserialization()),
+            "{got:?}"
+        );
+        let snap = recorder.client_snapshot();
+
+        assert_eq!(snap.start, Instant::now(), "{snap:?}");
+        assert!(snap.rpc_method().is_none(), "{snap:?}");
+        assert_eq!(snap.url_template(), Some(STORAGE_PATH_TEMPLATE), "{snap:?}");
+        assert_eq!(snap.rpc_system(), Some("http"), "{snap:?}");
+        assert_eq!(snap.url(), Some(url.as_str()), "{snap:?}");
+        assert_eq!(snap.attempt_count, 1, "{snap:?}");
+        assert_eq!(snap.http_status_code(), Some(404), "{snap:?}");
+        assert_eq!(snap.server_address(), Some(server.addr()), "{snap:?}");
     }
 }
