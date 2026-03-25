@@ -4751,6 +4751,7 @@ impl BackupPlanAssociation {
     /// use google_cloud_backupdr_v1::model::CloudSqlInstanceBackupPlanAssociationProperties;
     /// let x = BackupPlanAssociation::new().set_cloud_sql_instance_backup_plan_association_properties(CloudSqlInstanceBackupPlanAssociationProperties::default()/* use setters */);
     /// assert!(x.cloud_sql_instance_backup_plan_association_properties().is_some());
+    /// assert!(x.alloydb_cluster_backup_plan_association_properties().is_none());
     /// ```
     pub fn set_cloud_sql_instance_backup_plan_association_properties<
         T: std::convert::Into<
@@ -4762,6 +4763,51 @@ impl BackupPlanAssociation {
     ) -> Self {
         self.resource_properties = std::option::Option::Some(
             crate::model::backup_plan_association::ResourceProperties::CloudSqlInstanceBackupPlanAssociationProperties(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [resource_properties][crate::model::BackupPlanAssociation::resource_properties]
+    /// if it holds a `AlloydbClusterBackupPlanAssociationProperties`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn alloydb_cluster_backup_plan_association_properties(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::AlloyDBClusterBackupPlanAssociationProperties>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.resource_properties.as_ref().and_then(|v| match v {
+            crate::model::backup_plan_association::ResourceProperties::AlloydbClusterBackupPlanAssociationProperties(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [resource_properties][crate::model::BackupPlanAssociation::resource_properties]
+    /// to hold a `AlloydbClusterBackupPlanAssociationProperties`.
+    ///
+    /// Note that all the setters affecting `resource_properties` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use google_cloud_backupdr_v1::model::AlloyDBClusterBackupPlanAssociationProperties;
+    /// let x = BackupPlanAssociation::new().set_alloydb_cluster_backup_plan_association_properties(AlloyDBClusterBackupPlanAssociationProperties::default()/* use setters */);
+    /// assert!(x.alloydb_cluster_backup_plan_association_properties().is_some());
+    /// assert!(x.cloud_sql_instance_backup_plan_association_properties().is_none());
+    /// ```
+    pub fn set_alloydb_cluster_backup_plan_association_properties<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::AlloyDBClusterBackupPlanAssociationProperties>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_properties = std::option::Option::Some(
+            crate::model::backup_plan_association::ResourceProperties::AlloydbClusterBackupPlanAssociationProperties(
                 v.into()
             )
         );
@@ -4940,6 +4986,10 @@ pub mod backup_plan_association {
         /// Output only. Cloud SQL instance's backup plan association properties.
         CloudSqlInstanceBackupPlanAssociationProperties(
             std::boxed::Box<crate::model::CloudSqlInstanceBackupPlanAssociationProperties>,
+        ),
+        /// Output only. AlloyDB cluster's backup plan association properties.
+        AlloydbClusterBackupPlanAssociationProperties(
+            std::boxed::Box<crate::model::AlloyDBClusterBackupPlanAssociationProperties>,
         ),
     }
 }
@@ -13365,6 +13415,40 @@ impl AlloyDbClusterBackupProperties {
 impl wkt::message::Message for AlloyDbClusterBackupProperties {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.backupdr.v1.AlloyDbClusterBackupProperties"
+    }
+}
+
+/// Properties for an AlloyDB cluster backup plan association.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AlloyDBClusterBackupPlanAssociationProperties {
+    /// Output only. The cluster UID of the AlloyDB cluster.
+    pub cluster_uid: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AlloyDBClusterBackupPlanAssociationProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cluster_uid][crate::model::AlloyDBClusterBackupPlanAssociationProperties::cluster_uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AlloyDBClusterBackupPlanAssociationProperties;
+    /// let x = AlloyDBClusterBackupPlanAssociationProperties::new().set_cluster_uid("example");
+    /// ```
+    pub fn set_cluster_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.cluster_uid = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AlloyDBClusterBackupPlanAssociationProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.AlloyDBClusterBackupPlanAssociationProperties"
     }
 }
 

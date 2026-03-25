@@ -5249,6 +5249,9 @@ impl serde::ser::Serialize for super::Intent {
         if !self.description.is_empty() {
             state.serialize_entry("description", &self.description)?;
         }
+        if !self.dtmf_pattern.is_empty() {
+            state.serialize_entry("dtmfPattern", &self.dtmf_pattern)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -8750,6 +8753,9 @@ impl serde::ser::Serialize for super::QueryResult {
                 &self.data_store_connection_signals,
             )?;
         }
+        if !self.trace_blocks.is_empty() {
+            state.serialize_entry("traceBlocks", &self.trace_blocks)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -11383,7 +11389,129 @@ impl serde::ser::Serialize for super::tool_call_result::Error {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(feature = "sessions")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TraceBlock {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.playbook_trace_metadata() {
+            state.serialize_entry("playbookTraceMetadata", value)?;
+        }
+        if let Some(value) = self.flow_trace_metadata() {
+            state.serialize_entry("flowTraceMetadata", value)?;
+        }
+        if let Some(value) = self.speech_processing_metadata() {
+            state.serialize_entry("speechProcessingMetadata", value)?;
+        }
+        if !self.actions.is_empty() {
+            state.serialize_entry("actions", &self.actions)?;
+        }
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.complete_time.is_some() {
+            state.serialize_entry("completeTime", &self.complete_time)?;
+        }
+        if self.input_parameters.is_some() {
+            state.serialize_entry("inputParameters", &self.input_parameters)?;
+        }
+        if self.output_parameters.is_some() {
+            state.serialize_entry("outputParameters", &self.output_parameters)?;
+        }
+        if !wkt::internal::is_default(&self.end_state) {
+            state.serialize_entry("endState", &self.end_state)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sessions")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SpeechProcessingMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sessions")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PlaybookTraceMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.playbook.is_empty() {
+            state.serialize_entry("playbook", &self.playbook)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "sessions")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FlowTraceMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.flow.is_empty() {
+            state.serialize_entry("flow", &self.flow)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PlaybookInput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -11409,7 +11537,7 @@ impl serde::ser::Serialize for super::PlaybookInput {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PlaybookOutput {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -11432,7 +11560,7 @@ impl serde::ser::Serialize for super::PlaybookOutput {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Action {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -11473,7 +11601,7 @@ impl serde::ser::Serialize for super::Action {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::UserUtterance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -11496,7 +11624,7 @@ impl serde::ser::Serialize for super::UserUtterance {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::AgentUtterance {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -11519,7 +11647,7 @@ impl serde::ser::Serialize for super::AgentUtterance {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ToolUse {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -11554,7 +11682,7 @@ impl serde::ser::Serialize for super::ToolUse {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PlaybookInvocation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -11589,7 +11717,7 @@ impl serde::ser::Serialize for super::PlaybookInvocation {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::FlowInvocation {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -11618,7 +11746,7 @@ impl serde::ser::Serialize for super::FlowInvocation {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PlaybookTransition {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -11644,7 +11772,7 @@ impl serde::ser::Serialize for super::PlaybookTransition {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::FlowTransition {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>

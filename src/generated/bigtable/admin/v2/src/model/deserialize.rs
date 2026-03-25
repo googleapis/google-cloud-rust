@@ -12435,6 +12435,7 @@ impl<'de> serde::de::Deserialize<'de> for super::table::AutomatedBackupPolicy {
         enum __FieldTag {
             __retention_period,
             __frequency,
+            __locations,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -12458,6 +12459,7 @@ impl<'de> serde::de::Deserialize<'de> for super::table::AutomatedBackupPolicy {
                             "retentionPeriod" => Ok(__FieldTag::__retention_period),
                             "retention_period" => Ok(__FieldTag::__retention_period),
                             "frequency" => Ok(__FieldTag::__frequency),
+                            "locations" => Ok(__FieldTag::__locations),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -12500,6 +12502,14 @@ impl<'de> serde::de::Deserialize<'de> for super::table::AutomatedBackupPolicy {
                             }
                             result.frequency =
                                 map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__locations => {
+                            if !fields.insert(__FieldTag::__locations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for locations",
+                                ));
+                            }
+                            result.locations = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

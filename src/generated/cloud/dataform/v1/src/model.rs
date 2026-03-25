@@ -23,6 +23,8 @@ extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_iam_v1;
 extern crate google_cloud_location;
+extern crate google_cloud_longrunning;
+extern crate google_cloud_lro;
 extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate serde;
@@ -80,6 +82,19 @@ impl wkt::message::Message for DataEncryptionState {
 pub struct Repository {
     /// Identifier. The repository's name.
     pub name: std::string::String,
+
+    /// Optional. The name of the containing folder of the repository.
+    /// The field is immutable and it can be modified via a MoveRepository
+    /// operation.
+    /// Format: `projects/*/locations/*/folders/*`. or
+    /// `projects/*/locations/*/teamFolders/*`.
+    pub containing_folder: std::option::Option<std::string::String>,
+
+    /// Output only. The resource name of the TeamFolder that this Repository is
+    /// associated with. This should take the format:
+    /// projects/{project}/locations/{location}/teamFolders/{teamFolder}. If this
+    /// is not set, the Repository is not associated with a TeamFolder.
+    pub team_folder_name: std::option::Option<std::string::String>,
 
     /// Output only. The timestamp of when the repository was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
@@ -146,6 +161,68 @@ impl Repository {
     /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [containing_folder][crate::model::Repository::containing_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_containing_folder("example");
+    /// ```
+    pub fn set_containing_folder<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.containing_folder = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [containing_folder][crate::model::Repository::containing_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_or_clear_containing_folder(Some("example"));
+    /// let x = Repository::new().set_or_clear_containing_folder(None::<String>);
+    /// ```
+    pub fn set_or_clear_containing_folder<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.containing_folder = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [team_folder_name][crate::model::Repository::team_folder_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_team_folder_name("example");
+    /// ```
+    pub fn set_team_folder_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.team_folder_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [team_folder_name][crate::model::Repository::team_folder_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Repository;
+    /// let x = Repository::new().set_or_clear_team_folder_name(Some("example"));
+    /// let x = Repository::new().set_or_clear_team_folder_name(None::<String>);
+    /// ```
+    pub fn set_or_clear_team_folder_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.team_folder_name = v.map(|x| x.into());
         self
     }
 
@@ -842,6 +919,41 @@ pub mod repository {
     }
 }
 
+/// Metadata used to identify if a resource is user scoped.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PrivateResourceMetadata {
+    /// Output only. If true, this resource is user-scoped, meaning it is either a
+    /// workspace or sourced from a workspace.
+    pub user_scoped: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PrivateResourceMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user_scoped][crate::model::PrivateResourceMetadata::user_scoped].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::PrivateResourceMetadata;
+    /// let x = PrivateResourceMetadata::new().set_user_scoped(true);
+    /// ```
+    pub fn set_user_scoped<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.user_scoped = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PrivateResourceMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.PrivateResourceMetadata"
+    }
+}
+
 /// `ListRepositories` request message.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1037,6 +1149,80 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListRepositorie
     fn next_page_token(&self) -> std::string::String {
         use std::clone::Clone;
         self.next_page_token.clone()
+    }
+}
+
+/// `MoveRepository` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MoveRepositoryRequest {
+    /// Required. The full resource name of the repository to move.
+    pub name: std::string::String,
+
+    /// Optional. The name of the Folder, TeamFolder, or root location to move the
+    /// repository to. Can be in the format of: "" to move into the root User
+    /// folder, `projects/*/locations/*/folders/*`,
+    /// `projects/*/locations/*/teamFolders/*`
+    pub destination_containing_folder: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MoveRepositoryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MoveRepositoryRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveRepositoryRequest;
+    /// let x = MoveRepositoryRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_containing_folder][crate::model::MoveRepositoryRequest::destination_containing_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveRepositoryRequest;
+    /// let x = MoveRepositoryRequest::new().set_destination_containing_folder("example");
+    /// ```
+    pub fn set_destination_containing_folder<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.destination_containing_folder = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [destination_containing_folder][crate::model::MoveRepositoryRequest::destination_containing_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveRepositoryRequest;
+    /// let x = MoveRepositoryRequest::new().set_or_clear_destination_containing_folder(Some("example"));
+    /// let x = MoveRepositoryRequest::new().set_or_clear_destination_containing_folder(None::<String>);
+    /// ```
+    pub fn set_or_clear_destination_containing_folder<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.destination_containing_folder = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for MoveRepositoryRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.MoveRepositoryRequest"
     }
 }
 
@@ -1260,9 +1446,13 @@ pub struct DeleteRepositoryRequest {
     /// Required. The repository's name.
     pub name: std::string::String,
 
-    /// Optional. If set to true, any child resources of this repository will also
-    /// be deleted. (Otherwise, the request will only succeed if the repository has
-    /// no child resources.)
+    /// Optional. If set to true, child resources of this repository (compilation
+    /// results and workflow invocations) will also be deleted. Otherwise, the
+    /// request will only succeed if the repository has no child resources.
+    ///
+    /// **Note:** *This flag doesn't support deletion of workspaces, release
+    /// configs or workflow configs. If any of such resources exists in the
+    /// repository, the request will fail.*.
     pub force: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2413,6 +2603,8 @@ pub mod compute_repository_access_token_status_response {
         Invalid,
         /// The token was used successfully to authenticate against the Git remote.
         Valid,
+        /// The token is not accessible due to permission issues.
+        PermissionDenied,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [TokenStatus::value] or
@@ -2439,6 +2631,7 @@ pub mod compute_repository_access_token_status_response {
                 Self::NotFound => std::option::Option::Some(1),
                 Self::Invalid => std::option::Option::Some(2),
                 Self::Valid => std::option::Option::Some(3),
+                Self::PermissionDenied => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2453,6 +2646,7 @@ pub mod compute_repository_access_token_status_response {
                 Self::NotFound => std::option::Option::Some("NOT_FOUND"),
                 Self::Invalid => std::option::Option::Some("INVALID"),
                 Self::Valid => std::option::Option::Some("VALID"),
+                Self::PermissionDenied => std::option::Option::Some("PERMISSION_DENIED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2478,6 +2672,7 @@ pub mod compute_repository_access_token_status_response {
                 1 => Self::NotFound,
                 2 => Self::Invalid,
                 3 => Self::Valid,
+                4 => Self::PermissionDenied,
                 _ => Self::UnknownValue(token_status::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2493,6 +2688,7 @@ pub mod compute_repository_access_token_status_response {
                 "NOT_FOUND" => Self::NotFound,
                 "INVALID" => Self::Invalid,
                 "VALID" => Self::Valid,
+                "PERMISSION_DENIED" => Self::PermissionDenied,
                 _ => Self::UnknownValue(token_status::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2510,6 +2706,7 @@ pub mod compute_repository_access_token_status_response {
                 Self::NotFound => serializer.serialize_i32(1),
                 Self::Invalid => serializer.serialize_i32(2),
                 Self::Valid => serializer.serialize_i32(3),
+                Self::PermissionDenied => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2618,6 +2815,14 @@ pub struct Workspace {
     /// the resource. For example: timestamps, flags, status fields, etc. The
     /// format of this field is a JSON string.
     pub internal_metadata: std::option::Option<std::string::String>,
+
+    /// Optional. If set to true, workspaces will not be moved if its linked
+    /// Repository is moved. Instead, it will be deleted.
+    pub disable_moves: std::option::Option<bool>,
+
+    /// Output only. Metadata indicating whether this resource is user-scoped. For
+    /// `Workspace` resources, the `user_scoped` field is always `true`.
+    pub private_resource_metadata: std::option::Option<crate::model::PrivateResourceMetadata>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2733,6 +2938,70 @@ impl Workspace {
         T: std::convert::Into<std::string::String>,
     {
         self.internal_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [disable_moves][crate::model::Workspace::disable_moves].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// let x = Workspace::new().set_disable_moves(true);
+    /// ```
+    pub fn set_disable_moves<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disable_moves = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disable_moves][crate::model::Workspace::disable_moves].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// let x = Workspace::new().set_or_clear_disable_moves(Some(false));
+    /// let x = Workspace::new().set_or_clear_disable_moves(None::<bool>);
+    /// ```
+    pub fn set_or_clear_disable_moves<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disable_moves = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [private_resource_metadata][crate::model::Workspace::private_resource_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// use google_cloud_dataform_v1::model::PrivateResourceMetadata;
+    /// let x = Workspace::new().set_private_resource_metadata(PrivateResourceMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_private_resource_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateResourceMetadata>,
+    {
+        self.private_resource_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [private_resource_metadata][crate::model::Workspace::private_resource_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Workspace;
+    /// use google_cloud_dataform_v1::model::PrivateResourceMetadata;
+    /// let x = Workspace::new().set_or_clear_private_resource_metadata(Some(PrivateResourceMetadata::default()/* use setters */));
+    /// let x = Workspace::new().set_or_clear_private_resource_metadata(None::<PrivateResourceMetadata>);
+    /// ```
+    pub fn set_or_clear_private_resource_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateResourceMetadata>,
+    {
+        self.private_resource_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -4044,6 +4313,12 @@ pub struct QueryDirectoryContentsRequest {
     /// call that provided the page token.
     pub page_token: std::string::String,
 
+    /// Optional. Specifies the metadata to return for each directory entry.
+    /// If unspecified, the default is `DIRECTORY_CONTENTS_VIEW_BASIC`.
+    /// Currently the `DIRECTORY_CONTENTS_VIEW_METADATA` view is not supported by
+    /// CMEK-protected workspaces.
+    pub view: crate::model::DirectoryContentsView,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4097,6 +4372,23 @@ impl QueryDirectoryContentsRequest {
     /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [view][crate::model::QueryDirectoryContentsRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryDirectoryContentsRequest;
+    /// use google_cloud_dataform_v1::model::DirectoryContentsView;
+    /// let x0 = QueryDirectoryContentsRequest::new().set_view(DirectoryContentsView::Basic);
+    /// let x1 = QueryDirectoryContentsRequest::new().set_view(DirectoryContentsView::Metadata);
+    /// ```
+    pub fn set_view<T: std::convert::Into<crate::model::DirectoryContentsView>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.view = v.into();
         self
     }
 }
@@ -4185,6 +4477,9 @@ impl google_cloud_gax::paginator::internal::PageableResponse for QueryDirectoryC
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DirectoryEntry {
+    /// Entry with metadata.
+    pub metadata: std::option::Option<crate::model::FilesystemEntryMetadata>,
+
     /// The entry's contents.
     pub entry: std::option::Option<crate::model::directory_entry::Entry>,
 
@@ -4194,6 +4489,39 @@ pub struct DirectoryEntry {
 impl DirectoryEntry {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [metadata][crate::model::DirectoryEntry::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DirectoryEntry;
+    /// use google_cloud_dataform_v1::model::FilesystemEntryMetadata;
+    /// let x = DirectoryEntry::new().set_metadata(FilesystemEntryMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FilesystemEntryMetadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::DirectoryEntry::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DirectoryEntry;
+    /// use google_cloud_dataform_v1::model::FilesystemEntryMetadata;
+    /// let x = DirectoryEntry::new().set_or_clear_metadata(Some(FilesystemEntryMetadata::default()/* use setters */));
+    /// let x = DirectoryEntry::new().set_or_clear_metadata(None::<FilesystemEntryMetadata>);
+    /// ```
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FilesystemEntryMetadata>,
+    {
+        self.metadata = v.map(|x| x.into());
+        self
     }
 
     /// Sets the value of [entry][crate::model::DirectoryEntry::entry].
@@ -4297,6 +4625,77 @@ pub mod directory_entry {
         File(std::string::String),
         /// A child directory in the directory.
         Directory(std::string::String),
+    }
+}
+
+/// Represents metadata for a single entry in a filesystem.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FilesystemEntryMetadata {
+    /// Output only. Provides the size of the entry in bytes. For directories, this
+    /// will be 0.
+    pub size_bytes: i64,
+
+    /// Output only. Represents the time of the last modification of the entry.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FilesystemEntryMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [size_bytes][crate::model::FilesystemEntryMetadata::size_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::FilesystemEntryMetadata;
+    /// let x = FilesystemEntryMetadata::new().set_size_bytes(42);
+    /// ```
+    pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.size_bytes = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::FilesystemEntryMetadata::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::FilesystemEntryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FilesystemEntryMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FilesystemEntryMetadata::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::FilesystemEntryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FilesystemEntryMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FilesystemEntryMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for FilesystemEntryMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.FilesystemEntryMetadata"
     }
 }
 
@@ -6139,6 +6538,11 @@ pub struct CompilationResult {
     /// format of this field is a JSON string.
     pub internal_metadata: std::option::Option<std::string::String>,
 
+    /// Output only. Metadata indicating whether this resource is user-scoped.
+    /// `CompilationResult` resource is `user_scoped` only if it is sourced
+    /// from a workspace.
+    pub private_resource_metadata: std::option::Option<crate::model::PrivateResourceMetadata>,
+
     /// The source of the compilation result.
     pub source: std::option::Option<crate::model::compilation_result::Source>,
 
@@ -6341,6 +6745,39 @@ impl CompilationResult {
         T: std::convert::Into<std::string::String>,
     {
         self.internal_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [private_resource_metadata][crate::model::CompilationResult::private_resource_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use google_cloud_dataform_v1::model::PrivateResourceMetadata;
+    /// let x = CompilationResult::new().set_private_resource_metadata(PrivateResourceMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_private_resource_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateResourceMetadata>,
+    {
+        self.private_resource_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [private_resource_metadata][crate::model::CompilationResult::private_resource_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CompilationResult;
+    /// use google_cloud_dataform_v1::model::PrivateResourceMetadata;
+    /// let x = CompilationResult::new().set_or_clear_private_resource_metadata(Some(PrivateResourceMetadata::default()/* use setters */));
+    /// let x = CompilationResult::new().set_or_clear_private_resource_metadata(None::<PrivateResourceMetadata>);
+    /// ```
+    pub fn set_or_clear_private_resource_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateResourceMetadata>,
+    {
+        self.private_resource_metadata = v.map(|x| x.into());
         self
     }
 
@@ -7975,6 +8412,24 @@ pub mod compilation_result_action {
         /// for more information on which options are supported.
         pub additional_options: std::collections::HashMap<std::string::String, std::string::String>,
 
+        /// Optional. The connection specifying the credentials to be used to read
+        /// and write to external storage, such as Cloud Storage. The connection can
+        /// have the form `{project}.{location}.{connection_id}` or
+        /// `projects/{project}/locations/{location}/connections/{connection_id}`,
+        /// or be set to DEFAULT.
+        pub connection: std::string::String,
+
+        /// Optional. The table format for the BigQuery table.
+        pub table_format: crate::model::compilation_result_action::relation::TableFormat,
+
+        /// Optional. The file format for the BigQuery table.
+        pub file_format: crate::model::compilation_result_action::relation::FileFormat,
+
+        /// Optional. The fully qualified location prefix of the external folder
+        /// where table data is stored. The URI should be in the format
+        /// `gs://bucket/path_to_table/`.
+        pub storage_uri: std::string::String,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8247,6 +8702,66 @@ pub mod compilation_result_action {
         {
             use std::iter::Iterator;
             self.additional_options = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [connection][crate::model::compilation_result_action::Relation::connection].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_connection("example");
+        /// ```
+        pub fn set_connection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.connection = v.into();
+            self
+        }
+
+        /// Sets the value of [table_format][crate::model::compilation_result_action::Relation::table_format].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::relation::TableFormat;
+        /// let x0 = Relation::new().set_table_format(TableFormat::Iceberg);
+        /// ```
+        pub fn set_table_format<
+            T: std::convert::Into<crate::model::compilation_result_action::relation::TableFormat>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.table_format = v.into();
+            self
+        }
+
+        /// Sets the value of [file_format][crate::model::compilation_result_action::Relation::file_format].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// use google_cloud_dataform_v1::model::compilation_result_action::relation::FileFormat;
+        /// let x0 = Relation::new().set_file_format(FileFormat::Parquet);
+        /// ```
+        pub fn set_file_format<
+            T: std::convert::Into<crate::model::compilation_result_action::relation::FileFormat>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.file_format = v.into();
+            self
+        }
+
+        /// Sets the value of [storage_uri][crate::model::compilation_result_action::Relation::storage_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::Relation;
+        /// let x = Relation::new().set_storage_uri("example");
+        /// ```
+        pub fn set_storage_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.storage_uri = v.into();
             self
         }
     }
@@ -8545,6 +9060,262 @@ pub mod compilation_result_action {
             {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<RelationType>::new(
                     ".google.cloud.dataform.v1.CompilationResultAction.Relation.RelationType",
+                ))
+            }
+        }
+
+        /// Supported table formats for BigQuery tables.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum TableFormat {
+            /// Default value.
+            Unspecified,
+            /// Apache Iceberg format.
+            Iceberg,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [TableFormat::value] or
+            /// [TableFormat::name].
+            UnknownValue(table_format::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod table_format {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl TableFormat {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Iceberg => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TABLE_FORMAT_UNSPECIFIED"),
+                    Self::Iceberg => std::option::Option::Some("ICEBERG"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for TableFormat {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for TableFormat {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for TableFormat {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Iceberg,
+                    _ => Self::UnknownValue(table_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for TableFormat {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TABLE_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                    "ICEBERG" => Self::Iceberg,
+                    _ => Self::UnknownValue(table_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for TableFormat {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Iceberg => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for TableFormat {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<TableFormat>::new(
+                    ".google.cloud.dataform.v1.CompilationResultAction.Relation.TableFormat",
+                ))
+            }
+        }
+
+        /// Supported file formats for BigQuery tables.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum FileFormat {
+            /// Default value.
+            Unspecified,
+            /// Apache Parquet format.
+            Parquet,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [FileFormat::value] or
+            /// [FileFormat::name].
+            UnknownValue(file_format::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod file_format {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl FileFormat {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Parquet => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("FILE_FORMAT_UNSPECIFIED"),
+                    Self::Parquet => std::option::Option::Some("PARQUET"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for FileFormat {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for FileFormat {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for FileFormat {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Parquet,
+                    _ => Self::UnknownValue(file_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for FileFormat {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "FILE_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                    "PARQUET" => Self::Parquet,
+                    _ => Self::UnknownValue(file_format::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for FileFormat {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Parquet => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for FileFormat {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<FileFormat>::new(
+                    ".google.cloud.dataform.v1.CompilationResultAction.Relation.FileFormat",
                 ))
             }
         }
@@ -10405,6 +11176,11 @@ pub struct InvocationConfig {
     /// Optional. The service account to run workflow invocations under.
     pub service_account: std::string::String,
 
+    /// Optional. Specifies the priority for query execution in BigQuery.
+    /// More information can be found at
+    /// <https://cloud.google.com/bigquery/docs/running-queries#queries>.
+    pub query_priority: std::option::Option<crate::model::invocation_config::QueryPriority>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10505,11 +11281,188 @@ impl InvocationConfig {
         self.service_account = v.into();
         self
     }
+
+    /// Sets the value of [query_priority][crate::model::InvocationConfig::query_priority].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// use google_cloud_dataform_v1::model::invocation_config::QueryPriority;
+    /// let x0 = InvocationConfig::new().set_query_priority(QueryPriority::Interactive);
+    /// let x1 = InvocationConfig::new().set_query_priority(QueryPriority::Batch);
+    /// ```
+    pub fn set_query_priority<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::invocation_config::QueryPriority>,
+    {
+        self.query_priority = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query_priority][crate::model::InvocationConfig::query_priority].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// use google_cloud_dataform_v1::model::invocation_config::QueryPriority;
+    /// let x0 = InvocationConfig::new().set_or_clear_query_priority(Some(QueryPriority::Interactive));
+    /// let x1 = InvocationConfig::new().set_or_clear_query_priority(Some(QueryPriority::Batch));
+    /// let x_none = InvocationConfig::new().set_or_clear_query_priority(None::<QueryPriority>);
+    /// ```
+    pub fn set_or_clear_query_priority<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::invocation_config::QueryPriority>,
+    {
+        self.query_priority = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for InvocationConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dataform.v1.InvocationConfig"
+    }
+}
+
+/// Defines additional types related to [InvocationConfig].
+pub mod invocation_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Types of priority for query execution in BigQuery.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum QueryPriority {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Query will be executed in BigQuery with interactive priority.
+        /// More information can be found at
+        /// <https://cloud.google.com/bigquery/docs/running-queries#queries>.
+        Interactive,
+        /// Query will be executed in BigQuery with batch priority.
+        /// More information can be found at
+        /// <https://cloud.google.com/bigquery/docs/running-queries#batchqueries>.
+        Batch,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [QueryPriority::value] or
+        /// [QueryPriority::name].
+        UnknownValue(query_priority::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod query_priority {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl QueryPriority {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Interactive => std::option::Option::Some(1),
+                Self::Batch => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("QUERY_PRIORITY_UNSPECIFIED"),
+                Self::Interactive => std::option::Option::Some("INTERACTIVE"),
+                Self::Batch => std::option::Option::Some("BATCH"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for QueryPriority {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for QueryPriority {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for QueryPriority {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Interactive,
+                2 => Self::Batch,
+                _ => Self::UnknownValue(query_priority::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for QueryPriority {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "QUERY_PRIORITY_UNSPECIFIED" => Self::Unspecified,
+                "INTERACTIVE" => Self::Interactive,
+                "BATCH" => Self::Batch,
+                _ => Self::UnknownValue(query_priority::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for QueryPriority {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Interactive => serializer.serialize_i32(1),
+                Self::Batch => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for QueryPriority {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<QueryPriority>::new(
+                ".google.cloud.dataform.v1.InvocationConfig.QueryPriority",
+            ))
+        }
     }
 }
 
@@ -10958,6 +11911,11 @@ pub struct WorkflowInvocation {
     /// format of this field is a JSON string.
     pub internal_metadata: std::option::Option<std::string::String>,
 
+    /// Output only. Metadata indicating whether this resource is user-scoped.
+    /// `WorkflowInvocation` resource is `user_scoped` only if it is sourced
+    /// from a compilation result and the compilation result is user-scoped.
+    pub private_resource_metadata: std::option::Option<crate::model::PrivateResourceMetadata>,
+
     /// The source of the compilation result to use for this invocation.
     pub compilation_source:
         std::option::Option<crate::model::workflow_invocation::CompilationSource>,
@@ -11142,6 +12100,39 @@ impl WorkflowInvocation {
         T: std::convert::Into<std::string::String>,
     {
         self.internal_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [private_resource_metadata][crate::model::WorkflowInvocation::private_resource_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use google_cloud_dataform_v1::model::PrivateResourceMetadata;
+    /// let x = WorkflowInvocation::new().set_private_resource_metadata(PrivateResourceMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_private_resource_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateResourceMetadata>,
+    {
+        self.private_resource_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [private_resource_metadata][crate::model::WorkflowInvocation::private_resource_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocation;
+    /// use google_cloud_dataform_v1::model::PrivateResourceMetadata;
+    /// let x = WorkflowInvocation::new().set_or_clear_private_resource_metadata(Some(PrivateResourceMetadata::default()/* use setters */));
+    /// let x = WorkflowInvocation::new().set_or_clear_private_resource_metadata(None::<PrivateResourceMetadata>);
+    /// ```
+    pub fn set_or_clear_private_resource_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivateResourceMetadata>,
+    {
+        self.private_resource_metadata = v.map(|x| x.into());
         self
     }
 
@@ -13221,6 +14212,11 @@ pub struct Config {
     /// when a repository is created.
     pub default_kms_key_name: std::string::String,
 
+    /// Output only. All the metadata information that is used internally to serve
+    /// the resource. For example: timestamps, flags, status fields, etc. The
+    /// format of this field is a JSON string.
+    pub internal_metadata: std::option::Option<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -13253,6 +14249,37 @@ impl Config {
         v: T,
     ) -> Self {
         self.default_kms_key_name = v.into();
+        self
+    }
+
+    /// Sets the value of [internal_metadata][crate::model::Config::internal_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Config;
+    /// let x = Config::new().set_internal_metadata("example");
+    /// ```
+    pub fn set_internal_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.internal_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [internal_metadata][crate::model::Config::internal_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Config;
+    /// let x = Config::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = Config::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
+    pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.internal_metadata = v.map(|x| x.into());
         self
     }
 }
@@ -13385,5 +14412,3392 @@ impl UpdateConfigRequest {
 impl wkt::message::Message for UpdateConfigRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dataform.v1.UpdateConfigRequest"
+    }
+}
+
+/// Represents a Dataform Folder. This is a resource that is used to organize
+/// Files and other Folders and provide hierarchical access controls.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Folder {
+    /// Identifier. The Folder's name.
+    pub name: std::string::String,
+
+    /// Required. The Folder's user-friendly name.
+    pub display_name: std::string::String,
+
+    /// Optional. The containing Folder resource name. This should take
+    /// the format: projects/{project}/locations/{location}/folders/{folder},
+    /// projects/{project}/locations/{location}/teamFolders/{teamFolder}, or just
+    /// projects/{project}/locations/{location} if this is a root Folder. This
+    /// field can only be updated through MoveFolder.
+    pub containing_folder: std::string::String,
+
+    /// Output only. The resource name of the TeamFolder that this Folder is
+    /// associated with. This should take the format:
+    /// projects/{project}/locations/{location}/teamFolders/{teamFolder}. If this
+    /// is not set, the Folder is not associated with a TeamFolder and is a
+    /// UserFolder.
+    pub team_folder_name: std::string::String,
+
+    /// Output only. The timestamp of when the Folder was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp of when the Folder was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. All the metadata information that is used internally to serve
+    /// the resource. For example: timestamps, flags, status fields, etc. The
+    /// format of this field is a JSON string.
+    pub internal_metadata: std::option::Option<std::string::String>,
+
+    /// Output only. The IAM principal identifier of the creator of the Folder.
+    pub creator_iam_principal: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Folder {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Folder::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// let x = Folder::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Folder::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// let x = Folder::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [containing_folder][crate::model::Folder::containing_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// let x = Folder::new().set_containing_folder("example");
+    /// ```
+    pub fn set_containing_folder<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.containing_folder = v.into();
+        self
+    }
+
+    /// Sets the value of [team_folder_name][crate::model::Folder::team_folder_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// let x = Folder::new().set_team_folder_name("example");
+    /// ```
+    pub fn set_team_folder_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.team_folder_name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Folder::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// use wkt::Timestamp;
+    /// let x = Folder::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Folder::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// use wkt::Timestamp;
+    /// let x = Folder::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Folder::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Folder::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// use wkt::Timestamp;
+    /// let x = Folder::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Folder::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// use wkt::Timestamp;
+    /// let x = Folder::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Folder::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [internal_metadata][crate::model::Folder::internal_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// let x = Folder::new().set_internal_metadata("example");
+    /// ```
+    pub fn set_internal_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.internal_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [internal_metadata][crate::model::Folder::internal_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// let x = Folder::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = Folder::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
+    pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.internal_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [creator_iam_principal][crate::model::Folder::creator_iam_principal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// let x = Folder::new().set_creator_iam_principal("example");
+    /// ```
+    pub fn set_creator_iam_principal<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creator_iam_principal = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creator_iam_principal][crate::model::Folder::creator_iam_principal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::Folder;
+    /// let x = Folder::new().set_or_clear_creator_iam_principal(Some("example"));
+    /// let x = Folder::new().set_or_clear_creator_iam_principal(None::<String>);
+    /// ```
+    pub fn set_or_clear_creator_iam_principal<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creator_iam_principal = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for Folder {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.Folder"
+    }
+}
+
+/// `CreateFolder` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateFolderRequest {
+    /// Required. The location in which to create the Folder. Must be in the format
+    /// `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Required. The Folder to create.
+    pub folder: std::option::Option<crate::model::Folder>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateFolderRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateFolderRequest;
+    /// let x = CreateFolderRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [folder][crate::model::CreateFolderRequest::folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateFolderRequest;
+    /// use google_cloud_dataform_v1::model::Folder;
+    /// let x = CreateFolderRequest::new().set_folder(Folder::default()/* use setters */);
+    /// ```
+    pub fn set_folder<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Folder>,
+    {
+        self.folder = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [folder][crate::model::CreateFolderRequest::folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateFolderRequest;
+    /// use google_cloud_dataform_v1::model::Folder;
+    /// let x = CreateFolderRequest::new().set_or_clear_folder(Some(Folder::default()/* use setters */));
+    /// let x = CreateFolderRequest::new().set_or_clear_folder(None::<Folder>);
+    /// ```
+    pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Folder>,
+    {
+        self.folder = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateFolderRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.CreateFolderRequest"
+    }
+}
+
+/// `MoveFolder` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MoveFolderRequest {
+    /// Required. The full resource name of the Folder to move.
+    pub name: std::string::String,
+
+    /// Optional. The name of the Folder, TeamFolder, or root location to move the
+    /// Folder to. Can be in the format of: "" to move into the root User folder,
+    /// `projects/*/locations/*/folders/*`, `projects/*/locations/*/teamFolders/*`
+    pub destination_containing_folder: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MoveFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MoveFolderRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveFolderRequest;
+    /// let x = MoveFolderRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [destination_containing_folder][crate::model::MoveFolderRequest::destination_containing_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveFolderRequest;
+    /// let x = MoveFolderRequest::new().set_destination_containing_folder("example");
+    /// ```
+    pub fn set_destination_containing_folder<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.destination_containing_folder = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [destination_containing_folder][crate::model::MoveFolderRequest::destination_containing_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveFolderRequest;
+    /// let x = MoveFolderRequest::new().set_or_clear_destination_containing_folder(Some("example"));
+    /// let x = MoveFolderRequest::new().set_or_clear_destination_containing_folder(None::<String>);
+    /// ```
+    pub fn set_or_clear_destination_containing_folder<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.destination_containing_folder = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for MoveFolderRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.MoveFolderRequest"
+    }
+}
+
+/// `GetFolder` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetFolderRequest {
+    /// Required. The Folder's name.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetFolderRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::GetFolderRequest;
+    /// let x = GetFolderRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetFolderRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.GetFolderRequest"
+    }
+}
+
+/// `UpdateFolder` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateFolderRequest {
+    /// Optional. Specifies the fields to be updated in the Folder. If left unset,
+    /// all fields that can be updated, will be updated. A few fields cannot be
+    /// updated and will be ignored if specified in the update_mask (e.g.
+    /// parent_name, team_folder_name).
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The updated Folder.
+    pub folder: std::option::Option<crate::model::Folder>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::UpdateFolderRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFolderRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::UpdateFolderRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFolderRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFolderRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [folder][crate::model::UpdateFolderRequest::folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::UpdateFolderRequest;
+    /// use google_cloud_dataform_v1::model::Folder;
+    /// let x = UpdateFolderRequest::new().set_folder(Folder::default()/* use setters */);
+    /// ```
+    pub fn set_folder<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Folder>,
+    {
+        self.folder = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [folder][crate::model::UpdateFolderRequest::folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::UpdateFolderRequest;
+    /// use google_cloud_dataform_v1::model::Folder;
+    /// let x = UpdateFolderRequest::new().set_or_clear_folder(Some(Folder::default()/* use setters */));
+    /// let x = UpdateFolderRequest::new().set_or_clear_folder(None::<Folder>);
+    /// ```
+    pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Folder>,
+    {
+        self.folder = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateFolderRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.UpdateFolderRequest"
+    }
+}
+
+/// `DeleteFolder` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteFolderRequest {
+    /// Required. The Folder's name.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteFolderRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteFolderRequest;
+    /// let x = DeleteFolderRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteFolderRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.DeleteFolderRequest"
+    }
+}
+
+/// `DeleteFolderTree` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteFolderTreeRequest {
+    /// Required. The Folder's name.
+    /// Format: projects/{project}/locations/{location}/folders/{folder}
+    pub name: std::string::String,
+
+    /// Optional. If `false` (default): The operation will fail if any
+    /// Repository within the folder hierarchy has associated Release Configs or
+    /// Workflow Configs.
+    ///
+    /// If `true`: The operation will attempt to delete everything, including any
+    /// Release Configs and Workflow Configs linked to Repositories within the
+    /// folder hierarchy. This permanently removes schedules and resources.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteFolderTreeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteFolderTreeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteFolderTreeRequest;
+    /// let x = DeleteFolderTreeRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteFolderTreeRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteFolderTreeRequest;
+    /// let x = DeleteFolderTreeRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteFolderTreeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.DeleteFolderTreeRequest"
+    }
+}
+
+/// `DeleteTeamFolderTree` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteTeamFolderTreeRequest {
+    /// Required. The TeamFolder's name.
+    /// Format: projects/{project}/locations/{location}/teamFolders/{team_folder}
+    pub name: std::string::String,
+
+    /// Optional. If `false` (default): The operation will fail if any
+    /// Repository within the folder hierarchy has associated Release Configs or
+    /// Workflow Configs.
+    ///
+    /// If `true`: The operation will attempt to delete everything, including any
+    /// Release Configs and Workflow Configs linked to Repositories within the
+    /// folder hierarchy. This permanently removes schedules and resources.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteTeamFolderTreeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteTeamFolderTreeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteTeamFolderTreeRequest;
+    /// let x = DeleteTeamFolderTreeRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteTeamFolderTreeRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteTeamFolderTreeRequest;
+    /// let x = DeleteTeamFolderTreeRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteTeamFolderTreeRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.DeleteTeamFolderTreeRequest"
+    }
+}
+
+/// Contains metadata about the progress of the DeleteFolderTree Long-running
+/// operations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteFolderTreeMetadata {
+    /// Output only. The time the operation was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time the operation finished running.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Resource name of the target of the operation.
+    /// Format: projects/{project}/locations/{location}/folders/{folder} or
+    /// projects/{project}/locations/{location}/teamFolders/{team_folder}
+    pub target: std::string::String,
+
+    /// Output only. The state of the operation.
+    pub state: crate::model::delete_folder_tree_metadata::State,
+
+    /// Output only. Percent complete of the operation [0, 100].
+    pub percent_complete: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteFolderTreeMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::DeleteFolderTreeMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteFolderTreeMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteFolderTreeMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DeleteFolderTreeMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteFolderTreeMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteFolderTreeMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteFolderTreeMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::DeleteFolderTreeMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteFolderTreeMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteFolderTreeMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::DeleteFolderTreeMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteFolderTreeMetadata;
+    /// use wkt::Timestamp;
+    /// let x = DeleteFolderTreeMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeleteFolderTreeMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target][crate::model::DeleteFolderTreeMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteFolderTreeMetadata;
+    /// let x = DeleteFolderTreeMetadata::new().set_target("example");
+    /// ```
+    pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::DeleteFolderTreeMetadata::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteFolderTreeMetadata;
+    /// use google_cloud_dataform_v1::model::delete_folder_tree_metadata::State;
+    /// let x0 = DeleteFolderTreeMetadata::new().set_state(State::Initialized);
+    /// let x1 = DeleteFolderTreeMetadata::new().set_state(State::InProgress);
+    /// let x2 = DeleteFolderTreeMetadata::new().set_state(State::Succeeded);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::delete_folder_tree_metadata::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [percent_complete][crate::model::DeleteFolderTreeMetadata::percent_complete].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteFolderTreeMetadata;
+    /// let x = DeleteFolderTreeMetadata::new().set_percent_complete(42);
+    /// ```
+    pub fn set_percent_complete<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.percent_complete = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteFolderTreeMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.DeleteFolderTreeMetadata"
+    }
+}
+
+/// Defines additional types related to [DeleteFolderTreeMetadata].
+pub mod delete_folder_tree_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Different states of the DeleteFolderTree operation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The state is unspecified.
+        Unspecified,
+        /// The operation was initialized and recorded by the server, but not yet
+        /// started.
+        Initialized,
+        /// The operation is in progress.
+        InProgress,
+        /// The operation has completed successfully.
+        Succeeded,
+        /// The operation has failed.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Initialized => std::option::Option::Some(1),
+                Self::InProgress => std::option::Option::Some(2),
+                Self::Succeeded => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Initialized => std::option::Option::Some("INITIALIZED"),
+                Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Initialized,
+                2 => Self::InProgress,
+                3 => Self::Succeeded,
+                4 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "INITIALIZED" => Self::Initialized,
+                "IN_PROGRESS" => Self::InProgress,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Initialized => serializer.serialize_i32(1),
+                Self::InProgress => serializer.serialize_i32(2),
+                Self::Succeeded => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.dataform.v1.DeleteFolderTreeMetadata.State",
+            ))
+        }
+    }
+}
+
+/// `QueryFolderContents` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryFolderContentsRequest {
+    /// Required. Name of the folder whose contents to list.
+    /// Format: projects/*/locations/*/folders/*
+    pub folder: std::string::String,
+
+    /// Optional. Maximum number of paths to return. The server may return fewer
+    /// items than requested. If unspecified, the server will pick an appropriate
+    /// default.
+    pub page_size: i32,
+
+    /// Optional. Page token received from a previous `QueryFolderContents` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `QueryFolderContents`, with the exception of `page_size`, must match the
+    /// call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Field to additionally sort results by.
+    /// Will order Folders before Repositories, and then by `order_by` in ascending
+    /// order. Supported keywords: display_name (default), create_time,
+    /// last_modified_time.
+    /// Examples:
+    ///
+    /// - `orderBy="display_name"`
+    /// - `orderBy="display_name desc"`
+    pub order_by: std::string::String,
+
+    /// Optional. Optional filtering for the returned list. Filtering is currently
+    /// only supported on the `display_name` field.
+    ///
+    /// Example:
+    ///
+    /// - `filter="display_name="MyFolder""`
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryFolderContentsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [folder][crate::model::QueryFolderContentsRequest::folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryFolderContentsRequest;
+    /// let x = QueryFolderContentsRequest::new().set_folder("example");
+    /// ```
+    pub fn set_folder<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.folder = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::QueryFolderContentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryFolderContentsRequest;
+    /// let x = QueryFolderContentsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::QueryFolderContentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryFolderContentsRequest;
+    /// let x = QueryFolderContentsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::QueryFolderContentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryFolderContentsRequest;
+    /// let x = QueryFolderContentsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::QueryFolderContentsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryFolderContentsRequest;
+    /// let x = QueryFolderContentsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryFolderContentsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.QueryFolderContentsRequest"
+    }
+}
+
+/// `QueryFolderContents` response message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryFolderContentsResponse {
+    /// List of entries in the folder.
+    pub entries: std::vec::Vec<crate::model::query_folder_contents_response::FolderContentsEntry>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryFolderContentsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [entries][crate::model::QueryFolderContentsResponse::entries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryFolderContentsResponse;
+    /// use google_cloud_dataform_v1::model::query_folder_contents_response::FolderContentsEntry;
+    /// let x = QueryFolderContentsResponse::new()
+    ///     .set_entries([
+    ///         FolderContentsEntry::default()/* use setters */,
+    ///         FolderContentsEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::query_folder_contents_response::FolderContentsEntry>,
+    {
+        use std::iter::Iterator;
+        self.entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::QueryFolderContentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryFolderContentsResponse;
+    /// let x = QueryFolderContentsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryFolderContentsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.QueryFolderContentsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for QueryFolderContentsResponse {
+    type PageItem = crate::model::query_folder_contents_response::FolderContentsEntry;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.entries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Defines additional types related to [QueryFolderContentsResponse].
+pub mod query_folder_contents_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents a single content entry.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct FolderContentsEntry {
+        /// The content entry.
+        pub entry: std::option::Option<
+            crate::model::query_folder_contents_response::folder_contents_entry::Entry,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FolderContentsEntry {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [entry][crate::model::query_folder_contents_response::FolderContentsEntry::entry].
+        ///
+        /// Note that all the setters affecting `entry` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::query_folder_contents_response::FolderContentsEntry;
+        /// use google_cloud_dataform_v1::model::Folder;
+        /// let x = FolderContentsEntry::new().set_entry(Some(
+        ///     google_cloud_dataform_v1::model::query_folder_contents_response::folder_contents_entry::Entry::Folder(Folder::default().into())));
+        /// ```
+        pub fn set_entry<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::query_folder_contents_response::folder_contents_entry::Entry,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.entry = v.into();
+            self
+        }
+
+        /// The value of [entry][crate::model::query_folder_contents_response::FolderContentsEntry::entry]
+        /// if it holds a `Folder`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn folder(&self) -> std::option::Option<&std::boxed::Box<crate::model::Folder>> {
+            #[allow(unreachable_patterns)]
+            self.entry.as_ref().and_then(|v| match v {
+                crate::model::query_folder_contents_response::folder_contents_entry::Entry::Folder(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [entry][crate::model::query_folder_contents_response::FolderContentsEntry::entry]
+        /// to hold a `Folder`.
+        ///
+        /// Note that all the setters affecting `entry` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::query_folder_contents_response::FolderContentsEntry;
+        /// use google_cloud_dataform_v1::model::Folder;
+        /// let x = FolderContentsEntry::new().set_folder(Folder::default()/* use setters */);
+        /// assert!(x.folder().is_some());
+        /// assert!(x.repository().is_none());
+        /// ```
+        pub fn set_folder<T: std::convert::Into<std::boxed::Box<crate::model::Folder>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.entry = std::option::Option::Some(
+                crate::model::query_folder_contents_response::folder_contents_entry::Entry::Folder(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [entry][crate::model::query_folder_contents_response::FolderContentsEntry::entry]
+        /// if it holds a `Repository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn repository(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::Repository>> {
+            #[allow(unreachable_patterns)]
+            self.entry.as_ref().and_then(|v| match v {
+                crate::model::query_folder_contents_response::folder_contents_entry::Entry::Repository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [entry][crate::model::query_folder_contents_response::FolderContentsEntry::entry]
+        /// to hold a `Repository`.
+        ///
+        /// Note that all the setters affecting `entry` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::query_folder_contents_response::FolderContentsEntry;
+        /// use google_cloud_dataform_v1::model::Repository;
+        /// let x = FolderContentsEntry::new().set_repository(Repository::default()/* use setters */);
+        /// assert!(x.repository().is_some());
+        /// assert!(x.folder().is_none());
+        /// ```
+        pub fn set_repository<T: std::convert::Into<std::boxed::Box<crate::model::Repository>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.entry = std::option::Option::Some(
+                crate::model::query_folder_contents_response::folder_contents_entry::Entry::Repository(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for FolderContentsEntry {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.QueryFolderContentsResponse.FolderContentsEntry"
+        }
+    }
+
+    /// Defines additional types related to [FolderContentsEntry].
+    pub mod folder_contents_entry {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The content entry.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Entry {
+            /// A subfolder.
+            Folder(std::boxed::Box<crate::model::Folder>),
+            /// A repository.
+            Repository(std::boxed::Box<crate::model::Repository>),
+        }
+    }
+}
+
+/// `QueryUserRootContents` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryUserRootContentsRequest {
+    /// Required. Location of the user root folder whose contents to list.
+    /// Format: projects/*/locations/*
+    pub location: std::string::String,
+
+    /// Optional. Maximum number of paths to return. The server may return fewer
+    /// items than requested. If unspecified, the server will pick an appropriate
+    /// default.
+    pub page_size: i32,
+
+    /// Optional. Page token received from a previous `QueryUserRootContents` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `QueryUserRootFolderContents`, with the exception of `page_size`, must
+    /// match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Field to additionally sort results by.
+    /// Will order Folders before Repositories, and then by `order_by` in ascending
+    /// order. Supported keywords: display_name (default), created_at,
+    /// last_modified_at. Examples:
+    ///
+    /// - `orderBy="display_name"`
+    /// - `orderBy="display_name desc"`
+    pub order_by: std::string::String,
+
+    /// Optional. Optional filtering for the returned list. Filtering is currently
+    /// only supported on the `display_name` field.
+    ///
+    /// Example:
+    ///
+    /// - `filter="display_name="MyFolder""`
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryUserRootContentsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [location][crate::model::QueryUserRootContentsRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryUserRootContentsRequest;
+    /// let x = QueryUserRootContentsRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::QueryUserRootContentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryUserRootContentsRequest;
+    /// let x = QueryUserRootContentsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::QueryUserRootContentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryUserRootContentsRequest;
+    /// let x = QueryUserRootContentsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::QueryUserRootContentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryUserRootContentsRequest;
+    /// let x = QueryUserRootContentsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::QueryUserRootContentsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryUserRootContentsRequest;
+    /// let x = QueryUserRootContentsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryUserRootContentsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.QueryUserRootContentsRequest"
+    }
+}
+
+/// `QueryUserRootContents` response message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryUserRootContentsResponse {
+    /// List of entries in the folder.
+    pub entries: std::vec::Vec<crate::model::query_user_root_contents_response::RootContentsEntry>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryUserRootContentsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [entries][crate::model::QueryUserRootContentsResponse::entries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryUserRootContentsResponse;
+    /// use google_cloud_dataform_v1::model::query_user_root_contents_response::RootContentsEntry;
+    /// let x = QueryUserRootContentsResponse::new()
+    ///     .set_entries([
+    ///         RootContentsEntry::default()/* use setters */,
+    ///         RootContentsEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::query_user_root_contents_response::RootContentsEntry>,
+    {
+        use std::iter::Iterator;
+        self.entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::QueryUserRootContentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryUserRootContentsResponse;
+    /// let x = QueryUserRootContentsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryUserRootContentsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.QueryUserRootContentsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for QueryUserRootContentsResponse {
+    type PageItem = crate::model::query_user_root_contents_response::RootContentsEntry;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.entries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Defines additional types related to [QueryUserRootContentsResponse].
+pub mod query_user_root_contents_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents a single content entry.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RootContentsEntry {
+        /// The content entry.
+        pub entry: std::option::Option<
+            crate::model::query_user_root_contents_response::root_contents_entry::Entry,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RootContentsEntry {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [entry][crate::model::query_user_root_contents_response::RootContentsEntry::entry].
+        ///
+        /// Note that all the setters affecting `entry` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::query_user_root_contents_response::RootContentsEntry;
+        /// use google_cloud_dataform_v1::model::Folder;
+        /// let x = RootContentsEntry::new().set_entry(Some(
+        ///     google_cloud_dataform_v1::model::query_user_root_contents_response::root_contents_entry::Entry::Folder(Folder::default().into())));
+        /// ```
+        pub fn set_entry<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::query_user_root_contents_response::root_contents_entry::Entry,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.entry = v.into();
+            self
+        }
+
+        /// The value of [entry][crate::model::query_user_root_contents_response::RootContentsEntry::entry]
+        /// if it holds a `Folder`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn folder(&self) -> std::option::Option<&std::boxed::Box<crate::model::Folder>> {
+            #[allow(unreachable_patterns)]
+            self.entry.as_ref().and_then(|v| match v {
+                crate::model::query_user_root_contents_response::root_contents_entry::Entry::Folder(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [entry][crate::model::query_user_root_contents_response::RootContentsEntry::entry]
+        /// to hold a `Folder`.
+        ///
+        /// Note that all the setters affecting `entry` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::query_user_root_contents_response::RootContentsEntry;
+        /// use google_cloud_dataform_v1::model::Folder;
+        /// let x = RootContentsEntry::new().set_folder(Folder::default()/* use setters */);
+        /// assert!(x.folder().is_some());
+        /// assert!(x.repository().is_none());
+        /// ```
+        pub fn set_folder<T: std::convert::Into<std::boxed::Box<crate::model::Folder>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.entry = std::option::Option::Some(
+                crate::model::query_user_root_contents_response::root_contents_entry::Entry::Folder(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [entry][crate::model::query_user_root_contents_response::RootContentsEntry::entry]
+        /// if it holds a `Repository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn repository(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::Repository>> {
+            #[allow(unreachable_patterns)]
+            self.entry.as_ref().and_then(|v| match v {
+                crate::model::query_user_root_contents_response::root_contents_entry::Entry::Repository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [entry][crate::model::query_user_root_contents_response::RootContentsEntry::entry]
+        /// to hold a `Repository`.
+        ///
+        /// Note that all the setters affecting `entry` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::query_user_root_contents_response::RootContentsEntry;
+        /// use google_cloud_dataform_v1::model::Repository;
+        /// let x = RootContentsEntry::new().set_repository(Repository::default()/* use setters */);
+        /// assert!(x.repository().is_some());
+        /// assert!(x.folder().is_none());
+        /// ```
+        pub fn set_repository<T: std::convert::Into<std::boxed::Box<crate::model::Repository>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.entry = std::option::Option::Some(
+                crate::model::query_user_root_contents_response::root_contents_entry::Entry::Repository(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for RootContentsEntry {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.QueryUserRootContentsResponse.RootContentsEntry"
+        }
+    }
+
+    /// Defines additional types related to [RootContentsEntry].
+    pub mod root_contents_entry {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The content entry.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Entry {
+            /// A subfolder.
+            Folder(std::boxed::Box<crate::model::Folder>),
+            /// A repository.
+            Repository(std::boxed::Box<crate::model::Repository>),
+        }
+    }
+}
+
+/// Represents a Dataform TeamFolder. This is a resource that sits at the project
+/// level and is used to organize Repositories and Folders with hierarchical
+/// access controls. They provide a team context and stricter access controls.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TeamFolder {
+    /// Identifier. The TeamFolder's name.
+    pub name: std::string::String,
+
+    /// Required. The TeamFolder's user-friendly name.
+    pub display_name: std::string::String,
+
+    /// Output only. The timestamp of when the TeamFolder was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp of when the TeamFolder was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. All the metadata information that is used internally to serve
+    /// the resource. For example: timestamps, flags, status fields, etc. The
+    /// format of this field is a JSON string.
+    pub internal_metadata: std::option::Option<std::string::String>,
+
+    /// Output only. The IAM principal identifier of the creator of the TeamFolder.
+    pub creator_iam_principal: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TeamFolder {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::TeamFolder::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::TeamFolder;
+    /// let x = TeamFolder::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::TeamFolder::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::TeamFolder;
+    /// let x = TeamFolder::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::TeamFolder::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::TeamFolder;
+    /// use wkt::Timestamp;
+    /// let x = TeamFolder::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::TeamFolder::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::TeamFolder;
+    /// use wkt::Timestamp;
+    /// let x = TeamFolder::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TeamFolder::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::TeamFolder::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::TeamFolder;
+    /// use wkt::Timestamp;
+    /// let x = TeamFolder::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::TeamFolder::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::TeamFolder;
+    /// use wkt::Timestamp;
+    /// let x = TeamFolder::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TeamFolder::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [internal_metadata][crate::model::TeamFolder::internal_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::TeamFolder;
+    /// let x = TeamFolder::new().set_internal_metadata("example");
+    /// ```
+    pub fn set_internal_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.internal_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [internal_metadata][crate::model::TeamFolder::internal_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::TeamFolder;
+    /// let x = TeamFolder::new().set_or_clear_internal_metadata(Some("example"));
+    /// let x = TeamFolder::new().set_or_clear_internal_metadata(None::<String>);
+    /// ```
+    pub fn set_or_clear_internal_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.internal_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [creator_iam_principal][crate::model::TeamFolder::creator_iam_principal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::TeamFolder;
+    /// let x = TeamFolder::new().set_creator_iam_principal("example");
+    /// ```
+    pub fn set_creator_iam_principal<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creator_iam_principal = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [creator_iam_principal][crate::model::TeamFolder::creator_iam_principal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::TeamFolder;
+    /// let x = TeamFolder::new().set_or_clear_creator_iam_principal(Some("example"));
+    /// let x = TeamFolder::new().set_or_clear_creator_iam_principal(None::<String>);
+    /// ```
+    pub fn set_or_clear_creator_iam_principal<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.creator_iam_principal = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for TeamFolder {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.TeamFolder"
+    }
+}
+
+/// `CreateTeamFolder` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateTeamFolderRequest {
+    /// Required. The location in which to create the TeamFolder. Must be in the
+    /// format `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// Required. The TeamFolder to create.
+    pub team_folder: std::option::Option<crate::model::TeamFolder>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateTeamFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateTeamFolderRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateTeamFolderRequest;
+    /// let x = CreateTeamFolderRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [team_folder][crate::model::CreateTeamFolderRequest::team_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateTeamFolderRequest;
+    /// use google_cloud_dataform_v1::model::TeamFolder;
+    /// let x = CreateTeamFolderRequest::new().set_team_folder(TeamFolder::default()/* use setters */);
+    /// ```
+    pub fn set_team_folder<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TeamFolder>,
+    {
+        self.team_folder = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [team_folder][crate::model::CreateTeamFolderRequest::team_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateTeamFolderRequest;
+    /// use google_cloud_dataform_v1::model::TeamFolder;
+    /// let x = CreateTeamFolderRequest::new().set_or_clear_team_folder(Some(TeamFolder::default()/* use setters */));
+    /// let x = CreateTeamFolderRequest::new().set_or_clear_team_folder(None::<TeamFolder>);
+    /// ```
+    pub fn set_or_clear_team_folder<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TeamFolder>,
+    {
+        self.team_folder = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateTeamFolderRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.CreateTeamFolderRequest"
+    }
+}
+
+/// `GetTeamFolder` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetTeamFolderRequest {
+    /// Required. The TeamFolder's name.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetTeamFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetTeamFolderRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::GetTeamFolderRequest;
+    /// let x = GetTeamFolderRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetTeamFolderRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.GetTeamFolderRequest"
+    }
+}
+
+/// `UpdateTeamFolder` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateTeamFolderRequest {
+    /// Optional. Specifies the fields to be updated in the Folder. If left unset,
+    /// all fields will be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The updated TeamFolder.
+    pub team_folder: std::option::Option<crate::model::TeamFolder>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateTeamFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateTeamFolderRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::UpdateTeamFolderRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTeamFolderRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTeamFolderRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::UpdateTeamFolderRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTeamFolderRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTeamFolderRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [team_folder][crate::model::UpdateTeamFolderRequest::team_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::UpdateTeamFolderRequest;
+    /// use google_cloud_dataform_v1::model::TeamFolder;
+    /// let x = UpdateTeamFolderRequest::new().set_team_folder(TeamFolder::default()/* use setters */);
+    /// ```
+    pub fn set_team_folder<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TeamFolder>,
+    {
+        self.team_folder = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [team_folder][crate::model::UpdateTeamFolderRequest::team_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::UpdateTeamFolderRequest;
+    /// use google_cloud_dataform_v1::model::TeamFolder;
+    /// let x = UpdateTeamFolderRequest::new().set_or_clear_team_folder(Some(TeamFolder::default()/* use setters */));
+    /// let x = UpdateTeamFolderRequest::new().set_or_clear_team_folder(None::<TeamFolder>);
+    /// ```
+    pub fn set_or_clear_team_folder<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TeamFolder>,
+    {
+        self.team_folder = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateTeamFolderRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.UpdateTeamFolderRequest"
+    }
+}
+
+/// `DeleteTeamFolder` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteTeamFolderRequest {
+    /// Required. The TeamFolder's name.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteTeamFolderRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteTeamFolderRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::DeleteTeamFolderRequest;
+    /// let x = DeleteTeamFolderRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteTeamFolderRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.DeleteTeamFolderRequest"
+    }
+}
+
+/// `QueryTeamFolderContents` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryTeamFolderContentsRequest {
+    /// Required. Name of the team_folder whose contents to list.
+    /// Format: `projects/*/locations/*/teamFolders/*`.
+    pub team_folder: std::string::String,
+
+    /// Optional. Maximum number of paths to return. The server may return fewer
+    /// items than requested. If unspecified, the server will pick an appropriate
+    /// default.
+    pub page_size: i32,
+
+    /// Optional. Page token received from a previous `QueryTeamFolderContents`
+    /// call. Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `QueryTeamFolderContents`, with the exception of `page_size`, must match
+    /// the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Field to additionally sort results by.
+    /// Will order Folders before Repositories, and then by `order_by` in ascending
+    /// order. Supported keywords: `display_name` (default), `create_time`,
+    /// last_modified_time.
+    /// Examples:
+    ///
+    /// - `orderBy="display_name"`
+    /// - `orderBy="display_name desc"`
+    pub order_by: std::string::String,
+
+    /// Optional. Optional filtering for the returned list. Filtering is currently
+    /// only supported on the `display_name` field.
+    ///
+    /// Example:
+    ///
+    /// - `filter="display_name="MyFolder""`
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryTeamFolderContentsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [team_folder][crate::model::QueryTeamFolderContentsRequest::team_folder].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryTeamFolderContentsRequest;
+    /// let x = QueryTeamFolderContentsRequest::new().set_team_folder("example");
+    /// ```
+    pub fn set_team_folder<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.team_folder = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::QueryTeamFolderContentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryTeamFolderContentsRequest;
+    /// let x = QueryTeamFolderContentsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::QueryTeamFolderContentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryTeamFolderContentsRequest;
+    /// let x = QueryTeamFolderContentsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::QueryTeamFolderContentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryTeamFolderContentsRequest;
+    /// let x = QueryTeamFolderContentsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::QueryTeamFolderContentsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryTeamFolderContentsRequest;
+    /// let x = QueryTeamFolderContentsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryTeamFolderContentsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.QueryTeamFolderContentsRequest"
+    }
+}
+
+/// `QueryTeamFolderContents` response message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryTeamFolderContentsResponse {
+    /// List of entries in the TeamFolder.
+    pub entries:
+        std::vec::Vec<crate::model::query_team_folder_contents_response::TeamFolderContentsEntry>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryTeamFolderContentsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [entries][crate::model::QueryTeamFolderContentsResponse::entries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryTeamFolderContentsResponse;
+    /// use google_cloud_dataform_v1::model::query_team_folder_contents_response::TeamFolderContentsEntry;
+    /// let x = QueryTeamFolderContentsResponse::new()
+    ///     .set_entries([
+    ///         TeamFolderContentsEntry::default()/* use setters */,
+    ///         TeamFolderContentsEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<
+                crate::model::query_team_folder_contents_response::TeamFolderContentsEntry,
+            >,
+    {
+        use std::iter::Iterator;
+        self.entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::QueryTeamFolderContentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::QueryTeamFolderContentsResponse;
+    /// let x = QueryTeamFolderContentsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryTeamFolderContentsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.QueryTeamFolderContentsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for QueryTeamFolderContentsResponse {
+    type PageItem = crate::model::query_team_folder_contents_response::TeamFolderContentsEntry;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.entries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Defines additional types related to [QueryTeamFolderContentsResponse].
+pub mod query_team_folder_contents_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents a single content entry.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TeamFolderContentsEntry {
+        /// The content entry.
+        pub entry: std::option::Option<
+            crate::model::query_team_folder_contents_response::team_folder_contents_entry::Entry,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TeamFolderContentsEntry {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [entry][crate::model::query_team_folder_contents_response::TeamFolderContentsEntry::entry].
+        ///
+        /// Note that all the setters affecting `entry` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::query_team_folder_contents_response::TeamFolderContentsEntry;
+        /// use google_cloud_dataform_v1::model::Folder;
+        /// let x = TeamFolderContentsEntry::new().set_entry(Some(
+        ///     google_cloud_dataform_v1::model::query_team_folder_contents_response::team_folder_contents_entry::Entry::Folder(Folder::default().into())));
+        /// ```
+        pub fn set_entry<T: std::convert::Into<std::option::Option<crate::model::query_team_folder_contents_response::team_folder_contents_entry::Entry>>>(mut self, v: T) -> Self
+        {
+            self.entry = v.into();
+            self
+        }
+
+        /// The value of [entry][crate::model::query_team_folder_contents_response::TeamFolderContentsEntry::entry]
+        /// if it holds a `Folder`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn folder(&self) -> std::option::Option<&std::boxed::Box<crate::model::Folder>> {
+            #[allow(unreachable_patterns)]
+            self.entry.as_ref().and_then(|v| match v {
+                crate::model::query_team_folder_contents_response::team_folder_contents_entry::Entry::Folder(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [entry][crate::model::query_team_folder_contents_response::TeamFolderContentsEntry::entry]
+        /// to hold a `Folder`.
+        ///
+        /// Note that all the setters affecting `entry` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::query_team_folder_contents_response::TeamFolderContentsEntry;
+        /// use google_cloud_dataform_v1::model::Folder;
+        /// let x = TeamFolderContentsEntry::new().set_folder(Folder::default()/* use setters */);
+        /// assert!(x.folder().is_some());
+        /// assert!(x.repository().is_none());
+        /// ```
+        pub fn set_folder<T: std::convert::Into<std::boxed::Box<crate::model::Folder>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.entry = std::option::Option::Some(
+                crate::model::query_team_folder_contents_response::team_folder_contents_entry::Entry::Folder(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [entry][crate::model::query_team_folder_contents_response::TeamFolderContentsEntry::entry]
+        /// if it holds a `Repository`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn repository(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::Repository>> {
+            #[allow(unreachable_patterns)]
+            self.entry.as_ref().and_then(|v| match v {
+                crate::model::query_team_folder_contents_response::team_folder_contents_entry::Entry::Repository(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [entry][crate::model::query_team_folder_contents_response::TeamFolderContentsEntry::entry]
+        /// to hold a `Repository`.
+        ///
+        /// Note that all the setters affecting `entry` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::query_team_folder_contents_response::TeamFolderContentsEntry;
+        /// use google_cloud_dataform_v1::model::Repository;
+        /// let x = TeamFolderContentsEntry::new().set_repository(Repository::default()/* use setters */);
+        /// assert!(x.repository().is_some());
+        /// assert!(x.folder().is_none());
+        /// ```
+        pub fn set_repository<T: std::convert::Into<std::boxed::Box<crate::model::Repository>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.entry = std::option::Option::Some(
+                crate::model::query_team_folder_contents_response::team_folder_contents_entry::Entry::Repository(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for TeamFolderContentsEntry {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.QueryTeamFolderContentsResponse.TeamFolderContentsEntry"
+        }
+    }
+
+    /// Defines additional types related to [TeamFolderContentsEntry].
+    pub mod team_folder_contents_entry {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The content entry.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Entry {
+            /// A subfolder.
+            Folder(std::boxed::Box<crate::model::Folder>),
+            /// A repository.
+            Repository(std::boxed::Box<crate::model::Repository>),
+        }
+    }
+}
+
+/// `SearchTeamFolders` request message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchTeamFoldersRequest {
+    /// Required. Location in which to query TeamFolders.
+    /// Format: `projects/*/locations/*`.
+    pub location: std::string::String,
+
+    /// Optional. Maximum number of TeamFolders to return. The server may return
+    /// fewer items than requested. If unspecified, the server will pick an
+    /// appropriate default.
+    pub page_size: i32,
+
+    /// Optional. Page token received from a previous `SearchTeamFolders` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `SearchTeamFolders`, with the exception of `page_size`, must
+    /// match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Field to additionally sort results by.
+    /// Supported keywords: `display_name` (default), `create_time`,
+    /// `last_modified_time`. Examples:
+    ///
+    /// - `orderBy="display_name"`
+    /// - `orderBy="display_name desc"`
+    pub order_by: std::string::String,
+
+    /// Optional. Optional filtering for the returned list. Filtering is currently
+    /// only supported on the `display_name` field.
+    ///
+    /// Example:
+    ///
+    /// - `filter="display_name="MyFolder""`
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchTeamFoldersRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [location][crate::model::SearchTeamFoldersRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::SearchTeamFoldersRequest;
+    /// let x = SearchTeamFoldersRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::SearchTeamFoldersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::SearchTeamFoldersRequest;
+    /// let x = SearchTeamFoldersRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::SearchTeamFoldersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::SearchTeamFoldersRequest;
+    /// let x = SearchTeamFoldersRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::SearchTeamFoldersRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::SearchTeamFoldersRequest;
+    /// let x = SearchTeamFoldersRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::SearchTeamFoldersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::SearchTeamFoldersRequest;
+    /// let x = SearchTeamFoldersRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchTeamFoldersRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.SearchTeamFoldersRequest"
+    }
+}
+
+/// `SearchTeamFolders` response message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchTeamFoldersResponse {
+    /// List of TeamFolders that match the search query.
+    pub results: std::vec::Vec<crate::model::search_team_folders_response::TeamFolderSearchResult>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchTeamFoldersResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [results][crate::model::SearchTeamFoldersResponse::results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::SearchTeamFoldersResponse;
+    /// use google_cloud_dataform_v1::model::search_team_folders_response::TeamFolderSearchResult;
+    /// let x = SearchTeamFoldersResponse::new()
+    ///     .set_results([
+    ///         TeamFolderSearchResult::default()/* use setters */,
+    ///         TeamFolderSearchResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::search_team_folders_response::TeamFolderSearchResult>,
+    {
+        use std::iter::Iterator;
+        self.results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::SearchTeamFoldersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::SearchTeamFoldersResponse;
+    /// let x = SearchTeamFoldersResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchTeamFoldersResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.SearchTeamFoldersResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for SearchTeamFoldersResponse {
+    type PageItem = crate::model::search_team_folders_response::TeamFolderSearchResult;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.results
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Defines additional types related to [SearchTeamFoldersResponse].
+pub mod search_team_folders_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents a single content entry.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TeamFolderSearchResult {
+        /// The content entry.
+        pub entry: std::option::Option<
+            crate::model::search_team_folders_response::team_folder_search_result::Entry,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl TeamFolderSearchResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [entry][crate::model::search_team_folders_response::TeamFolderSearchResult::entry].
+        ///
+        /// Note that all the setters affecting `entry` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::search_team_folders_response::TeamFolderSearchResult;
+        /// use google_cloud_dataform_v1::model::TeamFolder;
+        /// let x = TeamFolderSearchResult::new().set_entry(Some(
+        ///     google_cloud_dataform_v1::model::search_team_folders_response::team_folder_search_result::Entry::TeamFolder(TeamFolder::default().into())));
+        /// ```
+        pub fn set_entry<T: std::convert::Into<std::option::Option<crate::model::search_team_folders_response::team_folder_search_result::Entry>>>(mut self, v: T) -> Self
+        {
+            self.entry = v.into();
+            self
+        }
+
+        /// The value of [entry][crate::model::search_team_folders_response::TeamFolderSearchResult::entry]
+        /// if it holds a `TeamFolder`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn team_folder(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::TeamFolder>> {
+            #[allow(unreachable_patterns)]
+            self.entry.as_ref().and_then(|v| match v {
+                crate::model::search_team_folders_response::team_folder_search_result::Entry::TeamFolder(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [entry][crate::model::search_team_folders_response::TeamFolderSearchResult::entry]
+        /// to hold a `TeamFolder`.
+        ///
+        /// Note that all the setters affecting `entry` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::search_team_folders_response::TeamFolderSearchResult;
+        /// use google_cloud_dataform_v1::model::TeamFolder;
+        /// let x = TeamFolderSearchResult::new().set_team_folder(TeamFolder::default()/* use setters */);
+        /// assert!(x.team_folder().is_some());
+        /// ```
+        pub fn set_team_folder<T: std::convert::Into<std::boxed::Box<crate::model::TeamFolder>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.entry = std::option::Option::Some(
+                crate::model::search_team_folders_response::team_folder_search_result::Entry::TeamFolder(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for TeamFolderSearchResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.SearchTeamFoldersResponse.TeamFolderSearchResult"
+        }
+    }
+
+    /// Defines additional types related to [TeamFolderSearchResult].
+    pub mod team_folder_search_result {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The content entry.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Entry {
+            /// A TeamFolder resource that is in the project / location.
+            TeamFolder(std::boxed::Box<crate::model::TeamFolder>),
+        }
+    }
+}
+
+/// Contains metadata about the progress of the MoveFolder Long-running
+/// operations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MoveFolderMetadata {
+    /// Output only. The time the operation was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time the operation finished running.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Server-defined resource path for the target of the operation.
+    pub target: std::string::String,
+
+    /// The state of the move.
+    pub state: crate::model::move_folder_metadata::State,
+
+    /// Percent complete of the move [0, 100].
+    pub percent_complete: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MoveFolderMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::MoveFolderMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveFolderMetadata;
+    /// use wkt::Timestamp;
+    /// let x = MoveFolderMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::MoveFolderMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveFolderMetadata;
+    /// use wkt::Timestamp;
+    /// let x = MoveFolderMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MoveFolderMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::MoveFolderMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveFolderMetadata;
+    /// use wkt::Timestamp;
+    /// let x = MoveFolderMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::MoveFolderMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveFolderMetadata;
+    /// use wkt::Timestamp;
+    /// let x = MoveFolderMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MoveFolderMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target][crate::model::MoveFolderMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveFolderMetadata;
+    /// let x = MoveFolderMetadata::new().set_target("example");
+    /// ```
+    pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::MoveFolderMetadata::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveFolderMetadata;
+    /// use google_cloud_dataform_v1::model::move_folder_metadata::State;
+    /// let x0 = MoveFolderMetadata::new().set_state(State::Initialized);
+    /// let x1 = MoveFolderMetadata::new().set_state(State::InProgress);
+    /// let x2 = MoveFolderMetadata::new().set_state(State::Success);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::move_folder_metadata::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [percent_complete][crate::model::MoveFolderMetadata::percent_complete].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveFolderMetadata;
+    /// let x = MoveFolderMetadata::new().set_percent_complete(42);
+    /// ```
+    pub fn set_percent_complete<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.percent_complete = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MoveFolderMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.MoveFolderMetadata"
+    }
+}
+
+/// Defines additional types related to [MoveFolderMetadata].
+pub mod move_folder_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Different states of the move.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The state is unspecified.
+        Unspecified,
+        /// The move was initialized and recorded by the server, but not yet started.
+        Initialized,
+        /// The move is in progress.
+        InProgress,
+        /// The move has completed successfully.
+        Success,
+        /// The move has failed.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Initialized => std::option::Option::Some(1),
+                Self::InProgress => std::option::Option::Some(2),
+                Self::Success => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Initialized => std::option::Option::Some("INITIALIZED"),
+                Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
+                Self::Success => std::option::Option::Some("SUCCESS"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Initialized,
+                2 => Self::InProgress,
+                3 => Self::Success,
+                4 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "INITIALIZED" => Self::Initialized,
+                "IN_PROGRESS" => Self::InProgress,
+                "SUCCESS" => Self::Success,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Initialized => serializer.serialize_i32(1),
+                Self::InProgress => serializer.serialize_i32(2),
+                Self::Success => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.dataform.v1.MoveFolderMetadata.State",
+            ))
+        }
+    }
+}
+
+/// Contains metadata about the progress of the MoveRepository Long-running
+/// operations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MoveRepositoryMetadata {
+    /// Output only. The time the operation was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time the operation finished running.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Server-defined resource path for the target of the operation.
+    pub target: std::string::String,
+
+    /// The state of the move.
+    pub state: crate::model::move_repository_metadata::State,
+
+    /// Percent complete of the move [0, 100].
+    pub percent_complete: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MoveRepositoryMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::MoveRepositoryMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveRepositoryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = MoveRepositoryMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::MoveRepositoryMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveRepositoryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = MoveRepositoryMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MoveRepositoryMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::MoveRepositoryMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveRepositoryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = MoveRepositoryMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::MoveRepositoryMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveRepositoryMetadata;
+    /// use wkt::Timestamp;
+    /// let x = MoveRepositoryMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MoveRepositoryMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [target][crate::model::MoveRepositoryMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveRepositoryMetadata;
+    /// let x = MoveRepositoryMetadata::new().set_target("example");
+    /// ```
+    pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::MoveRepositoryMetadata::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveRepositoryMetadata;
+    /// use google_cloud_dataform_v1::model::move_repository_metadata::State;
+    /// let x0 = MoveRepositoryMetadata::new().set_state(State::Initialized);
+    /// let x1 = MoveRepositoryMetadata::new().set_state(State::InProgress);
+    /// let x2 = MoveRepositoryMetadata::new().set_state(State::Success);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::move_repository_metadata::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [percent_complete][crate::model::MoveRepositoryMetadata::percent_complete].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::MoveRepositoryMetadata;
+    /// let x = MoveRepositoryMetadata::new().set_percent_complete(42);
+    /// ```
+    pub fn set_percent_complete<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.percent_complete = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MoveRepositoryMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.MoveRepositoryMetadata"
+    }
+}
+
+/// Defines additional types related to [MoveRepositoryMetadata].
+pub mod move_repository_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Different states of the move.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The state is unspecified.
+        Unspecified,
+        /// The move was initialized and recorded by the server, but not yet started.
+        Initialized,
+        /// The move is in progress.
+        InProgress,
+        /// The move has completed successfully.
+        Success,
+        /// The move has failed.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Initialized => std::option::Option::Some(1),
+                Self::InProgress => std::option::Option::Some(2),
+                Self::Success => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Initialized => std::option::Option::Some("INITIALIZED"),
+                Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
+                Self::Success => std::option::Option::Some("SUCCESS"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Initialized,
+                2 => Self::InProgress,
+                3 => Self::Success,
+                4 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "INITIALIZED" => Self::Initialized,
+                "IN_PROGRESS" => Self::InProgress,
+                "SUCCESS" => Self::Success,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Initialized => serializer.serialize_i32(1),
+                Self::InProgress => serializer.serialize_i32(2),
+                Self::Success => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.dataform.v1.MoveRepositoryMetadata.State",
+            ))
+        }
+    }
+}
+
+/// Represents the level of detail to return for directory contents.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DirectoryContentsView {
+    /// The default / unset value. Defaults to DIRECTORY_CONTENTS_VIEW_BASIC.
+    Unspecified,
+    /// Includes only the file or directory name. This is the default behavior.
+    Basic,
+    /// Includes all metadata for each file or directory. Currently not supported
+    /// by CMEK-protected workspaces.
+    Metadata,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DirectoryContentsView::value] or
+    /// [DirectoryContentsView::name].
+    UnknownValue(directory_contents_view::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod directory_contents_view {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl DirectoryContentsView {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Basic => std::option::Option::Some(1),
+            Self::Metadata => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DIRECTORY_CONTENTS_VIEW_UNSPECIFIED"),
+            Self::Basic => std::option::Option::Some("DIRECTORY_CONTENTS_VIEW_BASIC"),
+            Self::Metadata => std::option::Option::Some("DIRECTORY_CONTENTS_VIEW_METADATA"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for DirectoryContentsView {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DirectoryContentsView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DirectoryContentsView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Basic,
+            2 => Self::Metadata,
+            _ => Self::UnknownValue(directory_contents_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DirectoryContentsView {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DIRECTORY_CONTENTS_VIEW_UNSPECIFIED" => Self::Unspecified,
+            "DIRECTORY_CONTENTS_VIEW_BASIC" => Self::Basic,
+            "DIRECTORY_CONTENTS_VIEW_METADATA" => Self::Metadata,
+            _ => Self::UnknownValue(directory_contents_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DirectoryContentsView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Basic => serializer.serialize_i32(1),
+            Self::Metadata => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DirectoryContentsView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DirectoryContentsView>::new(
+            ".google.cloud.dataform.v1.DirectoryContentsView",
+        ))
     }
 }

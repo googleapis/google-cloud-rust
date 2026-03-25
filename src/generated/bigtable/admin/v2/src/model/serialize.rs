@@ -3437,6 +3437,9 @@ impl serde::ser::Serialize for super::table::AutomatedBackupPolicy {
         if self.frequency.is_some() {
             state.serialize_entry("frequency", &self.frequency)?;
         }
+        if !self.locations.is_empty() {
+            state.serialize_entry("locations", &self.locations)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -40,6 +40,984 @@ impl Dataform {
 }
 
 impl super::stub::Dataform for Dataform {
+    async fn get_team_folder(
+        &self,
+        req: crate::model::GetTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TeamFolder>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/teamFolders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/teamFolders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/teamFolders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_team_folder(
+        &self,
+        req: crate::model::CreateTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TeamFolder>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/teamFolders", var_parent,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.team_folder, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_team_folder(
+        &self,
+        req: crate::model::UpdateTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TeamFolder>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_team_folder_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.team_folder.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/teamFolders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_team_folder_name,);
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.team_folder.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/teamFolders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "team_folder.name",
+                        "projects/*/locations/*/teamFolders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.team_folder, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_team_folder(
+        &self,
+        req: crate::model::DeleteTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/teamFolders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/teamFolders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/teamFolders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    async fn delete_team_folder_tree(
+        &self,
+        req: crate::model::DeleteTeamFolderTreeRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/teamFolders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:deleteTree", var_name,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/teamFolders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/teamFolders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn query_team_folder_contents(
+        &self,
+        req: crate::model::QueryTeamFolderContentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryTeamFolderContentsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_team_folder = try_match(
+                    Some(&req).map(|m| &m.team_folder).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/teamFolders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:queryContents", var_team_folder,);
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.team_folder).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/teamFolders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "team_folder",
+                        "projects/*/locations/*/teamFolders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn search_team_folders(
+        &self,
+        req: crate::model::SearchTeamFoldersRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchTeamFoldersResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_location = try_match(
+                    Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/teamFolders:search", var_location,);
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "location",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_folder(
+        &self,
+        req: crate::model::GetFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Folder>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/folders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/folders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/folders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_folder(
+        &self,
+        req: crate::model::CreateFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Folder>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/folders", var_parent,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.folder, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_folder(
+        &self,
+        req: crate::model::UpdateFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Folder>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_folder_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.folder.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/folders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_folder_name,);
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.folder.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/folders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "folder.name",
+                        "projects/*/locations/*/folders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.folder, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_folder(
+        &self,
+        req: crate::model::DeleteFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/folders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/folders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/folders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    async fn delete_folder_tree(
+        &self,
+        req: crate::model::DeleteFolderTreeRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/folders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:deleteTree", var_name,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/folders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/folders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn query_folder_contents(
+        &self,
+        req: crate::model::QueryFolderContentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryFolderContentsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_folder = try_match(
+                    Some(&req).map(|m| &m.folder).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/folders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:queryFolderContents", var_folder,);
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.folder).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/folders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "folder",
+                        "projects/*/locations/*/folders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn query_user_root_contents(
+        &self,
+        req: crate::model::QueryUserRootContentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryUserRootContentsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_location = try_match(
+                    Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:queryUserRootContents", var_location,);
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.location).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "location",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn move_folder(
+        &self,
+        req: crate::model::MoveFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/folders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:move", var_name,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/folders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/folders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn list_repositories(
         &self,
         req: crate::model::ListRepositoriesRequest,
@@ -370,6 +1348,68 @@ impl super::stub::Dataform for Dataform {
                 let (parts, _) = r.into_parts();
                 crate::Response::from_parts(parts, ())
             })
+    }
+
+    async fn move_repository(
+        &self,
+        req: crate::model::MoveRepositoryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/repositories/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:move", var_name,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/repositories/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/repositories/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
     }
 
     async fn commit_repository_changes(
@@ -1580,6 +2620,7 @@ impl super::stub::Dataform for Dataform {
                 let builder = builder.query(&[("path", &req.path)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
@@ -3650,6 +4691,567 @@ impl super::stub::Dataform for Dataform {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/repositories/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/repositories/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/workspaces/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/folders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/teamFolders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/repositories/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/repositories/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/repositories/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/workspaces/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/repositories/*/workspaces/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/folders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/folders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/teamFolders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/teamFolders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/repositories/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/repositories/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/workspaces/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/folders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/teamFolders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/repositories/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/repositories/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/repositories/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/workspaces/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/repositories/*/workspaces/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/folders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/folders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/teamFolders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/teamFolders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/repositories/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/repositories/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/workspaces/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/folders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/teamFolders/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/repositories/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/repositories/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/repositories/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/workspaces/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/repositories/*/workspaces/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/folders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/folders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/teamFolders/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/teamFolders/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -3759,11 +5361,11 @@ impl super::stub::Dataform for Dataform {
         self.inner.execute(builder, body, options).await
     }
 
-    async fn set_iam_policy(
+    async fn list_operations(
         &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -3771,166 +5373,24 @@ impl super::stub::Dataform for Dataform {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[
                         Segment::Literal("projects/"),
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/repositories/"),
-                        Segment::SingleWildcard,
                     ],
                 )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/repositories/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/workspaces/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/repositories/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/repositories/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/repositories/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/workspaces/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/repositories/*/workspaces/*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
-        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
-            "x-goog-api-client",
-            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-        );
-        let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
-    }
-
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
-        use gaxi::path_parameter::PathMismatchBuilder;
-        use gaxi::path_parameter::try_match;
-        use gaxi::routing_parameter::Segment;
-        use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/repositories/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path = format!("/v1/{}/operations", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET)))
-            })
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/repositories/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/workspaces/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .ok_or_else(|| {
@@ -3938,36 +5398,15 @@ impl super::stub::Dataform for Dataform {
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                         &[
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/repositories/"),
-                            Segment::SingleWildcard,
                         ],
-                        "resource",
-                        "projects/*/locations/*/repositories/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/repositories/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/workspaces/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/repositories/*/workspaces/*",
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3985,11 +5424,11 @@ impl super::stub::Dataform for Dataform {
         self.inner.execute(builder, body, options).await
     }
 
-    async fn test_iam_permissions(
+    async fn get_operation(
         &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -3997,38 +5436,148 @@ impl super::stub::Dataform for Dataform {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[
                         Segment::Literal("projects/"),
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/repositories/"),
+                        Segment::Literal("/operations/"),
                         Segment::SingleWildcard,
                     ],
                 )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path = format!("/v1/{}", var_name,);
 
-                let builder = self.inner.builder(Method::POST, path);
+                let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::GET)))
             })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
             .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[
                         Segment::Literal("projects/"),
                         Segment::SingleWildcard,
                         Segment::Literal("/locations/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("/repositories/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/workspaces/"),
+                        Segment::Literal("/operations/"),
                         Segment::SingleWildcard,
                     ],
                 )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path = format!("/v1/{}", var_name,);
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -4039,36 +5588,17 @@ impl super::stub::Dataform for Dataform {
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                         &[
                             Segment::Literal("projects/"),
                             Segment::SingleWildcard,
                             Segment::Literal("/locations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/repositories/"),
+                            Segment::Literal("/operations/"),
                             Segment::SingleWildcard,
                         ],
-                        "resource",
-                        "projects/*/locations/*/repositories/*",
-                    );
-                    paths.push(builder.build());
-                }
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/repositories/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/workspaces/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/repositories/*/workspaces/*",
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -4083,6 +5613,26 @@ impl super::stub::Dataform for Dataform {
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(Some(req), &method);
-        self.inner.execute(builder, body, options).await
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }

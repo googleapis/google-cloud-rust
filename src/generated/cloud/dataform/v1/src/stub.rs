@@ -38,6 +38,161 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Dataform: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Dataform::get_team_folder].
+    fn get_team_folder(
+        &self,
+        _req: crate::model::GetTeamFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::TeamFolder>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::create_team_folder].
+    fn create_team_folder(
+        &self,
+        _req: crate::model::CreateTeamFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::TeamFolder>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::update_team_folder].
+    fn update_team_folder(
+        &self,
+        _req: crate::model::UpdateTeamFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::TeamFolder>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::delete_team_folder].
+    fn delete_team_folder(
+        &self,
+        _req: crate::model::DeleteTeamFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::delete_team_folder_tree].
+    fn delete_team_folder_tree(
+        &self,
+        _req: crate::model::DeleteTeamFolderTreeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::query_team_folder_contents].
+    fn query_team_folder_contents(
+        &self,
+        _req: crate::model::QueryTeamFolderContentsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::QueryTeamFolderContentsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::search_team_folders].
+    fn search_team_folders(
+        &self,
+        _req: crate::model::SearchTeamFoldersRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SearchTeamFoldersResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::get_folder].
+    fn get_folder(
+        &self,
+        _req: crate::model::GetFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Folder>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::create_folder].
+    fn create_folder(
+        &self,
+        _req: crate::model::CreateFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Folder>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::update_folder].
+    fn update_folder(
+        &self,
+        _req: crate::model::UpdateFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Folder>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::delete_folder].
+    fn delete_folder(
+        &self,
+        _req: crate::model::DeleteFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::delete_folder_tree].
+    fn delete_folder_tree(
+        &self,
+        _req: crate::model::DeleteFolderTreeRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::query_folder_contents].
+    fn query_folder_contents(
+        &self,
+        _req: crate::model::QueryFolderContentsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::QueryFolderContentsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::query_user_root_contents].
+    fn query_user_root_contents(
+        &self,
+        _req: crate::model::QueryUserRootContentsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::QueryUserRootContentsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::move_folder].
+    fn move_folder(
+        &self,
+        _req: crate::model::MoveFolderRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Dataform::list_repositories].
     fn list_repositories(
         &self,
@@ -85,6 +240,17 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteRepositoryRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::move_repository].
+    fn move_repository(
+        &self,
+        _req: crate::model::MoveRepositoryRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -623,6 +789,41 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Dataform::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Dataform::list_locations].
     fn list_locations(
         &self,
@@ -647,38 +848,67 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Dataform::set_iam_policy].
-    fn set_iam_policy(
+    /// Implements [super::client::Dataform::list_operations].
+    fn list_operations(
         &self,
-        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Dataform::get_iam_policy].
-    fn get_iam_policy(
-        &self,
-        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Dataform::test_iam_permissions].
-    fn test_iam_permissions(
-        &self,
-        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        _req: google_cloud_longrunning::model::ListOperationsRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<
-            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::get_operation].
+    fn get_operation(
+        &self,
+        _req: google_cloud_longrunning::model::GetOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::delete_operation].
+    fn delete_operation(
+        &self,
+        _req: google_cloud_longrunning::model::DeleteOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Dataform::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: google_cloud_longrunning::model::CancelOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

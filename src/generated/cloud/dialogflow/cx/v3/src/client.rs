@@ -429,6 +429,22 @@ impl Agents {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::client::Agents;
@@ -697,6 +713,22 @@ impl Changelogs {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -972,6 +1004,22 @@ impl Deployments {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -1384,6 +1432,22 @@ impl EntityTypes {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -1921,6 +1985,22 @@ impl Environments {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::client::Environments;
@@ -2258,6 +2338,22 @@ impl Examples {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -2659,6 +2755,22 @@ impl Experiments {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -3184,6 +3296,22 @@ impl Flows {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::client::Flows;
@@ -3521,6 +3649,22 @@ impl Generators {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -3958,6 +4102,22 @@ impl Intents {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::client::Intents;
@@ -4307,6 +4467,22 @@ impl Pages {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -4818,6 +4994,22 @@ impl Playbooks {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::client::Playbooks;
@@ -5175,6 +5367,22 @@ impl SecuritySettingsService {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
@@ -5497,6 +5705,22 @@ impl Sessions {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -5847,6 +6071,22 @@ impl SessionEntityTypes {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -6427,6 +6667,22 @@ impl TestCases {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::client::TestCases;
@@ -6895,6 +7151,22 @@ impl Tools {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::client::Tools;
@@ -7269,6 +7541,22 @@ impl TransitionRouteGroups {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -7700,6 +7988,22 @@ impl Versions {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_dialogflow_cx_v3::client::Versions;
@@ -8037,6 +8341,22 @@ impl Webhooks {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
