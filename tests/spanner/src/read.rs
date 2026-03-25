@@ -14,17 +14,15 @@
 
 use google_cloud_spanner::client::{DatabaseClient, KeyRange, KeySet, Mutation, ReadRequest};
 use google_cloud_spanner::key;
+use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 
 pub async fn read_single_key(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let id1 = format!(
-        "read-single-{}",
-        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
-    );
+    let id1 = format!("read-single-{}", LowercaseAlphanumeric.random_string(10));
     let mutation = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id1)
         .set("ColString")
-        .to(&"single".to_string())
+        .to(&"single")
         .build();
     let write_tx = db_client.write_only_transaction().build();
     write_tx
@@ -58,25 +56,19 @@ pub async fn read_single_key(db_client: &DatabaseClient) -> anyhow::Result<()> {
 
 pub async fn read_all_keys(db_client: &DatabaseClient) -> anyhow::Result<()> {
     // Write multiple rows
-    let id1 = format!(
-        "read-all-1-{}",
-        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
-    );
-    let id2 = format!(
-        "read-all-2-{}",
-        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
-    );
+    let id1 = format!("read-all-1-{}", LowercaseAlphanumeric.random_string(10));
+    let id2 = format!("read-all-2-{}", LowercaseAlphanumeric.random_string(10));
     let mutation_1 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id1)
         .set("ColString")
-        .to(&"first".to_string())
+        .to(&"first")
         .build();
     let mutation_2 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColString")
-        .to(&"second".to_string())
+        .to(&"second")
         .build();
     let write_tx = db_client.write_only_transaction().build();
     write_tx
@@ -114,10 +106,7 @@ pub async fn read_all_keys(db_client: &DatabaseClient) -> anyhow::Result<()> {
 
 pub async fn read_key_range(db_client: &DatabaseClient) -> anyhow::Result<()> {
     // Write multiple rows that can be sorted lexicographically
-    let prefix = format!(
-        "read-range-{}",
-        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
-    );
+    let prefix = format!("read-range-{}", LowercaseAlphanumeric.random_string(10));
     let id1 = format!("{}-a", prefix);
     let id2 = format!("{}-b", prefix);
     let id3 = format!("{}-c", prefix);
@@ -126,19 +115,19 @@ pub async fn read_key_range(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .set("Id")
         .to(&id1)
         .set("ColString")
-        .to(&"first".to_string())
+        .to(&"first")
         .build();
     let mutation_2 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColString")
-        .to(&"second".to_string())
+        .to(&"second")
         .build();
     let mutation_3 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id3)
         .set("ColString")
-        .to(&"third".to_string())
+        .to(&"third")
         .build();
 
     let write_tx = db_client.write_only_transaction().build();
@@ -182,10 +171,7 @@ pub async fn read_key_range(db_client: &DatabaseClient) -> anyhow::Result<()> {
 }
 
 pub async fn read_with_limit(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let prefix = format!(
-        "read-limit-{}",
-        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
-    );
+    let prefix = format!("read-limit-{}", LowercaseAlphanumeric.random_string(10));
     let id1 = format!("{}-a", prefix);
     let id2 = format!("{}-b", prefix);
     let id3 = format!("{}-c", prefix);
@@ -194,19 +180,19 @@ pub async fn read_with_limit(db_client: &DatabaseClient) -> anyhow::Result<()> {
         .set("Id")
         .to(&id1)
         .set("ColString")
-        .to(&"first".to_string())
+        .to(&"first")
         .build();
     let mutation_2 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id2)
         .set("ColString")
-        .to(&"second".to_string())
+        .to(&"second")
         .build();
     let mutation_3 = Mutation::new_insert_or_update_builder("AllTypes")
         .set("Id")
         .to(&id3)
         .set("ColString")
-        .to(&"third".to_string())
+        .to(&"third")
         .build();
 
     let write_tx = db_client.write_only_transaction().build();
@@ -248,10 +234,7 @@ pub async fn read_with_limit(db_client: &DatabaseClient) -> anyhow::Result<()> {
 }
 
 pub async fn read_with_index(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    let prefix = format!(
-        "read-index-{}",
-        google_cloud_test_utils::resource_names::LowercaseAlphanumeric.random_string(10)
-    );
+    let prefix = format!("read-index-{}", LowercaseAlphanumeric.random_string(10));
     let id1 = format!("{}-a", prefix);
 
     // We will search by ColString
