@@ -333,8 +333,9 @@ async fn download(
         }
     };
     read_done();
+
     let mut transfer_size = 0;
-    let mut read_data = async move || {
+    let read_data = async {
         while let Some(result) = read.next().await {
             match result {
                 Ok(b) => transfer_size += b.len(),
@@ -346,8 +347,7 @@ async fn download(
         }
         Ok(())
     };
-
-    match tokio::time::timeout(timeout, Instrumented::new(read_data())).await {
+    match tokio::time::timeout(timeout, Instrumented::new(read_data)).await {
         Err(e) => (transfer_size, Err(google_cloud_storage::Error::timeout(e))),
         Ok(r) => (transfer_size, r),
     }
