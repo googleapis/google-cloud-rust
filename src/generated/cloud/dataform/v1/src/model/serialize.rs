@@ -52,6 +52,12 @@ impl serde::ser::Serialize for super::Repository {
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.containing_folder.is_some() {
+            state.serialize_entry("containingFolder", &self.containing_folder)?;
+        }
+        if self.team_folder_name.is_some() {
+            state.serialize_entry("teamFolderName", &self.team_folder_name)?;
+        }
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
         }
@@ -197,6 +203,28 @@ impl serde::ser::Serialize for super::repository::WorkspaceCompilationOverrides 
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::PrivateResourceMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.user_scoped) {
+            state.serialize_entry("userScoped", &self.user_scoped)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::ListRepositoriesRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -257,6 +285,34 @@ impl serde::ser::Serialize for super::ListRepositoriesResponse {
         }
         if !self.unreachable.is_empty() {
             state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MoveRepositoryRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.destination_containing_folder.is_some() {
+            state.serialize_entry(
+                "destinationContainingFolder",
+                &self.destination_containing_folder,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -852,6 +908,12 @@ impl serde::ser::Serialize for super::Workspace {
         if self.internal_metadata.is_some() {
             state.serialize_entry("internalMetadata", &self.internal_metadata)?;
         }
+        if self.disable_moves.is_some() {
+            state.serialize_entry("disableMoves", &self.disable_moves)?;
+        }
+        if self.private_resource_metadata.is_some() {
+            state.serialize_entry("privateResourceMetadata", &self.private_resource_metadata)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1432,6 +1494,9 @@ impl serde::ser::Serialize for super::QueryDirectoryContentsRequest {
         if !self.page_token.is_empty() {
             state.serialize_entry("pageToken", &self.page_token)?;
         }
+        if !wkt::internal::is_default(&self.view) {
+            state.serialize_entry("view", &self.view)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1481,6 +1546,43 @@ impl serde::ser::Serialize for super::DirectoryEntry {
         }
         if let Some(value) = self.directory() {
             state.serialize_entry("directory", value)?;
+        }
+        if self.metadata.is_some() {
+            state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::FilesystemEntryMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.size_bytes) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("sizeBytes", &__With(&self.size_bytes))?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2289,6 +2391,9 @@ impl serde::ser::Serialize for super::CompilationResult {
         if self.internal_metadata.is_some() {
             state.serialize_entry("internalMetadata", &self.internal_metadata)?;
         }
+        if self.private_resource_metadata.is_some() {
+            state.serialize_entry("privateResourceMetadata", &self.private_resource_metadata)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2726,6 +2831,18 @@ impl serde::ser::Serialize for super::compilation_result_action::Relation {
         }
         if !self.additional_options.is_empty() {
             state.serialize_entry("additionalOptions", &self.additional_options)?;
+        }
+        if !self.connection.is_empty() {
+            state.serialize_entry("connection", &self.connection)?;
+        }
+        if !wkt::internal::is_default(&self.table_format) {
+            state.serialize_entry("tableFormat", &self.table_format)?;
+        }
+        if !wkt::internal::is_default(&self.file_format) {
+            state.serialize_entry("fileFormat", &self.file_format)?;
+        }
+        if !self.storage_uri.is_empty() {
+            state.serialize_entry("storageUri", &self.storage_uri)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3253,6 +3370,9 @@ impl serde::ser::Serialize for super::InvocationConfig {
         if !self.service_account.is_empty() {
             state.serialize_entry("serviceAccount", &self.service_account)?;
         }
+        if self.query_priority.is_some() {
+            state.serialize_entry("queryPriority", &self.query_priority)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3463,6 +3583,9 @@ impl serde::ser::Serialize for super::WorkflowInvocation {
         }
         if self.internal_metadata.is_some() {
             state.serialize_entry("internalMetadata", &self.internal_metadata)?;
+        }
+        if self.private_resource_metadata.is_some() {
+            state.serialize_entry("privateResourceMetadata", &self.private_resource_metadata)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4006,6 +4129,9 @@ impl serde::ser::Serialize for super::Config {
         if !self.default_kms_key_name.is_empty() {
             state.serialize_entry("defaultKmsKeyName", &self.default_kms_key_name)?;
         }
+        if self.internal_metadata.is_some() {
+            state.serialize_entry("internalMetadata", &self.internal_metadata)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4052,6 +4178,850 @@ impl serde::ser::Serialize for super::UpdateConfigRequest {
         }
         if self.update_mask.is_some() {
             state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Folder {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.containing_folder.is_empty() {
+            state.serialize_entry("containingFolder", &self.containing_folder)?;
+        }
+        if !self.team_folder_name.is_empty() {
+            state.serialize_entry("teamFolderName", &self.team_folder_name)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.internal_metadata.is_some() {
+            state.serialize_entry("internalMetadata", &self.internal_metadata)?;
+        }
+        if self.creator_iam_principal.is_some() {
+            state.serialize_entry("creatorIamPrincipal", &self.creator_iam_principal)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateFolderRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.folder.is_some() {
+            state.serialize_entry("folder", &self.folder)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MoveFolderRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.destination_containing_folder.is_some() {
+            state.serialize_entry(
+                "destinationContainingFolder",
+                &self.destination_containing_folder,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetFolderRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateFolderRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if self.folder.is_some() {
+            state.serialize_entry("folder", &self.folder)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteFolderRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteFolderTreeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.force) {
+            state.serialize_entry("force", &self.force)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteTeamFolderTreeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.force) {
+            state.serialize_entry("force", &self.force)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteFolderTreeMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !self.target.is_empty() {
+            state.serialize_entry("target", &self.target)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !wkt::internal::is_default(&self.percent_complete) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("percentComplete", &__With(&self.percent_complete))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::QueryFolderContentsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.folder.is_empty() {
+            state.serialize_entry("folder", &self.folder)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::QueryFolderContentsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.entries.is_empty() {
+            state.serialize_entry("entries", &self.entries)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::query_folder_contents_response::FolderContentsEntry {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.folder() {
+            state.serialize_entry("folder", value)?;
+        }
+        if let Some(value) = self.repository() {
+            state.serialize_entry("repository", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::QueryUserRootContentsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::QueryUserRootContentsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.entries.is_empty() {
+            state.serialize_entry("entries", &self.entries)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::query_user_root_contents_response::RootContentsEntry {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.folder() {
+            state.serialize_entry("folder", value)?;
+        }
+        if let Some(value) = self.repository() {
+            state.serialize_entry("repository", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::TeamFolder {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.internal_metadata.is_some() {
+            state.serialize_entry("internalMetadata", &self.internal_metadata)?;
+        }
+        if self.creator_iam_principal.is_some() {
+            state.serialize_entry("creatorIamPrincipal", &self.creator_iam_principal)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateTeamFolderRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.team_folder.is_some() {
+            state.serialize_entry("teamFolder", &self.team_folder)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetTeamFolderRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateTeamFolderRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if self.team_folder.is_some() {
+            state.serialize_entry("teamFolder", &self.team_folder)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteTeamFolderRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::QueryTeamFolderContentsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.team_folder.is_empty() {
+            state.serialize_entry("teamFolder", &self.team_folder)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::QueryTeamFolderContentsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.entries.is_empty() {
+            state.serialize_entry("entries", &self.entries)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::query_team_folder_contents_response::TeamFolderContentsEntry {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.folder() {
+            state.serialize_entry("folder", value)?;
+        }
+        if let Some(value) = self.repository() {
+            state.serialize_entry("repository", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SearchTeamFoldersRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SearchTeamFoldersResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.results.is_empty() {
+            state.serialize_entry("results", &self.results)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::search_team_folders_response::TeamFolderSearchResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.team_folder() {
+            state.serialize_entry("teamFolder", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MoveFolderMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !self.target.is_empty() {
+            state.serialize_entry("target", &self.target)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !wkt::internal::is_default(&self.percent_complete) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("percentComplete", &__With(&self.percent_complete))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MoveRepositoryMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !self.target.is_empty() {
+            state.serialize_entry("target", &self.target)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !wkt::internal::is_default(&self.percent_complete) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("percentComplete", &__With(&self.percent_complete))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

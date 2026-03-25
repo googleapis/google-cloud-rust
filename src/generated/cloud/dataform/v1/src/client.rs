@@ -126,6 +126,371 @@ impl Dataform {
             .map(super::tracing::Dataform::new)
     }
 
+    /// Fetches a single TeamFolder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_team_folder()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_team_folder(&self) -> super::builder::dataform::GetTeamFolder {
+        super::builder::dataform::GetTeamFolder::new(self.inner.clone())
+    }
+
+    /// Creates a new TeamFolder in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_dataform_v1::model::TeamFolder;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_team_folder()
+    ///         .set_parent(parent)
+    ///         .set_team_folder(
+    ///             TeamFolder::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_team_folder(&self) -> super::builder::dataform::CreateTeamFolder {
+        super::builder::dataform::CreateTeamFolder::new(self.inner.clone())
+    }
+
+    /// Updates a single TeamFolder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dataform_v1::model::TeamFolder;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_team_folder()
+    ///         .set_team_folder(
+    ///             TeamFolder::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_team_folder(&self) -> super::builder::dataform::UpdateTeamFolder {
+        super::builder::dataform::UpdateTeamFolder::new(self.inner.clone())
+    }
+
+    /// Deletes a single TeamFolder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_team_folder()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_team_folder(&self) -> super::builder::dataform::DeleteTeamFolder {
+        super::builder::dataform::DeleteTeamFolder::new(self.inner.clone())
+    }
+
+    /// Deletes a TeamFolder with its contents (Folders, Repositories, Workspaces,
+    /// ReleaseConfigs, and WorkflowConfigs).
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     client.delete_team_folder_tree()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_team_folder_tree(&self) -> super::builder::dataform::DeleteTeamFolderTree {
+        super::builder::dataform::DeleteTeamFolderTree::new(self.inner.clone())
+    }
+
+    /// Returns the contents of a given TeamFolder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     let mut list = client.query_team_folder_contents()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn query_team_folder_contents(&self) -> super::builder::dataform::QueryTeamFolderContents {
+        super::builder::dataform::QueryTeamFolderContents::new(self.inner.clone())
+    }
+
+    /// Returns all TeamFolders in a given location that the caller has access to
+    /// and match the provided filter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_team_folders()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn search_team_folders(&self) -> super::builder::dataform::SearchTeamFolders {
+        super::builder::dataform::SearchTeamFolders::new(self.inner.clone())
+    }
+
+    /// Fetches a single Folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_folder()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_folder(&self) -> super::builder::dataform::GetFolder {
+        super::builder::dataform::GetFolder::new(self.inner.clone())
+    }
+
+    /// Creates a new Folder in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_dataform_v1::model::Folder;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_folder()
+    ///         .set_parent(parent)
+    ///         .set_folder(
+    ///             Folder::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_folder(&self) -> super::builder::dataform::CreateFolder {
+        super::builder::dataform::CreateFolder::new(self.inner.clone())
+    }
+
+    /// Updates a single Folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dataform_v1::model::Folder;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_folder()
+    ///         .set_folder(
+    ///             Folder::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_folder(&self) -> super::builder::dataform::UpdateFolder {
+        super::builder::dataform::UpdateFolder::new(self.inner.clone())
+    }
+
+    /// Deletes a single Folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_folder()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_folder(&self) -> super::builder::dataform::DeleteFolder {
+        super::builder::dataform::DeleteFolder::new(self.inner.clone())
+    }
+
+    /// Deletes a Folder with its contents (Folders, Repositories, Workspaces,
+    /// ReleaseConfigs, and WorkflowConfigs).
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     client.delete_folder_tree()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_folder_tree(&self) -> super::builder::dataform::DeleteFolderTree {
+        super::builder::dataform::DeleteFolderTree::new(self.inner.clone())
+    }
+
+    /// Returns the contents of a given Folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     let mut list = client.query_folder_contents()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn query_folder_contents(&self) -> super::builder::dataform::QueryFolderContents {
+        super::builder::dataform::QueryFolderContents::new(self.inner.clone())
+    }
+
+    /// Returns the contents of a caller's root folder in a given location.
+    /// The root folder contains all resources that are created by the user and not
+    /// contained in any other folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     let mut list = client.query_user_root_contents()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn query_user_root_contents(&self) -> super::builder::dataform::QueryUserRootContents {
+        super::builder::dataform::QueryUserRootContents::new(self.inner.clone())
+    }
+
+    /// Moves a Folder to a new Folder, TeamFolder, or the root location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     client.move_folder()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn move_folder(&self) -> super::builder::dataform::MoveFolder {
+        super::builder::dataform::MoveFolder::new(self.inner.clone())
+    }
+
     /// Lists Repositories in a given project and location.
     ///
     /// **Note:** *This method can return repositories not shown in the [Dataform
@@ -245,6 +610,36 @@ impl Dataform {
     /// ```
     pub fn delete_repository(&self) -> super::builder::dataform::DeleteRepository {
         super::builder::dataform::DeleteRepository::new(self.inner.clone())
+    }
+
+    /// Moves a Repository to a new location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     client.move_repository()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn move_repository(&self) -> super::builder::dataform::MoveRepository {
+        super::builder::dataform::MoveRepository::new(self.inner.clone())
     }
 
     /// Applies a Git commit to a Repository. The Repository must not have a value
@@ -1323,7 +1718,94 @@ impl Dataform {
         super::builder::dataform::UpdateConfig::new(self.inner.clone())
     }
 
+    /// Gets the access control policy for a resource.
+    /// Returns an empty policy if the resource exists and does not have a policy
+    /// set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::dataform::GetIamPolicy {
+        super::builder::dataform::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces any
+    /// existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::dataform::SetIamPolicy {
+        super::builder::dataform::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    /// If the resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building permission-aware
+    /// UIs and command-line tools, not for authorization checking. This operation
+    /// may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::dataform::TestIamPermissions {
+        super::builder::dataform::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -1366,32 +1848,34 @@ impl Dataform {
         super::builder::dataform::GetLocation::new(self.inner.clone())
     }
 
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     ///
     /// # Example
     /// ```
     /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
     ///    client: &Dataform
     /// ) -> Result<()> {
-    ///     let response = client.set_iam_policy()
+    ///     let mut list = client.list_operations()
     ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
     ///     Ok(())
     /// }
     /// ```
-    pub fn set_iam_policy(&self) -> super::builder::dataform::SetIamPolicy {
-        super::builder::dataform::SetIamPolicy::new(self.inner.clone())
+    pub fn list_operations(&self) -> super::builder::dataform::ListOperations {
+        super::builder::dataform::ListOperations::new(self.inner.clone())
     }
 
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     ///
     /// # Example
     /// ```
@@ -1400,24 +1884,20 @@ impl Dataform {
     /// async fn sample(
     ///    client: &Dataform
     /// ) -> Result<()> {
-    ///     let response = client.get_iam_policy()
+    ///     let response = client.get_operation()
     ///         /* set fields */
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
     /// ```
-    pub fn get_iam_policy(&self) -> super::builder::dataform::GetIamPolicy {
-        super::builder::dataform::GetIamPolicy::new(self.inner.clone())
+    pub fn get_operation(&self) -> super::builder::dataform::GetOperation {
+        super::builder::dataform::GetOperation::new(self.inner.clone())
     }
 
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
     ///
     /// # Example
     /// ```
@@ -1426,14 +1906,34 @@ impl Dataform {
     /// async fn sample(
     ///    client: &Dataform
     /// ) -> Result<()> {
-    ///     let response = client.test_iam_permissions()
+    ///     client.delete_operation()
     ///         /* set fields */
     ///         .send().await?;
-    ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
     /// ```
-    pub fn test_iam_permissions(&self) -> super::builder::dataform::TestIamPermissions {
-        super::builder::dataform::TestIamPermissions::new(self.inner.clone())
+    pub fn delete_operation(&self) -> super::builder::dataform::DeleteOperation {
+        super::builder::dataform::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::dataform::CancelOperation {
+        super::builder::dataform::CancelOperation::new(self.inner.clone())
     }
 }
