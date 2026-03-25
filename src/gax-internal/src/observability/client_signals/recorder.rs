@@ -192,10 +192,11 @@ impl RequestRecorder {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_gax_internal::observability::ClientRequestAttributes;
 /// let attributes = ClientRequestAttributes::default()
 ///     .set_rpc_method("google.test.v1.TestService/SomeMethod")
 ///     .set_url_template("/v42/{parent}")
-///     .set_resource_name("//test.googleapis.com/projects/my-project");
+///     .set_resource_name("//test.googleapis.com/projects/my-project".to_string());
 /// ```
 ///
 /// The generated code can provide these attributes at the beginning of the request, in the transport.rs file.
