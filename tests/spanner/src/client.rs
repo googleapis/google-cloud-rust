@@ -121,7 +121,8 @@ async fn do_provision_emulator(endpoint: &str) {
                 ColArrayDate ARRAY<DATE>, \
                 ColArrayTimestamp ARRAY<TIMESTAMP>, \
                 ColArrayJson ARRAY<JSON> \
-             ) PRIMARY KEY (Id)"
+             ) PRIMARY KEY (Id)",
+            "CREATE INDEX Idx_AllTypes_ColString ON AllTypes (ColString)"
         ]
     });
     let res: reqwest::Response = client
