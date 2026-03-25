@@ -150,6 +150,7 @@ grpc-server = { path = "grpc-server" }
 # is being used without TLS. Enabling the default provider in tests to
 # workaround this issue.
 google-cloud-gax-internal = { path = ".", features = ["_default-rustls-provider"] }
+google-cloud-auth         = { workspace = true }
 
 [build-dependencies]
 rustc_version.workspace = true

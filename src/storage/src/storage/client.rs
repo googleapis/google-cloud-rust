@@ -683,7 +683,7 @@ impl ClientBuilder {
         let default = CredentialsBuilder::default()
             .build()
             .map_err(BuilderError::cred)?;
-        self.config.cred = Some(default);
+        self.config.cred = Some(default.into());
         Ok(())
     }
 

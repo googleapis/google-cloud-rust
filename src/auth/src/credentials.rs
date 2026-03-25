@@ -231,6 +231,48 @@ impl CredentialsProvider for AccessTokenCredentials {
     }
 }
 
+#[async_trait::async_trait]
+impl google_cloud_auth_internal::credentials::InternalCredentials for AccessTokenCredentials {
+    async fn headers(
+        &self,
+        extensions: http::Extensions,
+    ) -> std::result::Result<
+        google_cloud_auth_internal::credentials::CacheableResource<http::HeaderMap>,
+        google_cloud_auth_internal::errors::InternalCredentialsError,
+    > {
+        let res = self.inner.headers(extensions).await;
+        match res {
+            Ok(CacheableResource::New { entity_tag, data }) => Ok(
+                google_cloud_auth_internal::credentials::CacheableResource::New {
+                    entity_tag: google_cloud_auth_internal::credentials::EntityTag(entity_tag.0),
+                    data,
+                },
+            ),
+            Ok(CacheableResource::NotModified) => {
+                Ok(google_cloud_auth_internal::credentials::CacheableResource::NotModified)
+            }
+            Err(e) => Err(
+                google_cloud_auth_internal::errors::InternalCredentialsError::from_source(
+                    e.is_transient(),
+                    e,
+                ),
+            ),
+        }
+    }
+
+    async fn universe_domain(&self) -> Option<String> {
+        self.inner.universe_domain().await
+    }
+}
+
+impl From<AccessTokenCredentials>
+    for Arc<dyn google_cloud_auth_internal::credentials::InternalCredentials>
+{
+    fn from(v: AccessTokenCredentials) -> Self {
+        Arc::new(v)
+    }
+}
+
 /// Represents an OAuth 2.0 access token.
 #[derive(Clone)]
 pub struct AccessToken {

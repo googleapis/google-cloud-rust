@@ -200,7 +200,7 @@ mod tests {
 
     async fn test_inner() -> anyhow::Result<Arc<Transport>> {
         let mut config = ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
+        config.cred = Some(Anonymous::new().build().into());
         let transport = Transport::new(config).await?;
         Ok(Arc::new(transport))
     }

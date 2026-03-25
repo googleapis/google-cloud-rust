@@ -32,6 +32,7 @@ mod tests {
     use http::StatusCode;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
+    use std::sync::Arc;
     use std::time::Duration;
 
     #[cfg(google_cloud_unstable_tracing)]
@@ -307,7 +308,9 @@ mod tests {
     fn test_config() -> ClientConfig {
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
         let mut config = ClientConfig::default();
-        config.cred = Anonymous::new().build().into();
+        let creds: Arc<dyn google_cloud_auth_internal::credentials::InternalCredentials> =
+            Arc::new(Anonymous::default().build());
+        config.cred = Some(creds);
         config
     }
 

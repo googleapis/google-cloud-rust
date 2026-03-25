@@ -2847,6 +2847,7 @@ dependencies = [
  "bytes",
  "echo-server",
  "futures",
+ "google-cloud-auth",
  "google-cloud-auth-internal",
  "google-cloud-gax",
  "google-cloud-gax-internal",

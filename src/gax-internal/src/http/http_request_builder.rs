@@ -133,6 +133,7 @@ mod tests {
     use crate::http::reqwest::{HeaderMap, HeaderValue, Method};
     use crate::options::ClientConfig;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use std::sync::Arc;
 
     #[tokio::test]
     async fn query() -> anyhow::Result<()> {
@@ -155,7 +156,9 @@ mod tests {
     #[tokio::test]
     async fn headers() -> anyhow::Result<()> {
         let mut config = ClientConfig::default();
-        config.cred = Some(Anonymous::default().build());
+        let creds: Arc<dyn google_cloud_auth_internal::credentials::InternalCredentials> =
+            Arc::new(Anonymous::default().build());
+        config.cred = Some(creds);
         let client = ReqwestClient::new(config, "http://example.com").await?;
 
         let request = client

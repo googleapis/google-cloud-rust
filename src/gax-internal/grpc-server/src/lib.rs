@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use gaxi::options::Credentials;
 use google::test::v1::{EchoRequest, EchoResponse};
-use google_cloud_auth::credentials::Credentials;
 use google_cloud_gax::client_builder::ClientBuilder;
 use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 use google_cloud_gax::client_builder::internal::{ClientFactory, new_builder};

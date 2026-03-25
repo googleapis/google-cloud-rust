@@ -32,7 +32,7 @@ mod tests {
         let mock = mock_credentials();
 
         let client = echo_server::builder(endpoint)
-            .with_credentials(Credentials::from(mock))
+            .with_credentials(mock)
             .build()
             .await?;
 

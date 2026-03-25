@@ -14,6 +14,7 @@
 
 use crate::credentials::Credentials;
 use crate::signer::{Result, SigningError, dynamic::SigningProvider};
+use google_cloud_gax::options::RequestOptions;
 use google_cloud_iam_credentials_v1::client::IAMCredentials;
 
 // Implements Signer using [IAM signBlob API] and reusing using existing [Credentials] to
@@ -53,10 +54,13 @@ impl SigningProvider for IamSigner {
 
         let payload = bytes::Bytes::copy_from_slice(content);
         let client_email = self.client_email.clone();
+        let mut opts = RequestOptions::default();
+        opts.set_idempotency(true);
         let response = client
             .sign_blob()
             .set_name(format!("projects/-/serviceAccounts/{client_email}"))
             .set_payload(payload)
+            .with_options(opts)
             .send()
             .await
             .map_err(SigningError::transport)?;

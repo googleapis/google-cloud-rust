@@ -21,7 +21,7 @@ use axum::{
     extract::Query,
     http::{HeaderMap, StatusCode},
 };
-use google_cloud_auth::credentials::Credentials;
+use gaxi::options::Credentials;
 use google_cloud_gax::client_builder::internal::{ClientFactory, new_builder};
 use google_cloud_gax::client_builder::{ClientBuilder, Result as ClientBuilderResult};
 use google_cloud_gax::error::rpc::{Code, Status, StatusDetails};

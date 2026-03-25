@@ -12,12 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider, EntityTag};
+use google_cloud_auth::credentials::{
+    CacheableResource, Credentials, CredentialsProvider, EntityTag,
+};
 use google_cloud_gax::error::CredentialsError;
 use http::{
     Extensions, HeaderMap,
     header::{HeaderName, HeaderValue},
 };
+use std::sync::Arc;
 
 type AuthResult<T> = std::result::Result<T, CredentialsError>;
 
@@ -31,7 +34,7 @@ mockall::mock! {
     }
 }
 
-pub fn mock_credentials() -> MockCredentials {
+pub fn mock_credentials() -> Arc<dyn google_cloud_auth_internal::credentials::InternalCredentials> {
     // We use mock credentials instead of fake credentials, because
     // 1. we can test that multiple headers are included in the request
     // 2. it gives us extra confidence that our interfaces are called
@@ -52,5 +55,7 @@ pub fn mock_credentials() -> MockCredentials {
             data: header,
         })
     });
-    mock
+    let creds: Arc<dyn google_cloud_auth_internal::credentials::InternalCredentials> =
+        Arc::new(Credentials::from(mock));
+    creds
 }

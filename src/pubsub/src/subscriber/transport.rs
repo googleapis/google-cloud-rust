@@ -102,7 +102,7 @@ pub(super) mod tests {
 
     async fn test_transport(endpoint: String) -> anyhow::Result<Transport> {
         let mut config = gaxi::options::ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
+        config.cred = Some(Anonymous::new().build().into());
         config.endpoint = Some(endpoint);
         Ok(Transport::new(config).await?)
     }

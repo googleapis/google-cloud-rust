@@ -20,6 +20,7 @@ mod tests {
     use http::HeaderValue;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
+    use std::sync::Arc;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn capture_headers() -> anyhow::Result<()> {
@@ -61,7 +62,9 @@ mod tests {
     fn test_config() -> ClientConfig {
         use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
         let mut config = ClientConfig::default();
-        config.cred = Anonymous::new().build().into();
+        let creds: Arc<dyn google_cloud_auth_internal::credentials::InternalCredentials> =
+            Arc::new(Anonymous::default().build());
+        config.cred = Some(creds);
         config
     }
 }

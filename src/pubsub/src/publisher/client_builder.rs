@@ -39,6 +39,7 @@ pub struct BasePublisherBuilder {
 
 impl BasePublisherBuilder {
     pub(super) fn new() -> Self {
+        google_cloud_auth::credentials::register_default_credentials_builder();
         let mut config = ClientConfig::default();
         config.backoff_policy = Some(std::sync::Arc::new(
             super::backoff_policy::default_backoff_policy(),

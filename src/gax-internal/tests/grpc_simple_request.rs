@@ -14,18 +14,20 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
+    use std::sync::Arc;
+
     use google_cloud_auth::credentials::{
-        Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
+        anonymous::Builder as Anonymous, testing::error_credentials,
     };
     use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::NeverRetry;
-    use google_cloud_gax_internal::grpc;
     use google_cloud_gax_internal::options::ClientConfig;
+    use google_cloud_gax_internal::{grpc, options::InternalCredentials};
     use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};
 
-    fn test_credentials() -> Credentials {
-        Anonymous::new().build()
+    fn test_credentials() -> Arc<dyn InternalCredentials> {
+        Arc::new(Anonymous::new().build())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]

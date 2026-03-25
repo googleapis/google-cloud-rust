@@ -19,7 +19,7 @@ mod tests {
 
     #[cfg(feature = "_internal-grpc-client")]
     mod grpc {
-        use google_cloud_auth::credentials::Credentials;
+        use gaxi::options::Credentials;
         use google_cloud_gax::client_builder::{
             Result as ClientBuilderResult,
             internal::{ClientFactory, new_builder},
@@ -73,7 +73,7 @@ mod tests {
 
     #[cfg(feature = "_internal-http-client")]
     mod http {
-        use google_cloud_auth::credentials::Credentials;
+        use gaxi::options::Credentials;
         use google_cloud_gax::client_builder::{
             Result as ClientBuilderResult,
             internal::{ClientFactory, new_builder},

@@ -36,6 +36,7 @@ pub struct ClientBuilder {
 
 impl ClientBuilder {
     pub(super) fn new() -> Self {
+        google_cloud_auth::credentials::register_default_credentials_builder();
         Self {
             config: ClientConfig::default(),
         }
@@ -93,7 +94,7 @@ impl ClientBuilder {
     ///
     /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
     pub fn with_credentials<V: Into<Credentials>>(mut self, v: V) -> Self {
-        self.config.cred = Some(v.into());
+        self.config.cred = Some(v.into().into());
         self
     }
 

@@ -378,10 +378,7 @@ impl ReqwestClient {
         builder = match self.cred.headers(Extensions::new()).await {
             Err(e) => {
                 return Err(Error::authentication(
-                    google_cloud_gax::error::CredentialsError::from_source(
-                        e.is_transient(),
-                        e,
-                    ),
+                    google_cloud_gax::error::CredentialsError::from_source(e.is_transient(), e),
                 ));
             }
             Ok(CacheableResource::New { data, .. }) => builder.headers(data),
@@ -745,7 +742,7 @@ mod tests {
     ) -> anyhow::Result<()> {
         let mut config = ClientConfig::default();
         config.endpoint = custom_endpoint.map(String::from);
-        config.cred = Some(Anonymous::new().build());
+        config.cred = Some(test_credentials());
         let client = ReqwestClient::new(config.clone(), "https://test.googleapis.com/").await?;
         assert_eq!(client.host, expected_host);
 
@@ -763,7 +760,7 @@ mod tests {
     async fn host_from_endpoint_showcase(custom_endpoint: Option<&str>) -> anyhow::Result<()> {
         let mut config = ClientConfig::default();
         config.endpoint = custom_endpoint.map(String::from);
-        config.cred = Some(Anonymous::new().build());
+        config.cred = Some(test_credentials());
         let client = ReqwestClient::new(config.clone(), "https://localhost:7469/").await?;
         assert_eq!(client.host, "localhost");
 
@@ -773,7 +770,7 @@ mod tests {
     #[tokio::test]
     async fn reqwest_client_decompression_config() -> anyhow::Result<()> {
         let mut config = ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
+        config.cred = Some(test_credentials());
         config.disable_automatic_decompression = true;
         let _client = ReqwestClient::new(config.clone(), "https://test.googleapis.com").await?;
 
@@ -864,7 +861,7 @@ mod tests {
         );
 
         let mut config = ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
+        config.cred = Some(test_credentials());
         let client = ReqwestClient::new(config, &server.url_str("/")).await?;
         let builder = client.builder(Method::GET, "foo".to_string());
         let options = RequestOptions::default();
@@ -903,7 +900,7 @@ mod tests {
 
         let mut config = ClientConfig::default();
         config.disable_follow_redirects = true;
-        config.cred = Some(Anonymous::new().build());
+        config.cred = Some(test_credentials());
         let client = ReqwestClient::new(config, &server.url_str("/")).await?;
 
         let builder = client.builder(Method::PUT, "upload".to_string());
@@ -922,5 +919,9 @@ mod tests {
         );
         assert_eq!(result.err().unwrap().http_status_code(), Some(308));
         Ok(())
+    }
+
+    fn test_credentials() -> Arc<dyn InternalCredentials> {
+        Arc::new(Anonymous::new().build())
     }
 }

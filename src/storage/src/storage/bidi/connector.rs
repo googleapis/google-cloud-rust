@@ -259,7 +259,7 @@ mod tests {
         fn need_send<T: Send>(_val: &T) {}
 
         let mut config = gaxi::options::ClientConfig::default();
-        config.cred = Some(test_credentials());
+        config.cred = Some(test_credentials().into());
         let client = GrpcClient::new(config, "http://127.0.0.1:1").await?;
 
         let spec = BidiReadObjectSpec {
