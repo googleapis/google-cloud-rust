@@ -32,6 +32,7 @@ pub(crate) struct ResumableResponse {
     range: ReadRange,
     generation: i64,
     resume_count: u32,
+    should_validate: bool,
 }
 
 impl ResumableResponse {
@@ -45,12 +46,17 @@ impl ResumableResponse {
 
         let highlights = parse_http_response::object_highlights(generation, headers)?;
 
+        let crc_match = response_checksums.crc32c.is_some() && reader.options.checksum.crc32c.is_some();
+        let md5_match = !response_checksums.md5_hash.is_empty() && reader.options.checksum.md5_hash.is_some();
+        let should_validate = crc_match || md5_match;
+
         Ok(Self {
             reader,
             response: Some(response),
             highlights,
             // Fields for computing checksums.
             response_checksums,
+            should_validate,
             // Fields for resuming a read request.
             range,
             generation,
@@ -82,10 +88,12 @@ impl ResumableResponse {
         let res = response.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
-                self.reader
-                    .options
-                    .checksum
-                    .update(self.range.start, &chunk);
+                if self.should_validate {
+                    self.reader
+                        .options
+                        .checksum
+                        .update(self.range.start, &chunk);
+                }
                 let len = chunk.len() as u64;
                 if self.range.limit < len {
                     return Some(Err(Error::deser(ReadError::LongRead {
@@ -101,12 +109,14 @@ impl ResumableResponse {
                 if self.range.limit != 0 {
                     return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
                 }
-                let computed = self.reader.options.checksum.finalize();
-                let res = validate(&self.response_checksums, &Some(computed));
-                match res {
-                    Err(e) => Some(Err(Error::deser(ReadError::ChecksumMismatch(e)))),
-                    Ok(()) => None,
+                if self.should_validate {
+                    let computed = self.reader.options.checksum.finalize();
+                    let res = validate(&self.response_checksums, &Some(computed));
+                    if let Err(e) = res {
+                        return Some(Err(Error::deser(ReadError::ChecksumMismatch(e))));
+                    }
                 }
+                None
             }
             Err(e) => Some(Err(e)),
         }
