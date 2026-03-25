@@ -267,10 +267,25 @@ impl ClientSnapshot {
     }
 
     /// Returns the server address used in the last low-level request.
-    pub fn server_address(&self) -> Option<SocketAddr> {
+    ///
+    /// If no address is known, use the target address from `info.default_host`.
+    pub fn server_address(&self) -> String {
         self.transport_snapshot
             .as_ref()
             .and_then(|s| s.server_address)
+            .map(|a| a.ip().to_string())
+            .unwrap_or_else(|| self.info.default_host.to_string())
+    }
+
+    /// Returns the server port used in the last low-level request.
+    ///
+    /// If no port is known, use the port implied by `info.default_host`.
+    pub fn server_port(&self) -> u16 {
+        self.transport_snapshot
+            .as_ref()
+            .and_then(|s| s.server_address)
+            .map(|a| a.port())
+            .unwrap_or(443)
     }
 
     /// Returns the URL template (e.g. "/v1/storage/b/{bucket}") used in the last low-level request.
@@ -394,7 +409,9 @@ mod tests {
 
         assert_eq!(snap.attempt_count, 1, "{snap:?}");
         assert_eq!(snap.http_status_code(), Some(404), "{snap:?}");
-        assert_eq!(snap.server_address(), Some(server.addr()), "{snap:?}");
+        let addr = server.addr();
+        assert_eq!(snap.server_address(), addr.ip().to_string(), "{snap:?}");
+        assert_eq!(snap.server_port(), addr.port(), "{snap:?}");
     }
 
     #[tokio::test(start_paused = true)]
@@ -419,7 +436,12 @@ mod tests {
 
         assert_eq!(snap.attempt_count, 1, "{snap:?}");
         assert!(snap.http_status_code().is_none(), "{snap:?}");
-        assert!(snap.server_address().is_none(), "{snap:?}");
+        assert_eq!(
+            snap.server_address().as_str(),
+            TEST_INFO.default_host,
+            "{snap:?}"
+        );
+        assert_eq!(snap.server_port(), 443, "{snap:?}");
     }
 
     async fn simulate_storage_client_transport_layer(url: &str) -> Result<String, Error> {
@@ -466,6 +488,8 @@ mod tests {
         assert_eq!(snap.url(), Some(url.as_str()), "{snap:?}");
         assert_eq!(snap.attempt_count, 1, "{snap:?}");
         assert_eq!(snap.http_status_code(), Some(404), "{snap:?}");
-        assert_eq!(snap.server_address(), Some(server.addr()), "{snap:?}");
+        let addr = server.addr();
+        assert_eq!(snap.server_address(), addr.ip().to_string(), "{snap:?}");
+        assert_eq!(snap.server_port(), addr.port(), "{snap:?}");
     }
 }
