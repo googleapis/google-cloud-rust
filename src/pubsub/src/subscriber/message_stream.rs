@@ -111,8 +111,9 @@ pub struct MessageStreamImpl {
 #[allow(clippy::large_enum_variant)]
 #[derive(Debug)]
 enum StreamState {
-    /// The stream failed with a permanent error. It should not be re-opened.
-    Failed,
+    /// The stream was cancelled or failed with a permanent error. It should not
+    /// be re-opened.
+    Closed,
     /// The stream is active.
     Active(Stream<Transport>),
 }
@@ -199,7 +200,7 @@ impl MessageStream {
         if next.is_none() {
             // Permanently close the stream, and drop messages that we haven't
             // delivered to the application yet.
-            self.inner.stream = Some(StreamState::Failed);
+            self.inner.stream = Some(StreamState::Closed);
             self.inner.pool.clear();
         }
         next
@@ -271,7 +272,7 @@ impl MessageStreamImpl {
                     }
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
                         // The stream failed with a permanent error. Return the error.
-                        self.stream = Some(StreamState::Failed);
+                        self.stream = Some(StreamState::Closed);
                         return Some(Err(e));
                     }
                 }
@@ -301,7 +302,7 @@ impl MessageStreamImpl {
         }
 
         let stream = match self.stream.as_mut()? {
-            StreamState::Failed => return None,
+            StreamState::Closed => return None,
             StreamState::Active(s) => s,
         };
         stream
