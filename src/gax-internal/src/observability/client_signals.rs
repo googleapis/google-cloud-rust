@@ -327,6 +327,11 @@ mod tests {
                     "exception.message",
                     "the service reports an error with code NOT_FOUND described as: NOT FOUND",
                 ),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.language", "rust"),
             ],
         );
         Ok(())
