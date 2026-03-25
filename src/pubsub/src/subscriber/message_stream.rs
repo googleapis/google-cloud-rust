@@ -864,9 +864,12 @@ mod tests {
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         mock.expect_modify_ack_deadline().returning(move |r| {
-            extend_tx
-                .send(r.into_inner())
-                .expect("sending on channel always succeeds");
+            let r = r.into_inner();
+            if r.ack_deadline_seconds != 0 {
+                extend_tx
+                    .send(r)
+                    .expect("sending on channel always succeeds");
+            }
             Ok(TonicResponse::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
