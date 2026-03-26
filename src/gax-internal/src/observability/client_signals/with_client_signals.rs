@@ -160,8 +160,8 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::{METHOD, TEST_INFO, URL_TEMPLATE};
     use super::super::tests::{SignalProviders, check_log_record};
+    use super::super::tests::{TEST_INFO, TEST_METHOD, TEST_URL_TEMPLATE};
     use super::*;
     use google_cloud_gax::error::rpc::Status;
     use google_cloud_gax::options::RequestOptions;
@@ -190,8 +190,8 @@ mod tests {
             &TEST_INFO,
             Arc::new(providers.metric_provider.clone()),
         );
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let start = RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
         let future = ready(Ok::<String, Error>("hello world".to_string()));
         let future = WithClientSignals::new(future, metric.clone(), start, span.clone());
         let result = future.await;
@@ -236,8 +236,8 @@ mod tests {
             &TEST_INFO,
             Arc::new(providers.metric_provider.clone()),
         );
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let start = RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
         let future = ready(Err::<String, Error>(not_found()));
         let future = WithClientSignals::new(future, metric.clone(), start, span.clone());
         let result = future.await;
@@ -275,8 +275,8 @@ mod tests {
             &TEST_INFO,
             Arc::new(providers.metric_provider.clone()),
         );
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let start = RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
         let future = ready(Err::<String, Error>(not_found()));
         let future = WithClientSignals::new(future, metric.clone(), start, span.clone());
         let result = future.await;
@@ -296,7 +296,7 @@ mod tests {
             &record.record,
             trace_id,
             &[
-                ("rpc.method", METHOD),
+                ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "NOT_FOUND"),
                 ("exception.type", "NOT_FOUND"),
                 (
@@ -340,8 +340,8 @@ mod tests {
             &TEST_INFO,
             Arc::new(providers.metric_provider.clone()),
         );
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let start = RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
         let future = ready(Err::<String, Error>(http_too_many_requests()));
         let future = WithClientSignals::new(future, metric.clone(), start, span);
         let result = future.await;
@@ -361,7 +361,7 @@ mod tests {
             &record.record,
             trace_id,
             &[
-                ("rpc.method", METHOD),
+                ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "UNKNOWN"),
                 ("http.response.status_code", "429"),
                 ("exception.type", "429"),
@@ -457,9 +457,9 @@ mod tests {
         );
         use google_cloud_gax::options::internal::RequestOptionsExt;
         let options = RequestOptions::default()
-            .insert_extension(PathTemplate(URL_TEMPLATE))
+            .insert_extension(PathTemplate(TEST_URL_TEMPLATE))
             .insert_extension(crate::observability::client_signals::SuppressActionableErrorLog);
-        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
+        let start = RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
 
         let future = ready(Err::<String, Error>(not_found()));
         let future = WithClientSignals::new(future, metric.clone(), start, span.clone());
