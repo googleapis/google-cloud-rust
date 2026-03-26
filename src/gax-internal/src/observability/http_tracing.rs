@@ -49,7 +49,7 @@ pub(crate) fn create_http_attempt_span(
     instrumentation: Option<&'static InstrumentationClientInfo>,
     prior_attempt_count: u32,
 ) -> Span {
-    let url = cleanup_url(request.url());
+    let url = sanitize_url(request.url());
     let method = request.method();
 
     let resource_name = options
@@ -223,7 +223,7 @@ pub fn record_intermediate_client_request(
     }
 }
 
-fn cleanup_url(url: &::reqwest::Url) -> ::reqwest::Url {
+pub fn sanitize_url(url: &::reqwest::Url) -> ::reqwest::Url {
     if url.query().is_none() {
         return url.clone();
     }
