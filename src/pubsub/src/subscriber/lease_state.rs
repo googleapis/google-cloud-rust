@@ -34,8 +34,8 @@ use tokio_util::task::TaskTracker;
 // https://docs.cloud.google.com/pubsub/quotas
 const MAX_IDS_PER_RPC: usize = 2500;
 
-// Helper function to chunk ack ids to nack into chunks of MAX_IDS_PER_RPC.
-fn batch_drained(ack_ids: Vec<String>) -> Vec<Vec<String>> {
+// Helper function to chunk ack ids into chunks of MAX_IDS_PER_RPC.
+fn batch(ack_ids: Vec<String>) -> Vec<Vec<String>> {
     ack_ids
         .chunks(MAX_IDS_PER_RPC)
         .map(|c| c.to_vec())

@@ -104,7 +104,7 @@ impl Leases {
     /// Called during shutdown, if configured to `NackImmediately`.
     pub fn evict_and_drain(mut self) -> (Vec<String>, Vec<Vec<String>>) {
         self.to_nack.extend(self.under_lease.into_keys());
-        (self.to_ack, super::batch_drained(self.to_nack))
+        (self.to_ack, super::batch(self.to_nack))
     }
 }
 
@@ -288,14 +288,11 @@ mod tests {
             leases
         );
 
-        let (mut to_ack, to_nack) = leases.evict_and_drain();
+        let (to_ack, to_nack) = leases.evict_and_drain();
+        assert_eq!(sorted(&to_ack), test_ids(0..10));
 
-        to_ack.sort();
-        assert_eq!(to_ack, test_ids(0..10));
-
-        let mut to_nack = NackBatches::flatten(to_nack).ack_ids;
-        to_nack.sort();
-        assert_eq!(to_nack, test_ids(10..30));
+        let to_nack = NackBatches::flatten(to_nack);
+        assert_eq!(sorted(&to_nack.ack_ids), test_ids(10..30));
     }
 
     #[test]
@@ -319,19 +316,15 @@ mod tests {
             leases
         );
 
-        let (mut to_ack, to_nack) = leases.evict_and_drain();
-
-        to_ack.sort();
-        assert_eq!(to_ack, test_ids(0..10));
+        let (to_ack, to_nack) = leases.evict_and_drain();
+        assert_eq!(sorted(&to_ack), test_ids(0..10));
 
         let to_nack = NackBatches::flatten(to_nack);
         assert_eq!(
             to_nack.counts,
             vec![MAX_IDS_PER_RPC, MAX_IDS_PER_RPC, MAX_IDS_PER_RPC - 10]
         );
-        let mut to_nack_ids = to_nack.ack_ids;
-        to_nack_ids.sort();
-        assert_eq!(to_nack_ids, test_ids(10..MAX_IDS_PER_RPC * 3));
+        assert_eq!(sorted(&to_nack.ack_ids), test_ids(10..MAX_IDS_PER_RPC * 3));
     }
 
     #[test]

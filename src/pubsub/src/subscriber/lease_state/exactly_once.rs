@@ -137,7 +137,7 @@ impl Leases {
                 .send(Err(AckError::Shutdown(NACK_SHUTDOWN_ERROR.into())));
             self.to_nack.push(ack_id);
         }
-        (self.to_ack, super::batch_drained(self.to_nack))
+        (self.to_ack, super::batch(self.to_nack))
     }
 }
 
@@ -165,7 +165,7 @@ impl PartialEq<Leases> for super::tests::TestLeases {
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::{NackBatches, TestLeases, test_id, test_ids};
+    use super::super::tests::{NackBatches, TestLeases, sorted, test_id, test_ids};
     use super::*;
     use std::collections::HashSet;
     use tokio::sync::oneshot::channel;
@@ -667,9 +667,8 @@ mod tests {
         let (to_ack, to_nack) = leases.evict_and_drain();
         assert!(to_ack.is_empty(), "{to_ack:?}");
 
-        let mut to_nack = NackBatches::flatten(to_nack).ack_ids;
-        to_nack.sort();
-        assert_eq!(to_nack, test_ids(1..4));
+        let to_nack = NackBatches::flatten(to_nack);
+        assert_eq!(sorted(&to_nack.ack_ids), test_ids(1..4));
 
         let err = result_rx1.await?.expect_err("error should be returned");
         assert!(matches!(err, AckError::Shutdown(_)), "{err:?}");
@@ -695,9 +694,7 @@ mod tests {
 
         let to_nack = NackBatches::flatten(to_nack);
         assert_eq!(to_nack.counts, vec![MAX_IDS_PER_RPC, 20]);
-        let mut to_nack_ids = to_nack.ack_ids;
-        to_nack_ids.sort();
-        assert_eq!(to_nack_ids, test_ids(0..MAX_IDS_PER_RPC + 20));
+        assert_eq!(sorted(&to_nack.ack_ids), test_ids(0..MAX_IDS_PER_RPC + 20));
 
         Ok(())
     }
