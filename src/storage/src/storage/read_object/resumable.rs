@@ -47,7 +47,6 @@ impl ResumableResponse {
 
         let highlights = parse_http_response::object_highlights(generation, headers)?;
 
-
         // Optimization: only compute the checksums that the server provided.
         if response_checksums.crc32c.is_none() {
             reader.options.checksum.crc32c = None;
@@ -310,9 +309,10 @@ mod tests {
         use crate::storage::client::tests::test_inner_client;
         use crate::storage::read_object::Reader;
 
-        let inner = tokio::runtime::Runtime::new()?
-            .block_on(test_inner_client(crate::storage::client::tests::test_builder()));
-        
+        let inner = tokio::runtime::Runtime::new()?.block_on(test_inner_client(
+            crate::storage::client::tests::test_builder(),
+        ));
+
         let mut reader = Reader {
             inner: inner.clone(),
             request: crate::model::ReadObjectRequest::new()
@@ -333,9 +333,9 @@ mod tests {
             .header("x-goog-generation", "123")
             .header("content-length", "10")
             .body(Vec::new())?;
-        
+
         let res = ResumableResponse::new(reader, Response::from(response))?;
-        
+
         // Verify MD5 is pruned since server lacks it
         assert!(res.reader.options.checksum.crc32c.is_some());
         assert!(res.reader.options.checksum.md5_hash.is_none());
