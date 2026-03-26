@@ -18,11 +18,14 @@ use crate::observability::http_tracing::sanitize_url;
 use crate::options::InstrumentationClientInfo;
 #[cfg(feature = "_internal-http-client")]
 use google_cloud_gax::error::Error;
+use http::Uri;
 use reqwest::Method;
 use std::future::Future;
 use std::net::SocketAddr;
 use std::sync::{Arc, Mutex};
 use tokio::time::Instant;
+
+const HTTPS_PORT: u16 = 443;
 
 tokio::task_local! {
     static RECORDER: RequestRecorder;
@@ -300,22 +303,40 @@ impl ClientSnapshot {
     ///
     /// If no address is known, use the target address from `info.default_host`.
     pub fn server_address(&self) -> String {
-        self.transport_snapshot
+        if let Some(address) = self
+            .transport_snapshot
             .as_ref()
             .and_then(|s| s.server_address)
             .map(|a| a.ip().to_string())
-            .unwrap_or_else(|| self.info.default_host.to_string())
+        {
+            return address;
+        }
+        if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok()) {
+            if let Some(host) = uri.authority().map(|a| a.host().to_string()) {
+                return host;
+            }
+        }
+        self.info.default_host.to_string()
     }
 
     /// Returns the server port used in the last low-level request.
     ///
     /// If no port is known, use the port implied by `info.default_host`.
     pub fn server_port(&self) -> u16 {
-        self.transport_snapshot
+        if let Some(port) = self
+            .transport_snapshot
             .as_ref()
             .and_then(|s| s.server_address)
             .map(|a| a.port())
-            .unwrap_or(443)
+        {
+            return port;
+        }
+        if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok()) {
+            if let Some(host) = uri.authority().and_then(|a| a.port_u16()) {
+                return host;
+            }
+        }
+        HTTPS_PORT
     }
 
     /// Returns the URL template (e.g. "/v1/storage/b/{bucket}") used in the last low-level request.
