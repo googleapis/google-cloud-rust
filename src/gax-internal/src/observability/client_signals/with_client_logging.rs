@@ -136,21 +136,16 @@ mod tests {
     use tracing::subscriber::DefaultGuard;
     use tracing_subscriber::fmt::format::FmtSpan;
 
-    fn capture_logs() -> (DefaultGuard, Buffer) {
-        let buffer = Buffer::default();
-        let make_writer = {
-            let shared = buffer.clone();
-            move || shared.clone()
-        };
-        let subscriber = tracing_subscriber::fmt()
-            .with_span_events(FmtSpan::NONE)
-            .with_level(true)
-            .with_writer(make_writer)
-            .json()
-            .with_max_level(Level::ERROR)
-            .finish();
-        let guard = tracing::subscriber::set_default(subscriber);
-        (guard, buffer)
+    #[tokio::test]
+    async fn no_recorder() -> anyhow::Result<()> {
+        let (_guard, buffer) = capture_logs();
+
+        let logging = WithClientLogging::new(async { Ok(123) });
+        let got = logging.await;
+        assert!(matches!(got, Ok(123)), "{got:?}");
+        let contents = String::from_utf8(buffer.captured())?;
+        assert!(contents.is_empty(), "{contents}");
+        Ok(())
     }
 
     #[tokio::test]
@@ -211,12 +206,7 @@ mod tests {
         let logging = WithClientLogging::new(recorded_request(BAD_URL));
         let got = scoped.scope(logging).await;
         assert!(got.is_err(), "{got:?}");
-        let contents = String::from_utf8(buffer.captured())?;
-        let mut s = contents.split('\n');
-        let parsed = match (s.next(), s.next(), s.next()) {
-            (Some(line), Some(""), None) => serde_json::from_str::<Value>(line)?,
-            _ => panic!("unexpected number of lines: {contents}"),
-        };
+        let parsed = extract_captured_log(buffer)?;
         let mut object = parsed
             .as_object()
             .unwrap_or_else(|| panic!("error is serialized as JSON object, got: {parsed:?}"))
@@ -276,15 +266,7 @@ mod tests {
             .scope(WithClientLogging::new(recorded_request(&url)))
             .await;
         assert!(matches!(got, Err(ref e) if e.is_transport()), "{got:?}");
-        let contents = String::from_utf8(buffer.captured())?;
-        let mut s = contents.split('\n');
-        let parsed = match (s.next(), s.next(), s.next()) {
-            (Some(line), Some(""), None) => serde_json::from_str::<Value>(line)?,
-            _ => panic!(
-                "unexpected number of lines: {contents}: {:?}",
-                contents.split('\n').collect::<Vec<_>>()
-            ),
-        };
+        let parsed = extract_captured_log(buffer)?;
         let mut object = parsed
             .as_object()
             .unwrap_or_else(|| panic!("error is serialized as JSON object, got: {parsed:?}"))
@@ -324,5 +306,33 @@ mod tests {
         assert_eq!(Some(&fields), want.as_object(), "{parsed:?}");
 
         Ok(())
+    }
+
+    fn capture_logs() -> (DefaultGuard, Buffer) {
+        let buffer = Buffer::default();
+        let make_writer = {
+            let shared = buffer.clone();
+            move || shared.clone()
+        };
+        let subscriber = tracing_subscriber::fmt()
+            .with_span_events(FmtSpan::NONE)
+            .with_level(true)
+            .with_writer(make_writer)
+            .json()
+            .with_max_level(Level::ERROR)
+            .finish();
+        let guard = tracing::subscriber::set_default(subscriber);
+        (guard, buffer)
+    }
+
+    #[track_caller]
+    fn extract_captured_log(buffer: Buffer) -> anyhow::Result<Value> {
+        let contents = String::from_utf8(buffer.captured())?;
+        let mut s = contents.split('\n');
+        let parsed = match (s.next(), s.next(), s.next()) {
+            (Some(line), Some(""), None) => serde_json::from_str::<Value>(line)?,
+            _ => panic!("unexpected number of lines: {contents}"),
+        };
+        Ok(parsed)
     }
 }
