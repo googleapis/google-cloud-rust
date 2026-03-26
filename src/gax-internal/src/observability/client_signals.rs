@@ -497,11 +497,7 @@ mod tests {
                 .attributes()
                 .map(|kv| (kv.key.as_str(), kv.value.to_string())),
         );
-        let want = BTreeSet::from_iter(
-            want_attributes
-                .into_iter()
-                .map(|(k, v)| (*k, v.to_string())),
-        );
+        let want = BTreeSet::from_iter(want_attributes.iter().map(|(k, v)| (*k, v.to_string())));
         let diff = attr.symmetric_difference(&want).collect::<Vec<_>>();
         assert_eq!(attr, want, "diff={diff:?}");
 
