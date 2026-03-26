@@ -34,16 +34,12 @@ use tokio_util::task::TaskTracker;
 // https://docs.cloud.google.com/pubsub/quotas
 const MAX_IDS_PER_RPC: usize = 2500;
 
-// Helper function to chunk nack ids into chunks of MAX_IDS_PER_RPC.
-fn batch_drained(drained: (Vec<String>, Vec<String>)) -> (Vec<String>, Vec<Vec<String>>) {
-    (
-        drained.0, // acks
-        drained
-            .1
-            .chunks(MAX_IDS_PER_RPC)
-            .map(|c| c.to_vec())
-            .collect(), // nacks
-    )
+// Helper function to chunk ack ids to nack into chunks of MAX_IDS_PER_RPC.
+fn batch_drained(ack_ids: Vec<String>) -> Vec<Vec<String>> {
+    ack_ids
+        .chunks(MAX_IDS_PER_RPC)
+        .map(|c| c.to_vec())
+        .collect()
 }
 
 pub(super) struct LeaseOptions {
@@ -269,7 +265,7 @@ where
     /// Shutdown the leaser
     ///
     /// This flushes all pending acks and nacks all other messages.
-    pub(super) async fn shutdown(mut self) {
+    pub(super) async fn shutdown(self) {
         // Note that if `WaitForProcessing` was selected by the application,
         // there are no messages under lease. They have all been processed.
         let (to_ack, to_nack) = self.leases.evict_and_drain();
@@ -328,6 +324,20 @@ pub(super) mod tests {
         pub(super) under_lease: Vec<String>,
         pub(super) to_ack: Vec<String>,
         pub(super) to_nack: Vec<String>,
+    }
+
+    #[derive(Debug)]
+    pub(super) struct NackBatches {
+        pub(super) counts: Vec<i32>,
+        pub(super) ack_ids: Vec<String>,
+    }
+
+    impl NackBatches {
+        pub(super) fn flatten(to_nack: Vec<Vec<String>>) -> Self {
+            let counts = to_nack.iter().map(|v| v.len() as i32).collect();
+            let ack_ids = to_nack.into_iter().flatten().collect();
+            Self { counts, ack_ids }
+        }
     }
 
     pub(in super::super) fn test_id(v: i32) -> String {

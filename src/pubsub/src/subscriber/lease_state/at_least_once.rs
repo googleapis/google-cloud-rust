@@ -102,10 +102,9 @@ impl Leases {
     /// the application and drains all messages from the lease state.
     ///
     /// Called during shutdown, if configured to `NackImmediately`.
-    pub fn evict_and_drain(&mut self) -> (Vec<String>, Vec<Vec<String>>) {
-        let under_lease = std::mem::take(&mut self.under_lease);
-        self.to_nack.extend(under_lease.into_keys());
-        super::batch_drained(self.drain())
+    pub fn evict_and_drain(mut self) -> (Vec<String>, Vec<Vec<String>>) {
+        self.to_nack.extend(self.under_lease.into_keys());
+        (self.to_ack, super::batch_drained(self.to_nack))
     }
 }
 
@@ -133,7 +132,7 @@ impl PartialEq<Leases> for super::tests::TestLeases {
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::{TestLeases, sorted, test_id, test_ids};
+    use super::super::tests::{NackBatches, TestLeases, sorted, test_id, test_ids};
     use super::*;
     use std::collections::HashSet;
 
@@ -289,29 +288,14 @@ mod tests {
             leases
         );
 
-        let (to_ack, to_nack) = leases.evict_and_drain();
+        let (mut to_ack, to_nack) = leases.evict_and_drain();
 
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: test_ids(0..10),
-                to_nack: test_ids(10..30),
-            },
-            Leases {
-                to_ack,
-                to_nack: to_nack.into_iter().flatten().collect(),
-                ..Default::default()
-            }
-        );
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: Vec::new(),
-                to_nack: Vec::new(),
-            },
-            leases,
-            "Leases should be empty after evict.",
-        );
+        to_ack.sort();
+        assert_eq!(to_ack, test_ids(0..10));
+
+        let mut to_nack = NackBatches::flatten(to_nack).ack_ids;
+        to_nack.sort();
+        assert_eq!(to_nack, test_ids(10..30));
     }
 
     #[test]
@@ -335,34 +319,19 @@ mod tests {
             leases
         );
 
-        let (to_ack, to_nack) = leases.evict_and_drain();
-        assert_eq!(to_nack.len(), 3);
-        assert_eq!(to_nack[0].len(), MAX_IDS_PER_RPC as usize);
-        assert_eq!(to_nack[1].len(), MAX_IDS_PER_RPC as usize);
-        assert_eq!(to_nack[2].len(), (MAX_IDS_PER_RPC - 10) as usize);
+        let (mut to_ack, to_nack) = leases.evict_and_drain();
 
-        assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: test_ids(0..10),
-                to_nack: test_ids(10..MAX_IDS_PER_RPC * 3),
-            },
-            Leases {
-                to_ack: to_ack,
-                to_nack: to_nack.into_iter().flatten().collect(),
-                ..Default::default()
-            },
-        );
+        to_ack.sort();
+        assert_eq!(to_ack, test_ids(0..10));
 
+        let to_nack = NackBatches::flatten(to_nack);
         assert_eq!(
-            TestLeases {
-                under_lease: Vec::new(),
-                to_ack: Vec::new(),
-                to_nack: Vec::new(),
-            },
-            leases,
-            "Leases should be empty after evict.",
+            to_nack.counts,
+            vec![MAX_IDS_PER_RPC, MAX_IDS_PER_RPC, MAX_IDS_PER_RPC - 10]
         );
+        let mut to_nack_ids = to_nack.ack_ids;
+        to_nack_ids.sort();
+        assert_eq!(to_nack_ids, test_ids(10..MAX_IDS_PER_RPC * 3));
     }
 
     #[test]
