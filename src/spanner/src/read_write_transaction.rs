@@ -199,12 +199,9 @@ impl ReadWriteTransaction {
     ///     }
     ///     Err(e) => {
     ///         if let Some(batch_error) = BatchUpdateError::extract(&e) {
-    ///             println!(
-    ///                 "Batch failed halfway. Successful update counts before failure: {:?}",
-    ///                 batch_error.update_counts
-    ///             );
+    ///             println!("Batch execution failed. Successful update counts: {:?}", batch_error.update_counts);
     ///         } else {
-    ///             println!("The entire batch failed, or an internal error occurred: {}", e);
+    ///             println!("RPC failed or internal error occurred: {}", e);
     ///         }
     ///     }
     /// }
@@ -575,7 +572,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn read_write_transaction_execute_batch_update() {
+    async fn read_write_transaction_execute_batch_update() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
         mock.expect_begin_transaction().once().returning(|_| {
@@ -627,20 +624,20 @@ mod tests {
 
         let tx = ReadWriteTransactionBuilder::new(db_client)
             .begin_transaction()
-            .await
-            .expect("Failed to build transaction");
+            .await?;
 
         let batch = BatchDml::builder()
             .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
             .add_statement("UPDATE Users SET Name = 'Bob' WHERE Id = 2");
 
-        let counts = tx.execute_batch_update(batch.build()).await.unwrap();
+        let counts = tx.execute_batch_update(batch.build()).await?;
 
         assert_eq!(counts, vec![1, 1]);
+        Ok(())
     }
 
     #[tokio::test]
-    async fn read_write_transaction_execute_batch_update_partial_failure() {
+    async fn read_write_transaction_execute_batch_update_partial_failure() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
         mock.expect_begin_transaction().once().returning(|_| {
@@ -672,8 +669,7 @@ mod tests {
 
         let tx = ReadWriteTransactionBuilder::new(db_client)
             .begin_transaction()
-            .await
-            .expect("Failed to build transaction");
+            .await?;
 
         let batch = BatchDml::builder()
             .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
@@ -689,9 +685,10 @@ mod tests {
             .expect("should be BatchUpdateError");
         assert_eq!(batch_err.update_counts, vec![1]);
         assert_eq!(
-            batch_err.status.status().unwrap().code,
+            batch_err.status.status().expect("status").code,
             (gaxi::grpc::tonic::Code::AlreadyExists as i32).into()
         );
+        Ok(())
     }
 
     #[tokio::test]

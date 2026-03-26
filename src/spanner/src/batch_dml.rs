@@ -104,6 +104,7 @@ pub(crate) fn process_response(response: ExecuteBatchDmlResponse) -> crate::Resu
 mod tests {
     use super::*;
     use crate::model::{ResultSet, ResultSetStats};
+    use google_cloud_rpc::model::Status;
     use static_assertions::assert_impl_all;
 
     #[test]
@@ -125,7 +126,11 @@ mod tests {
         assert_eq!(batch.statements.len(), 2);
         assert_eq!(batch.statements[0].sql, "UPDATE t SET c = 1 WHERE id = 1");
         assert_eq!(batch.statements[1].sql, "UPDATE t SET c = 2 WHERE id = 2");
-        assert!(batch.request_options.is_none());
+        assert!(
+            batch.request_options.is_none(),
+            "Unexpected request_options set: {:#?}",
+            batch.request_options
+        );
     }
 
     #[test]
@@ -149,7 +154,7 @@ mod tests {
     }
 
     #[test]
-    fn process_response_success() {
+    fn process_response_success() -> anyhow::Result<()> {
         let stats1 = ResultSetStats {
             row_count: Some(RowCount::RowCountExact(5)),
             ..Default::default()
@@ -174,9 +179,9 @@ mod tests {
             ..Default::default()
         };
 
-        let result = process_response(response);
-        let counts = result.expect("process_response should succeed");
+        let counts = process_response(response)?;
         assert_eq!(counts, vec![5, 10]);
+        Ok(())
     }
 
     #[test]
@@ -191,8 +196,8 @@ mod tests {
         };
 
         // Note: crate::model::Status is the common type for status embedded in generated grpc responses.
-        let err_status = google_cloud_rpc::model::Status::default()
-            .set_code(3) // INVALID_ARGUMENT
+        let err_status = Status::default()
+            .set_code(Code::InvalidArgument as i32)
             .set_message("Bad query");
 
         let response = ExecuteBatchDmlResponse {
@@ -206,7 +211,10 @@ mod tests {
         let batch_err = BatchUpdateError::extract(&err).expect("should extract BatchUpdateError");
 
         assert_eq!(batch_err.update_counts, vec![3]);
-        assert_eq!(batch_err.status.status().expect("status").code, 3.into());
+        assert_eq!(
+            batch_err.status.status().expect("status").code,
+            Code::InvalidArgument
+        );
         assert_eq!(
             batch_err.status.status().expect("status").message,
             "Bad query"
@@ -224,8 +232,8 @@ mod tests {
             ..Default::default()
         };
 
-        let err_status = google_cloud_rpc::model::Status::default()
-            .set_code(google_cloud_gax::error::rpc::Code::Aborted as i32)
+        let err_status = Status::default()
+            .set_code(Code::Aborted as i32)
             .set_message("transaction aborted");
 
         let response = ExecuteBatchDmlResponse {
@@ -237,11 +245,11 @@ mod tests {
         let result = process_response(response);
         let err = result.expect_err("should return error");
         let batch_err = BatchUpdateError::extract(&err);
-        assert!(batch_err.is_none());
-        assert_eq!(
-            err.status().expect("status").code,
-            google_cloud_gax::error::rpc::Code::Aborted
+        assert!(
+            batch_err.is_none(),
+            "Unexpected BatchUpdateError: {batch_err:?}"
         );
+        assert_eq!(err.status().expect("status").code, Code::Aborted);
         assert_eq!(err.status().expect("status").message, "transaction aborted");
     }
 

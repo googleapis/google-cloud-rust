@@ -42,7 +42,8 @@ pub(crate) fn internal_error(message: impl Into<String>) -> crate::Error {
     crate::Error::deser(SpannerInternalError::new(message))
 }
 
-/// An error that occurs when a `execute_batch_update` partially succeeds.
+/// An error that occurs when an `execute_batch_update` partially succeeds.
+///
 /// It contains the update counts for each statement evaluated prior to the failure,
 /// as well as the underlying error that caused the batch to fail.
 ///
@@ -54,6 +55,7 @@ pub(crate) fn internal_error(message: impl Into<String>) -> crate::Error {
 /// are not executed.
 #[derive(thiserror::Error, Debug)]
 #[error("{status}")]
+#[non_exhaustive]
 pub struct BatchUpdateError {
     /// The number of rows modified by each successful statement before the failure.
     pub update_counts: Vec<i64>,
