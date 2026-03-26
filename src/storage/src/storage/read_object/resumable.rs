@@ -32,7 +32,7 @@ pub(crate) struct ResumableResponse {
     range: ReadRange,
     generation: i64,
     resume_count: u32,
-    should_validate: bool,
+    should_track_checksums: bool,
 }
 
 impl ResumableResponse {
@@ -46,9 +46,8 @@ impl ResumableResponse {
 
         let highlights = parse_http_response::object_highlights(generation, headers)?;
 
-        let crc_match = response_checksums.crc32c.is_some() && reader.options.checksum.crc32c.is_some();
-        let md5_match = !response_checksums.md5_hash.is_empty() && reader.options.checksum.md5_hash.is_some();
-        let should_validate = crc_match || md5_match;
+        let should_track_checksums =
+            should_compute_and_validate_checksums(&response_checksums, &reader.options.checksum);
 
         Ok(Self {
             reader,
@@ -56,7 +55,7 @@ impl ResumableResponse {
             highlights,
             // Fields for computing checksums.
             response_checksums,
-            should_validate,
+            should_track_checksums,
             // Fields for resuming a read request.
             range,
             generation,
@@ -88,7 +87,7 @@ impl ResumableResponse {
         let res = response.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
-                if self.should_validate {
+                if self.should_track_checksums {
                     self.reader
                         .options
                         .checksum
@@ -109,7 +108,7 @@ impl ResumableResponse {
                 if self.range.limit != 0 {
                     return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
                 }
-                if self.should_validate {
+                if self.should_track_checksums {
                     let computed = self.reader.options.checksum.finalize();
                     let res = validate(&self.response_checksums, &Some(computed));
                     if let Err(e) = res {
@@ -246,6 +245,15 @@ fn checksums_from_response(
         .set_md5_hash(parse_http_response::headers_to_md5_hash(headers))
 }
 
+fn should_compute_and_validate_checksums(
+    response: &ObjectChecksums,
+    client: &crate::storage::checksum::details::Checksum,
+) -> bool {
+    let crc_match = response.crc32c.is_some() && client.crc32c.is_some();
+    let md5_match = !response.md5_hash.is_empty() && client.md5_hash.is_some();
+    crc_match || md5_match
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -282,6 +290,39 @@ mod tests {
             got.md5_hash,
             base64::prelude::BASE64_STANDARD.decode(want_md5)?
         );
+        Ok(())
+    }
+
+    #[test]
+    fn test_should_compute_and_validate_checksums_logic() -> anyhow::Result<()> {
+        use crate::storage::checksum::details::{Checksum, Crc32c};
+
+        // Case A: Both have CRC (standard full read)
+        let response = ObjectChecksums::new().set_crc32c(1234_u32);
+        let client = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: None,
+        };
+        assert!(should_compute_and_validate_checksums(&response, &client));
+
+        // Case C: Server sends CRC, but User explicitly disabled it (Client has None)
+        // This is the PROOF: Without our logic, this would evaluate to `true` (computing it anyway).
+        // With our logic, it evaluates to `false` (skipping computation).
+        let response = ObjectChecksums::new().set_crc32c(1234_u32);
+        let client = Checksum {
+            crc32c: None,
+            md5_hash: None,
+        };
+        assert!(!should_compute_and_validate_checksums(&response, &client));
+
+        // Case D: Server sends CRC, User wants MD5 (no match)
+        let response = ObjectChecksums::new().set_crc32c(1234_u32);
+        let client = Checksum {
+            crc32c: None,
+            md5_hash: Some(Default::default()),
+        };
+        assert!(!should_compute_and_validate_checksums(&response, &client));
+
         Ok(())
     }
 
