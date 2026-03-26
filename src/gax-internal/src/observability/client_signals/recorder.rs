@@ -419,6 +419,7 @@ mod tests {
     use httptest::responders::status_code;
     use httptest::{Expectation, Server};
     use pretty_assertions::assert_eq;
+    use std::net::{Ipv4Addr, SocketAddrV4};
 
     const TEST_METHOD_NAME: &str = "google.test.v1.Service/SomeMethod";
     const TEST_PATH_TEMPLATE: &str = "/v42/{parent}";
@@ -603,6 +604,37 @@ mod tests {
         recorder.on_http_request(&request);
         let snap = recorder.client_snapshot();
         assert_eq!(snap.sanitized_url(), Some(WANT_URL), "{snap:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn address_sources() -> anyhow::Result<()> {
+        const RAW_URL: &str = "https://127.0.0.1:1/v42/unused";
+
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.server_address(), TEST_INFO.default_host, "{snap:?}");
+        assert_eq!(snap.server_port(), HTTPS_PORT, "{snap:?}");
+
+        let url = reqwest::Url::parse(RAW_URL)?;
+        let request = reqwest::Request::new(reqwest::Method::GET, url);
+        recorder.on_http_request(&request);
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.server_address(), "127.0.0.1", "{snap:?}");
+        assert_eq!(snap.server_port(), 1, "{snap:?}");
+
+        {
+            let mut guard = recorder.inner.lock().expect("never poisoned");
+            let s = guard.transport_snapshot.as_mut().expect("already set");
+            s.server_address = Some(SocketAddr::V4(SocketAddrV4::new(
+                Ipv4Addr::new(127, 0, 0, 234),
+                234,
+            )));
+        }
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.server_address(), "127.0.0.234", "{snap:?}");
+        assert_eq!(snap.server_port(), 234, "{snap:?}");
+
         Ok(())
     }
 }
