@@ -418,6 +418,7 @@ mod tests {
     use httptest::matchers::request::method_path;
     use httptest::responders::status_code;
     use httptest::{Expectation, Server};
+    use pretty_assertions::assert_eq;
 
     const TEST_METHOD_NAME: &str = "google.test.v1.Service/SomeMethod";
     const TEST_PATH_TEMPLATE: &str = "/v42/{parent}";
@@ -511,11 +512,33 @@ mod tests {
 
         assert_eq!(snap.attempt_count, 1, "{snap:?}");
         assert!(snap.http_status_code().is_none(), "{snap:?}");
-        assert_eq!(
-            snap.server_address().as_str(),
-            TEST_INFO.default_host,
-            "{snap:?}"
-        );
+        assert_eq!(snap.server_address().as_str(), "127.0.0.1", "{snap:?}");
+        assert_eq!(snap.server_port(), 1, "{snap:?}");
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn http_bad_url() {
+        const BAD_URL: &str = "bad-url";
+
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let scoped = recorder.clone();
+        // Normally this code would be in the `tracing.rs` layer. Inline it here so we can examine the
+        // effects on the `RequestRecorder`.
+        let got = scoped
+            .scope(simulate_http_client_transport_layer(BAD_URL))
+            .await;
+        assert!(matches!(got, Err(ref e) if e.is_io()), "{got:?}");
+        let snap = recorder.client_snapshot();
+
+        assert_eq!(snap.start, Instant::now(), "{snap:?}");
+        assert_eq!(snap.rpc_method(), Some(TEST_METHOD_NAME), "{snap:?}");
+        assert_eq!(snap.url_template(), Some(TEST_PATH_TEMPLATE), "{snap:?}");
+        assert!(snap.rpc_system().is_none(), "{snap:?}");
+        assert!(snap.sanitized_url().is_none(), "{snap:?}");
+
+        assert_eq!(snap.attempt_count, 1, "{snap:?}");
+        assert!(snap.http_status_code().is_none(), "{snap:?}");
+        assert_eq!(snap.server_address().as_str(), "example.com", "{snap:?}");
         assert_eq!(snap.server_port(), 443, "{snap:?}");
     }
 
