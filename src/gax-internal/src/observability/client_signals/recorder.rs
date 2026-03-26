@@ -23,6 +23,7 @@ use reqwest::Method;
 use std::future::Future;
 use std::net::SocketAddr;
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
 use tokio::time::Instant;
 
 const HTTPS_PORT: u16 = 443;
@@ -255,6 +256,11 @@ impl ClientSnapshot {
             attempt_count: 0_u32,
             transport_snapshot: None,
         }
+    }
+
+    /// Returns the client request duration.
+    pub fn client_duration(&self) -> Duration {
+        self.start.elapsed()
     }
 
     /// Returns the default host (e.g. `storage.googleapis.com`).
@@ -636,5 +642,14 @@ mod tests {
         assert_eq!(snap.server_port(), 234, "{snap:?}");
 
         Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn client_duration() {
+        const DURATION: Duration = Duration::from_millis(123456);
+        let recorder = RequestRecorder::new(TEST_INFO);
+        tokio::time::sleep(DURATION).await;
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.client_duration(), DURATION, "{snap:?}");
     }
 }
