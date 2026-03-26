@@ -47,7 +47,6 @@ impl ResumableResponse {
 
         let highlights = parse_http_response::object_highlights(generation, headers)?;
 
-        // Optimization: only compute the checksums that the server provided.
         if response_checksums.crc32c.is_none() {
             reader.options.checksum.crc32c = None;
         }
@@ -253,14 +252,14 @@ fn checksums_from_response(
         .set_md5_hash(parse_http_response::headers_to_md5_hash(headers))
 }
 
-/// Returns true if there is any intersection between server-provided checksums
-/// and client-requested checksums, enabling validation.
+/// Returns true if there is any intersection between checksums enabled in request options
+/// and those returned from server response, enabling checksum computation and validation.
 fn should_compute_and_validate_checksums(
     response: &ObjectChecksums,
-    client: &crate::storage::checksum::details::Checksum,
+    request_options: &crate::storage::checksum::details::Checksum,
 ) -> bool {
-    let crc_match = response.crc32c.is_some() && client.crc32c.is_some();
-    let md5_match = !response.md5_hash.is_empty() && client.md5_hash.is_some();
+    let crc_match = response.crc32c.is_some() && request_options.crc32c.is_some();
+    let md5_match = !response.md5_hash.is_empty() && request_options.md5_hash.is_some();
     crc_match || md5_match
 }
 
@@ -304,7 +303,7 @@ mod tests {
     }
 
     #[test]
-    fn test_new_prunes_checksums() -> anyhow::Result<()> {
+    fn new_aligns_client_checksums_with_response() -> anyhow::Result<()> {
         use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
         use crate::storage::client::tests::test_inner_client;
         use crate::storage::read_object::Reader;
@@ -320,13 +319,12 @@ mod tests {
                 .set_object("object"),
             options: crate::storage::request_options::RequestOptions::new(),
         };
-        // Client requests both
+        // Request options has both checksums enabled.
         reader.options.checksum = Checksum {
             crc32c: Some(Crc32c::default()),
             md5_hash: Some(Md5::default()),
         };
-
-        // Server only provides CRC32C
+        // Server response only has CRC32C.
         let response = http::Response::builder()
             .status(200)
             .header("x-goog-hash", "crc32c=SZYC0g==")
@@ -336,7 +334,7 @@ mod tests {
 
         let res = ResumableResponse::new(reader, Response::from(response))?;
 
-        // Verify MD5 is pruned since server lacks it
+        // Verify MD5 is not tracked.
         assert!(res.reader.options.checksum.crc32c.is_some());
         assert!(res.reader.options.checksum.md5_hash.is_none());
         assert!(res.should_track_checksums);
@@ -344,34 +342,37 @@ mod tests {
         Ok(())
     }
 
-    #[test]
-    fn test_should_compute_and_validate_checksums_logic() -> anyhow::Result<()> {
-        use crate::storage::checksum::details::{Checksum, Crc32c};
+    #[test_case(Some(1234), false, true, false, true; "server has crc, request options has crc")]
+    #[test_case(Some(1234), false, false, false, false; "server has crc, request options disables crc")]
+    #[test_case(Some(1234), false, false, true, false; "server has crc, request options enables md5 only")]
+    #[test_case(None, true, false, true, true; "server has md5, request options enables md5")]
+    #[test_case(None, true, true, false, false; "server has md5, request options enables crc only")]
+    fn should_compute_and_validate_checksums_logic(
+        server_crc: Option<u32>,
+        server_md5: bool,
+        request_options_crc: bool,
+        request_options_md5: bool,
+        expected: bool,
+    ) -> anyhow::Result<()> {
+        use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
 
-        // Both provide CRC32C (standard full read)
-        let response = ObjectChecksums::new().set_crc32c(1234_u32);
-        let client = Checksum {
-            crc32c: Some(Crc32c::default()),
-            md5_hash: None,
+        let mut response = ObjectChecksums::new();
+        if let Some(crc) = server_crc {
+            response = response.set_crc32c(crc);
+        }
+        if server_md5 {
+            response = response.set_md5_hash(vec![1, 2, 3]);
+        }
+
+        let request_options = Checksum {
+            crc32c: request_options_crc.then(Crc32c::default),
+            md5_hash: request_options_md5.then(Md5::default),
         };
-        assert!(should_compute_and_validate_checksums(&response, &client));
 
-        // Client disables CRC32C -> skip computation even if server sends it
-        let response = ObjectChecksums::new().set_crc32c(1234_u32);
-        let client = Checksum {
-            crc32c: None,
-            md5_hash: None,
-        };
-        assert!(!should_compute_and_validate_checksums(&response, &client));
-
-        // Mismatch (Server CRC32C vs Client MD5) -> skip
-        let response = ObjectChecksums::new().set_crc32c(1234_u32);
-        let client = Checksum {
-            crc32c: None,
-            md5_hash: Some(Default::default()),
-        };
-        assert!(!should_compute_and_validate_checksums(&response, &client));
-
+        assert_eq!(
+            should_compute_and_validate_checksums(&response, &request_options),
+            expected
+        );
         Ok(())
     }
 
