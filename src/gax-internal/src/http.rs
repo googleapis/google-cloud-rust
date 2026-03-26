@@ -83,7 +83,7 @@ impl ReqwestClient {
         let universe_domain =
             google_cloud_auth::universe_domain::resolve(config.universe_domain.as_deref(), &cred)
                 .await
-                .map_err(BuilderError::cred)?;
+                .map_err(BuilderError::transport)?;
 
         let mut builder = ::reqwest::Client::builder();
         // Force http1 as http2 with not currently supported.

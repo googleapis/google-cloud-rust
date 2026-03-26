@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
 use crate::credentials::Credentials;
 use crate::errors::CredentialsError;
-use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
 
 // TODO: how to make this internal only ?
 pub async fn resolve(
@@ -50,16 +50,13 @@ async fn resolve_internal(
         .unwrap_or(DEFAULT_UNIVERSE_DOMAIN)
         .to_string();
 
-    // Verification
-    if let Some(config_universe) = config_universe {
-        if let Some(cred_universe) = &cred_universe {
-            if config_universe != cred_universe {
-                return Err(crate::errors::non_retryable_from_str(format!(
-                    "Universe domain mismatch: client configured with '{}' but credentials found '{}'",
-                    config_universe, cred_universe
-                )));
-            }
-        }
+    let cred_universe = cred_universe.as_deref().unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
+
+    if universe_domain != cred_universe {
+        return Err(crate::errors::non_retryable_from_str(format!(
+            "Universe domain mismatch: resolved universe configuration to '{}' but found credentials for '{}'",
+            universe_domain, cred_universe
+        )));
     }
 
     Ok(universe_domain)

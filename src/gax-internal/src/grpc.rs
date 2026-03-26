@@ -110,7 +110,7 @@ impl Client {
             &credentials,
         )
         .await
-        .map_err(BuilderError::cred)?;
+        .map_err(BuilderError::transport)?;
 
         let tracing_enabled = crate::options::tracing_enabled(&config);
 
