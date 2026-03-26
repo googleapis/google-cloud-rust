@@ -629,7 +629,7 @@ libraries:
     version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-dataplex-v1
-    version: 1.9.0
+    version: 2.0.0
     copyright_year: "2025"
   - name: google-cloud-dataproc-v1
     version: 1.8.0
