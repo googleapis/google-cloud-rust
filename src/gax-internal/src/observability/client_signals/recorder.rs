@@ -261,12 +261,12 @@ impl ClientSnapshot {
 
     /// Returns the service name (e.g. `storage`).
     ///
-    /// Use with the "url.domain" attribute.
+    /// Use with the "gcp.client.service" attribute.
     pub fn service_name(&self) -> &'static str {
         self.info.service_name
     }
 
-    /// Returns the service name (e.g. `1.2.3`).
+    /// Returns the service version (e.g. `1.2.3`).
     ///
     /// Use with the "gcp.client.version" attribute.
     pub fn client_version(&self) -> &'static str {
@@ -282,7 +282,7 @@ impl ClientSnapshot {
 
     /// Returns the Rust crate.
     ///
-    /// Use with the "gcp.client.artifact" attribute.
+    /// Use as instrumentation name, and with the "gcp.client.artifact" attribute.
     pub fn client_artifact(&self) -> &'static str {
         self.info.client_artifact
     }
@@ -352,11 +352,12 @@ impl ClientSnapshot {
             .and_then(|s| s.http_method.as_ref().map(|m| m.as_str()))
     }
 
-    /// Returns the HTTP method (e.g. POST) used in the last request.
+    /// Returns the "resend count" of the last request, if it was a retry.
     ///
-    /// Note that this may not be populated for gRPC requests.
+    /// The resend count of the initial attempt is `None`, and starts at 1 for each retry attempt
+    /// made.
     ///
-    /// Use with the "http.request.method" attribute.
+    /// Use with the "http.request.resend_count" attribute.
     pub fn http_resend_count(&self) -> Option<u32> {
         if self.attempt_count <= 1 {
             return None;

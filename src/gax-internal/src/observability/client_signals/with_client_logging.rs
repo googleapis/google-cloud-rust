@@ -94,7 +94,7 @@ where
                 tracing::event!(
                     name: NAME,
                     target: TARGET,
-                    tracing::Level::ERROR,
+                    tracing::Level::WARN,
                     { RPC_SYSTEM_NAME } = snapshot.rpc_system(),
                     { RPC_SERVICE } = snapshot.service_name(),
                     { RPC_METHOD } = snapshot.rpc_method(),
@@ -102,6 +102,7 @@ where
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
                     { URL_DOMAIN } = snapshot.default_host(),
+                    // TODO(#5152) - sanitize the URL.
                     { URL_FULL } = snapshot.url(),
                     { URL_TEMPLATE } = snapshot.url_template(),
                     { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
@@ -111,6 +112,7 @@ where
                     { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code(),
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
                     { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count(),
+                    // TODO(#5151) - append actionable error info.
                     "{error:?}"
                 );
             }
@@ -280,7 +282,6 @@ mod tests {
         assert!(object.remove("timestamp").is_some(), "{parsed:?}");
         let want = json!({
             "level": "ERROR",
-            "target": "experimental.client.request",
             "target": "experimental.client.request",
         });
         assert_eq!(Some(&object), want.as_object(), "{parsed:?}");
