@@ -238,9 +238,8 @@ mod tests {
             "gcp.client.repo": "googleapis/google-cloud-rust",
             "gcp.client.version": "1.2.3",
             "url.full": format!("{}/", BAD_URL),
-            // TODO(#5144) - use the port attempted
-            "server.address": "example.com",
-            "server.port": 443,
+            "server.address": "127.0.0.1",
+            "server.port": 1,
             "http.request.method": "GET",
         });
         assert_eq!(Some(&fields), want.as_object(), "{parsed:?}");

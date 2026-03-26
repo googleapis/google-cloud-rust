@@ -18,11 +18,14 @@ use crate::observability::http_tracing::sanitize_url;
 use crate::options::InstrumentationClientInfo;
 #[cfg(feature = "_internal-http-client")]
 use google_cloud_gax::error::Error;
+use http::Uri;
 use reqwest::Method;
 use std::future::Future;
 use std::net::SocketAddr;
 use std::sync::{Arc, Mutex};
 use tokio::time::Instant;
+
+const HTTPS_PORT: u16 = 443;
 
 tokio::task_local! {
     static RECORDER: RequestRecorder;
@@ -300,22 +303,40 @@ impl ClientSnapshot {
     ///
     /// If no address is known, use the target address from `info.default_host`.
     pub fn server_address(&self) -> String {
-        self.transport_snapshot
+        if let Some(address) = self
+            .transport_snapshot
             .as_ref()
             .and_then(|s| s.server_address)
             .map(|a| a.ip().to_string())
-            .unwrap_or_else(|| self.info.default_host.to_string())
+        {
+            return address;
+        }
+        if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok()) {
+            if let Some(host) = uri.authority().map(|a| a.host().to_string()) {
+                return host;
+            }
+        }
+        self.info.default_host.to_string()
     }
 
     /// Returns the server port used in the last low-level request.
     ///
     /// If no port is known, use the port implied by `info.default_host`.
     pub fn server_port(&self) -> u16 {
-        self.transport_snapshot
+        if let Some(port) = self
+            .transport_snapshot
             .as_ref()
             .and_then(|s| s.server_address)
             .map(|a| a.port())
-            .unwrap_or(443)
+        {
+            return port;
+        }
+        if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok()) {
+            if let Some(host) = uri.authority().and_then(|a| a.port_u16()) {
+                return host;
+            }
+        }
+        HTTPS_PORT
     }
 
     /// Returns the URL template (e.g. "/v1/storage/b/{bucket}") used in the last low-level request.
@@ -397,6 +418,8 @@ mod tests {
     use httptest::matchers::request::method_path;
     use httptest::responders::status_code;
     use httptest::{Expectation, Server};
+    use pretty_assertions::assert_eq;
+    use std::net::{Ipv4Addr, SocketAddrV4};
 
     const TEST_METHOD_NAME: &str = "google.test.v1.Service/SomeMethod";
     const TEST_PATH_TEMPLATE: &str = "/v42/{parent}";
@@ -490,11 +513,33 @@ mod tests {
 
         assert_eq!(snap.attempt_count, 1, "{snap:?}");
         assert!(snap.http_status_code().is_none(), "{snap:?}");
-        assert_eq!(
-            snap.server_address().as_str(),
-            TEST_INFO.default_host,
-            "{snap:?}"
-        );
+        assert_eq!(snap.server_address().as_str(), "127.0.0.1", "{snap:?}");
+        assert_eq!(snap.server_port(), 1, "{snap:?}");
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn http_bad_url() {
+        const BAD_URL: &str = "bad-url";
+
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let scoped = recorder.clone();
+        // Normally this code would be in the `tracing.rs` layer. Inline it here so we can examine the
+        // effects on the `RequestRecorder`.
+        let got = scoped
+            .scope(simulate_http_client_transport_layer(BAD_URL))
+            .await;
+        assert!(matches!(got, Err(ref e) if e.is_io()), "{got:?}");
+        let snap = recorder.client_snapshot();
+
+        assert_eq!(snap.start, Instant::now(), "{snap:?}");
+        assert_eq!(snap.rpc_method(), Some(TEST_METHOD_NAME), "{snap:?}");
+        assert_eq!(snap.url_template(), Some(TEST_PATH_TEMPLATE), "{snap:?}");
+        assert!(snap.rpc_system().is_none(), "{snap:?}");
+        assert!(snap.sanitized_url().is_none(), "{snap:?}");
+
+        assert_eq!(snap.attempt_count, 1, "{snap:?}");
+        assert!(snap.http_status_code().is_none(), "{snap:?}");
+        assert_eq!(snap.server_address().as_str(), "example.com", "{snap:?}");
         assert_eq!(snap.server_port(), 443, "{snap:?}");
     }
 
@@ -559,6 +604,37 @@ mod tests {
         recorder.on_http_request(&request);
         let snap = recorder.client_snapshot();
         assert_eq!(snap.sanitized_url(), Some(WANT_URL), "{snap:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn address_sources() -> anyhow::Result<()> {
+        const RAW_URL: &str = "https://127.0.0.1:1/v42/unused";
+
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.server_address(), TEST_INFO.default_host, "{snap:?}");
+        assert_eq!(snap.server_port(), HTTPS_PORT, "{snap:?}");
+
+        let url = reqwest::Url::parse(RAW_URL)?;
+        let request = reqwest::Request::new(reqwest::Method::GET, url);
+        recorder.on_http_request(&request);
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.server_address(), "127.0.0.1", "{snap:?}");
+        assert_eq!(snap.server_port(), 1, "{snap:?}");
+
+        {
+            let mut guard = recorder.inner.lock().expect("never poisoned");
+            let s = guard.transport_snapshot.as_mut().expect("already set");
+            s.server_address = Some(SocketAddr::V4(SocketAddrV4::new(
+                Ipv4Addr::new(127, 0, 0, 234),
+                234,
+            )));
+        }
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.server_address(), "127.0.0.234", "{snap:?}");
+        assert_eq!(snap.server_port(), 234, "{snap:?}");
+
         Ok(())
     }
 }
