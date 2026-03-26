@@ -30,7 +30,7 @@ pub mod attributes;
 mod errors;
 
 #[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
-mod http_tracing;
+pub(crate) mod http_tracing;
 
 #[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
 pub(crate) use http_tracing::{ResultExt as HttpResultExt, create_http_attempt_span};

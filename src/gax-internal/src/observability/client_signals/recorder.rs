@@ -13,6 +13,8 @@
 // limitations under the License.
 
 use crate::observability::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, RPC_SYSTEM_HTTP};
+#[cfg(feature = "_internal-http-client")]
+use crate::observability::http_tracing::sanitize_url;
 use crate::options::InstrumentationClientInfo;
 #[cfg(feature = "_internal-http-client")]
 use google_cloud_gax::error::Error;
@@ -161,7 +163,7 @@ impl RequestRecorder {
             rpc_system: Some(RPC_SYSTEM_HTTP),
             http_method: Some(request.method().clone()),
             http_status_code: None,
-            url: Some(request.url().to_string()),
+            url: Some(sanitize_url(request.url()).to_string()),
         };
         guard.transport_snapshot = Some(snapshot);
     }
@@ -365,12 +367,12 @@ impl ClientSnapshot {
         Some(self.attempt_count - 1)
     }
 
-    /// Returns the full URL used in the last request.
+    /// Returns the sanitized (but otherwise full) URL used in the last request.
     ///
     /// Note that this may not be populated for gRPC requests.
     ///
-    /// Use with the "rpc.method" attribute.
-    pub fn url(&self) -> Option<&str> {
+    /// Use with the "url.full" attribute.
+    pub fn sanitized_url(&self) -> Option<&str> {
         self.transport_snapshot
             .as_ref()
             .and_then(|s| s.url.as_deref())
@@ -457,7 +459,7 @@ mod tests {
         assert_eq!(snap.rpc_method(), Some(TEST_METHOD_NAME), "{snap:?}");
         assert_eq!(snap.url_template(), Some(TEST_PATH_TEMPLATE), "{snap:?}");
         assert_eq!(snap.rpc_system(), Some("http"), "{snap:?}");
-        assert_eq!(snap.url(), Some(url.as_str()), "{snap:?}");
+        assert_eq!(snap.sanitized_url(), Some(url.as_str()), "{snap:?}");
 
         assert_eq!(snap.attempt_count, 1, "{snap:?}");
         assert_eq!(snap.http_status_code(), Some(404), "{snap:?}");
@@ -484,7 +486,7 @@ mod tests {
         assert_eq!(snap.rpc_method(), Some(TEST_METHOD_NAME), "{snap:?}");
         assert_eq!(snap.url_template(), Some(TEST_PATH_TEMPLATE), "{snap:?}");
         assert_eq!(snap.rpc_system(), Some("http"), "{snap:?}");
-        assert_eq!(snap.url(), Some(BAD_URL), "{snap:?}");
+        assert_eq!(snap.sanitized_url(), Some(BAD_URL), "{snap:?}");
 
         assert_eq!(snap.attempt_count, 1, "{snap:?}");
         assert!(snap.http_status_code().is_none(), "{snap:?}");
@@ -537,11 +539,26 @@ mod tests {
         assert!(snap.rpc_method().is_none(), "{snap:?}");
         assert_eq!(snap.url_template(), Some(STORAGE_PATH_TEMPLATE), "{snap:?}");
         assert_eq!(snap.rpc_system(), Some("http"), "{snap:?}");
-        assert_eq!(snap.url(), Some(url.as_str()), "{snap:?}");
+        assert_eq!(snap.sanitized_url(), Some(url.as_str()), "{snap:?}");
         assert_eq!(snap.attempt_count, 1, "{snap:?}");
         assert_eq!(snap.http_status_code(), Some(404), "{snap:?}");
         let addr = server.addr();
         assert_eq!(snap.server_address(), addr.ip().to_string(), "{snap:?}");
         assert_eq!(snap.server_port(), addr.port(), "{snap:?}");
+    }
+
+    #[test]
+    fn url_is_sanitized() -> anyhow::Result<()> {
+        const RAW_URL: &str = "https://127.0.0.1:1/v42/unused?Signature=ABC&upload_id=123";
+        const WANT_URL: &str =
+            "https://127.0.0.1:1/v42/unused?Signature=REDACTED&upload_id=REDACTED";
+
+        let url = reqwest::Url::parse(RAW_URL)?;
+        let request = reqwest::Request::new(reqwest::Method::GET, url);
+        let recorder = RequestRecorder::new(TEST_INFO);
+        recorder.on_http_request(&request);
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.sanitized_url(), Some(WANT_URL), "{snap:?}");
+        Ok(())
     }
 }
