@@ -38,12 +38,12 @@ The main types to work with this crate are the clients:
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[BusinessGlossaryService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.BusinessGlossaryService.html
-[CatalogService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.CatalogService.html
-[CmekService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.CmekService.html
-[ContentService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.ContentService.html
-[DataProductService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.DataProductService.html
-[DataTaxonomyService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.DataTaxonomyService.html
-[DataScanService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.DataScanService.html
-[MetadataService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.MetadataService.html
-[DataplexService]: https://docs.rs/google-cloud-dataplex-v1/1.9.0/google_cloud_dataplex_v1/client/struct.DataplexService.html
+[BusinessGlossaryService]: https://docs.rs/google-cloud-dataplex-v1/2.0.0/google_cloud_dataplex_v1/client/struct.BusinessGlossaryService.html
+[CatalogService]: https://docs.rs/google-cloud-dataplex-v1/2.0.0/google_cloud_dataplex_v1/client/struct.CatalogService.html
+[CmekService]: https://docs.rs/google-cloud-dataplex-v1/2.0.0/google_cloud_dataplex_v1/client/struct.CmekService.html
+[ContentService]: https://docs.rs/google-cloud-dataplex-v1/2.0.0/google_cloud_dataplex_v1/client/struct.ContentService.html
+[DataProductService]: https://docs.rs/google-cloud-dataplex-v1/2.0.0/google_cloud_dataplex_v1/client/struct.DataProductService.html
+[DataTaxonomyService]: https://docs.rs/google-cloud-dataplex-v1/2.0.0/google_cloud_dataplex_v1/client/struct.DataTaxonomyService.html
+[DataScanService]: https://docs.rs/google-cloud-dataplex-v1/2.0.0/google_cloud_dataplex_v1/client/struct.DataScanService.html
+[MetadataService]: https://docs.rs/google-cloud-dataplex-v1/2.0.0/google_cloud_dataplex_v1/client/struct.MetadataService.html
+[DataplexService]: https://docs.rs/google-cloud-dataplex-v1/2.0.0/google_cloud_dataplex_v1/client/struct.DataplexService.html
