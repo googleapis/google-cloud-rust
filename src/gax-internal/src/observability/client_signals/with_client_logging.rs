@@ -123,7 +123,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::{METHOD, TEST_INFO, URL_TEMPLATE};
+    use super::super::tests::{TEST_INFO, TEST_METHOD, TEST_URL_TEMPLATE};
     use super::*;
     use crate::observability::ClientRequestAttributes;
     use google_cloud_test_utils::tracing::Buffer;
@@ -173,8 +173,8 @@ mod tests {
         let recorder = RequestRecorder::current().expect("current recorder should be available");
         recorder.on_client_request(
             ClientRequestAttributes::default()
-                .set_rpc_method(METHOD)
-                .set_url_template(URL_TEMPLATE)
+                .set_rpc_method(TEST_METHOD)
+                .set_url_template(TEST_URL_TEMPLATE)
                 .set_resource_name("//test.googleapis.com/test-only".to_string()),
         );
         let client = reqwest::Client::new();
@@ -230,10 +230,10 @@ mod tests {
         let want = json!({
             "error.type": "CLIENT_CONNECTION_ERROR",
             "rpc.system.name": "http",
-            "rpc.method": METHOD,
+            "rpc.method": TEST_METHOD,
             "rpc.service": "test-service",
             "url.domain": "example.com",
-            "url.template": URL_TEMPLATE,
+            "url.template": TEST_URL_TEMPLATE,
             "gcp.client.artifact": "test-artifact",
             "gcp.client.repo": "googleapis/google-cloud-rust",
             "gcp.client.version": "1.2.3",
@@ -288,10 +288,10 @@ mod tests {
         assert!(fields.remove("message").is_some(), "{parsed:?}");
         let want = json!({
             "rpc.system.name": "http",
-            "rpc.method": METHOD,
+            "rpc.method": TEST_METHOD,
             "rpc.service": "test-service",
             "url.domain": "example.com",
-            "url.template": URL_TEMPLATE,
+            "url.template": TEST_URL_TEMPLATE,
             "error.type": "404",
             "gcp.client.artifact": "test-artifact",
             "gcp.client.repo": "googleapis/google-cloud-rust",

@@ -214,17 +214,17 @@ mod tests {
         client_artifact: "test-artifact",
         default_host: "example.com",
     };
-    pub(crate) static URL_TEMPLATE: &str = "/v1/projects/{}:test_method";
-    pub(crate) static METHOD: &str = "google.test.v1.Service/TestMethod";
-    pub(crate) const DELAY: Duration = Duration::from_millis(750);
+    pub(crate) static TEST_URL_TEMPLATE: &str = "/v1/projects/{}:test_method";
+    pub(crate) static TEST_METHOD: &str = "google.test.v1.Service/TestMethod";
+    pub(crate) const TEST_REQUEST_DURATION: Duration = Duration::from_millis(750);
     const COMMON_ATTRIBUTES: [(&str, &str); 3] = [
         ("rpc.system.name", "http"),
         ("url.domain", "example.com"),
-        ("url.template", URL_TEMPLATE),
+        ("url.template", TEST_URL_TEMPLATE),
     ];
 
     async fn inner_echo(_options: &RequestOptions) -> Result<String, Error> {
-        tokio::time::sleep(DELAY).await;
+        tokio::time::sleep(TEST_REQUEST_DURATION).await;
         let error = Error::service(
             Status::default()
                 .set_code(Code::NotFound)
@@ -260,7 +260,7 @@ mod tests {
             &TEST_INFO,
             Arc::new(signals.metric_provider.clone()),
         );
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
         // Simulate a client call, this simulates a call that takes 750ms and then returns an error.
         let result = tracing_echo(&metric, &options).await;
         assert!(result.is_err(), "{result:?}");
@@ -469,7 +469,7 @@ mod tests {
             .zip(point.bounds())
             .find(|(count, _bound)| *count >= 1_u64);
         // Find the expected bucket
-        let secs = DELAY.as_secs_f64();
+        let secs = TEST_REQUEST_DURATION.as_secs_f64();
         let (low, high) = BOUNDARIES
             .windows(2)
             .map(|a| (a[0], a[1]))
