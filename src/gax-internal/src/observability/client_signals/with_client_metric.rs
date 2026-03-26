@@ -137,6 +137,8 @@ mod tests {
             &[
                 ("rpc.response.status_code", "OK"),
                 ("url.domain", "example.com"),
+                ("server.address", "example.com"),
+                ("server.port", "443"),
             ],
         );
         Ok(())
@@ -179,6 +181,9 @@ mod tests {
                 ("url.domain", "example.com"),
                 ("url.template", TEST_URL_TEMPLATE),
                 ("http.response.status_code", "404"),
+                ("error.type", "404"),
+                ("server.address", server.addr().ip().to_string().as_str()),
+                ("server.port", format!("{}", server.addr().port()).as_str()),
             ],
         );
         Ok(())

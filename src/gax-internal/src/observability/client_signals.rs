@@ -317,6 +317,9 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
+                ("rpc.system.name", "http"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", FULL_METHOD),
                 ("rpc.response.status_code", "NOT_FOUND"),
             ],
@@ -465,7 +468,7 @@ mod tests {
     pub fn check_metric_data<R>(
         metrics: &Vec<ResourceMetrics>,
         want_count: R,
-        want_attributes: &[(&'static str, &'static str)],
+        want_attributes: &[(&'static str, &str)],
     ) where
         R: std::ops::RangeBounds<u64>,
     {
@@ -495,9 +498,8 @@ mod tests {
                 .map(|kv| (kv.key.as_str(), kv.value.to_string())),
         );
         let want = BTreeSet::from_iter(
-            COMMON_ATTRIBUTES
-                .iter()
-                .chain(want_attributes)
+            want_attributes
+                .into_iter()
                 .map(|(k, v)| (*k, v.to_string())),
         );
         let diff = attr.symmetric_difference(&want).collect::<Vec<_>>();

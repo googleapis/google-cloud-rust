@@ -264,6 +264,9 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
+                ("rpc.system.name", "http"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "OK"),
                 ("http.response.status_code", "200"),
@@ -296,6 +299,9 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
+                ("rpc.system.name", "http"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "NOT_FOUND"),
             ],
@@ -323,6 +329,9 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
+                ("rpc.system.name", "http"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "UNKNOWN"),
                 ("http.response.status_code", "429"),
