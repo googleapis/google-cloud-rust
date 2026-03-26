@@ -184,6 +184,7 @@ macro_rules! client_request_span {
 mod tests {
     use super::duration_metric::BOUNDARIES;
     use super::with_client_signals::{NAME, TARGET};
+    use super::{ClientRequestAttributes, RequestRecorder};
     use crate::observability::DurationMetric;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_gax::error::Error;
@@ -201,6 +202,7 @@ mod tests {
     use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
     use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
     use opentelemetry_sdk::trace::{BatchSpanProcessor, InMemorySpanExporter, SdkTracerProvider};
+    use pretty_assertions::assert_eq;
     use std::collections::BTreeSet;
     use std::sync::Arc;
     use std::time::Duration;
@@ -248,6 +250,43 @@ mod tests {
         inner_echo(options)
             .instrument_client(metric.clone(), start, span)
             .await
+    }
+
+    // Simulate the transport HTTP client for a request that fills the `RequestRecorder` data.
+    async fn recorded_request_transport_client(url: &str) -> Result<String, Error> {
+        let recorder = RequestRecorder::current().expect("current recorder should be available");
+        let client = reqwest::Client::new();
+        let request = client
+            .get(url)
+            .build()
+            .map_err(Error::io)
+            .inspect_err(|e| recorder.on_http_error(e))?;
+
+        recorder.on_http_request(&request);
+        let response = client
+            .execute(request)
+            .await
+            .map_err(Error::io)
+            .inspect_err(|e| recorder.on_http_error(e))?;
+        tokio::time::sleep(TEST_REQUEST_DURATION).await;
+        recorder.on_http_response(&response);
+        Err(Error::http(
+            response.status().as_u16(),
+            response.headers().clone(),
+            bytes::Bytes::from_owner("SIMULATED NOT FOUND"),
+        ))
+    }
+
+    // Simulate the transport stub for a request that fills the `RequestRecorder` data.
+    pub(crate) async fn recorded_request_transport_stub(url: &str) -> Result<String, Error> {
+        let recorder = RequestRecorder::current().expect("current recorder should be available");
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_rpc_method(TEST_METHOD)
+                .set_url_template(TEST_URL_TEMPLATE)
+                .set_resource_name("//test.googleapis.com/test-only".to_string()),
+        );
+        recorded_request_transport_client(url).await
     }
 
     #[tokio::test(start_paused = true)]

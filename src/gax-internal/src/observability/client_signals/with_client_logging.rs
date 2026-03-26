@@ -123,9 +123,10 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::{TEST_INFO, TEST_METHOD, TEST_URL_TEMPLATE};
+    use super::super::tests::{
+        TEST_INFO, TEST_METHOD, TEST_URL_TEMPLATE, recorded_request_transport_stub,
+    };
     use super::*;
-    use crate::observability::ClientRequestAttributes;
     use google_cloud_test_utils::tracing::Buffer;
     use httptest::Expectation;
     use httptest::Server;
@@ -168,36 +169,6 @@ mod tests {
         Ok(())
     }
 
-    // Mock a request that fills the `RequestRecorder` data.
-    async fn recorded_request(url: &str) -> google_cloud_gax::Result<i32> {
-        let recorder = RequestRecorder::current().expect("current recorder should be available");
-        recorder.on_client_request(
-            ClientRequestAttributes::default()
-                .set_rpc_method(TEST_METHOD)
-                .set_url_template(TEST_URL_TEMPLATE)
-                .set_resource_name("//test.googleapis.com/test-only".to_string()),
-        );
-        let client = reqwest::Client::new();
-        let request = client
-            .get(url)
-            .build()
-            .map_err(Error::io)
-            .inspect_err(|e| recorder.on_http_error(e))?;
-
-        recorder.on_http_request(&request);
-        let response = client
-            .execute(request)
-            .await
-            .map_err(Error::io)
-            .inspect_err(|e| recorder.on_http_error(e))?;
-        recorder.on_http_response(&response);
-        Err(Error::http(
-            response.status().as_u16(),
-            response.headers().clone(),
-            bytes::Bytes::from_owner("SIMULATED NOT FOUND"),
-        ))
-    }
-
     #[tokio::test]
     async fn error_with_partial_recorder() -> anyhow::Result<()> {
         const BAD_URL: &str = "https://127.0.0.1:1";
@@ -205,7 +176,7 @@ mod tests {
         let (_guard, buffer) = capture_logs();
         let recorder = RequestRecorder::new(TEST_INFO);
         let scoped = recorder.clone();
-        let logging = WithClientLogging::new(recorded_request(BAD_URL));
+        let logging = WithClientLogging::new(recorded_request_transport_stub(BAD_URL));
         let got = scoped.scope(logging).await;
         assert!(got.is_err(), "{got:?}");
         let parsed = extract_captured_log(buffer)?;
@@ -263,7 +234,9 @@ mod tests {
         let recorder = RequestRecorder::new(TEST_INFO);
         let scoped = recorder.clone();
         let got = scoped
-            .scope(WithClientLogging::new(recorded_request(&url)))
+            .scope(WithClientLogging::new(recorded_request_transport_stub(
+                &url,
+            )))
             .await;
         assert!(matches!(got, Err(ref e) if e.is_transport()), "{got:?}");
         let parsed = extract_captured_log(buffer)?;
