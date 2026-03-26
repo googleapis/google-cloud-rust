@@ -220,8 +220,7 @@ mod tests {
             .unwrap_or_else(|| panic!("serialized error should have fields"));
         assert!(object.remove("timestamp").is_some(), "{parsed:?}");
         let want = json!({
-            "level": "ERROR",
-            "target": "experimental.client.request",
+            "level": "WARN",
             "target": "experimental.client.request",
         });
         assert_eq!(Some(&object), want.as_object(), "{parsed:?}");
@@ -281,7 +280,7 @@ mod tests {
         // Don't care about the timestamp value, just that it exists.
         assert!(object.remove("timestamp").is_some(), "{parsed:?}");
         let want = json!({
-            "level": "ERROR",
+            "level": "WARN",
             "target": "experimental.client.request",
         });
         assert_eq!(Some(&object), want.as_object(), "{parsed:?}");
@@ -320,7 +319,7 @@ mod tests {
             .with_level(true)
             .with_writer(make_writer)
             .json()
-            .with_max_level(Level::ERROR)
+            .with_max_level(Level::WARN)
             .finish();
         let guard = tracing::subscriber::set_default(subscriber);
         (guard, buffer)
