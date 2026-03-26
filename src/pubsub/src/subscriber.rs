@@ -27,6 +27,8 @@ mod leaser;
 mod message_stream;
 mod retry_policy;
 mod shutdown_behavior;
+#[allow(dead_code)] // TODO(#5024) - implementation in progress...
+mod shutdown_token;
 mod stream;
 mod stub;
 mod transport;
