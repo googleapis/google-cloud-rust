@@ -34,7 +34,7 @@ use std::time::Duration;
 pub(crate) struct IamSigner {
     client_email: String,
     inner: Credentials,
-    endpoint: String,
+    iam_endpoint_override: Option<String>,
     client: Client,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
@@ -52,13 +52,17 @@ struct SignBlobResponse {
 }
 
 impl IamSigner {
-    pub(crate) fn new(client_email: String, inner: Credentials, endpoint: Option<String>) -> Self {
+    pub(crate) fn new(
+        client_email: String,
+        inner: Credentials,
+        iam_endpoint_override: Option<String>,
+    ) -> Self {
         let retry_policy = Aip194Strict.with_time_limit(Duration::from_secs(60));
         let backoff_policy = ExponentialBackoff::default();
         Self {
             client_email,
             inner,
-            endpoint: endpoint.unwrap_or("https://iamcredentials.googleapis.com".to_string()),
+            iam_endpoint_override,
             client: Client::new(),
             retry_policy: Arc::new(retry_policy),
             backoff_policy: Arc::new(backoff_policy),
@@ -79,9 +83,18 @@ impl SigningProvider for IamSigner {
         let body = SignBlobRequest { payload };
 
         let client_email = self.client_email.clone();
+        let endpoint = match self.iam_endpoint_override.as_ref() {
+            Some(endpoint) => endpoint.clone(),
+            None => {
+                let universe_domain = crate::universe_domain::resolve(&self.inner)
+                    .await
+                    .map_err(SigningError::transport)?;
+                format!("https://iamcredentials.{universe_domain}")
+            }
+        };
         let url = format!(
             "{}/v1/projects/-/serviceAccounts/{client_email}:signBlob",
-            self.endpoint
+            endpoint
         );
         let response = sign_blob_call_with_retry(
             self.inner.clone(),

@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::constants::{DEFAULT_UNIVERSE_DOMAIN, TRUST_BOUNDARY_HEADER};
+use crate::constants::TRUST_BOUNDARY_HEADER;
 use crate::credentials::EntityTag;
 use crate::credentials::{
     AccessToken, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider, dynamic,
 };
 use crate::errors::CredentialsError;
 use crate::mds::client::Client as MDSClient;
+use crate::universe_domain::is_default_universe_domain;
 use crate::{Result, errors};
 use google_cloud_gax::Result as GaxResult;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
@@ -235,13 +236,23 @@ impl<T> CredentialsWithAccessBoundary<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    pub(crate) fn new(credentials: T, access_boundary_url: Option<String>) -> Self {
+    pub(crate) fn new(
+        credentials: T,
+        access_boundary_url: Option<String>,
+        universe_domain: Option<String>,
+    ) -> Self {
         let credentials = Arc::new(credentials);
         let provider = IAMAccessBoundaryProvider {
             credentials: credentials.clone(),
             url: access_boundary_url,
         };
-        let access_boundary = Arc::new(AccessBoundary::new(provider));
+
+        // Only enable access boundary for default universe domain
+        let access_boundary = if is_default_universe_domain(universe_domain) {
+            Arc::new(AccessBoundary::new(provider))
+        } else {
+            Arc::new(AccessBoundary::new_no_op())
+        };
         Self {
             credentials,
             access_boundary,
@@ -253,14 +264,12 @@ where
         credentials: T,
         mds_client: MDSClient,
         iam_endpoint_override: Option<String>,
-        universe_domain: Option<String>,
     ) -> Self {
         let credentials = Arc::new(credentials);
         let provider = MDSAccessBoundaryProvider {
             credentials: credentials.clone(),
             mds_client,
             iam_endpoint_override,
-            universe_domain,
             url: OnceLock::new(),
         };
         let access_boundary = Arc::new(AccessBoundary::new(provider));
@@ -432,7 +441,6 @@ where
     credentials: Arc<T>,
     mds_client: MDSClient,
     iam_endpoint_override: Option<String>,
-    universe_domain: Option<String>,
     url: OnceLock<String>,
 }
 
@@ -442,17 +450,17 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
+        let universe_domain = self.credentials.universe_domain().await;
+        if !is_default_universe_domain(universe_domain) {
+            return Ok(None);
+        }
+
         if self.url.get().is_none() {
             let email = self.mds_client.email().await?;
-            let universe = self
-                .universe_domain
-                .as_deref()
-                .unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
 
             // Ignore error if we can't set the client email.
             // Might be due to multiple tasks trying to set value
-            let url =
-                service_account_lookup_url(&email, universe, self.iam_endpoint_override.as_deref());
+            let url = service_account_lookup_url(&email, self.iam_endpoint_override.as_deref());
             let _ = self.url.set(url);
         }
 
@@ -602,23 +610,17 @@ where
 
 pub(crate) fn service_account_lookup_url(
     email: &str,
-    universe_domain: &str,
     iam_endpoint_override: Option<&str>,
 ) -> String {
-    let iam_endpoint = iam_endpoint_override
-        .map(String::from)
-        .unwrap_or_else(|| format!("https://iamcredentials.{}", universe_domain));
+    let iam_endpoint = iam_endpoint_override.unwrap_or("https://iamcredentials.googleapis.com");
     format!("{iam_endpoint}/v1/projects/-/serviceAccounts/{email}/allowedLocations")
 }
 
 pub(crate) fn external_account_lookup_url(
     audience: &str,
-    universe_domain: &str,
     iam_endpoint_override: Option<&str>,
 ) -> Option<String> {
-    let iam_endpoint = iam_endpoint_override
-        .map(String::from)
-        .unwrap_or_else(|| format!("https://iamcredentials.{}", universe_domain));
+    let iam_endpoint = iam_endpoint_override.unwrap_or("https://iamcredentials.googleapis.com");
 
     // Strip common domain and scheme prefixes to normalize the relative path.
     let path = audience
@@ -705,11 +707,7 @@ pub(crate) mod tests {
     #[parallel]
     fn test_service_account_url() {
         assert_eq!(
-            service_account_lookup_url(
-                "sa@project.iam.gserviceaccount.com",
-                "googleapis.com",
-                None
-            ),
+            service_account_lookup_url("sa@project.iam.gserviceaccount.com", None),
             "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/sa@project.iam.gserviceaccount.com/allowedLocations"
         );
     }
@@ -735,7 +733,7 @@ pub(crate) mod tests {
         expected: Option<&str>,
         iam_endpoint_override: Option<&str>,
     ) {
-        let actual = external_account_lookup_url(audience, "googleapis.com", iam_endpoint_override);
+        let actual = external_account_lookup_url(audience, iam_endpoint_override);
         assert_eq!(actual.as_deref(), expected);
     }
 
@@ -768,7 +766,7 @@ pub(crate) mod tests {
         });
         let url = server.url("/allowedLocations").to_string();
 
-        let creds = CredentialsWithAccessBoundary::new(mock, Some(url));
+        let creds = CredentialsWithAccessBoundary::new(mock, Some(url), None);
 
         // wait for the background task to fetch the access boundary.
         creds.wait_for_boundary().await;
@@ -821,6 +819,8 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
+        mock.expect_universe_domain().returning(|| None);
+
         let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
         let mds_client = MDSClient::new(Some(endpoint.clone()));
 
@@ -936,7 +936,7 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
-        let creds = CredentialsWithAccessBoundary::new(mock, None);
+        let creds = CredentialsWithAccessBoundary::new(mock, None, None);
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(cached_headers.clone());

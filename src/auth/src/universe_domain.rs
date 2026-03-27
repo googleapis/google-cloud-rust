@@ -16,48 +16,18 @@ use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
 use crate::credentials::Credentials;
 use crate::errors::CredentialsError;
 
-// TODO: how to make this internal only ?
-pub async fn resolve(
-    config_universe: Option<&str>,
-    cred: &Credentials,
-) -> Result<String, CredentialsError> {
-    resolve_internal(config_universe, cred, true).await
-}
-
-#[allow(dead_code)]
-pub(crate) async fn resolve_without_env(
-    config_universe: Option<&str>,
-    cred: &Credentials,
-) -> Result<String, CredentialsError> {
-    resolve_internal(config_universe, cred, false).await
-}
-
-async fn resolve_internal(
-    config_universe: Option<&str>,
-    cred: &Credentials,
-    use_env: bool,
-) -> Result<String, CredentialsError> {
-    let env_universe = if use_env {
-        std::env::var("GOOGLE_CLOUD_UNIVERSE_DOMAIN").ok()
-    } else {
-        None
-    };
-    let cred_universe = cred.universe_domain().await;
-
-    let universe_domain = config_universe
-        .or(cred_universe.as_deref())
-        .or(env_universe.as_deref())
-        .unwrap_or(DEFAULT_UNIVERSE_DOMAIN)
-        .to_string();
-
-    let cred_universe = cred_universe.as_deref().unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
-
-    if universe_domain != cred_universe {
-        return Err(crate::errors::non_retryable_from_str(format!(
-            "Universe domain mismatch: resolved universe configuration to '{}' but found credentials for '{}'",
-            universe_domain, cred_universe
-        )));
+pub(crate) fn is_default_universe_domain<S: Into<String>>(universe_domain: Option<S>) -> bool {
+    let universe_domain = universe_domain.map(|s| s.into());
+    match universe_domain {
+        Some(ud) => ud == DEFAULT_UNIVERSE_DOMAIN,
+        None => true,
     }
+}
 
-    Ok(universe_domain)
+pub(crate) async fn resolve(cred: &Credentials) -> Result<String, CredentialsError> {
+    let cred_universe = cred.universe_domain().await;
+    Ok(cred_universe
+        .as_deref()
+        .unwrap_or(DEFAULT_UNIVERSE_DOMAIN)
+        .to_string())
 }

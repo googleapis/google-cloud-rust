@@ -127,7 +127,6 @@ pub struct Builder {
     scopes: Option<Vec<String>>,
     quota_project_id: Option<String>,
     token_uri: Option<String>,
-    universe_domain: Option<String>,
     retry_builder: RetryTokenProviderBuilder,
 }
 
@@ -144,7 +143,6 @@ impl Builder {
             scopes: None,
             quota_project_id: None,
             token_uri: None,
-            universe_domain: None,
             retry_builder: RetryTokenProviderBuilder::default(),
         }
     }
@@ -167,31 +165,8 @@ impl Builder {
         self
     }
 
-    /// Sets the [universe domain] for this credentials.
-    ///
-    /// The universe domain is the default service domain for a given Cloud universe.
-    /// Any value provided here overrides a `universe_domain` value from the input `authorized_user` JSON.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_auth::credentials::user_account::Builder;
-    /// # use serde_json::json;
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// # let config = json!({
-    /// #     "type": "authorized_user",
-    /// #     "client_id": "client_id",
-    /// #     "client_secret": "client_secret",
-    /// #     "refresh_token": "refresh_token"
-    /// # });
-    /// let credentials = Builder::new(config)
-    ///     .with_universe_domain("googleapis.com")
-    ///     .build()?;
-    /// # Ok(()) }
-    /// ```
-    ///
-    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
-    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
-        self.universe_domain = Some(universe_domain.into());
+    // Only to satisfy ADC credential builder.
+    pub(crate) fn with_universe_domain<S: Into<String>>(self, _universe_domain: S) -> Self {
         self
     }
 
@@ -388,9 +363,6 @@ impl Builder {
             .or(authorized_user.token_uri)
             .unwrap_or(OAUTH2_TOKEN_SERVER_URL.to_string());
         let quota_project_id = self.quota_project_id.or(authorized_user.quota_project_id);
-        let universe_domain = self
-            .universe_domain
-            .or(authorized_user.universe_domain.clone());
 
         let token_provider = UserTokenProvider {
             client_id: authorized_user.client_id,
@@ -407,7 +379,6 @@ impl Builder {
             inner: Arc::new(UserCredentials {
                 token_provider,
                 quota_project_id,
-                universe_domain,
             }),
         })
     }
@@ -527,7 +498,6 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
-    universe_domain: Option<String>,
 }
 
 #[async_trait::async_trait]
@@ -541,10 +511,6 @@ where
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
             .build()
-    }
-
-    async fn universe_domain(&self) -> Option<String> {
-        self.universe_domain.clone()
     }
 }
 
@@ -570,8 +536,6 @@ pub(crate) struct AuthorizedUser {
     token_uri: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     quota_project_id: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    universe_domain: Option<String>,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -606,6 +570,7 @@ pub(crate) struct Oauth2RefreshResponse {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
@@ -753,7 +718,6 @@ mod tests {
             refresh_token: "test-refresh-token".to_string(),
             quota_project_id: Some("test-project".to_string()),
             token_uri: Some("test-token-uri".to_string()),
-            universe_domain: Some("googleapis.com".to_string()),
         };
         let actual = serde_json::from_value::<AuthorizedUser>(json).unwrap();
         assert_eq!(actual, expected);
@@ -775,7 +739,6 @@ mod tests {
             refresh_token: "test-refresh-token".to_string(),
             quota_project_id: None,
             token_uri: None,
-            universe_domain: None,
         };
         let actual = serde_json::from_value::<AuthorizedUser>(json).unwrap();
         assert_eq!(actual, expected);
@@ -808,9 +771,8 @@ mod tests {
         let uc = UserCredentials {
             token_provider: mock,
             quota_project_id: None,
-            universe_domain: None,
         };
-        assert!(uc.universe_domain().await.is_none());
+        assert_eq!(uc.universe_domain().await.unwrap(), DEFAULT_UNIVERSE_DOMAIN);
     }
 
     #[tokio::test]
@@ -828,7 +790,6 @@ mod tests {
         let uc = UserCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
-            universe_domain: None,
         };
 
         let mut extensions = Extensions::new();
@@ -864,7 +825,6 @@ mod tests {
         let uc = UserCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
-            universe_domain: None,
         };
         let result = uc.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");
@@ -885,7 +845,6 @@ mod tests {
         let uc = UserCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: Some("test-project".to_string()),
-            universe_domain: None,
         };
 
         let headers = get_headers_from_cache(uc.headers(Extensions::new()).await.unwrap())?;

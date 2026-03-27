@@ -73,7 +73,7 @@ pub(crate) mod jws;
 
 use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::build_errors::Error as BuilderError;
-use crate::constants::{DEFAULT_SCOPE, DEFAULT_UNIVERSE_DOMAIN};
+use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self};
@@ -379,20 +379,18 @@ impl Builder {
             universe_domain_override.or(token_provider.service_account_key.universe_domain.clone());
         let access_boundary_url = crate::access_boundary::service_account_lookup_url(
             &client_email,
-            universe_domain
-                .as_deref()
-                .unwrap_or(DEFAULT_UNIVERSE_DOMAIN),
             iam_endpoint.as_deref(),
         );
         let creds = ServiceAccountCredentials {
             quota_project_id,
             token_provider: TokenCache::new(token_provider),
-            universe_domain,
+            universe_domain: universe_domain.clone(),
         };
 
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             Some(access_boundary_url),
+            universe_domain,
         ))
     }
 

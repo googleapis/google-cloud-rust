@@ -105,12 +105,10 @@ impl Client {
     ) -> ClientBuilderResult<Self> {
         let credentials = Self::make_credentials(&config).await?;
 
-        let universe_domain = google_cloud_auth::universe_domain::resolve(
-            config.universe_domain.as_deref(),
-            &credentials,
-        )
-        .await
-        .map_err(BuilderError::transport)?;
+        let universe_domain =
+            crate::universe_domain::resolve(config.universe_domain.as_deref(), &credentials)
+                .await
+                .map_err(BuilderError::transport)?;
 
         let tracing_enabled = crate::options::tracing_enabled(&config);
 

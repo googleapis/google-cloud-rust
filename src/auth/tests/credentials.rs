@@ -574,6 +574,13 @@ mod tests {
             .times(0..)
             .respond_with(status_code(200).body("some-client-email")),
         ); // access boundaries might have enough time to fetch email
+        server.expect(
+            Expectation::matching(request::path(
+                "/computeMetadata/v1/universe/universe-domain",
+            ))
+            .times(0..)
+            .respond_with(status_code(404)),
+        ); // access boundaries might have enough time to fetch universe domain to check if should be enabled
 
         let test_quota_project = "test-quota-project";
         let mdcs = MdsBuilder::default()

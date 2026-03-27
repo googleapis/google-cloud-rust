@@ -115,7 +115,7 @@ use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, 
 use super::{CacheableResource, Credentials};
 use crate::access_boundary::{CredentialsWithAccessBoundary, external_account_lookup_url};
 use crate::build_errors::Error as BuilderError;
-use crate::constants::{DEFAULT_SCOPE, DEFAULT_UNIVERSE_DOMAIN, STS_TOKEN_URL};
+use crate::constants::{DEFAULT_SCOPE, STS_TOKEN_URL};
 use crate::credentials::dynamic::AccessTokenCredentialsProvider;
 use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
 use crate::credentials::subject_token::dynamic;
@@ -808,21 +808,18 @@ impl Builder {
             ));
         }
 
+        let universe_domain = file.universe_domain.clone();
         let config: ExternalAccountConfig = file.into();
 
-        let access_boundary_url = external_account_lookup_url(
-            &config.audience,
-            self.universe_domain
-                .as_deref()
-                .unwrap_or(DEFAULT_UNIVERSE_DOMAIN),
-            self.iam_endpoint_override.as_deref(),
-        );
+        let access_boundary_url =
+            external_account_lookup_url(&config.audience, self.iam_endpoint_override.as_deref());
 
         let creds = config.make_credentials(self.quota_project_id, self.retry_builder);
 
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             access_boundary_url,
+            universe_domain,
         ))
     }
 }

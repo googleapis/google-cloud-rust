@@ -88,7 +88,7 @@ use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
 use std::default::Default;
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
 // TODO(#2235) - Improve this message by talking about retries when really running with MDS
 const MDS_NOT_FOUND_ERROR: &str = concat!(
@@ -105,7 +105,8 @@ where
     T: CachedTokenProvider,
 {
     quota_project_id: Option<String>,
-    universe_domain: Option<String>,
+    universe_domain_override: Option<String>,
+    universe_domain: OnceLock<Option<String>>,
     token_provider: T,
     mds_client: MDSClient,
 }
@@ -340,11 +341,11 @@ impl Builder {
     ) -> BuildResult<CredentialsWithAccessBoundary<MDSCredentials<TokenCache>>> {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let is_access_boundary_enabled = self.is_access_boundary_enabled;
-        let universe_domain = self.universe_domain.clone();
         let mds_client = MDSClient::new(self.endpoint.clone());
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
-            universe_domain: universe_domain.clone(),
+            universe_domain_override: self.universe_domain.clone(),
+            universe_domain: OnceLock::new(),
             token_provider: TokenCache::new(self.build_token_provider()),
             mds_client: mds_client.clone(),
         };
@@ -355,7 +356,6 @@ impl Builder {
             mdsc,
             mds_client,
             iam_endpoint,
-            universe_domain,
         ))
     }
 
@@ -405,10 +405,21 @@ where
     }
 
     async fn universe_domain(&self) -> Option<String> {
-        if let Some(ud) = &self.universe_domain {
+        if let Some(ud) = &self.universe_domain_override {
             return Some(ud.clone());
         }
-        self.mds_client.universe_domain().await.ok()
+        if let Some(ud) = self.universe_domain.get() {
+            return ud.clone();
+        }
+
+        // No overrides and no cache. Try to fetch from MDS.
+        let response = self.mds_client.universe_domain().await;
+        let universe_domain = match response {
+            Ok(universe_domain) => Some(universe_domain),
+            Err(_) => None,
+        };
+        let _ = self.universe_domain.set(universe_domain.clone());
+        universe_domain
     }
 }
 
@@ -644,7 +655,8 @@ mod tests {
         let mdsc = MDSCredentials {
             quota_project_id: None,
             token_provider: TokenCache::new(mock),
-            universe_domain: None,
+            universe_domain_override: None,
+            universe_domain: OnceLock::new(),
             mds_client: MDSClient::new(None),
         };
 
@@ -707,7 +719,8 @@ mod tests {
         let mdsc = MDSCredentials {
             quota_project_id: None,
             token_provider: TokenCache::new(mock),
-            universe_domain: None,
+            universe_domain_override: None,
+            universe_domain: OnceLock::new(),
             mds_client: MDSClient::new(None),
         };
         let result = mdsc.headers(Extensions::new()).await;
@@ -883,7 +896,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     #[parallel]
     async fn token_caching() -> TestResult {
-        let mut server = Server::run();
+        let server = Server::run();
         let scopes = vec!["scope1".to_string()];
         let response = MDSTokenResponse {
             access_token: "test-access-token".to_string(),
@@ -902,6 +915,7 @@ mod tests {
         let mdsc = Builder::default()
             .with_scopes(scopes)
             .with_endpoint(format!("http://{}", server.addr()))
+            .without_access_boundary()
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
@@ -913,9 +927,6 @@ mod tests {
             get_token_from_headers(headers).unwrap(),
             "test-access-token"
         );
-
-        // validate that the inner token provider is called only once
-        server.verify_and_clear();
 
         Ok(())
     }
@@ -1170,6 +1181,7 @@ mod tests {
     #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn e2e_access_boundary() -> TestResult {
         use crate::credentials::tests::get_access_boundary_from_headers;
+        use crate::mds::MDS_UNIVERSE_DOMAIN_URI;
 
         let server = Server::run();
         server.expect(
@@ -1183,6 +1195,10 @@ mod tests {
         server.expect(
             Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/email")),])
                 .respond_with(status_code(200).body("test-client-email")),
+        );
+        server.expect(
+            Expectation::matching(all_of![request::path(MDS_UNIVERSE_DOMAIN_URI),])
+                .respond_with(status_code(404)),
         );
         server.expect(
             Expectation::matching(all_of![

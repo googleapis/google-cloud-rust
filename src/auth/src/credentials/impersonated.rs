@@ -91,7 +91,7 @@
 
 use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::build_errors::Error as BuilderError;
-use crate::constants::{DEFAULT_SCOPE, DEFAULT_UNIVERSE_DOMAIN};
+use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{
     AccessToken, AccessTokenCredentials, CacheableResource, Credentials, build_credentials,
@@ -527,15 +527,12 @@ impl Builder {
         let (token_provider, quota_project_id) = self.build_components()?;
         let access_boundary_url = crate::access_boundary::service_account_lookup_url(
             &client_email,
-            universe_domain
-                .as_deref()
-                .unwrap_or(DEFAULT_UNIVERSE_DOMAIN),
             iam_endpoint_override.as_deref(),
         );
         let creds = ImpersonatedServiceAccount {
             token_provider: TokenCache::new(token_provider),
             quota_project_id,
-            universe_domain,
+            universe_domain: universe_domain.clone(),
         };
 
         if !is_access_boundary_enabled {
@@ -545,6 +542,7 @@ impl Builder {
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             Some(access_boundary_url),
+            universe_domain,
         ))
     }
 
