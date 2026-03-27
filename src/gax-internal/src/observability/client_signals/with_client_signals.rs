@@ -32,8 +32,7 @@ use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::error::rpc::Code;
 use opentelemetry_semantic_conventions::attribute::{
-    ERROR_TYPE, EXCEPTION_MESSAGE, EXCEPTION_TYPE, HTTP_RESPONSE_STATUS_CODE, RPC_METHOD,
-    URL_DOMAIN, URL_TEMPLATE,
+    ERROR_TYPE, EXCEPTION_MESSAGE, EXCEPTION_TYPE, RPC_METHOD, URL_DOMAIN, URL_TEMPLATE,
 };
 use pin_project::pin_project;
 use std::future::Future;
