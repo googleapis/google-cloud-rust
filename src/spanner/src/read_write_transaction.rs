@@ -36,6 +36,7 @@ use crate::statement::Statement;
 use std::sync::atomic::Ordering;
 
 /// A builder for [ReadWriteTransaction].
+#[derive(Clone)]
 pub(crate) struct ReadWriteTransactionBuilder {
     client: DatabaseClient,
     options: TransactionOptions,
@@ -59,6 +60,17 @@ impl ReadWriteTransactionBuilder {
             self.options = self
                 .options
                 .set_read_write(rw.set_read_lock_mode(read_lock_mode));
+        }
+        self
+    }
+
+    pub(crate) fn with_previous_transaction_id(mut self, id: Option<bytes::Bytes>) -> Self {
+        if let Some(id) = id {
+            if let Some(Mode::ReadWrite(rw)) = self.options.mode.take() {
+                self.options = self
+                    .options
+                    .set_read_write(rw.set_multiplexed_session_previous_transaction_id(id));
+            }
         }
         self
     }
@@ -241,7 +253,7 @@ impl ReadWriteTransaction {
         }
     }
 
-    fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
+    pub(crate) fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
         match &self.context.transaction_selector.selector {
             Some(Selector::Id(id)) => Ok(id.clone()),
             _ => Err(internal_error("Transaction ID is missing")),

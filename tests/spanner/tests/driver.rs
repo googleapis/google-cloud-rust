@@ -59,6 +59,11 @@ mod spanner {
         )
         .await?;
 
+        integration_tests_spanner::read_write_transaction::concurrent_read_write_transaction_retries(
+            &db_client,
+        )
+        .await?;
+
         Ok(())
     }
 
