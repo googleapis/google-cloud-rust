@@ -220,11 +220,11 @@ impl ResultSet {
     ///
     /// This consumes the [`ResultSet`] and returns a stream of rows.
     #[cfg(feature = "unstable-stream")]
-    pub fn into_stream(self) -> impl Stream<Item = crate::Result<Row>> {
+    pub fn into_stream(self) -> impl Stream<Item = crate::Result<Row>> + Unpin {
         use futures::stream::unfold;
-        unfold(self, |mut result_set| async move {
+        Box::pin(unfold(self, |mut result_set| async move {
             result_set.next().await.map(|row| (row, result_set))
-        })
+        }))
     }
 }
 
