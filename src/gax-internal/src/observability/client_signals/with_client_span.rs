@@ -27,7 +27,6 @@ use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
 use opentelemetry_semantic_conventions::attribute::{
     HTTP_RESPONSE_STATUS_CODE, RPC_METHOD, RPC_SYSTEM, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
-    URL_PATH, URL_QUERY,
 };
 use pin_project::pin_project;
 use std::future::Future;
@@ -67,9 +66,6 @@ where
             return Poll::Ready(output);
         };
 
-        let url_path = snapshot.url().map(|u| u.path());
-        let url_query = snapshot.url().and_then(|u| u.query());
-
         match &output {
             Ok(_) => {
                 tracing::record_all!(
@@ -81,8 +77,6 @@ where
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
                     { URL_FULL } = snapshot.sanitized_url(),
-                    { URL_PATH } = url_path,
-                    { URL_QUERY } = url_query,
                     { SERVER_ADDRESS } = snapshot.server_address(),
                     { SERVER_PORT } = snapshot.server_port(),
                     { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code(),
@@ -104,8 +98,6 @@ where
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
                     { URL_FULL } = snapshot.sanitized_url(),
-                    { URL_PATH } = url_path,
-                    { URL_QUERY } = url_query,
                     { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
                     { ERROR_TYPE } = error_type.as_str(),
                     { SERVER_ADDRESS } = snapshot.server_address(),
@@ -150,8 +142,6 @@ mod tests {
             { GCP_CLIENT_REPO } = ::tracing::field::Empty,
             { GCP_CLIENT_ARTIFACT } = ::tracing::field::Empty,
             { URL_FULL } = ::tracing::field::Empty,
-            { URL_PATH } = ::tracing::field::Empty,
-            { URL_QUERY } = ::tracing::field::Empty,
             { SERVER_ADDRESS } = ::tracing::field::Empty,
             { SERVER_PORT } = ::tracing::field::Empty,
             { HTTP_RESPONSE_STATUS_CODE } = ::tracing::field::Empty,
@@ -220,8 +210,6 @@ mod tests {
             { GCP_CLIENT_REPO } = ::tracing::field::Empty,
             { GCP_CLIENT_ARTIFACT } = ::tracing::field::Empty,
             { URL_FULL } = ::tracing::field::Empty,
-            { URL_PATH } = ::tracing::field::Empty,
-            { URL_QUERY } = ::tracing::field::Empty,
             { SERVER_ADDRESS } = ::tracing::field::Empty,
             { SERVER_PORT } = ::tracing::field::Empty,
             { HTTP_RESPONSE_STATUS_CODE } = ::tracing::field::Empty,
