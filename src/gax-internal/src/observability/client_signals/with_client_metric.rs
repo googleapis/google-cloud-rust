@@ -93,7 +93,7 @@ mod tests {
     use std::sync::Arc;
 
     #[tokio::test]
-    async fn no_recorder() -> anyhow::Result<()> {
+    async fn ok_no_recorder() -> anyhow::Result<()> {
         let signals = SignalProviders::new();
         let metric = DurationMetric::new_with_provider(
             &TEST_INFO,
@@ -101,6 +101,25 @@ mod tests {
         );
         let got = WithClientMetric::new(metric, async { Ok(123) }).await;
         assert!(matches!(got, Ok(123)), "{got:?}");
+
+        signals.force_flush()?;
+        // Verify the metrics include the data we want.
+        let metrics = signals.metric_exporter.get_finished_metrics()?;
+        assert!(metrics.is_empty(), "{metrics:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn err_no_recorder() -> anyhow::Result<()> {
+        let signals = SignalProviders::new();
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(signals.metric_provider.clone()),
+        );
+        let got =
+            WithClientMetric::new(metric, async { Err::<i32, Error>(Error::io("test-only")) })
+                .await;
+        assert!(got.is_err(), "{got:?}");
 
         signals.force_flush()?;
         // Verify the metrics include the data we want.
