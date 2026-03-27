@@ -199,8 +199,12 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
         "{value:?}"
     );
     let want = serde_json::json!({
-        "http.response.status_code": 404,
         "rpc.method": "google_cloud_showcase_v1beta1::client::Echo::echo",
+        "gcp.client.version": "1.0.0",
+        "gcp.client.repo": "googleapis/google-cloud-rust",
+        "gcp.client.artifact": "google-cloud-showcase-v1beta1",
+        "gcp.client.service": "showcase",
+        "gcp.client.language": "rust",
         "rpc.response.status_code": "UNKNOWN",
         "rpc.system.name": "http",
         "url.domain": "localhost:7469", // the showcase domain...
