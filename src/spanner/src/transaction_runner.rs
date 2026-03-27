@@ -501,43 +501,45 @@ mod tests {
 
         expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
 
-        let mut attempt = 0;
+        let mut seq = mockall::Sequence::new();
         mock.expect_execute_batch_dml()
-            .times(2)
+            .once()
+            .in_sequence(&mut seq)
             .returning(move |_req| {
-                attempt += 1;
-                if attempt == 1 {
-                    // Return a successful response but with an embedded aborted status.
-                    let status = Status {
-                        code: Code::Aborted as i32,
-                        message: "transaction aborted".to_string(),
-                        ..Default::default()
-                    };
+                // Return a successful response but with an embedded aborted status.
+                let status = Status {
+                    code: Code::Aborted as i32,
+                    message: "transaction aborted".to_string(),
+                    ..Default::default()
+                };
 
-                    Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
-                        result_sets: vec![v1::ResultSet {
-                            stats: Some(v1::ResultSetStats {
-                                row_count: Some(RowCount::RowCountExact(1)),
-                                ..Default::default()
-                            }),
+                Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![v1::ResultSet {
+                        stats: Some(v1::ResultSetStats {
+                            row_count: Some(RowCount::RowCountExact(1)),
                             ..Default::default()
-                        }],
-                        status: Some(status),
+                        }),
                         ..Default::default()
-                    }))
-                } else {
-                    // Return success after the retry.
-                    Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
-                        result_sets: vec![v1::ResultSet {
-                            stats: Some(v1::ResultSetStats {
-                                row_count: Some(RowCount::RowCountExact(5)),
-                                ..Default::default()
-                            }),
+                    }],
+                    status: Some(status),
+                    ..Default::default()
+                }))
+            });
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| {
+                // Return success after the retry.
+                Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![v1::ResultSet {
+                        stats: Some(v1::ResultSetStats {
+                            row_count: Some(RowCount::RowCountExact(5)),
                             ..Default::default()
-                        }],
+                        }),
                         ..Default::default()
-                    }))
-                }
+                    }],
+                    ..Default::default()
+                }))
             });
 
         mock.expect_commit()
