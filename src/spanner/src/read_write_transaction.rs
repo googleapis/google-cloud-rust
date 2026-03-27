@@ -12,12 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::BatchDml;
+use crate::RequestOptions;
 use crate::database_client::DatabaseClient;
+use crate::error::internal_error;
 use crate::model::BeginTransactionRequest;
 use crate::model::CommitRequest;
+use crate::model::ExecuteBatchDmlRequest;
 use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
+use crate::model::execute_batch_dml_request::Statement as ExecuteBatchDmlStatement;
 use crate::model::result_set_stats::RowCount;
 use crate::model::transaction_options::IsolationLevel;
 use crate::model::transaction_options::Mode;
@@ -28,6 +33,7 @@ use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::ReadContext;
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
+use std::sync::atomic::Ordering;
 
 /// A builder for [ReadWriteTransaction].
 pub(crate) struct ReadWriteTransactionBuilder {
@@ -66,7 +72,7 @@ impl ReadWriteTransactionBuilder {
         let response = self
             .client
             .spanner
-            .begin_transaction(request, crate::RequestOptions::default())
+            .begin_transaction(request, RequestOptions::default())
             .await?;
 
         let transaction_selector = TransactionSelector::default().set_id(response.id);
@@ -107,7 +113,7 @@ impl ReadWriteTransaction {
 
     /// Executes an update using this transaction.
     pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
-        let seqno = self.seqno.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+        let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
         let statement = statement.into();
         let request = statement
             .into_request()
@@ -119,7 +125,7 @@ impl ReadWriteTransaction {
             .context
             .client
             .spanner
-            .execute_sql(request, crate::RequestOptions::default())
+            .execute_sql(request, RequestOptions::default())
             .await?;
         self.context
             .precommit_token_tracker
@@ -127,19 +133,118 @@ impl ReadWriteTransaction {
 
         let stats = response
             .stats
-            .ok_or_else(|| crate::error::internal_error("No stats returned"))?;
+            .ok_or_else(|| internal_error("No stats returned"))?;
         match stats.row_count {
             Some(RowCount::RowCountExact(c)) => Ok(c),
-            _ => Err(crate::error::internal_error(
+            _ => Err(internal_error(
                 "ExecuteSql returned an invalid or missing row count type for a read/write transaction",
             )),
+        }
+    }
+
+    /// Executes a batch of DML statements using this transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::batch_dml::BatchDml;
+    /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction().build().await?;
+    /// let result = runner.run(async |transaction| {
+    ///     let statement1 = Statement::builder("UPDATE users SET active = true WHERE id = @id")
+    ///         .add_param("id", &1)
+    ///         .build();
+    ///     let statement2 = Statement::builder("UPDATE users SET active = true WHERE id = @id")
+    ///         .add_param("id", &2)
+    ///         .build();
+    ///     let batch = BatchDml::builder()
+    ///         .add_statement(statement1)
+    ///         .add_statement(statement2)
+    ///         .build();
+    ///     let update_counts = transaction.execute_batch_update(batch).await?;
+    ///     Ok(())
+    /// }).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// If a `BatchDml` request fails halfway through execution, `execute_batch_update` will return a
+    /// `BatchUpdateError` indicating exactly which statements succeeded (and their respective update counts)
+    /// before the batch execution failed.
+    ///
+    /// # Error Handling Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::batch_dml::BatchDml;
+    /// # use google_cloud_spanner::BatchUpdateError;
+    /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// # let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// # let runner = db_client.read_write_transaction().build().await?;
+    /// # let result = runner.run(async |transaction| {
+    /// let statement1 = Statement::builder("UPDATE users SET active = true WHERE id = 1").build();
+    /// let statement2 = Statement::builder("UPDATE non_existent_table SET active = true WHERE id = 2").build();
+    ///
+    /// let batch = BatchDml::builder()
+    ///     .add_statement(statement1)
+    ///     .add_statement(statement2)
+    ///     .build();
+    ///
+    /// match transaction.execute_batch_update(batch).await {
+    ///     Ok(update_counts) => {
+    ///         println!("All statements succeeded. Update counts: {:?}", update_counts);
+    ///     }
+    ///     Err(e) => {
+    ///         if let Some(batch_error) = BatchUpdateError::extract(&e) {
+    ///             println!("Batch execution failed. Successful update counts: {:?}", batch_error.update_counts);
+    ///         } else {
+    ///             println!("RPC failed or internal error occurred: {}", e);
+    ///         }
+    ///     }
+    /// }
+    /// # Ok(())
+    /// # }).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn execute_batch_update(&self, batch: BatchDml) -> crate::Result<Vec<i64>> {
+        let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
+
+        let statements: Vec<ExecuteBatchDmlStatement> = batch
+            .statements
+            .into_iter()
+            .map(|stmt: crate::statement::Statement| stmt.into_batch_statement())
+            .collect();
+
+        let request = ExecuteBatchDmlRequest::default()
+            .set_session(self.context.client.session.name.clone())
+            .set_transaction(self.context.transaction_selector.clone())
+            .set_seqno(seqno)
+            .set_statements(statements)
+            .set_or_clear_request_options(batch.request_options);
+
+        let response_result = self
+            .context
+            .client
+            .spanner
+            .execute_batch_dml(request, RequestOptions::default())
+            .await;
+
+        match response_result {
+            Ok(response) => {
+                self.context
+                    .precommit_token_tracker
+                    .update(response.precommit_token.clone());
+                crate::batch_dml::process_response(response)
+            }
+            Err(e) => Err(e),
         }
     }
 
     fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
         match &self.context.transaction_selector.selector {
             Some(Selector::Id(id)) => Ok(id.clone()),
-            _ => Err(crate::error::internal_error("Transaction ID is missing")),
+            _ => Err(internal_error("Transaction ID is missing")),
         }
     }
 
@@ -156,7 +261,7 @@ impl ReadWriteTransaction {
             .context
             .client
             .spanner
-            .commit(request, crate::RequestOptions::default())
+            .commit(request, RequestOptions::default())
             .await?;
 
         let response =
@@ -169,7 +274,7 @@ impl ReadWriteTransaction {
                 self.context
                     .client
                     .spanner
-                    .commit(retry_commit_req, crate::RequestOptions::default())
+                    .commit(retry_commit_req, RequestOptions::default())
                     .await?
             } else {
                 response
@@ -177,7 +282,7 @@ impl ReadWriteTransaction {
 
         let timestamp = response
             .commit_timestamp
-            .ok_or_else(|| crate::error::internal_error("No commit timestamp returned"))?;
+            .ok_or_else(|| internal_error("No commit timestamp returned"))?;
         Ok(timestamp)
     }
 
@@ -192,7 +297,7 @@ impl ReadWriteTransaction {
         self.context
             .client
             .spanner
-            .rollback(request, crate::RequestOptions::default())
+            .rollback(request, RequestOptions::default())
             .await?;
 
         Ok(())
@@ -202,6 +307,7 @@ impl ReadWriteTransaction {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::BatchUpdateError;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use gaxi::grpc::tonic;
     use spanner_grpc_mock::google::spanner::v1;
@@ -453,6 +559,126 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn read_write_transaction_execute_batch_update() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![4, 5, 6],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_batch_dml().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.statements.len(), 2);
+            assert_eq!(
+                req.statements[0].sql,
+                "UPDATE Users SET Name = 'Alice' WHERE Id = 1"
+            );
+            assert_eq!(
+                req.statements[1].sql,
+                "UPDATE Users SET Name = 'Bob' WHERE Id = 2"
+            );
+
+            Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
+                result_sets: vec![
+                    v1::ResultSet {
+                        stats: Some(v1::ResultSetStats {
+                            row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    },
+                    v1::ResultSet {
+                        stats: Some(v1::ResultSetStats {
+                            row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    },
+                ],
+                status: Some(spanner_grpc_mock::google::rpc::Status {
+                    code: 0,
+                    message: "OK".into(),
+                    details: vec![],
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = ReadWriteTransactionBuilder::new(db_client)
+            .begin_transaction()
+            .await?;
+
+        let batch = BatchDml::builder()
+            .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .add_statement("UPDATE Users SET Name = 'Bob' WHERE Id = 2");
+
+        let counts = tx.execute_batch_update(batch.build()).await?;
+
+        assert_eq!(counts, vec![1, 1]);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_write_transaction_execute_batch_update_partial_failure() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![7, 8, 9],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_batch_dml().once().returning(|_| {
+            Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
+                result_sets: vec![v1::ResultSet {
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }],
+                status: Some(spanner_grpc_mock::google::rpc::Status {
+                    code: gaxi::grpc::tonic::Code::AlreadyExists as i32,
+                    message: "row already exists".into(),
+                    details: vec![],
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = ReadWriteTransactionBuilder::new(db_client)
+            .begin_transaction()
+            .await?;
+
+        let batch = BatchDml::builder()
+            .add_statement("UPDATE Users SET Name = 'Alice' WHERE Id = 1")
+            .add_statement("INSERT INTO Users (Id) VALUES (2)"); // assuming this fails
+
+        let res = tx.execute_batch_update(batch.build()).await;
+
+        let err = res.expect_err("expected error");
+        use std::error::Error;
+        let batch_err = err
+            .source()
+            .and_then(|e| e.downcast_ref::<BatchUpdateError>())
+            .expect("should be BatchUpdateError");
+        assert_eq!(batch_err.update_counts, vec![1]);
+        assert_eq!(
+            batch_err.status.status().expect("status").code,
+            (gaxi::grpc::tonic::Code::AlreadyExists as i32).into()
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn read_write_transaction_execute_multiple_updates() {
         let mut mock = create_session_mock();
 
@@ -472,7 +698,7 @@ mod tests {
         mock.expect_execute_sql().times(3).returning(move |req| {
             let req = req.into_inner();
             assert_eq!(req.sql, "UPDATE Users SET Name = 'Alice' WHERE Id = 1");
-            let c = counter.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+            let c = counter.fetch_add(1, Ordering::SeqCst);
             assert_eq!(req.seqno, c);
 
             Ok(tonic::Response::new(v1::ResultSet {

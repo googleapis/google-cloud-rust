@@ -116,7 +116,13 @@ impl Statement {
         StatementBuilder::new(sql)
     }
 
-    pub(crate) fn into_request(self) -> crate::model::ExecuteSqlRequest {
+    fn into_parts(
+        self,
+    ) -> (
+        String,
+        Option<wkt::Struct>,
+        std::collections::HashMap<String, crate::model::Type>,
+    ) {
         let params: Option<wkt::Struct> = if self.params.is_empty() {
             None
         } else {
@@ -132,9 +138,21 @@ impl Statement {
             .into_iter()
             .map(|(k, v)| (k, v.0))
             .collect();
+        (self.sql, params, param_types)
+    }
 
+    pub(crate) fn into_request(self) -> crate::model::ExecuteSqlRequest {
+        let (sql, params, param_types) = self.into_parts();
         crate::model::ExecuteSqlRequest::default()
-            .set_sql(self.sql)
+            .set_sql(sql)
+            .set_or_clear_params(params)
+            .set_param_types(param_types)
+    }
+
+    pub(crate) fn into_batch_statement(self) -> crate::model::execute_batch_dml_request::Statement {
+        let (sql, params, param_types) = self.into_parts();
+        crate::model::execute_batch_dml_request::Statement::default()
+            .set_sql(sql)
             .set_or_clear_params(params)
             .set_param_types(param_types)
     }

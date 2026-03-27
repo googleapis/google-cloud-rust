@@ -20,6 +20,9 @@
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
 
+pub use batch_dml::BatchDml;
+pub use batch_dml::BatchDmlBuilder;
+pub use error::BatchUpdateError;
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
 pub use rust_decimal::Decimal;
@@ -29,6 +32,7 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+pub mod batch_dml;
 pub mod client;
 pub(crate) mod server_streaming;
 pub mod builder {
