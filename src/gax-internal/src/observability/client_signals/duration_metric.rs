@@ -108,7 +108,7 @@ impl DurationMetric {
         let Some(snapshot) = RequestRecorder::current().map(|r| r.client_snapshot()) else {
             return;
         };
-        let attributes: [(&str, Option<Value>); _] = [
+        let attributes: [(&str, Option<Value>); 8] = [
             (RPC_SYSTEM_NAME, snapshot.rpc_system().map(|v| v.into())),
             (RPC_METHOD, snapshot.rpc_method().map(|v| v.into())),
             (URL_DOMAIN, Some(snapshot.default_host().into())),
@@ -157,7 +157,7 @@ impl DurationMetric {
             return;
         };
         let error_type = ErrorType::from_gax_error(error);
-        let attributes: [(&str, Option<Value>); _] = [
+        let attributes: [(&str, Option<Value>); 9] = [
             (RPC_SYSTEM_NAME, snapshot.rpc_system().map(|v| v.into())),
             (RPC_METHOD, snapshot.rpc_method().map(|v| v.into())),
             (URL_DOMAIN, Some(snapshot.default_host().into())),
