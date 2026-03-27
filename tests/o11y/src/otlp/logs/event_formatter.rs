@@ -131,17 +131,20 @@ where
             serializer.serialize_entry("target", meta.target())?;
             match self.trace_info(ctx, event) {
                 (Some((tid, sid)), sampled) => {
-                    serializer.serialize_entry(
-                        "logging.googleapis.com/trace",
-                        &format!("projects/{}/traces/{tid}", self.project_id),
-                    )?;
-                    serializer
-                        .serialize_entry("logging.googleapis.com/spanId", &sid.to_string())?;
-                    serializer.serialize_entry("logging.googleapis.com/trace_sampled", &sampled)?;
+                    if tid != TraceId::INVALID {
+                        serializer.serialize_entry(
+                            "logging.googleapis.com/trace",
+                            &format!("projects/{}/traces/{tid}", self.project_id),
+                        )?;
+                        serializer
+                            .serialize_entry("logging.googleapis.com/trace_sampled", &sampled)?;
+                    }
+                    if sid != SpanId::INVALID {
+                        serializer
+                            .serialize_entry("logging.googleapis.com/spanId", &sid.to_string())?;
+                    }
                 }
-                (None, sampled) => {
-                    serializer.serialize_entry("logging.googleapis.com/trace_sampled", &sampled)?;
-                }
+                (None, _sampled) => {}
             };
             serializer.end()
         };
@@ -172,5 +175,117 @@ impl<'a> std::io::Write for WriteAdaptor<'a> {
 
     fn flush(&mut self) -> std::io::Result<()> {
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::sync::{Arc, Mutex};
+    use tracing_subscriber::{Registry, fmt, layer::SubscriberExt};
+
+    #[derive(Clone, Default)]
+    struct MockWriter {
+        data: Arc<Mutex<Vec<u8>>>,
+    }
+
+    impl std::io::Write for MockWriter {
+        fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
+            self.data.lock().unwrap().extend_from_slice(buf);
+            Ok(buf.len())
+        }
+        fn flush(&mut self) -> std::io::Result<()> {
+            Ok(())
+        }
+    }
+
+    impl<'a> tracing_subscriber::fmt::MakeWriter<'a> for MockWriter {
+        type Writer = Self;
+        fn make_writer(&'a self) -> Self::Writer {
+            self.clone()
+        }
+    }
+
+    #[derive(serde::Deserialize, Debug, PartialEq)]
+    struct LogEntry {
+        #[serde(rename = "logging.googleapis.com/trace")]
+        trace: Option<String>,
+        #[serde(rename = "logging.googleapis.com/spanId")]
+        span_id: Option<String>,
+        #[serde(rename = "logging.googleapis.com/trace_sampled")]
+        trace_sampled: Option<bool>,
+    }
+
+    #[test]
+    fn no_trace_info_omits_fields() {
+        let writer = MockWriter::default();
+        let formatter = EventFormatter::new("test-project");
+        let layer = fmt::layer()
+            .event_format(formatter)
+            .with_writer(writer.clone());
+        let subscriber = Registry::default().with(layer);
+
+        tracing::subscriber::with_default(subscriber, || {
+            tracing::info!("test message");
+        });
+
+        let output = String::from_utf8(writer.data.lock().unwrap().clone())
+            .expect("Output should be valid UTF-8");
+        
+        let entry: LogEntry = serde_json::from_str(&output).expect("Failed to parse JSON");
+
+        let expected = LogEntry {
+            trace: None,
+            span_id: None,
+            trace_sampled: None,
+        };
+
+        assert_eq!(entry, expected, "All trace fields should be omitted: {output}");
+    }
+
+    #[test]
+    fn valid_trace_info_includes_fields() {
+        use opentelemetry::trace::TracerProvider as _;
+        use opentelemetry_sdk::trace::SdkTracerProvider;
+
+        let writer = MockWriter::default();
+        let formatter = EventFormatter::new("test-project");
+
+        let provider = SdkTracerProvider::builder().build();
+        let tracer = provider.tracer("test");
+        let otel_layer = tracing_opentelemetry::layer().with_tracer(tracer);
+
+        let layer = fmt::layer()
+            .event_format(formatter)
+            .with_writer(writer.clone());
+        let subscriber = Registry::default().with(otel_layer).with(layer);
+
+        tracing::subscriber::with_default(subscriber, || {
+            let span = tracing::info_span!("my_span");
+            let _entered = span.enter();
+            tracing::info!("test message inside span");
+        });
+
+        let output = String::from_utf8(writer.data.lock().unwrap().clone())
+            .expect("Output should be valid UTF-8");
+        
+        let lines: Vec<&str> = output.trim().split('\n').collect();
+        let last_line = lines.last().expect("output should not be empty");
+
+        let entry: LogEntry = serde_json::from_str(last_line).expect("Failed to parse JSON");
+
+        let trace_val = entry.trace.expect("trace should be included");
+        assert!(
+            trace_val.starts_with("projects/test-project/traces/"),
+            "trace should start with expected project path: {}",
+            trace_val
+        );
+        assert!(
+            !trace_val.ends_with("00000000000000000000000000000000"),
+            "trace should not be the invalid trace ID"
+        );
+
+        assert!(entry.span_id.is_some(), "spanId should be included: {output}");
+        assert!(entry.trace_sampled.is_some(), "trace_sampled should be included: {output}");
     }
 }
