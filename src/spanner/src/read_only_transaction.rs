@@ -16,7 +16,7 @@ use crate::database_client::DatabaseClient;
 use crate::model::TransactionOptions;
 use crate::model::transaction_options::ReadOnly;
 use crate::precommit::PrecommitTokenTracker;
-use crate::result_set::ResultSet;
+use crate::result_set::{ResultSet, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 
@@ -402,11 +402,16 @@ impl ReadContext {
             .client
             .spanner
             // TODO(#4972): make request options configurable
-            .execute_streaming_sql(request, crate::RequestOptions::default())
+            .execute_streaming_sql(request.clone(), crate::RequestOptions::default())
             .send()
             .await?;
 
-        Ok(ResultSet::new(stream, self.precommit_token_tracker.clone()))
+        Ok(ResultSet::new(
+            stream,
+            self.precommit_token_tracker.clone(),
+            self.client.clone(),
+            StreamOperation::Query(request),
+        ))
     }
 
     pub(crate) async fn execute_read<T: Into<crate::read::ReadRequest>>(
@@ -434,11 +439,16 @@ impl ReadContext {
             .client
             .spanner
             // TODO(#4972): make request options configurable
-            .streaming_read(request, crate::RequestOptions::default())
+            .streaming_read(request.clone(), crate::RequestOptions::default())
             .send()
             .await?;
 
-        Ok(ResultSet::new(stream, self.precommit_token_tracker.clone()))
+        Ok(ResultSet::new(
+            stream,
+            self.precommit_token_tracker.clone(),
+            self.client.clone(),
+            StreamOperation::Read(request),
+        ))
     }
 }
 
