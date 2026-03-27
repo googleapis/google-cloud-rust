@@ -5684,6 +5684,7 @@ dependencies = [
  "opentelemetry-otlp",
  "opentelemetry-proto",
  "opentelemetry_sdk",
+ "pretty_assertions",
  "rand 0.10.0",
  "reqwest 0.13.2",
  "scoped-env",

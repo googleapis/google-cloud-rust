@@ -27,7 +27,7 @@ pub mod reqwest;
 use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
 #[cfg(google_cloud_unstable_tracing)]
-use crate::observability::create_http_attempt_span;
+use crate::observability::{HttpResultExt, RequestRecorder, create_http_attempt_span};
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
@@ -261,22 +261,33 @@ impl ReqwestClient {
         options: RequestOptions,
         attempt_info: AttemptInfo,
     ) -> Result<reqwest::Response> {
-        use crate::observability::HttpResultExt;
         let span = create_http_attempt_span(
             &request,
             &options,
             self.instrumentation,
             attempt_info.attempt_count,
         );
-        let (method, url) = (request.method().clone(), request.url().clone());
-        self.execute_http_inner(request)
+        if let Some(recorder) = RequestRecorder::current() {
+            recorder.on_http_request(&request);
+        }
+        let result = self
+            .execute_http_inner(request)
             .instrument(span.clone())
-            .await
-            .record_http(&span, attempt_info.attempt_count, method, url)
+            .await;
+        if let Some(recorder) = RequestRecorder::current() {
+            match &result {
+                Ok(r) => recorder.on_http_response(r),
+                Err(e) => recorder.on_http_error(e),
+            }
+        }
+        result.record_http(&span)
     }
 
     #[cfg_attr(not(google_cloud_unstable_tracing), allow(unused_mut))]
     async fn execute_http_inner(&self, mut request: reqwest::Request) -> Result<reqwest::Response> {
+        // We want to send the tracing propagation headers even if tracing is disabled in the
+        // client. A global trace (say from the incoming HTTP request to Cloud Run) could be
+        // propagated.
         #[cfg(google_cloud_unstable_tracing)]
         crate::observability::propagation::inject_context(
             &tracing::Span::current(),
@@ -410,13 +421,14 @@ impl ReqwestClient {
         options: &RequestOptions,
         attempt_count: u32,
     ) -> Result<reqwest::Response> {
-        use crate::observability::HttpResultExt;
         let span = create_http_attempt_span(&request, options, self.instrumentation, attempt_count);
-        let (method, url) = (request.method().clone(), request.url().clone());
+        if let Some(recorder) = RequestRecorder::current() {
+            recorder.on_http_request(&request);
+        }
         self.request_attempt_inner(request)
             .instrument(span.clone())
             .await
-            .record_http(&span, attempt_count, method, url)
+            .record_http(&span)
     }
 
     #[cfg_attr(not(google_cloud_unstable_tracing), allow(unused_mut))]
@@ -424,12 +436,23 @@ impl ReqwestClient {
         &self,
         mut request: reqwest::Request,
     ) -> Result<reqwest::Response> {
+        // We want to send the tracing propagation headers even if tracing is disabled in the
+        // client. A global trace (say from the incoming HTTP request to Cloud Run) could be
+        // propagated.
         #[cfg(google_cloud_unstable_tracing)]
         crate::observability::propagation::inject_context(
             &tracing::Span::current(),
             request.headers_mut(),
         );
-        let response = self.inner.execute(request).await.map_err(map_send_error)?;
+        let result = self.inner.execute(request).await.map_err(map_send_error);
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = RequestRecorder::current() {
+            match &result {
+                Ok(r) => recorder.on_http_response(r),
+                Err(e) => recorder.on_http_error(e),
+            }
+        }
+        let response = result?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;
         }
@@ -554,24 +577,14 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[cfg(google_cloud_unstable_tracing)]
-    use crate::client_request_span;
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    #[cfg(google_cloud_unstable_tracing)]
-    use google_cloud_test_utils::test_layer::TestLayer;
     use http::{HeaderMap, HeaderValue, Method};
-    #[cfg(google_cloud_unstable_tracing)]
-    use opentelemetry_semantic_conventions::trace as otel_trace;
     use test_case::test_case;
-    #[cfg(google_cloud_unstable_tracing)]
-    use tracing::Instrument;
-
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
-    async fn client_http_error_bytes() -> TestResult {
+    async fn client_http_error_bytes() -> anyhow::Result<()> {
         let http_resp = http::Response::builder()
             .header("Content-Type", "application/json")
             .status(400)
@@ -593,7 +606,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn client_error_with_status() -> TestResult {
+    async fn client_error_with_status() -> anyhow::Result<()> {
         use google_cloud_gax::error::rpc::{Code, Status, StatusDetails::LocalizedMessage};
         let body = serde_json::json!({"error": {
             "code": 404,
@@ -634,7 +647,7 @@ mod tests {
     #[test_case(reqwest::StatusCode::OK, "{}"; "200 with empty object")]
     #[test_case(reqwest::StatusCode::NO_CONTENT, "{}"; "204 with empty object")]
     #[test_case(reqwest::StatusCode::NO_CONTENT, ""; "204 with empty content")]
-    async fn client_empty_content(code: reqwest::StatusCode, content: &str) -> TestResult {
+    async fn client_empty_content(code: reqwest::StatusCode, content: &str) -> anyhow::Result<()> {
         let response = resp_from_code_content(code, content)?;
         assert!(response.status().is_success());
 
@@ -649,7 +662,7 @@ mod tests {
     async fn client_error_with_empty_content(
         code: reqwest::StatusCode,
         content: &str,
-    ) -> TestResult {
+    ) -> anyhow::Result<()> {
         let response = resp_from_code_content(code, content)?;
         assert!(response.status().is_success());
 
@@ -779,78 +792,8 @@ mod tests {
     }
 
     #[tokio::test]
-    #[cfg(google_cloud_unstable_tracing)]
-    async fn test_t3_span_enrichment() {
-        let guard = TestLayer::initialize();
-        let t3_span = client_request_span!("Service", "test_method", &TEST_INSTRUMENTATION_INFO);
-
-        // Simulate T4 span scope ending before calling to_http_response
-        let t4_span = tracing::info_span!("t4_span");
-        {
-            let _t4_enter = t4_span.enter();
-            // T4 work happens here
-        } // T4 exit
-
-        let response = resp_from_code_content(reqwest::StatusCode::OK, "{}").unwrap();
-        let url = "https://example.com".parse().unwrap();
-
-        // Manually call the enrichment function, mimicking request_attempt
-        let response = {
-            use crate::observability::HttpResultExt;
-
-            let _enter = t3_span.enter();
-            Ok(response)
-                .record_http(&t4_span, 1, Method::GET, url)
-                .unwrap()
-        };
-
-        let _ = super::to_http_response::<wkt::Empty>(response)
-            .instrument(t3_span.clone())
-            .await;
-
-        let captured = TestLayer::capture(&guard);
-        // We expect t3_span to be captured, and t4_span.
-        // t3_span should have the attributes.
-        let t3_captured = captured
-            .iter()
-            .find(|s| s.name == "client_request")
-            .expect("client_request span not found");
-
-        assert_eq!(
-            t3_captured
-                .attributes
-                .get(crate::observability::attributes::keys::OTEL_NAME),
-            Some(&"google_cloud_gax_internal::Service::test_method".into())
-        );
-
-        assert_eq!(
-            t3_captured
-                .attributes
-                .get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
-            Some(&(200_i64).into())
-        );
-        // Resend count is set because we passed 1
-        assert_eq!(
-            t3_captured
-                .attributes
-                .get(otel_trace::HTTP_REQUEST_RESEND_COUNT),
-            Some(&(1_i64).into())
-        );
-
-        let t4_captured = captured
-            .iter()
-            .find(|s| s.name == "t4_span")
-            .expect("t4_span not found");
-        assert!(
-            !t4_captured
-                .attributes
-                .contains_key(otel_trace::HTTP_RESPONSE_STATUS_CODE)
-        );
-    }
-
-    #[tokio::test]
     #[allow(deprecated)]
-    async fn execute_streaming_success() -> TestResult {
+    async fn execute_streaming_success() -> anyhow::Result<()> {
         let server = httptest::Server::run();
         server.expect(
             httptest::Expectation::matching(httptest::matchers::request::method_path(
@@ -884,7 +827,7 @@ mod tests {
     /// so that the caller can handle the 308 status code appropriately (e.g., to query the upload status).
     #[tokio::test]
     #[allow(deprecated)]
-    async fn execute_streaming_308() -> TestResult {
+    async fn execute_streaming_308() -> anyhow::Result<()> {
         let server = httptest::Server::run();
         server.expect(
             httptest::Expectation::matching(httptest::matchers::request::method_path(
