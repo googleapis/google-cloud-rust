@@ -17,16 +17,15 @@
 //! This is a private module, it is not exposed in the public API.
 
 use super::RequestRecorder;
+
 use crate::observability::attributes::keys::{
-    ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_VERSION, HTTP_REQUEST_METHOD,
-    HTTP_REQUEST_RESEND_COUNT, RPC_RESPONSE_STATUS_CODE, RPC_SERVICE, RPC_SYSTEM_NAME,
-    SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+    ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION,
+    GCP_ERRORS_DOMAIN, GCP_ERRORS_METADATA, HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT,
+    RPC_RESPONSE_STATUS_CODE, RPC_SERVICE, RPC_SYSTEM_NAME, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
 };
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
-use opentelemetry_semantic_conventions::attribute::{
-    HTTP_RESPONSE_STATUS_CODE, RPC_METHOD, URL_DOMAIN, URL_TEMPLATE,
-};
+use opentelemetry_semantic_conventions::attribute::{RPC_METHOD, URL_DOMAIN, URL_TEMPLATE};
 use pin_project::pin_project;
 use std::future::Future;
 use std::pin::Pin;
@@ -90,6 +89,21 @@ where
             Err(error) => {
                 let rpc_status_code = error.status().map(|s| s.code.name());
                 let error_type = ErrorType::from_gax_error(error);
+                let error_info = error.status().and_then(|s| {
+                    s.details.iter().find_map(|d| match d {
+                        google_cloud_gax::error::rpc::StatusDetails::ErrorInfo(i) => Some(i),
+                        _ => None,
+                    })
+                });
+                let error_domain = error_info.map(|i| i.domain.as_str());
+                let error_metadata = error_info.and_then(|i| {
+                    if i.metadata.is_empty() {
+                        None
+                    } else {
+                        serde_json::to_string(&i.metadata).ok()
+                    }
+                });
+
                 // TODO(#4795) - use the correct name and target
                 tracing::event!(
                     name: NAME,
@@ -109,10 +123,11 @@ where
                     { ERROR_TYPE } = error_type.as_str(),
                     { SERVER_ADDRESS } = snapshot.server_address(),
                     { SERVER_PORT } = snapshot.server_port(),
-                    { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code(),
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
                     { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count(),
-                    // TODO(#5151) - append actionable error info.
+                    { GCP_CLIENT_SERVICE } = snapshot.service_name(),
+                    { GCP_ERRORS_DOMAIN } = error_domain,
+                    { GCP_ERRORS_METADATA } = error_metadata,
                     "{error:?}"
                 );
             }
@@ -208,6 +223,7 @@ mod tests {
             "gcp.client.artifact": "test-artifact",
             "gcp.client.repo": "googleapis/google-cloud-rust",
             "gcp.client.version": "1.2.3",
+            "gcp.client.service": "test-service",
             "url.full": format!("{}/", BAD_URL),
             "server.address": "127.0.0.1",
             "server.port": 1,
@@ -269,11 +285,11 @@ mod tests {
             "gcp.client.artifact": "test-artifact",
             "gcp.client.repo": "googleapis/google-cloud-rust",
             "gcp.client.version": "1.2.3",
+            "gcp.client.service": "test-service",
             "url.full": url,
             "server.address": server.addr().ip().to_string(),
             "server.port": server.addr().port(),
             "http.request.method": "GET",
-            "http.response.status_code": 404,
         });
         assert_eq!(Some(&fields), want.as_object(), "{parsed:?}");
 
