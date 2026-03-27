@@ -17,14 +17,6 @@ use google_cloud_auth::errors::CredentialsError;
 
 const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
-pub(crate) fn is_default_universe_domain<S: Into<String>>(universe_domain: Option<S>) -> bool {
-    let universe_domain = universe_domain.map(|s| s.into());
-    match universe_domain {
-        Some(ud) => ud == DEFAULT_UNIVERSE_DOMAIN,
-        None => true,
-    }
-}
-
 pub(crate) async fn resolve(
     universe_domain_client_override: Option<&str>,
     cred: &Credentials,
