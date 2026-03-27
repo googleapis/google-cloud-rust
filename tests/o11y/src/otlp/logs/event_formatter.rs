@@ -231,7 +231,7 @@ mod tests {
 
         let output = String::from_utf8(writer.data.lock().unwrap().clone())
             .expect("Output should be valid UTF-8");
-        
+
         let entry: LogEntry = serde_json::from_str(&output).expect("Failed to parse JSON");
 
         let expected = LogEntry {
@@ -240,7 +240,10 @@ mod tests {
             trace_sampled: None,
         };
 
-        assert_eq!(entry, expected, "All trace fields should be omitted: {output}");
+        assert_eq!(
+            entry, expected,
+            "All trace fields should be omitted: {output}"
+        );
     }
 
     #[test]
@@ -268,7 +271,7 @@ mod tests {
 
         let output = String::from_utf8(writer.data.lock().unwrap().clone())
             .expect("Output should be valid UTF-8");
-        
+
         let lines: Vec<&str> = output.trim().split('\n').collect();
         let last_line = lines.last().expect("output should not be empty");
 
@@ -285,7 +288,13 @@ mod tests {
             "trace should not be the invalid trace ID"
         );
 
-        assert!(entry.span_id.is_some(), "spanId should be included: {output}");
-        assert!(entry.trace_sampled.is_some(), "trace_sampled should be included: {output}");
+        assert!(
+            entry.span_id.is_some(),
+            "spanId should be included: {output}"
+        );
+        assert!(
+            entry.trace_sampled.is_some(),
+            "trace_sampled should be included: {output}"
+        );
     }
 }
