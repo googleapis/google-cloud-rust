@@ -16,8 +16,7 @@ use crate::database_client::DatabaseClient;
 use crate::google::spanner::v1::result_set_stats::RowCount::RowCountLowerBound;
 use crate::model::transaction_options::PartitionedDml;
 use crate::model::{
-    BeginTransactionRequest, ExecuteSqlRequest, TransactionOptions, TransactionSelector,
-    transaction_selector,
+    BeginTransactionRequest, TransactionOptions, TransactionSelector, transaction_selector,
 };
 use crate::server_streaming::stream::PartialResultSetStream;
 use crate::statement::Statement;
@@ -139,6 +138,7 @@ impl PartitionedDmlTransaction {
             options: Some(transaction_options),
             ..Default::default()
         };
+        let base_request = statement.into_request();
 
         // Execute the statement and retry if the transaction is aborted by Spanner.
         retry_aborted(&*self.retry_policy, || async {
@@ -148,15 +148,13 @@ impl PartitionedDmlTransaction {
                 .begin_transaction(begin_request.clone(), crate::RequestOptions::default())
                 .await?;
 
-            let execute_request = ExecuteSqlRequest::default()
+            let execute_request = base_request
+                .clone()
                 .set_session(self.client.session.name.clone())
                 .set_transaction(TransactionSelector {
                     selector: Some(transaction_selector::Selector::Id(transaction.id.clone())),
                     ..Default::default()
-                })
-                .set_or_clear_params(statement.get_params())
-                .set_param_types(statement.get_param_types())
-                .set_sql(statement.sql.clone());
+                });
 
             let stream_builder = self
                 .client

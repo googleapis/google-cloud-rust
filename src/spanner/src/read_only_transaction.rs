@@ -393,13 +393,10 @@ impl ReadContext {
         statement: T,
     ) -> crate::Result<ResultSet> {
         let statement = statement.into();
-
-        let mut request = crate::model::ExecuteSqlRequest::default()
+        let request = statement
+            .into_request()
             .set_session(self.client.session.name.clone())
             .set_transaction(self.transaction_selector.clone());
-        request.params = statement.get_params();
-        request.param_types = statement.get_param_types();
-        request = request.set_sql(statement.sql);
 
         let stream = self
             .client
