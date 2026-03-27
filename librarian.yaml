@@ -1445,6 +1445,7 @@ libraries:
     copyright_year: "2025"
     output: src/storage
     rust:
+      detailed_tracing_attributes: true
       modules:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
