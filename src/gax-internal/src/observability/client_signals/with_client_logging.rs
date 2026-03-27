@@ -17,12 +17,11 @@
 //! This is a private module, it is not exposed in the public API.
 
 use super::RequestRecorder;
-use crate::observability::attributes::GCP_CLIENT_LANGUAGE_RUST;
+
 use crate::observability::attributes::keys::{
-    ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_LANGUAGE, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE,
-    GCP_CLIENT_VERSION, GCP_ERRORS_DOMAIN, GCP_ERRORS_METADATA, HTTP_REQUEST_METHOD,
-    HTTP_REQUEST_RESEND_COUNT, RPC_RESPONSE_STATUS_CODE, RPC_SERVICE, RPC_SYSTEM_NAME,
-    SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+    ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION,
+    GCP_ERRORS_DOMAIN, GCP_ERRORS_METADATA, HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT,
+    RPC_RESPONSE_STATUS_CODE, RPC_SERVICE, RPC_SYSTEM_NAME, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
 };
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
@@ -127,7 +126,6 @@ where
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
                     { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count(),
                     { GCP_CLIENT_SERVICE } = snapshot.service_name(),
-                    { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
                     { GCP_ERRORS_DOMAIN } = error_domain,
                     { GCP_ERRORS_METADATA } = error_metadata,
                     "{error:?}"
@@ -226,7 +224,6 @@ mod tests {
             "gcp.client.repo": "googleapis/google-cloud-rust",
             "gcp.client.version": "1.2.3",
             "gcp.client.service": "test-service",
-            "gcp.client.language": "rust",
             "url.full": format!("{}/", BAD_URL),
             "server.address": "127.0.0.1",
             "server.port": 1,
@@ -289,7 +286,6 @@ mod tests {
             "gcp.client.repo": "googleapis/google-cloud-rust",
             "gcp.client.version": "1.2.3",
             "gcp.client.service": "test-service",
-            "gcp.client.language": "rust",
             "url.full": url,
             "server.address": server.addr().ip().to_string(),
             "server.port": server.addr().port(),
