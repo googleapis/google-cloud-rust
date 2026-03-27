@@ -369,6 +369,11 @@ mod tests {
             trace_id,
             &[
                 ("rpc.method", FULL_METHOD),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.language", "rust"),
                 ("rpc.response.status_code", "NOT_FOUND"),
                 ("exception.type", "NOT_FOUND"),
                 (

@@ -18,12 +18,16 @@
 
 use super::DurationMetric;
 use super::RequestStart;
-use crate::observability::attributes::RPC_SYSTEM_HTTP;
 use crate::observability::attributes::keys::OTEL_STATUS_DESCRIPTION;
 use crate::observability::attributes::keys::{
-    OTEL_STATUS_CODE, RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
+    GCP_CLIENT_ARTIFACT, GCP_CLIENT_LANGUAGE, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE,
+    GCP_CLIENT_VERSION, GCP_ERRORS_DOMAIN, GCP_ERRORS_METADATA, OTEL_STATUS_CODE,
+    RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
 };
 use crate::observability::attributes::otel_status_codes;
+use crate::observability::attributes::{
+    GCP_CLIENT_LANGUAGE_RUST, GCP_CLIENT_REPO_GOOGLEAPIS, RPC_SYSTEM_HTTP,
+};
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::error::rpc::Code;
@@ -134,6 +138,21 @@ where
                 let error_str = error_type.as_str();
                 let err_msg = error.to_string();
 
+                let error_info = error.status().and_then(|s| {
+                    s.details.iter().find_map(|d| match d {
+                        google_cloud_gax::error::rpc::StatusDetails::ErrorInfo(i) => Some(i),
+                        _ => None,
+                    })
+                });
+                let error_domain = error_info.map(|i| i.domain.as_str());
+                let error_metadata = error_info.and_then(|i| {
+                    if i.metadata.is_empty() {
+                        None
+                    } else {
+                        serde_json::to_string(&i.metadata).ok()
+                    }
+                });
+
                 // TODO(#4795) - use the correct name and target
                 if !this.start.disable_actionable_error_logging() {
                     tracing::event!(
@@ -144,8 +163,14 @@ where
                         { URL_DOMAIN } = this.start.info().default_host,
                         { URL_TEMPLATE } = this.start.url_template(),
                         { RPC_METHOD } = this.start.method(),
+                        { GCP_CLIENT_VERSION } = this.start.info().client_version,
+                        { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
+                        { GCP_CLIENT_ARTIFACT } = this.start.info().client_artifact,
+                        { GCP_CLIENT_SERVICE } = this.start.info().service_name,
+                        { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
+                        { GCP_ERRORS_DOMAIN } = error_domain,
+                        { GCP_ERRORS_METADATA } = error_metadata,
                         { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-                        { HTTP_RESPONSE_STATUS_CODE } = error.http_status_code(),
                         { EXCEPTION_TYPE } = error_str,
                         { EXCEPTION_MESSAGE } = err_msg,
                         "{error:?}"
@@ -297,6 +322,11 @@ mod tests {
             trace_id,
             &[
                 ("rpc.method", TEST_METHOD),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.language", "rust"),
                 ("rpc.response.status_code", "NOT_FOUND"),
                 ("exception.type", "NOT_FOUND"),
                 (
@@ -362,8 +392,12 @@ mod tests {
             trace_id,
             &[
                 ("rpc.method", TEST_METHOD),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.language", "rust"),
                 ("rpc.response.status_code", "UNKNOWN"),
-                ("http.response.status_code", "429"),
                 ("exception.type", "429"),
                 (
                     "exception.message",
