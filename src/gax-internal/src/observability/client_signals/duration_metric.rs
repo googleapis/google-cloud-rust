@@ -13,17 +13,20 @@
 // limitations under the License.
 
 use super::RequestStart;
+use crate::observability::RequestRecorder;
 use crate::observability::attributes::keys::{
     GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION,
-    RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
+    HTTP_RESPONSE_STATUS_CODE, RPC_METHOD, RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
 };
 use crate::observability::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, RPC_SYSTEM_HTTP};
+use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::error::rpc::Code;
 use opentelemetry::metrics::{Histogram, MeterProvider};
-use opentelemetry::{InstrumentationScope, KeyValue};
-use opentelemetry_semantic_conventions::attribute;
+use opentelemetry::{InstrumentationScope, KeyValue, Value};
+use opentelemetry_semantic_conventions::attribute::{self, URL_DOMAIN, URL_TEMPLATE};
+use opentelemetry_semantic_conventions::trace::{ERROR_TYPE, SERVER_ADDRESS, SERVER_PORT};
 use std::sync::Arc;
 
 pub const BOUNDARIES: [f64; 16] = [
@@ -100,6 +103,36 @@ impl DurationMetric {
 
     /// Records the latency for a successful request.
     ///
+    /// Uses `RequestRecorder` to retrieve the request attributes.
+    pub(crate) fn with_recorder_ok(&self) {
+        let Some(snapshot) = RequestRecorder::current().map(|r| r.client_snapshot()) else {
+            return;
+        };
+        let attributes: [(&str, Option<Value>); 8] = [
+            (RPC_SYSTEM_NAME, snapshot.rpc_system().map(|v| v.into())),
+            (RPC_METHOD, snapshot.rpc_method().map(|v| v.into())),
+            (URL_DOMAIN, Some(snapshot.default_host().into())),
+            (URL_TEMPLATE, snapshot.url_template().map(|v| v.into())),
+            (RPC_RESPONSE_STATUS_CODE, Some(Code::Ok.name().into())),
+            (
+                HTTP_RESPONSE_STATUS_CODE,
+                snapshot.http_status_code().map(|v| (v as i64).into()),
+            ),
+            (SERVER_ADDRESS, Some(snapshot.server_address().into())),
+            (SERVER_PORT, Some((snapshot.server_port() as i64).into())),
+        ];
+        let attributes = attributes
+            .into_iter()
+            .filter_map(|(k, v)| v.map(|v| KeyValue::new(k, v)))
+            .collect::<Vec<_>>();
+        self.0.record(
+            snapshot.client_duration().as_secs_f64(),
+            attributes.as_slice(),
+        );
+    }
+
+    /// Records the latency for a successful request.
+    ///
     /// Uses `start` to compute the duration and the method attributes.
     pub(crate) fn record_ok(&self, start: &RequestStart) {
         let elapsed = start.elapsed();
@@ -113,6 +146,41 @@ impl DurationMetric {
                 KeyValue::new(RPC_RESPONSE_STATUS_CODE, Code::Ok.name()),
                 KeyValue::new(attribute::HTTP_RESPONSE_STATUS_CODE, 200_i64),
             ],
+        );
+    }
+
+    /// Records the latency for a successful request.
+    ///
+    /// Uses `RequestRecorder` to retrieve the request attributes.
+    pub(crate) fn with_recorder_error(&self, error: &Error) {
+        let Some(snapshot) = RequestRecorder::current().map(|r| r.client_snapshot()) else {
+            return;
+        };
+        let error_type = ErrorType::from_gax_error(error);
+        let attributes: [(&str, Option<Value>); 9] = [
+            (RPC_SYSTEM_NAME, snapshot.rpc_system().map(|v| v.into())),
+            (RPC_METHOD, snapshot.rpc_method().map(|v| v.into())),
+            (URL_DOMAIN, Some(snapshot.default_host().into())),
+            (URL_TEMPLATE, snapshot.url_template().map(|v| v.into())),
+            (ERROR_TYPE, Some(error_type.as_str().into())),
+            (
+                RPC_RESPONSE_STATUS_CODE,
+                error.status().map(|s| s.code.name().into()),
+            ),
+            (
+                HTTP_RESPONSE_STATUS_CODE,
+                snapshot.http_status_code().map(|v| (v as i64).into()),
+            ),
+            (SERVER_ADDRESS, Some(snapshot.server_address().into())),
+            (SERVER_PORT, Some((snapshot.server_port() as i64).into())),
+        ];
+        let attributes = attributes
+            .into_iter()
+            .filter_map(|(k, v)| v.map(|v| KeyValue::new(k, v)))
+            .collect::<Vec<_>>();
+        self.0.record(
+            snapshot.client_duration().as_secs_f64(),
+            attributes.as_slice(),
         );
     }
 
@@ -150,7 +218,9 @@ impl DurationMetric {
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::*;
+    use super::super::tests::{
+        TEST_INFO, TEST_METHOD, TEST_URL_TEMPLATE, check_metric_data, check_metric_scope,
+    };
     use super::*;
     use google_cloud_gax::error::rpc::Status;
     use google_cloud_gax::options::RequestOptions;
@@ -194,6 +264,9 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
+                ("rpc.system.name", "http"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "OK"),
                 ("http.response.status_code", "200"),
@@ -226,6 +299,9 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
+                ("rpc.system.name", "http"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "NOT_FOUND"),
             ],
@@ -253,6 +329,9 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
+                ("rpc.system.name", "http"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "UNKNOWN"),
                 ("http.response.status_code", "429"),

@@ -17,6 +17,7 @@ mod duration_metric;
 mod recorder;
 mod request_start;
 mod with_client_logging;
+mod with_client_metric;
 mod with_client_signals;
 
 pub use client_signals_ext::ClientSignalsExt;
@@ -24,6 +25,7 @@ pub use duration_metric::DurationMetric;
 pub use recorder::{ClientRequestAttributes, RequestRecorder};
 pub use request_start::RequestStart;
 pub use with_client_logging::WithClientLogging;
+pub use with_client_metric::WithClientMetric;
 pub use with_client_signals::WithClientSignals;
 
 /// An extension to disable terminal actionable error logging.
@@ -315,6 +317,9 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
+                ("rpc.system.name", "http"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", FULL_METHOD),
                 ("rpc.response.status_code", "NOT_FOUND"),
             ],
@@ -463,7 +468,7 @@ mod tests {
     pub fn check_metric_data<R>(
         metrics: &Vec<ResourceMetrics>,
         want_count: R,
-        want_attributes: &[(&'static str, &'static str)],
+        want_attributes: &[(&'static str, &str)],
     ) where
         R: std::ops::RangeBounds<u64>,
     {
@@ -492,12 +497,7 @@ mod tests {
                 .attributes()
                 .map(|kv| (kv.key.as_str(), kv.value.to_string())),
         );
-        let want = BTreeSet::from_iter(
-            COMMON_ATTRIBUTES
-                .iter()
-                .chain(want_attributes)
-                .map(|(k, v)| (*k, v.to_string())),
-        );
+        let want = BTreeSet::from_iter(want_attributes.iter().map(|(k, v)| (*k, v.to_string())));
         let diff = attr.symmetric_difference(&want).collect::<Vec<_>>();
         assert_eq!(attr, want, "diff={diff:?}");
 
