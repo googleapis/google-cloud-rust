@@ -86,6 +86,7 @@ mod spanner {
         integration_tests_spanner::read::read_key_range(&db_client).await?;
         integration_tests_spanner::read::read_with_limit(&db_client).await?;
         integration_tests_spanner::read::read_with_index(&db_client).await?;
+        integration_tests_spanner::read::read_as_stream(&db_client).await?;
 
         Ok(())
     }

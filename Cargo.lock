@@ -4324,6 +4324,7 @@ dependencies = [
  "async-trait",
  "base64",
  "bytes",
+ "futures",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
@@ -5790,6 +5791,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "base64",
+ "futures",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-lro",

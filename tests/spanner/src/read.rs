@@ -279,3 +279,51 @@ pub async fn read_with_index(db_client: &DatabaseClient) -> anyhow::Result<()> {
 
     Ok(())
 }
+
+pub async fn read_as_stream(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    use futures::TryStreamExt;
+    use std::future::ready;
+
+    let id1 = format!("read-stream-1-{}", LowercaseAlphanumeric.random_string(10));
+    let id2 = format!("read-stream-2-{}", LowercaseAlphanumeric.random_string(10));
+    let mutation_1 = Mutation::new_insert_or_update_builder("AllTypes")
+        .set("Id")
+        .to(&id1)
+        .set("ColString")
+        .to(&"first")
+        .build();
+    let mutation_2 = Mutation::new_insert_or_update_builder("AllTypes")
+        .set("Id")
+        .to(&id2)
+        .set("ColString")
+        .to(&"second")
+        .build();
+    let write_tx = db_client.write_only_transaction().build();
+    write_tx
+        .write_at_least_once(vec![mutation_1, mutation_2])
+        .await
+        .expect("Failed to write to AllTypes");
+
+    let read = ReadRequest::builder("AllTypes", vec!["Id", "ColString"])
+        .with_keys(KeySet::all())
+        .build();
+    let result_set = db_client
+        .single_use()
+        .build()
+        .execute_read(read)
+        .await
+        .expect("Failed to execute read");
+
+    let rows: Vec<_> = result_set
+        .into_stream()
+        .try_filter(|row| {
+            let id = row.get::<String, _>("Id");
+            ready(id == id1)
+        })
+        .try_collect()
+        .await?;
+
+    assert_eq!(rows.len(), 1);
+
+    Ok(())
+}
