@@ -14,12 +14,16 @@
 
 mod client_signals_ext;
 mod duration_metric;
+mod recorder;
 mod request_start;
+mod with_client_logging;
 mod with_client_signals;
 
 pub use client_signals_ext::ClientSignalsExt;
 pub use duration_metric::DurationMetric;
+pub use recorder::{ClientRequestAttributes, RequestRecorder};
 pub use request_start::RequestStart;
+pub use with_client_logging::WithClientLogging;
 pub use with_client_signals::WithClientSignals;
 
 /// An extension to disable terminal actionable error logging.
@@ -180,6 +184,7 @@ macro_rules! client_request_span {
 mod tests {
     use super::duration_metric::BOUNDARIES;
     use super::with_client_signals::{NAME, TARGET};
+    use super::{ClientRequestAttributes, RequestRecorder};
     use crate::observability::DurationMetric;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_gax::error::Error;
@@ -197,6 +202,7 @@ mod tests {
     use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
     use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
     use opentelemetry_sdk::trace::{BatchSpanProcessor, InMemorySpanExporter, SdkTracerProvider};
+    use pretty_assertions::assert_eq;
     use std::collections::BTreeSet;
     use std::sync::Arc;
     use std::time::Duration;
@@ -210,17 +216,17 @@ mod tests {
         client_artifact: "test-artifact",
         default_host: "example.com",
     };
-    pub(crate) static URL_TEMPLATE: &str = "/v1/projects/{}:test_method";
-    pub(crate) static METHOD: &str = "test-method";
-    pub(crate) const DELAY: Duration = Duration::from_millis(750);
+    pub(crate) static TEST_URL_TEMPLATE: &str = "/v1/projects/{}:test_method";
+    pub(crate) static TEST_METHOD: &str = "google.test.v1.Service/TestMethod";
+    pub(crate) const TEST_REQUEST_DURATION: Duration = Duration::from_millis(750);
     const COMMON_ATTRIBUTES: [(&str, &str); 3] = [
         ("rpc.system.name", "http"),
         ("url.domain", "example.com"),
-        ("url.template", URL_TEMPLATE),
+        ("url.template", TEST_URL_TEMPLATE),
     ];
 
     async fn inner_echo(_options: &RequestOptions) -> Result<String, Error> {
-        tokio::time::sleep(DELAY).await;
+        tokio::time::sleep(TEST_REQUEST_DURATION).await;
         let error = Error::service(
             Status::default()
                 .set_code(Code::NotFound)
@@ -246,6 +252,43 @@ mod tests {
             .await
     }
 
+    // Simulate the transport HTTP client for a request that fills the `RequestRecorder` data.
+    async fn recorded_request_transport_client(url: &str) -> Result<String, Error> {
+        let recorder = RequestRecorder::current().expect("current recorder should be available");
+        let client = reqwest::Client::new();
+        let request = client
+            .get(url)
+            .build()
+            .map_err(Error::io)
+            .inspect_err(|e| recorder.on_http_error(e))?;
+
+        recorder.on_http_request(&request);
+        let response = client
+            .execute(request)
+            .await
+            .map_err(Error::io)
+            .inspect_err(|e| recorder.on_http_error(e))?;
+        tokio::time::sleep(TEST_REQUEST_DURATION).await;
+        recorder.on_http_response(&response);
+        Err(Error::http(
+            response.status().as_u16(),
+            response.headers().clone(),
+            bytes::Bytes::from_owner("SIMULATED NOT FOUND"),
+        ))
+    }
+
+    // Simulate the transport stub for a request that fills the `RequestRecorder` data.
+    pub(crate) async fn recorded_request_transport_stub(url: &str) -> Result<String, Error> {
+        let recorder = RequestRecorder::current().expect("current recorder should be available");
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_rpc_method(TEST_METHOD)
+                .set_url_template(TEST_URL_TEMPLATE)
+                .set_resource_name("//test.googleapis.com/test-only".to_string()),
+        );
+        recorded_request_transport_client(url).await
+    }
+
     #[tokio::test(start_paused = true)]
     async fn all_signals_go() -> anyhow::Result<()> {
         let signals = SignalProviders::new();
@@ -256,7 +299,7 @@ mod tests {
             &TEST_INFO,
             Arc::new(signals.metric_provider.clone()),
         );
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
         // Simulate a client call, this simulates a call that takes 750ms and then returns an error.
         let result = tracing_echo(&metric, &options).await;
         assert!(result.is_err(), "{result:?}");
@@ -465,7 +508,7 @@ mod tests {
             .zip(point.bounds())
             .find(|(count, _bound)| *count >= 1_u64);
         // Find the expected bucket
-        let secs = DELAY.as_secs_f64();
+        let secs = TEST_REQUEST_DURATION.as_secs_f64();
         let (low, high) = BOUNDARIES
             .windows(2)
             .map(|a| (a[0], a[1]))

@@ -24,13 +24,23 @@ use at_least_once::Leases;
 use exactly_once::Leases as EoLeases;
 use tokio::sync::oneshot::Sender;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
+use tokio::task::JoinSet;
 use tokio::time::{Duration, Instant, Interval, interval_at};
+use tokio_util::task::TaskTracker;
 
 // An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
 // be safe to fit 2500 Ack IDs in a single RPC.
 //
 // https://docs.cloud.google.com/pubsub/quotas
 const MAX_IDS_PER_RPC: usize = 2500;
+
+// Helper function to chunk ack ids into chunks of MAX_IDS_PER_RPC.
+fn batch(ack_ids: Vec<String>) -> Vec<Vec<String>> {
+    ack_ids
+        .chunks(MAX_IDS_PER_RPC)
+        .map(|c| c.to_vec())
+        .collect()
+}
 
 pub(super) struct LeaseOptions {
     /// How often we flush acks/nacks
@@ -99,7 +109,7 @@ impl ExactlyOnceInfo {
 #[derive(Debug)]
 pub(super) struct LeaseState<L>
 where
-    L: Leaser + Clone,
+    L: Leaser + Clone + Send + 'static,
 {
     // Ack IDs with at-least-once semantics under lease management.
     leases: Leases,
@@ -115,6 +125,15 @@ where
     extend_interval: Interval,
     // How long messages can be kept under lease
     max_lease: Duration,
+
+    // In flight acks and nacks.
+    pending_acks_nacks: TaskTracker,
+
+    // In flight lease extension operations.
+    //
+    // These are held separate from pending acks/nacks because we do not need to
+    // await them on shutdown.
+    pending_extends: JoinSet<()>,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -128,7 +147,7 @@ pub(super) enum LeaseEvent {
 
 impl<L> LeaseState<L>
 where
-    L: Leaser + Clone,
+    L: Leaser + Clone + Send + 'static,
 {
     pub(super) fn new(leaser: L, options: LeaseOptions) -> Self {
         let flush_interval =
@@ -142,6 +161,8 @@ where
             flush_interval,
             extend_interval,
             max_lease: options.max_lease,
+            pending_acks_nacks: TaskTracker::new(),
+            pending_extends: JoinSet::new(),
         }
     }
 
@@ -193,70 +214,93 @@ where
     }
 
     /// Flush pending acks/nacks
-    pub(super) async fn flush(&mut self) {
-        // TODO(#3975) - await these concurrently.
+    pub(super) fn flush(&mut self) {
         let (to_ack, to_nack) = self.leases.drain();
         if !to_ack.is_empty() {
-            self.leaser.ack(to_ack).await;
+            let leaser = self.leaser.clone();
+            self.pending_acks_nacks
+                .spawn(async move { leaser.ack(to_ack).await });
         }
         if !to_nack.is_empty() {
-            self.leaser.nack(to_nack).await;
+            let leaser = self.leaser.clone();
+            self.pending_acks_nacks
+                .spawn(async move { leaser.nack(to_nack).await });
         }
 
         let (to_ack, to_nack) = self.eo_leases.drain();
         if !to_ack.is_empty() {
-            self.leaser.confirmed_ack(to_ack).await;
+            let leaser = self.leaser.clone();
+            self.pending_acks_nacks
+                .spawn(async move { leaser.confirmed_ack(to_ack).await });
         }
         if !to_nack.is_empty() {
-            self.leaser.nack(to_nack).await;
+            let leaser = self.leaser.clone();
+            self.pending_acks_nacks
+                .spawn(async move { leaser.nack(to_nack).await });
         }
     }
 
     /// Extends leases for messages under lease management
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
-    pub(super) async fn extend(&mut self) {
-        // TODO(#3975) - send RPCs concurrently.
+    pub(super) fn extend(&mut self) {
         let batches = self.leases.retain(self.max_lease);
         for ack_ids in batches {
-            self.leaser.extend(ack_ids).await;
+            let leaser = self.leaser.clone();
+            self.pending_extends
+                .spawn(async move { leaser.extend(ack_ids).await });
         }
 
         let batches = self.eo_leases.retain(self.max_lease);
         for ack_ids in batches {
-            self.leaser.extend(ack_ids).await;
+            let leaser = self.leaser.clone();
+            self.pending_extends
+                .spawn(async move { leaser.extend(ack_ids).await });
         }
+
+        // TODO(#5048) - we could process the results as a lease event.
+        while self.pending_extends.try_join_next().is_some() {}
     }
 
     /// Shutdown the leaser
     ///
     /// This flushes all pending acks and nacks all other messages.
-    pub(super) async fn shutdown(mut self) {
-        // TODO(#3975) - await these concurrently.
-
+    pub(super) async fn shutdown(self) {
         // Note that if `WaitForProcessing` was selected by the application,
         // there are no messages under lease. They have all been processed.
-        self.leases.evict();
-        let (to_ack, to_nack) = self.leases.drain();
+        let (to_ack, to_nack) = self.leases.evict_and_drain();
         if !to_ack.is_empty() {
-            self.leaser.ack(to_ack).await;
+            let leaser = self.leaser.clone();
+            self.pending_acks_nacks
+                .spawn(async move { leaser.ack(to_ack).await });
         }
-        if !to_nack.is_empty() {
-            // TODO(#4847) - this nack needs to be broken into batches.
-            self.leaser.nack(to_nack).await;
+        for to_nack in to_nack {
+            let leaser = self.leaser.clone();
+            self.pending_acks_nacks
+                .spawn(async move { leaser.nack(to_nack).await });
         }
 
         // TODO(#5109) - evicting exactly-once leases is ok, but not ideal.
-        self.eo_leases.evict();
         // Currently, evict returns NACK_SHUTDOWN_ERROR for all exactly once
         // leases. This includes the to_ack leases. Specifically,
         // the leases that have been acknowledged by the application but not yet
         // flushed. Therefore, we do not need to flush those leases.
-        let (_, to_nack) = self.eo_leases.drain();
-        if !to_nack.is_empty() {
-            // TODO(#4847) - this nack needs to be broken into batches.
-            self.leaser.nack(to_nack).await;
+        let (_, to_nack) = self.eo_leases.evict_and_drain();
+        for to_nack in to_nack {
+            let leaser = self.leaser.clone();
+            self.pending_acks_nacks
+                .spawn(async move { leaser.nack(to_nack).await });
         }
+
+        // Wait for pending acks/nacks to complete.
+        self.pending_acks_nacks.close();
+        self.pending_acks_nacks.wait().await;
+
+        // Wait for pending lease extensions to complete. This is not useful in
+        // practice, because we are nacking all the messages, but it simplifies
+        // our tests.
+        #[cfg(test)]
+        self.pending_extends.join_all().await;
     }
 }
 
@@ -282,6 +326,20 @@ pub(super) mod tests {
         pub(super) to_nack: Vec<String>,
     }
 
+    #[derive(Debug)]
+    pub(super) struct NackBatches {
+        pub(super) counts: Vec<i32>,
+        pub(super) ack_ids: Vec<String>,
+    }
+
+    impl NackBatches {
+        pub(super) fn flatten(to_nack: Vec<Vec<String>>) -> Self {
+            let counts = to_nack.iter().map(|v| v.len() as i32).collect();
+            let ack_ids = to_nack.into_iter().flatten().collect();
+            Self { counts, ack_ids }
+        }
+    }
+
     pub(in super::super) fn test_id(v: i32) -> String {
         format!("{v:05}")
     }
@@ -303,6 +361,25 @@ pub(super) mod tests {
     pub(in super::super) fn exactly_once_info() -> LeaseInfo {
         let (result_tx, _result_rx) = channel();
         LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx))
+    }
+
+    async fn extend_and_await<L>(state: &mut LeaseState<L>)
+    where
+        L: Leaser + Clone + Send + 'static,
+    {
+        state.extend();
+        let pending_extends = std::mem::take(&mut state.pending_extends);
+        let _ = pending_extends.join_all().await;
+    }
+
+    async fn flush_and_await<L>(state: &mut LeaseState<L>)
+    where
+        L: Leaser + Clone + Send + 'static,
+    {
+        state.flush();
+        let pending_acks_nacks = std::mem::take(&mut state.pending_acks_nacks);
+        pending_acks_nacks.close();
+        pending_acks_nacks.wait().await;
     }
 
     #[tokio::test(start_paused = true)]
@@ -499,8 +576,8 @@ pub(super) mod tests {
         // Note that there are no calls expected into the leaser, as there are
         // no messages under lease management.
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
-        state.extend().await;
-        state.flush().await;
+        extend_and_await(&mut state).await;
+        state.flush();
         state.shutdown().await;
     }
 
@@ -559,7 +636,7 @@ pub(super) mod tests {
             state.eo_leases
         );
 
-        state.flush().await;
+        flush_and_await(&mut state).await;
         assert_eq!(
             TestLeases {
                 under_lease: test_ids(20..100),
@@ -589,6 +666,43 @@ pub(super) mod tests {
                 to_nack: Vec::new(),
             },
             state.eo_leases
+        );
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn pending_acks_nacks_size_management() {
+        let mut mock = MockLeaser::new();
+        mock.expect_ack()
+            .times(1)
+            .withf(|v| *v == vec![test_id(1)])
+            .returning(|_| ());
+        mock.expect_nack()
+            .times(1)
+            .withf(|v| *v == vec![test_id(2)])
+            .returning(|_| ());
+
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
+
+        state.add(test_id(1), at_least_once_info());
+        state.process(Ack(test_id(1)));
+
+        state.flush();
+        // Yield execution so the ack attempt can execute.
+        tokio::task::yield_now().await;
+        assert!(
+            state.pending_acks_nacks.is_empty(),
+            "The ack task should have completed. We should not hold onto it."
+        );
+
+        state.add(test_id(2), at_least_once_info());
+        state.process(Nack(test_id(2)));
+
+        state.flush();
+        // Yield execution so the nack attempt can execute.
+        tokio::task::yield_now().await;
+        assert!(
+            state.pending_acks_nacks.is_empty(),
+            "The nack task should have completed. We should not hold onto it."
         );
     }
 
@@ -623,25 +737,25 @@ pub(super) mod tests {
         for i in 0..10 {
             state.add(test_id(i), at_least_once_info());
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Add another 10 messages. These are now under lease management.
         for i in 10..20 {
             state.add(test_id(i), at_least_once_info());
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Ack the first 5 messages. We should not extend these leases.
         for i in 0..5 {
             state.process(Ack(test_id(i)));
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Nack the next 5 messages. We should not extend these leases.
         for i in 5..10 {
             state.process(Nack(test_id(i)));
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
     }
 
     #[tokio::test(start_paused = true)]
@@ -680,13 +794,13 @@ pub(super) mod tests {
         for i in 0..10 {
             state.add(test_id(i), exactly_once_info());
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Add another 10 messages. These are now under lease management.
         for i in 10..20 {
             state.add(test_id(i), exactly_once_info());
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Ack the first 5 messages. We should continue to extend these leases
         // as they are not yet confirmed.
@@ -695,20 +809,48 @@ pub(super) mod tests {
             state.process(ExactlyOnceAck(test_id(i)));
             ack_results.insert(test_id(i), Ok(()));
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Flush the acks and confirm.
-        state.flush().await;
+        flush_and_await(&mut state).await;
         state.confirm(ack_results);
 
         // We should not extend the confirmed acks.
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Nack the next 5 messages. We should not extend these leases.
         for i in 0..5 {
             state.process(ExactlyOnceNack(test_id(i)));
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn pending_extends_size_management() {
+        let mut mock = MockLeaser::new();
+        mock.expect_extend()
+            .times(2)
+            .withf(|v| *v == vec![test_id(1)])
+            .returning(|_| ());
+
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
+
+        state.add(test_id(1), at_least_once_info());
+        state.extend();
+        // Yield execution so the extend attempt can execute.
+        tokio::task::yield_now().await;
+
+        // TODO(#5048) - We currently clean up the completed pending extends in
+        // `LeaseState::extend()`. If we decide to clean up the pending extends
+        // elsewhere, this test will need an update.
+        state.extend();
+        let pending_extends = state.pending_extends.len();
+        assert!(
+            pending_extends < 2,
+            "The first lease extension attempt should have completed. We should not hold onto it."
+        );
+
+        let _ = state.pending_extends.join_all().await;
     }
 
     #[tokio::test]
@@ -815,7 +957,7 @@ pub(super) mod tests {
         // With MAX_IDS_PER_RPC pending acks, the batch is full. We should flush it now.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), Duration::ZERO);
-        state.flush().await;
+        flush_and_await(&mut state).await;
 
         // With the batch is not full. The next event should occur on the interval timer.
         for i in MAX_IDS_PER_RPC..(2 * MAX_IDS_PER_RPC - 1) {
@@ -853,7 +995,7 @@ pub(super) mod tests {
         }
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), Duration::ZERO);
-        state.flush().await;
+        flush_and_await(&mut state).await;
 
         // With the batch is not full. The next event should occur on the interval timer.
         for i in MAX_IDS_PER_RPC..(2 * MAX_IDS_PER_RPC - 1) {
@@ -891,7 +1033,7 @@ pub(super) mod tests {
         // With MAX_IDS_PER_RPC pending nacks, the batch is full. We should flush it now.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), Duration::ZERO);
-        state.flush().await;
+        flush_and_await(&mut state).await;
 
         // With the batch is not full. The next event should occur on the interval timer.
         for i in MAX_IDS_PER_RPC..(2 * MAX_IDS_PER_RPC - 1) {
@@ -930,7 +1072,7 @@ pub(super) mod tests {
         // With MAX_IDS_PER_RPC pending nacks for exactly once leases, the batch is full. We should flush it now.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), Duration::ZERO);
-        state.flush().await;
+        flush_and_await(&mut state).await;
 
         // With the batch is not full. The next event should occur on the interval timer.
         for i in MAX_IDS_PER_RPC..(2 * MAX_IDS_PER_RPC - 1) {
@@ -1031,7 +1173,7 @@ pub(super) mod tests {
             // All ack IDs should be extended.
             want.insert(test_id(i));
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         let mut got = HashSet::new();
         for i in 0..NUM_BATCHES {
@@ -1089,15 +1231,15 @@ pub(super) mod tests {
         for i in 10..20 {
             state.add(test_id(i), lease_info_factory());
         }
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Advance the time past the expiration of the original 10 messages.
         tokio::time::advance(MAX_LEASE - DELTA).await;
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         // Advance the time past the expiration of the subsequent 10 messages.
         tokio::time::advance(DELTA * 2).await;
-        state.extend().await;
+        extend_and_await(&mut state).await;
 
         Ok(())
     }

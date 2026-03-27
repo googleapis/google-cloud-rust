@@ -33,6 +33,7 @@ use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
 use tokio::time::Instant;
+use tokio_util::sync::CancellationToken;
 
 /// Represents an open subscribe stream.
 ///
@@ -64,8 +65,9 @@ pub struct MessageStream {
     #[allow(dead_code)] // TODO(#5024) - implementation in progress...
     /// This future is ready when the lease loop shutdown completes.
     lease_loop: Shared<BoxFuture<'static, ()>>,
-    // TODO(#5024) - cancel message stream
-    //shutdown: CancellationToken,
+
+    /// A token that can detect a shutdown from the application.
+    shutdown: CancellationToken,
 }
 
 #[derive(Debug)]
@@ -109,8 +111,9 @@ pub struct MessageStreamImpl {
 #[allow(clippy::large_enum_variant)]
 #[derive(Debug)]
 enum StreamState {
-    /// The stream failed with a permanent error. It should not be re-opened.
-    Failed,
+    /// The stream was cancelled or failed with a permanent error. It should not
+    /// be re-opened.
+    Closed,
     /// The stream is active.
     Active(Stream<Transport>),
 }
@@ -160,7 +163,11 @@ impl MessageStream {
             message_tx,
             ack_tx,
         };
-        Self { inner, lease_loop }
+        Self {
+            inner,
+            lease_loop,
+            shutdown: CancellationToken::new(),
+        }
     }
 
     /// Returns the next message received on this subscription.
@@ -185,7 +192,18 @@ impl MessageStream {
     /// `None` represents the end of a stream, but in practice, the stream stays
     /// open until it is cancelled or encounters a permanent error.
     pub async fn next(&mut self) -> Option<Result<(Message, Handler)>> {
-        self.inner.next().await
+        let next = tokio::select! {
+            biased;
+            _ = self.shutdown.cancelled() => None,
+            n = self.inner.next() => n,
+        };
+        if next.is_none() {
+            // Permanently close the stream, and drop messages that we haven't
+            // delivered to the application yet.
+            self.inner.stream = Some(StreamState::Closed);
+            self.inner.pool.clear();
+        }
+        next
     }
 
     #[cfg(feature = "unstable-stream")]
@@ -254,7 +272,7 @@ impl MessageStreamImpl {
                     }
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
                         // The stream failed with a permanent error. Return the error.
-                        self.stream = Some(StreamState::Failed);
+                        self.stream = Some(StreamState::Closed);
                         return Some(Err(e));
                     }
                 }
@@ -284,7 +302,7 @@ impl MessageStreamImpl {
         }
 
         let stream = match self.stream.as_mut()? {
-            StreamState::Failed => return None,
+            StreamState::Closed => return None,
             StreamState::Active(s) => s,
         };
         stream
@@ -846,9 +864,12 @@ mod tests {
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         mock.expect_modify_ack_deadline().returning(move |r| {
-            extend_tx
-                .send(r.into_inner())
-                .expect("sending on channel always succeeds");
+            let r = r.into_inner();
+            if r.ack_deadline_seconds != 0 {
+                extend_tx
+                    .send(r)
+                    .expect("sending on channel always succeeds");
+            }
             Ok(TonicResponse::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
@@ -1504,6 +1525,86 @@ mod tests {
 
         // Wait for the stream to join its background tasks.
         stream.close().await;
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn cancel_before_open() -> anyhow::Result<()> {
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .returning(|_| Err(TonicStatus::unavailable("try again")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+        // TODO(#5024) - use public functions when available.
+        let shutdown_token = stream.shutdown.clone();
+
+        let next = tokio::spawn(async move { stream.next().await });
+        shutdown_token.cancel();
+
+        let end = next.await?;
+        assert!(end.is_none(), "Shutdown should end the stream, got {end:?}");
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn cancel_midstream() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let (nack_tx, mut nack_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge().times(1).returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(TonicResponse::from(()))
+        });
+        mock.expect_modify_ack_deadline()
+            .times(1)
+            .returning(move |r| {
+                nack_tx
+                    .send(r.into_inner())
+                    .expect("sending on channel always succeeds");
+                Ok(TonicResponse::from(()))
+            });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_shutdown_behavior(ShutdownBehavior::WaitForProcessing)
+            .build();
+        // TODO(#5024) - use public functions when available.
+        let shutdown_token = stream.shutdown.clone();
+
+        response_tx.send(Ok(test_response(1..10))).await?;
+        for i in 1..6 {
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/5")
+            };
+            assert_eq!(m.data, test_data(i));
+            h.ack();
+        }
+        shutdown_token.cancel();
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Shutdown should end the stream, got {end:?}");
+
+        // Verify that we drop the messages and handles in the pool that we have
+        // not returned to the application yet.
+        stream.close().await;
+
+        let ack_req = ack_rx.try_recv()?;
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(1..6));
+
+        let nack_req = nack_rx.try_recv()?;
+        assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(nack_req.ack_deadline_seconds, 0);
+        assert_eq!(sorted(nack_req.ack_ids), test_ids(6..10));
 
         Ok(())
     }

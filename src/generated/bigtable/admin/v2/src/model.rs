@@ -12547,13 +12547,20 @@ pub mod table {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AutomatedBackupPolicy {
-        /// Required. How long the automated backups should be retained. The only
-        /// supported value at this time is 3 days.
+        /// Required. How long the automated backups should be retained. Values must
+        /// be at least 3 days and at most 90 days.
         pub retention_period: std::option::Option<wkt::Duration>,
 
-        /// Required. How frequently automated backups should occur. The only
-        /// supported value at this time is 24 hours.
+        /// How frequently automated backups should occur. The only supported value
+        /// at this time is 24 hours. An undefined frequency is treated as 24 hours.
         pub frequency: std::option::Option<wkt::Duration>,
+
+        /// Optional. A list of Cloud Bigtable zones where automated backups are
+        /// allowed to be created. If empty, automated backups will be created in all
+        /// zones of the instance. Locations are in the format
+        /// `projects/{project}/locations/{zone}`.
+        /// This field can only set for tables in Enterprise Plus instances.
+        pub locations: std::vec::Vec<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -12626,6 +12633,23 @@ pub mod table {
             T: std::convert::Into<wkt::Duration>,
         {
             self.frequency = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [locations][crate::model::table::AutomatedBackupPolicy::locations].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigtable_admin_v2::model::table::AutomatedBackupPolicy;
+        /// let x = AutomatedBackupPolicy::new().set_locations(["a", "b", "c"]);
+        /// ```
+        pub fn set_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.locations = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

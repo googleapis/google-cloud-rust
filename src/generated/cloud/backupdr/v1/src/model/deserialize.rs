@@ -3514,6 +3514,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupPlanAssociation {
             __rules_config_info,
             __data_source,
             __cloud_sql_instance_backup_plan_association_properties,
+            __alloydb_cluster_backup_plan_association_properties,
             __backup_plan_revision_id,
             __backup_plan_revision_name,
             Unknown(std::string::String),
@@ -3556,6 +3557,12 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupPlanAssociation {
                             ),
                             "cloud_sql_instance_backup_plan_association_properties" => Ok(
                                 __FieldTag::__cloud_sql_instance_backup_plan_association_properties,
+                            ),
+                            "alloydbClusterBackupPlanAssociationProperties" => Ok(
+                                __FieldTag::__alloydb_cluster_backup_plan_association_properties,
+                            ),
+                            "alloydb_cluster_backup_plan_association_properties" => Ok(
+                                __FieldTag::__alloydb_cluster_backup_plan_association_properties,
                             ),
                             "backupPlanRevisionId" => Ok(__FieldTag::__backup_plan_revision_id),
                             "backup_plan_revision_id" => Ok(__FieldTag::__backup_plan_revision_id),
@@ -3696,6 +3703,25 @@ impl<'de> serde::de::Deserialize<'de> for super::BackupPlanAssociation {
                             result.resource_properties = std::option::Option::Some(
                                 crate::model::backup_plan_association::ResourceProperties::CloudSqlInstanceBackupPlanAssociationProperties(
                                     map.next_value::<std::option::Option<std::boxed::Box<crate::model::CloudSqlInstanceBackupPlanAssociationProperties>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__alloydb_cluster_backup_plan_association_properties => {
+                            if !fields.insert(
+                                __FieldTag::__alloydb_cluster_backup_plan_association_properties,
+                            ) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for alloydb_cluster_backup_plan_association_properties",
+                                ));
+                            }
+                            if result.resource_properties.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `resource_properties`, a oneof with full ID .google.cloud.backupdr.v1.BackupPlanAssociation.alloydb_cluster_backup_plan_association_properties, latest field was alloydbClusterBackupPlanAssociationProperties",
+                                ));
+                            }
+                            result.resource_properties = std::option::Option::Some(
+                                crate::model::backup_plan_association::ResourceProperties::AlloydbClusterBackupPlanAssociationProperties(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::AlloyDBClusterBackupPlanAssociationProperties>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -10472,6 +10498,89 @@ impl<'de> serde::de::Deserialize<'de> for super::AlloyDbClusterBackupProperties 
                                 ));
                             }
                             result.database_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AlloyDBClusterBackupPlanAssociationProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __cluster_uid,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str(
+                            "a field name for AlloyDBClusterBackupPlanAssociationProperties",
+                        )
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "clusterUid" => Ok(__FieldTag::__cluster_uid),
+                            "cluster_uid" => Ok(__FieldTag::__cluster_uid),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AlloyDBClusterBackupPlanAssociationProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AlloyDBClusterBackupPlanAssociationProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__cluster_uid => {
+                            if !fields.insert(__FieldTag::__cluster_uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cluster_uid",
+                                ));
+                            }
+                            result.cluster_uid = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }

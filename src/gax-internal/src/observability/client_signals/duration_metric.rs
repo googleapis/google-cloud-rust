@@ -165,8 +165,8 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn global_record_error() -> anyhow::Result<()> {
         let metric = DurationMetric::new(&TEST_INFO);
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let start = RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
         let error = Error::http(408, http::HeaderMap::new(), bytes::Bytes::new());
         metric.record_error(&start, &error);
         // We can make no assertions other than "this test does not crash" because it must use a
@@ -182,8 +182,8 @@ mod tests {
             .with_reader(PeriodicReader::builder(exporter.clone()).build())
             .build();
         let metric = DurationMetric::new_with_provider(&TEST_INFO, Arc::new(provider.clone()));
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let start = RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
         metric.record_ok(&start);
@@ -194,7 +194,7 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
-                ("rpc.method", METHOD),
+                ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "OK"),
                 ("http.response.status_code", "200"),
             ],
@@ -209,8 +209,8 @@ mod tests {
             .with_reader(PeriodicReader::builder(exporter.clone()).build())
             .build();
         let metric = DurationMetric::new_with_provider(&TEST_INFO, Arc::new(provider.clone()));
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, "test-method");
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let start = RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
         let error = Error::service(
@@ -226,7 +226,7 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
-                ("rpc.method", METHOD),
+                ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "NOT_FOUND"),
             ],
         );
@@ -240,8 +240,8 @@ mod tests {
             .with_reader(PeriodicReader::builder(exporter.clone()).build())
             .build();
         let metric = DurationMetric::new_with_provider(&TEST_INFO, Arc::new(provider.clone()));
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, "test-method");
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let start = RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
         let error = Error::http(429, http::HeaderMap::new(), bytes::Bytes::new());
@@ -253,7 +253,7 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
-                ("rpc.method", METHOD),
+                ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "UNKNOWN"),
                 ("http.response.status_code", "429"),
             ],

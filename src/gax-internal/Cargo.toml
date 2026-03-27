@@ -134,6 +134,7 @@ httptest.workspace                = true
 mockall.workspace                 = true
 opentelemetry_sdk                 = { workspace = true, features = ["logs", "metrics", "testing"] }
 opentelemetry-appender-tracing    = { workspace = true }
+pretty_assertions.workspace       = true
 scoped-env.workspace              = true
 serde_with.workspace              = true
 serial_test.workspace             = true

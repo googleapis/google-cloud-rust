@@ -38,6 +38,141 @@ where
     T: super::stub::Dataform + std::fmt::Debug + Send + Sync,
 {
     #[tracing::instrument(ret)]
+    async fn get_team_folder(
+        &self,
+        req: crate::model::GetTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TeamFolder>> {
+        self.inner.get_team_folder(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_team_folder(
+        &self,
+        req: crate::model::CreateTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TeamFolder>> {
+        self.inner.create_team_folder(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_team_folder(
+        &self,
+        req: crate::model::UpdateTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TeamFolder>> {
+        self.inner.update_team_folder(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_team_folder(
+        &self,
+        req: crate::model::DeleteTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        self.inner.delete_team_folder(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_team_folder_tree(
+        &self,
+        req: crate::model::DeleteTeamFolderTreeRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.delete_team_folder_tree(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn query_team_folder_contents(
+        &self,
+        req: crate::model::QueryTeamFolderContentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryTeamFolderContentsResponse>> {
+        self.inner.query_team_folder_contents(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn search_team_folders(
+        &self,
+        req: crate::model::SearchTeamFoldersRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SearchTeamFoldersResponse>> {
+        self.inner.search_team_folders(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_folder(
+        &self,
+        req: crate::model::GetFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Folder>> {
+        self.inner.get_folder(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_folder(
+        &self,
+        req: crate::model::CreateFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Folder>> {
+        self.inner.create_folder(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_folder(
+        &self,
+        req: crate::model::UpdateFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Folder>> {
+        self.inner.update_folder(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_folder(
+        &self,
+        req: crate::model::DeleteFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        self.inner.delete_folder(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_folder_tree(
+        &self,
+        req: crate::model::DeleteFolderTreeRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.delete_folder_tree(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn query_folder_contents(
+        &self,
+        req: crate::model::QueryFolderContentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryFolderContentsResponse>> {
+        self.inner.query_folder_contents(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn query_user_root_contents(
+        &self,
+        req: crate::model::QueryUserRootContentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::QueryUserRootContentsResponse>> {
+        self.inner.query_user_root_contents(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn move_folder(
+        &self,
+        req: crate::model::MoveFolderRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.move_folder(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_repositories(
         &self,
         req: crate::model::ListRepositoriesRequest,
@@ -80,6 +215,15 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
         self.inner.delete_repository(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn move_repository(
+        &self,
+        req: crate::model::MoveRepositoryRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.move_repository(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -532,6 +676,33 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        self.inner.get_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        self.inner.set_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -550,29 +721,52 @@ where
     }
 
     #[tracing::instrument(ret)]
-    async fn set_iam_policy(
+    async fn list_operations(
         &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        self.inner.set_iam_policy(req, options).await
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn get_iam_policy(
+    async fn get_operation(
         &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        self.inner.get_iam_policy(req, options).await
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
+    async fn delete_operation(
         &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
+    ) -> Result<crate::Response<()>> {
+        self.inner.delete_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        self.inner.cancel_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }

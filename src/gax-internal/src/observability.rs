@@ -30,7 +30,7 @@ pub mod attributes;
 mod errors;
 
 #[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
-mod http_tracing;
+pub(crate) mod http_tracing;
 
 #[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
 pub(crate) use http_tracing::{ResultExt as HttpResultExt, create_http_attempt_span};
@@ -42,7 +42,10 @@ pub mod grpc_tracing;
 mod client_signals;
 
 #[cfg(google_cloud_unstable_tracing)]
-pub use client_signals::{ClientSignalsExt, DurationMetric, RequestStart};
+pub use client_signals::{
+    ClientRequestAttributes, ClientSignalsExt, DurationMetric, RequestRecorder, RequestStart,
+    WithClientLogging,
+};
 
 #[cfg(google_cloud_unstable_tracing)]
 mod client_tracing;

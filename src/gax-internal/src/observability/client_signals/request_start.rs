@@ -108,14 +108,14 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn elapsed() -> anyhow::Result<()> {
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let start = RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(Duration::from_millis(500)).await;
         assert_eq!(start.elapsed(), Duration::from_millis(500));
         assert_eq!(start.info(), &TEST_INFO);
-        assert_eq!(start.url_template(), URL_TEMPLATE);
-        assert_eq!(start.method(), METHOD);
+        assert_eq!(start.url_template(), TEST_URL_TEMPLATE);
+        assert_eq!(start.method(), TEST_METHOD);
         Ok(())
     }
 }

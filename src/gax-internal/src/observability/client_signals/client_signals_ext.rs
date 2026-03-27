@@ -94,8 +94,8 @@ mod tests {
     async fn basic() -> anyhow::Result<()> {
         let metric = DurationMetric::new(&TEST_INFO);
 
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = super::RequestStart::new(&TEST_INFO, &options, METHOD);
+        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+        let start = super::RequestStart::new(&TEST_INFO, &options, TEST_METHOD);
         let span = tracing::info_span!("test-span");
 
         let future = ready(Ok::<String, Error>("hello".to_string()));

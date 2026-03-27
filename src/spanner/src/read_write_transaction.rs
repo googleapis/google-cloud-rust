@@ -19,7 +19,6 @@ use crate::error::internal_error;
 use crate::model::BeginTransactionRequest;
 use crate::model::CommitRequest;
 use crate::model::ExecuteBatchDmlRequest;
-use crate::model::ExecuteSqlRequest;
 use crate::model::RollbackRequest;
 use crate::model::TransactionOptions;
 use crate::model::TransactionSelector;
@@ -116,13 +115,11 @@ impl ReadWriteTransaction {
     pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
         let statement = statement.into();
-        let request = ExecuteSqlRequest::default()
+        let request = statement
+            .into_request()
             .set_session(self.context.client.session.name.clone())
             .set_transaction(self.context.transaction_selector.clone())
-            .set_seqno(seqno)
-            .set_or_clear_params(statement.get_params())
-            .set_param_types(statement.get_param_types())
-            .set_sql(statement.sql);
+            .set_seqno(seqno);
 
         let response = self
             .context
@@ -216,17 +213,7 @@ impl ReadWriteTransaction {
         let statements: Vec<ExecuteBatchDmlStatement> = batch
             .statements
             .into_iter()
-            .map(|stmt: crate::statement::Statement| {
-                let params = stmt.get_params();
-                let param_types = stmt.get_param_types();
-
-                ExecuteBatchDmlStatement {
-                    sql: stmt.sql,
-                    params,
-                    param_types,
-                    ..Default::default()
-                }
-            })
+            .map(|stmt: crate::statement::Statement| stmt.into_batch_statement())
             .collect();
 
         let request = ExecuteBatchDmlRequest::default()

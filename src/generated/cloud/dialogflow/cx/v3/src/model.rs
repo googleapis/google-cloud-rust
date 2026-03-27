@@ -19671,6 +19671,9 @@ pub struct Intent {
     /// scope, content, result etc. Maximum character limit: 140 characters.
     pub description: std::string::String,
 
+    /// Optional. Matching DTMF pattern for the intent.
+    pub dtmf_pattern: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -19802,6 +19805,18 @@ impl Intent {
     /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [dtmf_pattern][crate::model::Intent::dtmf_pattern].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Intent;
+    /// let x = Intent::new().set_dtmf_pattern("example");
+    /// ```
+    pub fn set_dtmf_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dtmf_pattern = v.into();
         self
     }
 }
@@ -36342,6 +36357,12 @@ pub struct QueryResult {
     pub data_store_connection_signals:
         std::option::Option<crate::model::DataStoreConnectionSignals>,
 
+    /// Optional. Contains the sequence of trace blocks from the current
+    /// conversation turn. Trace blocks are ordered chronologically and contain
+    /// detailed traces of runtime behavior such as tool calls, LLM calls, flow and
+    /// playbook invocations, agent utterances and user utterances.
+    pub trace_blocks: std::vec::Vec<crate::model::TraceBlock>,
+
     /// The original conversational query.
     pub query: std::option::Option<crate::model::query_result::Query>,
 
@@ -36756,6 +36777,28 @@ impl QueryResult {
         T: std::convert::Into<crate::model::DataStoreConnectionSignals>,
     {
         self.data_store_connection_signals = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [trace_blocks][crate::model::QueryResult::trace_blocks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
+    /// use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// let x = QueryResult::new()
+    ///     .set_trace_blocks([
+    ///         TraceBlock::default()/* use setters */,
+    ///         TraceBlock::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_trace_blocks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TraceBlock>,
+    {
+        use std::iter::Iterator;
+        self.trace_blocks = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -47169,8 +47212,534 @@ pub mod tool_call_result {
     }
 }
 
+/// The trace block tracks a sequence of actions taken by the agent in a flow or
+/// a playbook.
+#[cfg(feature = "sessions")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TraceBlock {
+    /// The actions performed by the agent and the user during this session.
+    pub actions: std::vec::Vec<crate::model::Action>,
+
+    /// Output only. Timestamp of the start of the trace block.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Timestamp of the end of the trace block.
+    pub complete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. A list of input parameters of the trace block.
+    pub input_parameters: std::option::Option<wkt::Struct>,
+
+    /// Optional. A list of output parameters of the trace block.
+    pub output_parameters: std::option::Option<wkt::Struct>,
+
+    /// Optional. Output only. The end state of the trace block.
+    pub end_state: crate::model::OutputState,
+
+    /// Metadata of the trace.
+    pub trace_metadata: std::option::Option<crate::model::trace_block::TraceMetadata>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sessions")]
+impl TraceBlock {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [actions][crate::model::TraceBlock::actions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use google_cloud_dialogflow_cx_v3::model::Action;
+    /// let x = TraceBlock::new()
+    ///     .set_actions([
+    ///         Action::default()/* use setters */,
+    ///         Action::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_actions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Action>,
+    {
+        use std::iter::Iterator;
+        self.actions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::TraceBlock::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use wkt::Timestamp;
+    /// let x = TraceBlock::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::TraceBlock::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use wkt::Timestamp;
+    /// let x = TraceBlock::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TraceBlock::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [complete_time][crate::model::TraceBlock::complete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use wkt::Timestamp;
+    /// let x = TraceBlock::new().set_complete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_complete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.complete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [complete_time][crate::model::TraceBlock::complete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use wkt::Timestamp;
+    /// let x = TraceBlock::new().set_or_clear_complete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TraceBlock::new().set_or_clear_complete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.complete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [input_parameters][crate::model::TraceBlock::input_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use wkt::Struct;
+    /// let x = TraceBlock::new().set_input_parameters(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_input_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.input_parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_parameters][crate::model::TraceBlock::input_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use wkt::Struct;
+    /// let x = TraceBlock::new().set_or_clear_input_parameters(Some(Struct::default()/* use setters */));
+    /// let x = TraceBlock::new().set_or_clear_input_parameters(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_input_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.input_parameters = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [output_parameters][crate::model::TraceBlock::output_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use wkt::Struct;
+    /// let x = TraceBlock::new().set_output_parameters(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_output_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.output_parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [output_parameters][crate::model::TraceBlock::output_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use wkt::Struct;
+    /// let x = TraceBlock::new().set_or_clear_output_parameters(Some(Struct::default()/* use setters */));
+    /// let x = TraceBlock::new().set_or_clear_output_parameters(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_output_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.output_parameters = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_state][crate::model::TraceBlock::end_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use google_cloud_dialogflow_cx_v3::model::OutputState;
+    /// let x0 = TraceBlock::new().set_end_state(OutputState::Ok);
+    /// let x1 = TraceBlock::new().set_end_state(OutputState::Cancelled);
+    /// let x2 = TraceBlock::new().set_end_state(OutputState::Failed);
+    /// ```
+    pub fn set_end_state<T: std::convert::Into<crate::model::OutputState>>(mut self, v: T) -> Self {
+        self.end_state = v.into();
+        self
+    }
+
+    /// Sets the value of [trace_metadata][crate::model::TraceBlock::trace_metadata].
+    ///
+    /// Note that all the setters affecting `trace_metadata` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookTraceMetadata;
+    /// let x = TraceBlock::new().set_trace_metadata(Some(
+    ///     google_cloud_dialogflow_cx_v3::model::trace_block::TraceMetadata::PlaybookTraceMetadata(PlaybookTraceMetadata::default().into())));
+    /// ```
+    pub fn set_trace_metadata<
+        T: std::convert::Into<std::option::Option<crate::model::trace_block::TraceMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.trace_metadata = v.into();
+        self
+    }
+
+    /// The value of [trace_metadata][crate::model::TraceBlock::trace_metadata]
+    /// if it holds a `PlaybookTraceMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn playbook_trace_metadata(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PlaybookTraceMetadata>> {
+        #[allow(unreachable_patterns)]
+        self.trace_metadata.as_ref().and_then(|v| match v {
+            crate::model::trace_block::TraceMetadata::PlaybookTraceMetadata(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [trace_metadata][crate::model::TraceBlock::trace_metadata]
+    /// to hold a `PlaybookTraceMetadata`.
+    ///
+    /// Note that all the setters affecting `trace_metadata` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookTraceMetadata;
+    /// let x = TraceBlock::new().set_playbook_trace_metadata(PlaybookTraceMetadata::default()/* use setters */);
+    /// assert!(x.playbook_trace_metadata().is_some());
+    /// assert!(x.flow_trace_metadata().is_none());
+    /// assert!(x.speech_processing_metadata().is_none());
+    /// ```
+    pub fn set_playbook_trace_metadata<
+        T: std::convert::Into<std::boxed::Box<crate::model::PlaybookTraceMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.trace_metadata = std::option::Option::Some(
+            crate::model::trace_block::TraceMetadata::PlaybookTraceMetadata(v.into()),
+        );
+        self
+    }
+
+    /// The value of [trace_metadata][crate::model::TraceBlock::trace_metadata]
+    /// if it holds a `FlowTraceMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn flow_trace_metadata(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::FlowTraceMetadata>> {
+        #[allow(unreachable_patterns)]
+        self.trace_metadata.as_ref().and_then(|v| match v {
+            crate::model::trace_block::TraceMetadata::FlowTraceMetadata(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [trace_metadata][crate::model::TraceBlock::trace_metadata]
+    /// to hold a `FlowTraceMetadata`.
+    ///
+    /// Note that all the setters affecting `trace_metadata` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use google_cloud_dialogflow_cx_v3::model::FlowTraceMetadata;
+    /// let x = TraceBlock::new().set_flow_trace_metadata(FlowTraceMetadata::default()/* use setters */);
+    /// assert!(x.flow_trace_metadata().is_some());
+    /// assert!(x.playbook_trace_metadata().is_none());
+    /// assert!(x.speech_processing_metadata().is_none());
+    /// ```
+    pub fn set_flow_trace_metadata<
+        T: std::convert::Into<std::boxed::Box<crate::model::FlowTraceMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.trace_metadata = std::option::Option::Some(
+            crate::model::trace_block::TraceMetadata::FlowTraceMetadata(v.into()),
+        );
+        self
+    }
+
+    /// The value of [trace_metadata][crate::model::TraceBlock::trace_metadata]
+    /// if it holds a `SpeechProcessingMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn speech_processing_metadata(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SpeechProcessingMetadata>> {
+        #[allow(unreachable_patterns)]
+        self.trace_metadata.as_ref().and_then(|v| match v {
+            crate::model::trace_block::TraceMetadata::SpeechProcessingMetadata(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [trace_metadata][crate::model::TraceBlock::trace_metadata]
+    /// to hold a `SpeechProcessingMetadata`.
+    ///
+    /// Note that all the setters affecting `trace_metadata` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TraceBlock;
+    /// use google_cloud_dialogflow_cx_v3::model::SpeechProcessingMetadata;
+    /// let x = TraceBlock::new().set_speech_processing_metadata(SpeechProcessingMetadata::default()/* use setters */);
+    /// assert!(x.speech_processing_metadata().is_some());
+    /// assert!(x.playbook_trace_metadata().is_none());
+    /// assert!(x.flow_trace_metadata().is_none());
+    /// ```
+    pub fn set_speech_processing_metadata<
+        T: std::convert::Into<std::boxed::Box<crate::model::SpeechProcessingMetadata>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.trace_metadata = std::option::Option::Some(
+            crate::model::trace_block::TraceMetadata::SpeechProcessingMetadata(v.into()),
+        );
+        self
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl wkt::message::Message for TraceBlock {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.TraceBlock"
+    }
+}
+
+/// Defines additional types related to [TraceBlock].
+#[cfg(feature = "sessions")]
+pub mod trace_block {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Metadata of the trace.
+    #[cfg(feature = "sessions")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TraceMetadata {
+        /// Metadata of the playbook trace.
+        PlaybookTraceMetadata(std::boxed::Box<crate::model::PlaybookTraceMetadata>),
+        /// Metadata of the flow trace.
+        FlowTraceMetadata(std::boxed::Box<crate::model::FlowTraceMetadata>),
+        /// Metadata of the speech-to-text and speech-to-text processing.
+        SpeechProcessingMetadata(std::boxed::Box<crate::model::SpeechProcessingMetadata>),
+    }
+}
+
+/// Metadata of the speech-to-text and text-to-speech processing.
+#[cfg(feature = "sessions")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SpeechProcessingMetadata {
+    /// Output only. The display name of the speech processing.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sessions")]
+impl SpeechProcessingMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [display_name][crate::model::SpeechProcessingMetadata::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::SpeechProcessingMetadata;
+    /// let x = SpeechProcessingMetadata::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl wkt::message::Message for SpeechProcessingMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.SpeechProcessingMetadata"
+    }
+}
+
+/// Metadata of the playbook trace.
+#[cfg(feature = "sessions")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PlaybookTraceMetadata {
+    /// Required. The unique identifier of the playbook.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub playbook: std::string::String,
+
+    /// Output only. The display name of the playbook.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sessions")]
+impl PlaybookTraceMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [playbook][crate::model::PlaybookTraceMetadata::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookTraceMetadata;
+    /// let x = PlaybookTraceMetadata::new().set_playbook("example");
+    /// ```
+    pub fn set_playbook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.playbook = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::PlaybookTraceMetadata::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookTraceMetadata;
+    /// let x = PlaybookTraceMetadata::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl wkt::message::Message for PlaybookTraceMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookTraceMetadata"
+    }
+}
+
+/// Metadata of the flow trace.
+#[cfg(feature = "sessions")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FlowTraceMetadata {
+    /// Required. The unique identifier of the flow.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
+    pub flow: std::string::String,
+
+    /// Output only. The display name of the flow.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "sessions")]
+impl FlowTraceMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [flow][crate::model::FlowTraceMetadata::flow].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::FlowTraceMetadata;
+    /// let x = FlowTraceMetadata::new().set_flow("example");
+    /// ```
+    pub fn set_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.flow = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::FlowTraceMetadata::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::FlowTraceMetadata;
+    /// let x = FlowTraceMetadata::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl wkt::message::Message for FlowTraceMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.FlowTraceMetadata"
+    }
+}
+
 /// Input of the playbook.
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlaybookInput {
@@ -47181,7 +47750,7 @@ pub struct PlaybookInput {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl PlaybookInput {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -47203,7 +47772,7 @@ impl PlaybookInput {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl wkt::message::Message for PlaybookInput {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookInput"
@@ -47211,7 +47780,7 @@ impl wkt::message::Message for PlaybookInput {
 }
 
 /// Output of the playbook.
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlaybookOutput {
@@ -47221,7 +47790,7 @@ pub struct PlaybookOutput {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl PlaybookOutput {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -47243,7 +47812,7 @@ impl PlaybookOutput {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl wkt::message::Message for PlaybookOutput {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookOutput"
@@ -47251,7 +47820,7 @@ impl wkt::message::Message for PlaybookOutput {
 }
 
 /// Action performed by end user or Dialogflow agent in the conversation.
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Action {
@@ -47261,7 +47830,7 @@ pub struct Action {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl Action {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -47584,7 +48153,7 @@ impl Action {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl wkt::message::Message for Action {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Action"
@@ -47592,13 +48161,13 @@ impl wkt::message::Message for Action {
 }
 
 /// Defines additional types related to [Action].
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 pub mod action {
     #[allow(unused_imports)]
     use super::*;
 
     /// Action details.
-    #[cfg(any(feature = "examples", feature = "playbooks",))]
+    #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Action {
@@ -47624,7 +48193,7 @@ pub mod action {
 }
 
 /// UserUtterance represents one message sent by the customer.
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserUtterance {
@@ -47634,7 +48203,7 @@ pub struct UserUtterance {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl UserUtterance {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -47653,7 +48222,7 @@ impl UserUtterance {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl wkt::message::Message for UserUtterance {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UserUtterance"
@@ -47661,7 +48230,7 @@ impl wkt::message::Message for UserUtterance {
 }
 
 /// AgentUtterance represents one message sent by the agent.
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AgentUtterance {
@@ -47671,7 +48240,7 @@ pub struct AgentUtterance {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl AgentUtterance {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -47690,7 +48259,7 @@ impl AgentUtterance {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl wkt::message::Message for AgentUtterance {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.AgentUtterance"
@@ -47698,7 +48267,7 @@ impl wkt::message::Message for AgentUtterance {
 }
 
 /// Stores metadata of the invocation of an action supported by a tool.
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ToolUse {
@@ -47724,7 +48293,7 @@ pub struct ToolUse {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl ToolUse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -47833,7 +48402,7 @@ impl ToolUse {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl wkt::message::Message for ToolUse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ToolUse"
@@ -47841,7 +48410,7 @@ impl wkt::message::Message for ToolUse {
 }
 
 /// Stores metadata of the invocation of a child playbook.
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlaybookInvocation {
@@ -47865,7 +48434,7 @@ pub struct PlaybookInvocation {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl PlaybookInvocation {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -47980,7 +48549,7 @@ impl PlaybookInvocation {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl wkt::message::Message for PlaybookInvocation {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookInvocation"
@@ -47988,7 +48557,7 @@ impl wkt::message::Message for PlaybookInvocation {
 }
 
 /// Stores metadata of the invocation of a CX flow.
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FlowInvocation {
@@ -48006,7 +48575,7 @@ pub struct FlowInvocation {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl FlowInvocation {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -48055,7 +48624,7 @@ impl FlowInvocation {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl wkt::message::Message for FlowInvocation {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.FlowInvocation"
@@ -48064,7 +48633,7 @@ impl wkt::message::Message for FlowInvocation {
 
 /// Stores metadata of the transition to another target playbook. Playbook
 /// transition actions exit the caller playbook and enter the target playbook.
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PlaybookTransition {
@@ -48079,7 +48648,7 @@ pub struct PlaybookTransition {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl PlaybookTransition {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -48110,7 +48679,7 @@ impl PlaybookTransition {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl wkt::message::Message for PlaybookTransition {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookTransition"
@@ -48119,7 +48688,7 @@ impl wkt::message::Message for PlaybookTransition {
 
 /// Stores metadata of the transition to a target CX flow. Flow transition
 /// actions exit the caller playbook and enter the child flow.
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FlowTransition {
@@ -48134,7 +48703,7 @@ pub struct FlowTransition {
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl FlowTransition {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -48165,7 +48734,7 @@ impl FlowTransition {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl wkt::message::Message for FlowTransition {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.FlowTransition"
@@ -57255,6 +57824,8 @@ pub enum DetectIntentResponseView {
     /// ## Default response view omits the following fields:
     ///
     /// [QueryResult.trace_blocks][google.cloud.dialogflow.cx.v3.QueryResult.trace_blocks]
+    ///
+    /// [google.cloud.dialogflow.cx.v3.QueryResult.trace_blocks]: crate::model::QueryResult::trace_blocks
     Default,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -57535,7 +58106,7 @@ impl<'de> serde::de::Deserialize<'de> for TestResult {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum OutputState {
@@ -57559,7 +58130,7 @@ pub enum OutputState {
 }
 
 #[doc(hidden)]
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 pub mod output_state {
     #[allow(unused_imports)]
     use super::*;
@@ -57567,7 +58138,7 @@ pub mod output_state {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl OutputState {
     /// Gets the enum value.
     ///
@@ -57602,7 +58173,7 @@ impl OutputState {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::default::Default for OutputState {
     fn default() -> Self {
         use std::convert::From;
@@ -57610,14 +58181,14 @@ impl std::default::Default for OutputState {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Display for OutputState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::convert::From<i32> for OutputState {
     fn from(value: i32) -> Self {
         match value {
@@ -57634,7 +58205,7 @@ impl std::convert::From<i32> for OutputState {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::convert::From<&str> for OutputState {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -57652,7 +58223,7 @@ impl std::convert::From<&str> for OutputState {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl serde::ser::Serialize for OutputState {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -57670,7 +58241,7 @@ impl serde::ser::Serialize for OutputState {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl<'de> serde::de::Deserialize<'de> for OutputState {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where

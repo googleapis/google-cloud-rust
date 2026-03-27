@@ -1,0 +1,14 @@
+{
+    "api_id": "visionai.googleapis.com",
+    "api_shortname": "visionai",
+    "client_documentation": "https://docs.rs/google-cloud-visionai-v1/latest",
+    "distribution_name": "google-cloud-visionai-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=187174\u0026template=1161261",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "visionai",
+    "name_pretty": "Vision AI",
+    "product_documentation": "https://cloud.google.com/vision-ai/docs",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}

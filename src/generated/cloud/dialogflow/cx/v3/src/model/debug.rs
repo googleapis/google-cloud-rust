@@ -2429,6 +2429,7 @@ impl std::fmt::Debug for super::Intent {
         debug_struct.field("is_fallback", &self.is_fallback);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("description", &self.description);
+        debug_struct.field("dtmf_pattern", &self.dtmf_pattern);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4073,6 +4074,7 @@ impl std::fmt::Debug for super::QueryResult {
             "data_store_connection_signals",
             &self.data_store_connection_signals,
         );
+        debug_struct.field("trace_blocks", &self.trace_blocks);
         debug_struct.field("query", &self.query);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -5283,7 +5285,63 @@ impl std::fmt::Debug for super::tool_call_result::Error {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for super::TraceBlock {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TraceBlock");
+        debug_struct.field("actions", &self.actions);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("complete_time", &self.complete_time);
+        debug_struct.field("input_parameters", &self.input_parameters);
+        debug_struct.field("output_parameters", &self.output_parameters);
+        debug_struct.field("end_state", &self.end_state);
+        debug_struct.field("trace_metadata", &self.trace_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for super::SpeechProcessingMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeechProcessingMetadata");
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for super::PlaybookTraceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlaybookTraceMetadata");
+        debug_struct.field("playbook", &self.playbook);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl std::fmt::Debug for super::FlowTraceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FlowTraceMetadata");
+        debug_struct.field("flow", &self.flow);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Debug for super::PlaybookInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PlaybookInput");
@@ -5298,7 +5356,7 @@ impl std::fmt::Debug for super::PlaybookInput {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Debug for super::PlaybookOutput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PlaybookOutput");
@@ -5310,7 +5368,7 @@ impl std::fmt::Debug for super::PlaybookOutput {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Debug for super::Action {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Action");
@@ -5322,7 +5380,7 @@ impl std::fmt::Debug for super::Action {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Debug for super::UserUtterance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserUtterance");
@@ -5334,7 +5392,7 @@ impl std::fmt::Debug for super::UserUtterance {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Debug for super::AgentUtterance {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AgentUtterance");
@@ -5346,7 +5404,7 @@ impl std::fmt::Debug for super::AgentUtterance {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Debug for super::ToolUse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ToolUse");
@@ -5362,7 +5420,7 @@ impl std::fmt::Debug for super::ToolUse {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Debug for super::PlaybookInvocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PlaybookInvocation");
@@ -5378,7 +5436,7 @@ impl std::fmt::Debug for super::PlaybookInvocation {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Debug for super::FlowInvocation {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FlowInvocation");
@@ -5392,7 +5450,7 @@ impl std::fmt::Debug for super::FlowInvocation {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Debug for super::PlaybookTransition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PlaybookTransition");
@@ -5405,7 +5463,7 @@ impl std::fmt::Debug for super::PlaybookTransition {
     }
 }
 
-#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl std::fmt::Debug for super::FlowTransition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FlowTransition");
