@@ -131,6 +131,24 @@ macro_rules! client_request_signals {
         }
         (start, span)
     }};
+    (metric: $metric:expr, info: $info:expr, method: $method:literal, $inner:expr) => {{
+        use ::tracing::instrument::Instrument;
+        let recorder = $crate::observability::RequestRecorder::new($info);
+        let span = $crate::client_request_span!(info: $info, method: $method);
+        // TODO(#5158) - add the span decorator.
+        let pending = recorder.scope(
+            $crate::observability::WithClientSpan::new(
+                span.clone(),
+                $crate::observability::WithClientMetric::new(
+                    $metric,
+                    $crate::observability::WithClientLogging::new(
+                        $inner
+                    ),
+                ))
+            )
+            .instrument(span.clone());
+        (span, pending)
+    }};
 }
 
 /// Creates a new tracing span for a client request.
@@ -150,6 +168,36 @@ macro_rules! client_request_signals {
 /// ```
 #[macro_export]
 macro_rules! client_request_span {
+    (info: $info:expr, method: $method:expr) => {{
+        use ::tracing::field::Empty;
+        use $crate::observability::attributes::keys::*;
+        use $crate::observability::attributes::otel_status_codes;
+        use $crate::observability::attributes::{
+            GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP,
+        };
+        tracing::info_span!(
+            "client_request",
+            { OTEL_NAME } = concat!(env!("CARGO_CRATE_NAME"), "::", $method),
+            { OTEL_KIND } = OTEL_KIND_INTERNAL,
+            { RPC_SYSTEM } = RPC_SYSTEM_HTTP, // Default to HTTP, can be overridden
+            { RPC_SERVICE } = $info.service_name,
+            { GCP_CLIENT_SERVICE } = $info.service_name,
+            { GCP_CLIENT_VERSION } = $info.client_version,
+            { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
+            { GCP_CLIENT_ARTIFACT } = $info.client_artifact,
+            // Fields to be recorded later
+            { RPC_METHOD } = Empty,
+            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
+            { OTEL_STATUS_DESCRIPTION } = Empty,
+            { ERROR_TYPE } = Empty,
+            { SERVER_ADDRESS } = Empty,
+            { SERVER_PORT } = Empty,
+            { URL_FULL } = Empty,
+            { HTTP_REQUEST_METHOD } = Empty,
+            { HTTP_RESPONSE_STATUS_CODE } = Empty,
+            { HTTP_REQUEST_RESEND_COUNT } = Empty,
+        )
+    }};
     ($client:expr, $method:expr, $info:expr) => {{
         use $crate::observability::attributes::keys::*;
         use $crate::observability::attributes::otel_status_codes;
@@ -195,6 +243,9 @@ mod tests {
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+    use httptest::matchers::request::method_path;
+    use httptest::responders::status_code;
+    use httptest::{Expectation, Server};
     use opentelemetry::TraceId;
     use opentelemetry::logs::AnyValue;
     use opentelemetry::trace::{Status as SpanStatus, TracerProvider};
@@ -382,6 +433,125 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test(start_paused = true)]
+    async fn client_request() -> anyhow::Result<()> {
+        const PATH: &str = "/v1/projects/test-only:test_method";
+
+        let signals = SignalProviders::new();
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(method_path("GET", PATH))
+                .respond_with(status_code(404).body("NOT FOUND")),
+        );
+        let url = server.url(PATH).to_string();
+
+        // In a real client this is created during the `tracing::Client`
+        // initialization.
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(signals.metric_provider.clone()),
+        );
+
+        // Simulate a client call, this simulates a call that takes 750ms and then returns an error.
+        let (span, pending) = crate::client_request_signals!(
+            metric: metric.clone(),
+            info: TEST_INFO,
+            method: "FakeClient::some_rust_function",
+            recorded_request_transport_stub(&url));
+        let result = pending.await;
+        assert!(result.is_err(), "{result:?}");
+        drop(span);
+
+        // Flush the trace, logs and metric providers so we can collect the data.
+        signals.force_flush()?;
+
+        const FULL_METHOD: &str = concat!(
+            env!("CARGO_CRATE_NAME"),
+            "::",
+            "FakeClient::some_rust_function"
+        );
+        // Verify the metrics include the data we want.
+        let metrics = signals.metric_exporter.get_finished_metrics()?;
+        check_metric_scope(&metrics);
+        check_metric_data(
+            &metrics,
+            1_u64..=1_u64,
+            &[
+                ("rpc.system.name", "http"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
+                ("rpc.method", TEST_METHOD),
+                ("http.response.status_code", "404"),
+                ("error.type", "404"),
+                ("server.address", server.addr().ip().to_string().as_str()),
+                ("server.port", server.addr().port().to_string().as_str()),
+            ],
+        );
+
+        // Find the span.
+        let spans = signals.trace_exporter.get_finished_spans()?;
+        let span = spans
+            .iter()
+            .find(|s| s.name.as_ref() == FULL_METHOD)
+            .unwrap_or_else(|| panic!("expected one span named 'client_request', spans={spans:?}"));
+        let trace_id = span.span_context.trace_id();
+        let got = BTreeSet::from_iter(
+            span.attributes
+                .iter()
+                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
+        );
+        let want = BTreeSet::from_iter(
+            [
+                ("rpc.system", "http"),
+                ("rpc.service", "test-service"),
+                ("rpc.method", TEST_METHOD),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("code.module.name", module_path!()),
+                ("error.type", "404"),
+                ("http.request.method", "GET"),
+                ("http.response.status_code", "404"),
+                ("server.address", server.addr().ip().to_string().as_str()),
+                ("server.port", server.addr().port().to_string().as_str()),
+                ("url.full", url.as_str()),
+            ]
+            .map(|(k, v)| (k, v.to_string())),
+        );
+        let missing = want.difference(&got).collect::<Vec<_>>();
+        assert!(
+            missing.is_empty(),
+            "missing = {missing:?}\nwant = {want:?}\ngot  = {got:?}"
+        );
+        assert!(matches!(span.status, SpanStatus::Error { .. }), "{span:#?}");
+
+        // Verify the logs include the entry for this error.
+        let captured = signals.logs_exporter.get_emitted_logs()?;
+        let record = captured
+            .iter()
+            .find(|r| r.record.target().is_some_and(|v| v == TARGET))
+            .unwrap_or_else(|| panic!("missing log for target {TARGET} in {captured:#?}"));
+        check_log_record(
+            &record.record,
+            trace_id,
+            &[
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("rpc.method", TEST_METHOD),
+                ("rpc.service", "test-service"),
+                ("error.type", "404"),
+                ("http.request.method", "GET"),
+                ("http.response.status_code", "404"),
+                ("server.address", server.addr().ip().to_string().as_str()),
+                ("server.port", server.addr().port().to_string().as_str()),
+                ("url.full", url.as_str()),
+            ],
+        );
+        Ok(())
+    }
+
     pub struct SignalProviders {
         pub trace_exporter: InMemorySpanExporter,
         pub trace_provider: SdkTracerProvider,
@@ -531,7 +701,7 @@ mod tests {
     pub fn check_log_record(
         record: &SdkLogRecord,
         trace_id: TraceId,
-        extra_attributes: &[(&'static str, &'static str)],
+        extra_attributes: &[(&'static str, &str)],
     ) {
         fn format_value(any: &AnyValue) -> String {
             match any {
