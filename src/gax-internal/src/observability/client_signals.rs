@@ -135,7 +135,6 @@ macro_rules! client_request_signals {
         use ::tracing::instrument::Instrument;
         let recorder = $crate::observability::RequestRecorder::new($info);
         let span = $crate::client_request_span!(info: $info, method: $method);
-        // TODO(#5158) - add the span decorator.
         let pending = recorder.scope(
             $crate::observability::WithClientSpan::new(
                 span.clone(),
