@@ -19,6 +19,7 @@ mod request_start;
 mod with_client_logging;
 mod with_client_metric;
 mod with_client_signals;
+mod with_client_span;
 
 pub use client_signals_ext::ClientSignalsExt;
 pub use duration_metric::DurationMetric;
@@ -27,6 +28,7 @@ pub use request_start::RequestStart;
 pub use with_client_logging::WithClientLogging;
 pub use with_client_metric::WithClientMetric;
 pub use with_client_signals::WithClientSignals;
+pub use with_client_span::WithClientSpan;
 
 /// An extension to disable terminal actionable error logging.
 ///
