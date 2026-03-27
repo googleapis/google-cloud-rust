@@ -517,6 +517,189 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
+    async fn test_result_set_handle_partial_result_set_error() -> anyhow::Result<()> {
+        let mut rs = run_mock_query(vec![PartialResultSet {
+            values: vec![string_val("row1")],
+            ..Default::default()
+        }])
+        .await;
+
+        let res = rs.next().await;
+        assert!(res.is_some(), "Expected an error but got None");
+        let res = res.expect("Expected some response but got None");
+        assert!(res.is_err(), "Expected an error but got Ok");
+        let err_str = res.expect_err("Expected should be an error").to_string();
+        assert!(
+            err_str.contains("First PartialResultSet did not contain metadata"),
+            "Expected error to contain 'First PartialResultSet did not contain metadata', but got '{}'",
+            err_str
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_result_set_stream_ended_with_chunked_value() -> anyhow::Result<()> {
+        let mut rs = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a")],
+            chunked_value: true,
+            ..Default::default()
+        }])
+        .await;
+
+        let res = rs.next().await;
+        assert!(res.is_some(), "Expected an error but got None");
+        let res = res.expect("Expected some response but got None");
+        assert!(res.is_err(), "Expected an error but got Ok");
+        let err_str = res.expect_err("Expected should be an error").to_string();
+        assert!(
+            err_str.contains("Stream ended with chunked_value=true"),
+            "Expected error to contain 'Stream ended with chunked_value=true', but got '{}'",
+            err_str
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_result_set_duplicate_metadata() -> anyhow::Result<()> {
+        let mut rs = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("a"), string_val("b")],
+                resume_token: b"token1".to_vec(),
+                ..Default::default()
+            },
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("c"), string_val("d")],
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        rs.next().await.expect("Expected a row")?;
+
+        let res2 = rs.next().await;
+        assert!(res2.is_some(), "Expected an error but got None");
+        let res2 = res2.expect("Expected some response but got None");
+        assert!(res2.is_err(), "Expected an error but got Ok");
+        let err_str = res2.expect_err("Expected should be an error").to_string();
+        assert!(
+            err_str.contains("Additional metadata after first result set"),
+            "Expected error to contain 'Additional metadata after first result set', but got '{}'",
+            err_str
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_result_set_empty_column_metadata() -> anyhow::Result<()> {
+        let mut rs = run_mock_query(vec![PartialResultSet {
+            metadata: Some(ResultSetMetadata {
+                row_type: Some(StructType { fields: vec![] }),
+                ..Default::default()
+            }),
+            values: vec![string_val("a")],
+            ..Default::default()
+        }])
+        .await;
+
+        let res = rs.next().await;
+        assert!(res.is_some(), "Expected an error but got None");
+        let res = res.expect("Expected some response but got None");
+        assert!(res.is_err(), "Expected an error but got Ok");
+        let err_str = res.expect_err("Expected should be an error").to_string();
+        assert!(
+            err_str
+                .contains("PartialResultSet contained values but no column metadata was provided"),
+            "Expected error to contain 'PartialResultSet contained values but no column metadata was provided', but got '{}'",
+            err_str
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_result_set_retry_read_stream() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response;
+        use gaxi::grpc::tonic::Status;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::start;
+
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_request| {
+                let stream = tokio_stream::iter(vec![
+                    Ok(PartialResultSet {
+                        metadata: metadata(2),
+                        values: vec![string_val("row1"), string_val("b")],
+                        resume_token: b"token1".to_vec(),
+                        ..Default::default()
+                    }),
+                    Err(Status::unavailable("Unavailable error")),
+                ]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::StreamingReadStream
+                ))
+            });
+
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_request| {
+                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                    values: vec![string_val("row2"), string_val("d")],
+                    resume_token: b"token2".to_vec(),
+                    last: true,
+                    ..Default::default()
+                })]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::StreamingReadStream
+                ))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let tx = db_client.single_use().build();
+        let read_req = crate::read::ReadRequest::builder("table", vec!["Id", "Value"])
+            .with_keys(crate::key::KeySet::all())
+            .build();
+        let mut rs: ResultSet = tx.execute_read(read_req).await?;
+
+        let row1 = rs.next().await.expect("Stream ended unexpectedly")?;
+        assert_eq!(row1.raw_values()[0].0, string_val("row1"));
+
+        let row2 = rs.next().await.expect("Stream ended unexpectedly")?;
+        assert_eq!(row2.raw_values()[0].0, string_val("row2"));
+
+        assert!(rs.next().await.is_none());
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn test_result_set_one_row() {
         let mut rs = run_mock_query(vec![PartialResultSet {
             metadata: metadata(2),
