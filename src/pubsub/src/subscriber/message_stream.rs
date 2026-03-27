@@ -221,13 +221,8 @@ impl MessageStream {
     /// ```
     pub fn into_stream(self) -> impl futures::Stream<Item = Result<(Message, Handler)>> + Unpin {
         use futures::stream::unfold;
-        Box::pin(unfold(Some(self), move |state| async move {
-            if let Some(mut this) = state {
-                if let Some(chunk) = this.next().await {
-                    return Some((chunk, Some(this)));
-                }
-            };
-            None
+        Box::pin(unfold(self, |mut stream| async move {
+            stream.next().await.map(|item| (item, stream))
         }))
     }
 

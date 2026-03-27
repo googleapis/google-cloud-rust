@@ -117,13 +117,8 @@ impl ReadObjectResponse {
     /// Convert the response to a [Stream].
     pub fn into_stream(self) -> impl Stream<Item = Result<bytes::Bytes>> + Unpin {
         use futures::stream::unfold;
-        Box::pin(unfold(Some(self), move |state| async move {
-            if let Some(mut this) = state {
-                if let Some(chunk) = this.next().await {
-                    return Some((chunk, Some(this)));
-                }
-            };
-            None
+        Box::pin(unfold(self, |mut stream| async move {
+            stream.next().await.map(|item| (item, stream))
         }))
     }
 }

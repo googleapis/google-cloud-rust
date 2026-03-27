@@ -223,13 +223,8 @@ where
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Convert the paginator to a [Stream][futures::stream::Stream].
     fn into_stream(self) -> impl futures::Stream<Item = Result<T, E>> + Unpin {
-        Box::pin(unfold(Some(self), move |state| async move {
-            if let Some(mut paginator) = state {
-                if let Some(pr) = paginator.next().await {
-                    return Some((pr, Some(paginator)));
-                }
-            };
-            None
+        Box::pin(unfold(self, |mut paginator| async move {
+            paginator.next().await.map(|item| (item, paginator))
         }))
     }
 }
@@ -331,13 +326,8 @@ where
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Convert the paginator to a [Stream].
     fn into_stream(self) -> impl Stream<Item = Result<T::PageItem, E>> + Unpin {
-        Box::pin(unfold(Some(self), move |state| async move {
-            if let Some(mut paginator) = state {
-                if let Some(pr) = paginator.next().await {
-                    return Some((pr, Some(paginator)));
-                }
-            };
-            None
+        Box::pin(unfold(self, |mut paginator| async move {
+            paginator.next().await.map(|item| (item, paginator))
         }))
     }
 }
