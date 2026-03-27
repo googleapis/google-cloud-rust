@@ -135,19 +135,22 @@ where
                 let err_msg = error.to_string();
 
                 // TODO(#4795) - use the correct name and target
-                tracing::event!(
-                name: NAME,
-                target: TARGET,
-                    tracing::Level::WARN,
-                    { RPC_SYSTEM_NAME } = RPC_SYSTEM_HTTP,
-                    { URL_DOMAIN } = this.start.info().default_host,
-                    { URL_TEMPLATE } = this.start.url_template(),
-                    { RPC_METHOD } = this.start.method(),
-                    { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-                    { EXCEPTION_TYPE } = error_str,
-                    { EXCEPTION_MESSAGE } = err_msg,
-                    "{error:?}"
-                );
+                if !this.start.disable_actionable_error_logging() {
+                    tracing::event!(
+                        name: NAME,
+                        target: TARGET,
+                        tracing::Level::WARN,
+                        { RPC_SYSTEM_NAME } = RPC_SYSTEM_HTTP,
+                        { URL_DOMAIN } = this.start.info().default_host,
+                        { URL_TEMPLATE } = this.start.url_template(),
+                        { RPC_METHOD } = this.start.method(),
+                        { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
+                        { HTTP_RESPONSE_STATUS_CODE } = error.http_status_code(),
+                        { EXCEPTION_TYPE } = error_str,
+                        { EXCEPTION_MESSAGE } = err_msg,
+                        "{error:?}"
+                    );
+                }
                 this.metric.record_error(&this.start, error)
             }
         }

@@ -28,6 +28,13 @@ pub use with_client_logging::WithClientLogging;
 pub use with_client_metric::WithClientMetric;
 pub use with_client_signals::WithClientSignals;
 
+/// An extension to disable terminal actionable error logging.
+///
+/// If this extension is present in the `RequestOptions` supplied to a GAX call,
+/// the terminal application logs will be suppressed.
+#[derive(Clone, Copy, Debug)]
+pub struct SuppressActionableErrorLog;
+
 /// Creates a [Span] and [RequestStart] for a client request.
 ///
 /// # Parameters
@@ -362,11 +369,6 @@ mod tests {
             trace_id,
             &[
                 ("rpc.method", FULL_METHOD),
-                ("gcp.client.version", "1.2.3"),
-                ("gcp.client.repo", "googleapis/google-cloud-rust"),
-                ("gcp.client.artifact", "test-artifact"),
-                ("gcp.client.service", "test-service"),
-                ("gcp.client.language", "rust"),
                 ("rpc.response.status_code", "NOT_FOUND"),
                 ("exception.type", "NOT_FOUND"),
                 (

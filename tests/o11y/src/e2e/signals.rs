@@ -199,6 +199,7 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
         "{value:?}"
     );
     let want = serde_json::json!({
+        "http.response.status_code": 404,
         "rpc.method": "google_cloud_showcase_v1beta1::client::Echo::echo",
         "rpc.response.status_code": "UNKNOWN",
         "rpc.system.name": "http",
