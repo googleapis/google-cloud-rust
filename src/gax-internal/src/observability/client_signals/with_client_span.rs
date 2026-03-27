@@ -67,11 +67,8 @@ where
             return Poll::Ready(output);
         };
 
-        let parsed_url = snapshot
-            .sanitized_url()
-            .and_then(|u| u.parse::<http::Uri>().ok());
-        let url_path = parsed_url.as_ref().map(|u| u.path());
-        let url_query = parsed_url.as_ref().and_then(|u| u.query());
+        let url_path = snapshot.url().map(|u| u.path());
+        let url_query = snapshot.url().and_then(|u| u.query());
 
         match &output {
             Ok(_) => {

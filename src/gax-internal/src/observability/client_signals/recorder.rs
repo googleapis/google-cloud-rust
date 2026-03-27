@@ -167,7 +167,7 @@ impl RequestRecorder {
             rpc_system: Some(RPC_SYSTEM_HTTP),
             http_method: Some(request.method().clone()),
             http_status_code: None,
-            url: Some(sanitize_url(request.url()).to_string()),
+            url: Some(sanitize_url(request.url())),
         };
         guard.transport_snapshot = Some(snapshot);
     }
@@ -406,7 +406,16 @@ impl ClientSnapshot {
     pub fn sanitized_url(&self) -> Option<&str> {
         self.transport_snapshot
             .as_ref()
-            .and_then(|s| s.url.as_deref())
+            .and_then(|s| s.url.as_ref().map(|u| u.as_str()))
+    }
+
+    /// Returns the parsed URL used in the last request.
+    ///
+    /// Note that this may not be populated for gRPC requests.
+    pub fn url(&self) -> Option<&reqwest::Url> {
+        self.transport_snapshot
+            .as_ref()
+            .and_then(|s| s.url.as_ref())
     }
 }
 
@@ -418,7 +427,7 @@ pub struct TransportSnapshot {
     rpc_system: Option<&'static str>,
     http_method: Option<Method>,
     http_status_code: Option<u16>,
-    url: Option<String>,
+    url: Option<reqwest::Url>,
 }
 
 #[cfg(test)]
