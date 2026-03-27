@@ -259,6 +259,10 @@ impl ClientSnapshot {
     }
 
     /// Returns the client request duration.
+    ///
+    /// This measures the time since the instance was created. Client libraries should initialize an
+    /// instance at the beginning of the request, before any RPCs or attempts to create or fetch
+    /// authentication tokens.
     pub fn client_duration(&self) -> Duration {
         self.start.elapsed()
     }
