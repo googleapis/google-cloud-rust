@@ -26,10 +26,14 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[features]
+unstable-stream = ["dep:futures"]
+
 [dependencies]
 async-trait.workspace = true
 base64.workspace      = true
 bytes.workspace       = true
+futures               = { workspace = true, optional = true }
 gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-grpc-server-streaming"] }
 google-cloud-auth     = { workspace = true }
 google-cloud-gax      = { workspace = true }
