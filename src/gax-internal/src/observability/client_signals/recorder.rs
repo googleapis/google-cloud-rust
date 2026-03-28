@@ -312,6 +312,8 @@ impl ClientSnapshot {
     /// Returns the server address used in the last low-level request.
     ///
     /// If no address is known, use the target address from `info.default_host`.
+    ///
+    /// Use with the "server.address" attribute.
     pub fn server_address(&self) -> String {
         if let Some(address) = self
             .transport_snapshot
@@ -332,6 +334,8 @@ impl ClientSnapshot {
     /// Returns the server port used in the last low-level request.
     ///
     /// If no port is known, use the port implied by `info.default_host`.
+    ///
+    /// Use with the "server.port" attribute.
     pub fn server_port(&self) -> u16 {
         if let Some(port) = self
             .transport_snapshot
@@ -367,7 +371,7 @@ impl ClientSnapshot {
     ///
     /// Note that this may not be populated for gRPC requests.
     ///
-    /// Use with the "rpc.method" attribute.
+    /// Use with the "http.response.status_code" attribute.
     pub fn http_status_code(&self) -> Option<u16> {
         self.transport_snapshot
             .as_ref()
