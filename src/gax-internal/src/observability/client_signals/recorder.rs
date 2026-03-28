@@ -335,7 +335,7 @@ impl ClientSnapshot {
     ///
     /// If no port is known, use the port implied by `info.default_host`.
     ///
-    /// Use with the "server.port" attribute.
+    /// Use with the "server.port" attribute after casting to `i64`.
     pub fn server_port(&self) -> u16 {
         if let Some(port) = self
             .transport_snapshot
@@ -371,7 +371,7 @@ impl ClientSnapshot {
     ///
     /// Note that this may not be populated for gRPC requests.
     ///
-    /// Use with the "http.response.status_code" attribute.
+    /// Use with the "http.response.status_code" attribute after casting to `i64`.
     pub fn http_status_code(&self) -> Option<u16> {
         self.transport_snapshot
             .as_ref()
@@ -394,7 +394,7 @@ impl ClientSnapshot {
     /// The resend count of the initial attempt is `None`, and starts at 1 for each retry attempt
     /// made.
     ///
-    /// Use with the "http.request.resend_count" attribute.
+    /// Use with the "http.request.resend_count" attribute after casting to `i64`.
     pub fn http_resend_count(&self) -> Option<u32> {
         if self.attempt_count <= 1 {
             return None;
