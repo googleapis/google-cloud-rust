@@ -1307,7 +1307,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apiregistry-v1"
-version = "0.1.2"
+version = "1.0.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1503,7 +1503,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-auditmanager-v1"
-version = "0.1.1"
+version = "1.0.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2939,7 +2939,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-hypercomputecluster-v1"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4209,7 +4209,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-securitycentermanagement-v1"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4748,7 +4748,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-vectorsearch-v1"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "async-trait",
  "bytes",
