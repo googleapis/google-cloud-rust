@@ -145,7 +145,7 @@ where
                         { URL_TEMPLATE } = this.start.url_template(),
                         { RPC_METHOD } = this.start.method(),
                         { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-                        { HTTP_RESPONSE_STATUS_CODE } = error.http_status_code(),
+                        { HTTP_RESPONSE_STATUS_CODE } = error.http_status_code().map(|v| v as i64),
                         { EXCEPTION_TYPE } = error_str,
                         { EXCEPTION_MESSAGE } = err_msg,
                         "{error:?}"

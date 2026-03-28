@@ -132,7 +132,7 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
                 { GCP_ERRORS_DOMAIN } = domain,
                 { GCP_ERRORS_METADATA } = metadata_json,
                 { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
-                { HTTP_RESPONSE_STATUS_CODE } = http_status_code,
+                { HTTP_RESPONSE_STATUS_CODE } = http_status_code.map(|v| v as i64),
                 "{log_msg}"
             );
         });

@@ -78,10 +78,10 @@ where
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
                     { URL_FULL } = snapshot.sanitized_url(),
                     { SERVER_ADDRESS } = snapshot.server_address(),
-                    { SERVER_PORT } = snapshot.server_port(),
-                    { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code(),
+                    { SERVER_PORT } = snapshot.server_port() as i64,
+                    { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code().map(|v| v as i64),
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
-                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count(),
+                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
                     { OTEL_STATUS_CODE } = otel_status_codes::UNSET
                 );
             }
@@ -101,10 +101,10 @@ where
                     { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
                     { ERROR_TYPE } = error_type.as_str(),
                     { SERVER_ADDRESS } = snapshot.server_address(),
-                    { SERVER_PORT } = snapshot.server_port(),
-                    { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code(),
+                    { SERVER_PORT } = snapshot.server_port() as i64,
+                    { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code().map(|v| v as i64),
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
-                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count(),
+                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
                     { OTEL_STATUS_CODE } = otel_status_codes::ERROR,
                     { OTEL_STATUS_DESCRIPTION } = error.to_string()
                 );
@@ -259,7 +259,7 @@ mod tests {
         assert_eq!(get_attr("error.type"), Some(&Value::String("404".into())));
         assert_eq!(
             get_attr("http.response.status_code"),
-            Some(&Value::String("404".into()))
+            Some(&Value::I64(404))
         );
         assert_eq!(
             get_attr("gcp.client.artifact"),
