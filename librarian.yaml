@@ -326,7 +326,7 @@ libraries:
     rust:
       package_name_override: google-cloud-apikeys-v2
   - name: google-cloud-apiregistry-v1
-    version: 0.1.2
+    version: 1.0.0
     copyright_year: "2026"
   - name: google-cloud-appengine-v1
     version: 1.8.0
@@ -436,7 +436,7 @@ libraries:
     version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-auditmanager-v1
-    version: 0.1.1
+    version: 1.0.0
     copyright_year: "2026"
   - name: google-cloud-auth
     version: 1.8.0
@@ -916,7 +916,7 @@ libraries:
           package: google-cloud-apps-script-type-slides
           source: google.apps.script.type.slides
   - name: google-cloud-hypercomputecluster-v1
-    version: 0.1.0
+    version: 1.0.0
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-iam-admin-v1
@@ -1339,7 +1339,7 @@ libraries:
     version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-securitycentermanagement-v1
-    version: 0.1.0
+    version: 1.0.0
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-securityposture-v1
@@ -1628,7 +1628,7 @@ libraries:
     rust:
       package_name_override: google-cloud-type
   - name: google-cloud-vectorsearch-v1
-    version: 0.1.0
+    version: 1.0.0
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-video-livestream-v1
