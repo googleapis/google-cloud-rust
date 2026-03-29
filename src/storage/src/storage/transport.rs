@@ -30,10 +30,8 @@ use crate::{
     storage::bidi::connector::Connector, storage::bidi::transport::ObjectDescriptorTransport,
 };
 #[cfg(google_cloud_unstable_tracing)]
-use gaxi::observability::ResultExt;
+use gaxi::observability::{ClientRequestAttributes, DurationMetric, RequestRecorder};
 use std::sync::Arc;
-#[cfg(google_cloud_unstable_tracing)]
-use tracing::Instrument;
 
 /// An implementation of [`stub::Storage`][crate::storage::stub::Storage] that
 /// interacts with the Cloud Storage service.
@@ -54,6 +52,8 @@ use tracing::Instrument;
 pub struct Storage {
     inner: Arc<StorageInner>,
     tracing: bool,
+    #[cfg(google_cloud_unstable_tracing)]
+    metric: DurationMetric,
 }
 
 impl Storage {
@@ -62,6 +62,17 @@ impl Storage {
         Self::new(inner, false)
     }
 
+    #[cfg(google_cloud_unstable_tracing)]
+    pub(crate) fn new(inner: Arc<StorageInner>, tracing: bool) -> Arc<Self> {
+        let metric = DurationMetric::new(&INSTRUMENTATION);
+        Arc::new(Self {
+            inner,
+            tracing,
+            metric,
+        })
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     pub(crate) fn new(inner: Arc<StorageInner>, tracing: bool) -> Arc<Self> {
         Arc::new(Self { inner, tracing })
     }
@@ -87,16 +98,25 @@ impl Storage {
     ) -> Result<ReadObjectResponse> {
         #[cfg(google_cloud_unstable_tracing)]
         {
-            let span =
-                gaxi::client_request_span!("client::Storage", "read_object", &INSTRUMENTATION);
-            let response = self
-                .read_object_plain(request, options)
-                .instrument(span.clone())
-                .await
-                .record_in_span(&span)?;
+            let resource_name = format!("//storage.googleapis.com/{}", request.bucket);
+            let (span, pending) = gaxi::client_request_signals!(
+            metric: self.metric.clone(),
+            info: *INSTRUMENTATION,
+            method: "client::Storage::read_object",
+            async {
+                if let Some(recorder) = RequestRecorder::current() {
+                    recorder.on_client_request(
+                        ClientRequestAttributes::default()
+                            .set_url_template("/storage/v1/b/{bucket}/o/{object}")
+                            .set_resource_name(resource_name),
+                    );
+                }
+                self.read_object_plain(request, options).await
+            });
+
+            let response = pending.await?;
             let inner = TracingResponse::new(response.into_parts(), span);
-            let response = ReadObjectResponse::new(Box::new(inner));
-            Ok(response)
+            Ok(ReadObjectResponse::new(Box::new(inner)))
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.read_object_plain(request, options).await
@@ -134,12 +154,31 @@ impl Storage {
     {
         #[cfg(google_cloud_unstable_tracing)]
         {
-            let span =
-                gaxi::client_request_span!("client::Storage", "write_object", &INSTRUMENTATION);
-            self.write_object_buffered_plain(payload, request, options)
-                .instrument(span.clone())
-                .await
-                .record_in_span(&span)
+            let resource_name = format!(
+                "//storage.googleapis.com/{}",
+                request
+                    .spec
+                    .resource
+                    .as_ref()
+                    .map(|r| r.bucket.as_str())
+                    .unwrap_or_default()
+            );
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.metric.clone(),
+                info: *INSTRUMENTATION,
+                method: "client::Storage::write_object",
+                async {
+                    if let Some(recorder) = RequestRecorder::current() {
+                        recorder.on_client_request(
+                            ClientRequestAttributes::default()
+                                .set_url_template("/upload/storage/v1/b/{bucket}/o")
+                                .set_resource_name(resource_name),
+                        );
+                    }
+                    self.write_object_buffered_plain(payload, request, options).await
+                }
+            );
+            pending.await
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.write_object_buffered_plain(payload, request, options)
@@ -178,12 +217,31 @@ impl Storage {
     {
         #[cfg(google_cloud_unstable_tracing)]
         {
-            let span =
-                gaxi::client_request_span!("client::Storage", "write_object", &INSTRUMENTATION);
-            self.write_object_unbuffered_plain(payload, request, options)
-                .instrument(span.clone())
-                .await
-                .record_in_span(&span)
+            let resource_name = format!(
+                "//storage.googleapis.com/{}",
+                request
+                    .spec
+                    .resource
+                    .as_ref()
+                    .map(|r| r.bucket.as_str())
+                    .unwrap_or_default()
+            );
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.metric.clone(),
+                info: *INSTRUMENTATION,
+                method: "client::Storage::write_object",
+                async {
+                    if let Some(recorder) = RequestRecorder::current() {
+                        recorder.on_client_request(
+                            ClientRequestAttributes::default()
+                                .set_url_template("/upload/storage/v1/b/{bucket}/o")
+                                .set_resource_name(resource_name),
+                        );
+                    }
+                    self.write_object_unbuffered_plain(payload, request, options).await
+                }
+            );
+            pending.await
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.write_object_unbuffered_plain(payload, request, options)
@@ -209,13 +267,25 @@ impl Storage {
     ) -> Result<(ObjectDescriptor, Vec<ReadObjectResponse>)> {
         #[cfg(google_cloud_unstable_tracing)]
         {
-            let span =
-                gaxi::client_request_span!("client::Storage", "open_object", &INSTRUMENTATION);
+            let resource_name = format!("//storage.googleapis.com/{}", request.bucket);
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.metric.clone(),
+                info: *INSTRUMENTATION,
+                method: "client::Storage::open_object",
+                async {
+                    if let Some(recorder) = RequestRecorder::current() {
+                        recorder.on_client_request(
+                            ClientRequestAttributes::default()
+                                .set_rpc_method("google.storage.v2.Storage/BidiStreamingRead")
+                                .set_url_template("/upload/storage/v1/b/{bucket}/o")
+                                .set_resource_name(resource_name),
+                        );
+                    }
+                    self.open_object_plain(request, options).await
+                }
+            );
             // TODO(#3178) - wrap descriptor and responses with tracing decorators.
-            self.open_object_plain(request, options)
-                .instrument(span.clone())
-                .await
-                .record_in_span(&span)
+            pending.await
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.open_object_plain(request, options).await
@@ -288,14 +358,14 @@ impl super::stub::Storage for Storage {
 #[cfg(test)]
 mod tests {
     #[cfg(google_cloud_unstable_tracing)]
-    use gaxi::observability::attributes::{
-        GCP_CLIENT_LANGUAGE_RUST, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP, keys::*,
-    };
+    use gaxi::observability::attributes::{OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP, keys::*};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::AttributeValue;
     use google_cloud_test_utils::test_layer::{CapturedSpan, TestLayer};
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
+    #[cfg(google_cloud_unstable_tracing)]
+    use pretty_assertions::assert_eq;
     use std::collections::BTreeMap;
 
     #[tokio::test]
@@ -522,7 +592,7 @@ mod tests {
         method: &'static str,
         error_type: &'static str,
     ) {
-        const EXPECTED_ATTRIBUTES: [(&str, &str); 8] = [
+        const EXPECTED_ATTRIBUTES: [(&str, &str); 7] = [
             (OTEL_KIND, OTEL_KIND_INTERNAL),
             (RPC_SYSTEM, RPC_SYSTEM_HTTP),
             (RPC_SERVICE, "storage"),
@@ -530,7 +600,6 @@ mod tests {
             (GCP_CLIENT_SERVICE, "storage"),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
             (GCP_CLIENT_ARTIFACT, "google-cloud-storage"),
-            (GCP_CLIENT_LANGUAGE, GCP_CLIENT_LANGUAGE_RUST),
         ];
         let span = captured
             .iter()
@@ -545,12 +614,10 @@ mod tests {
                 .map(|(k, v)| (k.to_string(), AttributeValue::from(*v)))
                 .chain(
                     [
-                        ("gax.client.span", true.into()),
                         (
                             OTEL_NAME,
                             format!("google_cloud_storage::client::Storage::{method}").into(),
                         ),
-                        (RPC_METHOD, method.into()),
                         (ERROR_TYPE, error_type.into()),
                     ]
                     .map(|(k, v)| (k.to_string(), v)),

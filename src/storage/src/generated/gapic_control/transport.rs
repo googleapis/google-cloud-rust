@@ -50,6 +50,18 @@ impl std::fmt::Debug for StorageControl {
 
 impl StorageControl {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if gaxi::options::tracing_enabled(&config) {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
+        };
+        #[cfg(not(google_cloud_unstable_tracing))]
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -111,6 +123,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::Folder;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/CreateFolder");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -190,6 +208,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = ();
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/DeleteFolder");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -269,6 +293,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::Folder;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/GetFolder");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -337,6 +367,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::ListFoldersResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/ListFolders");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -416,6 +452,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::longrunning::Operation;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/RenameFolder");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -495,6 +537,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::longrunning::Operation;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/DeleteFolderRecursive");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -574,6 +622,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::StorageLayout;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/GetStorageLayout");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -642,6 +696,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::ManagedFolder;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/CreateManagedFolder");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -721,6 +781,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = ();
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/DeleteManagedFolder");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -800,6 +866,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::ManagedFolder;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/GetManagedFolder");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -868,6 +940,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::ListManagedFoldersResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/ListManagedFolders");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -936,6 +1014,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::longrunning::Operation;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/CreateAnywhereCache");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1021,6 +1105,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::longrunning::Operation;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/UpdateAnywhereCache");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1100,6 +1190,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/DisableAnywhereCache");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1179,6 +1275,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/PauseAnywhereCache");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1258,6 +1360,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/ResumeAnywhereCache");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1337,6 +1445,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/GetAnywhereCache");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1405,6 +1519,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::control::v2::ListAnywhereCachesResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/ListAnywhereCaches");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1448,6 +1568,25 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method(
+                    "google.storage.control.v2.StorageControl/GetProjectIntelligenceConfig",
+                );
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1492,6 +1631,14 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method(
+                    "google.storage.control.v2.StorageControl/UpdateProjectIntelligenceConfig",
+                );
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1535,6 +1682,25 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method(
+                    "google.storage.control.v2.StorageControl/GetFolderIntelligenceConfig",
+                );
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1579,6 +1745,14 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method(
+                    "google.storage.control.v2.StorageControl/UpdateFolderIntelligenceConfig",
+                );
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1622,6 +1796,25 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method(
+                    "google.storage.control.v2.StorageControl/GetOrganizationIntelligenceConfig",
+                );
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1666,6 +1859,14 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method(
+                    "google.storage.control.v2.StorageControl/UpdateOrganizationIntelligenceConfig",
+                );
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1763,6 +1964,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::iam::v1::Policy;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/GetIamPolicy");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1860,6 +2067,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::iam::v1::Policy;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/SetIamPolicy");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -1991,6 +2204,12 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::iam::v1::TestIamPermissionsResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.storage.control.v2.StorageControl/TestIamPermissions");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -2038,6 +2257,12 @@ impl super::stub::StorageControl for StorageControl {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::longrunning::Operation;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.longrunning.Operations/GetOperation");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
