@@ -154,7 +154,7 @@ impl ObjectDescriptor {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use crate::model_ext::ObjectHighlights;
     use crate::read_object::ReadObjectResponse;
@@ -197,7 +197,7 @@ mod tests {
 
     mock! {
         #[derive(Debug)]
-        Descriptor {}
+        pub Descriptor {}
 
         impl crate::stub::ObjectDescriptor for Descriptor {
             fn object(&self) -> Object;
@@ -208,7 +208,7 @@ mod tests {
 
     mock! {
         #[derive(Debug)]
-        Response {}
+        pub Response {}
 
         #[async_trait::async_trait]
         impl crate::read_object::dynamic::ReadObjectResponse for Response {

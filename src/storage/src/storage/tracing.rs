@@ -111,3 +111,38 @@ impl ObjectDescriptorStub for TracingObjectDescriptor<Arc<dyn DynamicObjectDescr
         self.inner.headers()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::Object;
+    use crate::object_descriptor::ObjectDescriptor;
+    use crate::object_descriptor::tests::{MockDescriptor, MockResponse};
+    use http::{HeaderMap, HeaderName, HeaderValue};
+
+    #[tokio::test]
+    async fn descriptor_forwards_calls() {
+        let object = Object::new().set_name("test-object").set_generation(123456);
+        let headers = HeaderMap::from_iter(
+            [
+                ("content-type", "application/octet-stream"),
+                ("x-guploader-uploadid", "abc-123"),
+            ]
+            .map(|(k, v)| (HeaderName::from_static(k), HeaderValue::from_static(v))),
+        );
+        let mut mock = MockDescriptor::new();
+        mock.expect_object().times(1).return_const(object.clone());
+        mock.expect_headers().times(1).return_const(headers.clone());
+        mock.expect_read_range()
+            .times(1)
+            .withf(|range| range.0 == ReadRange::segment(100, 200).0)
+            .returning(|_| ReadObjectResponse::new(Box::new(MockResponse::new())));
+
+        let descriptor = ObjectDescriptor::new(mock);
+        let descriptor =
+            ObjectDescriptor::new(TracingObjectDescriptor::new(descriptor.into_parts()));
+        assert_eq!(descriptor.object(), object);
+        assert_eq!(descriptor.headers(), headers);
+        let _reader = descriptor.read_range(ReadRange::segment(100, 200)).await;
+    }
+}

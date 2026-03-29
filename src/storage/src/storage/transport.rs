@@ -637,6 +637,7 @@ mod tests {
             .await?;
         let _reader1 = descriptor.read_range(ReadRange::offset(5)).await;
         let _reader2 = descriptor.read_range(ReadRange::segment(10, 10)).await;
+        let _reader3 = descriptor.read_range(ReadRange::tail(15)).await;
 
         let captured = TestLayer::capture(&guard);
         let _span = captured
@@ -677,6 +678,19 @@ mod tests {
             })
             .unwrap_or_else(|| {
                 panic!("missing `read_range` span for ReadRange::segment(10, 10): {range_spans:#?}")
+            });
+
+        let _span_reader3 = range_spans
+            .clone()
+            .into_iter()
+            .find(|s| {
+                s.attributes
+                    .get("read_range.start")
+                    .and_then(|v| v.as_i64())
+                    == Some(-15)
+            })
+            .unwrap_or_else(|| {
+                panic!("missing `read_range` span for ReadRange::tail(15): {range_spans:#?}")
             });
         Ok(())
     }
