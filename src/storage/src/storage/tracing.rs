@@ -13,8 +13,20 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::model_ext::ObjectHighlights;
+use crate::model_ext::{ObjectHighlights, ReadRange, RequestedRange};
+use crate::read_object::ReadObjectResponse;
 use crate::read_object::dynamic::ReadObjectResponse as DynamicReadObjectResponse;
+use crate::storage::bidi::stub::dynamic::ObjectDescriptor as DynamicObjectDescriptorStub;
+use crate::storage::info::INSTRUMENTATION;
+use crate::storage::stub::ObjectDescriptor as ObjectDescriptorStub;
+use gaxi::observability::attributes::keys::{
+    GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION, OTEL_KIND,
+    RPC_SERVICE, RPC_SYSTEM_NAME,
+};
+use gaxi::observability::attributes::{
+    GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_GRPC,
+};
+use std::sync::Arc;
 
 /// Implements the [ReadObjectResponse][DynamicReadObjectResponse] trait with
 /// tracing annotations.
@@ -48,5 +60,54 @@ impl DynamicReadObjectResponse for TracingResponse<Box<dyn DynamicReadObjectResp
             .unwrap_or(0_usize);
         ::tracing::event!(parent: &self.span, tracing::Level::INFO, eof = eof, err = err, cnt = cnt);
         result
+    }
+}
+
+/// Implements the [ObjectDescriptorStub][DynamicObjectDescriptor] trait with tracing annotations.
+#[derive(Clone, Debug)]
+pub struct TracingObjectDescriptor<T> {
+    inner: T,
+}
+
+impl<T> TracingObjectDescriptor<T> {
+    pub(crate) fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl ObjectDescriptorStub for TracingObjectDescriptor<Arc<dyn DynamicObjectDescriptorStub>> {
+    fn object(&self) -> crate::model::Object {
+        // No span annotation as this does not involve any I/O.
+        self.inner.object()
+    }
+
+    async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
+        let (start, limit) = match &range.0 {
+            RequestedRange::Offset(o) => (Some(*o as i64), None),
+            RequestedRange::Tail(t) => (Some(-(*t as i64)), None),
+            RequestedRange::Segment { offset, limit } => {
+                (Some(*offset as i64), Some(*limit as i64))
+            }
+        };
+        let span = tracing::info_span!(
+            "read_range",
+            { OTEL_KIND } = OTEL_KIND_INTERNAL,
+            { RPC_SYSTEM_NAME } = RPC_SYSTEM_GRPC,
+            { RPC_SERVICE } = INSTRUMENTATION.service_name,
+            { GCP_CLIENT_SERVICE } = INSTRUMENTATION.service_name,
+            { GCP_CLIENT_VERSION } = INSTRUMENTATION.client_version,
+            { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
+            { GCP_CLIENT_ARTIFACT } = INSTRUMENTATION.client_artifact,
+            { "read_range.start" } = start,
+            { "read_range.limit" } = limit,
+        );
+        let response = self.inner.read_range(range).await;
+        let inner = TracingResponse::new(response.into_parts(), span);
+        ReadObjectResponse::new(Box::new(inner))
+    }
+
+    fn headers(&self) -> http::HeaderMap {
+        // No span annotation as this does not involve any I/O.
+        self.inner.headers()
     }
 }
