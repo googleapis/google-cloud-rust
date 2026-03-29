@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.8.5-0.20260325150042-e450f8f7dcab
+version: v0.9.1-0.20260328133821-a87086efbeec
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -45,7 +45,6 @@ release:
         version: 0.4.0
 default:
   output: src/generated/
-  release_level: stable
   rust:
     package_dependencies:
       - name: async-trait

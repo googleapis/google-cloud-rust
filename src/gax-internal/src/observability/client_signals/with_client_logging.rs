@@ -116,7 +116,6 @@ where
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
                     { URL_DOMAIN } = snapshot.default_host(),
-                    // TODO(#5152) - sanitize the URL.
                     { URL_FULL } = snapshot.sanitized_url(),
                     { URL_TEMPLATE } = snapshot.url_template(),
                     { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,

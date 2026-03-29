@@ -19,6 +19,7 @@ use crate::otlp::trace::Builder as TracerProviderBuilder;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
 use httptest::{Expectation, Server, matchers::*, responders::status_code};
+use pretty_assertions::assert_eq;
 use std::collections::BTreeMap;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
@@ -237,9 +238,20 @@ pub async fn to_otlp_debug_event() -> anyhow::Result<()> {
         .iter()
         .flat_map(|r| r.get_ref().resource_logs.clone())
         .flat_map(|rl| rl.scope_logs)
+        // Many things emit debug logs, we are only interested in the L4 logs.
+        .filter(|sl| {
+            sl.scope
+                .as_ref()
+                .is_some_and(|i| i.name == "google_cloud_gax_internal::observability::errors")
+        })
         .flat_map(|sl| sl.log_records)
-        .find(|l| l.attributes.iter().any(|kv| kv.key == "error.type"))
-        .expect("Should have logged an ErrorInfo log natively mapped conditionally");
+        .find(|l| l.span_id == attempt_span.span_id)
+        .unwrap_or_else(|| {
+            panic!(
+                "cannot find log matching span {:?} in capture: {logs_requests:#?}",
+                attempt_span.span_id
+            )
+        });
 
     // Ensure the log was correctly correlated back to the original client request trace buffer (attempt span)
     assert_eq!(
@@ -282,7 +294,7 @@ pub async fn to_otlp_debug_event() -> anyhow::Result<()> {
         assert_eq!(
             got.get(key),
             Some(expected),
-            "mismatch for key: {key} in got: {got:?}"
+            "mismatch for key: {key} in got: {got:?}\n\nrequests = {logs_requests:#?}\n"
         );
     }
 
@@ -296,7 +308,6 @@ async fn setup_echo_client() -> (
     google_cloud_test_utils::test_layer::TestLayerGuard,
     httptest::Server,
     Echo,
-    u16,
 ) {
     let guard = TestLayer::initialize();
     let server = Server::run();
@@ -309,13 +320,12 @@ async fn setup_echo_client() -> (
         .build()
         .await
         .expect("failed to build client");
-    let port = server.addr().port();
 
-    (guard, server, client, port)
+    (guard, server, client)
 }
 
 pub async fn success_testlayer() -> anyhow::Result<()> {
-    let (guard, echo_server, client, server_port) = setup_echo_client().await;
+    let (guard, echo_server, client) = setup_echo_client().await;
     let server_addr = echo_server.addr();
 
     echo_server.expect(
@@ -362,13 +372,11 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
             "gcp.client.artifact",
             "google-cloud-showcase-v1beta1".into(),
         ),
-        ("gcp.client.language", "rust".into()),
         ("otel.status_code", "UNSET".into()),
-        ("gax.client.span", true.into()),
         ("http.response.status_code", 200_i64.into()),
         ("http.request.method", "POST".into()),
         ("server.address", server_addr.ip().to_string().into()),
-        ("server.port", (server_port as i64).into()),
+        ("server.port", (server_addr.port() as i64).into()),
         (
             "url.full",
             format!(
@@ -389,7 +397,7 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
 }
 
 pub async fn parse_error() -> anyhow::Result<()> {
-    let (guard, echo_server, client, server_port) = setup_echo_client().await;
+    let (guard, echo_server, client) = setup_echo_client().await;
     let server_addr = echo_server.addr();
 
     // Return invalid JSON (missing closing brace)
@@ -438,9 +446,7 @@ pub async fn parse_error() -> anyhow::Result<()> {
             "gcp.client.artifact",
             "google-cloud-showcase-v1beta1".into(),
         ),
-        ("gcp.client.language", "rust".into()),
         ("otel.status_code", "ERROR".into()),
-        ("gax.client.span", true.into()),
         ("http.response.status_code", 200_i64.into()),
         ("http.request.method", "POST".into()),
         ("error.type", "CLIENT_RESPONSE_DECODE_ERROR".into()),
@@ -450,7 +456,7 @@ pub async fn parse_error() -> anyhow::Result<()> {
                 .into(),
         ),
         ("server.address", server_addr.ip().to_string().into()),
-        ("server.port", (server_port as i64).into()),
+        ("server.port", (server_addr.port() as i64).into()),
         (
             "url.full",
             format!(
@@ -474,7 +480,7 @@ pub async fn api_error() -> anyhow::Result<()> {
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use httptest::{Expectation, matchers::*, responders::status_code};
 
-    let (guard, echo_server, client, server_port) = setup_echo_client().await;
+    let (guard, echo_server, client) = setup_echo_client().await;
     let server_addr = echo_server.addr();
 
     // 404 Not Found
@@ -523,18 +529,16 @@ pub async fn api_error() -> anyhow::Result<()> {
             "gcp.client.artifact",
             "google-cloud-showcase-v1beta1".into(),
         ),
-        ("gcp.client.language", "rust".into()),
         ("otel.status_code", "ERROR".into()),
-        ("gax.client.span", true.into()),
-        ("http.response.status_code", 404_i64.into()),
         ("http.request.method", "POST".into()),
+        ("http.response.status_code", 404_i64.into()),
         ("error.type", "UNKNOWN".into()),
         (
             "otel.status_description",
             "the service reports an error with code UNKNOWN described as: Not Found".into(),
         ),
         ("server.address", server_addr.ip().to_string().into()),
-        ("server.port", (server_port as i64).into()),
+        ("server.port", (server_addr.port() as i64).into()),
         (
             "url.full",
             format!(

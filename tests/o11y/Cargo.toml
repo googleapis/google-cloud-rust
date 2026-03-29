@@ -45,6 +45,7 @@ http.workspace                = true
 httptest.workspace            = true
 opentelemetry                 = { workspace = true, features = ["logs", "metrics", "trace"] }
 opentelemetry-proto           = { workspace = true, features = ["gen-tonic", "logs", "metrics", "trace"] }
+pretty_assertions.workspace   = true
 thiserror.workspace           = true
 rand.workspace                = true
 reqwest                       = { workspace = true, features = ["json"] }
