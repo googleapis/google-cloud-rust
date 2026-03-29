@@ -156,6 +156,15 @@ async fn storage_data_operations(bucket_name: &str) -> anyhow::Result<()> {
         tracing::info!("reading from open object");
         let mut response = descriptor.read_range(ReadRange::head(16)).await;
         while response.next().await.transpose()?.is_some() {}
+        {
+            let _test_span = tracing::info_span!("test-span").entered();
+            let mut range0 = descriptor.read_range(ReadRange::tail(16)).await;
+            let mut range1 = descriptor.read_range(ReadRange::offset(16)).await;
+            let mut range2 = descriptor.read_range(ReadRange::segment(8, 8)).await;
+            while range0.next().await.transpose()?.is_some() {}
+            while range1.next().await.transpose()?.is_some() {}
+            while range2.next().await.transpose()?.is_some() {}
+        }
     }
     tracing::info!("all Storage operations done");
 
