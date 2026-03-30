@@ -77,6 +77,8 @@ pub mod keys {
     ///
     /// Example: //pubsub.googleapis.com/projects/my-project/topics/my-topic
     pub const GCP_RESOURCE_NAME: &str = "gcp.resource.name";
+    /// The OpenTelemetry Schema URL indicating the schema used for the telemetry.
+    pub const GCP_SCHEMA_URL: &str = "gcp.schema.url";
     /// The number of times this same gRPC request has been resent due to retries.
     ///
     /// 1 for the first retry.
@@ -110,6 +112,8 @@ pub const RPC_SYSTEM_GRPC: &str = "grpc";
 pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
 /// Value for [keys::GCP_CLIENT_LANGUAGE].
 pub const GCP_CLIENT_LANGUAGE_RUST: &str = "rust";
+/// The OpenTelemetry Schema URL.
+pub const SCHEMA_URL_VALUE: &str = "https://opentelemetry.io/schemas/1.39.0";
 
 /// Values for the OpenTelemetry `error.type` attribute.
 /// See the semantic conventions around [Error attributes]

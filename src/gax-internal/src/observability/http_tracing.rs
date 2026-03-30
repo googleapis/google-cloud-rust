@@ -104,6 +104,7 @@ pub(crate) fn create_http_attempt_span(
         { GCP_CLIENT_VERSION } = gcp_client_version,
         { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
         { GCP_CLIENT_ARTIFACT } = gcp_client_artifact,
+        { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
         { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
         { GCP_RESOURCE_NAME } = resource_name,
         { otel_trace::HTTP_REQUEST_RESEND_COUNT } = http_request_resend_count,
@@ -247,6 +248,7 @@ mod tests {
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, "google-cloud-test".into()),
             (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (GCP_SCHEMA_URL, SCHEMA_URL_VALUE.into()),
             (
                 GCP_RESOURCE_NAME,
                 "//example.com/projects/p/resources/r".into(),
@@ -282,6 +284,7 @@ mod tests {
             (otel_trace::URL_SCHEME, "http".into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (GCP_SCHEMA_URL, SCHEMA_URL_VALUE.into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
         ]
         .into_iter()
@@ -368,6 +371,7 @@ mod tests {
             (otel_trace::URL_SCHEME, "https".into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (GCP_SCHEMA_URL, SCHEMA_URL_VALUE.into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
             (
                 otel_trace::HTTP_RESPONSE_STATUS_CODE,
@@ -407,6 +411,7 @@ mod tests {
             (otel_trace::URL_SCHEME, "https".into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (GCP_SCHEMA_URL, SCHEMA_URL_VALUE.into()),
             (OTEL_STATUS_CODE, "ERROR".into()),
             (otel_trace::ERROR_TYPE, "CLIENT_TIMEOUT".into()),
             (

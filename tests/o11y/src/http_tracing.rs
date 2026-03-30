@@ -372,6 +372,10 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
             "gcp.client.artifact",
             "google-cloud-showcase-v1beta1".into(),
         ),
+        (
+            "gcp.schema.url",
+            "https://opentelemetry.io/schemas/1.39.0".into(),
+        ),
         ("otel.status_code", "UNSET".into()),
         ("http.response.status_code", 200_i64.into()),
         ("http.request.method", "POST".into()),
@@ -445,6 +449,10 @@ pub async fn parse_error() -> anyhow::Result<()> {
         (
             "gcp.client.artifact",
             "google-cloud-showcase-v1beta1".into(),
+        ),
+        (
+            "gcp.schema.url",
+            "https://opentelemetry.io/schemas/1.39.0".into(),
         ),
         ("otel.status_code", "ERROR".into()),
         ("http.response.status_code", 200_i64.into()),
@@ -528,6 +536,10 @@ pub async fn api_error() -> anyhow::Result<()> {
         (
             "gcp.client.artifact",
             "google-cloud-showcase-v1beta1".into(),
+        ),
+        (
+            "gcp.schema.url",
+            "https://opentelemetry.io/schemas/1.39.0".into(),
         ),
         ("otel.status_code", "ERROR".into()),
         ("http.request.method", "POST".into()),

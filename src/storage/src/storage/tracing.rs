@@ -20,11 +20,11 @@ use crate::storage::bidi::stub::dynamic::ObjectDescriptor as DynamicObjectDescri
 use crate::storage::info::INSTRUMENTATION;
 use crate::storage::stub::ObjectDescriptor as ObjectDescriptorStub;
 use gaxi::observability::attributes::keys::{
-    GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION, OTEL_KIND,
-    RPC_SERVICE, RPC_SYSTEM_NAME,
+    GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION, GCP_SCHEMA_URL,
+    OTEL_KIND, RPC_SERVICE, RPC_SYSTEM_NAME,
 };
 use gaxi::observability::attributes::{
-    GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_GRPC,
+    GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_GRPC, SCHEMA_URL_VALUE,
 };
 use std::sync::Arc;
 
@@ -98,6 +98,7 @@ impl ObjectDescriptorStub for TracingObjectDescriptor<Arc<dyn DynamicObjectDescr
             { GCP_CLIENT_VERSION } = INSTRUMENTATION.client_version,
             { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
             { GCP_CLIENT_ARTIFACT } = INSTRUMENTATION.client_artifact,
+            { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
             { "read_range.start" } = start,
             { "read_range.limit" } = limit,
         );
