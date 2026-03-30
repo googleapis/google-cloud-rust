@@ -389,7 +389,7 @@ semver                = { default-features = false, version = "1.0.26" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
 serde_json            = { default-features = false, version = "1.0.148", features = ["std"] }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
-sha2                  = { default-features = false, version = "0.10.6" }
+sha2                  = { default-features = false, version = "0.11.0" }
 thiserror             = { default-features = false, version = "2.0.12" }
 time                  = { default-features = false, version = "0.3.45" }
 tokio                 = { default-features = false, version = "1.47.0" }
@@ -436,7 +436,7 @@ lazy_static = { default-features = false, version = "1.5" }
 anyhow            = { default-features = false, version = "1.0.102", features = ["std"] }
 axum              = { default-features = false, version = "0.8" }
 flate2            = { default-features = false, version = "1.1.9" }
-hmac              = { default-features = false, version = "0.12.1" }
+hmac              = { default-features = false, version = "0.13.0" }
 httptest          = { default-features = false, version = "0.16.4" }
 md5               = { default-features = false, version = "0.8" }
 mockall           = { default-features = false, version = "0.14" }
