@@ -12,7 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod create_avro_schema;
-pub mod delete_schema;
-pub mod list_schema_revisions;
-pub mod list_schemas;
+// [START pubsub_delete_subscription]
+use google_cloud_pubsub::client::SubscriptionAdmin;
+
+pub async fn sample(
+    client: &SubscriptionAdmin,
+    project_id: &str,
+    subscription_id: &str,
+) -> anyhow::Result<()> {
+    let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
+
+    client
+        .delete_subscription()
+        .set_subscription(subscription_name)
+        .send()
+        .await?;
+
+    println!("successfully deleted subscription");
+    Ok(())
+}
+// [END pubsub_delete_subscription]

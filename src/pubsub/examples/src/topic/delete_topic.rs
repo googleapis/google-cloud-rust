@@ -1,4 +1,4 @@
-// Copyright 2026 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,7 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod create_avro_schema;
-pub mod delete_schema;
-pub mod list_schema_revisions;
-pub mod list_schemas;
+// [START pubsub_delete_topic]
+use google_cloud_pubsub::client::TopicAdmin;
+
+pub async fn sample(client: &TopicAdmin, project_id: &str, topic_id: &str) -> anyhow::Result<()> {
+    client
+        .delete_topic()
+        .set_topic(format!("projects/{project_id}/topics/{topic_id}"))
+        .send()
+        .await?;
+
+    println!("successfully deleted topic");
+    Ok(())
+}
+// [END pubsub_delete_topic]
