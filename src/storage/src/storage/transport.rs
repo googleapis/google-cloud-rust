@@ -107,6 +107,7 @@ impl Storage {
                 if let Some(recorder) = RequestRecorder::current() {
                     recorder.on_client_request(
                         ClientRequestAttributes::default()
+                            .set_rpc_method("google.storage.v2.Storage/ReadObject")
                             .set_url_template("/storage/v1/b/{bucket}/o/{object}")
                             .set_resource_name(resource_name),
                     );
@@ -171,6 +172,7 @@ impl Storage {
                     if let Some(recorder) = RequestRecorder::current() {
                         recorder.on_client_request(
                             ClientRequestAttributes::default()
+                                .set_rpc_method("google.storage.v2.Storage/WriteObject")
                                 .set_url_template("/upload/storage/v1/b/{bucket}/o")
                                 .set_resource_name(resource_name),
                         );
@@ -234,6 +236,7 @@ impl Storage {
                     if let Some(recorder) = RequestRecorder::current() {
                         recorder.on_client_request(
                             ClientRequestAttributes::default()
+                                .set_rpc_method("google.storage.v2.Storage/WriteObject")
                                 .set_url_template("/upload/storage/v1/b/{bucket}/o")
                                 .set_resource_name(resource_name),
                         );
@@ -722,10 +725,9 @@ mod tests {
         method: &'static str,
         error_type: &'static str,
     ) {
-        const EXPECTED_ATTRIBUTES: [(&str, &str); 7] = [
+        const EXPECTED_ATTRIBUTES: [(&str, &str); 6] = [
             (OTEL_KIND, OTEL_KIND_INTERNAL),
             (RPC_SYSTEM, RPC_SYSTEM_HTTP),
-            (RPC_SERVICE, "storage"),
             (OTEL_STATUS_CODE, "ERROR"),
             (GCP_CLIENT_SERVICE, "storage"),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),

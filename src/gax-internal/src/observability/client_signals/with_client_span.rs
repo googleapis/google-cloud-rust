@@ -21,13 +21,13 @@ use crate::observability::attributes::SCHEMA_URL_VALUE;
 use crate::observability::attributes::keys::{
     ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_VERSION, GCP_SCHEMA_URL,
     HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT, NETWORK_PEER_ADDRESS, NETWORK_PEER_PORT,
-    OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION, RPC_RESPONSE_STATUS_CODE, RPC_SERVICE,
+    OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION, RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM,
 };
 use crate::observability::attributes::otel_status_codes;
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
 use opentelemetry_semantic_conventions::attribute::{
-    HTTP_RESPONSE_STATUS_CODE, RPC_METHOD, RPC_SYSTEM, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+    HTTP_RESPONSE_STATUS_CODE, RPC_METHOD, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
 };
 use pin_project::pin_project;
 use std::future::Future;
@@ -72,7 +72,6 @@ where
                 tracing::record_all!(
                     span,
                     { RPC_SYSTEM } = snapshot.rpc_system(),
-                    { RPC_SERVICE } = snapshot.service_name(),
                     { RPC_METHOD } = snapshot.rpc_method(),
                     { GCP_CLIENT_VERSION } = snapshot.client_version(),
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
@@ -96,7 +95,6 @@ where
                 tracing::record_all!(
                     span,
                     { RPC_SYSTEM } = snapshot.rpc_system(),
-                    { RPC_SERVICE } = snapshot.service_name(),
                     { RPC_METHOD } = snapshot.rpc_method(),
                     { GCP_CLIENT_VERSION } = snapshot.client_version(),
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
@@ -143,7 +141,6 @@ mod tests {
             { ERROR_TYPE } = ::tracing::field::Empty,
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty,
             { RPC_SYSTEM } = ::tracing::field::Empty,
-            { RPC_SERVICE } = ::tracing::field::Empty,
             { RPC_METHOD } = ::tracing::field::Empty,
             { GCP_CLIENT_VERSION } = ::tracing::field::Empty,
             { GCP_CLIENT_REPO } = ::tracing::field::Empty,
@@ -214,7 +211,6 @@ mod tests {
             { ERROR_TYPE } = ::tracing::field::Empty,
             { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty,
             { RPC_SYSTEM } = ::tracing::field::Empty,
-            { RPC_SERVICE } = ::tracing::field::Empty,
             { RPC_METHOD } = ::tracing::field::Empty,
             { GCP_CLIENT_VERSION } = ::tracing::field::Empty,
             { GCP_CLIENT_REPO } = ::tracing::field::Empty,

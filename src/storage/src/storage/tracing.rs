@@ -21,7 +21,7 @@ use crate::storage::info::INSTRUMENTATION;
 use crate::storage::stub::ObjectDescriptor as ObjectDescriptorStub;
 use gaxi::observability::attributes::keys::{
     GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION, GCP_SCHEMA_URL,
-    OTEL_KIND, RPC_SERVICE, RPC_SYSTEM_NAME,
+    OTEL_KIND, RPC_SYSTEM_NAME,
 };
 use gaxi::observability::attributes::{
     GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_GRPC, SCHEMA_URL_VALUE,
@@ -93,7 +93,6 @@ impl ObjectDescriptorStub for TracingObjectDescriptor<Arc<dyn DynamicObjectDescr
             "read_range",
             { OTEL_KIND } = OTEL_KIND_INTERNAL,
             { RPC_SYSTEM_NAME } = RPC_SYSTEM_GRPC,
-            { RPC_SERVICE } = INSTRUMENTATION.service_name,
             { GCP_CLIENT_SERVICE } = INSTRUMENTATION.service_name,
             { GCP_CLIENT_VERSION } = INSTRUMENTATION.client_version,
             { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,

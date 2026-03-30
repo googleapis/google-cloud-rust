@@ -375,7 +375,7 @@ fn create_grpc_span(
     attempt_count: Option<i64>,
     resource_name: Option<&str>,
 ) -> tracing::Span {
-    let (rpc_service, rpc_method) =
+    let (_, rpc_method) =
         parse_method(uri.path()).unwrap_or_else(|_| ("unknown".to_string(), "unknown".to_string()));
     let span_name = uri.path().trim_start_matches('/');
 
@@ -397,7 +397,6 @@ fn create_grpc_span(
         { OTEL_NAME } = span_name,
         { otel_trace::RPC_SYSTEM } = attributes::RPC_SYSTEM_GRPC,
         { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
-        { otel_trace::RPC_SERVICE } = rpc_service,
         { otel_trace::RPC_METHOD } = rpc_method,
         { otel_trace::SERVER_ADDRESS } = layer_inner.server_address,
         { otel_trace::SERVER_PORT } = layer_inner.server_port,
@@ -516,7 +515,6 @@ mod tests {
                 crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
             ),
             (OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_SERVICE, "google.pubsub.v1.Publisher".into()),
             (otel_trace::RPC_METHOD, "Publish".into()),
             (otel_trace::SERVER_ADDRESS, "pubsub.googleapis.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
@@ -566,7 +564,6 @@ mod tests {
                 crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
             ),
             (OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_SERVICE, "google.pubsub.v1.Publisher".into()),
             (otel_trace::RPC_METHOD, "Publish".into()),
             (otel_trace::SERVER_ADDRESS, "pubsub.googleapis.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
@@ -610,7 +607,6 @@ mod tests {
                 crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
             ),
             (OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_SERVICE, "google.pubsub.v1.Publisher".into()),
             (otel_trace::RPC_METHOD, "Publish".into()),
             (otel_trace::SERVER_ADDRESS, "pubsub.googleapis.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
