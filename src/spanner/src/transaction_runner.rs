@@ -186,7 +186,7 @@ impl TransactionRunner {
     /// The transaction is automatically committed if the closure returns `Ok`.
     /// If the closure returns `Err`, the transaction will be rolled back and
     /// the error will be propagated.
-    pub async fn run<T, F>(self, mut work: F) -> crate::Result<T>
+    pub async fn run<T, F>(mut self, mut work: F) -> crate::Result<T>
     where
         F: std::ops::AsyncFnMut(ReadWriteTransaction) -> crate::Result<T>,
     {
@@ -197,8 +197,10 @@ impl TransactionRunner {
         loop {
             attempts += 1;
 
+            let mut current_tx_id = None;
             let attempt_result = async {
                 let transaction = self.builder.begin_transaction().await?;
+                current_tx_id = transaction.transaction_id().ok();
 
                 let result = match work(transaction.clone()).await {
                     Ok(res) => res,
@@ -219,6 +221,10 @@ impl TransactionRunner {
             match attempt_result {
                 Ok(res) => return Ok(res),
                 Err(e) => {
+                    if is_aborted(&e) {
+                        self.builder = self.builder.with_previous_transaction_id(current_tx_id);
+                    }
+
                     backoff_if_aborted(
                         e,
                         attempts,
@@ -240,6 +246,7 @@ mod tests {
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
     use spanner_grpc_mock::google::spanner::v1;
+    use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
 
     fn expect_begin_transaction(
         mock: &mut spanner_grpc_mock::MockSpanner,
@@ -334,27 +341,66 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_with_aborted_retry() {
+    async fn run_with_aborted_retry() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
 
-        expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.session,
+                    "projects/p/instances/i/databases/d/sessions/123"
+                );
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![9, 9, 9],
+                    ..Default::default()
+                }))
+            });
 
-        let mut attempt = 0;
-        mock.expect_execute_sql().times(2).returning(move |_req| {
-            attempt += 1;
-            if attempt == 1 {
-                Err(create_aborted_status(std::time::Duration::from_nanos(1)))
-            } else {
-                row_count_exact_response(5)
-            }
-        });
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| Err(create_aborted_status(std::time::Duration::from_nanos(1))));
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/123");
+
+                let options = req.options.as_ref().expect("options required on retry");
+                let read_write = options.mode.as_ref().expect("mode required on retry");
+                match read_write {
+                    Mode::ReadWrite(rw) => {
+                        assert_eq!(rw.multiplexed_session_previous_transaction_id, vec![9, 9, 9], "previous_transaction_id should be set to the ID of the aborted transaction");
+                    }
+                    _ => panic!("Expected ReadWrite mode"),
+                }
+
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![8, 8, 8],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| row_count_exact_response(5));
 
         mock.expect_commit()
             .once()
             .returning(|_req| commit_response());
 
-        let res = execute_test_runner(mock).await.unwrap();
+        let res = execute_test_runner(mock)
+            .await
+            .expect("runner should succeed");
         assert_eq!(res, 5);
+        Ok(())
     }
 
     #[tokio::test]

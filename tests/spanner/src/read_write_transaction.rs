@@ -145,3 +145,120 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
 
     Ok(())
 }
+
+pub async fn concurrent_read_write_transaction_retries(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    use futures::future::join_all;
+    use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+    use std::sync::Arc;
+    use tokio::sync::Barrier;
+
+    const NUM_ROWS: usize = 10;
+
+    let id_prefix = format!("rw-retry-{}", LowercaseAlphanumeric.random_string(10));
+
+    // 1. Insert rows
+    let mut mutations = Vec::new();
+    for i in 0..NUM_ROWS {
+        let id = format!("{}-{}", id_prefix, i);
+        let mutation = Mutation::new_insert_builder("AllTypes")
+            .set("Id")
+            .to(&id)
+            .set("ColInt64")
+            .to(&100_i64)
+            .build();
+        mutations.push(mutation);
+    }
+    db_client
+        .write_only_transaction()
+        .build()
+        .write(mutations)
+        .await
+        .expect("Failed to insert initial rows");
+
+    // 2. Spawn tasks
+    let mut handles = Vec::new();
+    let barrier = Arc::new(Barrier::new(NUM_ROWS));
+
+    for i in 0..NUM_ROWS {
+        let client = db_client.clone();
+        let id_prefix = id_prefix.clone();
+        let target_idx = i;
+        let b = barrier.clone();
+
+        let handle = tokio::spawn(async move {
+            b.wait().await; // Wait for all tasks to be ready
+
+            let runner = client
+                .read_write_transaction()
+                .build()
+                .await
+                .expect("Failed to build transaction runner");
+
+            let res: Result<(), google_cloud_spanner::Error> = runner
+                .run(async move |transaction| {
+                    // Read all 10 rows to take locks.
+                    // NOTE: This is intentionally reading more rows than needed,
+                    // in order to force transactions to conflict with each other.
+                    let statement = {
+                        let start_id = format!("{}-0", id_prefix);
+                        let end_id = format!("{}-{}", id_prefix, NUM_ROWS - 1);
+                        Statement::builder(
+                            "SELECT Id FROM AllTypes WHERE Id >= @start AND Id <= @end",
+                        )
+                        .add_param("start", &start_id)
+                        .add_param("end", &end_id)
+                        .build()
+                    };
+                    let mut result_set = transaction.execute_query(statement).await?;
+                    while let Some(row) = result_set.next().await.transpose()? {
+                        let _: String = row.get("Id"); // Consume row
+                    }
+
+                    // Update one row
+                    let update_statement = {
+                        let update_id = format!("{}-{}", id_prefix, target_idx);
+                        Statement::builder(
+                            "UPDATE AllTypes SET ColInt64 = ColInt64 + @inc WHERE Id = @id",
+                        )
+                        .add_param("inc", &50_i64)
+                        .add_param("id", &update_id)
+                        .build()
+                    };
+                    transaction.execute_update(update_statement).await?;
+
+                    Ok(())
+                })
+                .await;
+            res.expect("Transaction failed");
+        });
+        handles.push(handle);
+    }
+
+    // 3. Wait for all tasks to complete
+    join_all(handles).await;
+
+    // 4. Verify all updates
+    for i in 0..NUM_ROWS {
+        let id = format!("{}-{}", id_prefix, i);
+        let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
+            .add_param("id", &id)
+            .build();
+        let mut result_set = db_client
+            .single_use()
+            .build()
+            .execute_query(statement)
+            .await
+            .expect("Failed to execute verification query");
+        let row = result_set
+            .next()
+            .await
+            .transpose()?
+            .unwrap_or_else(|| panic!("Row for {} does not exist", id));
+        let val: i64 = row.get("ColInt64");
+        assert_eq!(val, 150, "Update on {} was not applied", id);
+    }
+
+    Ok(())
+}
