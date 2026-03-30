@@ -346,7 +346,7 @@ impl ResultSet {
         Ok(())
     }
 
-    // TODO: Make the retry policy configurable.
+    // TODO(#5185): Make the retry policy configurable.
     fn should_retry(&self, e: &crate::Error) -> bool {
         if self.retry_count >= 10 {
             return false;
