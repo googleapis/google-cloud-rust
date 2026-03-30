@@ -161,6 +161,43 @@ impl ReadRequest {
             columns: columns.into_iter().map(|s| s.into()).collect(),
         }
     }
+
+    fn into_parts(
+        self,
+    ) -> (
+        String,
+        Option<String>,
+        crate::model::KeySet,
+        Vec<String>,
+        Option<i64>,
+    ) {
+        (
+            self.table,
+            self.index,
+            self.keys.into_proto(),
+            self.columns,
+            self.limit,
+        )
+    }
+
+    pub(crate) fn into_request(self) -> crate::model::ReadRequest {
+        let (table, index, keys, columns, limit) = self.into_parts();
+        crate::model::ReadRequest::default()
+            .set_table(table)
+            .set_columns(columns)
+            .set_key_set(keys)
+            .set_index(index.unwrap_or_default())
+            .set_limit(limit.unwrap_or_default())
+    }
+
+    pub(crate) fn into_partition_read_request(self) -> crate::model::PartitionReadRequest {
+        let (table, index, keys, columns, _limit) = self.into_parts();
+        crate::model::PartitionReadRequest::default()
+            .set_table(table)
+            .set_columns(columns)
+            .set_key_set(keys)
+            .set_index(index.unwrap_or_default())
+    }
 }
 
 #[cfg(test)]
