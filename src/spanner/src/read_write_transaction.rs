@@ -36,7 +36,7 @@ use crate::statement::Statement;
 use std::sync::atomic::Ordering;
 
 /// A builder for [ReadWriteTransaction].
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub(crate) struct ReadWriteTransactionBuilder {
     client: DatabaseClient,
     options: TransactionOptions,
@@ -323,11 +323,12 @@ mod tests {
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use gaxi::grpc::tonic;
     use spanner_grpc_mock::google::spanner::v1;
+    use std::fmt::Debug;
 
     #[test]
     fn auto_traits() {
-        static_assertions::assert_impl_all!(ReadWriteTransactionBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(ReadWriteTransaction: Send, Sync, std::fmt::Debug);
+        static_assertions::assert_impl_all!(ReadWriteTransactionBuilder: Send, Sync, Clone, Debug);
+        static_assertions::assert_impl_all!(ReadWriteTransaction: Send, Sync, Debug);
     }
 
     #[tokio::test]
