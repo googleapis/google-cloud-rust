@@ -19,13 +19,7 @@ use crate::read_object::dynamic::ReadObjectResponse as DynamicReadObjectResponse
 use crate::storage::bidi::stub::dynamic::ObjectDescriptor as DynamicObjectDescriptorStub;
 use crate::storage::info::INSTRUMENTATION;
 use crate::storage::stub::ObjectDescriptor as ObjectDescriptorStub;
-use gaxi::observability::attributes::keys::{
-    GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION, GCP_SCHEMA_URL,
-    OTEL_KIND, RPC_SYSTEM_NAME,
-};
-use gaxi::observability::attributes::{
-    GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_GRPC, SCHEMA_URL_VALUE,
-};
+use gaxi::observability::{GCP_CLIENT_REPO_GOOGLEAPIS, SCHEMA_URL_VALUE};
 use std::sync::Arc;
 
 /// Implements the [ReadObjectResponse][DynamicReadObjectResponse] trait with
@@ -91,15 +85,15 @@ impl ObjectDescriptorStub for TracingObjectDescriptor<Arc<dyn DynamicObjectDescr
         };
         let span = tracing::info_span!(
             "read_range",
-            { OTEL_KIND } = OTEL_KIND_INTERNAL,
-            { RPC_SYSTEM_NAME } = RPC_SYSTEM_GRPC,
-            { GCP_CLIENT_SERVICE } = INSTRUMENTATION.service_name,
-            { GCP_CLIENT_VERSION } = INSTRUMENTATION.client_version,
-            { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
-            { GCP_CLIENT_ARTIFACT } = INSTRUMENTATION.client_artifact,
-            { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
-            { "read_range.start" } = start,
-            { "read_range.limit" } = limit,
+            "otel.kind" = "Internal",
+            "rpc.system.name" = "grpc",
+            "gpc.client.service" = INSTRUMENTATION.service_name,
+            "gpc.client.version" = INSTRUMENTATION.client_version,
+            "gpc.client.repo" = GCP_CLIENT_REPO_GOOGLEAPIS,
+            "gpc.client.artifact" = INSTRUMENTATION.client_artifact,
+            "gcp.schema.url" = SCHEMA_URL_VALUE,
+            "read_range.start" = start,
+            "read_range.limit" = limit,
         );
         let response = self.inner.read_range(range).await;
         let inner = TracingResponse::new(response.into_parts(), span);

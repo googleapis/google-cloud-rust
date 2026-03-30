@@ -229,10 +229,8 @@ mod tests {
     #[cfg(all(test, google_cloud_unstable_tracing, feature = "_internal-http-client"))]
     mod tracing_tests {
         use super::*;
-        use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_TIMEOUT;
-        use google_cloud_gax_internal::observability::attributes::keys::*;
         use google_cloud_test_utils::test_layer::TestLayer;
-        use opentelemetry_semantic_conventions::trace as semconv;
+        use opentelemetry_semantic_conventions::attribute::OTEL_STATUS_DESCRIPTION;
 
         #[tokio::test(start_paused = true)]
         async fn test_timeout_expires_with_tracing_on() -> Result<()> {
@@ -256,39 +254,36 @@ mod tests {
                 .await;
 
             let spans = TestLayer::capture(&guard);
-            assert_eq!(
-                spans.len(),
-                1,
-                "Should capture one span for a timeout: {:?}",
-                spans
-            );
-            let span = &spans[0];
+            let span = match &spans[..] {
+                [span] => span,
+                _ => panic!("Should capture one span for a timeout: {spans:?}"),
+            };
             assert_eq!(span.name, "http_request", "Span name mismatch: {:?}", span);
             let attributes = &span.attributes;
 
             assert!(
-                !attributes.contains_key(semconv::HTTP_RESPONSE_STATUS_CODE),
+                !attributes.contains_key("http.response.status_code"),
                 "Span 0: '{}' should not be present on timeout, all attributes: {:?}",
-                semconv::HTTP_RESPONSE_STATUS_CODE,
+                "http.response.status_code",
                 attributes
             );
 
             assert_eq!(
-                attributes.get(semconv::ERROR_TYPE),
-                Some(&CLIENT_TIMEOUT.into()),
+                attributes.get("error.type"),
+                Some(&"CLIENT_TIMEOUT".into()),
                 "Span 0: '{}' mismatch, all attributes: {:?}",
-                semconv::ERROR_TYPE,
+                "error.type",
                 attributes
             );
 
             assert_eq!(
-                attributes.get(OTEL_STATUS_CODE),
+                attributes.get("otel.status_code"),
                 Some(&"ERROR".into()),
                 "Span 0: '{}' mismatch, all attributes: {:?}",
-                OTEL_STATUS_CODE,
+                "otel.status_code",
                 attributes
             );
-            let status_description = attributes.get(OTEL_STATUS_DESCRIPTION).unwrap();
+            let status_description = attributes.get("otel.status_description").unwrap();
             match status_description {
                 google_cloud_test_utils::test_layer::AttributeValue::String(s) => {
                     assert!(

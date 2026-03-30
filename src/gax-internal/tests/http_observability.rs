@@ -23,16 +23,16 @@ mod tests {
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::attempt_info::AttemptInfo;
     use google_cloud_gax_internal::http::{NoBody, ReqwestClient};
-    use google_cloud_gax_internal::observability::attributes::keys::*;
+    use google_cloud_gax_internal::observability::SCHEMA_URL_VALUE;
     use google_cloud_gax_internal::observability::{
         ClientRequestAttributes, DurationMetric, RequestRecorder,
     };
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
-    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
+    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer, TestLayerGuard};
     use http::{Method, StatusCode};
     use httptest::matchers::request::{body, headers, method, method_path, path};
     use httptest::{Expectation, Server, all_of, responders::*};
-    use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
+    use opentelemetry_semantic_conventions::trace as otel_trace;
     use pretty_assertions::assert_eq;
     use serde::Deserialize;
     use std::collections::BTreeMap;
@@ -77,6 +77,34 @@ mod tests {
         }
     }
 
+    #[track_caller]
+    fn http_request_attributes(guard: &TestLayerGuard) -> BTreeMap<String, AttributeValue> {
+        let captured = TestLayer::capture(guard);
+        let http_spans = captured
+            .iter()
+            .filter(|s| s.name == "http_request")
+            .collect::<Vec<_>>();
+        let span = match http_spans[..] {
+            [span] => span,
+            _ => panic!("should capture one `http_request` span, captured: {captured:?}"),
+        };
+        BTreeMap::from_iter(span.attributes.clone())
+    }
+
+    #[track_caller]
+    fn client_request_attributes(guard: &TestLayerGuard) -> BTreeMap<String, AttributeValue> {
+        let captured = TestLayer::capture(guard);
+        let http_spans = captured
+            .iter()
+            .filter(|s| s.name == "client_request")
+            .collect::<Vec<_>>();
+        let span = match http_spans[..] {
+            [span] => span,
+            _ => panic!("should capture one `client_request` span, captured: {captured:?}"),
+        };
+        BTreeMap::from_iter(span.attributes.clone())
+    }
+
     #[tokio::test]
     async fn success_with_tracing_on() {
         let server = Server::run();
@@ -91,39 +119,28 @@ mod tests {
         let guard = TestLayer::initialize();
         let _response = generated_tracing_stub(&client).await;
 
-        let captured = TestLayer::capture(&guard);
-        let span = captured
-            .iter()
-            .find(|s| s.name == "http_request")
-            .unwrap_or_else(|| panic!("cannot find `http_request` span in capture: {captured:#?}"));
-
-        let got = BTreeMap::from_iter(span.attributes.clone());
+        let got = http_request_attributes(&guard);
         let want: BTreeMap<String, AttributeValue> = [
-            (OTEL_NAME, format!("GET {TEST_URL_TEMPLATE}").into()),
-            (OTEL_KIND, "Client".into()),
-            (RPC_SYSTEM_NAME, "http".into()),
-            (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
-            (otel_trace::URL_SCHEME, "http".into()),
-            (otel_attr::URL_TEMPLATE, TEST_URL_TEMPLATE.into()),
-            (otel_attr::URL_DOMAIN, TEST_HOST.into()),
-            (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
-            (OTEL_STATUS_CODE, "UNSET".into()),
-            (GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
-            (GCP_CLIENT_VERSION, TEST_VERSION.into()),
-            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
-            (
-                GCP_SCHEMA_URL,
-                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
-            ),
-            (GCP_RESOURCE_DESTINATION_ID, TEST_RESOURCE.into()),
-            (otel_trace::HTTP_RESPONSE_BODY_SIZE, 18_i64.into()), // {"hello": "world"} is 18 bytes
-            (
-                otel_trace::SERVER_ADDRESS,
-                server_addr.ip().to_string().into(),
-            ),
-            (otel_trace::SERVER_PORT, (server_addr.port() as i64).into()),
-            (otel_trace::URL_FULL, format!("{}/test", server_url).into()),
+            ("otel.name", format!("GET {TEST_URL_TEMPLATE}").into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.system.name", "http".into()),
+            ("http.request.method", "GET".into()),
+            ("url.scheme", "http".into()),
+            ("url.template", TEST_URL_TEMPLATE.into()),
+            ("url.domain", TEST_HOST.into()),
+            ("http.response.status_code", 200_i64.into()),
+            ("otel.status_code", "UNSET".into()),
+            ("gcp.client.service", TEST_SERVICE.into()),
+            ("gcp.client.version", TEST_VERSION.into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.artifact", TEST_ARTIFACT.into()),
+            ("gcp.client.language", "rust".into()), // TODO(#....) - remove
+            ("gcp.resource.name", TEST_RESOURCE.into()),
+            ("http.response.body.size", 18_i64.into()), // {"hello": "world"} is 18 bytes
+            ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
+            ("server.address", server_addr.ip().to_string().into()),
+            ("server.port", (server_addr.port() as i64).into()),
+            ("url.full", format!("{}/test", server_url).into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -159,7 +176,7 @@ mod tests {
     #[test_case(StatusCode::INTERNAL_SERVER_ERROR, "500", "the HTTP transport reports a [500] error: error"; "500 Internal Server Error")]
     #[test_case(StatusCode::SERVICE_UNAVAILABLE, "503", "the HTTP transport reports a [503] error: error"; "503 Service Unavailable")]
     #[tokio::test]
-    async fn test_error_responses(
+    async fn error_responses(
         http_status_code: StatusCode,
         expected_error_type: &'static str,
         expected_description: &'static str,
@@ -180,40 +197,36 @@ mod tests {
         let _response: Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
 
-        let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1, "Should capture one span: {:?}", captured);
-
-        let span = &captured[0];
-
-        let attrs = &span.attributes;
-
-        assert_eq!(
-            attrs.get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
-            Some(&(http_status_code.as_u16() as i64).into()),
-            "http.response.status_code mismatch, attrs: {:?}",
-            attrs
-        );
-
-        assert_eq!(
-            attrs.get(otel_trace::ERROR_TYPE),
-            Some(&expected_error_type.into()),
-            "error.type mismatch, attrs: {:?}",
-            attrs
-        );
-
-        assert_eq!(
-            attrs.get(OTEL_STATUS_CODE),
-            Some(&"ERROR".into()),
-            "otel.status_code mismatch, attrs: {:?}",
-            attrs
-        );
-
-        assert_eq!(
-            attrs.get(OTEL_STATUS_DESCRIPTION),
-            Some(&expected_description.into()),
-            "otel.status_description mismatch, attrs: {:?}",
-            attrs
-        );
+        let got = http_request_attributes(&guard);
+        let want: BTreeMap<String, AttributeValue> = [
+            (
+                "http.response.status_code",
+                (http_status_code.as_u16() as i64).into(),
+            ),
+            ("error.type", expected_error_type.into()),
+            ("otel.status_code", "ERROR".into()),
+            ("otel.status_description", expected_description.into()),
+            // Boilerplate
+            ("otel.name", "GET /error".into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.system.name", "http".into()),
+            ("http.request.method", "GET".into()),
+            ("url.scheme", "http".into()),
+            ("url.template", "/error".into()),
+            ("url.domain", TEST_HOST.into()),
+            ("gcp.client.service", TEST_SERVICE.into()),
+            ("gcp.client.version", TEST_VERSION.into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.artifact", TEST_ARTIFACT.into()),
+            ("gcp.client.language", "rust".into()), // TODO(#....) - remove
+            ("server.address", server_addr.ip().to_string().into()),
+            ("server.port", (server_addr.port() as i64).into()),
+            ("url.full", format!("{}/error", server_url).into()),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+        assert_eq!(got, want);
     }
 
     #[tokio::test]
@@ -239,47 +252,36 @@ mod tests {
         let _response: Result<Response<TestResponse>> =
             client.execute(request, Some(body), options).await;
 
-        let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1, "Should capture one span: {:?}", captured);
-
-        let span = &captured[0];
-        let got = BTreeMap::from_iter(span.attributes.clone());
-
+        let got = http_request_attributes(&guard);
         let want: BTreeMap<String, AttributeValue> = [
-            (OTEL_NAME, "POST /test".into()),
-            (OTEL_KIND, "Client".into()),
-            (RPC_SYSTEM_NAME, "http".into()),
-            (otel_trace::HTTP_REQUEST_METHOD, "POST".into()),
-            (otel_trace::URL_SCHEME, "http".into()),
-            (otel_attr::URL_TEMPLATE, "/test".into()),
-            (otel_attr::URL_DOMAIN, TEST_HOST.into()),
-            (otel_trace::HTTP_RESPONSE_STATUS_CODE, 201_i64.into()),
-            (OTEL_STATUS_CODE, "UNSET".into()),
-            (GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
-            (GCP_CLIENT_VERSION, TEST_VERSION.into()),
-            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
-            (
-                GCP_SCHEMA_URL,
-                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
-            ),
-            (otel_trace::HTTP_RESPONSE_BODY_SIZE, 21_i64.into()), // {"status": "created"} is 21 bytes
-            (
-                otel_trace::SERVER_ADDRESS,
-                server_addr.ip().to_string().into(),
-            ),
-            (otel_trace::SERVER_PORT, (server_addr.port() as i64).into()),
-            (otel_trace::URL_FULL, format!("{}/test", server_url).into()),
+            ("http.response.status_code", 201_i64.into()),
+            ("otel.status_code", "UNSET".into()),
+            ("otel.name", "POST /test".into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.system.name", "http".into()),
+            ("http.request.method", "POST".into()),
+            ("url.scheme", "http".into()),
+            ("url.template", "/test".into()),
+            ("url.domain", TEST_HOST.into()),
+            ("gcp.client.service", TEST_SERVICE.into()),
+            ("gcp.client.version", TEST_VERSION.into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.artifact", TEST_ARTIFACT.into()),
+            ("gcp.client.language", "rust".into()), // TODO(#....) - remove
+            ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
+            ("server.address", server_addr.ip().to_string().into()),
+            ("server.port", (server_addr.port() as i64).into()),
+            ("url.full", format!("{}/test", server_url).into()),
+            ("http.response.body.size", 21_i64.into()), // {"status": "created"} is 21 bytes
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
         .collect();
-
         assert_eq!(got, want);
     }
 
     #[tokio::test]
-    async fn test_error_info_parsing() {
+    async fn error_info_parsing() {
         let server = Server::run();
         let server_addr = server.addr();
         let server_url = format!("http://{}", server_addr);
@@ -317,49 +319,39 @@ mod tests {
 
         assert!(result.is_err(), "{result:?}");
 
-        let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1, "Should capture one span: {:?}", captured);
+        let mut got = http_request_attributes(&guard);
+        let description = got.remove("otel.status_description");
+        let want: BTreeMap<String, AttributeValue> = [
+            ("http.response.status_code", 400_i64.into()),
+            ("otel.status_code", "ERROR".into()),
+            ("error.type", "API_KEY_INVALID".into()),
+            ("otel.name", "GET /error-info".into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.system.name", "http".into()),
+            ("http.request.method", "GET".into()),
+            ("url.scheme", "http".into()),
+            ("url.template", "/error-info".into()),
+            ("url.domain", TEST_HOST.into()),
+            ("gcp.client.service", TEST_SERVICE.into()),
+            ("gcp.client.version", TEST_VERSION.into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.artifact", TEST_ARTIFACT.into()),
+            ("gcp.client.language", "rust".into()), // TODO(#....) - remove
+            ("server.address", server_addr.ip().to_string().into()),
+            ("server.port", (server_addr.port() as i64).into()),
+            ("url.full", format!("{}/error-info", server_url).into()),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+        assert_eq!(got, want);
 
-        let span = &captured[0];
-        let attrs = &span.attributes;
-
-        assert_eq!(
-            attrs.get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
-            Some(&400_i64.into()),
-            "http.response.status_code mismatch, attrs: {:?}",
-            attrs
-        );
-
-        assert_eq!(
-            attrs.get(otel_trace::ERROR_TYPE),
-            Some(&"API_KEY_INVALID".into()),
-            "error.type should be parsed from ErrorInfo, attrs: {:?}",
-            attrs
-        );
-
-        assert_eq!(
-            attrs.get(OTEL_STATUS_CODE),
-            Some(&"ERROR".into()),
-            "otel.status_code should be ERROR, attrs: {:?}",
-            attrs
-        );
-
-        let description = attrs
-            .get(OTEL_STATUS_DESCRIPTION)
-            .unwrap_or_else(|| panic!("{} missing, attrs: {:?}", OTEL_STATUS_DESCRIPTION, attrs))
-            .as_string()
-            .unwrap_or_else(|| {
-                panic!(
-                    "{} not a string, attrs: {:?}",
-                    OTEL_STATUS_DESCRIPTION, attrs
-                )
-            });
         assert!(
-            description.contains("Invalid API Key"),
-            "{} '{}' does not contain 'Invalid API Key', attrs: {:?}",
-            OTEL_STATUS_DESCRIPTION,
-            description,
-            attrs
+            description
+                .as_ref()
+                .and_then(|d| d.as_string())
+                .is_some_and(|d| d.contains("Invalid API Key")),
+            "otel.status_description mismatched: {description:?}"
         );
     }
 
@@ -475,48 +467,30 @@ mod tests {
 
         let _response = generated_tracing_stub(&client).await;
 
-        let captured = TestLayer::capture(&guard);
-        let t3_captured = captured
-            .iter()
-            .find(|s| s.name == "client_request")
-            .unwrap_or_else(|| {
-                panic!("cannot find `client_request` span in capture: {captured:#?}")
-            });
-
-        let got = BTreeMap::from_iter(t3_captured.attributes.clone());
-
+        let got = client_request_attributes(&guard);
         let want: BTreeMap<String, AttributeValue> = [
             (
-                OTEL_NAME,
+                "otel.name",
                 concat!(env!("CARGO_CRATE_NAME"), "::", "generated_tracing_stub").into(),
             ),
-            (OTEL_KIND, "Internal".into()),
-            (RPC_SYSTEM_NAME, "http".into()),
-            (otel_trace::RPC_METHOD, TEST_RPC_METHOD.into()),
-            (GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
-            (GCP_CLIENT_VERSION, TEST_VERSION.into()),
-            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
-            (
-                GCP_SCHEMA_URL,
-                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
-            ),
-            (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
-            (
-                otel_trace::SERVER_ADDRESS,
-                server_addr.ip().to_string().into(),
-            ),
-            (otel_trace::SERVER_PORT, (server_addr.port() as i64).into()),
-            (NETWORK_PEER_ADDRESS, server_addr.ip().to_string().into()),
-            (NETWORK_PEER_PORT, (server_addr.port() as i64).into()),
-            (otel_trace::URL_FULL, format!("{}/test", server_url).into()),
-            (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
-            (OTEL_STATUS_CODE, "UNSET".into()),
+            ("otel.kind", "Internal".into()),
+            ("rpc.system.name", "http".into()),
+            ("rpc.method", TEST_RPC_METHOD.into()),
+            ("gcp.client.service", TEST_SERVICE.into()),
+            ("gcp.client.version", TEST_VERSION.into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.artifact", TEST_ARTIFACT.into()),
+            ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
+            ("http.response.status_code", 200_i64.into()),
+            ("otel.status_code", "UNSET".into()),
+            ("http.request.method", "GET".into()),
+            ("server.address", server_addr.ip().to_string().into()),
+            ("server.port", (server_addr.port() as i64).into()),
+            ("url.full", format!("{}/test", server_url).into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
         .collect();
-
         assert_eq!(got, want);
     }
 
@@ -550,41 +524,30 @@ mod tests {
 
         let _response = generated_tracing_stub(&client).await;
 
-        let captured = TestLayer::capture(&guard);
-        let t3_captured = captured
-            .iter()
-            .find(|s| s.name == "client_request")
-            .unwrap_or_else(|| {
-                panic!("cannot find `client_request` span in capture: {captured:#?}")
-            });
-
-        let mut got = BTreeMap::from_iter(t3_captured.attributes.clone());
+        let mut got = client_request_attributes(&guard);
         // Must exist, but we do not care about its value.
-        assert!(got.remove(OTEL_STATUS_DESCRIPTION).is_some(), "{got:?}");
-        assert!(got.remove(ERROR_TYPE).is_some(), "{got:?}");
-        assert!(got.remove(HTTP_REQUEST_RESEND_COUNT).is_some(), "{got:?}");
+        assert!(got.remove("otel.status_description").is_some(), "{got:?}");
+        assert!(got.remove("error.type").is_some(), "{got:?}");
+        assert!(got.remove("http.request.resend_count").is_some(), "{got:?}");
 
         let want: BTreeMap<String, AttributeValue> = [
             (
-                OTEL_NAME,
+                "otel.name",
                 concat!(env!("CARGO_CRATE_NAME"), "::", "generated_tracing_stub").into(),
             ),
-            (OTEL_KIND, "Internal".into()),
-            (RPC_SYSTEM_NAME, "http".into()),
-            (otel_trace::RPC_METHOD, TEST_RPC_METHOD.into()),
-            (GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
-            (GCP_CLIENT_VERSION, TEST_VERSION.into()),
-            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
-            (
-                GCP_SCHEMA_URL,
-                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
-            ),
-            (otel_trace::SERVER_ADDRESS, "127.0.0.1".into()),
-            (otel_trace::SERVER_PORT, (1_i64).into()),
-            (otel_trace::URL_FULL, "https://127.0.0.1:1/test".into()),
-            (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
-            (OTEL_STATUS_CODE, "ERROR".into()),
+            ("otel.kind", "Internal".into()),
+            ("rpc.system.name", "http".into()),
+            ("rpc.method", TEST_RPC_METHOD.into()),
+            ("gcp.client.service", TEST_SERVICE.into()),
+            ("gcp.client.version", TEST_VERSION.into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.artifact", TEST_ARTIFACT.into()),
+            ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
+            ("server.address", "127.0.0.1".into()),
+            ("server.port", (1_i64).into()),
+            ("url.full", "https://127.0.0.1:1/test".into()),
+            ("http.request.method", "GET".into()),
+            ("otel.status_code", "ERROR".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -613,43 +576,26 @@ mod tests {
 
         let _response = execute_http_tracing_stub(&client).await;
 
-        let captured = TestLayer::capture(&guard);
-        let t3_captured = captured
-            .iter()
-            .find(|s| s.name == "client_request")
-            .unwrap_or_else(|| {
-                panic!("cannot find `client_request` span in capture: {captured:#?}")
-            });
-
-        let got = BTreeMap::from_iter(t3_captured.attributes.clone());
-
+        let got = client_request_attributes(&guard);
         let want: BTreeMap<String, AttributeValue> = [
             (
-                OTEL_NAME,
+                "otel.name",
                 concat!(env!("CARGO_CRATE_NAME"), "::", "execute_http_tracing_stub").into(),
             ),
-            (OTEL_KIND, "Internal".into()),
-            (RPC_SYSTEM_NAME, "http".into()),
-            (otel_trace::RPC_METHOD, TEST_RPC_METHOD.into()),
-            (GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
-            (GCP_CLIENT_VERSION, TEST_VERSION.into()),
-            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
-            (
-                GCP_SCHEMA_URL,
-                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
-            ),
-            (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
-            (
-                otel_trace::SERVER_ADDRESS,
-                server_addr.ip().to_string().into(),
-            ),
-            (otel_trace::SERVER_PORT, (server_addr.port() as i64).into()),
-            (NETWORK_PEER_ADDRESS, server_addr.ip().to_string().into()),
-            (NETWORK_PEER_PORT, (server_addr.port() as i64).into()),
-            (otel_trace::URL_FULL, format!("{}/test", server_url).into()),
-            (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
-            (OTEL_STATUS_CODE, "UNSET".into()),
+            ("otel.kind", "Internal".into()),
+            ("rpc.system.name", "http".into()),
+            ("rpc.method", TEST_RPC_METHOD.into()),
+            ("gcp.client.service", TEST_SERVICE.into()),
+            ("gcp.client.version", TEST_VERSION.into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.artifact", TEST_ARTIFACT.into()),
+            ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
+            ("http.response.status_code", 200_i64.into()),
+            ("server.address", server_addr.ip().to_string().into()),
+            ("server.port", (server_addr.port() as i64).into()),
+            ("url.full", format!("{}/test", server_url).into()),
+            ("http.request.method", "GET".into()),
+            ("otel.status_code", "UNSET".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -670,40 +616,29 @@ mod tests {
 
         let _response = execute_http_tracing_stub(&client).await;
 
-        let captured = TestLayer::capture(&guard);
-        let t3_captured = captured
-            .iter()
-            .find(|s| s.name == "client_request")
-            .unwrap_or_else(|| {
-                panic!("cannot find `client_request` span in capture: {captured:#?}")
-            });
-
-        let mut got = BTreeMap::from_iter(t3_captured.attributes.clone());
+        let mut got = client_request_attributes(&guard);
         // Must exist, but we do not care about its value.
-        assert!(got.remove(OTEL_STATUS_DESCRIPTION).is_some(), "{got:?}");
+        assert!(got.remove("otel.status_description").is_some(), "{got:?}");
 
         let want: BTreeMap<String, AttributeValue> = [
             (
-                OTEL_NAME,
+                "otel.name",
                 concat!(env!("CARGO_CRATE_NAME"), "::", "execute_http_tracing_stub").into(),
             ),
-            (OTEL_KIND, "Internal".into()),
-            (RPC_SYSTEM_NAME, "http".into()),
-            (otel_trace::RPC_METHOD, TEST_RPC_METHOD.into()),
-            (GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
-            (GCP_CLIENT_VERSION, TEST_VERSION.into()),
-            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
-            (
-                GCP_SCHEMA_URL,
-                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
-            ),
-            (otel_trace::SERVER_ADDRESS, "127.0.0.1".into()),
-            (otel_trace::SERVER_PORT, (1_i64).into()),
-            (otel_trace::URL_FULL, "https://127.0.0.1:1/test".into()),
-            (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
-            (OTEL_STATUS_CODE, "ERROR".into()),
-            (ERROR_TYPE, "CLIENT_CONNECTION_ERROR".into()),
+            ("otel.kind", "Internal".into()),
+            ("rpc.system.name", "http".into()),
+            ("rpc.method", TEST_RPC_METHOD.into()),
+            ("gcp.client.service", TEST_SERVICE.into()),
+            ("gcp.client.version", TEST_VERSION.into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.artifact", TEST_ARTIFACT.into()),
+            ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
+            ("server.address", "127.0.0.1".into()),
+            ("server.port", (1_i64).into()),
+            ("url.full", "https://127.0.0.1:1/test".into()),
+            ("http.request.method", "GET".into()),
+            ("otel.status_code", "ERROR".into()),
+            ("error.type", "CLIENT_CONNECTION_ERROR".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))

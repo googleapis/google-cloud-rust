@@ -418,6 +418,8 @@ fn create_grpc_span(
 
 #[cfg(test)]
 mod tests {
+    use crate::observability::attributes::RPC_SYSTEM_GRPC;
+
     use super::*;
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use std::collections::HashMap;
@@ -476,10 +478,7 @@ mod tests {
 
         let expected_attributes: HashMap<String, AttributeValue> = [
             (OTEL_NAME, "google.pubsub.v1.Publisher/Publish".into()),
-            (
-                RPC_SYSTEM_NAME,
-                crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
-            ),
+            (RPC_SYSTEM_NAME, RPC_SYSTEM_GRPC.into()),
             (OTEL_KIND, "Client".into()),
             (
                 otel_trace::RPC_METHOD,
@@ -528,10 +527,7 @@ mod tests {
 
         let expected_attributes: HashMap<String, AttributeValue> = [
             (OTEL_NAME, "google.pubsub.v1.Publisher/Publish".into()),
-            (
-                RPC_SYSTEM_NAME,
-                crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
-            ),
+            (RPC_SYSTEM_NAME, RPC_SYSTEM_GRPC.into()),
             (OTEL_KIND, "Client".into()),
             (
                 otel_trace::RPC_METHOD,
@@ -574,10 +570,7 @@ mod tests {
 
         let expected_attributes: HashMap<String, AttributeValue> = [
             (OTEL_NAME, "google.pubsub.v1.Publisher/Publish".into()),
-            (
-                RPC_SYSTEM_NAME,
-                crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
-            ),
+            (RPC_SYSTEM_NAME, RPC_SYSTEM_GRPC.into()),
             (OTEL_KIND, "Client".into()),
             (
                 otel_trace::RPC_METHOD,

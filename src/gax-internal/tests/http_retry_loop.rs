@@ -31,17 +31,15 @@ mod tests {
     use google_cloud_gax_internal::options::ClientConfig;
     use http::StatusCode;
     use httptest::{Expectation, Server, matchers::*, responders::*};
+    use opentelemetry_semantic_conventions::attribute::{
+        HTTP_REQUEST_RESEND_COUNT, HTTP_RESPONSE_STATUS_CODE, OTEL_STATUS_CODE,
+        OTEL_STATUS_DESCRIPTION,
+    };
     use serde_json::json;
     use std::time::Duration;
 
     #[cfg(google_cloud_unstable_tracing)]
-    use google_cloud_gax_internal::observability::attributes::keys::{
-        OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION,
-    };
-    #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::TestLayer;
-    #[cfg(google_cloud_unstable_tracing)]
-    use opentelemetry_semantic_conventions::trace::{self as semconv, HTTP_REQUEST_RESEND_COUNT};
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
@@ -141,16 +139,13 @@ mod tests {
         let response = response?.into_body();
         assert_eq!(response, json!({"status": "done"}));
 
-        let spans = TestLayer::capture(&guard);
-        assert_eq!(
-            spans.len(),
-            3,
-            "Should capture 3 spans for 3 attempts: {:?}",
-            spans
-        );
+        let captured = TestLayer::capture(&guard);
+        let (span0, span1, span2) = match &captured[..] {
+            [s0, s1, s2] => (s0, s1, s2),
+            _ => panic!("Should capture 3 spans for 3 attempts: {captured:?}"),
+        };
 
         // Span 0 (Initial Attempt - Failure)
-        let span0 = &spans[0];
         assert_eq!(span0.name, "http_request");
         let attributes0 = &span0.attributes;
         assert!(
@@ -167,10 +162,10 @@ mod tests {
             attributes0
         );
         assert_eq!(
-            attributes0.get(semconv::HTTP_RESPONSE_STATUS_CODE),
+            attributes0.get(HTTP_RESPONSE_STATUS_CODE),
             Some(&(StatusCode::SERVICE_UNAVAILABLE.as_u16() as i64).into()),
             "Span 0: '{}' mismatch, all attributes: {:?}",
-            semconv::HTTP_RESPONSE_STATUS_CODE,
+            HTTP_RESPONSE_STATUS_CODE,
             attributes0
         );
         assert_eq!(
@@ -185,7 +180,6 @@ mod tests {
         );
 
         // Span 1 (Retry 1 - Failure)
-        let span1 = &spans[1];
         assert_eq!(span1.name, "http_request");
         let attributes1 = &span1.attributes;
         assert_eq!(
@@ -203,10 +197,10 @@ mod tests {
             attributes1
         );
         assert_eq!(
-            attributes1.get(semconv::HTTP_RESPONSE_STATUS_CODE),
+            attributes1.get(HTTP_RESPONSE_STATUS_CODE),
             Some(&(StatusCode::SERVICE_UNAVAILABLE.as_u16() as i64).into()),
             "Span 1: '{}' mismatch, all attributes: {:?}",
-            semconv::HTTP_RESPONSE_STATUS_CODE,
+            HTTP_RESPONSE_STATUS_CODE,
             attributes1
         );
         assert_eq!(
@@ -221,7 +215,6 @@ mod tests {
         );
 
         // Span 2 (Retry 2 - Success)
-        let span2 = &spans[2];
         assert_eq!(span2.name, "http_request");
         let attributes2 = &span2.attributes;
         assert_eq!(
@@ -239,10 +232,10 @@ mod tests {
             attributes2
         );
         assert_eq!(
-            attributes2.get(semconv::HTTP_RESPONSE_STATUS_CODE),
+            attributes2.get(HTTP_RESPONSE_STATUS_CODE),
             Some(&(StatusCode::OK.as_u16() as i64).into()),
             "Span 2: '{}' mismatch, all attributes: {:?}",
-            semconv::HTTP_RESPONSE_STATUS_CODE,
+            HTTP_RESPONSE_STATUS_CODE,
             attributes2
         );
         assert!(

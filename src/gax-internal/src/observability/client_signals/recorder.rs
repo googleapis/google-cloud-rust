@@ -81,7 +81,7 @@ tokio::task_local! {
 /// ```
 ///
 /// [ReqwestClient]: crate::http::ReqwestClient
-/// [GrpcClient]: crate::grpc::GrpcClient
+/// [GrpcClient]: crate::grpc::Client
 #[derive(Clone, Debug)]
 pub struct RequestRecorder {
     inner: Arc<Mutex<ClientSnapshot>>,
