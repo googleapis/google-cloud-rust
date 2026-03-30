@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod batch_read_only_transaction;
 pub mod client;
 pub mod partitioned_dml;
 pub mod query;
