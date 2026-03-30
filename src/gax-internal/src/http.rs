@@ -97,10 +97,9 @@ impl ReqwestClient {
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
-
         let endpoint = config
             .endpoint
-            .unwrap_or(default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain));
+            .unwrap_or_else(|| default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain));
 
         let host = crate::host::header(Some(endpoint.as_ref()), default_endpoint, &universe_domain)
             .map_err(|e| e.client_builder())?;

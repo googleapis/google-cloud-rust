@@ -91,8 +91,6 @@ fn origin_and_header(
         {
             Ok((custom_origin, custom_host))
         }
-        // If it's the standard service endpoint in the TPC universe, we match it.
-        [s] if *s == service => Ok((custom_origin, custom_host)),
         _ => Ok((default_origin, default_host)),
     }
 }
