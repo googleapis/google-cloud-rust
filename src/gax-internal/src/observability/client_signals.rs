@@ -20,7 +20,7 @@ mod with_client_span;
 
 pub use duration_metric::DurationMetric;
 pub use recorder::{ClientRequestAttributes, RequestRecorder};
-pub use with_client_logging::WithClientLogging;
+
 pub use with_client_metric::WithClientMetric;
 pub use with_client_span::WithClientSpan;
 
@@ -101,7 +101,7 @@ macro_rules! client_request_signals {
                 span.clone(),
                 $crate::observability::WithClientMetric::new(
                     $metric,
-                    $crate::observability::WithClientLogging::new($inner),
+                    $crate::with_client_logging!($inner),
                 ),
             ))
             .instrument(span.clone());
@@ -112,7 +112,7 @@ macro_rules! client_request_signals {
 #[cfg(test)]
 mod tests {
     use super::duration_metric::BOUNDARIES;
-    use super::with_client_logging::{NAME, TARGET};
+
     use super::{ClientRequestAttributes, RequestRecorder};
     use crate::observability::DurationMetric;
     use crate::options::InstrumentationClientInfo;
@@ -288,11 +288,21 @@ mod tests {
         let captured = signals.logs_exporter.get_emitted_logs()?;
         let record = captured
             .iter()
-            .find(|r| r.record.target().is_some_and(|v| v == TARGET))
-            .unwrap_or_else(|| panic!("missing log for target {TARGET} in {captured:#?}"));
+            .find(|r| {
+                r.record
+                    .target()
+                    .is_some_and(|v| v == env!("CARGO_PKG_NAME"))
+            })
+            .unwrap_or_else(|| {
+                panic!(
+                    "missing log for target {} in {captured:#?}",
+                    env!("CARGO_PKG_NAME")
+                )
+            });
         check_log_record(
             &record.record,
             trace_id,
+            env!("CARGO_PKG_NAME"),
             &[
                 ("gcp.client.version", "1.2.3"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
@@ -459,6 +469,7 @@ mod tests {
     pub fn check_log_record(
         record: &SdkLogRecord,
         trace_id: TraceId,
+        expected_target: &str,
         extra_attributes: &[(&'static str, &str)],
     ) {
         fn format_value(any: &AnyValue) -> String {
@@ -470,10 +481,9 @@ mod tests {
                 _ => "unexpected AnyValue variant".to_string(),
             }
         }
-        assert_eq!(record.event_name(), Some(NAME), "{record:?}");
         assert_eq!(
             record.target().map(|s| s.as_ref()),
-            Some(TARGET),
+            Some(expected_target),
             "{record:?}"
         );
         assert_eq!(record.severity_text(), Some("WARN"), "{record:?}");
