@@ -35,7 +35,6 @@ release:
   branch: main
   ignored_changes:
     - .repo-metadata.json
-    - .sidekick.toml
   remote: upstream
   tools:
     cargo:
