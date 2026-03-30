@@ -15,18 +15,19 @@
 use google_cloud_auth::credentials::Credentials;
 use google_cloud_auth::errors::CredentialsError;
 
-const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
+pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
+const UNIVERSE_DOMAIN_VAR: &str = "GOOGLE_CLOUD_UNIVERSE_DOMAIN";
 
 pub(crate) async fn resolve(
     universe_domain_client_override: Option<&str>,
     cred: &Credentials,
 ) -> Result<String, CredentialsError> {
-    let env_universe = std::env::var("GOOGLE_CLOUD_UNIVERSE_DOMAIN").ok();
+    let env_universe = std::env::var(UNIVERSE_DOMAIN_VAR).ok();
     let cred_universe = cred.universe_domain().await;
 
-    let universe_domain = universe_domain_client_override
-        .or(cred_universe.as_deref())
-        .or(env_universe.as_deref())
+    let universe_domain = env_universe
+        .as_deref()
+        .or(universe_domain_client_override)
         .unwrap_or(DEFAULT_UNIVERSE_DOMAIN)
         .to_string();
 
@@ -43,4 +44,64 @@ pub(crate) async fn resolve(
     }
 
     Ok(universe_domain)
+}
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider};
+    use http::{Extensions, HeaderMap};
+    use scoped_env::ScopedEnv;
+    use serial_test::serial;
+    use test_case::test_case;
+
+    type TestResult = anyhow::Result<()>;
+    type AuthResult<T> = std::result::Result<T, CredentialsError>;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        Credentials {}
+
+        impl CredentialsProvider for Credentials {
+            async fn headers(&self, extensions: Extensions) -> AuthResult<CacheableResource<HeaderMap>>;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+    }
+
+    #[tokio::test]
+    #[test_case(None, None, None, Ok(DEFAULT_UNIVERSE_DOMAIN); "default")]
+    #[test_case(Some("universe.com"), None, Some("universe.com"), Ok("universe.com"); "env var only")]
+    #[test_case(None, Some("universe.com"), Some("universe.com"), Ok("universe.com"); "client override only")]
+    #[test_case(Some("universe.com"), Some("universe.com"), Some("universe.com"), Ok("universe.com"); "all")]
+    #[test_case(None, None, Some("universe.com"), Err(CredentialsError::from_msg(false, "universe domain mismatch")); "credentials only")]
+    #[test_case(None, Some("test.com"), Some("universe.com"), Err(CredentialsError::from_msg(false, "universe domain mismatch")); "client override mismatch")]
+    #[test_case( Some("test.com"), None, Some("universe.com"), Err(CredentialsError::from_msg(false, "universe domain mismatch")); "env var override mismatch")]
+    #[serial]
+    async fn universe_domain_resolve(
+        env_domain: Option<&str>,
+        client_override: Option<&str>,
+        cred_domain: Option<&str>,
+        expected: Result<&str, CredentialsError>,
+    ) -> TestResult {
+        let _env = match env_domain {
+            Some(domain) => ScopedEnv::set("GOOGLE_CLOUD_UNIVERSE_DOMAIN", domain),
+            None => ScopedEnv::remove("GOOGLE_CLOUD_UNIVERSE_DOMAIN"),
+        };
+        let mut provider = MockCredentials::new();
+        let cred_domain = cred_domain.clone().map(|s| s.to_string());
+        provider
+            .expect_universe_domain()
+            .returning(move || cred_domain.clone());
+        let cred = Credentials::from(provider);
+
+        let universe_domain = resolve(client_override, &cred).await;
+        let expected = expected.map(|s| s.to_string());
+        match (universe_domain, expected) {
+            (Ok(got), Ok(expected)) => {
+                assert_eq!(got, expected, "{got:?}");
+                Ok(())
+            }
+            (Err(_), Err(_)) => Ok(()),
+            (got, expected) => panic!("Expected {:?}, got {:?}", expected, got),
+        }
+    }
 }

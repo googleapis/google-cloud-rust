@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use google_cloud_gax::client_builder::Error as BuilderError;
 use google_cloud_gax::error::Error;
 use http::Uri;
@@ -50,7 +51,8 @@ fn origin_and_header(
     default_endpoint: &str,
     universe_domain: &str,
 ) -> Result<(Uri, String), HostError> {
-    let default_origin = Uri::from_str(default_endpoint).map_err(HostError::Uri)?;
+    let default_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain);
+    let default_origin = Uri::from_str(&default_endpoint).map_err(HostError::Uri)?;
     let default_host = default_origin
         .authority()
         .expect("missing authority in default endpoint")
@@ -66,10 +68,11 @@ fn origin_and_header(
         .ok_or_else(|| HostError::MissingAuthority(endpoint.to_string()))?
         .host()
         .to_string();
+
     let custom_suffix = format!(".{}", universe_domain);
     let (Some(prefix), Some(service)) = (
         custom_host.strip_suffix(&custom_suffix),
-        default_host.strip_suffix(".googleapis.com"),
+        default_host.strip_suffix(&custom_suffix),
     ) else {
         return Ok((default_origin, default_host));
     };
@@ -212,9 +215,9 @@ mod tests {
     }
 
     #[test]
-    fn tpc_universe_endpoint() -> anyhow::Result<()> {
+    fn universe_domain_endpoint() -> anyhow::Result<()> {
         let got = header(
-            Some("https://cloudkms.universe.example.com"),
+            None,
             "https://cloudkms.googleapis.com",
             "universe.example.com",
         )?;
