@@ -22,8 +22,8 @@ use crate::observability::attributes::SCHEMA_URL_VALUE;
 use crate::observability::attributes::keys::{
     ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION,
     GCP_ERRORS_DOMAIN, GCP_ERRORS_METADATA, GCP_SCHEMA_URL, HTTP_REQUEST_METHOD,
-    HTTP_REQUEST_RESEND_COUNT, RPC_RESPONSE_STATUS_CODE, RPC_SERVICE, RPC_SYSTEM_NAME,
-    SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+    HTTP_REQUEST_RESEND_COUNT, NETWORK_PEER_ADDRESS, NETWORK_PEER_PORT, RPC_RESPONSE_STATUS_CODE,
+    RPC_SERVICE, RPC_SYSTEM_NAME, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
 };
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
@@ -125,6 +125,8 @@ where
                     { ERROR_TYPE } = error_type.as_str(),
                     { SERVER_ADDRESS } = snapshot.server_address(),
                     { SERVER_PORT } = snapshot.server_port() as i64,
+                    { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),
+                    { NETWORK_PEER_PORT } = snapshot.network_peer_port(),
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
                     { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
                     { GCP_CLIENT_SERVICE } = snapshot.service_name(),
@@ -291,8 +293,10 @@ mod tests {
             "gcp.client.version": "1.2.3",
             "gcp.client.service": "test-service",
             "url.full": url,
-            "server.address": server.addr().ip().to_string(),
+            "server.address": "127.0.0.1",
             "server.port": server.addr().port(),
+            "network.peer.address": "127.0.0.1",
+            "network.peer.port": server.addr().port(),
             "http.request.method": "GET",
         });
         assert_eq!(Some(&fields), want.as_object(), "{parsed:?}");

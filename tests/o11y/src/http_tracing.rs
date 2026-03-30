@@ -17,7 +17,7 @@ use crate::mock_collector::MockCollector;
 use crate::otlp::logs::Builder as LoggerProviderBuilder;
 use crate::otlp::trace::Builder as TracerProviderBuilder;
 use google_cloud_showcase_v1beta1::client::Echo;
-use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
+use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer, format_server_address};
 use httptest::{Expectation, Server, matchers::*, responders::status_code};
 use pretty_assertions::assert_eq;
 use std::collections::BTreeMap;
@@ -379,8 +379,10 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
         ("otel.status_code", "UNSET".into()),
         ("http.response.status_code", 200_i64.into()),
         ("http.request.method", "POST".into()),
-        ("server.address", server_addr.ip().to_string().into()),
+        ("server.address", format_server_address(server_addr).into()),
         ("server.port", (server_addr.port() as i64).into()),
+        ("network.peer.address", server_addr.ip().to_string().into()),
+        ("network.peer.port", (server_addr.port() as i64).into()),
         (
             "url.full",
             format!(
@@ -463,8 +465,10 @@ pub async fn parse_error() -> anyhow::Result<()> {
             "cannot deserialize the response EOF while parsing an object at line 1 column 18"
                 .into(),
         ),
-        ("server.address", server_addr.ip().to_string().into()),
+        ("server.address", format_server_address(server_addr).into()),
         ("server.port", (server_addr.port() as i64).into()),
+        ("network.peer.address", server_addr.ip().to_string().into()),
+        ("network.peer.port", (server_addr.port() as i64).into()),
         (
             "url.full",
             format!(
@@ -549,8 +553,10 @@ pub async fn api_error() -> anyhow::Result<()> {
             "otel.status_description",
             "the service reports an error with code UNKNOWN described as: Not Found".into(),
         ),
-        ("server.address", server_addr.ip().to_string().into()),
+        ("server.address", format_server_address(server_addr).into()),
         ("server.port", (server_addr.port() as i64).into()),
+        ("network.peer.address", server_addr.ip().to_string().into()),
+        ("network.peer.port", (server_addr.port() as i64).into()),
         (
             "url.full",
             format!(

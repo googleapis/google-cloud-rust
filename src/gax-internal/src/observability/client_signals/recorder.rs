@@ -163,7 +163,7 @@ impl RequestRecorder {
         let mut guard = self.inner.lock().expect("never poisoned");
         let snapshot = TransportSnapshot {
             start: Instant::now(),
-            server_address: None,
+            network_peer_address: None,
             rpc_system: Some(RPC_SYSTEM_HTTP),
             http_method: Some(request.method().clone()),
             http_status_code: None,
@@ -181,7 +181,7 @@ impl RequestRecorder {
         let mut guard = self.inner.lock().expect("never poisoned");
         guard.attempt_count += 1;
         if let Some(s) = guard.transport_snapshot.as_mut() {
-            s.server_address = response.remote_addr();
+            s.network_peer_address = response.remote_addr();
             s.http_status_code = Some(response.status().as_u16());
         }
     }
@@ -315,14 +315,6 @@ impl ClientSnapshot {
     ///
     /// Use with the "server.address" attribute.
     pub fn server_address(&self) -> String {
-        if let Some(address) = self
-            .transport_snapshot
-            .as_ref()
-            .and_then(|s| s.server_address)
-            .map(|a| a.ip().to_string())
-        {
-            return address;
-        }
         if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok()) {
             if let Some(host) = uri.authority().map(|a| a.host().to_string()) {
                 return host;
@@ -337,14 +329,6 @@ impl ClientSnapshot {
     ///
     /// Use with the "server.port" attribute after casting to `i64`.
     pub fn server_port(&self) -> u16 {
-        if let Some(port) = self
-            .transport_snapshot
-            .as_ref()
-            .and_then(|s| s.server_address)
-            .map(|a| a.port())
-        {
-            return port;
-        }
         if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok()) {
             if let Some(host) = uri.authority().and_then(|a| a.port_u16()) {
                 return host;
@@ -419,13 +403,33 @@ impl ClientSnapshot {
             .as_ref()
             .and_then(|s| s.url.as_deref())
     }
+
+    /// Returns the network peer address.
+    ///
+    /// Use with the "network.peer.address" attribute.
+    pub fn network_peer_address(&self) -> Option<String> {
+        self.transport_snapshot
+            .as_ref()
+            .and_then(|s| s.network_peer_address)
+            .map(|a| a.ip().to_string())
+    }
+
+    /// Returns the network peer port.
+    ///
+    /// Use with the "network.peer.port" attribute.
+    pub fn network_peer_port(&self) -> Option<i64> {
+        self.transport_snapshot
+            .as_ref()
+            .and_then(|s| s.network_peer_address)
+            .map(|a| a.port() as i64)
+    }
 }
 
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub struct TransportSnapshot {
     start: Instant,
-    server_address: Option<SocketAddr>,
+    network_peer_address: Option<SocketAddr>,
     rpc_system: Option<&'static str>,
     http_method: Option<Method>,
     http_status_code: Option<u16>,
@@ -440,7 +444,6 @@ mod tests {
     use httptest::responders::status_code;
     use httptest::{Expectation, Server};
     use pretty_assertions::assert_eq;
-    use std::net::{Ipv4Addr, SocketAddrV4};
 
     const TEST_METHOD_NAME: &str = "google.test.v1.Service/SomeMethod";
     const TEST_PATH_TEMPLATE: &str = "/v42/{parent}";
@@ -649,14 +652,18 @@ mod tests {
         {
             let mut guard = recorder.inner.lock().expect("never poisoned");
             let s = guard.transport_snapshot.as_mut().expect("already set");
-            s.server_address = Some(SocketAddr::V4(SocketAddrV4::new(
-                Ipv4Addr::new(127, 0, 0, 234),
+            s.network_peer_address = Some(std::net::SocketAddr::V4(std::net::SocketAddrV4::new(
+                std::net::Ipv4Addr::new(127, 0, 0, 234),
                 234,
             )));
         }
         let snap = recorder.client_snapshot();
-        assert_eq!(snap.server_address(), "127.0.0.234", "{snap:?}");
-        assert_eq!(snap.server_port(), 234, "{snap:?}");
+        assert_eq!(
+            snap.network_peer_address(),
+            Some("127.0.0.234".to_string()),
+            "{snap:?}"
+        );
+        assert_eq!(snap.network_peer_port(), Some(234), "{snap:?}");
 
         Ok(())
     }

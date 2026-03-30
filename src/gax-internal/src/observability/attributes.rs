@@ -52,6 +52,11 @@ pub mod keys {
     /// [Remote Procedure Call (RPC) Attributes]: https://github.com/open-telemetry/semantic-conventions/blob/main/docs/registry/attributes/rpc.md#rpc-response-status-code
     pub const RPC_RESPONSE_STATUS_CODE: &str = "rpc.response.status_code";
 
+    /// The network peer address.
+    pub const NETWORK_PEER_ADDRESS: &str = "network.peer.address";
+    /// The network peer port.
+    pub const NETWORK_PEER_PORT: &str = "network.peer.port";
+
     // Custom GCP Attributes
     /// The Google Cloud service name.
     ///
