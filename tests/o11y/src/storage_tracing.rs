@@ -104,7 +104,7 @@ async fn read_object(
         ("otel.name", "GET /storage/v1/b/{bucket}/o/{object}".into()),
         ("otel.kind", "Client".into()),
         ("otel.status_code", "UNSET".into()),
-        ("rpc.system", "http".into()),
+        ("rpc.system.name", "http".into()),
         ("server.address", server.addr().ip().to_string().into()),
         ("server.port", (server.addr().port() as i64).into()),
         ("url.domain", "storage.googleapis.com".into()),
@@ -119,7 +119,7 @@ async fn read_object(
         ("url.scheme", "http".into()),
         ("url.template", "/storage/v1/b/{bucket}/o/{object}".into()),
         (
-            "gcp.resource.name",
+            "gcp.resource.destination.id",
             "//storage.googleapis.com/projects/_/buckets/test-bucket".into(),
         ),
     ];
@@ -213,7 +213,7 @@ async fn write_object_single_shot(
         ("otel.name", "POST /upload/storage/v1/b/{bucket}/o".into()),
         ("otel.kind", "Client".into()),
         ("otel.status_code", "UNSET".into()),
-        ("rpc.system", "http".into()),
+        ("rpc.system.name", "http".into()),
         ("server.address", server.addr().ip().to_string().into()),
         ("server.port", (server.addr().port() as i64).into()),
         ("url.domain", "storage.googleapis.com".into()),
@@ -229,7 +229,7 @@ async fn write_object_single_shot(
         ("url.scheme", "http".into()),
         ("url.template", "/upload/storage/v1/b/{bucket}/o".into()),
         (
-            "gcp.resource.name",
+            "gcp.resource.destination.id",
             "//storage.googleapis.com/projects/_/buckets/test-bucket".into(),
         ),
     ];
@@ -336,14 +336,14 @@ async fn write_object_resumable(
         ("gcp.client.language", "rust".into()),
         ("otel.kind", "Client".into()),
         ("otel.status_code", "UNSET".into()),
-        ("rpc.system", "http".into()),
+        ("rpc.system.name", "http".into()),
         ("server.address", server.addr().ip().to_string().into()),
         ("server.port", (server.addr().port() as i64).into()),
         ("url.domain", "storage.googleapis.com".into()),
         ("url.scheme", "http".into()),
         ("url.template", "/upload/storage/v1/b/{bucket}/o".into()),
         (
-            "gcp.resource.name",
+            "gcp.resource.destination.id",
             "//storage.googleapis.com/projects/_/buckets/test-bucket".into(),
         ),
     ];

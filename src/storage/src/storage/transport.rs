@@ -727,7 +727,7 @@ mod tests {
     ) {
         const EXPECTED_ATTRIBUTES: [(&str, &str); 6] = [
             (OTEL_KIND, OTEL_KIND_INTERNAL),
-            (RPC_SYSTEM, RPC_SYSTEM_HTTP),
+            (RPC_SYSTEM_NAME, RPC_SYSTEM_HTTP),
             (OTEL_STATUS_CODE, "ERROR"),
             (GCP_CLIENT_SERVICE, "storage"),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),

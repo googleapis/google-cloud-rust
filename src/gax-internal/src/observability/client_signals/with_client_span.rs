@@ -21,7 +21,7 @@ use crate::observability::attributes::SCHEMA_URL_VALUE;
 use crate::observability::attributes::keys::{
     ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_VERSION, GCP_SCHEMA_URL,
     HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT, NETWORK_PEER_ADDRESS, NETWORK_PEER_PORT,
-    OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION, RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM,
+    OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION, RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
 };
 use crate::observability::attributes::otel_status_codes;
 use crate::observability::errors::ErrorType;
@@ -71,7 +71,7 @@ where
             Ok(_) => {
                 tracing::record_all!(
                     span,
-                    { RPC_SYSTEM } = snapshot.rpc_system(),
+                    { RPC_SYSTEM_NAME } = snapshot.rpc_system(),
                     { RPC_METHOD } = snapshot.rpc_method(),
                     { GCP_CLIENT_VERSION } = snapshot.client_version(),
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
@@ -94,7 +94,7 @@ where
 
                 tracing::record_all!(
                     span,
-                    { RPC_SYSTEM } = snapshot.rpc_system(),
+                    { RPC_SYSTEM_NAME } = snapshot.rpc_system(),
                     { RPC_METHOD } = snapshot.rpc_method(),
                     { GCP_CLIENT_VERSION } = snapshot.client_version(),
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
@@ -166,7 +166,6 @@ mod tests {
             [record] => record,
             _ => panic!("expected a single capture: {captured:#?}"),
         };
-
         let got = BTreeSet::from_iter(
             record
                 .attributes
@@ -178,7 +177,7 @@ mod tests {
         assert_eq!(record.status, Status::Unset);
         let want = BTreeSet::from_iter(
             [
-                ("rpc.system", "http"),
+                ("rpc.system.name", "http"),
                 ("gcp.client.service", TEST_INFO.service_name),
                 ("gcp.client.repo", GCP_CLIENT_REPO_GOOGLEAPIS),
                 ("gcp.client.artifact", TEST_INFO.client_artifact),
@@ -249,7 +248,7 @@ mod tests {
         );
         let want = BTreeSet::from_iter(
             [
-                ("rpc.system", "http"),
+                ("rpc.system.name", "http"),
                 ("gcp.client.service", TEST_INFO.service_name),
                 ("gcp.client.repo", GCP_CLIENT_REPO_GOOGLEAPIS),
                 ("gcp.client.artifact", TEST_INFO.client_artifact),
