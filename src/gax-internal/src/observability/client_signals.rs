@@ -35,7 +35,7 @@ pub use with_client_span::WithClientSpan;
 ///   - `"client::SecretManagerService::create_secret"`
 ///   - `"client::Storage::open_object"`
 ///   - `"client::PredictionService::predict"`
-/// * `inner` (impl Future<Output = google_cloud_gax::Result<T>): the pending RPC.
+/// * `inner` (`impl Future<Output = google_cloud_gax::Result<T>>`): the pending RPC.
 ///
 /// This is typically used in the body of the `Tracing` stub, to simplify the
 /// code. The body of the tracing function would be:
@@ -65,38 +65,8 @@ pub use with_client_span::WithClientSpan;
 #[macro_export]
 macro_rules! client_request_signals {
     (metric: $metric:expr, info: $info:expr, method: $method:literal, $inner:expr) => {{
-        use ::tracing::field::Empty;
         use ::tracing::instrument::Instrument;
-        use $crate::observability::attributes::keys::*;
-        use $crate::observability::attributes::otel_status_codes;
-        use $crate::observability::attributes::{
-            GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP, SCHEMA_URL_VALUE,
-        };
-
-        let span = tracing::info_span!(
-            "client_request",
-            { OTEL_NAME } = concat!(env!("CARGO_CRATE_NAME"), "::", $method),
-            { OTEL_KIND } = OTEL_KIND_INTERNAL,
-            { RPC_SYSTEM } = RPC_SYSTEM_HTTP, // Default to HTTP, can be overridden
-            { GCP_CLIENT_SERVICE } = $info.service_name,
-            { GCP_CLIENT_VERSION } = $info.client_version,
-            { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
-            { GCP_CLIENT_ARTIFACT } = $info.client_artifact,
-            { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
-            // Fields to be recorded later
-            { RPC_METHOD } = Empty,
-            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-            { OTEL_STATUS_DESCRIPTION } = Empty,
-            { ERROR_TYPE } = Empty,
-            { SERVER_ADDRESS } = Empty,
-            { SERVER_PORT } = Empty,
-            { NETWORK_PEER_ADDRESS } = Empty,
-            { NETWORK_PEER_PORT } = Empty,
-            { URL_FULL } = Empty,
-            { HTTP_REQUEST_METHOD } = Empty,
-            { HTTP_RESPONSE_STATUS_CODE } = Empty,
-            { HTTP_REQUEST_RESEND_COUNT } = Empty,
-        );
+        let span = $crate::client_request_signals!(info: $info, method: $method);
         let recorder = $crate::observability::RequestRecorder::new($info);
         let pending = recorder
             .scope($crate::observability::WithClientSpan::new(
@@ -108,6 +78,38 @@ macro_rules! client_request_signals {
             ))
             .instrument(span.clone());
         (span, pending)
+    }};
+    (info: $info:expr, method: $method:literal) => {{
+        use ::tracing::field::Empty;
+        // We use string literals for all the field names because it narrows the public API for
+        // `google-cloud-gax-internal`. The exception are these values, which we expect may change
+        // from time to time.
+        use $crate::observability::internal::{GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, SCHEMA_URL_VALUE};
+        tracing::info_span!(
+            "client_request",
+             "otel.name"             = concat!(env!("CARGO_CRATE_NAME"), "::", $method),
+             "otel.kind"             = OTEL_KIND_INTERNAL,
+             "rpc.system"            = "http", // Default to HTTP, can be overridden
+             "gcp.client.service"    = $info.service_name,
+             "gcp.client.repo"       = GCP_CLIENT_REPO_GOOGLEAPIS,
+             "gcp.client.artifact"   = $info.client_artifact,
+             "gcp.client.version"    = $info.client_version,
+             "gcp.schema.url"        = SCHEMA_URL_VALUE,
+             "otel.status_code"      = "UNSET",
+            // Fields to be recorded later
+            "rpc.method"                  = Empty,
+            "otel.status_description"     = Empty,
+            "error.type"                  = Empty,
+            "server.address"              = Empty,
+            "server.port"                 = Empty,
+            "network.peer.address"        = Empty,
+            "network.peer.port"           = Empty,
+            "url.full"                    = Empty,
+            "http.request.method"         = Empty,
+            "http.request.resend_count"   = Empty,
+            "http.response.status_code"   = Empty,
+            "gcp.resource.destination.id" = Empty,
+        )
     }};
 }
 

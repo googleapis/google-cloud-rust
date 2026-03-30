@@ -126,35 +126,18 @@ mod tests {
     };
     use super::*;
     use crate::observability::ClientRequestAttributes;
+    use crate::observability::attributes::GCP_CLIENT_REPO_GOOGLEAPIS;
     use httptest::{Expectation, Server, matchers::request::method_path, responders::status_code};
-    use opentelemetry::Value;
+    use opentelemetry::trace::{SpanKind, Status};
+    use pretty_assertions::{Comparison, assert_eq};
+    use std::collections::BTreeSet;
     use std::future::ready;
 
     #[tokio::test(start_paused = true)]
     async fn poll_ok() -> anyhow::Result<()> {
         let providers = SignalProviders::new();
 
-        let span = tracing::info_span!(
-            "client_request",
-            // Fields to be recorded later
-            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-            { ERROR_TYPE } = ::tracing::field::Empty,
-            { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty,
-            { RPC_SYSTEM } = ::tracing::field::Empty,
-            { RPC_METHOD } = ::tracing::field::Empty,
-            { GCP_CLIENT_VERSION } = ::tracing::field::Empty,
-            { GCP_CLIENT_REPO } = ::tracing::field::Empty,
-            { GCP_CLIENT_ARTIFACT } = ::tracing::field::Empty,
-            { GCP_SCHEMA_URL } = ::tracing::field::Empty,
-            { URL_FULL } = ::tracing::field::Empty,
-            { SERVER_ADDRESS } = ::tracing::field::Empty,
-            { SERVER_PORT } = ::tracing::field::Empty,
-            { NETWORK_PEER_ADDRESS } = ::tracing::field::Empty,
-            { NETWORK_PEER_PORT } = ::tracing::field::Empty,
-            { HTTP_RESPONSE_STATUS_CODE } = ::tracing::field::Empty,
-            { HTTP_REQUEST_METHOD } = ::tracing::field::Empty,
-            { HTTP_REQUEST_RESEND_COUNT } = ::tracing::field::Empty
-        );
+        let span = crate::client_request_signals!(info: TEST_INFO, method: "__test__");
 
         let recorder = RequestRecorder::new(TEST_INFO);
         recorder.on_client_request(
@@ -179,22 +162,40 @@ mod tests {
         drop(span);
         providers.force_flush()?;
         let captured = providers.trace_exporter.get_finished_spans()?;
-        assert_eq!(captured.len(), 1);
-        let record = &captured[0];
-
-        // Assert some key attributes
-        let attrs = &record.attributes;
-        let get_attr = |key: &str| {
-            attrs
-                .iter()
-                .find(|kv| kv.key.as_str() == key)
-                .map(|kv| &kv.value)
+        let record = match &captured[..] {
+            [record] => record,
+            _ => panic!("expected a single capture: {captured:#?}"),
         };
-        assert_eq!(get_attr("rpc.system"), Some(&Value::String("http".into())));
-        assert!(matches!(record.status, opentelemetry::trace::Status::Unset));
-        assert_eq!(
-            get_attr("gcp.client.artifact"),
-            Some(&Value::String("test-artifact".into()))
+
+        let got = BTreeSet::from_iter(
+            record
+                .attributes
+                .iter()
+                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
+        );
+        assert_eq!(record.name, concat!(env!("CARGO_CRATE_NAME"), "::__test__"));
+        assert_eq!(record.span_kind, SpanKind::Internal);
+        assert_eq!(record.status, Status::Unset);
+        let want = BTreeSet::from_iter(
+            [
+                ("rpc.system", "http"),
+                ("gcp.client.service", TEST_INFO.service_name),
+                ("gcp.client.repo", GCP_CLIENT_REPO_GOOGLEAPIS),
+                ("gcp.client.artifact", TEST_INFO.client_artifact),
+                ("gcp.client.version", TEST_INFO.client_version),
+                ("rpc.method", "google.test.v1.Service/TestMethod"),
+                ("http.request.method", "GET"),
+                ("server.address", "example.com"),
+                ("server.port", "443"),
+                ("url.full", "https://example.com/"),
+            ]
+            .map(|(k, v)| (k, v.to_string())),
+        );
+        let diff = want.difference(&got).collect::<Vec<_>>();
+        assert!(
+            diff.is_empty(),
+            "diff={diff:?}\n{}",
+            Comparison::new(&want, &got)
         );
 
         Ok(())
@@ -204,28 +205,7 @@ mod tests {
     async fn poll_err() -> anyhow::Result<()> {
         let providers = SignalProviders::new();
 
-        let span = tracing::info_span!(
-            "client_request",
-            // Fields to be recorded later
-            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-            { ERROR_TYPE } = ::tracing::field::Empty,
-            { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty,
-            { RPC_SYSTEM } = ::tracing::field::Empty,
-            { RPC_METHOD } = ::tracing::field::Empty,
-            { GCP_CLIENT_VERSION } = ::tracing::field::Empty,
-            { GCP_CLIENT_REPO } = ::tracing::field::Empty,
-            { GCP_CLIENT_ARTIFACT } = ::tracing::field::Empty,
-            { GCP_SCHEMA_URL } = ::tracing::field::Empty,
-            { URL_FULL } = ::tracing::field::Empty,
-            { SERVER_ADDRESS } = ::tracing::field::Empty,
-            { SERVER_PORT } = ::tracing::field::Empty,
-            { NETWORK_PEER_ADDRESS } = ::tracing::field::Empty,
-            { NETWORK_PEER_PORT } = ::tracing::field::Empty,
-            { HTTP_RESPONSE_STATUS_CODE } = ::tracing::field::Empty,
-            { HTTP_REQUEST_METHOD } = ::tracing::field::Empty,
-            { HTTP_REQUEST_RESEND_COUNT } = ::tracing::field::Empty,
-            { RPC_RESPONSE_STATUS_CODE } = ::tracing::field::Empty
-        );
+        let span = crate::client_request_signals!(info: TEST_INFO, method: "__test__");
 
         const PATH: &str = "/v1/projects/test-only:test_method";
         let server = Server::run();
@@ -249,30 +229,49 @@ mod tests {
         drop(span);
         providers.force_flush()?;
         let captured = providers.trace_exporter.get_finished_spans()?;
-        assert_eq!(captured.len(), 1);
-        let record = &captured[0];
+        let record = match &captured[..] {
+            [record] => record,
+            _ => panic!("expected a single capture: {captured:#?}"),
+        };
 
         // Assert some key attributes
-        let attrs = &record.attributes;
-        let get_attr = |key: &str| {
-            attrs
+        let got = BTreeSet::from_iter(
+            record
+                .attributes
                 .iter()
-                .find(|kv| kv.key.as_str() == key)
-                .map(|kv| &kv.value)
-        };
-        assert_eq!(get_attr("rpc.system"), Some(&Value::String("http".into())));
-        assert!(matches!(
-            record.status,
-            opentelemetry::trace::Status::Error { .. }
-        ));
-        assert_eq!(get_attr("error.type"), Some(&Value::String("404".into())));
-        assert_eq!(
-            get_attr("http.response.status_code"),
-            Some(&Value::I64(404))
+                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
         );
-        assert_eq!(
-            get_attr("gcp.client.artifact"),
-            Some(&Value::String("test-artifact".into()))
+        assert_eq!(record.name, concat!(env!("CARGO_CRATE_NAME"), "::__test__"));
+        assert_eq!(record.span_kind, SpanKind::Internal);
+        assert!(
+            matches!(record.status, Status::Error { ref description } if description.contains("SIMULATED NOT FOUND")),
+            "{record:#?}"
+        );
+        let want = BTreeSet::from_iter(
+            [
+                ("rpc.system", "http"),
+                ("gcp.client.service", TEST_INFO.service_name),
+                ("gcp.client.repo", GCP_CLIENT_REPO_GOOGLEAPIS),
+                ("gcp.client.artifact", TEST_INFO.client_artifact),
+                ("gcp.client.version", TEST_INFO.client_version),
+                ("rpc.method", "google.test.v1.Service/TestMethod"),
+                ("error.type", "404"),
+                ("http.request.method", "GET"),
+                ("http.response.status_code", "404"),
+            ]
+            .into_iter()
+            .map(|(k, v)| (k, v.to_string()))
+            .chain([
+                ("server.address", server.addr().ip().to_string()),
+                ("server.port", server.addr().port().to_string()),
+                ("url.full", url.to_string()),
+            ]),
+        );
+        let diff = want.difference(&got).collect::<Vec<_>>();
+        assert!(
+            diff.is_empty(),
+            "diff={diff:?}\n{}",
+            Comparison::new(&want, &got)
         );
 
         Ok(())
