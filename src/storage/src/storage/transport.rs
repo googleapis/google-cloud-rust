@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(google_cloud_unstable_tracing)]
-use super::tracing::TracingResponse;
+use super::tracing::{TracingObjectDescriptor, TracingResponse};
 use crate::Result;
 use crate::model::{Object, ReadObjectRequest};
 use crate::model_ext::WriteObjectRequest;
@@ -30,10 +30,8 @@ use crate::{
     storage::bidi::connector::Connector, storage::bidi::transport::ObjectDescriptorTransport,
 };
 #[cfg(google_cloud_unstable_tracing)]
-use gaxi::observability::ResultExt;
+use gaxi::observability::{ClientRequestAttributes, DurationMetric, RequestRecorder};
 use std::sync::Arc;
-#[cfg(google_cloud_unstable_tracing)]
-use tracing::Instrument;
 
 /// An implementation of [`stub::Storage`][crate::storage::stub::Storage] that
 /// interacts with the Cloud Storage service.
@@ -54,6 +52,8 @@ use tracing::Instrument;
 pub struct Storage {
     inner: Arc<StorageInner>,
     tracing: bool,
+    #[cfg(google_cloud_unstable_tracing)]
+    metric: DurationMetric,
 }
 
 impl Storage {
@@ -62,6 +62,17 @@ impl Storage {
         Self::new(inner, false)
     }
 
+    #[cfg(google_cloud_unstable_tracing)]
+    pub(crate) fn new(inner: Arc<StorageInner>, tracing: bool) -> Arc<Self> {
+        let metric = DurationMetric::new(&INSTRUMENTATION);
+        Arc::new(Self {
+            inner,
+            tracing,
+            metric,
+        })
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     pub(crate) fn new(inner: Arc<StorageInner>, tracing: bool) -> Arc<Self> {
         Arc::new(Self { inner, tracing })
     }
@@ -87,16 +98,25 @@ impl Storage {
     ) -> Result<ReadObjectResponse> {
         #[cfg(google_cloud_unstable_tracing)]
         {
-            let span =
-                gaxi::client_request_span!("client::Storage", "read_object", &INSTRUMENTATION);
-            let response = self
-                .read_object_plain(request, options)
-                .instrument(span.clone())
-                .await
-                .record_in_span(&span)?;
+            let resource_name = format!("//storage.googleapis.com/{}", request.bucket);
+            let (span, pending) = gaxi::client_request_signals!(
+            metric: self.metric.clone(),
+            info: *INSTRUMENTATION,
+            method: "client::Storage::read_object",
+            async {
+                if let Some(recorder) = RequestRecorder::current() {
+                    recorder.on_client_request(
+                        ClientRequestAttributes::default()
+                            .set_url_template("/storage/v1/b/{bucket}/o/{object}")
+                            .set_resource_name(resource_name),
+                    );
+                }
+                self.read_object_plain(request, options).await
+            });
+
+            let response = pending.await?;
             let inner = TracingResponse::new(response.into_parts(), span);
-            let response = ReadObjectResponse::new(Box::new(inner));
-            Ok(response)
+            Ok(ReadObjectResponse::new(Box::new(inner)))
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.read_object_plain(request, options).await
@@ -134,12 +154,31 @@ impl Storage {
     {
         #[cfg(google_cloud_unstable_tracing)]
         {
-            let span =
-                gaxi::client_request_span!("client::Storage", "write_object", &INSTRUMENTATION);
-            self.write_object_buffered_plain(payload, request, options)
-                .instrument(span.clone())
-                .await
-                .record_in_span(&span)
+            let resource_name = format!(
+                "//storage.googleapis.com/{}",
+                request
+                    .spec
+                    .resource
+                    .as_ref()
+                    .map(|r| r.bucket.as_str())
+                    .unwrap_or_default()
+            );
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.metric.clone(),
+                info: *INSTRUMENTATION,
+                method: "client::Storage::write_object",
+                async {
+                    if let Some(recorder) = RequestRecorder::current() {
+                        recorder.on_client_request(
+                            ClientRequestAttributes::default()
+                                .set_url_template("/upload/storage/v1/b/{bucket}/o")
+                                .set_resource_name(resource_name),
+                        );
+                    }
+                    self.write_object_buffered_plain(payload, request, options).await
+                }
+            );
+            pending.await
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.write_object_buffered_plain(payload, request, options)
@@ -178,12 +217,31 @@ impl Storage {
     {
         #[cfg(google_cloud_unstable_tracing)]
         {
-            let span =
-                gaxi::client_request_span!("client::Storage", "write_object", &INSTRUMENTATION);
-            self.write_object_unbuffered_plain(payload, request, options)
-                .instrument(span.clone())
-                .await
-                .record_in_span(&span)
+            let resource_name = format!(
+                "//storage.googleapis.com/{}",
+                request
+                    .spec
+                    .resource
+                    .as_ref()
+                    .map(|r| r.bucket.as_str())
+                    .unwrap_or_default()
+            );
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.metric.clone(),
+                info: *INSTRUMENTATION,
+                method: "client::Storage::write_object",
+                async {
+                    if let Some(recorder) = RequestRecorder::current() {
+                        recorder.on_client_request(
+                            ClientRequestAttributes::default()
+                                .set_url_template("/upload/storage/v1/b/{bucket}/o")
+                                .set_resource_name(resource_name),
+                        );
+                    }
+                    self.write_object_unbuffered_plain(payload, request, options).await
+                }
+            );
+            pending.await
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.write_object_unbuffered_plain(payload, request, options)
@@ -209,13 +267,34 @@ impl Storage {
     ) -> Result<(ObjectDescriptor, Vec<ReadObjectResponse>)> {
         #[cfg(google_cloud_unstable_tracing)]
         {
-            let span =
-                gaxi::client_request_span!("client::Storage", "open_object", &INSTRUMENTATION);
-            // TODO(#3178) - wrap descriptor and responses with tracing decorators.
-            self.open_object_plain(request, options)
-                .instrument(span.clone())
-                .await
-                .record_in_span(&span)
+            let resource_name = format!("//storage.googleapis.com/{}", request.bucket);
+            let (span, pending) = gaxi::client_request_signals!(
+                metric: self.metric.clone(),
+                info: *INSTRUMENTATION,
+                method: "client::Storage::open_object",
+                async {
+                    if let Some(recorder) = RequestRecorder::current() {
+                        recorder.on_client_request(
+                            ClientRequestAttributes::default()
+                                .set_rpc_method("google.storage.v2.Storage/BidiStreamingRead")
+                                .set_url_template("/upload/storage/v1/b/{bucket}/o")
+                                .set_resource_name(resource_name),
+                        );
+                    }
+                    self.open_object_plain(request, options).await
+                }
+            );
+            let (descriptor, readers) = pending.await?;
+            let descriptor =
+                ObjectDescriptor::new(TracingObjectDescriptor::new(descriptor.into_parts()));
+            let readers = readers
+                .into_iter()
+                .map(|r| {
+                    let inner = r.into_parts();
+                    ReadObjectResponse::new(Box::new(TracingResponse::new(inner, span.clone())))
+                })
+                .collect::<Vec<_>>();
+            Ok((descriptor, readers))
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.open_object_plain(request, options).await
@@ -288,14 +367,14 @@ impl super::stub::Storage for Storage {
 #[cfg(test)]
 mod tests {
     #[cfg(google_cloud_unstable_tracing)]
-    use gaxi::observability::attributes::{
-        GCP_CLIENT_LANGUAGE_RUST, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP, keys::*,
-    };
+    use gaxi::observability::attributes::{OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP, keys::*};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::AttributeValue;
     use google_cloud_test_utils::test_layer::{CapturedSpan, TestLayer};
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
+    #[cfg(google_cloud_unstable_tracing)]
+    use pretty_assertions::assert_eq;
     use std::collections::BTreeMap;
 
     #[tokio::test]
@@ -495,6 +574,127 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn open_object_success() -> anyhow::Result<()> {
+        // TODO(#4772) - Move these `use` declarations and constants once the tracing APIs are stable.
+        use crate::model_ext::ReadRange;
+        use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult};
+        use storage_grpc_mock::google::storage::v2::{
+            BidiReadObjectResponse, ChecksummedData, Object as ProtoObject, ObjectRangeData,
+            ReadRange as ProtoRange,
+        };
+        use storage_grpc_mock::{MockStorage, start};
+        const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
+        const OBJECT_NAME: &str = "test-object";
+        const BIND_ADDRESS: &str = "0.0.0.0:0";
+        const PAYLOAD: &str = "the quick brown fox jumps over the lazy dog";
+
+        let guard = TestLayer::initialize();
+
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(10);
+        let response = BidiReadObjectResponse {
+            metadata: Some(ProtoObject {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 123456,
+                ..ProtoObject::default()
+            }),
+            object_data_ranges: vec![ObjectRangeData {
+                read_range: Some(ProtoRange {
+                    read_id: 0_i64,
+                    ..ProtoRange::default()
+                }),
+                range_end: true,
+                checksummed_data: Some(ChecksummedData {
+                    content: PAYLOAD.as_bytes().to_vec(),
+                    crc32c: None,
+                }),
+            }],
+            ..BidiReadObjectResponse::default()
+        };
+        // This is the initial response.
+        tx.send(Ok(response.clone())).await?;
+        // These simulate the calls to ObjectDescriptor::read_range(). The data is wrong, but this
+        // test is about the spans.
+        tx.send(Ok(response.clone())).await?;
+        tx.send(Ok(response.clone())).await?;
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object()
+            .return_once(|_| Ok(TonicResponse::from(rx)));
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let (descriptor, _reader0) = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .send_and_read(ReadRange::all())
+            .await?;
+        let _reader1 = descriptor.read_range(ReadRange::offset(5)).await;
+        let _reader2 = descriptor.read_range(ReadRange::segment(10, 10)).await;
+        let _reader3 = descriptor.read_range(ReadRange::tail(15)).await;
+
+        let captured = TestLayer::capture(&guard);
+        let _span = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap_or_else(|| panic!("missing `client_request` span in capture: {captured:#?}"));
+
+        let range_spans = captured
+            .iter()
+            .filter(|s| s.name == "read_range")
+            .collect::<Vec<_>>();
+
+        let _span_reader1 = range_spans
+            .clone()
+            .into_iter()
+            .find(|s| {
+                s.attributes
+                    .get("read_range.start")
+                    .and_then(|v| v.as_i64())
+                    == Some(5)
+            })
+            .unwrap_or_else(|| {
+                panic!("missing `read_range` span for ReadRange::offset(5): {range_spans:#?}")
+            });
+
+        let _span_reader2 = range_spans
+            .clone()
+            .into_iter()
+            .find(|s| {
+                s.attributes
+                    .get("read_range.start")
+                    .and_then(|v| v.as_i64())
+                    == Some(10)
+                    && s.attributes
+                        .get("read_range.limit")
+                        .and_then(|v| v.as_i64())
+                        == Some(10)
+            })
+            .unwrap_or_else(|| {
+                panic!("missing `read_range` span for ReadRange::segment(10, 10): {range_spans:#?}")
+            });
+
+        let _span_reader3 = range_spans
+            .clone()
+            .into_iter()
+            .find(|s| {
+                s.attributes
+                    .get("read_range.start")
+                    .and_then(|v| v.as_i64())
+                    == Some(-15)
+            })
+            .unwrap_or_else(|| {
+                panic!("missing `read_range` span for ReadRange::tail(15): {range_spans:#?}")
+            });
+        Ok(())
+    }
+
     #[track_caller]
     fn check_debug_log(captured: &Vec<CapturedSpan>, method: &'static str) {
         let span = captured
@@ -522,7 +722,7 @@ mod tests {
         method: &'static str,
         error_type: &'static str,
     ) {
-        const EXPECTED_ATTRIBUTES: [(&str, &str); 8] = [
+        const EXPECTED_ATTRIBUTES: [(&str, &str); 7] = [
             (OTEL_KIND, OTEL_KIND_INTERNAL),
             (RPC_SYSTEM, RPC_SYSTEM_HTTP),
             (RPC_SERVICE, "storage"),
@@ -530,7 +730,6 @@ mod tests {
             (GCP_CLIENT_SERVICE, "storage"),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
             (GCP_CLIENT_ARTIFACT, "google-cloud-storage"),
-            (GCP_CLIENT_LANGUAGE, GCP_CLIENT_LANGUAGE_RUST),
         ];
         let span = captured
             .iter()
@@ -545,12 +744,10 @@ mod tests {
                 .map(|(k, v)| (k.to_string(), AttributeValue::from(*v)))
                 .chain(
                     [
-                        ("gax.client.span", true.into()),
                         (
                             OTEL_NAME,
                             format!("google_cloud_storage::client::Storage::{method}").into(),
                         ),
-                        (RPC_METHOD, method.into()),
                         (ERROR_TYPE, error_type.into()),
                     ]
                     .map(|(k, v)| (k.to_string(), v)),

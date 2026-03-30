@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.8.5-0.20260325150042-e450f8f7dcab
+version: v0.9.1-0.20260328133821-a87086efbeec
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -45,7 +45,6 @@ release:
         version: 0.4.0
 default:
   output: src/generated/
-  release_level: stable
   rust:
     package_dependencies:
       - name: async-trait
@@ -326,7 +325,7 @@ libraries:
     rust:
       package_name_override: google-cloud-apikeys-v2
   - name: google-cloud-apiregistry-v1
-    version: 0.1.2
+    version: 1.0.0
     copyright_year: "2026"
   - name: google-cloud-appengine-v1
     version: 1.8.0
@@ -436,7 +435,7 @@ libraries:
     version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-auditmanager-v1
-    version: 0.1.1
+    version: 1.0.0
     copyright_year: "2026"
   - name: google-cloud-auth
     version: 1.8.0
@@ -916,7 +915,7 @@ libraries:
           package: google-cloud-apps-script-type-slides
           source: google.apps.script.type.slides
   - name: google-cloud-hypercomputecluster-v1
-    version: 0.1.0
+    version: 1.0.0
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-iam-admin-v1
@@ -1339,7 +1338,7 @@ libraries:
     version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-securitycentermanagement-v1
-    version: 0.1.0
+    version: 1.0.0
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-securityposture-v1
@@ -1446,6 +1445,7 @@ libraries:
     copyright_year: "2025"
     output: src/storage
     rust:
+      detailed_tracing_attributes: true
       modules:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
@@ -1628,7 +1628,7 @@ libraries:
     rust:
       package_name_override: google-cloud-type
   - name: google-cloud-vectorsearch-v1
-    version: 0.1.0
+    version: 1.0.0
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-video-livestream-v1

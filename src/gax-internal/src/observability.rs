@@ -43,12 +43,6 @@ mod client_signals;
 
 #[cfg(google_cloud_unstable_tracing)]
 pub use client_signals::{
-    ClientRequestAttributes, ClientSignalsExt, DurationMetric, RequestRecorder, RequestStart,
-    WithClientLogging, WithClientMetric,
+    ClientRequestAttributes, DurationMetric, RequestRecorder, WithClientLogging, WithClientMetric,
+    WithClientSpan,
 };
-
-#[cfg(google_cloud_unstable_tracing)]
-mod client_tracing;
-
-#[cfg(google_cloud_unstable_tracing)]
-pub use client_tracing::ResultExt;

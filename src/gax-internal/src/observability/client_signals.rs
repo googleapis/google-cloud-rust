@@ -12,50 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod client_signals_ext;
 mod duration_metric;
 mod recorder;
-mod request_start;
 mod with_client_logging;
 mod with_client_metric;
-mod with_client_signals;
+mod with_client_span;
 
-pub use client_signals_ext::ClientSignalsExt;
 pub use duration_metric::DurationMetric;
 pub use recorder::{ClientRequestAttributes, RequestRecorder};
-pub use request_start::RequestStart;
 pub use with_client_logging::WithClientLogging;
 pub use with_client_metric::WithClientMetric;
-pub use with_client_signals::WithClientSignals;
+pub use with_client_span::WithClientSpan;
 
-/// An extension to disable terminal actionable error logging.
-///
-/// If this extension is present in the `RequestOptions` supplied to a GAX call,
-/// the terminal application logs will be suppressed.
-#[derive(Clone, Copy, Debug)]
-pub struct SuppressActionableErrorLog;
-
-/// Creates a [Span] and [RequestStart] for a client request.
+/// Creates a [Span] and decorated future for a client request.
 ///
 /// # Parameters
+/// * `metric`: a handle to [DurationMetric] used to measure the request duration.
 /// * `info`: a reference to the [InstrumentationClientInfo] structure for this
 ///   client.
-/// * `client` (`&'static str`): the name of the method in the generated (or
-///   hand-crafted) library. Examples:
-///   - `"client::SecretManagerService"`
-///   - `"client::Storage"`
-///   - `"client::PredictionService"`
-/// * `method` (`&' static str`): the name of the method in the client struct.
+/// * `method` (`&' static str`): the name of the **Rust** method.
 ///   Examples:
-///   - `"create_secret"`
-///   - `"open_object"`
-///   - `"read_object"`
-///   - `"predict"`
-/// * `rpc_method`: the fully qualified gRPC method, in gRPC notation. Examples:
-///   - `Some("google.cloud.secretmanager.v1.SecretManagerService/CreateSecret")`
-///   - `Some("google.storage.v2.Storage/BidiReadObject")`
-///   - `None` -> use with `read_object` because there is no "RPC"
-///   - `Some("google.cloud.aiplatform.v1.PredictionService/Predic")
+///   - `"client::SecretManagerService::create_secret"`
+///   - `"client::Storage::open_object"`
+///   - `"client::PredictionService::predict"`
+/// * `inner` (impl Future<Output = google_cloud_gax::Result<T>): the pending RPC.
 ///
 /// This is typically used in the body of the `Tracing` stub, to simplify the
 /// code. The body of the tracing function would be:
@@ -69,17 +49,13 @@ pub struct SuppressActionableErrorLog;
 ///     req: crate::model::EchoRequest,
 ///     options: crate::RequestOptions,
 /// ) -> Result<crate::Response<crate::model::EchoResponse>> {
-///     use google_cloud_gax_internal::observability::ClientSignalsExt as _;
-///     let (start, span) = google_cloud_gax_internal::client_request_signals!(
-///         "client::Echo",
-///         "echo",
-///         &info::INSTRUMENTATION_CLIENT_INFO,
-///         &options
+///     let (_span, pending) = google_cloud_gax_internal::client_request_signals!(
+///         metric: self.duration.clone(),            // Duration metric handle
+///         info: *info::INSTRUMENTATION_CLIENT_INFO, // Instrumentation for the crate
+///         method: "client::Client::echo",           // The Rust method name
+///         self.inner(req, options)
 ///     );
-///     self.inner
-///         .echo(req, options)
-///         .instrument_client(self.duration.clone(), start, span)
-///         .await
+///     pending.await
 /// }
 /// # }
 /// ```
@@ -88,111 +64,62 @@ pub struct SuppressActionableErrorLog;
 /// [Span]: [tracing::Span]
 #[macro_export]
 macro_rules! client_request_signals {
-    ($info:expr, $options:expr, $client:literal, $method:literal, $rpc_method:expr) => {{
+    (metric: $metric:expr, info: $info:expr, method: $method:literal, $inner:expr) => {{
+        use ::tracing::field::Empty;
+        use ::tracing::instrument::Instrument;
         use $crate::observability::attributes::keys::*;
         use $crate::observability::attributes::otel_status_codes;
         use $crate::observability::attributes::{
-            GCP_CLIENT_LANGUAGE_RUST, GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL,
-            RPC_SYSTEM_HTTP,
+            GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP,
         };
-        let start = $crate::observability::RequestStart::new(
-            $info,
-            $options,
-            concat!(env!("CARGO_CRATE_NAME"), "::", $client, "::", $method),
-        );
-        let span = ::tracing::info_span!(
-            "client_request",
-            "gax.client.span" = true, // Marker field
-            { OTEL_NAME } = concat!(env!("CARGO_CRATE_NAME"), "::", $client, "::", $method),
-            { OTEL_KIND } = OTEL_KIND_INTERNAL,
-            { RPC_SYSTEM } = RPC_SYSTEM_HTTP, // Default to HTTP, can be overridden
-            { RPC_SERVICE } = $info.service_name,
-            { RPC_METHOD } = ::tracing::field::Empty,
-            { GCP_CLIENT_SERVICE } = $info.service_name,
-            { GCP_CLIENT_VERSION } = $info.client_version,
-            { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
-            { GCP_CLIENT_ARTIFACT } = $info.client_artifact,
-            { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
-            // Fields to be recorded later
-            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-            { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty,
-            { ERROR_TYPE } = ::tracing::field::Empty,
-            { SERVER_ADDRESS } = ::tracing::field::Empty,
-            { SERVER_PORT } = ::tracing::field::Empty,
-            { URL_FULL } = ::tracing::field::Empty,
-            { HTTP_REQUEST_METHOD } = ::tracing::field::Empty,
-            { HTTP_RESPONSE_STATUS_CODE } = ::tracing::field::Empty,
-            { HTTP_REQUEST_RESEND_COUNT } = ::tracing::field::Empty,
-        );
-        if let Some(m) = $rpc_method {
-            span.record(RPC_METHOD, m);
-        }
-        (start, span)
-    }};
-}
 
-/// Creates a new tracing span for a client request.
-///
-/// This span represents the logical request operation and is used to track
-/// the overall duration and status of the request, including retries.
-///
-/// # Example
-///
-/// ```
-/// let span = client_request_span!("client::Client", "upload_chunk", &HIDDEN_DETAIL);
-/// # use std::sync::LazyLock;
-/// # use google_cloud_gax_internal::client_request_span;
-/// # use google_cloud_gax_internal::options::InstrumentationClientInfo;
-/// # static HIDDEN_DETAIL: LazyLock<InstrumentationClientInfo> =
-/// #     LazyLock::new(|| InstrumentationClientInfo::default());
-/// ```
-#[macro_export]
-macro_rules! client_request_span {
-    ($client:expr, $method:expr, $info:expr) => {{
-        use $crate::observability::attributes::keys::*;
-        use $crate::observability::attributes::otel_status_codes;
-        use $crate::observability::attributes::{
-            GCP_CLIENT_LANGUAGE_RUST, GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL,
-            RPC_SYSTEM_HTTP,
-        };
-        tracing::info_span!(
+        let span = tracing::info_span!(
             "client_request",
-            "gax.client.span" = true, // Marker field
-            { OTEL_NAME } = concat!(env!("CARGO_CRATE_NAME"), "::", $client, "::", $method),
+            { OTEL_NAME } = concat!(env!("CARGO_CRATE_NAME"), "::", $method),
             { OTEL_KIND } = OTEL_KIND_INTERNAL,
             { RPC_SYSTEM } = RPC_SYSTEM_HTTP, // Default to HTTP, can be overridden
             { RPC_SERVICE } = $info.service_name,
-            { RPC_METHOD } = $method,
             { GCP_CLIENT_SERVICE } = $info.service_name,
             { GCP_CLIENT_VERSION } = $info.client_version,
             { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
             { GCP_CLIENT_ARTIFACT } = $info.client_artifact,
-            { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
             // Fields to be recorded later
+            { RPC_METHOD } = Empty,
             { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-            { OTEL_STATUS_DESCRIPTION } = ::tracing::field::Empty,
-            { ERROR_TYPE } = ::tracing::field::Empty,
-            { SERVER_ADDRESS } = ::tracing::field::Empty,
-            { SERVER_PORT } = ::tracing::field::Empty,
-            { URL_FULL } = ::tracing::field::Empty,
-            { HTTP_REQUEST_METHOD } = ::tracing::field::Empty,
-            { HTTP_RESPONSE_STATUS_CODE } = ::tracing::field::Empty,
-            { HTTP_REQUEST_RESEND_COUNT } = ::tracing::field::Empty,
-        )
+            { OTEL_STATUS_DESCRIPTION } = Empty,
+            { ERROR_TYPE } = Empty,
+            { SERVER_ADDRESS } = Empty,
+            { SERVER_PORT } = Empty,
+            { URL_FULL } = Empty,
+            { HTTP_REQUEST_METHOD } = Empty,
+            { HTTP_RESPONSE_STATUS_CODE } = Empty,
+            { HTTP_REQUEST_RESEND_COUNT } = Empty,
+        );
+        let recorder = $crate::observability::RequestRecorder::new($info);
+        let pending = recorder
+            .scope($crate::observability::WithClientSpan::new(
+                span.clone(),
+                $crate::observability::WithClientMetric::new(
+                    $metric,
+                    $crate::observability::WithClientLogging::new($inner),
+                ),
+            ))
+            .instrument(span.clone());
+        (span, pending)
     }};
 }
 
 #[cfg(test)]
 mod tests {
     use super::duration_metric::BOUNDARIES;
-    use super::with_client_signals::{NAME, TARGET};
+    use super::with_client_logging::{NAME, TARGET};
     use super::{ClientRequestAttributes, RequestRecorder};
     use crate::observability::DurationMetric;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_gax::error::Error;
-    use google_cloud_gax::error::rpc::{Code, Status};
-    use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+    use httptest::matchers::request::method_path;
+    use httptest::responders::status_code;
+    use httptest::{Expectation, Server};
     use opentelemetry::TraceId;
     use opentelemetry::logs::AnyValue;
     use opentelemetry::trace::{Status as SpanStatus, TracerProvider};
@@ -226,33 +153,6 @@ mod tests {
         ("url.domain", "example.com"),
         ("url.template", TEST_URL_TEMPLATE),
     ];
-
-    async fn inner_echo(_options: &RequestOptions) -> Result<String, Error> {
-        tokio::time::sleep(TEST_REQUEST_DURATION).await;
-        let error = Error::service(
-            Status::default()
-                .set_code(Code::NotFound)
-                .set_message("NOT FOUND"),
-        );
-        Err(error)
-    }
-
-    async fn tracing_echo(
-        metric: &DurationMetric,
-        options: &RequestOptions,
-    ) -> Result<String, Error> {
-        use crate::observability::ClientSignalsExt as _;
-        let (start, span) = crate::client_request_signals!(
-            &TEST_INFO,
-            &options,
-            "Client",
-            "echo",
-            Some("google.test.v7.Client/Echo")
-        );
-        inner_echo(options)
-            .instrument_client(metric.clone(), start, span)
-            .await
-    }
 
     // Simulate the transport HTTP client for a request that fills the `RequestRecorder` data.
     async fn recorded_request_transport_client(url: &str) -> Result<String, Error> {
@@ -292,8 +192,16 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn all_signals_go() -> anyhow::Result<()> {
+    async fn client_request() -> anyhow::Result<()> {
+        const PATH: &str = "/v1/projects/test-only:test_method";
+
         let signals = SignalProviders::new();
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(method_path("GET", PATH))
+                .respond_with(status_code(404).body("NOT FOUND")),
+        );
+        let url = server.url(PATH).to_string();
 
         // In a real client this is created during the `tracing::Client`
         // initialization.
@@ -301,15 +209,25 @@ mod tests {
             &TEST_INFO,
             Arc::new(signals.metric_provider.clone()),
         );
-        let options = RequestOptions::default().insert_extension(PathTemplate(TEST_URL_TEMPLATE));
+
         // Simulate a client call, this simulates a call that takes 750ms and then returns an error.
-        let result = tracing_echo(&metric, &options).await;
+        let (span, pending) = crate::client_request_signals!(
+            metric: metric.clone(),
+            info: TEST_INFO,
+            method: "FakeClient::some_rust_function",
+            recorded_request_transport_stub(&url));
+        let result = pending.await;
         assert!(result.is_err(), "{result:?}");
+        drop(span);
 
         // Flush the trace, logs and metric providers so we can collect the data.
         signals.force_flush()?;
 
-        const FULL_METHOD: &str = concat!(env!("CARGO_CRATE_NAME"), "::Client::echo");
+        const FULL_METHOD: &str = concat!(
+            env!("CARGO_CRATE_NAME"),
+            "::",
+            "FakeClient::some_rust_function"
+        );
         // Verify the metrics include the data we want.
         let metrics = signals.metric_exporter.get_finished_metrics()?;
         check_metric_scope(&metrics);
@@ -320,8 +238,11 @@ mod tests {
                 ("rpc.system.name", "http"),
                 ("url.domain", "example.com"),
                 ("url.template", TEST_URL_TEMPLATE),
-                ("rpc.method", FULL_METHOD),
-                ("rpc.response.status_code", "NOT_FOUND"),
+                ("rpc.method", TEST_METHOD),
+                ("http.response.status_code", "404"),
+                ("error.type", "404"),
+                ("server.address", server.addr().ip().to_string().as_str()),
+                ("server.port", server.addr().port().to_string().as_str()),
             ],
         );
 
@@ -339,15 +260,20 @@ mod tests {
         );
         let want = BTreeSet::from_iter(
             [
-                ("gax.client.span", "true"),
                 ("rpc.system", "http"),
                 ("rpc.service", "test-service"),
-                ("rpc.method", "google.test.v7.Client/Echo"),
+                ("rpc.method", TEST_METHOD),
                 ("gcp.client.service", "test-service"),
                 ("gcp.client.version", "1.2.3"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
                 ("gcp.client.artifact", "test-artifact"),
-                ("gcp.client.language", "rust"),
+                ("code.module.name", module_path!()),
+                ("error.type", "404"),
+                ("http.request.method", "GET"),
+                ("http.response.status_code", "404"),
+                ("server.address", server.addr().ip().to_string().as_str()),
+                ("server.port", server.addr().port().to_string().as_str()),
+                ("url.full", url.as_str()),
             ]
             .map(|(k, v)| (k, v.to_string())),
         );
@@ -368,13 +294,17 @@ mod tests {
             &record.record,
             trace_id,
             &[
-                ("rpc.method", FULL_METHOD),
-                ("rpc.response.status_code", "NOT_FOUND"),
-                ("exception.type", "NOT_FOUND"),
-                (
-                    "exception.message",
-                    "the service reports an error with code NOT_FOUND described as: NOT FOUND",
-                ),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.client.service", "test-service"),
+                ("rpc.method", TEST_METHOD),
+                ("rpc.service", "test-service"),
+                ("error.type", "404"),
+                ("http.request.method", "GET"),
+                ("server.address", server.addr().ip().to_string().as_str()),
+                ("server.port", server.addr().port().to_string().as_str()),
+                ("url.full", url.as_str()),
             ],
         );
         Ok(())
@@ -529,7 +459,7 @@ mod tests {
     pub fn check_log_record(
         record: &SdkLogRecord,
         trace_id: TraceId,
-        extra_attributes: &[(&'static str, &'static str)],
+        extra_attributes: &[(&'static str, &str)],
     ) {
         fn format_value(any: &AnyValue) -> String {
             match any {

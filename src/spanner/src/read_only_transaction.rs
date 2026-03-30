@@ -294,7 +294,7 @@ impl MultiUseReadOnlyTransactionBuilder {
 /// ```
 #[derive(Debug)]
 pub struct MultiUseReadOnlyTransaction {
-    context: ReadContext,
+    pub(crate) context: ReadContext,
     pub(crate) read_timestamp: Option<wkt::Timestamp>,
 }
 
@@ -420,20 +420,10 @@ impl ReadContext {
     ) -> crate::Result<ResultSet> {
         let read = read.into();
 
-        let mut request = crate::model::ReadRequest::default()
+        let request = read
+            .into_request()
             .set_session(self.client.session.name.clone())
-            .set_transaction(self.transaction_selector.clone())
-            .set_table(read.table)
-            .set_columns(read.columns)
-            .set_key_set(read.keys.into_proto());
-
-        if let Some(index) = read.index {
-            request = request.set_index(index);
-        }
-
-        if let Some(limit) = read.limit {
-            request = request.set_limit(limit);
-        }
+            .set_transaction(self.transaction_selector.clone());
 
         let stream = self
             .client

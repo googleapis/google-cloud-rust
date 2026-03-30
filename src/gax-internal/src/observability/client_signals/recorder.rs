@@ -312,6 +312,8 @@ impl ClientSnapshot {
     /// Returns the server address used in the last low-level request.
     ///
     /// If no address is known, use the target address from `info.default_host`.
+    ///
+    /// Use with the "server.address" attribute.
     pub fn server_address(&self) -> String {
         if let Some(address) = self
             .transport_snapshot
@@ -332,6 +334,8 @@ impl ClientSnapshot {
     /// Returns the server port used in the last low-level request.
     ///
     /// If no port is known, use the port implied by `info.default_host`.
+    ///
+    /// Use with the "server.port" attribute after casting to `i64`.
     pub fn server_port(&self) -> u16 {
         if let Some(port) = self
             .transport_snapshot
@@ -356,6 +360,13 @@ impl ClientSnapshot {
         self.url_template
     }
 
+    /// Returns the resource name (e.g. "//storage.googleapis.com/projects/_/buckets/my-bucket").
+    ///
+    /// Use with the "gcp.resource.destination.id" attribute.
+    pub fn resource_name(&self) -> Option<&str> {
+        self.resource_name.as_deref()
+    }
+
     /// Returns the RPC method (e.g. "cloud.google.secretmanager.v1.SecretManager/GetSecret") used in the request.
     ///
     /// Use with the "rpc.method" attribute.
@@ -367,7 +378,7 @@ impl ClientSnapshot {
     ///
     /// Note that this may not be populated for gRPC requests.
     ///
-    /// Use with the "rpc.method" attribute.
+    /// Use with the "http.response.status_code" attribute after casting to `i64`.
     pub fn http_status_code(&self) -> Option<u16> {
         self.transport_snapshot
             .as_ref()
@@ -390,7 +401,7 @@ impl ClientSnapshot {
     /// The resend count of the initial attempt is `None`, and starts at 1 for each retry attempt
     /// made.
     ///
-    /// Use with the "http.request.resend_count" attribute.
+    /// Use with the "http.request.resend_count" attribute after casting to `i64`.
     pub fn http_resend_count(&self) -> Option<u32> {
         if self.attempt_count <= 1 {
             return None;
@@ -433,6 +444,7 @@ mod tests {
 
     const TEST_METHOD_NAME: &str = "google.test.v1.Service/SomeMethod";
     const TEST_PATH_TEMPLATE: &str = "/v42/{parent}";
+    const TEST_RESOURCE_NAME: &str = "//test.googleapis.com/test-only";
     const STORAGE_PATH_TEMPLATE: &str = "/v1/storage/b/{bucket}/o/{object}";
 
     async fn simulate_http_client_gaxi(url: &str) -> Result<String, Error> {
@@ -460,7 +472,7 @@ mod tests {
             ClientRequestAttributes::default()
                 .set_rpc_method(TEST_METHOD_NAME)
                 .set_url_template(TEST_PATH_TEMPLATE)
-                .set_resource_name("//test.googleapis.com/test-only".to_string()),
+                .set_resource_name(TEST_RESOURCE_NAME.to_string()),
         );
         simulate_http_client_gaxi(url).await
     }
@@ -491,6 +503,7 @@ mod tests {
         assert_eq!(snap.start, Instant::now(), "{snap:?}");
         assert_eq!(snap.rpc_method(), Some(TEST_METHOD_NAME), "{snap:?}");
         assert_eq!(snap.url_template(), Some(TEST_PATH_TEMPLATE), "{snap:?}");
+        assert_eq!(snap.resource_name(), Some(TEST_RESOURCE_NAME), "{snap:?}");
         assert_eq!(snap.rpc_system(), Some("http"), "{snap:?}");
         assert_eq!(snap.sanitized_url(), Some(url.as_str()), "{snap:?}");
 

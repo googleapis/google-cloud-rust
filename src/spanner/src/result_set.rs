@@ -25,6 +25,9 @@ use google_cloud_gax::error::rpc::Code;
 use std::collections::VecDeque;
 use std::mem::take;
 
+#[cfg(feature = "unstable-stream")]
+use futures::Stream;
+
 /// `ResultSet` contains the rows of a query result.
 ///
 /// # Example
@@ -350,6 +353,36 @@ impl ResultSet {
         }
         e.status()
             .is_some_and(|status| status.code == Code::Unavailable)
+    }
+
+    /// Converts the [`ResultSet`] into a [`Stream`].
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_spanner::client::ResultSet;
+    /// # use futures::TryStreamExt;
+    /// # use std::future::ready;
+    /// # async fn example(result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
+    /// let rows: Vec<_> = result_set
+    ///     .into_stream()
+    ///     .try_filter(|row| {
+    ///         let id = row.get::<String, _>("Id");
+    ///         ready(id == "id1")
+    ///     })
+    ///     .try_collect()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This consumes the [`ResultSet`] and returns a stream of rows.
+    #[cfg(feature = "unstable-stream")]
+    pub fn into_stream(self) -> impl Stream<Item = crate::Result<Row>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(self, |mut result_set| async move {
+            result_set.next().await.map(|row| (row, result_set))
+        }))
     }
 }
 

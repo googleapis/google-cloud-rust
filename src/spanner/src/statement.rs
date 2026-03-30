@@ -156,6 +156,14 @@ impl Statement {
             .set_or_clear_params(params)
             .set_param_types(param_types)
     }
+
+    pub(crate) fn into_partition_query_request(self) -> crate::model::PartitionQueryRequest {
+        let (sql, params, param_types) = self.into_parts();
+        crate::model::PartitionQueryRequest::default()
+            .set_sql(sql)
+            .set_or_clear_params(params)
+            .set_param_types(param_types)
+    }
 }
 
 impl From<StatementBuilder> for Statement {

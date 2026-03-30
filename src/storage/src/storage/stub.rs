@@ -94,10 +94,7 @@ pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
     fn object(&self) -> Object;
 
     /// The implementation for [ObjectDescriptor::read_range][Descriptor::read_range].
-    fn read_range(
-        &self,
-        range: ReadRange,
-    ) -> impl Future<Output = ReadObjectResponse> + Send + Sync;
+    fn read_range(&self, range: ReadRange) -> impl Future<Output = ReadObjectResponse> + Send;
 
     /// The implementation for [ObjectDescriptor::headers][Descriptor::headers].
     fn headers(&self) -> HeaderMap;
