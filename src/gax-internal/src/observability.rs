@@ -46,3 +46,7 @@ pub use client_signals::{
     ClientRequestAttributes, DurationMetric, RequestRecorder, WithClientLogging, WithClientMetric,
     WithClientSpan,
 };
+
+#[cfg(google_cloud_unstable_tracing)]
+#[doc(hidden)]
+pub use attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, SCHEMA_URL_VALUE};
