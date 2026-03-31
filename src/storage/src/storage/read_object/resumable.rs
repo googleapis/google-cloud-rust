@@ -39,13 +39,14 @@ impl ResumableResponse {
         let full = reader.request.read_offset == 0 && reader.request.read_limit == 0;
         let headers = response.headers();
         let response_checksums = checksums_from_response(full, response.status(), headers);
-
         let range = response_range(&response).map_err(Error::deser)?;
         let generation =
             parse_http_response::response_generation(&response).map_err(Error::deser)?;
 
         let highlights = parse_http_response::object_highlights(generation, headers)?;
 
+        // If the server response has an empty checksum (e.g. on range read),
+        // disable it in request options to stop its computation.
         if response_checksums.crc32c.is_none() {
             reader.options.checksum.crc32c = None;
         }
@@ -111,10 +112,10 @@ impl ResumableResponse {
                 }
                 let computed = self.reader.options.checksum.finalize();
                 let res = validate(&self.response_checksums, &Some(computed));
-                if let Err(e) = res {
-                    return Some(Err(Error::deser(ReadError::ChecksumMismatch(e))));
+                match res {
+                    Err(e) => Some(Err(Error::deser(ReadError::ChecksumMismatch(e)))),
+                    Ok(()) => None,
                 }
-                None
             }
             Err(e) => Some(Err(e)),
         }
