@@ -84,11 +84,11 @@ macro_rules! client_request_signals {
         // We use string literals for all the field names because it narrows the public API for
         // `google-cloud-gax-internal`. The exception are these values, which we expect may change
         // from time to time.
-        use $crate::observability::internal::{GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, SCHEMA_URL_VALUE};
+        use $crate::observability::{GCP_CLIENT_REPO_GOOGLEAPIS, SCHEMA_URL_VALUE};
         tracing::info_span!(
             "client_request",
              "otel.name"             = concat!(env!("CARGO_CRATE_NAME"), "::", $method),
-             "otel.kind"             = OTEL_KIND_INTERNAL,
+             "otel.kind"             = "Internal",
              "rpc.system"            = "http", // Default to HTTP, can be overridden
              "gcp.client.service"    = $info.service_name,
              "gcp.client.repo"       = GCP_CLIENT_REPO_GOOGLEAPIS,

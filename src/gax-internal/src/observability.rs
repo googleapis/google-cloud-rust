@@ -49,7 +49,4 @@ pub use client_signals::{
 
 #[cfg(google_cloud_unstable_tracing)]
 #[doc(hidden)]
-pub mod internal {
-
-    pub use super::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, SCHEMA_URL_VALUE};
-}
+pub use attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, SCHEMA_URL_VALUE};
