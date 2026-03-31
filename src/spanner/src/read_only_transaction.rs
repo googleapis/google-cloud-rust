@@ -89,11 +89,12 @@ impl SingleUseReadOnlyTransactionBuilder {
             .set_single_use(TransactionOptions::default().set_read_only(read_only));
 
         SingleUseReadOnlyTransaction {
-            context: ReadContext::new(
-                self.client,
+            context: ReadContext {
+                client: self.client,
                 transaction_selector,
-                PrecommitTokenTracker::new_noop(),
-            ),
+                precommit_token_tracker: PrecommitTokenTracker::new_noop(),
+                transaction_tag: None,
+            },
         }
     }
 }
@@ -261,11 +262,12 @@ impl MultiUseReadOnlyTransactionBuilder {
 
         let transaction_selector = crate::model::TransactionSelector::default().set_id(response.id);
         Ok(MultiUseReadOnlyTransaction {
-            context: ReadContext::new(
-                self.client,
+            context: ReadContext {
+                client: self.client,
                 transaction_selector,
-                PrecommitTokenTracker::new_noop(),
-            ),
+                precommit_token_tracker: PrecommitTokenTracker::new_noop(),
+                transaction_tag: None,
+            },
             read_timestamp: response.read_timestamp,
         })
     }
@@ -373,30 +375,38 @@ pub(crate) struct ReadContext {
     pub(crate) client: DatabaseClient,
     pub(crate) transaction_selector: crate::model::TransactionSelector,
     pub(crate) precommit_token_tracker: PrecommitTokenTracker,
+    pub(crate) transaction_tag: Option<String>,
 }
 
 impl ReadContext {
-    pub(crate) fn new(
-        client: DatabaseClient,
-        transaction_selector: crate::model::TransactionSelector,
-        precommit_token_tracker: PrecommitTokenTracker,
-    ) -> Self {
-        Self {
-            client,
-            transaction_selector,
-            precommit_token_tracker,
+    /// Amends the given request options with the transaction tag if present.
+    ///
+    /// This method returns the `RequestOptions` that should be used for the request.
+    /// If no `transaction_tag` has been set, the given `RequestOptions` is returned unchanged.
+    /// If a `transaction_tag` has been set, the given `RequestOptions` is modified to include the tag
+    /// (or a new `RequestOptions` is created if `None` was passed in).
+    pub(crate) fn amend_request_options(
+        &self,
+        mut options: Option<crate::model::RequestOptions>,
+    ) -> Option<crate::model::RequestOptions> {
+        if let Some(tag) = &self.transaction_tag {
+            options
+                .get_or_insert_with(crate::model::RequestOptions::default)
+                .transaction_tag = tag.clone();
         }
+        options
     }
 
     pub(crate) async fn execute_query<T: Into<Statement>>(
         &self,
         statement: T,
     ) -> crate::Result<ResultSet> {
-        let statement = statement.into();
-        let request = statement
+        let mut request = statement
+            .into()
             .into_request()
             .set_session(self.client.session.name.clone())
             .set_transaction(self.transaction_selector.clone());
+        request.request_options = self.amend_request_options(request.request_options);
 
         let stream = self
             .client
@@ -418,12 +428,12 @@ impl ReadContext {
         &self,
         read: T,
     ) -> crate::Result<ResultSet> {
-        let read = read.into();
-
-        let request = read
+        let mut request = read
+            .into()
             .into_request()
             .set_session(self.client.session.name.clone())
             .set_transaction(self.transaction_selector.clone());
+        request.request_options = self.amend_request_options(request.request_options);
 
         let stream = self
             .client

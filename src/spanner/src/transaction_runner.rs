@@ -100,6 +100,29 @@ impl TransactionRunnerBuilder {
         self
     }
 
+    /// Sets the transaction tag for the transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_transaction_tag("my-tag")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// The tag is applied to all statements executed within the transaction.
+    ///
+    /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
+    pub fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
+        self.builder = self.builder.with_transaction_tag(tag);
+        self
+    }
+
     /// Sets the retry policy for the transaction.
     ///
     /// # Example
@@ -614,5 +637,66 @@ mod tests {
 
         assert_eq!(res, vec![5]);
         assert_eq!(attempt_counter, 2);
+    }
+
+    #[tokio::test]
+    async fn run_with_transaction_tag() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            // Check if the transaction tag is correctly propagated.
+            assert_eq!(
+                req.request_options
+                    .expect("Missing request_options")
+                    .transaction_tag,
+                "my-test-tag"
+            );
+
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![9, 9, 9],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.request_options
+                    .expect("Missing request_options")
+                    .transaction_tag,
+                "my-test-tag"
+            );
+            row_count_exact_response(5)
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.request_options
+                    .expect("Missing request_options")
+                    .transaction_tag,
+                "my-test-tag"
+            );
+            commit_response()
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .with_transaction_tag("my-test-tag")
+            .build()
+            .await?;
+
+        let res = runner
+            .run(async |tx| {
+                let count = tx.execute_update("UPDATE Users SET active = true").await?;
+                Ok(count)
+            })
+            .await?;
+
+        assert_eq!(res, 5);
+
+        Ok(())
     }
 }

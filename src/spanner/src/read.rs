@@ -60,6 +60,7 @@ impl ReadRequestBuilder {
             keys: keys.into(),
             columns: self.columns,
             limit: None,
+            request_options: None,
         }
     }
 
@@ -85,6 +86,7 @@ impl ReadRequestBuilder {
             keys: keys.into(),
             columns: self.columns,
             limit: None,
+            request_options: None,
         }
     }
 }
@@ -97,6 +99,7 @@ pub struct ConfiguredReadRequestBuilder {
     keys: KeySet,
     columns: Vec<String>,
     limit: Option<i64>,
+    request_options: Option<crate::model::RequestOptions>,
 }
 
 impl ConfiguredReadRequestBuilder {
@@ -117,6 +120,25 @@ impl ConfiguredReadRequestBuilder {
         self
     }
 
+    /// Sets the request tag to use for this read.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// let request = ReadRequest::builder("Users", vec!["Id"])
+    ///     .with_keys(KeySet::all())
+    ///     .with_request_tag("my-tag")
+    ///     .build();
+    /// ```
+    ///
+    /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
+    pub fn with_request_tag(mut self, tag: impl Into<String>) -> Self {
+        self.request_options
+            .get_or_insert_with(crate::model::RequestOptions::default)
+            .request_tag = tag.into();
+        self
+    }
+
     /// Builds the configured `ReadRequest`.
     pub fn build(self) -> ReadRequest {
         ReadRequest {
@@ -125,6 +147,7 @@ impl ConfiguredReadRequestBuilder {
             keys: self.keys,
             columns: self.columns,
             limit: self.limit,
+            request_options: self.request_options,
         }
     }
 }
@@ -140,6 +163,7 @@ pub struct ReadRequest {
     pub(crate) keys: KeySet,
     pub(crate) columns: Vec<String>,
     pub(crate) limit: Option<i64>,
+    pub(crate) request_options: Option<crate::model::RequestOptions>,
 }
 
 impl ReadRequest {
@@ -170,6 +194,7 @@ impl ReadRequest {
         crate::model::KeySet,
         Vec<String>,
         Option<i64>,
+        Option<crate::model::RequestOptions>,
     ) {
         (
             self.table,
@@ -177,21 +202,23 @@ impl ReadRequest {
             self.keys.into_proto(),
             self.columns,
             self.limit,
+            self.request_options,
         )
     }
 
     pub(crate) fn into_request(self) -> crate::model::ReadRequest {
-        let (table, index, keys, columns, limit) = self.into_parts();
+        let (table, index, keys, columns, limit, request_options) = self.into_parts();
         crate::model::ReadRequest::default()
             .set_table(table)
             .set_columns(columns)
             .set_key_set(keys)
             .set_index(index.unwrap_or_default())
             .set_limit(limit.unwrap_or_default())
+            .set_or_clear_request_options(request_options)
     }
 
     pub(crate) fn into_partition_read_request(self) -> crate::model::PartitionReadRequest {
-        let (table, index, keys, columns, _limit) = self.into_parts();
+        let (table, index, keys, columns, _limit, _request_options) = self.into_parts();
         crate::model::PartitionReadRequest::default()
             .set_table(table)
             .set_columns(columns)
@@ -244,5 +271,19 @@ mod tests {
             .with_limit(42)
             .build();
         assert_eq!(req.limit, Some(42));
+    }
+
+    #[test]
+    fn with_request_tag() {
+        let req = ReadRequest::builder("MyTable", vec!["col1"])
+            .with_keys(KeySet::all())
+            .with_request_tag("tag1")
+            .build();
+        assert_eq!(
+            req.request_options
+                .expect("request options missing")
+                .request_tag,
+            "tag1"
+        );
     }
 }
