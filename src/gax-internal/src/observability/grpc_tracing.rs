@@ -393,7 +393,7 @@ fn create_grpc_span(
     let span = tracing::info_span!(
         "grpc.request",
         { OTEL_NAME } = rpc_method,
-        { otel_trace::RPC_SYSTEM } = attributes::RPC_SYSTEM_GRPC,
+        { RPC_SYSTEM_NAME } = attributes::RPC_SYSTEM_GRPC,
         { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
         { otel_trace::RPC_METHOD } = rpc_method,
         { otel_trace::SERVER_ADDRESS } = layer_inner.server_address,
@@ -410,7 +410,7 @@ fn create_grpc_span(
         { GCP_CLIENT_REPO } = repo,
         { GCP_CLIENT_ARTIFACT } = artifact,
         { GCP_GRPC_RESEND_COUNT } = resend_count,
-        { GCP_RESOURCE_NAME } = resource_name,
+        { GCP_RESOURCE_DESTINATION_ID } = resource_name,
     );
 
     span
@@ -477,7 +477,7 @@ mod tests {
         let expected_attributes: HashMap<String, AttributeValue> = [
             (OTEL_NAME, "google.pubsub.v1.Publisher/Publish".into()),
             (
-                otel_trace::RPC_SYSTEM,
+                RPC_SYSTEM_NAME,
                 crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
             ),
             (OTEL_KIND, "Client".into()),
@@ -529,7 +529,7 @@ mod tests {
         let expected_attributes: HashMap<String, AttributeValue> = [
             (OTEL_NAME, "google.pubsub.v1.Publisher/Publish".into()),
             (
-                otel_trace::RPC_SYSTEM,
+                RPC_SYSTEM_NAME,
                 crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
             ),
             (OTEL_KIND, "Client".into()),
@@ -575,7 +575,7 @@ mod tests {
         let expected_attributes: HashMap<String, AttributeValue> = [
             (OTEL_NAME, "google.pubsub.v1.Publisher/Publish".into()),
             (
-                otel_trace::RPC_SYSTEM,
+                RPC_SYSTEM_NAME,
                 crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
             ),
             (OTEL_KIND, "Client".into()),
@@ -587,7 +587,7 @@ mod tests {
             (otel_trace::SERVER_PORT, 443_i64.into()),
             (otel_attr::URL_DOMAIN, "pubsub.googleapis.com".into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
-            (GCP_RESOURCE_NAME, resource_name.into()),
+            (GCP_RESOURCE_DESTINATION_ID, resource_name.into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))

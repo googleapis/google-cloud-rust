@@ -81,7 +81,7 @@ pub mod keys {
     /// The Google Cloud resource name.
     ///
     /// Example: //pubsub.googleapis.com/projects/my-project/topics/my-topic
-    pub const GCP_RESOURCE_NAME: &str = "gcp.resource.name";
+    pub const GCP_RESOURCE_DESTINATION_ID: &str = "gcp.resource.destination.id";
     /// The OpenTelemetry Schema URL indicating the schema used for the telemetry.
     pub const GCP_SCHEMA_URL: &str = "gcp.schema.url";
     /// The number of times this same gRPC request has been resent due to retries.
@@ -101,7 +101,7 @@ pub mod keys {
     // macro.
     pub use opentelemetry_semantic_conventions::trace::{
         ERROR_TYPE, HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT, HTTP_RESPONSE_STATUS_CODE,
-        RPC_METHOD, RPC_SYSTEM, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+        RPC_METHOD, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
     };
 }
 

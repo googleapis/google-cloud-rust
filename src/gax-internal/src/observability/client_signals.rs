@@ -89,7 +89,7 @@ macro_rules! client_request_signals {
             "client_request",
              "otel.name"             = concat!(env!("CARGO_CRATE_NAME"), "::", $method),
              "otel.kind"             = "Internal",
-             "rpc.system"            = "http", // Default to HTTP, can be overridden
+             "rpc.system.name"       = "http", // Default to HTTP, can be overridden
              "gcp.client.service"    = $info.service_name,
              "gcp.client.repo"       = GCP_CLIENT_REPO_GOOGLEAPIS,
              "gcp.client.artifact"   = $info.client_artifact,
@@ -272,7 +272,7 @@ mod tests {
         );
         let want = BTreeSet::from_iter(
             [
-                ("rpc.system", "http"),
+                ("rpc.system.name", "http"),
                 ("rpc.method", TEST_METHOD),
                 ("gcp.client.service", "test-service"),
                 ("gcp.client.version", "1.2.3"),

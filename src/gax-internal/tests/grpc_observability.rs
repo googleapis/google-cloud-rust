@@ -98,7 +98,7 @@ mod tests {
             google_cloud_test_utils::test_layer::AttributeValue,
         > = [
             (OTEL_NAME, "google.test.v1.EchoService/Echo".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
+            (RPC_SYSTEM_NAME, "grpc".into()),
             (OTEL_KIND, "Client".into()),
             (
                 otel_trace::RPC_METHOD,
@@ -189,7 +189,7 @@ mod tests {
             google_cloud_test_utils::test_layer::AttributeValue,
         > = [
             (OTEL_NAME, "google.test.v1.EchoService/Echo".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
+            (RPC_SYSTEM_NAME, "grpc".into()),
             (OTEL_KIND, "Client".into()),
             (
                 otel_trace::RPC_METHOD,
@@ -262,7 +262,7 @@ mod tests {
             google_cloud_test_utils::test_layer::AttributeValue,
         > = [
             (OTEL_NAME, "google.test.v1.EchoService/Echo".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
+            (RPC_SYSTEM_NAME, "grpc".into()),
             (OTEL_KIND, "Client".into()),
             (
                 otel_trace::RPC_METHOD,
@@ -345,7 +345,7 @@ mod tests {
                 OTEL_NAME,
                 "google.test.v1.EchoService/NonExistentMethod".into(),
             ),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
+            (RPC_SYSTEM_NAME, "grpc".into()),
             (OTEL_KIND, "Client".into()),
             (
                 otel_trace::RPC_METHOD,
@@ -446,7 +446,7 @@ mod tests {
             google_cloud_test_utils::test_layer::AttributeValue,
         > = [
             (OTEL_NAME, "google.test.v1.EchoService/Chat".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
+            (RPC_SYSTEM_NAME, "grpc".into()),
             (OTEL_KIND, "Client".into()),
             (
                 otel_trace::RPC_METHOD,
@@ -545,7 +545,7 @@ mod tests {
             google_cloud_test_utils::test_layer::AttributeValue,
         > = [
             (OTEL_NAME, "google.test.v1.EchoService/Chat".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
+            (RPC_SYSTEM_NAME, "grpc".into()),
             (OTEL_KIND, "Client".into()),
             (
                 otel_trace::RPC_METHOD,
@@ -631,7 +631,7 @@ mod tests {
             google_cloud_test_utils::test_layer::AttributeValue,
         > = [
             (OTEL_NAME, "google.test.v1.EchoService/Echo".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
+            (RPC_SYSTEM_NAME, "grpc".into()),
             (OTEL_KIND, "Client".into()),
             (
                 otel_trace::RPC_METHOD,
@@ -657,7 +657,7 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_grpc_resource_name_in_span() -> anyhow::Result<()> {
-        use google_cloud_gax_internal::observability::attributes::keys::GCP_RESOURCE_NAME;
+        use google_cloud_gax_internal::observability::attributes::keys::GCP_RESOURCE_DESTINATION_ID;
 
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -701,7 +701,7 @@ mod tests {
 
         assert_eq!(
             attrs
-                .get(GCP_RESOURCE_NAME)
+                .get(GCP_RESOURCE_DESTINATION_ID)
                 .expect("resource name not found"),
             &google_cloud_test_utils::test_layer::AttributeValue::String(
                 "projects/p/locations/l/resources/r".into()
