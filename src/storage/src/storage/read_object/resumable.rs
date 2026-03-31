@@ -32,7 +32,6 @@ pub(crate) struct ResumableResponse {
     range: ReadRange,
     generation: i64,
     resume_count: u32,
-    should_track_checksums: bool,
 }
 
 impl ResumableResponse {
@@ -53,8 +52,6 @@ impl ResumableResponse {
         if response_checksums.md5_hash.is_empty() {
             reader.options.checksum.md5_hash = None;
         }
-        let should_track_checksums =
-            should_compute_and_validate_checksums(&response_checksums, &reader.options.checksum);
 
         Ok(Self {
             reader,
@@ -62,7 +59,6 @@ impl ResumableResponse {
             highlights,
             // Fields for computing checksums.
             response_checksums,
-            should_track_checksums,
             // Fields for resuming a read request.
             range,
             generation,
@@ -94,12 +90,10 @@ impl ResumableResponse {
         let res = response.chunk().await.map_err(Error::io);
         match res {
             Ok(Some(chunk)) => {
-                if self.should_track_checksums {
-                    self.reader
-                        .options
-                        .checksum
-                        .update(self.range.start, &chunk);
-                }
+                self.reader
+                    .options
+                    .checksum
+                    .update(self.range.start, &chunk);
                 let len = chunk.len() as u64;
                 if self.range.limit < len {
                     return Some(Err(Error::deser(ReadError::LongRead {
@@ -115,12 +109,10 @@ impl ResumableResponse {
                 if self.range.limit != 0 {
                     return Some(Err(Error::io(ReadError::ShortRead(self.range.limit))));
                 }
-                if self.should_track_checksums {
-                    let computed = self.reader.options.checksum.finalize();
-                    let res = validate(&self.response_checksums, &Some(computed));
-                    if let Err(e) = res {
-                        return Some(Err(Error::deser(ReadError::ChecksumMismatch(e))));
-                    }
+                let computed = self.reader.options.checksum.finalize();
+                let res = validate(&self.response_checksums, &Some(computed));
+                if let Err(e) = res {
+                    return Some(Err(Error::deser(ReadError::ChecksumMismatch(e))));
                 }
                 None
             }
@@ -252,17 +244,6 @@ fn checksums_from_response(
         .set_md5_hash(parse_http_response::headers_to_md5_hash(headers))
 }
 
-/// Returns true if there is any intersection between checksums enabled in request options
-/// and those returned from server response, enabling checksum computation and validation.
-fn should_compute_and_validate_checksums(
-    response: &ObjectChecksums,
-    request_options: &crate::storage::checksum::details::Checksum,
-) -> bool {
-    let crc_match = response.crc32c.is_some() && request_options.crc32c.is_some();
-    let md5_match = !response.md5_hash.is_empty() && request_options.md5_hash.is_some();
-    crc_match || md5_match
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -303,7 +284,7 @@ mod tests {
     }
 
     #[test]
-    fn new_aligns_client_checksums_with_response() -> anyhow::Result<()> {
+    fn new_aligns_request_options_checksums_with_response() -> anyhow::Result<()> {
         use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
         use crate::storage::client::tests::test_inner_client;
         use crate::storage::read_object::Reader;
@@ -337,42 +318,7 @@ mod tests {
         // Verify MD5 is not tracked.
         assert!(res.reader.options.checksum.crc32c.is_some());
         assert!(res.reader.options.checksum.md5_hash.is_none());
-        assert!(res.should_track_checksums);
 
-        Ok(())
-    }
-
-    #[test_case(Some(1234), false, true, false, true; "server has crc, request options has crc")]
-    #[test_case(Some(1234), false, false, false, false; "server has crc, request options disables crc")]
-    #[test_case(Some(1234), false, false, true, false; "server has crc, request options enables md5 only")]
-    #[test_case(None, true, false, true, true; "server has md5, request options enables md5")]
-    #[test_case(None, true, true, false, false; "server has md5, request options enables crc only")]
-    fn should_compute_and_validate_checksums_logic(
-        server_crc: Option<u32>,
-        server_md5: bool,
-        request_options_crc: bool,
-        request_options_md5: bool,
-        expected: bool,
-    ) -> anyhow::Result<()> {
-        use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
-
-        let mut response = ObjectChecksums::new();
-        if let Some(crc) = server_crc {
-            response = response.set_crc32c(crc);
-        }
-        if server_md5 {
-            response = response.set_md5_hash(vec![1, 2, 3]);
-        }
-
-        let request_options = Checksum {
-            crc32c: request_options_crc.then(Crc32c::default),
-            md5_hash: request_options_md5.then(Md5::default),
-        };
-
-        assert_eq!(
-            should_compute_and_validate_checksums(&response, &request_options),
-            expected
-        );
         Ok(())
     }
 
