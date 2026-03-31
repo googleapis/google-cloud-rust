@@ -375,9 +375,7 @@ fn create_grpc_span(
     attempt_count: Option<i64>,
     resource_name: Option<&str>,
 ) -> tracing::Span {
-    let (_, rpc_method) =
-        parse_method(uri.path()).unwrap_or_else(|_| ("unknown".to_string(), "unknown".to_string()));
-    let span_name = uri.path().trim_start_matches('/');
+    let rpc_method = uri.path().trim_start_matches('/');
 
     let (service, version, repo, artifact) = if let Some(info) = layer_inner.instrumentation {
         (
@@ -394,7 +392,7 @@ fn create_grpc_span(
 
     let span = tracing::info_span!(
         "grpc.request",
-        { OTEL_NAME } = span_name,
+        { OTEL_NAME } = rpc_method,
         { otel_trace::RPC_SYSTEM } = attributes::RPC_SYSTEM_GRPC,
         { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
         { otel_trace::RPC_METHOD } = rpc_method,
@@ -418,43 +416,11 @@ fn create_grpc_span(
     span
 }
 
-fn parse_method(path: &str) -> Result<(String, String), &'static str> {
-    let path = path.trim_start_matches('/');
-    let parts: Vec<&str> = path.split('/').collect();
-    if parts.len() == 2 {
-        Ok((parts[0].to_string(), parts[1].to_string()))
-    } else {
-        Err("invalid path format")
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use std::collections::HashMap;
-
-    #[test]
-    fn test_parse_method() {
-        assert_eq!(
-            parse_method("/google.pubsub.v1.Publisher/Publish"),
-            Ok((
-                "google.pubsub.v1.Publisher".to_string(),
-                "Publish".to_string()
-            ))
-        );
-        assert_eq!(
-            parse_method("google.pubsub.v1.Publisher/Publish"),
-            Ok((
-                "google.pubsub.v1.Publisher".to_string(),
-                "Publish".to_string()
-            ))
-        );
-        let result = parse_method("/invalid/path/format");
-        assert!(result.is_err(), "{result:?}");
-        let result = parse_method("invalid");
-        assert!(result.is_err(), "{result:?}");
-    }
 
     #[test]
     fn test_layer_new() {
@@ -515,7 +481,10 @@ mod tests {
                 crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
             ),
             (OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_METHOD, "Publish".into()),
+            (
+                otel_trace::RPC_METHOD,
+                "google.pubsub.v1.Publisher/Publish".into(),
+            ),
             (otel_trace::SERVER_ADDRESS, "pubsub.googleapis.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
             (otel_attr::URL_DOMAIN, "pubsub.googleapis.com".into()),
@@ -564,7 +533,10 @@ mod tests {
                 crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
             ),
             (OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_METHOD, "Publish".into()),
+            (
+                otel_trace::RPC_METHOD,
+                "google.pubsub.v1.Publisher/Publish".into(),
+            ),
             (otel_trace::SERVER_ADDRESS, "pubsub.googleapis.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
             (otel_attr::URL_DOMAIN, "pubsub.googleapis.com".into()),
@@ -607,7 +579,10 @@ mod tests {
                 crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
             ),
             (OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_METHOD, "Publish".into()),
+            (
+                otel_trace::RPC_METHOD,
+                "google.pubsub.v1.Publisher/Publish".into(),
+            ),
             (otel_trace::SERVER_ADDRESS, "pubsub.googleapis.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
             (otel_attr::URL_DOMAIN, "pubsub.googleapis.com".into()),
