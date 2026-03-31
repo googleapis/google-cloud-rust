@@ -414,10 +414,7 @@ where
 
         // No overrides and no cache. Try to fetch from MDS.
         let response = self.mds_client.universe_domain().await;
-        let universe_domain = match response {
-            Ok(universe_domain) => Some(universe_domain),
-            Err(_) => None,
-        };
+        let universe_domain = response.ok();
         let _ = self.universe_domain.set(universe_domain.clone());
         universe_domain
     }
