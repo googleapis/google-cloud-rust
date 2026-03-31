@@ -244,7 +244,7 @@ mod tests {
                 ("rpc.method", TEST_METHOD),
                 ("http.response.status_code", "404"),
                 ("error.type", "404"),
-                ("server.address", "127.0.0.1"),
+                ("server.address", server.addr().ip().to_string().as_str()),
                 ("server.port", server.addr().port().to_string().as_str()),
                 ("gcp.client.service", "test-service"),
                 ("gcp.client.version", "1.2.3"),
@@ -282,9 +282,12 @@ mod tests {
                 ("error.type", "404"),
                 ("http.request.method", "GET"),
                 ("http.response.status_code", "404"),
-                ("server.address", "127.0.0.1"),
+                ("server.address", server.addr().ip().to_string().as_str()),
                 ("server.port", server.addr().port().to_string().as_str()),
-                ("network.peer.address", "127.0.0.1"),
+                (
+                    "network.peer.address",
+                    server.addr().ip().to_string().as_str(),
+                ),
                 (
                     "network.peer.port",
                     server.addr().port().to_string().as_str(),
@@ -322,9 +325,12 @@ mod tests {
                 ("rpc.service", "test-service"),
                 ("error.type", "404"),
                 ("http.request.method", "GET"),
-                ("server.address", "127.0.0.1"),
+                ("server.address", server.addr().ip().to_string().as_str()),
                 ("server.port", server.addr().port().to_string().as_str()),
-                ("network.peer.address", "127.0.0.1"),
+                (
+                    "network.peer.address",
+                    server.addr().ip().to_string().as_str(),
+                ),
                 (
                     "network.peer.port",
                     server.addr().port().to_string().as_str(),

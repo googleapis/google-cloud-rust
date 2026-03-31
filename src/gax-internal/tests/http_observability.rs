@@ -28,7 +28,7 @@ mod tests {
         ClientRequestAttributes, DurationMetric, RequestRecorder,
     };
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
-    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer, format_server_address};
+    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use http::{Method, StatusCode};
     use httptest::matchers::request::{body, headers, method, method_path, path};
     use httptest::{Expectation, Server, all_of, responders::*};
@@ -507,7 +507,7 @@ mod tests {
             (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
             (
                 otel_trace::SERVER_ADDRESS,
-                format_server_address(server_addr).into(),
+                server_addr.ip().to_string().into(),
             ),
             (otel_trace::SERVER_PORT, (server_addr.port() as i64).into()),
             (NETWORK_PEER_ADDRESS, server_addr.ip().to_string().into()),
@@ -647,7 +647,7 @@ mod tests {
             (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
             (
                 otel_trace::SERVER_ADDRESS,
-                format_server_address(server_addr).into(),
+                server_addr.ip().to_string().into(),
             ),
             (otel_trace::SERVER_PORT, (server_addr.port() as i64).into()),
             (NETWORK_PEER_ADDRESS, server_addr.ip().to_string().into()),
