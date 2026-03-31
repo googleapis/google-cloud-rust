@@ -17,10 +17,11 @@
 //! This is a private module, it is not exposed in the public API.
 
 use super::RequestRecorder;
+use crate::observability::attributes::SCHEMA_URL_VALUE;
 use crate::observability::attributes::keys::{
-    ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_VERSION, HTTP_REQUEST_METHOD,
-    HTTP_REQUEST_RESEND_COUNT, OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION, RPC_RESPONSE_STATUS_CODE,
-    RPC_SERVICE,
+    ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_VERSION, GCP_SCHEMA_URL,
+    HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT, OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION,
+    RPC_RESPONSE_STATUS_CODE, RPC_SERVICE,
 };
 use crate::observability::attributes::otel_status_codes;
 use crate::observability::errors::ErrorType;
@@ -76,6 +77,7 @@ where
                     { GCP_CLIENT_VERSION } = snapshot.client_version(),
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
+                    { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
                     { URL_FULL } = snapshot.sanitized_url(),
                     { SERVER_ADDRESS } = snapshot.server_address(),
                     { SERVER_PORT } = snapshot.server_port() as i64,
@@ -97,6 +99,7 @@ where
                     { GCP_CLIENT_VERSION } = snapshot.client_version(),
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
+                    { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
                     { URL_FULL } = snapshot.sanitized_url(),
                     { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
                     { ERROR_TYPE } = error_type.as_str(),
@@ -141,6 +144,7 @@ mod tests {
             { GCP_CLIENT_VERSION } = ::tracing::field::Empty,
             { GCP_CLIENT_REPO } = ::tracing::field::Empty,
             { GCP_CLIENT_ARTIFACT } = ::tracing::field::Empty,
+            { GCP_SCHEMA_URL } = ::tracing::field::Empty,
             { URL_FULL } = ::tracing::field::Empty,
             { SERVER_ADDRESS } = ::tracing::field::Empty,
             { SERVER_PORT } = ::tracing::field::Empty,
@@ -209,6 +213,7 @@ mod tests {
             { GCP_CLIENT_VERSION } = ::tracing::field::Empty,
             { GCP_CLIENT_REPO } = ::tracing::field::Empty,
             { GCP_CLIENT_ARTIFACT } = ::tracing::field::Empty,
+            { GCP_SCHEMA_URL } = ::tracing::field::Empty,
             { URL_FULL } = ::tracing::field::Empty,
             { SERVER_ADDRESS } = ::tracing::field::Empty,
             { SERVER_PORT } = ::tracing::field::Empty,

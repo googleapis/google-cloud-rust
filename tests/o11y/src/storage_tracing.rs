@@ -96,6 +96,10 @@ async fn read_object(
         ("gcp.client.version", version.clone()),
         ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
         ("gcp.client.artifact", "google-cloud-storage".into()),
+        (
+            "gcp.schema.url",
+            "https://opentelemetry.io/schemas/1.39.0".into(),
+        ),
         ("gcp.client.language", "rust".into()),
         ("otel.name", "GET /storage/v1/b/{bucket}/o/{object}".into()),
         ("otel.kind", "Client".into()),
@@ -201,6 +205,10 @@ async fn write_object_single_shot(
         ("gcp.client.version", version.clone()),
         ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
         ("gcp.client.artifact", "google-cloud-storage".into()),
+        (
+            "gcp.schema.url",
+            "https://opentelemetry.io/schemas/1.39.0".into(),
+        ),
         ("gcp.client.language", "rust".into()),
         ("otel.name", "POST /upload/storage/v1/b/{bucket}/o".into()),
         ("otel.kind", "Client".into()),
@@ -321,6 +329,10 @@ async fn write_object_resumable(
         ("gcp.client.version", version.clone()),
         ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
         ("gcp.client.artifact", "google-cloud-storage".into()),
+        (
+            "gcp.schema.url",
+            "https://opentelemetry.io/schemas/1.39.0".into(),
+        ),
         ("gcp.client.language", "rust".into()),
         ("otel.kind", "Client".into()),
         ("otel.status_code", "UNSET".into()),

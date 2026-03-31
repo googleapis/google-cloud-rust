@@ -18,10 +18,12 @@
 
 use super::RequestRecorder;
 
+use crate::observability::attributes::SCHEMA_URL_VALUE;
 use crate::observability::attributes::keys::{
     ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION,
-    GCP_ERRORS_DOMAIN, GCP_ERRORS_METADATA, HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT,
-    RPC_RESPONSE_STATUS_CODE, RPC_SERVICE, RPC_SYSTEM_NAME, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+    GCP_ERRORS_DOMAIN, GCP_ERRORS_METADATA, GCP_SCHEMA_URL, HTTP_REQUEST_METHOD,
+    HTTP_REQUEST_RESEND_COUNT, RPC_RESPONSE_STATUS_CODE, RPC_SERVICE, RPC_SYSTEM_NAME,
+    SERVER_ADDRESS, SERVER_PORT, URL_FULL,
 };
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
@@ -115,6 +117,7 @@ where
                     { GCP_CLIENT_VERSION } = snapshot.client_version(),
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
+                    { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
                     { URL_DOMAIN } = snapshot.default_host(),
                     { URL_FULL } = snapshot.sanitized_url(),
                     { URL_TEMPLATE } = snapshot.url_template(),
@@ -220,6 +223,7 @@ mod tests {
             "url.domain": "example.com",
             "url.template": TEST_URL_TEMPLATE,
             "gcp.client.artifact": "test-artifact",
+            "gcp.schema.url": crate::observability::attributes::SCHEMA_URL_VALUE,
             "gcp.client.repo": "googleapis/google-cloud-rust",
             "gcp.client.version": "1.2.3",
             "gcp.client.service": "test-service",
@@ -282,6 +286,7 @@ mod tests {
             "url.template": TEST_URL_TEMPLATE,
             "error.type": "404",
             "gcp.client.artifact": "test-artifact",
+            "gcp.schema.url": crate::observability::attributes::SCHEMA_URL_VALUE,
             "gcp.client.repo": "googleapis/google-cloud-rust",
             "gcp.client.version": "1.2.3",
             "gcp.client.service": "test-service",

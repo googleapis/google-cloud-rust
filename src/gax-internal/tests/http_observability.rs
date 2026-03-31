@@ -113,6 +113,10 @@ mod tests {
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
             (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (
+                GCP_SCHEMA_URL,
+                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
+            ),
             (GCP_RESOURCE_NAME, TEST_RESOURCE.into()),
             (otel_trace::HTTP_RESPONSE_BODY_SIZE, 18_i64.into()), // {"hello": "world"} is 18 bytes
             (
@@ -257,6 +261,10 @@ mod tests {
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
             (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (
+                GCP_SCHEMA_URL,
+                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
+            ),
             (otel_trace::HTTP_RESPONSE_BODY_SIZE, 21_i64.into()), // {"status": "created"} is 21 bytes
             (
                 otel_trace::SERVER_ADDRESS,
@@ -492,6 +500,10 @@ mod tests {
             (GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
+            (
+                GCP_SCHEMA_URL,
+                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
+            ),
             (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
             (
                 otel_trace::SERVER_ADDRESS,
@@ -566,6 +578,10 @@ mod tests {
             (GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
+            (
+                GCP_SCHEMA_URL,
+                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
+            ),
             (otel_trace::SERVER_ADDRESS, "127.0.0.1".into()),
             (otel_trace::SERVER_PORT, (1_i64).into()),
             (otel_trace::URL_FULL, "https://127.0.0.1:1/test".into()),
@@ -622,6 +638,10 @@ mod tests {
             (GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
+            (
+                GCP_SCHEMA_URL,
+                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
+            ),
             (otel_trace::HTTP_RESPONSE_STATUS_CODE, 200_i64.into()),
             (
                 otel_trace::SERVER_ADDRESS,
@@ -676,6 +696,10 @@ mod tests {
             (GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
+            (
+                GCP_SCHEMA_URL,
+                google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
+            ),
             (otel_trace::SERVER_ADDRESS, "127.0.0.1".into()),
             (otel_trace::SERVER_PORT, (1_i64).into()),
             (otel_trace::URL_FULL, "https://127.0.0.1:1/test".into()),

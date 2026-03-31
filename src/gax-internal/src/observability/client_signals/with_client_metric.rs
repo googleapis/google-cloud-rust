@@ -158,6 +158,14 @@ mod tests {
                 ("url.domain", "example.com"),
                 ("server.address", "example.com"),
                 ("server.port", "443"),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                (
+                    "gcp.schema.url",
+                    crate::observability::attributes::SCHEMA_URL_VALUE,
+                ),
             ],
         );
         Ok(())
@@ -203,6 +211,14 @@ mod tests {
                 ("error.type", "404"),
                 ("server.address", server.addr().ip().to_string().as_str()),
                 ("server.port", format!("{}", server.addr().port()).as_str()),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                (
+                    "gcp.schema.url",
+                    crate::observability::attributes::SCHEMA_URL_VALUE,
+                ),
             ],
         );
         Ok(())

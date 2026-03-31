@@ -70,7 +70,7 @@ macro_rules! client_request_signals {
         use $crate::observability::attributes::keys::*;
         use $crate::observability::attributes::otel_status_codes;
         use $crate::observability::attributes::{
-            GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP,
+            GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP, SCHEMA_URL_VALUE,
         };
 
         let span = tracing::info_span!(
@@ -83,6 +83,7 @@ macro_rules! client_request_signals {
             { GCP_CLIENT_VERSION } = $info.client_version,
             { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
             { GCP_CLIENT_ARTIFACT } = $info.client_artifact,
+            { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
             // Fields to be recorded later
             { RPC_METHOD } = Empty,
             { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
@@ -243,6 +244,14 @@ mod tests {
                 ("error.type", "404"),
                 ("server.address", server.addr().ip().to_string().as_str()),
                 ("server.port", server.addr().port().to_string().as_str()),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                (
+                    "gcp.schema.url",
+                    crate::observability::attributes::SCHEMA_URL_VALUE,
+                ),
             ],
         );
 
@@ -297,6 +306,10 @@ mod tests {
                 ("gcp.client.version", "1.2.3"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
                 ("gcp.client.artifact", "test-artifact"),
+                (
+                    "gcp.schema.url",
+                    crate::observability::attributes::SCHEMA_URL_VALUE,
+                ),
                 ("gcp.client.service", "test-service"),
                 ("rpc.method", TEST_METHOD),
                 ("rpc.service", "test-service"),
