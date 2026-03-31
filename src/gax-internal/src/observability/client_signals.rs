@@ -588,7 +588,7 @@ mod tests {
                 "expected a single metric after flattening scopes and resources, metric={metrics:?}"
             ),
         };
-        assert_eq!(actual.name(), "test.client.duration");
+        assert_eq!(actual.name(), "gcp.client.request.duration");
         assert_eq!(actual.unit(), "s");
         let histo = match actual.data() {
             AggregatedMetrics::F64(MetricData::Histogram(h)) => h,
