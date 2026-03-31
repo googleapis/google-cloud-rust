@@ -308,13 +308,8 @@ where
         MetadataType: Message + serde::de::DeserializeOwned,
     {
         use futures::stream::unfold;
-        Box::pin(unfold(Some(self), move |state| async move {
-            if let Some(mut poller) = state {
-                if let Some(pr) = poller.poll().await {
-                    return Some((pr, Some(poller)));
-                }
-            };
-            None
+        Box::pin(unfold(self, |mut poller| async move {
+            poller.poll().await.map(|item| (item, poller))
         }))
     }
 }

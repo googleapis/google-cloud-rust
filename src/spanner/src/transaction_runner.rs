@@ -186,7 +186,7 @@ impl TransactionRunner {
     /// The transaction is automatically committed if the closure returns `Ok`.
     /// If the closure returns `Err`, the transaction will be rolled back and
     /// the error will be propagated.
-    pub async fn run<T, F>(self, mut work: F) -> crate::Result<T>
+    pub async fn run<T, F>(mut self, mut work: F) -> crate::Result<T>
     where
         F: std::ops::AsyncFnMut(ReadWriteTransaction) -> crate::Result<T>,
     {
@@ -197,8 +197,10 @@ impl TransactionRunner {
         loop {
             attempts += 1;
 
+            let mut current_tx_id = None;
             let attempt_result = async {
                 let transaction = self.builder.begin_transaction().await?;
+                current_tx_id = transaction.transaction_id().ok();
 
                 let result = match work(transaction.clone()).await {
                     Ok(res) => res,
@@ -219,6 +221,10 @@ impl TransactionRunner {
             match attempt_result {
                 Ok(res) => return Ok(res),
                 Err(e) => {
+                    if is_aborted(&e) {
+                        self.builder = self.builder.with_previous_transaction_id(current_tx_id);
+                    }
+
                     backoff_if_aborted(
                         e,
                         attempts,
@@ -240,6 +246,7 @@ mod tests {
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
     use spanner_grpc_mock::google::spanner::v1;
+    use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
 
     fn expect_begin_transaction(
         mock: &mut spanner_grpc_mock::MockSpanner,
@@ -334,27 +341,66 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn run_with_aborted_retry() {
+    async fn run_with_aborted_retry() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
 
-        expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.session,
+                    "projects/p/instances/i/databases/d/sessions/123"
+                );
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![9, 9, 9],
+                    ..Default::default()
+                }))
+            });
 
-        let mut attempt = 0;
-        mock.expect_execute_sql().times(2).returning(move |_req| {
-            attempt += 1;
-            if attempt == 1 {
-                Err(create_aborted_status(std::time::Duration::from_nanos(1)))
-            } else {
-                row_count_exact_response(5)
-            }
-        });
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| Err(create_aborted_status(std::time::Duration::from_nanos(1))));
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(req.session, "projects/p/instances/i/databases/d/sessions/123");
+
+                let options = req.options.as_ref().expect("options required on retry");
+                let read_write = options.mode.as_ref().expect("mode required on retry");
+                match read_write {
+                    Mode::ReadWrite(rw) => {
+                        assert_eq!(rw.multiplexed_session_previous_transaction_id, vec![9, 9, 9], "previous_transaction_id should be set to the ID of the aborted transaction");
+                    }
+                    _ => panic!("Expected ReadWrite mode"),
+                }
+
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![8, 8, 8],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| row_count_exact_response(5));
 
         mock.expect_commit()
             .once()
             .returning(|_req| commit_response());
 
-        let res = execute_test_runner(mock).await.unwrap();
+        let res = execute_test_runner(mock)
+            .await
+            .expect("runner should succeed");
         assert_eq!(res, 5);
+        Ok(())
     }
 
     #[tokio::test]
@@ -487,5 +533,86 @@ mod tests {
             .build()
             .await
             .unwrap();
+    }
+
+    #[tokio::test]
+    async fn run_batch_dml_aborted_retry() {
+        use crate::batch_dml::BatchDml;
+        use crate::statement::Statement;
+        use gaxi::grpc::tonic::Code;
+        use spanner_grpc_mock::google::rpc::Status;
+        use spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount;
+
+        let mut mock = create_session_mock();
+
+        expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
+
+        let mut seq = mockall::Sequence::new();
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| {
+                // Return a successful response but with an embedded aborted status.
+                let status = Status {
+                    code: Code::Aborted as i32,
+                    message: "transaction aborted".to_string(),
+                    ..Default::default()
+                };
+
+                Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![v1::ResultSet {
+                        stats: Some(v1::ResultSetStats {
+                            row_count: Some(RowCount::RowCountExact(1)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }],
+                    status: Some(status),
+                    ..Default::default()
+                }))
+            });
+        mock.expect_execute_batch_dml()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| {
+                // Return success after the retry.
+                Ok(tonic::Response::new(v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![v1::ResultSet {
+                        stats: Some(v1::ResultSetStats {
+                            row_count: Some(RowCount::RowCountExact(5)),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .returning(move |_| commit_response());
+
+        let (db_client, _) = setup_db_client(mock).await;
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .build()
+            .await
+            .expect("failed to build TransactionRunner");
+
+        let mut attempt_counter = 0;
+
+        // TransactionRunner retries the closure on transaction aborts
+        let res = runner
+            .run(async |tx| {
+                attempt_counter += 1;
+                let stmt = Statement::builder("UPDATE t SET c = 1").build();
+                let batch = BatchDml::builder().add_statement(stmt).build();
+                let counts = tx.execute_batch_update(batch).await?;
+                Ok(counts)
+            })
+            .await
+            .expect("transaction failed");
+
+        assert_eq!(res, vec![5]);
+        assert_eq!(attempt_counter, 2);
     }
 }

@@ -116,24 +116,53 @@ impl Statement {
         StatementBuilder::new(sql)
     }
 
-    pub(crate) fn get_params(&self) -> Option<wkt::Struct> {
-        if self.params.is_empty() {
+    fn into_parts(
+        self,
+    ) -> (
+        String,
+        Option<wkt::Struct>,
+        std::collections::HashMap<String, crate::model::Type>,
+    ) {
+        let params: Option<wkt::Struct> = if self.params.is_empty() {
             None
         } else {
             Some(
                 self.params
-                    .iter()
-                    .map(|(k, v)| (k.clone(), v.clone().into_serde_value()))
+                    .into_iter()
+                    .map(|(k, v)| (k, v.into_serde_value()))
                     .collect(),
             )
-        }
+        };
+        let param_types: std::collections::HashMap<String, crate::model::Type> = self
+            .param_types
+            .into_iter()
+            .map(|(k, v)| (k, v.0))
+            .collect();
+        (self.sql, params, param_types)
     }
 
-    pub(crate) fn get_param_types(&self) -> std::collections::HashMap<String, crate::model::Type> {
-        self.param_types
-            .iter()
-            .map(|(k, v)| (k.clone(), v.0.clone()))
-            .collect()
+    pub(crate) fn into_request(self) -> crate::model::ExecuteSqlRequest {
+        let (sql, params, param_types) = self.into_parts();
+        crate::model::ExecuteSqlRequest::default()
+            .set_sql(sql)
+            .set_or_clear_params(params)
+            .set_param_types(param_types)
+    }
+
+    pub(crate) fn into_batch_statement(self) -> crate::model::execute_batch_dml_request::Statement {
+        let (sql, params, param_types) = self.into_parts();
+        crate::model::execute_batch_dml_request::Statement::default()
+            .set_sql(sql)
+            .set_or_clear_params(params)
+            .set_param_types(param_types)
+    }
+
+    pub(crate) fn into_partition_query_request(self) -> crate::model::PartitionQueryRequest {
+        let (sql, params, param_types) = self.into_parts();
+        crate::model::PartitionQueryRequest::default()
+            .set_sql(sql)
+            .set_or_clear_params(params)
+            .set_param_types(param_types)
     }
 }
 
@@ -212,10 +241,10 @@ mod tests {
         let stmt_string: Statement = "SELECT 1".to_string().into();
         assert_eq!(stmt_str.sql, "SELECT 1");
         assert_eq!(stmt_string.sql, "SELECT 1");
-        assert!(stmt_str.get_params().is_none());
-        assert!(stmt_string.get_params().is_none());
-        assert!(stmt_str.get_param_types().is_empty());
-        assert!(stmt_string.get_param_types().is_empty());
+        assert!(stmt_str.params.is_empty());
+        assert!(stmt_string.params.is_empty());
+        assert!(stmt_str.param_types.is_empty());
+        assert!(stmt_string.param_types.is_empty());
     }
 
     #[test]
@@ -235,21 +264,23 @@ mod tests {
     }
 
     #[test]
-    fn test_get_params_and_types() {
+    fn test_into_request() {
         use crate::types;
         let stmt = Statement::builder("SELECT * FROM users WHERE age > @age AND role = @role")
             .add_param("age", &21)
             .add_typed_param("role", &"admin", types::string())
             .build();
 
-        // Test get_params mapped to Option<wkt::Struct>
-        let params = stmt.get_params().unwrap();
+        let req = stmt.into_request();
+
+        let params = req
+            .params
+            .expect("ExecuteSqlRequest parameters should be set after into_request conversion");
         assert_eq!(params.len(), 2);
         assert!(params.contains_key("age"));
         assert!(params.contains_key("role"));
 
-        // Test get_param_types mapped to HashMap<String, model::Type>
-        let param_types = stmt.get_param_types();
+        let param_types = req.param_types;
         assert_eq!(param_types.len(), 1);
         assert!(param_types.contains_key("role"));
     }

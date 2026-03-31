@@ -1192,6 +1192,17 @@ impl std::fmt::Debug for super::AlloyDbClusterBackupProperties {
     }
 }
 
+impl std::fmt::Debug for super::AlloyDBClusterBackupPlanAssociationProperties {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AlloyDBClusterBackupPlanAssociationProperties");
+        debug_struct.field("cluster_uid", &self.cluster_uid);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::BackupApplianceBackupProperties {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BackupApplianceBackupProperties");

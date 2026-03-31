@@ -12,18 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::RequestStart;
+use crate::observability::RequestRecorder;
+use crate::observability::attributes::GCP_CLIENT_REPO_GOOGLEAPIS;
 use crate::observability::attributes::keys::{
     GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION,
-    RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
+    HTTP_RESPONSE_STATUS_CODE, RPC_METHOD, RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
 };
-use crate::observability::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, RPC_SYSTEM_HTTP};
+use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::error::rpc::Code;
 use opentelemetry::metrics::{Histogram, MeterProvider};
-use opentelemetry::{InstrumentationScope, KeyValue};
-use opentelemetry_semantic_conventions::attribute;
+use opentelemetry::{InstrumentationScope, KeyValue, Value};
+use opentelemetry_semantic_conventions::attribute::{URL_DOMAIN, URL_TEMPLATE};
+use opentelemetry_semantic_conventions::trace::{ERROR_TYPE, SERVER_ADDRESS, SERVER_PORT};
 use std::sync::Arc;
 
 pub const BOUNDARIES: [f64; 16] = [
@@ -100,61 +102,78 @@ impl DurationMetric {
 
     /// Records the latency for a successful request.
     ///
-    /// Uses `start` to compute the duration and the method attributes.
-    pub(crate) fn record_ok(&self, start: &RequestStart) {
-        let elapsed = start.elapsed();
+    /// Uses `RequestRecorder` to retrieve the request attributes.
+    pub(crate) fn with_recorder_ok(&self) {
+        let Some(snapshot) = RequestRecorder::current().map(|r| r.client_snapshot()) else {
+            return;
+        };
+        let attributes: [(&str, Option<Value>); 8] = [
+            (RPC_SYSTEM_NAME, snapshot.rpc_system().map(|v| v.into())),
+            (RPC_METHOD, snapshot.rpc_method().map(|v| v.into())),
+            (URL_DOMAIN, Some(snapshot.default_host().into())),
+            (URL_TEMPLATE, snapshot.url_template().map(|v| v.into())),
+            (RPC_RESPONSE_STATUS_CODE, Some(Code::Ok.name().into())),
+            (
+                HTTP_RESPONSE_STATUS_CODE,
+                snapshot.http_status_code().map(|v| (v as i64).into()),
+            ),
+            (SERVER_ADDRESS, Some(snapshot.server_address().into())),
+            (SERVER_PORT, Some((snapshot.server_port() as i64).into())),
+        ];
+        let attributes = attributes
+            .into_iter()
+            .filter_map(|(k, v)| v.map(|v| KeyValue::new(k, v)))
+            .collect::<Vec<_>>();
         self.0.record(
-            elapsed.as_secs_f64(),
-            &[
-                KeyValue::new(RPC_SYSTEM_NAME, RPC_SYSTEM_HTTP),
-                KeyValue::new(attribute::URL_DOMAIN, start.info().default_host),
-                KeyValue::new(attribute::URL_TEMPLATE, start.url_template()),
-                KeyValue::new(attribute::RPC_METHOD, start.method()),
-                KeyValue::new(RPC_RESPONSE_STATUS_CODE, Code::Ok.name()),
-                KeyValue::new(attribute::HTTP_RESPONSE_STATUS_CODE, 200_i64),
-            ],
+            snapshot.client_duration().as_secs_f64(),
+            attributes.as_slice(),
         );
     }
 
-    /// Records the latency for a request that completed with an error.
+    /// Records the latency for a successful request.
     ///
-    /// Uses `start` to compute the duration and most of the method attributes,
-    /// `error` is summarized in some key parameters, including any status
-    /// codes.
-    pub(crate) fn record_error(&self, start: &RequestStart, error: &Error) {
-        let elapsed = start.elapsed();
-        // Use a `Vec` to omit HTTP_RESPONSE_STATUS_CODE. This extra allocation
-        // occurs only on error paths, which should be rare.
-        let mut attributes = Vec::from_iter([
-            KeyValue::new(RPC_SYSTEM_NAME, RPC_SYSTEM_HTTP),
-            KeyValue::new(attribute::URL_DOMAIN, start.info().default_host),
-            KeyValue::new(attribute::URL_TEMPLATE, start.url_template()),
-            KeyValue::new(attribute::RPC_METHOD, start.method()),
-            KeyValue::new(
+    /// Uses `RequestRecorder` to retrieve the request attributes.
+    pub(crate) fn with_recorder_error(&self, error: &Error) {
+        let Some(snapshot) = RequestRecorder::current().map(|r| r.client_snapshot()) else {
+            return;
+        };
+        let error_type = ErrorType::from_gax_error(error);
+        let attributes: [(&str, Option<Value>); 9] = [
+            (RPC_SYSTEM_NAME, snapshot.rpc_system().map(|v| v.into())),
+            (RPC_METHOD, snapshot.rpc_method().map(|v| v.into())),
+            (URL_DOMAIN, Some(snapshot.default_host().into())),
+            (URL_TEMPLATE, snapshot.url_template().map(|v| v.into())),
+            (ERROR_TYPE, Some(error_type.as_str().into())),
+            (
                 RPC_RESPONSE_STATUS_CODE,
-                error
-                    .status()
-                    .map(|s| s.code.name())
-                    .unwrap_or(Code::Unknown.name()),
+                error.status().map(|s| s.code.name().into()),
             ),
-        ]);
-        if let Some(code) = error.http_status_code() {
-            attributes.push(KeyValue::new(
-                attribute::HTTP_RESPONSE_STATUS_CODE,
-                code as i64,
-            ));
-        }
-        self.0.record(elapsed.as_secs_f64(), &attributes);
+            (
+                HTTP_RESPONSE_STATUS_CODE,
+                snapshot.http_status_code().map(|v| (v as i64).into()),
+            ),
+            (SERVER_ADDRESS, Some(snapshot.server_address().into())),
+            (SERVER_PORT, Some((snapshot.server_port() as i64).into())),
+        ];
+        let attributes = attributes
+            .into_iter()
+            .filter_map(|(k, v)| v.map(|v| KeyValue::new(k, v)))
+            .collect::<Vec<_>>();
+        self.0.record(
+            snapshot.client_duration().as_secs_f64(),
+            attributes.as_slice(),
+        );
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::*;
+    use super::super::tests::{
+        TEST_INFO, TEST_METHOD, TEST_URL_TEMPLATE, check_metric_data, check_metric_scope,
+    };
     use super::*;
+    use crate::observability::ClientRequestAttributes;
     use google_cloud_gax::error::rpc::Status;
-    use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
     use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
     use std::sync::Arc;
     use std::time::Duration;
@@ -165,10 +184,8 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn global_record_error() -> anyhow::Result<()> {
         let metric = DurationMetric::new(&TEST_INFO);
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         let error = Error::http(408, http::HeaderMap::new(), bytes::Bytes::new());
-        metric.record_error(&start, &error);
+        metric.with_recorder_error(&error);
         // We can make no assertions other than "this test does not crash" because it must use a
         // global variable (`opentelemetry::global::meter_provider()`) and any other test in the
         // same crate may set or use that variable too.
@@ -182,11 +199,20 @@ mod tests {
             .with_reader(PeriodicReader::builder(exporter.clone()).build())
             .build();
         let metric = DurationMetric::new_with_provider(&TEST_INFO, Arc::new(provider.clone()));
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
+        let recorder = RequestRecorder::new(TEST_INFO);
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_url_template(TEST_URL_TEMPLATE)
+                .set_rpc_method(TEST_METHOD),
+        );
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
-        metric.record_ok(&start);
+        let _ = recorder
+            .scope(async {
+                metric.with_recorder_ok();
+                Ok(())
+            })
+            .await;
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
         check_metric_scope(&metrics);
@@ -194,9 +220,17 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
-                ("rpc.method", METHOD),
+                // We are not simulating the HTTP layer so these are not populated.
+                // ("rpc.system.name", "http"),
+                // ("http.response.status_code", "200"),
+                // The server.address and server.port get default values:
+                ("server.address", "example.com"),
+                ("server.port", "443"),
+                // And here are the interesting attributes:
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
+                ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "OK"),
-                ("http.response.status_code", "200"),
             ],
         );
         Ok(())
@@ -209,8 +243,12 @@ mod tests {
             .with_reader(PeriodicReader::builder(exporter.clone()).build())
             .build();
         let metric = DurationMetric::new_with_provider(&TEST_INFO, Arc::new(provider.clone()));
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, "test-method");
+        let recorder = RequestRecorder::new(TEST_INFO);
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_url_template(TEST_URL_TEMPLATE)
+                .set_rpc_method(TEST_METHOD),
+        );
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
         let error = Error::service(
@@ -218,7 +256,12 @@ mod tests {
                 .set_code(Code::NotFound)
                 .set_message("NOT FOUND"),
         );
-        metric.record_error(&start, &error);
+        let _ = recorder
+            .scope(async {
+                metric.with_recorder_error(&error);
+                Ok(())
+            })
+            .await;
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
         check_metric_scope(&metrics);
@@ -226,7 +269,17 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
-                ("rpc.method", METHOD),
+                // We are not simulating the HTTP layer so these are not populated.
+                // ("rpc.system.name", "http"),
+                // ("http.response.status_code", "404"),
+                // The server.address and server.port get default values:
+                ("server.address", "example.com"),
+                ("server.port", "443"),
+                // And here are the interesting attributes:
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
+                ("rpc.method", TEST_METHOD),
+                ("error.type", "NOT_FOUND"),
                 ("rpc.response.status_code", "NOT_FOUND"),
             ],
         );
@@ -240,12 +293,21 @@ mod tests {
             .with_reader(PeriodicReader::builder(exporter.clone()).build())
             .build();
         let metric = DurationMetric::new_with_provider(&TEST_INFO, Arc::new(provider.clone()));
-        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
-        let start = RequestStart::new(&TEST_INFO, &options, "test-method");
+        let recorder = RequestRecorder::new(TEST_INFO);
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_url_template(TEST_URL_TEMPLATE)
+                .set_rpc_method(TEST_METHOD),
+        );
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
         let error = Error::http(429, http::HeaderMap::new(), bytes::Bytes::new());
-        metric.record_error(&start, &error);
+        let _ = recorder
+            .scope(async {
+                metric.with_recorder_error(&error);
+                Ok(())
+            })
+            .await;
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
         check_metric_scope(&metrics);
@@ -253,9 +315,17 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
-                ("rpc.method", METHOD),
-                ("rpc.response.status_code", "UNKNOWN"),
-                ("http.response.status_code", "429"),
+                // We are not simulating the HTTP layer so these are not populated.
+                // ("rpc.system.name", "http"),
+                // ("http.response.status_code", "200"),
+                // The server.address and server.port get default values:
+                ("server.address", "example.com"),
+                ("server.port", "443"),
+                // And here are the interesting attributes:
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
+                ("rpc.method", TEST_METHOD),
+                ("error.type", "429"),
             ],
         );
         Ok(())

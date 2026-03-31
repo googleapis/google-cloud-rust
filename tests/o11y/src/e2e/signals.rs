@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::Buffer;
 use super::{new_credentials, set_up_providers, wait_for_trace};
 use crate::Anonymous;
 use google_cloud_auth::credentials::Credentials;
@@ -21,11 +20,13 @@ use google_cloud_monitoring_v3::client::MetricService;
 use google_cloud_monitoring_v3::model::TimeInterval;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::runtime_config::project_id;
+pub use google_cloud_test_utils::tracing::Buffer;
 use google_cloud_wkt::Timestamp;
 use httptest::responders::{delay_and_then, status_code};
 use httptest::{Expectation, Server, matchers::*};
 use opentelemetry::TraceId;
 use opentelemetry::trace::TraceContextExt;
+use pretty_assertions::assert_eq;
 use rand::RngExt;
 use std::time::SystemTime;
 use std::{collections::BTreeSet, time::Duration};
@@ -198,31 +199,23 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
             .is_some_and(|v| v.as_str().is_some()),
         "{value:?}"
     );
+    assert!(fields.remove("gcp.client.version").is_some(), "{value:?}");
+    assert!(fields.remove("server.address").is_some(), "{value:?}");
+    assert!(fields.remove("server.port").is_some(), "{value:?}");
+    assert!(fields.remove("url.full").is_some(), "{value:?}");
     let want = serde_json::json!({
-        "http.response.status_code": 404,
-        "rpc.method": "google_cloud_showcase_v1beta1::client::Echo::echo",
-        "rpc.response.status_code": "UNKNOWN",
+        "gcp.client.artifact": "google-cloud-showcase-v1beta1",
+        "gcp.client.repo": "googleapis/google-cloud-rust",
+        "gcp.client.service": "showcase",
+        "error.type": "404",
+        "http.request.method": "POST",
+        "rpc.method": "google.showcase.v1beta1.Echo/Echo",
+        "rpc.service": "showcase",
         "rpc.system.name": "http",
         "url.domain": "localhost:7469", // the showcase domain...
-        "url.template": "", // TODO(#...)
-        "exception.type": "404",
+        "url.template": "/v1beta1/echo:echo",
     });
-    for (key, expected) in want.as_object().unwrap() {
-        assert_eq!(
-            fields.get(key),
-            Some(expected),
-            "mismatch for {key:?} in {value:?}"
-        );
-    }
-
-    assert!(
-        fields
-            .get("exception.message")
-            .unwrap()
-            .as_str()
-            .unwrap()
-            .starts_with("the HTTP transport reports a [404] error:")
-    );
+    assert_eq!(Some(&fields), want.as_object(), "{value:?}");
 
     let ts = timestamp
         .as_ref()

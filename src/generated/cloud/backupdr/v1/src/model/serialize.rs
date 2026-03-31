@@ -1026,6 +1026,9 @@ impl serde::ser::Serialize for super::BackupPlanAssociation {
         if let Some(value) = self.cloud_sql_instance_backup_plan_association_properties() {
             state.serialize_entry("cloudSqlInstanceBackupPlanAssociationProperties", value)?;
         }
+        if let Some(value) = self.alloydb_cluster_backup_plan_association_properties() {
+            state.serialize_entry("alloydbClusterBackupPlanAssociationProperties", value)?;
+        }
         if !self.backup_plan_revision_id.is_empty() {
             state.serialize_entry("backupPlanRevisionId", &self.backup_plan_revision_id)?;
         }
@@ -2866,6 +2869,28 @@ impl serde::ser::Serialize for super::AlloyDbClusterBackupProperties {
         }
         if !self.database_version.is_empty() {
             state.serialize_entry("databaseVersion", &self.database_version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AlloyDBClusterBackupPlanAssociationProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.cluster_uid.is_empty() {
+            state.serialize_entry("clusterUid", &self.cluster_uid)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

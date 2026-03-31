@@ -17,6 +17,96 @@
 /// A dyn-compatible, crate-private version of [super::Dataform].
 #[async_trait::async_trait]
 pub trait Dataform: std::fmt::Debug + Send + Sync {
+    async fn get_team_folder(
+        &self,
+        req: crate::model::GetTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TeamFolder>>;
+
+    async fn create_team_folder(
+        &self,
+        req: crate::model::CreateTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TeamFolder>>;
+
+    async fn update_team_folder(
+        &self,
+        req: crate::model::UpdateTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TeamFolder>>;
+
+    async fn delete_team_folder(
+        &self,
+        req: crate::model::DeleteTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn delete_team_folder_tree(
+        &self,
+        req: crate::model::DeleteTeamFolderTreeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn query_team_folder_contents(
+        &self,
+        req: crate::model::QueryTeamFolderContentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTeamFolderContentsResponse>>;
+
+    async fn search_team_folders(
+        &self,
+        req: crate::model::SearchTeamFoldersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchTeamFoldersResponse>>;
+
+    async fn get_folder(
+        &self,
+        req: crate::model::GetFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Folder>>;
+
+    async fn create_folder(
+        &self,
+        req: crate::model::CreateFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Folder>>;
+
+    async fn update_folder(
+        &self,
+        req: crate::model::UpdateFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Folder>>;
+
+    async fn delete_folder(
+        &self,
+        req: crate::model::DeleteFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn delete_folder_tree(
+        &self,
+        req: crate::model::DeleteFolderTreeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn query_folder_contents(
+        &self,
+        req: crate::model::QueryFolderContentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryFolderContentsResponse>>;
+
+    async fn query_user_root_contents(
+        &self,
+        req: crate::model::QueryUserRootContentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryUserRootContentsResponse>>;
+
+    async fn move_folder(
+        &self,
+        req: crate::model::MoveFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_repositories(
         &self,
         req: crate::model::ListRepositoriesRequest,
@@ -46,6 +136,12 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteRepositoryRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>>;
+
+    async fn move_repository(
+        &self,
+        req: crate::model::MoveRepositoryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
     async fn commit_repository_changes(
         &self,
@@ -341,6 +437,24 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Config>>;
 
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -353,28 +467,179 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_location::model::Location>>;
 
-    async fn set_iam_policy(
+    async fn list_operations(
         &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
 
-    async fn get_iam_policy(
+    async fn get_operation(
         &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>;
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
-    async fn test_iam_permissions(
+    async fn delete_operation(
         &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>;
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::Dataform] also implement [Dataform].
 #[async_trait::async_trait]
 impl<T: super::Dataform> Dataform for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_team_folder(
+        &self,
+        req: crate::model::GetTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TeamFolder>> {
+        T::get_team_folder(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_team_folder(
+        &self,
+        req: crate::model::CreateTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TeamFolder>> {
+        T::create_team_folder(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_team_folder(
+        &self,
+        req: crate::model::UpdateTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TeamFolder>> {
+        T::update_team_folder(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_team_folder(
+        &self,
+        req: crate::model::DeleteTeamFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_team_folder(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_team_folder_tree(
+        &self,
+        req: crate::model::DeleteTeamFolderTreeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_team_folder_tree(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn query_team_folder_contents(
+        &self,
+        req: crate::model::QueryTeamFolderContentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryTeamFolderContentsResponse>> {
+        T::query_team_folder_contents(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn search_team_folders(
+        &self,
+        req: crate::model::SearchTeamFoldersRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SearchTeamFoldersResponse>> {
+        T::search_team_folders(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_folder(
+        &self,
+        req: crate::model::GetFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Folder>> {
+        T::get_folder(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_folder(
+        &self,
+        req: crate::model::CreateFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Folder>> {
+        T::create_folder(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_folder(
+        &self,
+        req: crate::model::UpdateFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Folder>> {
+        T::update_folder(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_folder(
+        &self,
+        req: crate::model::DeleteFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_folder(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_folder_tree(
+        &self,
+        req: crate::model::DeleteFolderTreeRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_folder_tree(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn query_folder_contents(
+        &self,
+        req: crate::model::QueryFolderContentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryFolderContentsResponse>> {
+        T::query_folder_contents(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn query_user_root_contents(
+        &self,
+        req: crate::model::QueryUserRootContentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::QueryUserRootContentsResponse>> {
+        T::query_user_root_contents(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn move_folder(
+        &self,
+        req: crate::model::MoveFolderRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::move_folder(self, req, options).await
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn list_repositories(
         &self,
@@ -418,6 +683,15 @@ impl<T: super::Dataform> Dataform for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<()>> {
         T::delete_repository(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn move_repository(
+        &self,
+        req: crate::model::MoveRepositoryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::move_repository(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -864,6 +1138,34 @@ impl<T: super::Dataform> Dataform for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -882,30 +1184,53 @@ impl<T: super::Dataform> Dataform for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn set_iam_policy(
+    async fn list_operations(
         &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        T::set_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        T::get_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>>
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
     {
-        T::test_iam_permissions(self, req, options).await
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
     }
 }

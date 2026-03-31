@@ -30,6 +30,7 @@ tracing-subscriber                 = { workspace = true, features = ["env-filter
 uuid                               = { workspace = true, features = ["std", "v4"] }
 
 [dev-dependencies]
+pretty_assertions     = { workspace = true }
 scoped-env.workspace  = true
 serial_test.workspace = true
 test-case.workspace   = true

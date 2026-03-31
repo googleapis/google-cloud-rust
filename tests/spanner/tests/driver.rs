@@ -44,6 +44,30 @@ mod spanner {
     }
 
     #[tokio::test]
+    async fn run_read_write_tests() -> anyhow::Result<()> {
+        let db_client = match integration_tests_spanner::client::create_database_client().await {
+            Some(c) => c,
+            None => return Ok(()),
+        };
+
+        integration_tests_spanner::read_write_transaction::successful_read_write_transaction(
+            &db_client,
+        )
+        .await?;
+        integration_tests_spanner::read_write_transaction::rolled_back_read_write_transaction(
+            &db_client,
+        )
+        .await?;
+
+        integration_tests_spanner::read_write_transaction::concurrent_read_write_transaction_retries(
+            &db_client,
+        )
+        .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn run_partitioned_dml_tests() -> anyhow::Result<()> {
         let db_client = match integration_tests_spanner::client::create_database_client().await {
             Some(c) => c,
@@ -67,6 +91,7 @@ mod spanner {
         integration_tests_spanner::read::read_key_range(&db_client).await?;
         integration_tests_spanner::read::read_with_limit(&db_client).await?;
         integration_tests_spanner::read::read_with_index(&db_client).await?;
+        integration_tests_spanner::read::read_as_stream(&db_client).await?;
 
         Ok(())
     }

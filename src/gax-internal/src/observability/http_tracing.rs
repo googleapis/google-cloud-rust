@@ -13,14 +13,13 @@
 // limitations under the License.
 
 use crate::observability::attributes::keys::*;
-use crate::observability::attributes::*;
 use crate::observability::errors::ErrorType;
+use crate::observability::{RequestRecorder, attributes::*};
 use crate::options::InstrumentationClientInfo;
 use google_cloud_gax::Result;
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, ResourceName};
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
-use reqwest::{Method, Url};
 use std::collections::HashSet;
 use std::sync::LazyLock;
 use tracing::{Span, field};
@@ -49,13 +48,23 @@ pub(crate) fn create_http_attempt_span(
     instrumentation: Option<&'static InstrumentationClientInfo>,
     prior_attempt_count: u32,
 ) -> Span {
-    let url = cleanup_url(request.url());
+    let url = sanitize_url(request.url());
     let method = request.method();
 
-    let resource_name = options
-        .get_extension::<ResourceName>()
-        .map(|e| e.0.as_str());
-    let url_template = options.get_extension::<PathTemplate>().map(|e| e.0);
+    let snapshot = RequestRecorder::current().map(|r| r.client_snapshot());
+    let resource_name;
+    let url_template;
+    if let Some(snapshot) = &snapshot {
+        resource_name = snapshot.resource_name();
+        url_template = snapshot.url_template();
+    } else {
+        // TODO(#5177) - remove this code once nothing else uses the extensions.
+        resource_name = options
+            .get_extension::<ResourceName>()
+            .map(|e| e.0.as_str());
+        url_template = options.get_extension::<PathTemplate>().map(|e| e.0);
+    };
+
     let otel_name = url_template
         .map(|template| format!("{method} {template}"))
         .unwrap_or_else(|| method.to_string());
@@ -111,7 +120,7 @@ pub(crate) fn create_http_attempt_span(
 
 /// Records additional attributes to the span based on the `Result`.
 pub trait ResultExt: sealed::ResultExt {
-    fn record_http(self, span: &Span, prior_attempt_count: u32, method: Method, url: Url) -> Self;
+    fn record_http(self, span: &Span) -> Self;
 }
 
 mod sealed {
@@ -120,8 +129,7 @@ mod sealed {
 
 impl sealed::ResultExt for Result<reqwest::Response> {}
 impl ResultExt for Result<reqwest::Response> {
-    fn record_http(self, span: &Span, prior_attempt_count: u32, method: Method, url: Url) -> Self {
-        record_intermediate_client_request(&self, prior_attempt_count, &method, &url);
+    fn record_http(self, span: &Span) -> Self {
         match &self {
             Ok(response) => {
                 span.record(
@@ -153,77 +161,7 @@ impl ResultExt for Result<reqwest::Response> {
     }
 }
 
-/// Records HTTP transport attributes on the current span.
-///
-/// This function is used to enrich the Client Request Span (T3) with attributes
-/// from the transport attempt that are only available before the response is consumed.
-pub fn record_intermediate_client_request(
-    result: &Result<reqwest::Response>,
-    prior_attempt_count: u32,
-    method: &http::Method,
-    request_url: &reqwest::Url,
-) {
-    let span = Span::current();
-    if span.is_disabled() {
-        // Skip disabled traces because this function adds a small amount of
-        // overhead.
-        return;
-    }
-    if span
-        .metadata()
-        .is_none_or(|m| m.fields().field("gax.client.span").is_none())
-    {
-        // Only enrich spans that are explicitly marked as GAX client spans.
-        // This prevents accidental enrichment of user-provided spans that happen to have the same fields.
-        return;
-    }
-
-    span.record(otel_trace::HTTP_REQUEST_METHOD, method.as_str());
-
-    let final_url = match result {
-        Ok(response) => response.url(),
-        Err(_) => request_url,
-    };
-
-    span.record(
-        otel_trace::SERVER_ADDRESS,
-        final_url
-            .host_str()
-            .map(|h| h.trim_start_matches('[').trim_end_matches(']'))
-            .unwrap_or(""),
-    );
-    span.record(
-        otel_trace::SERVER_PORT,
-        final_url
-            .port_or_known_default()
-            .map(|p| p as i64)
-            .unwrap_or(0),
-    );
-    span.record(otel_trace::URL_FULL, final_url.as_str());
-
-    match result {
-        Ok(response) => {
-            span.record(
-                otel_trace::HTTP_RESPONSE_STATUS_CODE,
-                response.status().as_u16() as i64,
-            );
-        }
-        Err(err) => {
-            if let Some(status) = err.http_status_code() {
-                span.record(otel_trace::HTTP_RESPONSE_STATUS_CODE, status as i64);
-            }
-        }
-    }
-
-    if prior_attempt_count > 0 {
-        span.record(
-            otel_trace::HTTP_REQUEST_RESEND_COUNT,
-            prior_attempt_count as i64,
-        );
-    }
-}
-
-fn cleanup_url(url: &::reqwest::Url) -> ::reqwest::Url {
+pub fn sanitize_url(url: &::reqwest::Url) -> ::reqwest::Url {
     if url.query().is_none() {
         return url.clone();
     }
@@ -249,7 +187,6 @@ fn cleanup_url(url: &::reqwest::Url) -> ::reqwest::Url {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::client_request_span;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_gax::error::{
         Error,
@@ -260,6 +197,7 @@ mod tests {
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer, TestLayerGuard};
     use http::Method;
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
+    use pretty_assertions::assert_eq;
     use reqwest::{self, StatusCode};
     use std::collections::{BTreeMap, BTreeSet};
     use test_case::test_case;
@@ -417,7 +355,7 @@ mod tests {
 
         let response = http::Response::builder().status(status_code).body("")?;
         let response: reqwest::Response = response.into();
-        let _ = Ok(response).record_http(&span, 123, Method::GET, request.url().clone());
+        let _ = Ok(response).record_http(&span);
 
         let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "GET".into()),
@@ -456,7 +394,7 @@ mod tests {
 
         // Simulate a timeout error as a gax::Error
         let error = Error::timeout("test timeout");
-        let _ = Err(error).record_http(&span, 123, Method::GET, request.url().clone());
+        let _ = Err(error).record_http(&span);
 
         let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "GET".into()),
@@ -509,7 +447,7 @@ mod tests {
             http::HeaderMap::new(),
             bytes::Bytes::new(),
         );
-        let _ = Err(error).record_http(&span, 123, Method::GET, request.url().clone());
+        let _ = Err(error).record_http(&span);
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
@@ -568,7 +506,7 @@ mod tests {
             .set_message("Invalid API Key")
             .set_details(vec![StatusDetails::ErrorInfo(error_info)]);
         let error = Error::service(status);
-        let _ = Err(error).record_http(&span, 123, Method::GET, request.url().clone());
+        let _ = Err(error).record_http(&span);
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
@@ -650,111 +588,52 @@ mod tests {
 
     #[tokio::test]
     async fn test_record_intermediate_client_request() {
-        let guard = TestLayer::initialize();
-        let current = client_request_span!("Service", "test_method", &TEST_INFO);
-        let _enter = current.enter();
-
-        let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let request =
+            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
+        recorder.on_http_request(&request);
         let response = http::Response::builder()
             .status(StatusCode::OK)
             .body("")
             .unwrap();
         let response: reqwest::Response = response.into();
+        recorder.on_http_response(&response);
         let t4 = tracing::info_span!("t4");
-        let _ = Ok(response).record_http(&t4, 1, Method::GET, url);
+        let _ = recorder
+            .clone()
+            .scope(async { Ok(response).record_http(&t4) })
+            .await;
 
-        let captured = TestLayer::capture(&guard);
-        let test = captured
-            .iter()
-            .find(|s| s.name == "client_request")
-            .unwrap_or_else(|| panic!("cannot find `client_request` span: {captured:?}"));
-        let attributes = &test.attributes;
-
-        assert_eq!(
-            attributes.get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
-            Some(&(200_i64).into())
-        );
-        assert_eq!(
-            attributes.get(otel_trace::HTTP_REQUEST_RESEND_COUNT),
-            Some(&(1_i64).into())
-        );
-        assert_eq!(
-            attributes.get(otel_trace::HTTP_REQUEST_METHOD),
-            Some(&"GET".into())
-        );
-    }
-
-    #[tokio::test]
-    async fn test_record_intermediate_client_request_no_marker() {
-        let guard = TestLayer::initialize();
-        let current = tracing::info_span!(
-            "test_span",
-            { otel_trace::HTTP_RESPONSE_STATUS_CODE } = field::Empty,
-            { otel_trace::HTTP_REQUEST_RESEND_COUNT } = field::Empty,
-            // Missing "gax.client.span" marker field
-        );
-        let _enter = current.enter();
-
-        let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();
-        let response = http::Response::builder()
-            .status(StatusCode::OK)
-            .body("")
-            .unwrap();
-        let response: reqwest::Response = response.into();
-        let t4 = tracing::info_span!("t4");
-        let _ = Ok(response).record_http(&t4, 1, Method::GET, url);
-
-        let captured = TestLayer::capture(&guard);
-        let test = captured
-            .iter()
-            .find(|s| s.name == "test_span")
-            .unwrap_or_else(|| panic!("cannot find `test_span` span: {captured:?}"));
-        let attributes = &test.attributes;
-
-        // Should NOT be recorded because the span lacks the necessary marker.
-        assert!(!attributes.contains_key(otel_trace::HTTP_RESPONSE_STATUS_CODE));
-        assert!(!attributes.contains_key(otel_trace::HTTP_REQUEST_RESEND_COUNT));
+        let snapshot = recorder.client_snapshot();
+        assert!(snapshot.http_resend_count().is_none(), "{snapshot:?}");
+        assert_eq!(snapshot.http_status_code(), Some(200), "{snapshot:?}");
+        assert_eq!(snapshot.server_address(), "example.com", "{snapshot:?}");
+        assert_eq!(snapshot.server_port(), 443, "{snapshot:?}");
     }
 
     #[tokio::test]
     async fn test_record_intermediate_client_request_error() {
-        let guard = TestLayer::initialize();
-        let span = client_request_span!("Service", "test_method", &TEST_INFO);
-        let _enter = span.enter();
-
-        let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let request =
+            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
+        recorder.on_http_request(&request);
         // Simulate a 404 error
-        let error = Error::http(404, http::HeaderMap::new(), bytes::Bytes::new());
+        let response = http::Response::builder()
+            .status(StatusCode::NOT_FOUND)
+            .body("")
+            .unwrap();
+        let response: reqwest::Response = response.into();
+        recorder.on_http_response(&response);
         let t4 = tracing::info_span!("t4");
-        let _response = Err(error).record_http(&t4, 1, Method::POST, url);
+        let _ = recorder
+            .clone()
+            .scope(async { Ok(response).record_http(&t4) })
+            .await;
 
-        let captured = TestLayer::capture(&guard);
-        let t3 = captured
-            .iter()
-            .find(|s| s.name == "client_request")
-            .unwrap_or_else(|| panic!("cannot find `client_request` span: {captured:?}"));
-        let attributes = &t3.attributes;
-
-        assert_eq!(
-            attributes.get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
-            Some(&(404_i64).into())
-        );
-        assert_eq!(
-            attributes.get(otel_trace::HTTP_REQUEST_RESEND_COUNT),
-            Some(&(1_i64).into())
-        );
-        assert_eq!(
-            attributes.get(otel_trace::HTTP_REQUEST_METHOD),
-            Some(&"POST".into())
-        );
-        // Verify URL attributes from fallback
-        assert_eq!(
-            attributes.get(otel_trace::URL_FULL),
-            Some(&"https://example.com/test".into())
-        );
-        assert_eq!(
-            attributes.get(otel_trace::SERVER_ADDRESS),
-            Some(&"example.com".into())
-        );
+        let snapshot = recorder.client_snapshot();
+        assert!(snapshot.http_resend_count().is_none(), "{snapshot:?}");
+        assert_eq!(snapshot.http_status_code(), Some(404), "{snapshot:?}");
+        assert_eq!(snapshot.server_address(), "example.com", "{snapshot:?}");
+        assert_eq!(snapshot.server_port(), 443, "{snapshot:?}");
     }
 }

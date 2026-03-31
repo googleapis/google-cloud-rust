@@ -20,6 +20,13 @@
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
 
+pub use crate::model::PartitionOptions;
+pub use batch_dml::BatchDml;
+pub use batch_dml::BatchDmlBuilder;
+pub use batch_read_only_transaction::{
+    BatchReadOnlyTransaction, BatchReadOnlyTransactionBuilder, Partition,
+};
+pub use error::BatchUpdateError;
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
 pub use rust_decimal::Decimal;
@@ -29,11 +36,13 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+pub mod batch_dml;
 pub mod client;
 pub(crate) mod server_streaming;
 pub mod builder {
     pub use crate::database_client::DatabaseClientBuilder;
 }
+pub mod batch_read_only_transaction;
 pub(crate) mod database_client;
 pub(crate) mod model {
     pub use crate::generated::gapic_dataplane::model::*;

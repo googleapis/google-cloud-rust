@@ -244,6 +244,32 @@ impl Spanner {
             .await
     }
 
+    pub(crate) async fn partition_query(
+        &self,
+        request: crate::model::PartitionQueryRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::model::PartitionResponse> {
+        self.inner
+            .partition_query()
+            .with_request(request)
+            .with_options(options)
+            .send()
+            .await
+    }
+
+    pub(crate) async fn partition_read(
+        &self,
+        request: crate::model::PartitionReadRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::model::PartitionResponse> {
+        self.inner
+            .partition_read()
+            .with_request(request)
+            .with_options(options)
+            .send()
+            .await
+    }
+
     /// Executes an SQL statement, returning a stream of results.
     ///
     /// This is a custom streaming implementation over the underlying Spanner gRPC

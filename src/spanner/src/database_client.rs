@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::client::Spanner;
 use crate::model::Session;
 use crate::partitioned_dml_transaction::PartitionedDmlTransactionBuilder;
@@ -97,6 +98,24 @@ impl DatabaseClient {
     /// but don't permit data modifications. Read-only transactions do not take locks.
     pub fn read_only_transaction(&self) -> MultiUseReadOnlyTransactionBuilder {
         MultiUseReadOnlyTransactionBuilder::new(self.clone())
+    }
+
+    /// Returns a builder for a batch read-only transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # async fn build(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.batch_read_only_transaction().build().await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// A batch read-only transaction is similar to a read-only transaction, but it allows for partitioning
+    /// a read or query request. Run tasks in parallel over the partitions to execute a large read or query.
+    pub fn batch_read_only_transaction(&self) -> BatchReadOnlyTransactionBuilder {
+        BatchReadOnlyTransactionBuilder::new(self.clone())
     }
 
     /// Returns a builder for a partitioned DML transaction.

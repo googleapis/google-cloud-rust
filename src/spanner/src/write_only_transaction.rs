@@ -20,6 +20,8 @@ use crate::model::{
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, retry_aborted,
 };
+use bytes::Bytes;
+use std::sync::{Arc, Mutex};
 
 /// A builder for [WriteOnlyTransaction].
 pub struct WriteOnlyTransactionBuilder {
@@ -154,19 +156,25 @@ impl WriteOnlyTransaction {
         let mutations_proto: Vec<_> = mutations.into_iter().map(|m| m.build_proto()).collect();
         let mutation_key = Mutation::select_mutation_key(&mutations_proto);
         let client = self.client;
+        let previous_transaction_id = Arc::new(Mutex::new(Bytes::new()));
 
         retry_aborted(&*self.retry_policy, || {
             let client = client.clone();
             let req_options = req_options.clone();
             let mutations_proto = mutations_proto.clone();
             let mutation_key = mutation_key.clone();
+            let previous_transaction_id = previous_transaction_id.clone();
 
             async move {
+                let previous_id: Bytes = previous_transaction_id.lock().unwrap().clone();
+
                 let begin_req = BeginTransactionRequest::default()
                     .set_session(client.session.name.clone())
                     .set_options(
-                        TransactionOptions::default()
-                            .set_read_write(Box::new(ReadWrite::default())),
+                        TransactionOptions::default().set_read_write(Box::new(
+                            ReadWrite::default()
+                                .set_multiplexed_session_previous_transaction_id(previous_id),
+                        )),
                     )
                     .set_request_options(req_options.clone())
                     .set_or_clear_mutation_key(mutation_key.clone());
@@ -175,6 +183,7 @@ impl WriteOnlyTransaction {
                     .spanner
                     .begin_transaction(begin_req, crate::RequestOptions::default())
                     .await?;
+                *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
                 let commit_req = CommitRequest::default()
                     .set_session(client.session.name.clone())
@@ -274,6 +283,14 @@ impl WriteOnlyTransaction {
 mod tests {
     use super::*;
     use crate::client::Spanner;
+    use crate::transaction_retry_policy::tests::create_aborted_status;
+    use gaxi::grpc::tonic::Response;
+    use prost_types::Timestamp;
+    use spanner_grpc_mock::google::spanner::v1::CommitResponse;
+    use spanner_grpc_mock::google::spanner::v1::Session;
+    use spanner_grpc_mock::google::spanner::v1::Transaction;
+    use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
+    use std::time::Duration;
 
     pub(crate) async fn setup_db_client(
         mock: spanner_grpc_mock::MockSpanner,
@@ -535,5 +552,94 @@ mod tests {
                 .seconds(),
             9999
         );
+    }
+
+    #[tokio::test]
+    async fn write_with_commit_aborted_retry() -> anyhow::Result<()> {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert!(req.mutation_key.is_some());
+
+                Ok(Response::new(Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| Err(create_aborted_status(Duration::from_nanos(1))));
+
+        mock.expect_begin_transaction()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert!(req.mutation_key.is_some());
+
+                let options = req.options.as_ref().expect("options required on retry");
+                let read_write = options.mode.as_ref().expect("mode required on retry");
+                match read_write {
+                    Mode::ReadWrite(rw) => {
+                        assert_eq!(rw.multiplexed_session_previous_transaction_id, vec![42], "previous_transaction_id should be set to the ID of the aborted transaction");
+                    }
+                    _ => panic!("Expected ReadWrite mode"),
+                }
+
+                Ok(Response::new(Transaction {
+                    id: vec![42],
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_req| {
+                Ok(Response::new(CommitResponse {
+                    commit_timestamp: Some(Timestamp {
+                        seconds: 8888,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .build()
+            .write(vec![mutation])
+            .await;
+
+        let res = res.expect("write should succeed");
+        assert_eq!(
+            res.commit_timestamp
+                .expect("commit_timestamp should be present")
+                .seconds(),
+            8888,
+            "expected commit timestamp to match"
+        );
+        Ok(())
     }
 }
