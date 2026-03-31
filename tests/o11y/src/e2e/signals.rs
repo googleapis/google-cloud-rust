@@ -213,7 +213,6 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
         "error.type": "404",
         "http.request.method": "POST",
         "rpc.method": "google.showcase.v1beta1.Echo/Echo",
-        "rpc.service": "showcase",
         "rpc.system.name": "http",
         "url.domain": "localhost:7469", // the showcase domain...
         "url.template": "/v1beta1/echo:echo",

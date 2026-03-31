@@ -23,7 +23,7 @@ use crate::observability::attributes::keys::{
     ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION,
     GCP_ERRORS_DOMAIN, GCP_ERRORS_METADATA, GCP_SCHEMA_URL, HTTP_REQUEST_METHOD,
     HTTP_REQUEST_RESEND_COUNT, NETWORK_PEER_ADDRESS, NETWORK_PEER_PORT, RPC_RESPONSE_STATUS_CODE,
-    RPC_SERVICE, RPC_SYSTEM_NAME, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+    RPC_SYSTEM_NAME, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
 };
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
@@ -112,7 +112,6 @@ where
                     target: TARGET,
                     tracing::Level::WARN,
                     { RPC_SYSTEM_NAME } = snapshot.rpc_system(),
-                    { RPC_SERVICE } = snapshot.service_name(),
                     { RPC_METHOD } = snapshot.rpc_method(),
                     { GCP_CLIENT_VERSION } = snapshot.client_version(),
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
@@ -221,7 +220,6 @@ mod tests {
             "error.type": "CLIENT_CONNECTION_ERROR",
             "rpc.system.name": "http",
             "rpc.method": TEST_METHOD,
-            "rpc.service": "test-service",
             "url.domain": "example.com",
             "url.template": TEST_URL_TEMPLATE,
             "gcp.client.artifact": "test-artifact",
@@ -283,7 +281,6 @@ mod tests {
         let want = json!({
             "rpc.system.name": "http",
             "rpc.method": TEST_METHOD,
-            "rpc.service": "test-service",
             "url.domain": "example.com",
             "url.template": TEST_URL_TEMPLATE,
             "error.type": "404",
