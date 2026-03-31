@@ -35,7 +35,7 @@ pub(crate) struct ResumableResponse {
 }
 
 impl ResumableResponse {
-    pub(crate) fn new(reader: Reader, response: Response) -> Result<Self> {
+    pub(crate) fn new(mut reader: Reader, response: Response) -> Result<Self> {
         let full = reader.request.read_offset == 0 && reader.request.read_limit == 0;
         let headers = response.headers();
         let response_checksums = checksums_from_response(full, response.status(), headers);
@@ -44,6 +44,15 @@ impl ResumableResponse {
             parse_http_response::response_generation(&response).map_err(Error::deser)?;
 
         let highlights = parse_http_response::object_highlights(generation, headers)?;
+
+        // If the server response has an empty checksum (e.g. on range read),
+        // disable it in request options to stop its computation.
+        if response_checksums.crc32c.is_none() {
+            reader.options.checksum.crc32c = None;
+        }
+        if response_checksums.md5_hash.is_empty() {
+            reader.options.checksum.md5_hash = None;
+        }
 
         Ok(Self {
             reader,
@@ -272,6 +281,45 @@ mod tests {
             got.md5_hash,
             base64::prelude::BASE64_STANDARD.decode(want_md5)?
         );
+        Ok(())
+    }
+
+    #[test]
+    fn new_aligns_request_options_checksums_with_response() -> anyhow::Result<()> {
+        use crate::storage::checksum::details::{Checksum, Crc32c, Md5};
+        use crate::storage::client::tests::test_inner_client;
+        use crate::storage::read_object::Reader;
+
+        let inner = tokio::runtime::Runtime::new()?.block_on(test_inner_client(
+            crate::storage::client::tests::test_builder(),
+        ));
+
+        let mut reader = Reader {
+            inner: inner.clone(),
+            request: crate::model::ReadObjectRequest::new()
+                .set_bucket("projects/_/buckets/bucket")
+                .set_object("object"),
+            options: crate::storage::request_options::RequestOptions::new(),
+        };
+        // Request options has both checksums enabled.
+        reader.options.checksum = Checksum {
+            crc32c: Some(Crc32c::default()),
+            md5_hash: Some(Md5::default()),
+        };
+        // Server response only has CRC32C.
+        let response = http::Response::builder()
+            .status(200)
+            .header("x-goog-hash", "crc32c=SZYC0g==")
+            .header("x-goog-generation", "123")
+            .header("content-length", "10")
+            .body(Vec::new())?;
+
+        let res = ResumableResponse::new(reader, Response::from(response))?;
+
+        // Verify MD5 is not tracked.
+        assert!(res.reader.options.checksum.crc32c.is_some());
+        assert!(res.reader.options.checksum.md5_hash.is_none());
+
         Ok(())
     }
 
