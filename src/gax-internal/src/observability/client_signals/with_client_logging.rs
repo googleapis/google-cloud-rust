@@ -293,9 +293,9 @@ mod tests {
             "gcp.client.version": "1.2.3",
             "gcp.client.service": "test-service",
             "url.full": url,
-            "server.address": "127.0.0.1",
+            "server.address": server.addr().ip().to_string(),
             "server.port": server.addr().port(),
-            "network.peer.address": "127.0.0.1",
+            "network.peer.address": server.addr().ip().to_string(),
             "network.peer.port": server.addr().port(),
             "http.request.method": "GET",
         });

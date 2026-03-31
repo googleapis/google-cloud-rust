@@ -316,8 +316,11 @@ impl ClientSnapshot {
     /// Use with the "server.address" attribute.
     pub fn server_address(&self) -> String {
         if let Some(uri) = self.sanitized_url().and_then(|u| u.parse::<Uri>().ok()) {
-            if let Some(host) = uri.authority().map(|a| a.host().to_string()) {
-                return host;
+            if let Some(host) = uri.host() {
+                return host
+                    .trim_start_matches('[')
+                    .trim_end_matches(']')
+                    .to_string();
             }
         }
         self.info.default_host.to_string()

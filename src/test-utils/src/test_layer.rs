@@ -356,15 +356,6 @@ where
     }
 }
 
-/// Handles IPv6 bracket formatting for server addresses.
-pub fn format_server_address(addr: std::net::SocketAddr) -> String {
-    if addr.is_ipv6() {
-        format!("[{}]", addr.ip())
-    } else {
-        addr.ip().to_string()
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -209,7 +209,7 @@ mod tests {
                 ("url.template", TEST_URL_TEMPLATE),
                 ("http.response.status_code", "404"),
                 ("error.type", "404"),
-                ("server.address", "127.0.0.1"),
+                ("server.address", server.addr().ip().to_string().as_str()),
                 ("server.port", server.addr().port().to_string().as_str()),
                 ("gcp.client.service", "test-service"),
                 ("gcp.client.version", "1.2.3"),
