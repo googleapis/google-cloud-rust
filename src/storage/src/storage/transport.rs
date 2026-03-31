@@ -369,7 +369,6 @@ impl super::stub::Storage for Storage {
 
 #[cfg(test)]
 mod tests {
-    #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::AttributeValue;
