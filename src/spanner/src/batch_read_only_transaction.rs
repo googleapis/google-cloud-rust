@@ -241,9 +241,7 @@ impl Partition {
     /// Executes this partition and returns a [ResultSet] that
     /// contains the rows that belong to this partition.
     ///
-    /// # Example
-    ///
-    /// Executing a query partition:
+    /// # Example: executing a query partition
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
     /// # use google_cloud_spanner::PartitionOptions;
@@ -265,8 +263,7 @@ impl Partition {
     /// # Ok(())
     /// # }
     /// ```
-    ///
-    /// Executing a read partition:
+    /// # Example: executing a read partition
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, ReadRequest, KeySet};
     /// # use google_cloud_spanner::PartitionOptions;
