@@ -38,9 +38,24 @@ impl BatchDmlBuilder {
         self
     }
 
-    /// Specifies the request options for this batch calculation.
-    pub fn with_request_options(mut self, request_options: RequestOptions) -> Self {
-        self.request_options = Some(request_options);
+    /// Sets the request tag for this batch.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::batch_dml::BatchDml;
+    /// let statement1 = Statement::builder("UPDATE users SET active = true WHERE id = 1").build();
+    /// let batch = BatchDml::builder()
+    ///     .add_statement(statement1)
+    ///     .with_request_tag("my-tag")
+    ///     .build();
+    /// ```
+    ///
+    /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
+    pub fn with_request_tag(mut self, tag: impl Into<String>) -> Self {
+        self.request_options
+            .get_or_insert_with(RequestOptions::default)
+            .request_tag = tag.into();
         self
     }
 
@@ -134,13 +149,12 @@ mod tests {
     }
 
     #[test]
-    fn builder_with_request_options() {
+    fn builder_with_request_tag() {
         let stmt = Statement::builder("UPDATE t SET c = 1 WHERE id = 1").build();
-        let req_opts = RequestOptions::new().set_request_tag("tag1");
 
         let batch = BatchDml::builder()
             .add_statement(stmt)
-            .with_request_options(req_opts)
+            .with_request_tag("tag1")
             .build();
 
         assert_eq!(batch.statements.len(), 1);
