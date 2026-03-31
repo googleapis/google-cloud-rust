@@ -20,8 +20,8 @@ use super::RequestRecorder;
 use crate::observability::attributes::SCHEMA_URL_VALUE;
 use crate::observability::attributes::keys::{
     ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_VERSION, GCP_SCHEMA_URL,
-    HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT, OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION,
-    RPC_RESPONSE_STATUS_CODE, RPC_SERVICE,
+    HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT, NETWORK_PEER_ADDRESS, NETWORK_PEER_PORT,
+    OTEL_STATUS_CODE, OTEL_STATUS_DESCRIPTION, RPC_RESPONSE_STATUS_CODE, RPC_SERVICE,
 };
 use crate::observability::attributes::otel_status_codes;
 use crate::observability::errors::ErrorType;
@@ -81,6 +81,8 @@ where
                     { URL_FULL } = snapshot.sanitized_url(),
                     { SERVER_ADDRESS } = snapshot.server_address(),
                     { SERVER_PORT } = snapshot.server_port() as i64,
+                    { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),
+                    { NETWORK_PEER_PORT } = snapshot.network_peer_port(),
                     { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code().map(|v| v as i64),
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
                     { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
@@ -105,6 +107,8 @@ where
                     { ERROR_TYPE } = error_type.as_str(),
                     { SERVER_ADDRESS } = snapshot.server_address(),
                     { SERVER_PORT } = snapshot.server_port() as i64,
+                    { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),
+                    { NETWORK_PEER_PORT } = snapshot.network_peer_port(),
                     { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code().map(|v| v as i64),
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
                     { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
@@ -148,6 +152,8 @@ mod tests {
             { URL_FULL } = ::tracing::field::Empty,
             { SERVER_ADDRESS } = ::tracing::field::Empty,
             { SERVER_PORT } = ::tracing::field::Empty,
+            { NETWORK_PEER_ADDRESS } = ::tracing::field::Empty,
+            { NETWORK_PEER_PORT } = ::tracing::field::Empty,
             { HTTP_RESPONSE_STATUS_CODE } = ::tracing::field::Empty,
             { HTTP_REQUEST_METHOD } = ::tracing::field::Empty,
             { HTTP_REQUEST_RESEND_COUNT } = ::tracing::field::Empty
@@ -217,6 +223,8 @@ mod tests {
             { URL_FULL } = ::tracing::field::Empty,
             { SERVER_ADDRESS } = ::tracing::field::Empty,
             { SERVER_PORT } = ::tracing::field::Empty,
+            { NETWORK_PEER_ADDRESS } = ::tracing::field::Empty,
+            { NETWORK_PEER_PORT } = ::tracing::field::Empty,
             { HTTP_RESPONSE_STATUS_CODE } = ::tracing::field::Empty,
             { HTTP_REQUEST_METHOD } = ::tracing::field::Empty,
             { HTTP_REQUEST_RESEND_COUNT } = ::tracing::field::Empty,

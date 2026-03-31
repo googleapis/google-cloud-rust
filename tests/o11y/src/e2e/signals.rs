@@ -203,6 +203,8 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
     assert!(fields.remove("server.address").is_some(), "{value:?}");
     assert!(fields.remove("server.port").is_some(), "{value:?}");
     assert!(fields.remove("url.full").is_some(), "{value:?}");
+    assert!(fields.remove("network.peer.address").is_some(), "{value:?}");
+    assert!(fields.remove("network.peer.port").is_some(), "{value:?}");
     let want = serde_json::json!({
         "gcp.client.artifact": "google-cloud-showcase-v1beta1",
         "gcp.schema.url": "https://opentelemetry.io/schemas/1.39.0",
