@@ -14,10 +14,11 @@
 
 use crate::database_client::DatabaseClient;
 use crate::model::PartitionOptions;
+use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
     MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
 };
-use crate::result_set::ResultSet;
+use crate::result_set::{ResultSet, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 
@@ -232,7 +233,6 @@ impl BatchReadOnlyTransaction {
 /// These partitions can be serialized and processed across several
 /// different machines or processes.
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub struct Partition {
     pub(crate) inner: PartitionedOperation,
 }
@@ -241,17 +241,146 @@ impl Partition {
     /// Executes this partition and returns a [ResultSet] that
     /// contains the rows that belong to this partition.
     ///
-    /// # Panics
+    /// # Example: executing a query partition
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::PartitionOptions;
+    /// # async fn run_query(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.batch_read_only_transaction().build().await?;
+    /// let partitions = transaction.partition_query(
+    ///     Statement::builder("SELECT * FROM Users").build(),
+    ///     PartitionOptions::default()
+    /// ).await?;
     ///
-    /// This method is currently a placeholder and will panic via `unimplemented!()`.
-    /// Full execution support will be added in a future release.
-    pub async fn execute(&self) -> crate::Result<ResultSet> {
-        unimplemented!("Partition execution will be added in a follow-up PR")
+    /// // ... send partitions to other workers ...
+    ///
+    /// // On a worker receiving a partition, execute it:
+    /// let mut result_set = partitions[0].execute(&db_client).await?;
+    /// while let Some(row) = result_set.next().await.transpose()? {
+    ///     // process row
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    /// # Example: executing a read partition
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, ReadRequest, KeySet};
+    /// # use google_cloud_spanner::PartitionOptions;
+    /// # async fn run_read(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.batch_read_only_transaction().build().await?;
+    /// let req = ReadRequest::builder("Users", vec!["Id", "Name"]).with_keys(KeySet::all()).build();
+    /// let partitions = transaction.partition_read(req, PartitionOptions::default()).await?;
+    ///
+    /// // ... send partitions to other workers ...
+    ///
+    /// // On a worker receiving a partition, execute it:
+    /// let mut result_set = partitions[0].execute(&db_client).await?;
+    /// while let Some(row) = result_set.next().await.transpose()? {
+    ///     // process row
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// A partition can be executed by any `DatabaseClient` that is connected to
+    /// the database that the partitions belong to.
+    pub async fn execute(&self, client: &DatabaseClient) -> crate::Result<ResultSet> {
+        match &self.inner {
+            PartitionedOperation::Query {
+                partition_token,
+                transaction_selector,
+                session_name,
+                statement,
+            } => {
+                Self::execute_query(
+                    client,
+                    partition_token,
+                    transaction_selector,
+                    session_name,
+                    statement,
+                )
+                .await
+            }
+            PartitionedOperation::Read {
+                partition_token,
+                transaction_selector,
+                session_name,
+                read_request,
+            } => {
+                Self::execute_read(
+                    client,
+                    partition_token,
+                    transaction_selector,
+                    session_name,
+                    read_request,
+                )
+                .await
+            }
+        }
+    }
+
+    async fn execute_query(
+        client: &DatabaseClient,
+        partition_token: &prost::bytes::Bytes,
+        transaction_selector: &crate::model::TransactionSelector,
+        session_name: &str,
+        statement: &Statement,
+    ) -> crate::Result<ResultSet> {
+        let request = statement
+            .clone()
+            .into_request()
+            .set_session(session_name.to_string())
+            .set_transaction(transaction_selector.clone())
+            .set_partition_token(partition_token.clone());
+
+        let stream = client
+            .spanner
+            // TODO(#4972): make request options configurable
+            .execute_streaming_sql(request.clone(), crate::RequestOptions::default())
+            .send()
+            .await?;
+
+        Ok(ResultSet::new(
+            stream,
+            PrecommitTokenTracker::new_noop(),
+            client.clone(),
+            StreamOperation::Query(request),
+        ))
+    }
+
+    async fn execute_read(
+        client: &DatabaseClient,
+        partition_token: &prost::bytes::Bytes,
+        transaction_selector: &crate::model::TransactionSelector,
+        session_name: &str,
+        read_request: &crate::read::ReadRequest,
+    ) -> crate::Result<ResultSet> {
+        let request = read_request
+            .clone()
+            .into_request()
+            .set_session(session_name.to_string())
+            .set_transaction(transaction_selector.clone())
+            .set_partition_token(partition_token.clone());
+
+        let stream = client
+            .spanner
+            // TODO(#4972): make request options configurable
+            .streaming_read(request.clone(), crate::RequestOptions::default())
+            .send()
+            .await?;
+
+        Ok(ResultSet::new(
+            stream,
+            PrecommitTokenTracker::new_noop(),
+            client.clone(),
+            StreamOperation::Read(request),
+        ))
     }
 }
 
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub(crate) enum PartitionedOperation {
     Query {
         partition_token: prost::bytes::Bytes,
@@ -272,6 +401,8 @@ pub(crate) mod tests {
     use super::*;
     use crate::client::Statement;
     use crate::client::{KeySet, ReadRequest as SpannerReadRequest, TimestampBound};
+    use crate::model::TransactionSelector;
+    use crate::model::transaction_selector::Selector;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use gaxi::grpc::tonic::Response;
     use prost_types::Timestamp;
@@ -287,17 +418,79 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    #[should_panic(expected = "Partition execution will be added in a follow-up PR")]
-    async fn execute_panics() {
+    async fn execute_query() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            let req = req.into_inner();
+            // Verify the partition details were properly stamped onto the request
+            assert_eq!(
+                req.session,
+                "projects/p/instances/i/databases/d/sessions/123"
+            );
+            assert_eq!(req.partition_token, b"partition_token_123".as_slice());
+            assert!(req.transaction.is_some());
+            assert_eq!(req.sql, "SELECT * FROM Users");
+
+            Ok(Response::new(Box::pin(tokio_stream::iter(vec![]))))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
         let partition = Partition {
             inner: PartitionedOperation::Query {
-                partition_token: "token".into(),
-                transaction_selector: Default::default(),
-                session_name: "session".into(),
-                statement: Statement::builder("SELECT 1").build(),
+                partition_token: b"partition_token_123".to_vec().into(),
+                transaction_selector: TransactionSelector {
+                    selector: Some(Selector::Id(b"tx_id_1".to_vec().into())),
+                    ..Default::default()
+                },
+                session_name: "projects/p/instances/i/databases/d/sessions/123".into(),
+                statement: Statement::builder("SELECT * FROM Users").build(),
             },
         };
-        let _ = partition.execute().await;
+
+        let _result_set = partition.execute(&db_client).await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_read() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_streaming_read().once().returning(|req| {
+            let req = req.into_inner();
+            // Verify the partition details were properly stamped onto the request
+            assert_eq!(
+                req.session,
+                "projects/p/instances/i/databases/d/sessions/456"
+            );
+            assert_eq!(req.partition_token, b"partition_token_456".as_slice());
+            assert!(req.transaction.is_some());
+            assert_eq!(req.table, "Users");
+
+            Ok(Response::new(Box::pin(tokio_stream::iter(vec![]))))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let partition = Partition {
+            inner: PartitionedOperation::Read {
+                partition_token: b"partition_token_456".to_vec().into(),
+                transaction_selector: TransactionSelector {
+                    selector: Some(Selector::Id(b"tx_id_2".to_vec().into())),
+                    ..Default::default()
+                },
+                session_name: "projects/p/instances/i/databases/d/sessions/456".into(),
+                read_request: SpannerReadRequest::builder("Users", vec!["Id"])
+                    .with_keys(KeySet::all())
+                    .build(),
+            },
+        };
+
+        let _result_set = partition.execute(&db_client).await?;
+
+        Ok(())
     }
 
     #[tokio::test]
