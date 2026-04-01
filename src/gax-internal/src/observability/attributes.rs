@@ -74,10 +74,6 @@ pub mod keys {
     ///
     /// Example: google-cloud-storage
     pub const GCP_CLIENT_ARTIFACT: &str = "gcp.client.artifact";
-    /// The client library language.
-    ///
-    /// Always "rust".
-    pub const GCP_CLIENT_LANGUAGE: &str = "gcp.client.language";
     /// The Google Cloud resource name.
     ///
     /// Example: //pubsub.googleapis.com/projects/my-project/topics/my-topic
@@ -115,8 +111,6 @@ pub const RPC_SYSTEM_HTTP: &str = "http";
 pub const RPC_SYSTEM_GRPC: &str = "grpc";
 /// Value for [keys::GCP_CLIENT_REPO].
 pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
-/// Value for [keys::GCP_CLIENT_LANGUAGE].
-pub const GCP_CLIENT_LANGUAGE_RUST: &str = "rust";
 /// The OpenTelemetry Schema URL.
 pub const SCHEMA_URL_VALUE: &str = "https://opentelemetry.io/schemas/1.39.0";
 

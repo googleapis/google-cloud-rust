@@ -112,7 +112,6 @@ mod tests {
             (GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
-            (GCP_CLIENT_LANGUAGE, "rust".into()),
             (
                 GCP_SCHEMA_URL,
                 google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
@@ -260,7 +259,6 @@ mod tests {
             (GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, TEST_ARTIFACT.into()),
-            (GCP_CLIENT_LANGUAGE, "rust".into()),
             (
                 GCP_SCHEMA_URL,
                 google_cloud_gax_internal::observability::attributes::SCHEMA_URL_VALUE.into(),
