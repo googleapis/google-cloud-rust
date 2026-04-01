@@ -121,7 +121,9 @@ mod tests {
     use crate::observability::DurationMetric;
     use crate::observability::attributes::SCHEMA_URL_VALUE;
     use crate::options::InstrumentationClientInfo;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::error::Error;
+    use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
     use httptest::matchers::request::method_path;
     use httptest::responders::status_code;
     use httptest::{Expectation, Server};
@@ -353,6 +355,8 @@ mod tests {
             google_cloud_gax::retry_policy::NeverRetry,
         ));
 
+        config.cred = Some(Anonymous::new().build());
+
         let client = crate::grpc::Client::new(config, url)
             .await
             .map_err(|e| Error::io(e.to_string()))?;
@@ -365,26 +369,27 @@ mod tests {
             ));
             e
         };
-        let request = grpc_server::google::test::v1::EchoRequest {
+        let request = EchoRequest {
             message: "test message".into(),
             ..Default::default()
         };
 
         tokio::time::sleep(TEST_REQUEST_DURATION).await;
 
-        let response: Result<tonic::Response<grpc_server::google::test::v1::EchoResponse>, google_cloud_gax::error::Error> = client
-            .execute::<grpc_server::google::test::v1::EchoRequest, grpc_server::google::test::v1::EchoResponse>(
-                extensions,
-                // Direct tonic endpoint that does not exist to trigger an error
-                http::uri::PathAndQuery::from_static(
-                    "/google.test.v1.EchoService/NonExistentMethod",
-                ),
-                request,
-                google_cloud_gax::options::RequestOptions::default(),
-                "test-client",
-                "",
-            )
-            .await;
+        let response: Result<tonic::Response<EchoResponse>, google_cloud_gax::error::Error> =
+            client
+                .execute::<EchoRequest, EchoResponse>(
+                    extensions,
+                    // Direct tonic endpoint that does not exist to trigger an error
+                    http::uri::PathAndQuery::from_static(
+                        "/google.test.v1.EchoService/NonExistentMethod",
+                    ),
+                    request,
+                    google_cloud_gax::options::RequestOptions::default(),
+                    "test-client",
+                    "",
+                )
+                .await;
 
         response.map(|_| "SUCCESS".to_string())
     }
