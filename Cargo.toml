@@ -461,7 +461,7 @@ tokio-stream      = { default-features = false, version = "0.1.16" }
 # Local packages used as dependencies.
 google-cloud-auth        = { default-features = false, version = "1.8.0", path = "src/auth" }
 google-cloud-gax         = { default-features = false, version = "1.9.0", path = "src/gax" }
-gaxi                     = { default-features = false, version = "0.7.11", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+gaxi                     = { default-features = false, version = "0.7.12", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 wkt                      = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt         = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-api         = { default-features = false, version = "1.4.0", path = "src/generated/api/types" }
