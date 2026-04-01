@@ -369,8 +369,6 @@ impl super::stub::Storage for Storage {
 
 #[cfg(test)]
 mod tests {
-    #[cfg(google_cloud_unstable_tracing)]
-    use gaxi::observability::attributes::{OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP, keys::*};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::AttributeValue;
@@ -726,12 +724,12 @@ mod tests {
         error_type: &'static str,
     ) {
         const EXPECTED_ATTRIBUTES: [(&str, &str); 6] = [
-            (OTEL_KIND, OTEL_KIND_INTERNAL),
-            (RPC_SYSTEM_NAME, RPC_SYSTEM_HTTP),
-            (OTEL_STATUS_CODE, "ERROR"),
-            (GCP_CLIENT_SERVICE, "storage"),
-            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
-            (GCP_CLIENT_ARTIFACT, "google-cloud-storage"),
+            ("otel.kind", "Internal"),
+            ("rpc.system.name", "http"),
+            ("otel.status_code", "ERROR"),
+            ("gcp.client.service", "storage"),
+            ("gcp.client.repo", "googleapis/google-cloud-rust"),
+            ("gcp.client.artifact", "google-cloud-storage"),
         ];
         let span = captured
             .iter()
@@ -747,10 +745,10 @@ mod tests {
                 .chain(
                     [
                         (
-                            OTEL_NAME,
+                            "otel.name",
                             format!("google_cloud_storage::client::Storage::{method}").into(),
                         ),
-                        (ERROR_TYPE, error_type.into()),
+                        ("error.type", error_type.into()),
                     ]
                     .map(|(k, v)| (k.to_string(), v)),
                 ),

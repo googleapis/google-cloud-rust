@@ -21,7 +21,7 @@
 pub(crate) mod propagation;
 
 #[cfg(google_cloud_unstable_tracing)]
-pub mod attributes;
+pub(crate) mod attributes;
 
 #[cfg(all(
     google_cloud_unstable_tracing,
