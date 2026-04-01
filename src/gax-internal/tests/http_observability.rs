@@ -135,7 +135,7 @@ mod tests {
             ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
             ("gcp.client.artifact", TEST_ARTIFACT.into()),
             ("gcp.client.language", "rust".into()), // TODO(#....) - remove
-            ("gcp.resource.name", TEST_RESOURCE.into()),
+            ("gcp.resource.destination.id", TEST_RESOURCE.into()),
             ("http.response.body.size", 18_i64.into()), // {"hello": "world"} is 18 bytes
             ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
             ("server.address", server_addr.ip().to_string().into()),
@@ -219,6 +219,7 @@ mod tests {
             ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
             ("gcp.client.artifact", TEST_ARTIFACT.into()),
             ("gcp.client.language", "rust".into()), // TODO(#....) - remove
+            ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
             ("server.address", server_addr.ip().to_string().into()),
             ("server.port", (server_addr.port() as i64).into()),
             ("url.full", format!("{}/error", server_url).into()),
@@ -337,6 +338,7 @@ mod tests {
             ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
             ("gcp.client.artifact", TEST_ARTIFACT.into()),
             ("gcp.client.language", "rust".into()), // TODO(#....) - remove
+            ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
             ("server.address", server_addr.ip().to_string().into()),
             ("server.port", (server_addr.port() as i64).into()),
             ("url.full", format!("{}/error-info", server_url).into()),
@@ -486,6 +488,8 @@ mod tests {
             ("http.request.method", "GET".into()),
             ("server.address", server_addr.ip().to_string().into()),
             ("server.port", (server_addr.port() as i64).into()),
+            ("network.peer.address", server_addr.ip().to_string().into()),
+            ("network.peer.port", (server_addr.port() as i64).into()),
             ("url.full", format!("{}/test", server_url).into()),
         ]
         .into_iter()
@@ -593,6 +597,8 @@ mod tests {
             ("http.response.status_code", 200_i64.into()),
             ("server.address", server_addr.ip().to_string().into()),
             ("server.port", (server_addr.port() as i64).into()),
+            ("network.peer.address", server_addr.ip().to_string().into()),
+            ("network.peer.port", (server_addr.port() as i64).into()),
             ("url.full", format!("{}/test", server_url).into()),
             ("http.request.method", "GET".into()),
             ("otel.status_code", "UNSET".into()),
