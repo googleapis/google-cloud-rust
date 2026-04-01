@@ -230,7 +230,7 @@ mod tests {
             ("otel.kind", "Client".into()),
             ("rpc.method", "google.test.v1.EchoService/Echo".into()),
             ("server.address", "foo.bar.rep.googleapis.com".into()),
-            ("server.port", 443_i64.into()),
+            ("server.port", 80_i64.into()),
             ("url.domain", "foo.googleapis.com".into()), // Expect default domain
             ("otel.status_code", "ERROR".into()),
             ("error.type", "CLIENT_CONNECTION_ERROR".into()),
