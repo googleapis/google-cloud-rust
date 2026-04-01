@@ -43,7 +43,8 @@ pub struct BatchReadOnlyTransactionBuilder {
 impl BatchReadOnlyTransactionBuilder {
     pub(crate) fn new(client: DatabaseClient) -> Self {
         Self {
-            inner: MultiUseReadOnlyTransactionBuilder::new(client),
+            inner: MultiUseReadOnlyTransactionBuilder::new(client)
+                .with_explicit_begin_transaction(true),
         }
     }
 
@@ -147,7 +148,7 @@ impl BatchReadOnlyTransaction {
             .clone()
             .into_partition_query_request()
             .set_session(self.inner.context.client.session.name.clone())
-            .set_transaction(self.inner.context.transaction_selector.clone())
+            .set_transaction(self.inner.context.transaction_selector.selector())
             .set_partition_options(options);
 
         let response = self
@@ -164,7 +165,7 @@ impl BatchReadOnlyTransaction {
             .map(|p| Partition {
                 inner: PartitionedOperation::Query {
                     partition_token: p.partition_token,
-                    transaction_selector: self.inner.context.transaction_selector.clone(),
+                    transaction_selector: self.inner.context.transaction_selector.selector(),
                     session_name: self.inner.context.client.session.name.clone(),
                     statement: statement.clone(),
                 },
@@ -202,7 +203,7 @@ impl BatchReadOnlyTransaction {
             .clone()
             .into_partition_read_request()
             .set_session(self.inner.context.client.session.name.clone())
-            .set_transaction(self.inner.context.transaction_selector.clone())
+            .set_transaction(self.inner.context.transaction_selector.selector())
             .set_partition_options(options);
 
         let response = self
@@ -219,7 +220,7 @@ impl BatchReadOnlyTransaction {
             .map(|p| Partition {
                 inner: PartitionedOperation::Read {
                     partition_token: p.partition_token,
-                    transaction_selector: self.inner.context.transaction_selector.clone(),
+                    transaction_selector: self.inner.context.transaction_selector.selector(),
                     session_name: self.inner.context.client.session.name.clone(),
                     read_request: read.clone(),
                 },
