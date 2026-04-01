@@ -315,7 +315,8 @@ impl ClientSnapshot {
     ///
     /// Use with the "rpc.system.name" attribute.
     pub fn rpc_system(&self) -> Option<&'static str> {
-        self.rpc_system.or_else(|| self.transport_snapshot.as_ref().and_then(|s| s.rpc_system))
+        self.rpc_system
+            .or_else(|| self.transport_snapshot.as_ref().and_then(|s| s.rpc_system))
     }
 
     /// Returns the server address used in the last low-level request.
