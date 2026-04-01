@@ -345,6 +345,7 @@ mod tests {
             ClientRequestAttributes::default()
                 .set_rpc_method(TEST_METHOD)
                 .set_url_template(TEST_URL_TEMPLATE)
+                .set_rpc_system("grpc")
                 .set_resource_name("//test.googleapis.com/test-only".to_string()),
         );
 
@@ -429,6 +430,7 @@ mod tests {
             &metrics,
             1_u64..=1_u64,
             &[
+                ("rpc.system.name", "grpc"),
                 ("url.domain", "example.com"),
                 ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", TEST_METHOD),
@@ -464,6 +466,7 @@ mod tests {
             &record.record,
             trace_id,
             &[
+                ("rpc.system.name", "grpc"),
                 ("url.template", TEST_URL_TEMPLATE),
                 ("url.domain", "example.com"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
@@ -584,6 +587,7 @@ mod tests {
                 "expected a single metric after flattening scopes and resources, metric={metrics:?}"
             ),
         };
+        assert_eq!(actual.name(), "test.client.duration");
         assert_eq!(actual.unit(), "s");
         let histo = match actual.data() {
             AggregatedMetrics::F64(MetricData::Histogram(h)) => h,
