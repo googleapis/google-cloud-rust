@@ -103,13 +103,11 @@ pub mod keys {
 
 /// Value for [keys::OTEL_KIND].
 pub const OTEL_KIND_CLIENT: &str = "Client";
-/// Value for [keys::OTEL_KIND].
-pub const _OTEL_KIND_INTERNAL: &str = "Internal";
 /// Value for `rpc.system`.
 pub const RPC_SYSTEM_HTTP: &str = "http";
 /// Value for `rpc.system`.
 pub const RPC_SYSTEM_GRPC: &str = "grpc";
-/// Value for [keys::GCP_CLIENT_REPO].
+/// The repository where the client libraries recide.
 pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
 /// The OpenTelemetry Schema URL.
 pub const SCHEMA_URL_VALUE: &str = "https://opentelemetry.io/schemas/1.39.0";
