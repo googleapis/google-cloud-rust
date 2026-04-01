@@ -32,10 +32,6 @@ use tokio_util::task::TaskTracker;
 // on the size of an ack ID. We can safely fit 1000 ack IDs into a request.
 //
 // https://docs.cloud.google.com/pubsub/quotas
-//
-// Note that other languages use this same value.
-//
-// https://github.com/googleapis/java-pubsub/blob/876aed861576c370fcb4dd2c0e9440646b5cdc04/google-cloud-pubsub/src/main/java/com/google/cloud/pubsub/v1/StreamingSubscriberConnection.java#L88
 const MAX_IDS_PER_RPC: usize = 1000;
 
 // Helper function to chunk ack ids into chunks of MAX_IDS_PER_RPC.
