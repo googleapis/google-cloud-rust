@@ -155,6 +155,7 @@ impl RequestRecorder {
         guard.rpc_method = attributes.rpc_method;
         guard.url_template = attributes.url_template;
         guard.resource_name = attributes.resource_name;
+        guard.rpc_system = attributes.rpc_system;
     }
 
     /// Call before issuing a HTTP request to capture its data.
@@ -213,6 +214,7 @@ pub struct ClientRequestAttributes {
     pub rpc_method: Option<&'static str>,
     pub url_template: Option<&'static str>,
     pub resource_name: Option<String>,
+    pub rpc_system: Option<&'static str>,
 }
 
 impl ClientRequestAttributes {
@@ -230,6 +232,11 @@ impl ClientRequestAttributes {
         self.resource_name = Some(v);
         self
     }
+
+    pub fn set_rpc_system(mut self, v: &'static str) -> Self {
+        self.rpc_system = Some(v);
+        self
+    }
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -241,6 +248,7 @@ pub struct ClientSnapshot {
     url_template: Option<&'static str>,
     resource_name: Option<String>,
     attempt_count: u32,
+    rpc_system: Option<&'static str>,
     transport_snapshot: Option<TransportSnapshot>,
 }
 
@@ -254,6 +262,7 @@ impl ClientSnapshot {
             url_template: None,
             resource_name: None,
             attempt_count: 0_u32,
+            rpc_system: None,
             transport_snapshot: None,
         }
     }
@@ -306,7 +315,8 @@ impl ClientSnapshot {
     ///
     /// Use with the "rpc.system.name" attribute.
     pub fn rpc_system(&self) -> Option<&'static str> {
-        self.transport_snapshot.as_ref().and_then(|s| s.rpc_system)
+        self.rpc_system
+            .or_else(|| self.transport_snapshot.as_ref().and_then(|s| s.rpc_system))
     }
 
     /// Returns the server address used in the last low-level request.
