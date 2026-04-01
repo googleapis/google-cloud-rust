@@ -78,6 +78,10 @@ pub mod keys {
     ///
     /// Example: //pubsub.googleapis.com/projects/my-project/topics/my-topic
     pub const GCP_RESOURCE_DESTINATION_ID: &str = "gcp.resource.destination.id";
+    /// The location of the resource if not in the resource name.
+    pub const GCP_RESOURCE_DESTINATION_LOCATION: &str = "gcp.resource.destination.location";
+    /// The controller of the resource if known.
+    pub const GCP_RESOURCE_SOURCE_CONTROLLER_ID: &str = "gcp.resource.source.controller.id";
     /// The OpenTelemetry Schema URL indicating the schema used for the telemetry.
     pub const GCP_SCHEMA_URL: &str = "gcp.schema.url";
     /// The number of times this same gRPC request has been resent due to retries.

@@ -109,6 +109,8 @@ macro_rules! client_request_signals {
             "http.request.resend_count"   = Empty,
             "http.response.status_code"   = Empty,
             "gcp.resource.destination.id" = Empty,
+            "gcp.resource.destination.location" = Empty,
+            "gcp.resource.source.controller.id" = Empty,
         )
     }};
 }
