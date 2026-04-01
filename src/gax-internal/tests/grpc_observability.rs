@@ -108,7 +108,7 @@ mod tests {
             (otel_trace::SERVER_PORT, (expected_port as i64).into()),
             (otel_attr::URL_DOMAIN, expected_host.into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 0_i64.into()),
+            (RPC_RESPONSE_STATUS_CODE, "OK".into()),
             (GCP_CLIENT_SERVICE, "test-service".into()),
             (GCP_CLIENT_VERSION, "1.0.0".into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
@@ -199,7 +199,7 @@ mod tests {
             (otel_trace::SERVER_PORT, (expected_port as i64).into()),
             (otel_attr::URL_DOMAIN, "unused.default.com".into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 0_i64.into()),
+            (RPC_RESPONSE_STATUS_CODE, "OK".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -355,7 +355,7 @@ mod tests {
             (otel_trace::SERVER_PORT, (expected_port as i64).into()),
             (otel_attr::URL_DOMAIN, expected_host.into()),
             (OTEL_STATUS_CODE, "ERROR".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 12_i64.into()), // UNIMPLEMENTED = 12
+            (RPC_RESPONSE_STATUS_CODE, "UNIMPLEMENTED".into()), // UNIMPLEMENTED = 12
             (otel_trace::ERROR_TYPE, "UNIMPLEMENTED".into()),
         ]
         .into_iter()
@@ -456,7 +456,7 @@ mod tests {
             (otel_trace::SERVER_PORT, (expected_port as i64).into()),
             (otel_attr::URL_DOMAIN, expected_host.into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 0_i64.into()),
+            (RPC_RESPONSE_STATUS_CODE, "OK".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
@@ -555,7 +555,7 @@ mod tests {
             (otel_trace::SERVER_PORT, (expected_port as i64).into()),
             (otel_attr::URL_DOMAIN, expected_host.into()),
             (OTEL_STATUS_CODE, "ERROR".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 3_i64.into()), // INVALID_ARGUMENT = 3
+            (RPC_RESPONSE_STATUS_CODE, "INVALID_ARGUMENT".into()), // INVALID_ARGUMENT = 3
             (otel_trace::ERROR_TYPE, "INVALID_ARGUMENT".into()),
         ]
         .into_iter()

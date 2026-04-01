@@ -338,7 +338,7 @@ fn record_status_from_headers(span: &tracing::Span, headers: &http::HeaderMap) {
     // Check for "OK" status (missing or "0") directly to avoid
     // the potential overhead of `tonic::Status::from_header_map` (parsing, decoding) in the success path.
     if headers.get("grpc-status").is_none_or(|v| v == "0") {
-        span.record(otel_attr::RPC_GRPC_STATUS_CODE, 0_i64);
+        span.record(RPC_RESPONSE_STATUS_CODE, "OK");
         return;
     }
 
@@ -346,7 +346,8 @@ fn record_status_from_headers(span: &tracing::Span, headers: &http::HeaderMap) {
     // include any error information inside the span (with API-level detail).
     if let Some(status) = tonic::Status::from_header_map(headers) {
         let code = status.code();
-        span.record(otel_attr::RPC_GRPC_STATUS_CODE, i32::from(code) as i64);
+        let code_name = google_cloud_gax::error::rpc::Code::from(code as i32).name();
+        span.record(RPC_RESPONSE_STATUS_CODE, code_name);
         if code != tonic::Code::Ok {
             span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
             let gax_error = crate::grpc::from_status::to_gax_error(status);
@@ -400,8 +401,7 @@ fn create_grpc_span(
         { otel_trace::SERVER_PORT } = layer_inner.server_port,
         { otel_attr::URL_DOMAIN } = layer_inner.url_domain,
         // Standard attributes that will be populated later
-        { otel_attr::RPC_GRPC_STATUS_CODE } = tracing::field::Empty,
-        { GRPC_STATUS } = tracing::field::Empty,
+        { RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
         { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
         { otel_trace::ERROR_TYPE } = tracing::field::Empty,
         // Client library metadata
@@ -601,7 +601,7 @@ mod tests {
         let guard = TestLayer::initialize();
         let span = tracing::info_span!(
             "test_span",
-            { otel_attr::RPC_GRPC_STATUS_CODE } = tracing::field::Empty,
+            { RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
             { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
         );
         let _enter = span.enter();
@@ -615,8 +615,8 @@ mod tests {
         assert_eq!(captured.len(), 1);
         let span_data = &captured[0];
 
-        let status_code = span_data.attributes.get(otel_attr::RPC_GRPC_STATUS_CODE);
-        assert_eq!(status_code, Some(&AttributeValue::from(0_i64)));
+        let status_code = span_data.attributes.get(RPC_RESPONSE_STATUS_CODE);
+        assert_eq!(status_code, Some(&AttributeValue::from("OK")));
 
         // OTEL_STATUS_CODE should not be set to ERROR
         if let Some(val) = span_data.attributes.get(OTEL_STATUS_CODE) {
@@ -629,7 +629,7 @@ mod tests {
         let guard = TestLayer::initialize();
         let span = tracing::info_span!(
             "test_span",
-            { otel_attr::RPC_GRPC_STATUS_CODE } = tracing::field::Empty,
+            { RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
             { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
             { otel_trace::ERROR_TYPE } = tracing::field::Empty,
         );
@@ -645,8 +645,8 @@ mod tests {
         assert_eq!(captured.len(), 1);
         let span_data = &captured[0];
 
-        let status_code = span_data.attributes.get(otel_attr::RPC_GRPC_STATUS_CODE);
-        assert_eq!(status_code, Some(&AttributeValue::from(3_i64)));
+        let status_code = span_data.attributes.get(RPC_RESPONSE_STATUS_CODE);
+        assert_eq!(status_code, Some(&AttributeValue::from("INVALID_ARGUMENT")));
 
         let otel_status = span_data.attributes.get(OTEL_STATUS_CODE);
         assert_eq!(otel_status, Some(&AttributeValue::from("ERROR")));
