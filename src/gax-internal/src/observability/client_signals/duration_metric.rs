@@ -33,7 +33,7 @@ pub const BOUNDARIES: [f64; 16] = [
     900.0, 3600.0,
 ];
 // TODO(#4772) - use the real name once the attributes are all working.
-const METRIC_NAME: &str = "test.client.duration";
+const METRIC_NAME: &str = "gcp.client.request.duration";
 // This is seconds in SI units.
 const METRIC_UNIT: &str = "s";
 
