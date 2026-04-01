@@ -107,7 +107,7 @@ pub const OTEL_KIND_CLIENT: &str = "Client";
 pub const RPC_SYSTEM_HTTP: &str = "http";
 /// Value for `rpc.system`.
 pub const RPC_SYSTEM_GRPC: &str = "grpc";
-/// The GitHub repository hosting where the client libraries.
+/// The GitHub repository hosting the client libraries.
 pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
 /// The OpenTelemetry Schema URL.
 pub const SCHEMA_URL_VALUE: &str = "https://opentelemetry.io/schemas/1.39.0";
