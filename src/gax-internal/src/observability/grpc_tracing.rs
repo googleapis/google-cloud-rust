@@ -580,14 +580,21 @@ mod tests {
         assert_eq!(span.attributes, expected_attributes);
     }
 
+    macro_rules! test_span {
+        () => {
+            tracing::info_span!(
+                "test_span",
+                "rpc.response.status_code" = tracing::field::Empty,
+                "otel.status_code" = otel_status_codes::UNSET,
+                "error.type" = tracing::field::Empty,
+            )
+        };
+    }
+
     #[test]
     fn test_record_status_from_headers_ok() {
         let guard = TestLayer::initialize();
-        let span = tracing::info_span!(
-            "test_span",
-            "grpc.response.status_code" = tracing::field::Empty,
-            "otel.status_code" = otel_status_codes::UNSET,
-        );
+        let span = test_span!();
         let _enter = span.enter();
 
         let mut headers = http::HeaderMap::new();
@@ -599,7 +606,7 @@ mod tests {
         assert_eq!(captured.len(), 1);
         let span_data = &captured[0];
 
-        let status_code = span_data.attributes.get("rpc.stauts.status_code");
+        let status_code = span_data.attributes.get("rpc.response.status_code");
         assert_eq!(status_code, Some(&AttributeValue::from("OK")));
 
         // OTEL_STATUS_CODE should not be set to ERROR
@@ -611,12 +618,7 @@ mod tests {
     #[test]
     fn test_record_status_from_headers_error() {
         let guard = TestLayer::initialize();
-        let span = tracing::info_span!(
-            "test_span",
-            "rpc.response.status_code" = tracing::field::Empty,
-            "otel.status_code" = otel_status_codes::UNSET,
-            "error.type" = tracing::field::Empty,
-        );
+        let span = test_span!();
         let _enter = span.enter();
 
         let mut headers = http::HeaderMap::new();
@@ -642,11 +644,7 @@ mod tests {
     #[test]
     fn test_record_error_status() {
         let guard = TestLayer::initialize();
-        let span = tracing::info_span!(
-            "test_span",
-            "otel.status_code" = otel_status_codes::UNSET,
-            "error.type" = tracing::field::Empty,
-        );
+        let span = test_span!();
         let _enter = span.enter();
 
         let error = tonic::Status::internal("internal error");
