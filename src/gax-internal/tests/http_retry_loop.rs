@@ -31,6 +31,7 @@ mod tests {
     use google_cloud_gax_internal::options::ClientConfig;
     use http::StatusCode;
     use httptest::{Expectation, Server, matchers::*, responders::*};
+    #[cfg(google_cloud_unstable_tracing)]
     use opentelemetry_semantic_conventions::attribute::{
         HTTP_REQUEST_RESEND_COUNT, HTTP_RESPONSE_STATUS_CODE, OTEL_STATUS_CODE,
         OTEL_STATUS_DESCRIPTION,
