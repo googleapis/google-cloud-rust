@@ -467,6 +467,8 @@ mod tests {
             trace_id,
             &[
                 ("rpc.system.name", "grpc"),
+                ("http.request.method", "POST"),
+                ("url.full", "/google.test.v1.EchoService/NonExistentMethod"),
                 ("url.template", TEST_URL_TEMPLATE),
                 ("url.domain", "example.com"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
