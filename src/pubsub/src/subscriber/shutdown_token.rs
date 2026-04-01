@@ -24,10 +24,7 @@ use tokio_util::sync::CancellationToken;
 ///   // Get a shutdown token for the stream.
 ///   let token = stream.shutdown_token();
 ///
-///   // Signal a shutdown of the stream.
-///   token.cancel();
-///
-///   // Await a shutdown of the stream.
+///   // Signal and await a shutdown of the stream.
 ///   token.shutdown().await;
 /// }
 /// ```
@@ -38,14 +35,7 @@ pub struct ShutdownToken {
 }
 
 impl ShutdownToken {
-    /// Signal a stream shutdown.
-    ///
-    /// The stream will stop yielding messages.
-    pub fn cancel(&self) {
-        self.inner.cancel();
-    }
-
-    /// Await a stream shutdown.
+    /// Signal and await a stream shutdown.
     ///
     /// Applications should call this to ensure all pending ack/nack RPCs have
     /// time to complete before a process exits.
@@ -55,6 +45,7 @@ impl ShutdownToken {
     ///
     /// [setter]: crate::builder::subscriber::Subscribe::set_shutdown_behavior
     pub async fn shutdown(&self) {
+        self.inner.cancel();
         self.fut.clone().await
     }
 }
@@ -66,26 +57,6 @@ mod tests {
     use tokio::sync::oneshot::channel;
 
     #[tokio::test(start_paused = true)]
-    async fn cancel() {
-        let token = ShutdownToken {
-            inner: CancellationToken::new(),
-            fut: std::future::pending().boxed().shared(),
-        };
-        assert!(!token.inner.is_cancelled(), "{token:?}");
-
-        let token_clone = token.clone();
-        assert!(!token_clone.inner.is_cancelled(), "{token_clone:?}");
-
-        token.cancel();
-        assert!(token.inner.is_cancelled(), "{token:?}");
-        assert!(token_clone.inner.is_cancelled(), "{token_clone:?}");
-
-        // A second cancel is a no-op.
-        token.cancel();
-        assert!(token.inner.is_cancelled(), "{token:?}");
-    }
-
-    #[tokio::test(start_paused = true)]
     async fn shutdown() -> anyhow::Result<()> {
         let (tx, rx) = channel();
         let fut = rx.map(|_| ()).boxed().shared();
@@ -94,25 +65,35 @@ mod tests {
             inner: CancellationToken::new(),
             fut,
         };
+        assert!(!token.inner.is_cancelled(), "{token:?}");
         assert!(token.fut.peek().is_none(), "future should be pending");
 
         let token_clone = token.clone();
+        assert!(!token_clone.inner.is_cancelled(), "{token_clone:?}");
         assert!(token_clone.fut.peek().is_none(), "future should be pending");
 
         let handle = tokio::spawn(async move {
             token_clone.shutdown().await;
+            assert!(token_clone.inner.is_cancelled(), "{token_clone:?}");
+            assert!(
+                token_clone.fut.peek().is_some(),
+                "future should be satisfied"
+            );
         });
         tokio::task::yield_now().await;
 
+        assert!(token.inner.is_cancelled(), "{token:?}");
         assert!(token.fut.peek().is_none(), "future should be pending");
 
         // Satisfy the future
         let _ = tx.send(());
         handle.await?;
+        assert!(token.inner.is_cancelled(), "{token:?}");
         assert!(token.fut.peek().is_some(), "future should be satisfied");
 
         // A second shutdown is a no-op.
         token.shutdown().await;
+        assert!(token.inner.is_cancelled(), "{token:?}");
         assert!(token.fut.peek().is_some(), "future should be satisfied");
 
         Ok(())
