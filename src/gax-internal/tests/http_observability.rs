@@ -134,7 +134,6 @@ mod tests {
             ("gcp.client.version", TEST_VERSION.into()),
             ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
             ("gcp.client.artifact", TEST_ARTIFACT.into()),
-            ("gcp.client.language", "rust".into()), // TODO(#....) - remove
             ("gcp.resource.destination.id", TEST_RESOURCE.into()),
             ("http.response.body.size", 18_i64.into()), // {"hello": "world"} is 18 bytes
             ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
@@ -218,7 +217,6 @@ mod tests {
             ("gcp.client.version", TEST_VERSION.into()),
             ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
             ("gcp.client.artifact", TEST_ARTIFACT.into()),
-            ("gcp.client.language", "rust".into()), // TODO(#....) - remove
             ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
             ("server.address", server_addr.ip().to_string().into()),
             ("server.port", (server_addr.port() as i64).into()),
@@ -268,7 +266,6 @@ mod tests {
             ("gcp.client.version", TEST_VERSION.into()),
             ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
             ("gcp.client.artifact", TEST_ARTIFACT.into()),
-            ("gcp.client.language", "rust".into()), // TODO(#....) - remove
             ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
             ("server.address", server_addr.ip().to_string().into()),
             ("server.port", (server_addr.port() as i64).into()),
@@ -337,7 +334,6 @@ mod tests {
             ("gcp.client.version", TEST_VERSION.into()),
             ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
             ("gcp.client.artifact", TEST_ARTIFACT.into()),
-            ("gcp.client.language", "rust".into()), // TODO(#....) - remove
             ("gcp.schema.url", SCHEMA_URL_VALUE.into()),
             ("server.address", server_addr.ip().to_string().into()),
             ("server.port", (server_addr.port() as i64).into()),
