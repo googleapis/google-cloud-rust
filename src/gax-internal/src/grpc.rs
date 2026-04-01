@@ -378,7 +378,12 @@ impl Client {
         >,
     ) -> ClientBuilderResult<InnerClient> {
         use ::tonic::transport::{Channel, channel::Change};
-        let endpoint = Self::make_endpoint(config.endpoint.clone(), default_endpoint).await?;
+        let endpoint = Self::make_endpoint(
+            config.endpoint.clone(),
+            default_endpoint,
+            config.grpc_max_header_list_size,
+        )
+        .await?;
         let (channel, tx) = Channel::balance_channel(
             config
                 .grpc_request_buffer_capacity
@@ -421,6 +426,7 @@ impl Client {
     async fn make_endpoint(
         endpoint: Option<String>,
         default_endpoint: &str,
+        grpc_max_header_list_size: Option<u32>,
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
@@ -440,7 +446,11 @@ impl Client {
         } else {
             endpoint
         };
-        Ok(endpoint.origin(origin).concurrency_limit(100))
+        let mut endpoint = endpoint.origin(origin).concurrency_limit(100);
+        if let Some(limit) = grpc_max_header_list_size {
+            endpoint = endpoint.http2_max_header_list_size(limit);
+        }
+        Ok(endpoint)
     }
 
     async fn make_credentials(

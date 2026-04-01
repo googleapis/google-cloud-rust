@@ -17,6 +17,9 @@ use crate::ClientBuilderResult as BuilderResult;
 use gaxi::options::ClientConfig;
 use google_cloud_auth::credentials::Credentials;
 
+// This is to handle large metadata when errors are returned for exactly once delivery.
+const MAX_INBOUND_METADATA_SIZE: u32 = 4 * 1024 * 1024; // 4MB API maximum metadata size
+
 /// A builder for [Subscriber].
 ///
 /// # Example
@@ -36,9 +39,9 @@ pub struct ClientBuilder {
 
 impl ClientBuilder {
     pub(super) fn new() -> Self {
-        Self {
-            config: ClientConfig::default(),
-        }
+        let mut config = ClientConfig::default();
+        config.grpc_max_header_list_size = Some(MAX_INBOUND_METADATA_SIZE);
+        Self { config }
     }
 
     /// Creates a new client.
@@ -138,6 +141,10 @@ mod tests {
             builder.config.grpc_subchannel_count.is_none(),
             "{:?}",
             builder.config
+        );
+        assert_eq!(
+            builder.config.grpc_max_header_list_size,
+            Some(MAX_INBOUND_METADATA_SIZE)
         );
     }
 

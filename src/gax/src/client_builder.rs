@@ -427,6 +427,7 @@ pub mod internal {
         pub disable_follow_redirects: bool,
         pub grpc_subchannel_count: Option<usize>,
         pub grpc_request_buffer_capacity: Option<usize>,
+        pub grpc_max_header_list_size: Option<u32>,
     }
 
     impl<Cr> std::default::Default for ClientConfig<Cr> {
@@ -446,6 +447,7 @@ pub mod internal {
                 disable_follow_redirects: false,
                 grpc_subchannel_count: None,
                 grpc_request_buffer_capacity: None,
+                grpc_max_header_list_size: None,
             }
         }
     }
