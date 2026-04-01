@@ -250,7 +250,7 @@ impl MessageStreamImpl {
         loop {
             // Serve a message if we have one ready.
             if let Some((m, hi)) = self.pool.pop_front() {
-                return Some(Ok((m, hi.to_handler(self.ack_tx.clone()))));
+                return Some(Ok((m, hi.into_handler(self.ack_tx.clone()))));
             }
 
             // Otherwise, read the next response from the stream, which will
@@ -398,7 +398,7 @@ enum HandlerInfo {
 impl HandlerInfo {
     /// Convert this type to a `Handler`, by adding its action `Sender` before
     /// serving it to the application.
-    fn to_handler(self, ack_tx: UnboundedSender<Action>) -> Handler {
+    fn into_handler(self, ack_tx: UnboundedSender<Action>) -> Handler {
         match self {
             HandlerInfo::AtLeastOnce { ack_id } => {
                 Handler::AtLeastOnce(AtLeastOnce::new(ack_id, ack_tx))
