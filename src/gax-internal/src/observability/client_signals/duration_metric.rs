@@ -13,11 +13,11 @@
 // limitations under the License.
 
 use crate::observability::RequestRecorder;
-use crate::observability::attributes::GCP_CLIENT_REPO_GOOGLEAPIS;
 use crate::observability::attributes::keys::{
     GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION, GCP_SCHEMA_URL,
     HTTP_RESPONSE_STATUS_CODE, RPC_METHOD, RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
 };
+use crate::observability::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, SCHEMA_URL_VALUE};
 use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
 use google_cloud_gax::error::Error;
@@ -84,9 +84,10 @@ impl DurationMetric {
         provider: Arc<dyn MeterProvider + Send + Sync>,
     ) -> Self {
         let scope = InstrumentationScope::builder(info.client_artifact)
+            .with_version(info.client_version)
+            .with_schema_url(SCHEMA_URL_VALUE)
             .with_attributes([
                 KeyValue::new(GCP_CLIENT_ARTIFACT, info.client_artifact),
-                KeyValue::new(GCP_CLIENT_VERSION, info.client_version),
                 KeyValue::new(GCP_CLIENT_SERVICE, info.service_name),
                 KeyValue::new(GCP_CLIENT_REPO, GCP_CLIENT_REPO_GOOGLEAPIS),
             ])
@@ -123,10 +124,7 @@ impl DurationMetric {
             (GCP_CLIENT_VERSION, Some(snapshot.client_version().into())),
             (GCP_CLIENT_REPO, Some(GCP_CLIENT_REPO_GOOGLEAPIS.into())),
             (GCP_CLIENT_ARTIFACT, Some(snapshot.client_artifact().into())),
-            (
-                GCP_SCHEMA_URL,
-                Some(crate::observability::attributes::SCHEMA_URL_VALUE.into()),
-            ),
+            (GCP_SCHEMA_URL, Some(SCHEMA_URL_VALUE.into())),
         ];
         let attributes = attributes
             .into_iter()
@@ -166,10 +164,7 @@ impl DurationMetric {
             (GCP_CLIENT_VERSION, Some(snapshot.client_version().into())),
             (GCP_CLIENT_REPO, Some(GCP_CLIENT_REPO_GOOGLEAPIS.into())),
             (GCP_CLIENT_ARTIFACT, Some(snapshot.client_artifact().into())),
-            (
-                GCP_SCHEMA_URL,
-                Some(crate::observability::attributes::SCHEMA_URL_VALUE.into()),
-            ),
+            (GCP_SCHEMA_URL, Some(SCHEMA_URL_VALUE.into())),
         ];
         let attributes = attributes
             .into_iter()
@@ -251,10 +246,7 @@ mod tests {
                 ("gcp.client.version", "1.2.3"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
                 ("gcp.client.artifact", "test-artifact"),
-                (
-                    "gcp.schema.url",
-                    crate::observability::attributes::SCHEMA_URL_VALUE,
-                ),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
             ],
         );
         Ok(())
@@ -309,10 +301,7 @@ mod tests {
                 ("gcp.client.version", "1.2.3"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
                 ("gcp.client.artifact", "test-artifact"),
-                (
-                    "gcp.schema.url",
-                    crate::observability::attributes::SCHEMA_URL_VALUE,
-                ),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
             ],
         );
         Ok(())
@@ -362,10 +351,7 @@ mod tests {
                 ("gcp.client.version", "1.2.3"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
                 ("gcp.client.artifact", "test-artifact"),
-                (
-                    "gcp.schema.url",
-                    crate::observability::attributes::SCHEMA_URL_VALUE,
-                ),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
             ],
         );
         Ok(())

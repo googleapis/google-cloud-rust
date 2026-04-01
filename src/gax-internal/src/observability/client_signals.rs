@@ -119,6 +119,7 @@ mod tests {
     use super::with_client_logging::{NAME, TARGET};
     use super::{ClientRequestAttributes, RequestRecorder};
     use crate::observability::DurationMetric;
+    use crate::observability::attributes::SCHEMA_URL_VALUE;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_gax::error::Error;
     use httptest::matchers::request::method_path;
@@ -251,10 +252,7 @@ mod tests {
                 ("gcp.client.version", "1.2.3"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
                 ("gcp.client.artifact", "test-artifact"),
-                (
-                    "gcp.schema.url",
-                    crate::observability::attributes::SCHEMA_URL_VALUE,
-                ),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
             ],
         );
 
@@ -316,10 +314,7 @@ mod tests {
                 ("gcp.client.version", "1.2.3"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
                 ("gcp.client.artifact", "test-artifact"),
-                (
-                    "gcp.schema.url",
-                    crate::observability::attributes::SCHEMA_URL_VALUE,
-                ),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
                 ("gcp.client.service", "test-service"),
                 ("rpc.method", TEST_METHOD),
                 ("error.type", "404"),
@@ -414,9 +409,10 @@ mod tests {
         };
         let scope = got.scope();
         let want = InstrumentationScope::builder("test-artifact")
+            .with_version("1.2.3")
+            .with_schema_url(SCHEMA_URL_VALUE)
             .with_attributes([
                 KeyValue::new("gcp.client.artifact", "test-artifact"),
-                KeyValue::new("gcp.client.version", "1.2.3"),
                 KeyValue::new("gcp.client.service", "test-service"),
                 KeyValue::new("gcp.client.repo", "googleapis/google-cloud-rust"),
             ])
