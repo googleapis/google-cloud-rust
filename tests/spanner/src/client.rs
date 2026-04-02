@@ -14,6 +14,8 @@
 
 use google_cloud_spanner::client::{KeySet, Mutation, Spanner};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+use std::time::Duration;
+use tokio::time::sleep;
 
 const PROJECT_ID: &str = "test-project";
 const INSTANCE_ID: &str = "test-instance";
@@ -40,7 +42,7 @@ pub async fn wait_for_emulator(endpoint: &str) {
 static PROVISION_EMULATOR: tokio::sync::OnceCell<()> = tokio::sync::OnceCell::const_new();
 static DATABASE_ID: tokio::sync::OnceCell<String> = tokio::sync::OnceCell::const_new();
 
-async fn get_database_id() -> &'static str {
+pub async fn get_database_id() -> &'static str {
     DATABASE_ID
         .get_or_init(|| async {
             std::env::var("SPANNER_EMULATOR_TEST_DB")
@@ -59,16 +61,19 @@ pub async fn provision_emulator(endpoint: &str) {
         .await;
 }
 
+pub fn get_emulator_rest_endpoint(grpc_endpoint: &str) -> String {
+    let rest_endpoint = std::env::var("SPANNER_EMULATOR_REST_HOST")
+        .unwrap_or_else(|_| grpc_endpoint.replace("9010", "9020"));
+    if rest_endpoint.starts_with("http://") || rest_endpoint.starts_with("https://") {
+        rest_endpoint
+    } else {
+        format!("http://{}", rest_endpoint)
+    }
+}
+
 async fn do_provision_emulator(endpoint: &str) {
     // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
-    let rest_endpoint = std::env::var("SPANNER_EMULATOR_REST_HOST")
-        .unwrap_or_else(|_| endpoint.replace("9010", "9020"));
-    let rest_endpoint =
-        if rest_endpoint.starts_with("http://") || rest_endpoint.starts_with("https://") {
-            rest_endpoint
-        } else {
-            format!("http://{}", rest_endpoint)
-        };
+    let rest_endpoint = get_emulator_rest_endpoint(endpoint);
     let client = reqwest::Client::new();
 
     // Create a test instance and ignore any ALREADY_EXISTS errors.
@@ -195,4 +200,51 @@ pub async fn create_database_client() -> Option<google_cloud_spanner::client::Da
         .expect("Failed to build database client");
 
     Some(db_client)
+}
+
+pub async fn update_database_ddl(statement: String) -> anyhow::Result<()> {
+    let emulator_host = get_emulator_host().expect("SPANNER_EMULATOR_HOST must be set");
+    let rest_endpoint = get_emulator_rest_endpoint(&emulator_host);
+    let db_path = format!(
+        "projects/{}/instances/{}/databases/{}",
+        PROJECT_ID,
+        INSTANCE_ID,
+        get_database_id().await
+    );
+    let url = format!("{}/v1/{}/ddl", rest_endpoint, db_path);
+    let client = reqwest::Client::new();
+    let payload = serde_json::json!({
+        "statements": [statement]
+    });
+
+    let mut attempts = 0;
+    const MAX_ATTEMPTS: u32 = 25;
+
+    loop {
+        attempts += 1;
+        let res = client.patch(&url).json(&payload).send().await?;
+
+        let status = res.status();
+        let text = res.text().await?;
+
+        if status.is_success() {
+            return Ok(());
+        }
+
+        // Check if the error is the specific one we want to retry.
+        // Code 9 is FailedPrecondition.
+        if text.contains("\"code\":9") && text.contains("Schema change operation rejected") {
+            if attempts >= MAX_ATTEMPTS {
+                anyhow::bail!(
+                    "Failed to update DDL after {} attempts. Last error: {}",
+                    attempts,
+                    text
+                );
+            }
+            sleep(Duration::from_millis(100)).await;
+            continue;
+        }
+
+        anyhow::bail!("Failed to update DDL: status={}, body={}", status, text);
+    }
 }
