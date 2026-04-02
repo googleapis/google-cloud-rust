@@ -15,7 +15,7 @@
 use super::builder::Subscribe;
 use super::handler::{Action, AtLeastOnce, ExactlyOnce, Handler};
 use super::lease_loop::LeaseLoop;
-use super::lease_state::{ExactlyOnceInfo, LeaseInfo, LeaseOptions, NewMessage};
+use super::lease_state::{AtLeastOnceInfo, ExactlyOnceInfo, LeaseInfo, LeaseOptions, NewMessage};
 use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
 use super::stream::Stream;
@@ -32,7 +32,7 @@ use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
-use tokio::time::Instant;
+use tokio::time::Duration;
 use tokio_util::sync::CancellationToken;
 
 /// Represents an open subscribe stream.
@@ -133,6 +133,7 @@ impl MessageStream {
         );
         let options = LeaseOptions {
             max_lease: builder.max_lease,
+            max_lease_extension: Duration::from_secs(builder.ack_deadline_seconds as u64),
             shutdown_behavior: builder.shutdown_behavior,
             ..Default::default()
         };
@@ -351,7 +352,7 @@ impl MessageStreamImpl {
                 )
             } else {
                 (
-                    LeaseInfo::AtLeastOnce(Instant::now()),
+                    LeaseInfo::AtLeastOnce(AtLeastOnceInfo::new()),
                     Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id.clone(), self.ack_tx.clone())),
                 )
             };
