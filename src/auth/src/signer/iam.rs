@@ -86,9 +86,7 @@ impl SigningProvider for IamSigner {
         let endpoint = match self.iam_endpoint_override.as_ref() {
             Some(endpoint) => endpoint.clone(),
             None => {
-                let universe_domain = crate::universe_domain::resolve(&self.inner)
-                    .await
-                    .map_err(SigningError::transport)?;
+                let universe_domain = crate::universe_domain::resolve(&self.inner).await;
                 format!("https://iamcredentials.{universe_domain}")
             }
         };

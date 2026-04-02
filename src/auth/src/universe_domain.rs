@@ -14,20 +14,23 @@
 
 use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
 use crate::credentials::Credentials;
-use crate::errors::CredentialsError;
 
-pub(crate) fn is_default_universe_domain<S: Into<String>>(universe_domain: Option<S>) -> bool {
-    let universe_domain = universe_domain.map(|s| s.into());
+/// Returns `true` if the given universe domain is the Default Google Universe (GDU).
+///
+/// This serves as a feature gate for capabilities that are only supported in the GDU
+/// (e.g., `googleapis.com`). For example, Regional Access Boundaries should be disabled,
+/// and User Account credentials should return an error when running outside the GDU.
+pub(crate) fn is_default_universe_domain(universe_domain: Option<String>) -> bool {
     match universe_domain {
         Some(ud) => ud == DEFAULT_UNIVERSE_DOMAIN,
         None => true,
     }
 }
 
-pub(crate) async fn resolve(cred: &Credentials) -> Result<String, CredentialsError> {
+pub(crate) async fn resolve(cred: &Credentials) -> String {
     let cred_universe = cred.universe_domain().await;
-    Ok(cred_universe
+    cred_universe
         .as_deref()
         .unwrap_or(DEFAULT_UNIVERSE_DOMAIN)
-        .to_string())
+        .to_string()
 }
