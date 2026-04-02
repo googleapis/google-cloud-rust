@@ -1425,4 +1425,345 @@ pub(crate) mod tests {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn inline_begin_failure_retry_success() -> anyhow::Result<()> {
+        use crate::value::Value;
+        use gaxi::grpc::tonic::Response;
+        use gaxi::grpc::tonic::Status;
+
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        // 1. Initial query fails
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::internal("Internal error")));
+
+        // 2. Explicit begin transaction succeeds
+        mock.expect_begin_transaction()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.session,
+                    "projects/p/instances/i/databases/d/sessions/123"
+                );
+                // Return a transaction with ID
+                Ok(Response::new(mock_v1::Transaction {
+                    id: vec![7, 8, 9],
+                    read_timestamp: Some(prost_types::Timestamp {
+                        seconds: 123456789,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 3. Retry of the query succeeds
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let req = req.into_inner();
+                // Ensure it uses the new transaction ID
+                match req.transaction.unwrap().selector.unwrap() {
+                    mock_v1::transaction_selector::Selector::Id(id) => {
+                        assert_eq!(id, vec![7, 8, 9]);
+                    }
+                    _ => panic!("Expected Selector::Id"),
+                }
+                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
+                    setup_select1(),
+                )]))))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+
+        let mut rs = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+
+        let row = rs
+            .next()
+            .await
+            .ok_or_else(|| anyhow::anyhow!("Expected a row but stream cleanly exhausted"))??;
+        assert_eq!(
+            row.raw_values(),
+            [Value(string_val("1"))],
+            "The parsed row value safely matched the underlying stream chunk"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn inline_begin_failure_retry_failure() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response;
+        use gaxi::grpc::tonic::Status;
+
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        // 1. Initial query fails
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::internal("Internal error first")));
+
+        // 2. Explicit begin transaction succeeds
+        mock.expect_begin_transaction()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Ok(Response::new(mock_v1::Transaction {
+                    id: vec![7, 8, 9],
+                    read_timestamp: Some(prost_types::Timestamp {
+                        seconds: 123456789,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 3. Retry of the query fails again
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::internal("Internal error second")));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+
+        let rs_result = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await;
+
+        assert!(
+            rs_result.is_err(),
+            "The failed execution bubbled upwards securely"
+        );
+        let err_str = rs_result.unwrap_err().to_string();
+        assert!(
+            err_str.contains("Internal error second"),
+            "Secondary error message accurately propagates: {}",
+            err_str
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn inline_begin_failure_fallback_rpc_fails() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Status;
+
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        // 1. Initial query fails
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::internal("Internal error query")));
+
+        // 2. Explicit begin transaction fails
+        mock.expect_begin_transaction()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::internal("Internal error begin tx")));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+
+        let rs_result = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await;
+
+        assert!(
+            rs_result.is_err(),
+            "The explicitly errored fallback boot securely propagated outwards"
+        );
+        let err_str = rs_result.unwrap_err().to_string();
+        assert!(
+            err_str.contains("Internal error begin tx"),
+            "Natively propagated specific BeginTx bounds: {}",
+            err_str
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn inline_begin_read_failure_retry_success() -> anyhow::Result<()> {
+        use crate::client::{KeySet, ReadRequest};
+        use crate::value::Value;
+        use gaxi::grpc::tonic::Response;
+        use gaxi::grpc::tonic::Status;
+
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        // 1. Initial read fails
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::internal("Internal error")));
+
+        // 2. Explicit begin transaction succeeds
+        mock.expect_begin_transaction()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Ok(Response::new(mock_v1::Transaction {
+                    id: vec![7, 8, 9],
+                    read_timestamp: None,
+                    ..Default::default()
+                }))
+            });
+
+        // 3. Retry of the read succeeds
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let req = req.into_inner();
+                // Ensure it uses the new transaction ID
+                match req.transaction.unwrap().selector.unwrap() {
+                    mock_v1::transaction_selector::Selector::Id(id) => {
+                        assert_eq!(id, vec![7, 8, 9]);
+                    }
+                    _ => panic!("Expected Selector::Id"),
+                }
+                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
+                    setup_select1(),
+                )]))))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+
+        let read = ReadRequest::builder("Users", vec!["Id", "Name"])
+            .with_keys(KeySet::all())
+            .build();
+        let mut rs = tx.execute_read(read).await?;
+
+        let row = rs
+            .next()
+            .await
+            .ok_or_else(|| anyhow::anyhow!("Expected a row uniquely returned"))??;
+        assert_eq!(
+            row.raw_values(),
+            [Value(string_val("1"))],
+            "The macro correctly unpacked read arrays seamlessly"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn single_use_query_send_error_returns_immediately() -> anyhow::Result<()> {
+        use crate::client::Statement;
+        use gaxi::grpc::tonic::Status;
+
+        let mut mock = create_session_mock();
+
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .returning(|_| Err(Status::internal("Internal error single use query")));
+
+        mock.expect_begin_transaction().never();
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        // single_use creates a Fixed selector
+        let tx = db_client.single_use().build();
+
+        let rs_result = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await;
+
+        assert!(rs_result.is_err());
+        let err_str = rs_result.unwrap_err().to_string();
+        assert!(err_str.contains("Internal error single use query"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn inline_begin_already_started_query_send_error_returns_immediately()
+    -> anyhow::Result<()> {
+        use crate::client::Statement;
+        use gaxi::grpc::tonic::Status;
+        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_begin_transaction().never();
+
+        // 1. First query executes successfully and implicitly starts the transaction.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(move |_req| {
+                let mut rs = setup_select1();
+                rs.metadata.as_mut().unwrap().transaction = Some(mock_v1::Transaction {
+                    id: vec![4, 5, 6],
+                    read_timestamp: None,
+                    ..Default::default()
+                });
+                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
+                    tokio_stream::iter(vec![Ok(rs)]),
+                )))
+            });
+
+        // 2. Second query fails immediately upon send()
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::internal("Internal error second query")));
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+
+        // Run first query (starts tx)
+        let mut rs = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        let _ = rs.next().await.expect("has row")?;
+
+        // Run second query (fails)
+        let rs_result = tx
+            .execute_query(Statement::builder("SELECT 2").build())
+            .await;
+
+        assert!(rs_result.is_err());
+        let err_str = rs_result.unwrap_err().to_string();
+        assert!(err_str.contains("Internal error second query"));
+
+        Ok(())
+    }
 }
