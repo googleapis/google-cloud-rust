@@ -410,7 +410,7 @@ mod tests {
         check_debug_log(&captured, "read_object");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "read_object", "404");
+        client_request_span(&captured, "read_object", "404", "http");
 
         Ok(())
     }
@@ -497,7 +497,7 @@ mod tests {
         check_debug_log(&captured, "write_object_buffered");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "write_object", "404");
+        client_request_span(&captured, "write_object", "404", "http");
 
         Ok(())
     }
@@ -534,7 +534,7 @@ mod tests {
         check_debug_log(&captured, "write_object_unbuffered");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "write_object", "404");
+        client_request_span(&captured, "write_object", "404", "http");
 
         Ok(())
     }
@@ -571,7 +571,7 @@ mod tests {
         check_debug_log(&captured, "open_object");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "open_object", "NOT_FOUND");
+        client_request_span(&captured, "open_object", "NOT_FOUND", "grpc");
         Ok(())
     }
 
@@ -722,10 +722,11 @@ mod tests {
         captured: &Vec<CapturedSpan>,
         method: &'static str,
         error_type: &'static str,
+        rpc_system: &'static str,
     ) {
-        const EXPECTED_ATTRIBUTES: [(&str, &str); 6] = [
+        let expected_attributes: [(&str, &str); 6] = [
             ("otel.kind", "Internal"),
-            ("rpc.system.name", "http"),
+            ("rpc.system.name", rpc_system),
             ("otel.status_code", "ERROR"),
             ("gcp.client.service", "storage"),
             ("gcp.client.repo", "googleapis/google-cloud-rust"),
@@ -739,7 +740,7 @@ mod tests {
         // This is a subset of the fields, but good enough to catch most
         // mistakes. Recall that we use a macro, which is already tested.
         let want = BTreeMap::<String, AttributeValue>::from_iter(
-            EXPECTED_ATTRIBUTES
+            expected_attributes
                 .iter()
                 .map(|(k, v)| (k.to_string(), AttributeValue::from(*v)))
                 .chain(

@@ -13,9 +13,9 @@
 // limitations under the License.
 
 use super::builder::Subscribe;
-use super::handler::{Action, AtLeastOnce, ExactlyOnce, Handler};
+use super::handler::{AckResult, Action, AtLeastOnce, ExactlyOnce, Handler};
 use super::lease_loop::LeaseLoop;
-use super::lease_state::{ExactlyOnceInfo, LeaseInfo, LeaseOptions, NewMessage};
+use super::lease_state::{AtLeastOnceInfo, ExactlyOnceInfo, LeaseInfo, LeaseOptions, NewMessage};
 use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
 use super::stream::Stream;
@@ -32,7 +32,8 @@ use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
-use tokio::time::Instant;
+use tokio::sync::oneshot::Receiver;
+use tokio::time::Duration;
 use tokio_util::sync::CancellationToken;
 
 /// Represents an open subscribe stream.
@@ -95,7 +96,7 @@ pub struct MessageStreamImpl {
     /// while we wait to serve them to applications.
     ///
     /// A FIFO queue is necessary to preserve ordering.
-    pool: VecDeque<(Message, Handler)>,
+    pool: VecDeque<(Message, HandlerInfo)>,
 
     /// A sender for sending new messages from the stream into the lease
     /// management task.
@@ -133,6 +134,7 @@ impl MessageStream {
         );
         let options = LeaseOptions {
             max_lease: builder.max_lease,
+            max_lease_extension: Duration::from_secs(builder.ack_deadline_seconds as u64),
             shutdown_behavior: builder.shutdown_behavior,
             ..Default::default()
         };
@@ -247,8 +249,8 @@ impl MessageStreamImpl {
     async fn next(&mut self) -> Option<Result<(Message, Handler)>> {
         loop {
             // Serve a message if we have one ready.
-            if let Some(item) = self.pool.pop_front() {
-                return Some(Ok(item));
+            if let Some((m, hi)) = self.pool.pop_front() {
+                return Some(Ok((m, hi.into_handler(self.ack_tx.clone()))));
             }
 
             // Otherwise, read the next response from the stream, which will
@@ -339,20 +341,21 @@ impl MessageStreamImpl {
                 continue;
             };
 
-            let (lease_info, handler) = if exactly_once {
+            let (lease_info, handler_info) = if exactly_once {
                 let (result_tx, result_rx) = tokio::sync::oneshot::channel();
                 (
                     LeaseInfo::ExactlyOnce(ExactlyOnceInfo::new(result_tx)),
-                    Handler::ExactlyOnce(ExactlyOnce::new(
-                        rm.ack_id.clone(),
-                        self.ack_tx.clone(),
+                    HandlerInfo::ExactlyOnce {
+                        ack_id: rm.ack_id.clone(),
                         result_rx,
-                    )),
+                    },
                 )
             } else {
                 (
-                    LeaseInfo::AtLeastOnce(Instant::now()),
-                    Handler::AtLeastOnce(AtLeastOnce::new(rm.ack_id.clone(), self.ack_tx.clone())),
+                    LeaseInfo::AtLeastOnce(AtLeastOnceInfo::new()),
+                    HandlerInfo::AtLeastOnce {
+                        ack_id: rm.ack_id.clone(),
+                    },
                 )
             };
 
@@ -364,9 +367,46 @@ impl MessageStreamImpl {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
             };
-            self.pool.push_back((message, handler));
+            self.pool.push_back((message, handler_info));
         }
         Some(Ok(()))
+    }
+}
+
+/// A `Handler` without its action `Sender`.
+///
+/// We only want to create strong `Sender`s for `Handler`s that we yield to the
+/// application.
+///
+/// Note that the application should be able to signal a shutdown without
+/// dropping the `MessageStream` or calling `MessageStream::next()`.
+///
+/// In these cases, the items in the `MessageStream::pool` are not cleared. So,
+/// if we hold a strong `Sender` in the `pool`, we would never initiate a
+/// shutdown when configured to `WaitForProcessing`.
+#[derive(Debug)]
+enum HandlerInfo {
+    AtLeastOnce {
+        ack_id: String,
+    },
+    ExactlyOnce {
+        ack_id: String,
+        result_rx: Receiver<AckResult>,
+    },
+}
+
+impl HandlerInfo {
+    /// Convert this type to a `Handler`, by adding its action `Sender` before
+    /// serving it to the application.
+    fn into_handler(self, ack_tx: UnboundedSender<Action>) -> Handler {
+        match self {
+            HandlerInfo::AtLeastOnce { ack_id } => {
+                Handler::AtLeastOnce(AtLeastOnce::new(ack_id, ack_tx))
+            }
+            HandlerInfo::ExactlyOnce { ack_id, result_rx } => {
+                Handler::ExactlyOnce(ExactlyOnce::new(ack_id, ack_tx, result_rx))
+            }
+        }
     }
 }
 

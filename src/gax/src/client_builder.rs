@@ -252,9 +252,8 @@ impl<F, Cr> ClientBuilder<F, Cr> {
 
     /// Configure the universe domain.
     ///
-    /// The universe domain is a tenant of Google Cloud that determines the
-    /// base URL for Google Cloud services. It is used to route requests to the
-    /// correct Google Cloud environment.
+    /// The universe domain is the default service domain for a given cloud universe.
+    /// The default value is "googleapis.com".
     ///
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
@@ -437,6 +436,7 @@ pub mod internal {
     #[non_exhaustive]
     pub struct ClientConfig<Cr> {
         pub endpoint: Option<String>,
+        pub universe_domain: Option<String>,
         pub cred: Option<Cr>,
         pub tracing: bool,
         pub retry_policy: Option<Arc<dyn RetryPolicy>>,
@@ -458,6 +458,7 @@ pub mod internal {
             use std::sync::{Arc, Mutex};
             Self {
                 endpoint: None,
+                universe_domain: None,
                 cred: None,
                 tracing: false,
                 retry_policy: None,
@@ -664,6 +665,20 @@ pub mod examples {
             let config = client.0;
             let cred = config.cred.unwrap();
             assert_eq!(cred.scopes, vec!["test-scope".to_string()]);
+        }
+
+        #[tokio::test]
+        async fn universe_domain() {
+            let client = Client::builder()
+                .with_universe_domain("some-universe-domain.com")
+                .build()
+                .await
+                .unwrap();
+            let config = client.0;
+            assert_eq!(
+                config.universe_domain,
+                Some("some-universe-domain.com".to_string())
+            );
         }
 
         #[tokio::test]

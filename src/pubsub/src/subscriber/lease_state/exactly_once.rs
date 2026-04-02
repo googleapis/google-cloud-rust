@@ -87,7 +87,7 @@ impl Leases {
     /// Returns batches of ack IDs to extend.
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
-    pub fn retain(&mut self, max_lease_extension: Duration) -> Vec<Vec<String>> {
+    pub fn retain(&mut self, max_lease: Duration) -> Vec<Vec<String>> {
         let now = Instant::now();
 
         // We want to extract some values from `HashMap`, leaving the rest
@@ -105,7 +105,7 @@ impl Leases {
             .under_lease
             .iter()
             .filter_map(|(id, info)| {
-                if !info.pending && info.receive_time + max_lease_extension < now {
+                if !info.pending && info.receive_time + max_lease < now {
                     expired.push(id.clone());
                     None
                 } else {
@@ -165,7 +165,7 @@ impl PartialEq<Leases> for super::tests::TestLeases {
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::{NackBatches, TestLeases, sorted, test_id, test_ids};
+    use super::super::tests::{Batches, TestLeases, sorted, test_id, test_ids};
     use super::*;
     use std::collections::HashSet;
     use tokio::sync::oneshot::channel;
@@ -669,7 +669,7 @@ mod tests {
         let (to_ack, to_nack) = leases.evict_and_drain();
         assert!(to_ack.is_empty(), "{to_ack:?}");
 
-        let to_nack = NackBatches::flatten(to_nack);
+        let to_nack = Batches::flatten(to_nack);
         assert_eq!(sorted(&to_nack.ack_ids), test_ids(1..4));
 
         let err = result_rx1.await?.expect_err("error should be returned");
@@ -694,7 +694,7 @@ mod tests {
         let (to_ack, to_nack) = leases.evict_and_drain();
         assert!(to_ack.is_empty(), "{to_ack:?}");
 
-        let to_nack = NackBatches::flatten(to_nack);
+        let to_nack = Batches::flatten(to_nack);
         assert_eq!(to_nack.counts, vec![MAX_IDS_PER_RPC, 20]);
         assert_eq!(sorted(&to_nack.ack_ids), test_ids(0..MAX_IDS_PER_RPC + 20));
 

@@ -217,9 +217,21 @@ impl Client {
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
-        Ok(inner
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.on_grpc_request(&path);
+        }
+        let result = inner
             .streaming(request.into_streaming_request(), path, codec)
-            .await)
+            .await;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            match &result {
+                Ok(_) => recorder.on_grpc_response(),
+                Err(e) => recorder.on_grpc_error(&to_gax_error(e.clone())),
+            }
+        }
+        Ok(result)
     }
 
     /// Opens a server stream.
@@ -275,9 +287,21 @@ impl Client {
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
-        Ok(inner
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.on_grpc_request(&path);
+        }
+        let result = inner
             .server_streaming(request.into_request(), path, codec)
-            .await)
+            .await;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            match &result {
+                Ok(_) => recorder.on_grpc_response(),
+                Err(e) => recorder.on_grpc_error(&to_gax_error(e.clone())),
+            }
+        }
+        Ok(result)
     }
 
     /// Runs the retry loop.
@@ -370,10 +394,22 @@ impl Client {
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
-        inner
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.on_grpc_request(&path);
+        }
+        let result = inner
             .unary(request, path, codec)
             .await
-            .map_err(to_gax_error)
+            .map_err(to_gax_error);
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            match &result {
+                Ok(_) => recorder.on_grpc_response(),
+                Err(e) => recorder.on_grpc_error(e),
+            }
+        }
+        result
     }
 
     async fn make_inner(

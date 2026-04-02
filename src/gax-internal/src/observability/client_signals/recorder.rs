@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::observability::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, RPC_SYSTEM_HTTP};
+use crate::observability::attributes::GCP_CLIENT_REPO_GOOGLEAPIS;
+#[cfg(feature = "_internal-http-client")]
+use crate::observability::attributes::RPC_SYSTEM_HTTP;
 #[cfg(feature = "_internal-http-client")]
 use crate::observability::http_tracing::sanitize_url;
 use crate::options::InstrumentationClientInfo;
-#[cfg(feature = "_internal-http-client")]
 use google_cloud_gax::error::Error;
+use http::Method;
 use http::Uri;
-use reqwest::Method;
 use std::future::Future;
 use std::net::SocketAddr;
 use std::sync::{Arc, Mutex};
@@ -155,7 +156,6 @@ impl RequestRecorder {
         guard.rpc_method = attributes.rpc_method;
         guard.url_template = attributes.url_template;
         guard.resource_name = attributes.resource_name;
-        guard.rpc_system = attributes.rpc_system;
     }
 
     /// Call before issuing a HTTP request to capture its data.
@@ -193,6 +193,35 @@ impl RequestRecorder {
         let mut guard = self.inner.lock().expect("never poisoned");
         guard.attempt_count += 1;
     }
+
+    /// Call before issuing a gRPC request to capture its data.
+    #[cfg(feature = "_internal-grpc-client")]
+    pub fn on_grpc_request(&self, path: &http::uri::PathAndQuery) {
+        let mut guard = self.inner.lock().expect("never poisoned");
+        let snapshot = TransportSnapshot {
+            start: Instant::now(),
+            network_peer_address: None,
+            rpc_system: Some("grpc"),
+            http_method: Some(Method::POST),
+            http_status_code: None,
+            url: Some(path.as_str().to_string()),
+        };
+        guard.transport_snapshot = Some(snapshot);
+    }
+
+    /// Call when receiving a gRPC response to capture its data.
+    #[cfg(feature = "_internal-grpc-client")]
+    pub fn on_grpc_response(&self) {
+        let mut guard = self.inner.lock().expect("never poisoned");
+        guard.attempt_count += 1;
+    }
+
+    /// Call when it was not possible to send a gRPC request.
+    #[cfg(feature = "_internal-grpc-client")]
+    pub fn on_grpc_error(&self, _err: &google_cloud_gax::error::Error) {
+        let mut guard = self.inner.lock().expect("never poisoned");
+        guard.attempt_count += 1;
+    }
 }
 
 /// The attributes captured at the start of the request.
@@ -214,7 +243,6 @@ pub struct ClientRequestAttributes {
     pub rpc_method: Option<&'static str>,
     pub url_template: Option<&'static str>,
     pub resource_name: Option<String>,
-    pub rpc_system: Option<&'static str>,
 }
 
 impl ClientRequestAttributes {
@@ -232,11 +260,6 @@ impl ClientRequestAttributes {
         self.resource_name = Some(v);
         self
     }
-
-    pub fn set_rpc_system(mut self, v: &'static str) -> Self {
-        self.rpc_system = Some(v);
-        self
-    }
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -248,7 +271,6 @@ pub struct ClientSnapshot {
     url_template: Option<&'static str>,
     resource_name: Option<String>,
     attempt_count: u32,
-    rpc_system: Option<&'static str>,
     transport_snapshot: Option<TransportSnapshot>,
 }
 
@@ -262,7 +284,6 @@ impl ClientSnapshot {
             url_template: None,
             resource_name: None,
             attempt_count: 0_u32,
-            rpc_system: None,
             transport_snapshot: None,
         }
     }
@@ -315,8 +336,7 @@ impl ClientSnapshot {
     ///
     /// Use with the "rpc.system.name" attribute.
     pub fn rpc_system(&self) -> Option<&'static str> {
-        self.rpc_system
-            .or_else(|| self.transport_snapshot.as_ref().and_then(|s| s.rpc_system))
+        self.transport_snapshot.as_ref().and_then(|s| s.rpc_system)
     }
 
     /// Returns the server address used in the last low-level request.
@@ -390,7 +410,7 @@ impl ClientSnapshot {
     pub fn http_method(&self) -> Option<&str> {
         self.transport_snapshot
             .as_ref()
-            .and_then(|s| s.http_method.as_ref().map(|m| m.as_str()))
+            .and_then(|s| s.http_method.as_ref().map(|m: &http::Method| m.as_str()))
     }
 
     /// Returns the "resend count" of the last request, if it was a retry.
