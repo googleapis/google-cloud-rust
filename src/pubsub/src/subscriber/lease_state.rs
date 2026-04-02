@@ -34,6 +34,9 @@ use tokio_util::task::TaskTracker;
 // https://docs.cloud.google.com/pubsub/quotas
 const MAX_IDS_PER_RPC: usize = 1000;
 
+// How often we extend deadlines for messages under lease
+const EXTEND_PERIOD: Duration = Duration::from_secs(3);
+
 // Helper function to chunk ack ids into chunks of MAX_IDS_PER_RPC.
 fn batch(ack_ids: Vec<String>) -> Vec<Vec<String>> {
     ack_ids
@@ -54,6 +57,8 @@ pub(super) struct LeaseOptions {
     /// How long messages can be kept under lease. A message's lease can be
     /// extended as long as `max_lease` has not elapsed.
     pub(super) max_lease: Duration,
+    /// How long a message's lease can be extended by.
+    pub(super) max_lease_extension: Duration,
     /// The shutdown behavior of the lease loop
     pub(super) shutdown_behavior: ShutdownBehavior,
 }
@@ -63,9 +68,10 @@ impl Default for LeaseOptions {
         LeaseOptions {
             flush_period: Duration::from_millis(100),
             flush_start: Duration::from_millis(100),
-            extend_period: Duration::from_secs(3),
+            extend_period: EXTEND_PERIOD,
             extend_start: Duration::from_millis(500),
             max_lease: Duration::from_secs(600),
+            max_lease_extension: Duration::from_secs(60),
             shutdown_behavior: ShutdownBehavior::WaitForProcessing,
         }
     }
@@ -79,8 +85,23 @@ pub(super) struct NewMessage {
 
 #[derive(Debug)]
 pub(super) enum LeaseInfo {
-    AtLeastOnce(Instant),
+    AtLeastOnce(AtLeastOnceInfo),
     ExactlyOnce(ExactlyOnceInfo),
+}
+
+#[derive(Debug)]
+pub(super) struct AtLeastOnceInfo {
+    receive_time: Instant,
+    last_extension: Option<Instant>,
+}
+
+impl AtLeastOnceInfo {
+    pub(super) fn new() -> Self {
+        AtLeastOnceInfo {
+            receive_time: Instant::now(),
+            last_extension: None,
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -125,6 +146,8 @@ where
     extend_interval: Interval,
     // How long messages can be kept under lease
     max_lease: Duration,
+    // How long a message's lease can be extended by
+    max_lease_extension: Duration,
 
     // In flight acks and nacks.
     pending_acks_nacks: TaskTracker,
@@ -161,6 +184,7 @@ where
             flush_interval,
             extend_interval,
             max_lease: options.max_lease,
+            max_lease_extension: options.max_lease_extension,
             pending_acks_nacks: TaskTracker::new(),
             pending_extends: JoinSet::new(),
         }
@@ -244,7 +268,7 @@ where
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(super) fn extend(&mut self) {
-        let batches = self.leases.retain(self.max_lease);
+        let batches = self.leases.retain(self.max_lease, self.max_lease_extension);
         for ack_ids in batches {
             let leaser = self.leaser.clone();
             self.pending_extends
@@ -327,12 +351,12 @@ pub(super) mod tests {
     }
 
     #[derive(Debug)]
-    pub(super) struct NackBatches {
+    pub(super) struct Batches {
         pub(super) counts: Vec<i32>,
         pub(super) ack_ids: Vec<String>,
     }
 
-    impl NackBatches {
+    impl Batches {
         pub(super) fn flatten(to_nack: Vec<Vec<String>>) -> Self {
             let counts = to_nack.iter().map(|v| v.len() as i32).collect();
             let ack_ids = to_nack.into_iter().flatten().collect();
@@ -355,7 +379,7 @@ pub(super) mod tests {
     }
 
     pub(in super::super) fn at_least_once_info() -> LeaseInfo {
-        LeaseInfo::AtLeastOnce(Instant::now())
+        LeaseInfo::AtLeastOnce(AtLeastOnceInfo::new())
     }
 
     pub(in super::super) fn exactly_once_info() -> LeaseInfo {
@@ -731,7 +755,11 @@ pub(super) mod tests {
             .withf(|v| sorted(v) == test_ids(10..20))
             .returning(|_| ());
 
-        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
+        let options = LeaseOptions {
+            max_lease_extension: Duration::ZERO,
+            ..Default::default()
+        };
+        let mut state = LeaseState::new(Arc::new(mock), options);
 
         // Add 10 messages. These are now under lease management.
         for i in 0..10 {
@@ -833,7 +861,11 @@ pub(super) mod tests {
             .withf(|v| *v == vec![test_id(1)])
             .returning(|_| ());
 
-        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
+        let options = LeaseOptions {
+            max_lease_extension: Duration::ZERO,
+            ..Default::default()
+        };
+        let mut state = LeaseState::new(Arc::new(mock), options);
 
         state.add(test_id(1), at_least_once_info());
         state.extend();
