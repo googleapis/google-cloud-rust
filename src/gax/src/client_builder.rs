@@ -254,17 +254,6 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// The universe domain is the default service domain for a given Cloud universe.
     /// The default value is "googleapis.com".
-    ///
-    /// ```no_run
-    /// # use google_cloud_gax::client_builder::examples;
-    /// # use google_cloud_gax::client_builder::Result;
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// use examples::Client; // Placeholder for examples
-    /// let client = Client::builder()
-    ///     .with_universe_domain("googleapis.com")
-    ///     .build().await?;
-    /// # Ok(()) }
-    /// ```
     // TODO(#3646): Make this public and let example run when universe domain support is done.
     #[allow(dead_code)]
     pub(crate) fn with_universe_domain<V: Into<String>>(mut self, v: V) -> Self {
