@@ -34,3 +34,5 @@ pub(crate) const TOKEN_FETCH_FAILED_ERROR: &str =
     "Request to fetch the token failed. Subsequent calls with this credential will also fail.";
 
 pub(crate) const TRUST_BOUNDARY_HEADER: &str = "x-goog-allowed-locations";
+
+pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
