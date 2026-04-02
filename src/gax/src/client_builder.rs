@@ -250,6 +250,17 @@ impl<F, Cr> ClientBuilder<F, Cr> {
         self
     }
 
+    /// Configure the universe domain.
+    ///
+    /// The universe domain is the default service domain for a given cloud universe.
+    /// The default value is "googleapis.com".
+    // TODO(#3646): Make this public and let example run when universe domain support is done.
+    #[allow(dead_code)]
+    pub(crate) fn with_universe_domain<V: Into<String>>(mut self, v: V) -> Self {
+        self.config.universe_domain = Some(v.into());
+        self
+    }
+
     /// Configure the retry policy.
     ///
     /// The client libraries can automatically retry operations that fail. The
@@ -416,6 +427,7 @@ pub mod internal {
     #[non_exhaustive]
     pub struct ClientConfig<Cr> {
         pub endpoint: Option<String>,
+        pub universe_domain: Option<String>,
         pub cred: Option<Cr>,
         pub tracing: bool,
         pub retry_policy: Option<Arc<dyn RetryPolicy>>,
@@ -436,6 +448,7 @@ pub mod internal {
             use std::sync::{Arc, Mutex};
             Self {
                 endpoint: None,
+                universe_domain: None,
                 cred: None,
                 tracing: false,
                 retry_policy: None,
@@ -641,6 +654,20 @@ pub mod examples {
             let config = client.0;
             let cred = config.cred.unwrap();
             assert_eq!(cred.scopes, vec!["test-scope".to_string()]);
+        }
+
+        #[tokio::test]
+        async fn universe_domain() {
+            let client = Client::builder()
+                .with_universe_domain("some-universe-domain.com")
+                .build()
+                .await
+                .unwrap();
+            let config = client.0;
+            assert_eq!(
+                config.universe_domain,
+                Some("some-universe-domain.com".to_string())
+            );
         }
 
         #[tokio::test]
