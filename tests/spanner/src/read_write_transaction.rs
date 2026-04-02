@@ -33,11 +33,16 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
         .write(vec![mutation])
         .await?;
 
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client
+        .read_write_transaction()
+        .with_transaction_tag("success-tag")
+        .build()
+        .await?;
     runner
         .run(async |transaction| {
             let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
                 .add_param("id", &id)
+                .with_request_tag("select-tag")
                 .build();
             let mut result_set = transaction.execute_query(statement).await?;
             let row = result_set
@@ -51,6 +56,7 @@ pub async fn successful_read_write_transaction(db_client: &DatabaseClient) -> an
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
                     .add_param("new_val", &(current_val + 50))
                     .add_param("id", &id)
+                    .with_request_tag("update-tag")
                     .build();
             transaction.execute_update(update_statement).await?;
 
@@ -97,11 +103,16 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
         .write(vec![mutation])
         .await?;
 
-    let runner = db_client.read_write_transaction().build().await?;
+    let runner = db_client
+        .read_write_transaction()
+        .with_transaction_tag("rollback-tag")
+        .build()
+        .await?;
     let res: google_cloud_spanner::Result<()> = runner
         .run(async |transaction| {
             let statement = Statement::builder("SELECT ColInt64 FROM AllTypes WHERE Id = @id")
                 .add_param("id", &id)
+                .with_request_tag("select-tag")
                 .build();
             let mut result_set = transaction.execute_query(statement).await?;
             let row = result_set
@@ -115,6 +126,7 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
                 Statement::builder("UPDATE AllTypes SET ColInt64 = @new_val WHERE Id = @id")
                     .add_param("new_val", &(current_val + 50))
                     .add_param("id", &id)
+                    .with_request_tag("update-tag")
                     .build();
             transaction.execute_update(update_statement).await?;
 
@@ -192,6 +204,7 @@ pub async fn concurrent_read_write_transaction_retries(
 
             let runner = client
                 .read_write_transaction()
+                .with_transaction_tag("concurrent-tag")
                 .build()
                 .await
                 .expect("Failed to build transaction runner");
@@ -209,6 +222,7 @@ pub async fn concurrent_read_write_transaction_retries(
                         )
                         .add_param("start", &start_id)
                         .add_param("end", &end_id)
+                        .with_request_tag("concurrent-select")
                         .build()
                     };
                     let mut result_set = transaction.execute_query(statement).await?;
@@ -224,6 +238,7 @@ pub async fn concurrent_read_write_transaction_retries(
                         )
                         .add_param("inc", &50_i64)
                         .add_param("id", &update_id)
+                        .with_request_tag("concurrent-update")
                         .build()
                     };
                     transaction.execute_update(update_statement).await?;

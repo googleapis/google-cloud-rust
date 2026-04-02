@@ -203,14 +203,16 @@ fn check_logs(project_id: &str, buffer: Buffer, trace_id: TraceId) -> anyhow::Re
     assert!(fields.remove("server.address").is_some(), "{value:?}");
     assert!(fields.remove("server.port").is_some(), "{value:?}");
     assert!(fields.remove("url.full").is_some(), "{value:?}");
+    assert!(fields.remove("network.peer.address").is_some(), "{value:?}");
+    assert!(fields.remove("network.peer.port").is_some(), "{value:?}");
     let want = serde_json::json!({
         "gcp.client.artifact": "google-cloud-showcase-v1beta1",
+        "gcp.schema.url": "https://opentelemetry.io/schemas/1.39.0",
         "gcp.client.repo": "googleapis/google-cloud-rust",
         "gcp.client.service": "showcase",
         "error.type": "404",
         "http.request.method": "POST",
         "rpc.method": "google.showcase.v1beta1.Echo/Echo",
-        "rpc.service": "showcase",
         "rpc.system.name": "http",
         "url.domain": "localhost:7469", // the showcase domain...
         "url.template": "/v1beta1/echo:echo",
@@ -253,7 +255,7 @@ async fn check_metrics(
             .set_name(format!("projects/{project_id}"))
             .set_interval(TimeInterval::new().set_end_time(end).set_start_time(start))
             .set_filter(
-                format!(r#"metric.type = "workload.googleapis.com/test.client.duration" AND resource.labels.node_id = "{node_id}""#),
+                format!(r#"metric.type = "workload.googleapis.com/gcp.client.request.duration" AND resource.labels.node_id = "{node_id}""#),
             )
             .set_order_by("timestamp desc")
             .send()

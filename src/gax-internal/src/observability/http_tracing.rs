@@ -89,7 +89,7 @@ pub(crate) fn create_http_attempt_span(
         "http_request",
         { OTEL_NAME } = otel_name,
         { OTEL_KIND } = OTEL_KIND_CLIENT,
-        { otel_trace::RPC_SYSTEM } = RPC_SYSTEM_HTTP,
+        { RPC_SYSTEM_NAME } = RPC_SYSTEM_HTTP,
         { otel_trace::HTTP_REQUEST_METHOD } = method.as_str(),
         { otel_trace::SERVER_ADDRESS } = url
             .host_str()
@@ -104,8 +104,8 @@ pub(crate) fn create_http_attempt_span(
         { GCP_CLIENT_VERSION } = gcp_client_version,
         { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
         { GCP_CLIENT_ARTIFACT } = gcp_client_artifact,
-        { GCP_CLIENT_LANGUAGE } = GCP_CLIENT_LANGUAGE_RUST,
-        { GCP_RESOURCE_NAME } = resource_name,
+        { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
+        { GCP_RESOURCE_DESTINATION_ID } = resource_name,
         { otel_trace::HTTP_REQUEST_RESEND_COUNT } = http_request_resend_count,
         // Fields to be recorded later
         { OTEL_STATUS_CODE } = otel_status_codes::UNSET, // Initial state
@@ -234,7 +234,7 @@ mod tests {
         let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "GET /test".into()),
             (OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_SYSTEM, "http".into()),
+            (RPC_SYSTEM_NAME, "http".into()),
             (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
             (otel_trace::SERVER_ADDRESS, "example.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
@@ -246,9 +246,9 @@ mod tests {
             (GCP_CLIENT_VERSION, "1.2.3".into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
             (GCP_CLIENT_ARTIFACT, "google-cloud-test".into()),
-            (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (GCP_SCHEMA_URL, SCHEMA_URL_VALUE.into()),
             (
-                GCP_RESOURCE_NAME,
+                GCP_RESOURCE_DESTINATION_ID,
                 "//example.com/projects/p/resources/r".into(),
             ),
             (otel_trace::HTTP_REQUEST_RESEND_COUNT, 1_i64.into()),
@@ -274,14 +274,14 @@ mod tests {
         let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "POST".into()),
             (OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_SYSTEM, "http".into()),
+            (RPC_SYSTEM_NAME, "http".into()),
             (otel_trace::HTTP_REQUEST_METHOD, "POST".into()),
             (otel_trace::SERVER_ADDRESS, "localhost".into()),
             (otel_trace::SERVER_PORT, 8080_i64.into()),
             (otel_trace::URL_FULL, "http://localhost:8080/".into()),
             (otel_trace::URL_SCHEME, "http".into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (GCP_SCHEMA_URL, SCHEMA_URL_VALUE.into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
         ]
         .into_iter()
@@ -360,14 +360,14 @@ mod tests {
         let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "GET".into()),
             (OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_SYSTEM, "http".into()),
+            (RPC_SYSTEM_NAME, "http".into()),
             (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
             (otel_trace::SERVER_ADDRESS, "example.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
             (otel_trace::URL_FULL, "https://example.com/test".into()),
             (otel_trace::URL_SCHEME, "https".into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (GCP_SCHEMA_URL, SCHEMA_URL_VALUE.into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
             (
                 otel_trace::HTTP_RESPONSE_STATUS_CODE,
@@ -399,14 +399,14 @@ mod tests {
         let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "GET".into()),
             (OTEL_KIND, "Client".into()),
-            (otel_trace::RPC_SYSTEM, "http".into()),
+            (RPC_SYSTEM_NAME, "http".into()),
             (otel_trace::HTTP_REQUEST_METHOD, "GET".into()),
             (otel_trace::SERVER_ADDRESS, "example.com".into()),
             (otel_trace::SERVER_PORT, 443_i64.into()),
             (otel_trace::URL_FULL, "https://example.com/test".into()),
             (otel_trace::URL_SCHEME, "https".into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_LANGUAGE, "rust".into()),
+            (GCP_SCHEMA_URL, SCHEMA_URL_VALUE.into()),
             (OTEL_STATUS_CODE, "ERROR".into()),
             (otel_trace::ERROR_TYPE, "CLIENT_TIMEOUT".into()),
             (

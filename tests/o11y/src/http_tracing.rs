@@ -362,8 +362,7 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
     let expected_attributes: BTreeMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
         ("otel.kind", "Internal".into()),
-        ("rpc.system", "http".into()),
-        ("rpc.service", "showcase".into()),
+        ("rpc.system.name", "http".into()),
         ("rpc.method", "google.showcase.v1beta1.Echo/Echo".into()),
         ("gcp.client.service", "showcase".into()),
         ("gcp.client.version", version.clone()),
@@ -372,11 +371,17 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
             "gcp.client.artifact",
             "google-cloud-showcase-v1beta1".into(),
         ),
+        (
+            "gcp.schema.url",
+            "https://opentelemetry.io/schemas/1.39.0".into(),
+        ),
         ("otel.status_code", "UNSET".into()),
         ("http.response.status_code", 200_i64.into()),
         ("http.request.method", "POST".into()),
         ("server.address", server_addr.ip().to_string().into()),
         ("server.port", (server_addr.port() as i64).into()),
+        ("network.peer.address", server_addr.ip().to_string().into()),
+        ("network.peer.port", (server_addr.port() as i64).into()),
         (
             "url.full",
             format!(
@@ -436,8 +441,7 @@ pub async fn parse_error() -> anyhow::Result<()> {
     let expected_attributes: BTreeMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
         ("otel.kind", "Internal".into()),
-        ("rpc.system", "http".into()),
-        ("rpc.service", "showcase".into()),
+        ("rpc.system.name", "http".into()),
         ("rpc.method", "google.showcase.v1beta1.Echo/Echo".into()),
         ("gcp.client.service", "showcase".into()),
         ("gcp.client.version", version.clone()),
@@ -445,6 +449,10 @@ pub async fn parse_error() -> anyhow::Result<()> {
         (
             "gcp.client.artifact",
             "google-cloud-showcase-v1beta1".into(),
+        ),
+        (
+            "gcp.schema.url",
+            "https://opentelemetry.io/schemas/1.39.0".into(),
         ),
         ("otel.status_code", "ERROR".into()),
         ("http.response.status_code", 200_i64.into()),
@@ -457,6 +465,8 @@ pub async fn parse_error() -> anyhow::Result<()> {
         ),
         ("server.address", server_addr.ip().to_string().into()),
         ("server.port", (server_addr.port() as i64).into()),
+        ("network.peer.address", server_addr.ip().to_string().into()),
+        ("network.peer.port", (server_addr.port() as i64).into()),
         (
             "url.full",
             format!(
@@ -519,8 +529,7 @@ pub async fn api_error() -> anyhow::Result<()> {
     let expected_attributes: BTreeMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
         ("otel.kind", "Internal".into()),
-        ("rpc.system", "http".into()),
-        ("rpc.service", "showcase".into()),
+        ("rpc.system.name", "http".into()),
         ("rpc.method", "google.showcase.v1beta1.Echo/Echo".into()),
         ("gcp.client.service", "showcase".into()),
         ("gcp.client.version", version.clone()),
@@ -528,6 +537,10 @@ pub async fn api_error() -> anyhow::Result<()> {
         (
             "gcp.client.artifact",
             "google-cloud-showcase-v1beta1".into(),
+        ),
+        (
+            "gcp.schema.url",
+            "https://opentelemetry.io/schemas/1.39.0".into(),
         ),
         ("otel.status_code", "ERROR".into()),
         ("http.request.method", "POST".into()),
@@ -539,6 +552,8 @@ pub async fn api_error() -> anyhow::Result<()> {
         ),
         ("server.address", server_addr.ip().to_string().into()),
         ("server.port", (server_addr.port() as i64).into()),
+        ("network.peer.address", server_addr.ip().to_string().into()),
+        ("network.peer.port", (server_addr.port() as i64).into()),
         (
             "url.full",
             format!(

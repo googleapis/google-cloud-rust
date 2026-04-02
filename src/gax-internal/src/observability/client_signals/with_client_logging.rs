@@ -18,10 +18,12 @@
 
 use super::RequestRecorder;
 
+use crate::observability::attributes::SCHEMA_URL_VALUE;
 use crate::observability::attributes::keys::{
     ERROR_TYPE, GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION,
-    GCP_ERRORS_DOMAIN, GCP_ERRORS_METADATA, HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT,
-    RPC_RESPONSE_STATUS_CODE, RPC_SERVICE, RPC_SYSTEM_NAME, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+    GCP_ERRORS_DOMAIN, GCP_ERRORS_METADATA, GCP_SCHEMA_URL, HTTP_REQUEST_METHOD,
+    HTTP_REQUEST_RESEND_COUNT, NETWORK_PEER_ADDRESS, NETWORK_PEER_PORT, RPC_RESPONSE_STATUS_CODE,
+    RPC_SYSTEM_NAME, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
 };
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
@@ -110,11 +112,11 @@ where
                     target: TARGET,
                     tracing::Level::WARN,
                     { RPC_SYSTEM_NAME } = snapshot.rpc_system(),
-                    { RPC_SERVICE } = snapshot.service_name(),
                     { RPC_METHOD } = snapshot.rpc_method(),
                     { GCP_CLIENT_VERSION } = snapshot.client_version(),
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
+                    { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
                     { URL_DOMAIN } = snapshot.default_host(),
                     { URL_FULL } = snapshot.sanitized_url(),
                     { URL_TEMPLATE } = snapshot.url_template(),
@@ -122,6 +124,8 @@ where
                     { ERROR_TYPE } = error_type.as_str(),
                     { SERVER_ADDRESS } = snapshot.server_address(),
                     { SERVER_PORT } = snapshot.server_port() as i64,
+                    { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),
+                    { NETWORK_PEER_PORT } = snapshot.network_peer_port(),
                     { HTTP_REQUEST_METHOD } = snapshot.http_method(),
                     { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
                     { GCP_CLIENT_SERVICE } = snapshot.service_name(),
@@ -216,10 +220,10 @@ mod tests {
             "error.type": "CLIENT_CONNECTION_ERROR",
             "rpc.system.name": "http",
             "rpc.method": TEST_METHOD,
-            "rpc.service": "test-service",
             "url.domain": "example.com",
             "url.template": TEST_URL_TEMPLATE,
             "gcp.client.artifact": "test-artifact",
+            "gcp.schema.url": crate::observability::attributes::SCHEMA_URL_VALUE,
             "gcp.client.repo": "googleapis/google-cloud-rust",
             "gcp.client.version": "1.2.3",
             "gcp.client.service": "test-service",
@@ -277,17 +281,19 @@ mod tests {
         let want = json!({
             "rpc.system.name": "http",
             "rpc.method": TEST_METHOD,
-            "rpc.service": "test-service",
             "url.domain": "example.com",
             "url.template": TEST_URL_TEMPLATE,
             "error.type": "404",
             "gcp.client.artifact": "test-artifact",
+            "gcp.schema.url": crate::observability::attributes::SCHEMA_URL_VALUE,
             "gcp.client.repo": "googleapis/google-cloud-rust",
             "gcp.client.version": "1.2.3",
             "gcp.client.service": "test-service",
             "url.full": url,
             "server.address": server.addr().ip().to_string(),
             "server.port": server.addr().port(),
+            "network.peer.address": server.addr().ip().to_string(),
+            "network.peer.port": server.addr().port(),
             "http.request.method": "GET",
         });
         assert_eq!(Some(&fields), want.as_object(), "{parsed:?}");

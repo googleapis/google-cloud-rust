@@ -13,11 +13,11 @@
 // limitations under the License.
 
 use crate::observability::RequestRecorder;
-use crate::observability::attributes::GCP_CLIENT_REPO_GOOGLEAPIS;
 use crate::observability::attributes::keys::{
-    GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION,
+    GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION, GCP_SCHEMA_URL,
     HTTP_RESPONSE_STATUS_CODE, RPC_METHOD, RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
 };
+use crate::observability::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, SCHEMA_URL_VALUE};
 use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
 use google_cloud_gax::error::Error;
@@ -33,7 +33,7 @@ pub const BOUNDARIES: [f64; 16] = [
     900.0, 3600.0,
 ];
 // TODO(#4772) - use the real name once the attributes are all working.
-const METRIC_NAME: &str = "test.client.duration";
+const METRIC_NAME: &str = "gcp.client.request.duration";
 // This is seconds in SI units.
 const METRIC_UNIT: &str = "s";
 
@@ -84,9 +84,10 @@ impl DurationMetric {
         provider: Arc<dyn MeterProvider + Send + Sync>,
     ) -> Self {
         let scope = InstrumentationScope::builder(info.client_artifact)
+            .with_version(info.client_version)
+            .with_schema_url(SCHEMA_URL_VALUE)
             .with_attributes([
                 KeyValue::new(GCP_CLIENT_ARTIFACT, info.client_artifact),
-                KeyValue::new(GCP_CLIENT_VERSION, info.client_version),
                 KeyValue::new(GCP_CLIENT_SERVICE, info.service_name),
                 KeyValue::new(GCP_CLIENT_REPO, GCP_CLIENT_REPO_GOOGLEAPIS),
             ])
@@ -107,7 +108,7 @@ impl DurationMetric {
         let Some(snapshot) = RequestRecorder::current().map(|r| r.client_snapshot()) else {
             return;
         };
-        let attributes: [(&str, Option<Value>); 8] = [
+        let attributes: [(&str, Option<Value>); 13] = [
             (RPC_SYSTEM_NAME, snapshot.rpc_system().map(|v| v.into())),
             (RPC_METHOD, snapshot.rpc_method().map(|v| v.into())),
             (URL_DOMAIN, Some(snapshot.default_host().into())),
@@ -119,6 +120,11 @@ impl DurationMetric {
             ),
             (SERVER_ADDRESS, Some(snapshot.server_address().into())),
             (SERVER_PORT, Some((snapshot.server_port() as i64).into())),
+            (GCP_CLIENT_SERVICE, Some(snapshot.service_name().into())),
+            (GCP_CLIENT_VERSION, Some(snapshot.client_version().into())),
+            (GCP_CLIENT_REPO, Some(GCP_CLIENT_REPO_GOOGLEAPIS.into())),
+            (GCP_CLIENT_ARTIFACT, Some(snapshot.client_artifact().into())),
+            (GCP_SCHEMA_URL, Some(SCHEMA_URL_VALUE.into())),
         ];
         let attributes = attributes
             .into_iter()
@@ -138,7 +144,7 @@ impl DurationMetric {
             return;
         };
         let error_type = ErrorType::from_gax_error(error);
-        let attributes: [(&str, Option<Value>); 9] = [
+        let attributes: [(&str, Option<Value>); 14] = [
             (RPC_SYSTEM_NAME, snapshot.rpc_system().map(|v| v.into())),
             (RPC_METHOD, snapshot.rpc_method().map(|v| v.into())),
             (URL_DOMAIN, Some(snapshot.default_host().into())),
@@ -154,6 +160,11 @@ impl DurationMetric {
             ),
             (SERVER_ADDRESS, Some(snapshot.server_address().into())),
             (SERVER_PORT, Some((snapshot.server_port() as i64).into())),
+            (GCP_CLIENT_SERVICE, Some(snapshot.service_name().into())),
+            (GCP_CLIENT_VERSION, Some(snapshot.client_version().into())),
+            (GCP_CLIENT_REPO, Some(GCP_CLIENT_REPO_GOOGLEAPIS.into())),
+            (GCP_CLIENT_ARTIFACT, Some(snapshot.client_artifact().into())),
+            (GCP_SCHEMA_URL, Some(SCHEMA_URL_VALUE.into())),
         ];
         let attributes = attributes
             .into_iter()
@@ -231,6 +242,11 @@ mod tests {
                 ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", TEST_METHOD),
                 ("rpc.response.status_code", "OK"),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
             ],
         );
         Ok(())
@@ -281,6 +297,11 @@ mod tests {
                 ("rpc.method", TEST_METHOD),
                 ("error.type", "NOT_FOUND"),
                 ("rpc.response.status_code", "NOT_FOUND"),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
             ],
         );
         Ok(())
@@ -326,6 +347,11 @@ mod tests {
                 ("url.template", TEST_URL_TEMPLATE),
                 ("rpc.method", TEST_METHOD),
                 ("error.type", "429"),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
             ],
         );
         Ok(())

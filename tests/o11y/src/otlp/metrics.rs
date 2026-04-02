@@ -258,6 +258,7 @@ mod tests {
             ("gcp.client.version", "1.2.3"),
             ("gcp.client.repo", "googleapis/google-cloud-rust"),
             ("gcp.client.artifact", "google-cloud-storage"),
+            ("gcp.schema.url", "https://opentelemetry.io/schemas/1.39.0"),
             ("rpc.system.name", "GRPC"),
             (
                 "gcp.method",

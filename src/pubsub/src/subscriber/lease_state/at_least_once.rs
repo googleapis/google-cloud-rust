@@ -377,18 +377,19 @@ mod tests {
     fn needs_flush_ack() {
         let mut leases = Leases::default();
 
-        for i in 0..1000 {
+        for i in 0..100 {
             leases.add(test_id(i), Instant::now());
             leases.ack(test_id(i));
         }
-        // With 1000 pending acks, the batch is not full.
+        // With 100 pending acks, the batch is not full.
         assert!(!leases.needs_flush());
 
-        for i in 1000..MAX_IDS_PER_RPC {
+        for i in 100..MAX_IDS_PER_RPC {
             leases.add(test_id(i), Instant::now());
             leases.ack(test_id(i));
         }
-        // With 2500 pending acks, the batch is full. We should flush it now.
+        // With `MAX_IDS_PER_RPC` pending acks, the batch is full. We should
+        // flush it now.
         assert!(leases.needs_flush());
     }
 
@@ -396,18 +397,19 @@ mod tests {
     fn needs_flush_nack() {
         let mut leases = Leases::default();
 
-        for i in 0..1000 {
+        for i in 0..100 {
             leases.add(test_id(i), Instant::now());
             leases.nack(test_id(i));
         }
-        // With 1000 pending nacks, the batch is not full.
+        // With 100 pending nacks, the batch is not full.
         assert!(!leases.needs_flush());
 
-        for i in 1000..MAX_IDS_PER_RPC {
+        for i in 100..MAX_IDS_PER_RPC {
             leases.add(test_id(i), Instant::now());
             leases.nack(test_id(i));
         }
-        // With 2500 pending nacks, the batch is full. We should flush it now.
+        // With `MAX_IDS_PER_RPC` pending nacks, the batch is full. We should
+        // flush it now.
         assert!(leases.needs_flush());
     }
 

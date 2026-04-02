@@ -53,6 +53,7 @@ const INSTANCE_METADATA_PATH: &str = "/computeMetadata/v1/instance/";
 ///
 /// GAE is unlikely, as there is no Rust runtime for it. Though applications
 /// could deploy with Rust embedded in a language supported by the runtime.
+#[derive(Clone, Debug)]
 pub struct GoogleCloudResourceDetector(Resource);
 
 impl GoogleCloudResourceDetector {
@@ -72,6 +73,7 @@ pub struct GoogleCloudResourceDetectorBuilder {
     endpoint: String,
     attempt_timeout: Duration,
     attempt_count: u32,
+    fallback: Option<Resource>,
 }
 
 impl GoogleCloudResourceDetectorBuilder {
@@ -81,11 +83,17 @@ impl GoogleCloudResourceDetectorBuilder {
                 .unwrap_or_else(|_| METADATA_ROOT.to_string()),
             attempt_count: DEFAULT_ATTEMPT_COUNT,
             attempt_timeout: DEFAULT_ATTEMPT_TIMEOUT,
+            fallback: None,
         }
     }
 
     pub async fn build(self) -> Result<GoogleCloudResourceDetector, Error> {
-        let resource = self.detect_async().await?;
+        let resource = self.detect_async().await;
+        let resource = match (resource, self.fallback) {
+            (Ok(r), _) => r,
+            (Err(_), Some(r)) => r,
+            (Err(e), None) => return Err(e),
+        };
         Ok(GoogleCloudResourceDetector(resource))
     }
 
@@ -116,6 +124,11 @@ impl GoogleCloudResourceDetectorBuilder {
 
     pub fn with_attempt_count(mut self, count: u32) -> Self {
         self.attempt_count = count;
+        self
+    }
+
+    pub fn with_fallback(mut self, fallback: Resource) -> Self {
+        self.fallback = Some(fallback);
         self
     }
 

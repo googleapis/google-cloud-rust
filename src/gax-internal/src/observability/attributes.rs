@@ -52,6 +52,11 @@ pub mod keys {
     /// [Remote Procedure Call (RPC) Attributes]: https://github.com/open-telemetry/semantic-conventions/blob/main/docs/registry/attributes/rpc.md#rpc-response-status-code
     pub const RPC_RESPONSE_STATUS_CODE: &str = "rpc.response.status_code";
 
+    /// The network peer address.
+    pub const NETWORK_PEER_ADDRESS: &str = "network.peer.address";
+    /// The network peer port.
+    pub const NETWORK_PEER_PORT: &str = "network.peer.port";
+
     // Custom GCP Attributes
     /// The Google Cloud service name.
     ///
@@ -69,14 +74,12 @@ pub mod keys {
     ///
     /// Example: google-cloud-storage
     pub const GCP_CLIENT_ARTIFACT: &str = "gcp.client.artifact";
-    /// The client library language.
-    ///
-    /// Always "rust".
-    pub const GCP_CLIENT_LANGUAGE: &str = "gcp.client.language";
     /// The Google Cloud resource name.
     ///
     /// Example: //pubsub.googleapis.com/projects/my-project/topics/my-topic
-    pub const GCP_RESOURCE_NAME: &str = "gcp.resource.name";
+    pub const GCP_RESOURCE_DESTINATION_ID: &str = "gcp.resource.destination.id";
+    /// The OpenTelemetry Schema URL indicating the schema used for the telemetry.
+    pub const GCP_SCHEMA_URL: &str = "gcp.schema.url";
     /// The number of times this same gRPC request has been resent due to retries.
     ///
     /// 1 for the first retry.
@@ -94,22 +97,20 @@ pub mod keys {
     // macro.
     pub use opentelemetry_semantic_conventions::trace::{
         ERROR_TYPE, HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT, HTTP_RESPONSE_STATUS_CODE,
-        RPC_METHOD, RPC_SERVICE, RPC_SYSTEM, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+        RPC_METHOD, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
     };
 }
 
 /// Value for [keys::OTEL_KIND].
 pub const OTEL_KIND_CLIENT: &str = "Client";
-/// Value for [keys::OTEL_KIND].
-pub const OTEL_KIND_INTERNAL: &str = "Internal";
 /// Value for `rpc.system`.
 pub const RPC_SYSTEM_HTTP: &str = "http";
 /// Value for `rpc.system`.
 pub const RPC_SYSTEM_GRPC: &str = "grpc";
-/// Value for [keys::GCP_CLIENT_REPO].
+/// The GitHub repository hosting the client libraries.
 pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
-/// Value for [keys::GCP_CLIENT_LANGUAGE].
-pub const GCP_CLIENT_LANGUAGE_RUST: &str = "rust";
+/// The OpenTelemetry Schema URL.
+pub const SCHEMA_URL_VALUE: &str = "https://opentelemetry.io/schemas/1.39.0";
 
 /// Values for the OpenTelemetry `error.type` attribute.
 /// See the semantic conventions around [Error attributes]

@@ -28,11 +28,11 @@ use tokio::task::JoinSet;
 use tokio::time::{Duration, Instant, Interval, interval_at};
 use tokio_util::task::TaskTracker;
 
-// An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
-// be safe to fit 2500 Ack IDs in a single RPC.
+// Request sizes are limited to 512kB. 500 bytes is a conservative upper limit
+// on the size of an ack ID. We can safely fit 1000 ack IDs into a request.
 //
 // https://docs.cloud.google.com/pubsub/quotas
-const MAX_IDS_PER_RPC: usize = 2500;
+const MAX_IDS_PER_RPC: usize = 1000;
 
 // Helper function to chunk ack ids into chunks of MAX_IDS_PER_RPC.
 fn batch(ack_ids: Vec<String>) -> Vec<Vec<String>> {

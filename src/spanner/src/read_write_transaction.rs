@@ -33,13 +33,15 @@ use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::ReadContext;
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
-use std::sync::atomic::Ordering;
+use std::sync::Arc;
+use std::sync::atomic::{AtomicI64, Ordering};
 
 /// A builder for [ReadWriteTransaction].
 #[derive(Clone, Debug)]
 pub(crate) struct ReadWriteTransactionBuilder {
     client: DatabaseClient,
     options: TransactionOptions,
+    transaction_tag: Option<String>,
 }
 
 impl ReadWriteTransactionBuilder {
@@ -47,6 +49,7 @@ impl ReadWriteTransactionBuilder {
         Self {
             client,
             options: TransactionOptions::default().set_read_write(ReadWrite::default()),
+            transaction_tag: None,
         }
     }
 
@@ -75,10 +78,20 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
+    pub(crate) fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
+        self.transaction_tag = Some(tag.into());
+        self
+    }
+
     pub(crate) async fn begin_transaction(&self) -> crate::Result<ReadWriteTransaction> {
-        let request = BeginTransactionRequest::default()
+        let mut request = BeginTransactionRequest::default()
             .set_session(self.client.session.name.clone())
             .set_options(self.options.clone());
+        if let Some(tag) = &self.transaction_tag {
+            request = request.set_request_options(
+                crate::model::RequestOptions::default().set_transaction_tag(tag.clone()),
+            );
+        }
 
         // TODO(#4972): make request options configurable
         let response = self
@@ -89,12 +102,13 @@ impl ReadWriteTransactionBuilder {
 
         let transaction_selector = TransactionSelector::default().set_id(response.id);
         Ok(ReadWriteTransaction {
-            context: ReadContext::new(
-                self.client.clone(),
+            context: ReadContext {
+                client: self.client.clone(),
                 transaction_selector,
-                PrecommitTokenTracker::new(),
-            ),
-            seqno: std::sync::Arc::new(std::sync::atomic::AtomicI64::new(1)),
+                precommit_token_tracker: PrecommitTokenTracker::new(),
+                transaction_tag: self.transaction_tag.clone(),
+            },
+            seqno: Arc::new(AtomicI64::new(1)),
         })
     }
 }
@@ -103,7 +117,7 @@ impl ReadWriteTransactionBuilder {
 #[derive(Clone, Debug)]
 pub struct ReadWriteTransaction {
     pub(crate) context: ReadContext,
-    seqno: std::sync::Arc<std::sync::atomic::AtomicI64>,
+    seqno: Arc<AtomicI64>,
 }
 
 impl ReadWriteTransaction {
@@ -126,12 +140,13 @@ impl ReadWriteTransaction {
     /// Executes an update using this transaction.
     pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
-        let statement = statement.into();
-        let request = statement
+        let mut request = statement
+            .into()
             .into_request()
             .set_session(self.context.client.session.name.clone())
             .set_transaction(self.context.transaction_selector.clone())
             .set_seqno(seqno);
+        request.request_options = self.context.amend_request_options(request.request_options);
 
         let response = self
             .context
@@ -233,7 +248,9 @@ impl ReadWriteTransaction {
             .set_transaction(self.context.transaction_selector.clone())
             .set_seqno(seqno)
             .set_statements(statements)
-            .set_or_clear_request_options(batch.request_options);
+            .set_or_clear_request_options(
+                self.context.amend_request_options(batch.request_options),
+            );
 
         let response_result = self
             .context
@@ -267,7 +284,8 @@ impl ReadWriteTransaction {
         let request = CommitRequest::default()
             .set_session(self.context.client.session.name.clone())
             .set_transaction_id(transaction_id.clone())
-            .set_or_clear_precommit_token(precommit_token);
+            .set_or_clear_precommit_token(precommit_token)
+            .set_or_clear_request_options(self.context.amend_request_options(None));
 
         let response = self
             .context
@@ -281,7 +299,8 @@ impl ReadWriteTransaction {
                 let retry_commit_req = CommitRequest::default()
                     .set_session(self.context.client.session.name.clone())
                     .set_transaction_id(transaction_id)
-                    .set_precommit_token(*new_precommit_token);
+                    .set_precommit_token(*new_precommit_token)
+                    .set_or_clear_request_options(self.context.amend_request_options(None));
 
                 self.context
                     .client
@@ -707,7 +726,7 @@ mod tests {
             }))
         });
 
-        let counter = std::sync::Arc::new(std::sync::atomic::AtomicI64::new(1));
+        let counter = Arc::new(AtomicI64::new(1));
         mock.expect_execute_sql().times(3).returning(move |req| {
             let req = req.into_inner();
             assert_eq!(req.sql, "UPDATE Users SET Name = 'Alice' WHERE Id = 1");
