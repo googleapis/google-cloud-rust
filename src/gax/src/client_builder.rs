@@ -203,8 +203,6 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     ///
     /// # Example
     /// ```
-    /// // In your `main` function enable a tracing subscriber, for example:
-    /// // tracing_subscriber::fmt::init();
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax::client_builder::Result;
     /// # async fn sample() -> anyhow::Result<()> {
@@ -212,6 +210,12 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// let client = Client::builder()
     ///     .with_tracing()
     ///     .build().await?;
+    /// // For observing traces and logs, you must also enable a tracing subscriber in your `main` function,
+    /// // for example:
+    /// //     tracing_subscriber::fmt::init();
+    /// // For observing metrics, you must also install an OpenTelemetry meter provider in your `main` function,
+    /// // for example:
+    /// //     opentelemetry::global::set_meter_provider(provider.clone());
     /// # Ok(()) }
     /// ```
     ///
@@ -220,9 +224,9 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// Observability signals at any level may contain sensitive data such as resource names, full
     /// URLs, and error messages.
     ///
-    /// Review the contents of the spans and consult the [tracing] framework documentation to set up
-    /// filters and formatters to prevent leaking sensitive information, depending on your intended
-    /// use case.
+    /// Before configuring subscribers or exporters for traces and logs, review the contents of the
+    /// spans and consult the [tracing] framework documentation to set up filters and formatters to
+    /// prevent leaking sensitive information, depending on your intended use case.
     ///
     /// [OpenTelemetry Semantic Conventions]: https://opentelemetry.io/docs/concepts/semantic-conventions/
     /// [tracing]: https://docs.rs/tracing/latest/tracing/
@@ -247,7 +251,9 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// and the full response body for successful requests, and the full error message, with
     /// details, for failed requests. Consider the contents of these requests and responses before
     /// enabling them in production environments, as the request or responses may include sensitive
-    /// data.
+    /// data. These `DEBUG` spans use the client library crate followed by `::tracing` as their
+    /// target and the method name as the span name. You can use the name and/or target to set up
+    /// your filters.
     ///
     /// # More information
     ///
