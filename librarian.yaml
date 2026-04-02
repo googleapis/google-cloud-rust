@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.9.1-0.20260328133821-a87086efbeec
+version: v0.9.2-0.20260402174158-4dcd45b1190c
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -32,10 +32,8 @@ sources:
     commit: 3fd9cb2f682d5f8263d913eaba8b78e045acc4d2
     sha256: ed1e698886cb4ab9b90ca98cfee38023d813e9729fca7297578c81c4af3e1e9e
 release:
-  branch: main
   ignored_changes:
     - .repo-metadata.json
-  remote: upstream
   tools:
     cargo:
       - name: cargo-semver-checks
