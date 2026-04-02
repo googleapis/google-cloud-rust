@@ -69,7 +69,9 @@ async fn subscriber_task(
         match result {
             Ok((m, h)) => {
                 stats.recv_count.fetch_add(1, Ordering::Relaxed);
-                stats.recv_bytes.fetch_add(m.data.len() as i64, Ordering::Relaxed);
+                stats
+                    .recv_bytes
+                    .fetch_add(m.data.len() as i64, Ordering::Relaxed);
                 h.ack();
             }
             Err(e) => {

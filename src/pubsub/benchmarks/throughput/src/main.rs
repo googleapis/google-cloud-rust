@@ -27,18 +27,12 @@ async fn main() -> Result<(), anyhow::Error> {
 
     match config.command {
         crate::args::Commands::Publisher(args) => {
-            println!(
-                "# Running publish benchmark with config: {:?}",
-                args
-            );
+            println!("# Running publish benchmark with config: {:?}", args);
             println!("{}", CSV_HEADER);
             publisher::run(args).await?;
         }
         crate::args::Commands::Subscriber(args) => {
-            println!(
-                "# Running subscribe benchmark with config: {:?}",
-                args
-            );
+            println!("# Running subscribe benchmark with config: {:?}", args);
             println!("{}", CSV_HEADER);
             subscriber::run(args).await?;
         }

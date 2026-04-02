@@ -69,7 +69,9 @@ async fn run_publisher(config: Arc<PublisherArgs>, topic_name: String) {
     let publisher = create_publisher(config.clone(), topic_name).await;
     let payload_size = config.payload_size;
     let data = bytes::Bytes::from(vec![0u8; payload_size as usize]);
-    let semaphore = Arc::new(tokio::sync::Semaphore::new(config.common.max_outstanding_messages));
+    let semaphore = Arc::new(tokio::sync::Semaphore::new(
+        config.common.max_outstanding_messages,
+    ));
     let stats = Arc::new(Stats::default());
 
     // Start a background task to publish messages.
@@ -80,7 +82,9 @@ async fn run_publisher(config: Arc<PublisherArgs>, topic_name: String) {
             let permit = semaphore.clone().acquire_owned().await.unwrap();
             let p = publisher.publish(Message::new().set_data(data.clone()));
             publisher_stats.send_count.fetch_add(1, Ordering::Relaxed);
-            publisher_stats.send_bytes.fetch_add(payload_size, Ordering::Relaxed);
+            publisher_stats
+                .send_bytes
+                .fetch_add(payload_size, Ordering::Relaxed);
 
             let ack_stats = publisher_stats.clone();
             tokio::spawn(async move {
@@ -88,7 +92,9 @@ async fn run_publisher(config: Arc<PublisherArgs>, topic_name: String) {
                 match p.await {
                     Ok(_) => {
                         ack_stats.ack_count.fetch_add(1, Ordering::Relaxed);
-                        ack_stats.ack_bytes.fetch_add(payload_size, Ordering::Relaxed);
+                        ack_stats
+                            .ack_bytes
+                            .fetch_add(payload_size, Ordering::Relaxed);
                     }
                     Err(e) => {
                         eprintln!("Error: {}", e);
@@ -122,7 +128,14 @@ async fn run_publisher(config: Arc<PublisherArgs>, topic_name: String) {
         let usage = timer.elapsed();
 
         print_result("Pub", i, send_count_last, send_bytes_last, 0, usage);
-        print_result("Ack", i, ack_count_last, ack_bytes_last, error_count_last, usage);
+        print_result(
+            "Ack",
+            i,
+            ack_count_last,
+            ack_bytes_last,
+            error_count_last,
+            usage,
+        );
     }
 
     publisher_handle.abort();
