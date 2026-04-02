@@ -12,7 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_spanner::client::{DatabaseClient, Kind, Statement};
+use crate::client::{get_database_id, get_emulator_host, get_emulator_rest_endpoint};
+use crate::test_proxy::{InterceptedSpanner, SpannerInterceptor};
+use google_cloud_spanner::client::{DatabaseClient, Kind, Spanner, Statement};
+use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
+use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
+use spanner_grpc_mock::google::spanner::v1::spanner_server::SpannerServer;
+use std::sync::Arc;
+use tokio::net::TcpListener;
+use tokio::sync::Notify;
+use tokio_stream::wrappers::TcpListenerStream;
+use tonic::transport::{Channel, Server};
 
 pub async fn simple_query(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let rot = db_client.single_use().build();
@@ -264,7 +275,10 @@ pub async fn multi_use_read_only_transaction_invalid_query_fallback(
         .execute_query(Statement::builder("SELECT * FROM NonExistentTable").build())
         .await;
 
-    assert!(rs_result.is_err(), "Expected an error from an invalid query");
+    assert!(
+        rs_result.is_err(),
+        "Expected an error from an invalid query"
+    );
 
     // The read timestamp should now be available because the transaction
     // fell back to an explicit BeginTransaction.
@@ -404,4 +418,164 @@ fn verify_row_2(row: &google_cloud_spanner::client::Row) {
         raw_values[19].as_list().get(1).unwrap().as_string(),
         "2026-03-11T16:20:00Z"
     );
+}
+
+struct DelayedBeginProxy {
+    emulator_client: SpannerClient<Channel>,
+    latch: Arc<Notify>,
+    begin_transaction_entered_latch: Arc<Notify>,
+}
+
+#[tonic::async_trait]
+impl SpannerInterceptor for DelayedBeginProxy {
+    fn emulator_client(&self) -> SpannerClient<Channel> {
+        self.emulator_client.clone()
+    }
+
+    async fn begin_transaction(
+        &self,
+        request: tonic::Request<spanner_v1::BeginTransactionRequest>,
+    ) -> std::result::Result<tonic::Response<spanner_v1::Transaction>, tonic::Status> {
+        self.begin_transaction_entered_latch.notify_one();
+        self.latch.notified().await;
+        self.emulator_client().begin_transaction(request).await
+    }
+}
+
+// This test verifies that the client correctly falls back to `BeginTransaction` when the
+// first statement in a transaction fails. It also shows that the statement is retried and
+// could (theoretically) succeed during this retry. It achieves this by doing the following:
+// 1. It uses a proxy that allows it to intercept the RPCs that are being sent to Spanner.
+// 2. It creates a read-only transaction that uses inline-begin-transaction.
+// 3. It executes a query that tries to read from a table that does not exist.
+// 4. As the first statement in the transaction fails, the client falls back to using
+//    an explicit BeginTransaction RPC.
+// 5. The proxy blocks this BeginTransaction RPC, and in the meantime the test creates
+//    the missing table.
+// 6. The proxy unblocks the BeginTransaction RPC.
+// 7. The statement is retried and succeeds. The test never sees the error.
+//
+// This test might seem like an extreme corner case for a read-only transaction like this.
+// However, for read/write transactions, similar types of failures are more likely to occur,
+// for example if a transaction tries to insert a row that violates the primary key. Another
+// transaction could delete the row in the time between the first attempt failed, and the
+// BeginTransaction RPC has been executed.
+pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Result<()> {
+    let emulator_host = get_emulator_host().expect("SPANNER_EMULATOR_HOST must be set");
+    let latch = Arc::new(Notify::new());
+    let begin_transaction_entered_latch = Arc::new(Notify::new());
+
+    // Create a raw gRPC client that connects to the Spanner Emulator.
+    // This will be used by the proxy server to forward requests to the Emulator.
+    let endpoint = Channel::from_shared(format!("http://{}", emulator_host))?
+        .connect()
+        .await?;
+    let raw_client = SpannerClient::new(endpoint);
+
+    // Create a local TCP listener to bind our proxy server to.
+    let listener = TcpListener::bind("127.0.0.1:0").await?;
+    let local_addr = listener.local_addr()?;
+    let proxy_address = format!("{}:{}", local_addr.ip(), local_addr.port());
+
+    let proxy = DelayedBeginProxy {
+        emulator_client: raw_client,
+        latch: Arc::clone(&latch),
+        begin_transaction_entered_latch: Arc::clone(&begin_transaction_entered_latch),
+    };
+
+    let _server_handle = tokio::spawn(async move {
+        let stream = TcpListenerStream::new(listener);
+        Server::builder()
+            .add_service(SpannerServer::new(InterceptedSpanner(proxy)))
+            .serve_with_incoming(stream)
+            .await
+            .expect("Proxy server failed");
+    });
+
+    // We build the Spanner DatabaseClient pointing directly to our proxy address over HTTP.
+    let proxy_db_client = Spanner::builder()
+        .with_endpoint(format!("http://{}", proxy_address))
+        .build()
+        .await?
+        .database_client(format!(
+            "projects/test-project/instances/test-instance/databases/{}",
+            get_database_id().await
+        ))
+        .build()
+        .await?;
+
+    let tx = proxy_db_client
+        .read_only_transaction()
+        .with_explicit_begin_transaction(false)
+        .build()
+        .await?;
+
+    let table_name = LowercaseAlphanumeric.random_string(10);
+    let table_name = format!("LateLoadedTable_{}", table_name);
+
+    // Create a task that tries to query the table before it exists.
+    // This will initially fail, and the client will fall back to using
+    // an explicit BeginTransaction RPC. The table will then be created
+    // BEFORE the BeginTransaction RPC is executed, which will cause the
+    // query to succeed when it is retried using the transaction ID that
+    // was returned by BeginTransaction. This task will never see the
+    // initial error, and instead it will seem like the query simply
+    // succeeded.
+    let query_task = tokio::spawn({
+        let table_name = table_name.clone();
+        async move {
+            let stmt = Statement::builder(format!("SELECT * FROM {}", table_name)).build();
+            let mut rs = tx.execute_query(stmt).await?;
+            let _ = rs.next().await;
+            Ok::<_, anyhow::Error>(tx)
+        }
+    });
+
+    // Wait until the query task above has been executed and has triggered an
+    // explicit BeginTransaction RPC. The BeginTransaction RPC is blocked until
+    // `latch` is notified.
+    begin_transaction_entered_latch.notified().await;
+
+    // Create the table on the emulator while the BeginTransaction RPC is blocked.
+    let rest_endpoint = get_emulator_rest_endpoint(&emulator_host);
+
+    let client = reqwest::Client::new();
+    let database_payload = serde_json::json!({
+        "statements": [
+            format!("CREATE TABLE {} (Id INT64) PRIMARY KEY (Id)", table_name)
+        ]
+    });
+
+    let db_path = format!(
+        "projects/test-project/instances/test-instance/databases/{}",
+        get_database_id().await
+    );
+    let update_database_ddl_url = format!("{}/v1/{}/ddl", rest_endpoint, db_path);
+
+    let res: reqwest::Response = client
+        .patch(&update_database_ddl_url)
+        .json(&database_payload)
+        .send()
+        .await
+        .expect("Failed to send CREATE TABLE request");
+
+    assert!(
+        res.status().is_success(),
+        "Failed to update DDL: {}",
+        res.text().await.unwrap()
+    );
+
+    // Unblock the BeginTransaction RPC.
+    latch.notify_one();
+
+    // Wait for the query task to complete. It should succeed and never see
+    // the initial error.
+    let tx = query_task.await??;
+
+    assert!(
+        tx.read_timestamp().is_some(),
+        "The transaction should have a read timestamp"
+    );
+
+    Ok(())
 }

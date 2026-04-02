@@ -17,4 +17,5 @@ pub mod partitioned_dml;
 pub mod query;
 pub mod read;
 pub mod read_write_transaction;
+pub mod test_proxy;
 pub mod write;

@@ -40,7 +40,7 @@ pub async fn wait_for_emulator(endpoint: &str) {
 static PROVISION_EMULATOR: tokio::sync::OnceCell<()> = tokio::sync::OnceCell::const_new();
 static DATABASE_ID: tokio::sync::OnceCell<String> = tokio::sync::OnceCell::const_new();
 
-async fn get_database_id() -> &'static str {
+pub async fn get_database_id() -> &'static str {
     DATABASE_ID
         .get_or_init(|| async {
             std::env::var("SPANNER_EMULATOR_TEST_DB")
@@ -59,16 +59,19 @@ pub async fn provision_emulator(endpoint: &str) {
         .await;
 }
 
+pub fn get_emulator_rest_endpoint(grpc_endpoint: &str) -> String {
+    let rest_endpoint = std::env::var("SPANNER_EMULATOR_REST_HOST")
+        .unwrap_or_else(|_| grpc_endpoint.replace("9010", "9020"));
+    if rest_endpoint.starts_with("http://") || rest_endpoint.starts_with("https://") {
+        rest_endpoint
+    } else {
+        format!("http://{}", rest_endpoint)
+    }
+}
+
 async fn do_provision_emulator(endpoint: &str) {
     // TODO(#4973): Re-write this to use the admin clients once those also support the Emulator.
-    let rest_endpoint = std::env::var("SPANNER_EMULATOR_REST_HOST")
-        .unwrap_or_else(|_| endpoint.replace("9010", "9020"));
-    let rest_endpoint =
-        if rest_endpoint.starts_with("http://") || rest_endpoint.starts_with("https://") {
-            rest_endpoint
-        } else {
-            format!("http://{}", rest_endpoint)
-        };
+    let rest_endpoint = get_emulator_rest_endpoint(endpoint);
     let client = reqwest::Client::new();
 
     // Create a test instance and ignore any ALREADY_EXISTS errors.
