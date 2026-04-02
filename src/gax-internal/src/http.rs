@@ -601,7 +601,6 @@ mod tests {
     #[cfg(google_cloud_unstable_tracing)]
     use tracing::Instrument;
 
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
     type AuthResult<T> = std::result::Result<T, CredentialsError>;
 
     mockall::mock! {

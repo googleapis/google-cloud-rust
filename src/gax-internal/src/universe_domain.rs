@@ -87,7 +87,7 @@ mod tests {
             None => ScopedEnv::remove("GOOGLE_CLOUD_UNIVERSE_DOMAIN"),
         };
         let mut provider = MockCredentials::new();
-        let cred_domain = cred_domain.clone().map(|s| s.to_string());
+        let cred_domain = cred_domain.map(|s| s.to_string());
         provider
             .expect_universe_domain()
             .returning(move || cred_domain.clone());
