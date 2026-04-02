@@ -246,6 +246,42 @@ async fn test_multi_use_read_only_transaction(
     Ok(())
 }
 
+pub async fn multi_use_read_only_transaction_invalid_query_fallback(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    // Start a multi-use read-only transaction with implicit begin.
+    let tx = db_client
+        .read_only_transaction()
+        .with_explicit_begin_transaction(false)
+        .build()
+        .await?;
+
+    // Expect a read timestamp to NOT have been chosen yet.
+    assert!(tx.read_timestamp().is_none());
+
+    // Execute the first query with invalid syntax.
+    let rs_result = tx
+        .execute_query(Statement::builder("SELECT * FROM NonExistentTable").build())
+        .await;
+
+    assert!(rs_result.is_err(), "Expected an error from an invalid query");
+
+    // The read timestamp should now be available because the transaction
+    // fell back to an explicit BeginTransaction.
+    assert!(tx.read_timestamp().is_some());
+
+    // It should be possible to use the transaction.
+    let mut rs2 = tx
+        .execute_query(Statement::builder("SELECT 2 AS col_int").build())
+        .await?;
+
+    let row2 = rs2.next().await.transpose()?.expect("should yield a row");
+    let val2 = row2.raw_values()[0].as_string();
+    assert_eq!(val2, "2");
+
+    Ok(())
+}
+
 fn verify_null_row(row: &google_cloud_spanner::client::Row) {
     let raw_values = row.raw_values();
     assert_eq!(raw_values.len(), 20, "Row should have exactly 20 columns");

@@ -233,7 +233,29 @@ impl ResultSet {
             return Ok(());
         }
 
-        Err(e)
+        // Check if this stream included an inlined BeginTransaction option
+        // and has not yet returned a transaction ID. If so, we explicitly
+        // begin the transaction and restart the stream.
+        let Some(ReadContextTransactionSelector::Lazy(lazy)) = &self.transaction_selector else {
+            return Err(e);
+        };
+        let is_started = matches!(
+            &*lazy.lock().unwrap(),
+            crate::read_only_transaction::TransactionState::Started(_, _)
+        );
+        if is_started {
+            return Err(e);
+        }
+
+        self.transaction_selector
+            .as_ref()
+            .unwrap()
+            .begin_explicitly(&self.client)
+            .await?;
+
+        self.partial_result_sets_buffer.clear();
+        self.restart_stream().await?;
+        Ok(())
     }
 
     fn handle_stream_end(&mut self) -> crate::Result<Option<Row>> {
@@ -281,15 +303,25 @@ impl ResultSet {
             (None, Some(mut m)) => {
                 let transaction = m.transaction.take();
                 self.metadata = Some(ResultSetMetadata::new(Some(m)));
-                if let (Some(selector), Some(transaction)) =
-                    (&self.transaction_selector, transaction)
-                {
-                    selector.update(
-                        transaction.id,
-                        transaction
-                            .read_timestamp
-                            .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
-                    );
+                if let Some(selector) = &self.transaction_selector {
+                    if let Some(transaction) = transaction {
+                        selector.update(
+                            transaction.id,
+                            transaction
+                                .read_timestamp
+                                .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
+                        );
+                    } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
+                        let is_started = matches!(
+                            &*lazy.lock().expect("transaction state mutex poisoned"),
+                            crate::read_only_transaction::TransactionState::Started(_, _)
+                        );
+                        if !is_started {
+                            return Err(internal_error(
+                                "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
+                            ));
+                        }
+                    }
                 }
             }
         }
@@ -336,9 +368,15 @@ impl ResultSet {
     }
 
     async fn restart_stream(&mut self) -> crate::Result<()> {
+        // Get the latest transaction selector for this transaction.
+        let transaction_selector = self.transaction_selector.as_ref().map(|s| s.selector());
+
         match &mut self.operation {
             StreamOperation::Query(req) => {
                 req.resume_token = self.last_resume_token.clone();
+                req.transaction = transaction_selector
+                    .clone()
+                    .or_else(|| req.transaction.take());
                 let stream = self
                     .client
                     .spanner
@@ -349,6 +387,9 @@ impl ResultSet {
             }
             StreamOperation::Read(req) => {
                 req.resume_token = self.last_resume_token.clone();
+                req.transaction = transaction_selector
+                    .clone()
+                    .or_else(|| req.transaction.take());
                 let stream = self
                     .client
                     .spanner
@@ -465,6 +506,7 @@ pub(crate) mod tests {
     use super::*;
     use crate::client::Spanner;
     use gaxi::grpc::tonic::Response;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use prost_types::Value;
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1::spanner_server::Spanner as SpannerTrait;
@@ -528,7 +570,7 @@ pub(crate) mod tests {
 
         let client: Spanner = Spanner::builder()
             .with_endpoint(address)
-            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await
             .expect("Failed to build client");
@@ -725,7 +767,7 @@ pub(crate) mod tests {
 
         let client: Spanner = Spanner::builder()
             .with_endpoint(address)
-            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -1081,7 +1123,7 @@ pub(crate) mod tests {
 
         let client: Spanner = Spanner::builder()
             .with_endpoint(address)
-            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -1137,7 +1179,7 @@ pub(crate) mod tests {
 
         let client: Spanner = Spanner::builder()
             .with_endpoint(address)
-            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -1207,7 +1249,7 @@ pub(crate) mod tests {
 
         let client: Spanner = Spanner::builder()
             .with_endpoint(address)
-            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -1296,7 +1338,7 @@ pub(crate) mod tests {
 
         let client: Spanner = Spanner::builder()
             .with_endpoint(address)
-            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -1375,7 +1417,7 @@ pub(crate) mod tests {
 
         let client: Spanner = Spanner::builder()
             .with_endpoint(address)
-            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -1427,7 +1469,7 @@ pub(crate) mod tests {
 
         let client: Spanner = Spanner::builder()
             .with_endpoint(address)
-            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
@@ -1443,6 +1485,370 @@ pub(crate) mod tests {
         assert!(
             err_str.contains("Unavailable error"),
             "Expected error to contain 'Unavailable error', but got '{}'",
+            err_str
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn result_set_inline_begin_stream_error_fallback() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response;
+        use gaxi::grpc::tonic::Status;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+        use spanner_grpc_mock::start;
+
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+
+        // 1. Stream yields an error on the first chunk before returning transaction metadata.
+        // E.g., INVALID_ARGUMENT because the query is malformed.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_request| {
+                let stream =
+                    tokio_stream::iter(vec![Err(Status::invalid_argument("Invalid query"))]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+                ))
+            });
+
+        // 2. The explicit BeginTransaction fallback gets triggered.
+        mock.expect_begin_transaction()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Ok(Response::new(mock_v1::Transaction {
+                    id: vec![7, 8, 9],
+                    read_timestamp: Some(prost_types::Timestamp {
+                        seconds: 123456789,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        // 3. The ResultSet gracefully restarts the stream using the transaction ID returned by BeginTransaction.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let req = req.into_inner();
+                // Ensure the explicitly yielded ID is routed into the new stream transaction selector
+                match req.transaction.unwrap().selector.unwrap() {
+                    mock_v1::transaction_selector::Selector::Id(id) => {
+                        assert_eq!(id, vec![7, 8, 9]);
+                    }
+                    _ => panic!("Expected Selector::Id"),
+                }
+
+                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                    metadata: metadata(1),
+                    values: vec![string_val("1")],
+                    ..Default::default()
+                })]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+                ))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+        let mut rs = tx.execute_query("SELECT 1").await?;
+
+        let row1 = rs.next().await.ok_or_else(|| {
+            anyhow::anyhow!("Expected row returned successfully despite stream breaking")
+        })??;
+        assert_eq!(
+            row1.raw_values()[0].0,
+            string_val("1"),
+            "Verify the returned stream successfully resumed with the correct payload"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn result_set_retry_inline_begin_transient_error() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response;
+        use gaxi::grpc::tonic::Status;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+        use spanner_grpc_mock::start;
+
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+
+        // 1. Initial stream throws UNAVAILABLE before metadata.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_request| {
+                let stream =
+                    tokio_stream::iter(vec![Err(Status::unavailable("Transient network issue"))]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+                ))
+            });
+
+        // 2. We retry the stream since it was a transient error.
+        // The retry should use the same transaction selector as the original request.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let req = req.into_inner();
+                match req.transaction.unwrap().selector.unwrap() {
+                    mock_v1::transaction_selector::Selector::Begin(_) => {}
+                    _ => panic!("Expected Selector::Begin on stream retry"),
+                }
+
+                let mut meta = metadata(1).unwrap();
+                meta.transaction = Some(mock_v1::Transaction {
+                    id: vec![7, 8, 9],
+                    read_timestamp: None,
+                    ..Default::default()
+                });
+
+                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                    metadata: Some(meta),
+                    values: vec![string_val("1")],
+                    ..Default::default()
+                })]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+                ))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+        let mut rs = tx.execute_query("SELECT 1").await?;
+
+        let row1 = rs
+            .next()
+            .await
+            .ok_or_else(|| anyhow::anyhow!("Expected stream to recover safely"))??;
+        assert_eq!(
+            row1.raw_values()[0].0,
+            string_val("1"),
+            "Verify resumed stream returns data"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn result_set_retry_inline_begin_id_recovered() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response;
+        use gaxi::grpc::tonic::Status;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+        use spanner_grpc_mock::start;
+
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+
+        // 1. Stream successfully returns metadata chunk then throws UNAVAILABLE on chunk 2.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_request| {
+                let mut meta = metadata(1).unwrap();
+                meta.transaction = Some(mock_v1::Transaction {
+                    id: vec![7, 8, 9],
+                    read_timestamp: None,
+                    ..Default::default()
+                });
+                let stream = tokio_stream::iter(vec![
+                    Ok(PartialResultSet {
+                        metadata: Some(meta),
+                        values: vec![string_val("1")],
+                        resume_token: b"token1".to_vec(),
+                        ..Default::default()
+                    }),
+                    Err(Status::unavailable("Transient mid-stream network issue")),
+                ]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+                ))
+            });
+
+        // 2. Stream resumes using Selector::Id.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let req = req.into_inner();
+                match req.transaction.unwrap().selector.unwrap() {
+                    mock_v1::transaction_selector::Selector::Id(id) => {
+                        assert_eq!(id, vec![7, 8, 9]);
+                    }
+                    _ => panic!("Expected Selector::Id on stream retry"),
+                }
+
+                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                    values: vec![string_val("2")],
+                    ..Default::default()
+                })]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+                ))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+        let mut rs = tx.execute_query("SELECT 1").await?;
+
+        let row1 = rs
+            .next()
+            .await
+            .ok_or_else(|| anyhow::anyhow!("Expected stream row1 extracted"))??;
+        assert_eq!(
+            row1.raw_values()[0].0,
+            string_val("1"),
+            "Verified chunk 1 payload"
+        );
+        let row2 = rs
+            .next()
+            .await
+            .ok_or_else(|| anyhow::anyhow!("Expected stream row2 recovered"))??;
+        assert_eq!(
+            row2.raw_values()[0].0,
+            string_val("2"),
+            "Verified chunk 2 reboot dynamically intercepted ID bounds correctly"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn result_set_inline_begin_metadata_missing_transaction_fails() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::start;
+
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+
+        // 1. Initial stream successfully returns metadata chunk but completely lacks the `Transaction` entity.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_request| {
+                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                    metadata: metadata(1), // Missing `.transaction` natively
+                    values: vec![string_val("1")],
+                    ..Default::default()
+                })]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+                ))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+
+        // Use explicitly deferred Lazy begin transaction!
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+        let mut rs = tx.execute_query("SELECT 1").await?;
+
+        let rs_result = rs
+            .next()
+            .await
+            .ok_or_else(|| anyhow::anyhow!("Expected explicit crash bound properly"))?;
+        assert!(
+            rs_result.is_err(),
+            "Securely aborted when metadata failed to package internal bounds properly"
+        );
+
+        let err_str = rs_result.unwrap_err().to_string();
+        assert!(
+            err_str.contains("failed to return a transaction ID"),
+            "Caught implicit gap boundary: {}",
             err_str
         );
 
