@@ -32,8 +32,8 @@ use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
-use tokio::time::Duration;
 use tokio::sync::oneshot::Receiver;
+use tokio::time::Duration;
 use tokio_util::sync::CancellationToken;
 
 /// Represents an open subscribe stream.
