@@ -34,7 +34,15 @@ impl std::fmt::Debug for Autokey {
 
 impl Autokey {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -62,11 +70,13 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}/keyHandles", var_parent,);
+                let path_template = "/v1/{parent}/keyHandles";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("keyHandleId", &req.key_handle_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -87,6 +97,15 @@ impl super::stub::Autokey for Autokey {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.Autokey/CreateKeyHandle")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -109,7 +128,7 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -123,10 +142,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -149,6 +170,15 @@ impl super::stub::Autokey for Autokey {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.Autokey/GetKeyHandle")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -171,7 +201,7 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -183,13 +213,15 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}/keyHandles", var_parent,);
+                let path_template = "/v1/{parent}/keyHandles";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -210,6 +242,15 @@ impl super::stub::Autokey for Autokey {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.Autokey/ListKeyHandles")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -232,20 +273,21 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -261,6 +303,14 @@ impl super::stub::Autokey for Autokey {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -283,7 +333,7 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -295,10 +345,11 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -319,6 +370,14 @@ impl super::stub::Autokey for Autokey {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -341,7 +400,7 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -355,10 +414,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -375,10 +436,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -395,10 +458,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -412,10 +477,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -430,10 +497,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -527,6 +596,15 @@ impl super::stub::Autokey for Autokey {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -549,7 +627,7 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -563,7 +641,9 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -578,7 +658,7 @@ impl super::stub::Autokey for Autokey {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -595,7 +675,9 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -610,7 +692,7 @@ impl super::stub::Autokey for Autokey {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -627,7 +709,9 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -642,7 +726,7 @@ impl super::stub::Autokey for Autokey {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -656,7 +740,9 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -671,7 +757,7 @@ impl super::stub::Autokey for Autokey {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -686,7 +772,9 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -701,7 +789,7 @@ impl super::stub::Autokey for Autokey {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -795,6 +883,15 @@ impl super::stub::Autokey for Autokey {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -817,7 +914,7 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -831,10 +928,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -851,10 +950,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -871,10 +972,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -888,10 +991,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -906,10 +1011,12 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1003,6 +1110,15 @@ impl super::stub::Autokey for Autokey {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1025,7 +1141,7 @@ impl super::stub::Autokey for Autokey {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1039,10 +1155,11 @@ impl super::stub::Autokey for Autokey {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1065,6 +1182,14 @@ impl super::stub::Autokey for Autokey {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1108,7 +1233,15 @@ impl std::fmt::Debug for AutokeyAdmin {
 
 impl AutokeyAdmin {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1124,7 +1257,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_autokey_config_name = try_match(
                     Some(&req)
@@ -1138,6 +1271,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_autokey_config_name,);
+                let path_template = "/v1/{autokey_config.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1153,7 +1287,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_autokey_config_name = try_match(
@@ -1168,6 +1302,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_autokey_config_name,);
+                let path_template = "/v1/{autokey_config.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1183,7 +1318,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1223,6 +1358,14 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.AutokeyAdmin/UpdateAutokeyConfig")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1245,7 +1388,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1256,10 +1399,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1271,10 +1416,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1308,6 +1455,15 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.AutokeyAdmin/GetAutokeyConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1330,17 +1486,19 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}:showEffectiveAutokeyConfig", var_parent,);
+                let path_template = "/v1/{parent}:showEffectiveAutokeyConfig";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1356,6 +1514,15 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.AutokeyAdmin/ShowEffectiveAutokeyConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1378,20 +1545,21 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1407,6 +1575,14 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1429,7 +1605,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1441,10 +1617,11 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1465,6 +1642,14 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1487,7 +1672,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1501,10 +1686,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1521,10 +1708,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1541,10 +1730,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1558,10 +1749,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1576,10 +1769,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1673,6 +1868,15 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1695,7 +1899,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1709,7 +1913,9 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1724,7 +1930,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1741,7 +1947,9 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1756,7 +1964,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1773,7 +1981,9 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1788,7 +1998,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1802,7 +2012,9 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1817,7 +2029,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1832,7 +2044,9 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1847,7 +2061,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1941,6 +2155,15 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1963,7 +2186,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1977,10 +2200,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1997,10 +2222,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2017,10 +2244,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2034,10 +2263,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2052,10 +2283,12 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2149,6 +2382,15 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2171,7 +2413,7 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2185,10 +2427,11 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2211,6 +2454,14 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2240,7 +2491,15 @@ impl std::fmt::Debug for EkmService {
 
 impl EkmService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -2256,7 +2515,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2268,14 +2527,16 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}/ekmConnections", var_parent,);
+                let path_template = "/v1/{parent}/ekmConnections";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2296,6 +2557,15 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.EkmService/ListEkmConnections")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2318,7 +2588,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2332,10 +2602,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2358,6 +2630,15 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.EkmService/GetEkmConnection")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2380,7 +2661,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2392,11 +2673,13 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}/ekmConnections", var_parent,);
+                let path_template = "/v1/{parent}/ekmConnections";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("ekmConnectionId", &req.ekm_connection_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2417,6 +2700,15 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.EkmService/CreateEkmConnection")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2439,7 +2731,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_ekm_connection_name = try_match(
                     Some(&req)
@@ -2456,6 +2748,7 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_ekm_connection_name,);
+                let path_template = "/v1/{ekm_connection.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2471,7 +2764,7 @@ impl super::stub::EkmService for EkmService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2497,6 +2790,14 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.EkmService/UpdateEkmConnection")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2519,7 +2820,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2532,10 +2833,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2557,6 +2860,15 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.EkmService/GetEkmConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2579,7 +2891,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_ekm_config_name = try_match(
                     Some(&req)
@@ -2595,6 +2907,7 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_ekm_config_name,);
+                let path_template = "/v1/{ekm_config.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2610,7 +2923,7 @@ impl super::stub::EkmService for EkmService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2635,6 +2948,14 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.EkmService/UpdateEkmConfig")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2657,7 +2978,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2671,10 +2992,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:verifyConnectivity", var_name,);
+                let path_template = "/v1/{name}:verifyConnectivity";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2697,6 +3020,15 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.EkmService/VerifyConnectivity")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2719,20 +3051,21 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2748,6 +3081,14 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2770,7 +3111,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2782,10 +3123,11 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2806,6 +3148,14 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2828,7 +3178,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2842,10 +3192,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2862,10 +3214,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2882,10 +3236,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2899,10 +3255,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2917,10 +3275,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3014,6 +3374,15 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3036,7 +3405,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -3050,7 +3419,9 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3065,7 +3436,7 @@ impl super::stub::EkmService for EkmService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3082,7 +3453,9 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3097,7 +3470,7 @@ impl super::stub::EkmService for EkmService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3114,7 +3487,9 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3129,7 +3504,7 @@ impl super::stub::EkmService for EkmService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3143,7 +3518,9 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3158,7 +3535,7 @@ impl super::stub::EkmService for EkmService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3173,7 +3550,9 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3188,7 +3567,7 @@ impl super::stub::EkmService for EkmService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3282,6 +3661,15 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3304,7 +3692,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -3318,10 +3706,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3338,10 +3728,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3358,10 +3750,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3375,10 +3769,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3393,10 +3789,12 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3490,6 +3888,15 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3512,7 +3919,7 @@ impl super::stub::EkmService for EkmService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3526,10 +3933,11 @@ impl super::stub::EkmService for EkmService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3552,6 +3960,14 @@ impl super::stub::EkmService for EkmService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3581,7 +3997,15 @@ impl std::fmt::Debug for HsmManagement {
 
 impl HsmManagement {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -3597,7 +4021,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3609,7 +4033,9 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}/singleTenantHsmInstances", var_parent,);
+                let path_template = "/v1/{parent}/singleTenantHsmInstances";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -3617,7 +4043,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3638,6 +4064,17 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.HsmManagement/ListSingleTenantHsmInstances",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3660,7 +4097,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3674,10 +4111,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3700,6 +4139,15 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.HsmManagement/GetSingleTenantHsmInstance")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3722,7 +4170,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3734,14 +4182,16 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}/singleTenantHsmInstances", var_parent,);
+                let path_template = "/v1/{parent}/singleTenantHsmInstances";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[(
                     "singleTenantHsmInstanceId",
                     &req.single_tenant_hsm_instance_id,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3762,6 +4212,17 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.HsmManagement/CreateSingleTenantHsmInstance",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3784,7 +4245,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3798,14 +4259,16 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}/proposals", var_parent,);
+                let path_template = "/v1/{parent}/proposals";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[(
                     "singleTenantHsmInstanceProposalId",
                     &req.single_tenant_hsm_instance_proposal_id,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3828,6 +4291,17 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.HsmManagement/CreateSingleTenantHsmInstanceProposal",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3850,7 +4324,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3866,10 +4340,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:approve", var_name,);
+                let path_template = "/v1/{name}:approve";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3894,6 +4370,17 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.HsmManagement/ApproveSingleTenantHsmInstanceProposal",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3916,7 +4403,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3932,10 +4419,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:execute", var_name,);
+                let path_template = "/v1/{name}:execute";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3960,6 +4449,17 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.HsmManagement/ExecuteSingleTenantHsmInstanceProposal",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3982,7 +4482,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3998,10 +4498,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4026,6 +4528,17 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.HsmManagement/GetSingleTenantHsmInstanceProposal",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4048,7 +4561,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4062,7 +4575,9 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}/proposals", var_parent,);
+                let path_template = "/v1/{parent}/proposals";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -4070,7 +4585,7 @@ impl super::stub::HsmManagement for HsmManagement {
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4093,6 +4608,17 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.HsmManagement/ListSingleTenantHsmInstanceProposals",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4115,7 +4641,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4131,10 +4657,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4159,6 +4687,17 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.HsmManagement/DeleteSingleTenantHsmInstanceProposal",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4187,20 +4726,21 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4216,6 +4756,14 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4238,7 +4786,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4250,10 +4798,11 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4274,6 +4823,14 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4296,7 +4853,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4310,10 +4867,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4330,10 +4889,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4350,10 +4911,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4367,10 +4930,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4385,10 +4950,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4482,6 +5049,15 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4504,7 +5080,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4518,7 +5094,9 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -4533,7 +5111,7 @@ impl super::stub::HsmManagement for HsmManagement {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4550,7 +5128,9 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -4565,7 +5145,7 @@ impl super::stub::HsmManagement for HsmManagement {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4582,7 +5162,9 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -4597,7 +5179,7 @@ impl super::stub::HsmManagement for HsmManagement {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4611,7 +5193,9 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -4626,7 +5210,7 @@ impl super::stub::HsmManagement for HsmManagement {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4641,7 +5225,9 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -4656,7 +5242,7 @@ impl super::stub::HsmManagement for HsmManagement {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4750,6 +5336,15 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4772,7 +5367,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4786,10 +5381,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4806,10 +5403,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4826,10 +5425,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4843,10 +5444,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4861,10 +5464,12 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4958,6 +5563,15 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4980,7 +5594,7 @@ impl super::stub::HsmManagement for HsmManagement {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4994,10 +5608,11 @@ impl super::stub::HsmManagement for HsmManagement {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5020,6 +5635,14 @@ impl super::stub::HsmManagement for HsmManagement {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5063,7 +5686,15 @@ impl std::fmt::Debug for KeyManagementService {
 
 impl KeyManagementService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -5079,7 +5710,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5091,14 +5722,16 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/keyRings", var_parent,);
+                let path_template = "/v1/{parent}/keyRings";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5119,6 +5752,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/ListKeyRings")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5141,7 +5783,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5155,7 +5797,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/cryptoKeys", var_parent,);
+                let path_template = "/v1/{parent}/cryptoKeys";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -5163,7 +5807,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5186,6 +5830,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/ListCryptoKeys")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5208,7 +5861,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5224,7 +5877,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/cryptoKeyVersions", var_parent,);
+                let path_template = "/v1/{parent}/cryptoKeyVersions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -5232,7 +5887,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5257,6 +5912,17 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.KeyManagementService/ListCryptoKeyVersions",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5279,7 +5945,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5293,14 +5959,16 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/importJobs", var_parent,);
+                let path_template = "/v1/{parent}/importJobs";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5323,6 +5991,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/ListImportJobs")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5345,7 +6022,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5357,12 +6034,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/retiredResources", var_parent,);
+                let path_template = "/v1/{parent}/retiredResources";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5383,6 +6062,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/ListRetiredResources")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5405,7 +6093,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5419,10 +6107,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5445,6 +6135,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/GetKeyRing")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5467,7 +6166,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5483,10 +6182,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5511,6 +6212,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/GetCryptoKey")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5533,7 +6243,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5551,10 +6261,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5581,6 +6293,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/GetCryptoKeyVersion")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5603,7 +6324,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5621,11 +6342,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/publicKey", var_name,);
+                let path_template = "/v1/{name}/publicKey";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("publicKeyFormat", &req.public_key_format)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5652,6 +6375,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/GetPublicKey")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5674,7 +6406,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5690,10 +6422,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5718,6 +6452,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/GetImportJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5740,7 +6483,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5754,10 +6497,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5780,6 +6525,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/GetRetiredResource")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5802,7 +6556,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5814,11 +6568,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/keyRings", var_parent,);
+                let path_template = "/v1/{parent}/keyRings";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("keyRingId", &req.key_ring_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5839,6 +6595,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/CreateKeyRing")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5861,7 +6626,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5875,7 +6640,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/cryptoKeys", var_parent,);
+                let path_template = "/v1/{parent}/cryptoKeys";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("cryptoKeyId", &req.crypto_key_id)]);
                 let builder = builder.query(&[(
@@ -5883,7 +6650,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     &req.skip_initial_version_creation,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5906,6 +6673,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/CreateCryptoKey")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5928,7 +6704,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5944,10 +6720,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/cryptoKeyVersions", var_parent,);
+                let path_template = "/v1/{parent}/cryptoKeyVersions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5972,6 +6750,17 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.KeyManagementService/CreateCryptoKeyVersion",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5994,7 +6783,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6010,10 +6799,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6038,6 +6829,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/DeleteCryptoKey")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6060,7 +6860,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6078,10 +6878,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6108,6 +6910,17 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.KeyManagementService/DeleteCryptoKeyVersion",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6130,7 +6943,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6146,10 +6959,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/cryptoKeyVersions:import", var_parent,);
+                let path_template = "/v1/{parent}/cryptoKeyVersions:import";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6174,6 +6989,17 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.KeyManagementService/ImportCryptoKeyVersion",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6196,7 +7022,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6210,11 +7036,13 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}/importJobs", var_parent,);
+                let path_template = "/v1/{parent}/importJobs";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("importJobId", &req.import_job_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6237,6 +7065,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/CreateImportJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6259,7 +7096,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_crypto_key_name = try_match(
                     Some(&req)
@@ -6278,6 +7115,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_crypto_key_name,);
+                let path_template = "/v1/{crypto_key.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6293,7 +7131,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6321,6 +7159,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/UpdateCryptoKey")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6343,7 +7189,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_crypto_key_version_name = try_match(
                     Some(&req)
@@ -6364,6 +7210,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_crypto_key_version_name,);
+                let path_template = "/v1/{crypto_key_version.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -6379,7 +7226,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6409,6 +7256,16 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.KeyManagementService/UpdateCryptoKeyVersion",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6431,7 +7288,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6447,10 +7304,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:updatePrimaryVersion", var_name,);
+                let path_template = "/v1/{name}:updatePrimaryVersion";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6475,6 +7334,17 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.KeyManagementService/UpdateCryptoKeyPrimaryVersion",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6497,7 +7367,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6515,10 +7385,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:destroy", var_name,);
+                let path_template = "/v1/{name}:destroy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6545,6 +7417,17 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.KeyManagementService/DestroyCryptoKeyVersion",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6567,7 +7450,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6585,10 +7468,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:restore", var_name,);
+                let path_template = "/v1/{name}:restore";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6615,6 +7500,17 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.kms.v1.KeyManagementService/RestoreCryptoKeyVersion",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6637,7 +7533,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6653,10 +7549,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:encrypt", var_name,);
+                let path_template = "/v1/{name}:encrypt";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6681,6 +7579,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/Encrypt")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6703,7 +7610,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6719,10 +7626,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:decrypt", var_name,);
+                let path_template = "/v1/{name}:decrypt";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6747,6 +7656,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/Decrypt")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6769,7 +7687,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6787,10 +7705,11 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:rawEncrypt", var_name,);
+                let path_template = "/v1/{name}:rawEncrypt";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6817,6 +7736,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/RawEncrypt")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6839,7 +7766,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6857,10 +7784,11 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:rawDecrypt", var_name,);
+                let path_template = "/v1/{name}:rawDecrypt";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6887,6 +7815,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/RawDecrypt")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6909,7 +7845,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6927,10 +7863,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:asymmetricSign", var_name,);
+                let path_template = "/v1/{name}:asymmetricSign";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6957,6 +7895,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/AsymmetricSign")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6979,7 +7926,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6997,10 +7944,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:asymmetricDecrypt", var_name,);
+                let path_template = "/v1/{name}:asymmetricDecrypt";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7027,6 +7976,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/AsymmetricDecrypt")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7049,7 +8007,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7067,10 +8025,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:macSign", var_name,);
+                let path_template = "/v1/{name}:macSign";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7097,6 +8057,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/MacSign")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7119,7 +8088,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7137,10 +8106,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:macVerify", var_name,);
+                let path_template = "/v1/{name}:macVerify";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7167,6 +8138,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/MacVerify")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7189,7 +8169,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7207,10 +8187,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:decapsulate", var_name,);
+                let path_template = "/v1/{name}:decapsulate";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7237,6 +8219,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/Decapsulate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7259,7 +8250,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_location = try_match(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
@@ -7271,10 +8262,11 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:generateRandomBytes", var_location,);
+                let path_template = "/v1/{location}:generateRandomBytes";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7295,6 +8287,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.kms.v1.KeyManagementService/GenerateRandomBytes")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7317,20 +8317,21 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7346,6 +8347,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7368,7 +8377,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7380,10 +8389,11 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7404,6 +8414,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7426,7 +8444,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7440,10 +8458,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7460,10 +8480,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7480,10 +8502,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7497,10 +8521,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7515,10 +8541,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7612,6 +8640,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7634,7 +8671,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7648,7 +8685,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7663,7 +8702,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7680,7 +8719,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7695,7 +8736,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7712,7 +8753,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7727,7 +8770,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7741,7 +8784,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7756,7 +8801,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7771,7 +8816,9 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -7786,7 +8833,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7880,6 +8927,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7902,7 +8958,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7916,10 +8972,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7936,10 +8994,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7956,10 +9016,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7973,10 +9035,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7991,10 +9055,12 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//cloudkms.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8088,6 +9154,15 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8110,7 +9185,7 @@ impl super::stub::KeyManagementService for KeyManagementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8124,10 +9199,11 @@ impl super::stub::KeyManagementService for KeyManagementService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8150,6 +9226,14 @@ impl super::stub::KeyManagementService for KeyManagementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

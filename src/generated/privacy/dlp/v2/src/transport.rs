@@ -34,7 +34,15 @@ impl std::fmt::Debug for DlpService {
 
 impl DlpService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,17 +58,19 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/content:inspect", var_parent,);
+                let path_template = "/v2/{parent}/content:inspect";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -73,10 +83,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/content:inspect", var_parent,);
+                let path_template = "/v2/{parent}/content:inspect";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -107,6 +119,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/InspectContent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -129,17 +150,19 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/image:redact", var_parent,);
+                let path_template = "/v2/{parent}/image:redact";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -152,10 +175,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/image:redact", var_parent,);
+                let path_template = "/v2/{parent}/image:redact";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -186,6 +211,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/RedactImage")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -208,17 +242,19 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/content:deidentify", var_parent,);
+                let path_template = "/v2/{parent}/content:deidentify";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -231,10 +267,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/content:deidentify", var_parent,);
+                let path_template = "/v2/{parent}/content:deidentify";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -265,6 +303,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/DeidentifyContent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -287,17 +334,19 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/content:reidentify", var_parent,);
+                let path_template = "/v2/{parent}/content:reidentify";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -310,10 +359,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/content:reidentify", var_parent,);
+                let path_template = "/v2/{parent}/content:reidentify";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -344,6 +395,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ReidentifyContent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -366,9 +426,10 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v2/infoTypes".to_string();
+                let path_template = "/v2/infoTypes";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("parent", &req.parent)]);
@@ -376,7 +437,7 @@ impl super::stub::DlpService for DlpService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -384,13 +445,14 @@ impl super::stub::DlpService for DlpService {
                     &[Segment::Literal("locations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/infoTypes", var_parent,);
+                let path_template = "/v2/{parent}/infoTypes";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -403,13 +465,14 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/infoTypes", var_parent,);
+                let path_template = "/v2/{parent}/infoTypes";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -422,13 +485,14 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/infoTypes", var_parent,);
+                let path_template = "/v2/{parent}/infoTypes";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -478,6 +542,14 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListInfoTypes")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -500,7 +572,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -512,10 +584,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/inspectTemplates", var_parent,);
+                let path_template = "/v2/{parent}/inspectTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -528,10 +602,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/inspectTemplates", var_parent,);
+                let path_template = "/v2/{parent}/inspectTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -539,10 +615,12 @@ impl super::stub::DlpService for DlpService {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/inspectTemplates", var_parent,);
+                let path_template = "/v2/{parent}/inspectTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -550,10 +628,12 @@ impl super::stub::DlpService for DlpService {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/inspectTemplates", var_parent,);
+                let path_template = "/v2/{parent}/inspectTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -609,6 +689,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/CreateInspectTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -631,7 +720,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -645,10 +734,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -663,10 +754,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -679,10 +772,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -695,10 +790,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -768,6 +865,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/UpdateInspectTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -790,7 +896,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -804,10 +910,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -822,10 +930,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -838,10 +948,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -854,10 +966,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -927,6 +1041,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetInspectTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -949,7 +1072,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -961,14 +1084,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/inspectTemplates", var_parent,);
+                let path_template = "/v2/{parent}/inspectTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -981,14 +1106,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/inspectTemplates", var_parent,);
+                let path_template = "/v2/{parent}/inspectTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -996,14 +1123,16 @@ impl super::stub::DlpService for DlpService {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/inspectTemplates", var_parent,);
+                let path_template = "/v2/{parent}/inspectTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1011,14 +1140,16 @@ impl super::stub::DlpService for DlpService {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/inspectTemplates", var_parent,);
+                let path_template = "/v2/{parent}/inspectTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1074,6 +1205,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListInspectTemplates")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1096,7 +1236,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1110,10 +1250,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1128,10 +1270,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1144,10 +1288,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1160,10 +1306,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1233,6 +1381,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/DeleteInspectTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1261,17 +1418,19 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/deidentifyTemplates", var_parent,);
+                let path_template = "/v2/{parent}/deidentifyTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1284,10 +1443,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/deidentifyTemplates", var_parent,);
+                let path_template = "/v2/{parent}/deidentifyTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1295,10 +1456,12 @@ impl super::stub::DlpService for DlpService {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/deidentifyTemplates", var_parent,);
+                let path_template = "/v2/{parent}/deidentifyTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1311,10 +1474,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/deidentifyTemplates", var_parent,);
+                let path_template = "/v2/{parent}/deidentifyTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1370,6 +1535,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/CreateDeidentifyTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1392,7 +1566,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1404,10 +1578,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1422,10 +1598,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1438,10 +1616,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1456,10 +1636,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1529,6 +1711,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/UpdateDeidentifyTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1551,7 +1742,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1563,10 +1754,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1581,10 +1774,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1597,10 +1792,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1615,10 +1812,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1688,6 +1887,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetDeidentifyTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1710,21 +1918,23 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/deidentifyTemplates", var_parent,);
+                let path_template = "/v2/{parent}/deidentifyTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1737,14 +1947,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/deidentifyTemplates", var_parent,);
+                let path_template = "/v2/{parent}/deidentifyTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1752,14 +1964,16 @@ impl super::stub::DlpService for DlpService {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/deidentifyTemplates", var_parent,);
+                let path_template = "/v2/{parent}/deidentifyTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1772,14 +1986,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/deidentifyTemplates", var_parent,);
+                let path_template = "/v2/{parent}/deidentifyTemplates";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1835,6 +2051,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListDeidentifyTemplates")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1857,7 +2082,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1869,10 +2094,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1887,10 +2114,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1903,10 +2132,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1921,10 +2152,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1994,6 +2227,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/DeleteDeidentifyTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2022,17 +2264,19 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/jobTriggers", var_parent,);
+                let path_template = "/v2/{parent}/jobTriggers";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2045,10 +2289,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/jobTriggers", var_parent,);
+                let path_template = "/v2/{parent}/jobTriggers";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2061,10 +2307,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/jobTriggers", var_parent,);
+                let path_template = "/v2/{parent}/jobTriggers";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2110,6 +2358,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/CreateJobTrigger")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2132,7 +2389,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2144,10 +2401,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2162,10 +2421,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2180,10 +2441,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2238,6 +2501,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/UpdateJobTrigger")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2260,7 +2532,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2274,10 +2546,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}:hybridInspect", var_name,);
+                let path_template = "/v2/{name}:hybridInspect";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2300,6 +2574,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/HybridInspectJobTrigger")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2322,7 +2605,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2334,10 +2617,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2352,10 +2637,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2370,10 +2657,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2428,6 +2717,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetJobTrigger")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2450,14 +2748,16 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/jobTriggers", var_parent,);
+                let path_template = "/v2/{parent}/jobTriggers";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2466,7 +2766,7 @@ impl super::stub::DlpService for DlpService {
                 let builder = builder.query(&[("type", &req.r#type)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2479,7 +2779,9 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/jobTriggers", var_parent,);
+                let path_template = "/v2/{parent}/jobTriggers";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2488,7 +2790,7 @@ impl super::stub::DlpService for DlpService {
                 let builder = builder.query(&[("type", &req.r#type)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2501,7 +2803,9 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/jobTriggers", var_parent,);
+                let path_template = "/v2/{parent}/jobTriggers";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2510,7 +2814,7 @@ impl super::stub::DlpService for DlpService {
                 let builder = builder.query(&[("type", &req.r#type)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2556,6 +2860,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListJobTriggers")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2578,7 +2891,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2590,10 +2903,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2608,10 +2923,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2626,10 +2943,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2684,6 +3003,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/DeleteJobTrigger")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2712,7 +3040,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2724,10 +3052,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}:activate", var_name,);
+                let path_template = "/v2/{name}:activate";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2742,10 +3072,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}:activate", var_name,);
+                let path_template = "/v2/{name}:activate";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2783,6 +3115,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ActivateJobTrigger")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2805,7 +3146,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2817,10 +3158,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/discoveryConfigs", var_parent,);
+                let path_template = "/v2/{parent}/discoveryConfigs";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2833,10 +3176,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/discoveryConfigs", var_parent,);
+                let path_template = "/v2/{parent}/discoveryConfigs";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2872,6 +3217,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/CreateDiscoveryConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2894,7 +3248,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2908,10 +3262,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2926,10 +3282,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2969,6 +3327,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/UpdateDiscoveryConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2991,7 +3358,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3005,10 +3372,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3023,10 +3392,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3066,6 +3437,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetDiscoveryConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3088,7 +3468,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3100,13 +3480,15 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/discoveryConfigs", var_parent,);
+                let path_template = "/v2/{parent}/discoveryConfigs";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3119,13 +3501,15 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/discoveryConfigs", var_parent,);
+                let path_template = "/v2/{parent}/discoveryConfigs";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3161,6 +3545,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListDiscoveryConfigs")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3183,7 +3576,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3197,10 +3590,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3215,10 +3610,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3258,6 +3655,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/DeleteDiscoveryConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3286,17 +3692,19 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/dlpJobs", var_parent,);
+                let path_template = "/v2/{parent}/dlpJobs";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3309,10 +3717,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/dlpJobs", var_parent,);
+                let path_template = "/v2/{parent}/dlpJobs";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3343,6 +3753,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/CreateDlpJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3365,14 +3784,16 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/dlpJobs", var_parent,);
+                let path_template = "/v2/{parent}/dlpJobs";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3381,7 +3802,7 @@ impl super::stub::DlpService for DlpService {
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3394,7 +3815,9 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/dlpJobs", var_parent,);
+                let path_template = "/v2/{parent}/dlpJobs";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3403,7 +3826,7 @@ impl super::stub::DlpService for DlpService {
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3416,7 +3839,9 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/dlpJobs", var_parent,);
+                let path_template = "/v2/{parent}/dlpJobs";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3425,7 +3850,7 @@ impl super::stub::DlpService for DlpService {
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3471,6 +3896,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListDlpJobs")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3493,7 +3927,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3505,10 +3939,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3523,10 +3959,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3564,6 +4002,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetDlpJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3586,7 +4033,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3598,10 +4045,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3616,10 +4065,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3657,6 +4108,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/DeleteDlpJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3685,7 +4145,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3697,10 +4157,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3715,10 +4177,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3756,6 +4220,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/CancelDlpJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3784,17 +4257,19 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/storedInfoTypes", var_parent,);
+                let path_template = "/v2/{parent}/storedInfoTypes";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3807,10 +4282,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/storedInfoTypes", var_parent,);
+                let path_template = "/v2/{parent}/storedInfoTypes";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3818,10 +4295,12 @@ impl super::stub::DlpService for DlpService {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/storedInfoTypes", var_parent,);
+                let path_template = "/v2/{parent}/storedInfoTypes";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3834,10 +4313,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/storedInfoTypes", var_parent,);
+                let path_template = "/v2/{parent}/storedInfoTypes";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3893,6 +4374,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/CreateStoredInfoType")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3915,7 +4405,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3927,10 +4417,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3945,10 +4437,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3961,10 +4455,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3979,10 +4475,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4052,6 +4550,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/UpdateStoredInfoType")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4074,7 +4581,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4086,10 +4593,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4104,10 +4613,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4120,10 +4631,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4138,10 +4651,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4211,6 +4726,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetStoredInfoType")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4233,21 +4757,23 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/storedInfoTypes", var_parent,);
+                let path_template = "/v2/{parent}/storedInfoTypes";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4260,14 +4786,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/storedInfoTypes", var_parent,);
+                let path_template = "/v2/{parent}/storedInfoTypes";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4275,14 +4803,16 @@ impl super::stub::DlpService for DlpService {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/storedInfoTypes", var_parent,);
+                let path_template = "/v2/{parent}/storedInfoTypes";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4295,14 +4825,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/storedInfoTypes", var_parent,);
+                let path_template = "/v2/{parent}/storedInfoTypes";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("locationId", &req.location_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4358,6 +4890,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListStoredInfoTypes")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4380,7 +4921,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4392,10 +4933,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4410,10 +4953,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4426,10 +4971,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4444,10 +4991,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4517,6 +5066,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/DeleteStoredInfoType")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4545,7 +5103,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4557,14 +5115,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/projectDataProfiles", var_parent,);
+                let path_template = "/v2/{parent}/projectDataProfiles";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4577,14 +5137,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/projectDataProfiles", var_parent,);
+                let path_template = "/v2/{parent}/projectDataProfiles";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4620,6 +5182,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListProjectDataProfiles")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4642,7 +5213,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4654,14 +5225,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/tableDataProfiles", var_parent,);
+                let path_template = "/v2/{parent}/tableDataProfiles";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4674,14 +5247,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/tableDataProfiles", var_parent,);
+                let path_template = "/v2/{parent}/tableDataProfiles";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4717,6 +5292,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListTableDataProfiles")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4739,7 +5323,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4751,14 +5335,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/columnDataProfiles", var_parent,);
+                let path_template = "/v2/{parent}/columnDataProfiles";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4771,14 +5357,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/columnDataProfiles", var_parent,);
+                let path_template = "/v2/{parent}/columnDataProfiles";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4814,6 +5402,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListColumnDataProfiles")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4836,7 +5433,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4850,10 +5447,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4868,10 +5467,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4911,6 +5512,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetProjectDataProfile")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4933,7 +5543,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4945,14 +5555,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/fileStoreDataProfiles", var_parent,);
+                let path_template = "/v2/{parent}/fileStoreDataProfiles";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4965,14 +5577,16 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/fileStoreDataProfiles", var_parent,);
+                let path_template = "/v2/{parent}/fileStoreDataProfiles";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5008,6 +5622,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListFileStoreDataProfiles")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5030,7 +5653,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5044,10 +5667,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5062,10 +5687,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5105,6 +5732,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetFileStoreDataProfile")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5127,7 +5763,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5141,10 +5777,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5159,10 +5797,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5202,6 +5842,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/DeleteFileStoreDataProfile")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5230,7 +5879,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5244,10 +5893,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5262,10 +5913,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5305,6 +5958,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetTableDataProfile")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5327,7 +5989,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5341,10 +6003,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5359,10 +6023,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5402,6 +6068,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetColumnDataProfile")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5424,7 +6099,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5438,10 +6113,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5456,10 +6133,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5499,6 +6178,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/DeleteTableDataProfile")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5527,7 +6215,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5541,10 +6229,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}:hybridInspect", var_name,);
+                let path_template = "/v2/{name}:hybridInspect";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5567,6 +6257,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/HybridInspectDlpJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5589,7 +6288,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5603,10 +6302,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}:finish", var_name,);
+                let path_template = "/v2/{name}:finish";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5629,6 +6330,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/FinishDlpJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5657,7 +6367,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5669,10 +6379,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/connections", var_parent,);
+                let path_template = "/v2/{parent}/connections";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5685,10 +6397,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/connections", var_parent,);
+                let path_template = "/v2/{parent}/connections";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5724,6 +6438,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/CreateConnection")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5746,7 +6469,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5760,10 +6483,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5778,10 +6503,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5821,6 +6548,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/GetConnection")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5843,7 +6579,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5855,13 +6591,15 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/connections", var_parent,);
+                let path_template = "/v2/{parent}/connections";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5874,13 +6612,15 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/connections", var_parent,);
+                let path_template = "/v2/{parent}/connections";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5916,6 +6656,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/ListConnections")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5938,7 +6687,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5950,13 +6699,15 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/connections:search", var_parent,);
+                let path_template = "/v2/{parent}/connections:search";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5969,13 +6720,15 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}/connections:search", var_parent,);
+                let path_template = "/v2/{parent}/connections:search";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6011,6 +6764,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/SearchConnections")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6033,7 +6795,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6047,10 +6809,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6065,10 +6829,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6108,6 +6874,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/DeleteConnection")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6136,7 +6911,7 @@ impl super::stub::DlpService for DlpService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6150,10 +6925,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6168,10 +6945,12 @@ impl super::stub::DlpService for DlpService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dlp.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6211,6 +6990,15 @@ impl super::stub::DlpService for DlpService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.privacy.dlp.v2.DlpService/UpdateConnection")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

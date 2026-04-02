@@ -26,6 +26,9 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[lints]
+workspace = true
+
 [features]
 default = ["default-rustls-provider"]
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for

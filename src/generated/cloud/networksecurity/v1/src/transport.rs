@@ -34,7 +34,15 @@ impl std::fmt::Debug for AddressGroupService {
 
 impl AddressGroupService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -62,14 +70,16 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}/addressGroups", var_parent,);
+                let path_template = "/v1/{parent}/addressGroups";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -90,6 +100,17 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/ListAddressGroups",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -112,7 +133,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -126,10 +147,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -152,6 +175,17 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/GetAddressGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -174,7 +208,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -186,12 +220,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}/addressGroups", var_parent,);
+                let path_template = "/v1/{parent}/addressGroups";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("addressGroupId", &req.address_group_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -212,6 +248,17 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/CreateAddressGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -234,7 +281,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_address_group_name = try_match(
                     Some(&req)
@@ -251,6 +298,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_address_group_name,);
+                let path_template = "/v1/{address_group.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -267,7 +315,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -293,6 +341,16 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/UpdateAddressGroup",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -315,7 +373,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -329,10 +387,13 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:addItems", var_address_group,);
+                let path_template = "/v1/{address_group}:addItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -355,6 +416,17 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/AddAddressGroupItems",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -377,7 +449,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -391,10 +463,13 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:removeItems", var_address_group,);
+                let path_template = "/v1/{address_group}:removeItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -417,6 +492,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.AddressGroupService/RemoveAddressGroupItems")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -439,7 +523,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -453,10 +537,13 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cloneItems", var_address_group,);
+                let path_template = "/v1/{address_group}:cloneItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -479,6 +566,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.AddressGroupService/CloneAddressGroupItems")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -501,7 +597,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -515,11 +611,13 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -542,6 +640,17 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/DeleteAddressGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -564,7 +673,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -578,12 +687,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:listReferences", var_address_group,);
+                let path_template = "/v1/{address_group}:listReferences";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -606,6 +718,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.AddressGroupService/ListAddressGroupReferences")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -628,20 +749,21 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -654,13 +776,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -691,6 +814,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -713,7 +844,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -725,10 +856,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -741,10 +873,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -780,6 +913,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -802,7 +943,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -816,10 +957,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -834,10 +977,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -852,10 +997,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -870,10 +1017,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -888,10 +1037,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -982,6 +1133,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1004,7 +1164,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1018,7 +1178,9 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1033,7 +1195,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1048,7 +1210,9 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1063,7 +1227,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1078,7 +1242,9 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1093,7 +1259,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1108,7 +1274,9 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1123,7 +1291,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1138,7 +1306,9 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1153,7 +1323,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1244,6 +1414,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1266,7 +1445,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1280,10 +1459,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1298,10 +1479,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1316,10 +1499,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1334,10 +1519,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1352,10 +1539,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1446,6 +1635,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1468,7 +1666,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1480,6 +1678,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1488,7 +1687,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1501,6 +1700,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1509,7 +1709,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1545,6 +1745,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1567,7 +1775,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1581,10 +1789,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1599,10 +1808,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1642,6 +1852,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1664,7 +1882,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1678,10 +1896,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1696,10 +1915,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1739,6 +1959,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1767,7 +1995,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1781,10 +2009,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1799,10 +2028,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1842,6 +2072,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1891,7 +2129,15 @@ impl std::fmt::Debug for OrganizationAddressGroupService {
 
 impl OrganizationAddressGroupService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1907,7 +2153,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1919,14 +2165,16 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}/addressGroups", var_parent,);
+                let path_template = "/v1/{parent}/addressGroups";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1947,6 +2195,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/ListAddressGroups")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1969,7 +2226,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1983,10 +2240,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2009,6 +2268,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/GetAddressGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2031,7 +2299,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2043,12 +2311,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}/addressGroups", var_parent,);
+                let path_template = "/v1/{parent}/addressGroups";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("addressGroupId", &req.address_group_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2069,6 +2339,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/CreateAddressGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2091,7 +2370,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_address_group_name = try_match(
                     Some(&req)
@@ -2108,6 +2387,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_address_group_name,);
+                let path_template = "/v1/{address_group.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2124,7 +2404,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2150,6 +2430,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/UpdateAddressGroup")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2172,7 +2460,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -2186,10 +2474,13 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:addItems", var_address_group,);
+                let path_template = "/v1/{address_group}:addItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2212,6 +2503,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/AddAddressGroupItems")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2234,7 +2534,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -2248,10 +2548,13 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:removeItems", var_address_group,);
+                let path_template = "/v1/{address_group}:removeItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2274,6 +2577,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/RemoveAddressGroupItems")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2296,7 +2608,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -2310,10 +2622,13 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:cloneItems", var_address_group,);
+                let path_template = "/v1/{address_group}:cloneItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2336,6 +2651,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/CloneAddressGroupItems")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2358,7 +2682,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2372,11 +2696,13 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2399,6 +2725,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/DeleteAddressGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2421,7 +2756,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -2435,12 +2770,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:listReferences", var_address_group,);
+                let path_template = "/v1/{address_group}:listReferences";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2463,6 +2801,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/ListAddressGroupReferences")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2485,20 +2832,21 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2511,13 +2859,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2548,6 +2897,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2570,7 +2927,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2582,10 +2939,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2598,10 +2956,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2637,6 +2996,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2659,7 +3026,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2673,10 +3040,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2691,10 +3060,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2709,10 +3080,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2727,10 +3100,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2745,10 +3120,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2839,6 +3216,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2861,7 +3247,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2875,7 +3261,9 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2890,7 +3278,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2905,7 +3293,9 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2920,7 +3310,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2935,7 +3325,9 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2950,7 +3342,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2965,7 +3357,9 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2980,7 +3374,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2995,7 +3389,9 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3010,7 +3406,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3101,6 +3497,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3123,7 +3528,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -3137,10 +3542,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3155,10 +3562,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3173,10 +3582,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3191,10 +3602,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3209,10 +3622,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3303,6 +3718,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3325,7 +3749,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3337,6 +3761,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -3345,7 +3770,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3358,6 +3783,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -3366,7 +3792,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3402,6 +3828,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3424,7 +3858,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3438,10 +3872,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3456,10 +3891,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3499,6 +3935,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3521,7 +3965,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3535,10 +3979,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3553,10 +3998,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3596,6 +4042,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3624,7 +4078,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3638,10 +4092,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3656,10 +4111,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3699,6 +4155,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3748,7 +4212,15 @@ impl std::fmt::Debug for NetworkSecurity {
 
 impl NetworkSecurity {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -3764,7 +4236,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3776,12 +4248,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/authorizationPolicies", var_parent,);
+                let path_template = "/v1/{parent}/authorizationPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3802,6 +4276,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/ListAuthorizationPolicies",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3824,7 +4309,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3838,10 +4323,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3864,6 +4351,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/GetAuthorizationPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3886,7 +4384,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3898,12 +4396,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/authorizationPolicies", var_parent,);
+                let path_template = "/v1/{parent}/authorizationPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("authorizationPolicyId", &req.authorization_policy_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3924,6 +4424,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/CreateAuthorizationPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3946,7 +4457,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_authorization_policy_name = try_match(
                     Some(&req)
@@ -3963,6 +4474,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_authorization_policy_name,);
+                let path_template = "/v1/{authorization_policy.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3978,7 +4490,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4004,6 +4516,16 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/UpdateAuthorizationPolicy",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4026,7 +4548,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4040,10 +4562,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4066,6 +4590,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/DeleteAuthorizationPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4088,7 +4623,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4100,12 +4635,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/serverTlsPolicies", var_parent,);
+                let path_template = "/v1/{parent}/serverTlsPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4126,6 +4663,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/ListServerTlsPolicies",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4148,7 +4696,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4162,10 +4710,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4188,6 +4738,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/GetServerTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4210,7 +4771,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4222,11 +4783,13 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/serverTlsPolicies", var_parent,);
+                let path_template = "/v1/{parent}/serverTlsPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("serverTlsPolicyId", &req.server_tls_policy_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4247,6 +4810,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/CreateServerTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4269,7 +4843,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_server_tls_policy_name = try_match(
                     Some(&req)
@@ -4286,6 +4860,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_server_tls_policy_name,);
+                let path_template = "/v1/{server_tls_policy.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4301,7 +4876,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4327,6 +4902,16 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/UpdateServerTlsPolicy",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4349,7 +4934,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4363,10 +4948,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4389,6 +4976,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/DeleteServerTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4411,7 +5009,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4423,12 +5021,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/clientTlsPolicies", var_parent,);
+                let path_template = "/v1/{parent}/clientTlsPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4449,6 +5049,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/ListClientTlsPolicies",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4471,7 +5082,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4485,10 +5096,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4511,6 +5124,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/GetClientTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4533,7 +5157,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4545,11 +5169,13 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/clientTlsPolicies", var_parent,);
+                let path_template = "/v1/{parent}/clientTlsPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("clientTlsPolicyId", &req.client_tls_policy_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4570,6 +5196,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/CreateClientTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4592,7 +5229,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_client_tls_policy_name = try_match(
                     Some(&req)
@@ -4609,6 +5246,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_client_tls_policy_name,);
+                let path_template = "/v1/{client_tls_policy.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4624,7 +5262,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4650,6 +5288,16 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/UpdateClientTlsPolicy",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4672,7 +5320,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4686,10 +5334,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4712,6 +5362,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/DeleteClientTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4734,20 +5395,21 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4760,13 +5422,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4797,6 +5460,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4819,7 +5490,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4831,10 +5502,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4847,10 +5519,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4886,6 +5559,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4908,7 +5589,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4922,10 +5603,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4940,10 +5623,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4958,10 +5643,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4976,10 +5663,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4994,10 +5683,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5088,6 +5779,15 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5110,7 +5810,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -5124,7 +5824,9 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5139,7 +5841,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5154,7 +5856,9 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5169,7 +5873,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5184,7 +5888,9 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5199,7 +5905,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5214,7 +5920,9 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5229,7 +5937,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5244,7 +5952,9 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5259,7 +5969,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5350,6 +6060,15 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5372,7 +6091,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -5386,10 +6105,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5404,10 +6125,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5422,10 +6145,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5440,10 +6165,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5458,10 +6185,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5552,6 +6281,15 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5574,7 +6312,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5586,6 +6324,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -5594,7 +6333,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5607,6 +6346,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -5615,7 +6355,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5651,6 +6391,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5673,7 +6421,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5687,10 +6435,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5705,10 +6454,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5748,6 +6498,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5770,7 +6528,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5784,10 +6542,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5802,10 +6561,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5845,6 +6605,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5873,7 +6641,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5887,10 +6655,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5905,10 +6674,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5948,6 +6718,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

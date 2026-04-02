@@ -34,7 +34,15 @@ impl std::fmt::Debug for BigtableInstanceAdmin {
 
 impl BigtableInstanceAdmin {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,17 +58,19 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/instances", var_parent,);
+                let path_template = "/v2/{parent}/instances";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -76,6 +86,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/CreateInstance")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -98,7 +117,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -110,10 +129,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -134,6 +155,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/GetInstance")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -156,18 +186,20 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/instances", var_parent,);
+                let path_template = "/v2/{parent}/instances";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -183,6 +215,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/ListInstances")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -205,7 +246,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -217,10 +258,11 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -241,6 +283,14 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateInstance")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -263,7 +313,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_instance_name = try_match(
                     Some(&req)
@@ -278,6 +328,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_instance_name,);
+                let path_template = "/v2/{instance.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -293,7 +344,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -317,6 +368,16 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/PartialUpdateInstance",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -339,7 +400,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -351,10 +412,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -375,6 +438,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteInstance")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -403,7 +475,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -415,11 +487,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/clusters", var_parent,);
+                let path_template = "/v2/{parent}/clusters";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("clusterId", &req.cluster_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -440,6 +514,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/CreateCluster")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -462,7 +545,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -476,10 +559,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -502,6 +587,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/GetCluster")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -524,7 +618,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -536,11 +630,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/clusters", var_parent,);
+                let path_template = "/v2/{parent}/clusters";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -561,6 +657,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/ListClusters")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -583,7 +688,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -597,10 +702,11 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -623,6 +729,14 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateCluster")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -645,7 +759,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_cluster_name = try_match(
                     Some(&req)
@@ -662,6 +776,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_cluster_name,);
+                let path_template = "/v2/{cluster.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -677,7 +792,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -703,6 +818,16 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/PartialUpdateCluster",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -725,7 +850,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -739,10 +864,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -765,6 +892,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteCluster")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -793,7 +929,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -805,12 +941,14 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/appProfiles", var_parent,);
+                let path_template = "/v2/{parent}/appProfiles";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("appProfileId", &req.app_profile_id)]);
                 let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -831,6 +969,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/CreateAppProfile",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -853,7 +1002,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -867,10 +1016,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -893,6 +1044,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/GetAppProfile")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -915,7 +1075,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -927,12 +1087,14 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/appProfiles", var_parent,);
+                let path_template = "/v2/{parent}/appProfiles";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -953,6 +1115,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/ListAppProfiles",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -975,7 +1148,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_app_profile_name = try_match(
                     Some(&req)
@@ -992,6 +1165,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_app_profile_name,);
+                let path_template = "/v2/{app_profile.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1008,7 +1182,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1034,6 +1208,16 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateAppProfile",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1056,7 +1240,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1070,11 +1254,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1097,6 +1283,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteAppProfile",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1125,7 +1322,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1137,10 +1334,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:getIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:getIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1155,10 +1354,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:getIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:getIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1173,10 +1374,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:getIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:getIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1231,6 +1434,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1253,7 +1465,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1265,10 +1477,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:setIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:setIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1283,10 +1497,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:setIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:setIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1301,10 +1517,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:setIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:setIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1359,6 +1577,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1381,7 +1608,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1393,10 +1620,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:testIamPermissions", var_resource,);
+                let path_template = "/v2/{resource}:testIamPermissions";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1411,10 +1640,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:testIamPermissions", var_resource,);
+                let path_template = "/v2/{resource}:testIamPermissions";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1429,10 +1660,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:testIamPermissions", var_resource,);
+                let path_template = "/v2/{resource}:testIamPermissions";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1487,6 +1720,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/TestIamPermissions",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1509,7 +1753,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1523,7 +1767,9 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/hotTablets", var_parent,);
+                let path_template = "/v2/{parent}/hotTablets";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1550,7 +1796,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     let builder = builder.query(&[("pageToken", &req.page_token)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1573,6 +1819,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/ListHotTablets")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1595,7 +1850,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1607,11 +1862,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/logicalViews", var_parent,);
+                let path_template = "/v2/{parent}/logicalViews";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("logicalViewId", &req.logical_view_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1632,6 +1889,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/CreateLogicalView",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1654,7 +1922,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1668,10 +1936,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1694,6 +1964,15 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableInstanceAdmin/GetLogicalView")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1716,7 +1995,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1728,12 +2007,14 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/logicalViews", var_parent,);
+                let path_template = "/v2/{parent}/logicalViews";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1754,6 +2035,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/ListLogicalViews",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1776,7 +2068,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_logical_view_name = try_match(
                     Some(&req)
@@ -1793,6 +2085,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_logical_view_name,);
+                let path_template = "/v2/{logical_view.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1808,7 +2101,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1834,6 +2127,16 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateLogicalView",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1856,7 +2159,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1870,11 +2173,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1897,6 +2202,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteLogicalView",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1925,7 +2241,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1937,11 +2253,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/materializedViews", var_parent,);
+                let path_template = "/v2/{parent}/materializedViews";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("materializedViewId", &req.materialized_view_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1962,6 +2280,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/CreateMaterializedView",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1984,7 +2313,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1998,10 +2327,12 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2024,6 +2355,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/GetMaterializedView",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2046,7 +2388,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2058,12 +2400,14 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/materializedViews", var_parent,);
+                let path_template = "/v2/{parent}/materializedViews";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2084,6 +2428,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/ListMaterializedViews",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2106,7 +2461,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_materialized_view_name = try_match(
                     Some(&req)
@@ -2123,6 +2478,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_materialized_view_name,);
+                let path_template = "/v2/{materialized_view.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2138,7 +2494,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2164,6 +2520,16 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateMaterializedView",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2186,7 +2552,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2200,11 +2566,13 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2227,6 +2595,17 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteMaterializedView",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2255,7 +2634,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2265,6 +2644,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2273,7 +2653,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2292,6 +2672,14 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2314,7 +2702,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2324,10 +2712,11 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2346,6 +2735,14 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2368,7 +2765,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2378,10 +2775,11 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2400,6 +2798,14 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2428,7 +2834,7 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2438,10 +2844,11 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2460,6 +2867,14 @@ impl super::stub::BigtableInstanceAdmin for BigtableInstanceAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2509,7 +2924,15 @@ impl std::fmt::Debug for BigtableTableAdmin {
 
 impl BigtableTableAdmin {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -2525,7 +2948,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2537,10 +2960,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/tables", var_parent,);
+                let path_template = "/v2/{parent}/tables";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2561,6 +2986,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/CreateTable")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2583,7 +3017,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2595,10 +3029,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/tables:createFromSnapshot", var_parent,);
+                let path_template = "/v2/{parent}/tables:createFromSnapshot";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2619,6 +3055,17 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/CreateTableFromSnapshot",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2641,7 +3088,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2653,13 +3100,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/tables", var_parent,);
+                let path_template = "/v2/{parent}/tables";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2680,6 +3129,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/ListTables")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2702,7 +3160,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2716,11 +3174,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2743,6 +3203,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/GetTable")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2765,7 +3234,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_table_name = try_match(
                     Some(&req)
@@ -2782,6 +3251,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_table_name,);
+                let path_template = "/v2/{table.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2798,7 +3268,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2824,6 +3294,14 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/UpdateTable")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2846,7 +3324,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2860,10 +3338,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2886,6 +3366,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/DeleteTable")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2914,7 +3403,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2928,10 +3417,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:undelete", var_name,);
+                let path_template = "/v2/{name}:undelete";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2954,6 +3445,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/UndeleteTable")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2976,7 +3476,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2990,11 +3490,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/authorizedViews", var_parent,);
+                let path_template = "/v2/{parent}/authorizedViews";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("authorizedViewId", &req.authorized_view_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3017,6 +3519,17 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/CreateAuthorizedView",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3039,7 +3552,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3053,13 +3566,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/authorizedViews", var_parent,);
+                let path_template = "/v2/{parent}/authorizedViews";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3082,6 +3597,17 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/ListAuthorizedViews",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3104,7 +3630,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3120,11 +3646,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3149,6 +3677,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/GetAuthorizedView")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3171,7 +3708,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_authorized_view_name = try_match(
                     Some(&req)
@@ -3190,6 +3727,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_authorized_view_name,);
+                let path_template = "/v2/{authorized_view.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3206,7 +3744,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3234,6 +3772,16 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/UpdateAuthorizedView",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3256,7 +3804,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3272,11 +3820,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3301,6 +3851,17 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/DeleteAuthorizedView",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3329,7 +3890,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3343,10 +3904,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:modifyColumnFamilies", var_name,);
+                let path_template = "/v2/{name}:modifyColumnFamilies";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3369,6 +3932,17 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/ModifyColumnFamilies",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3391,7 +3965,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3405,10 +3979,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:dropRowRange", var_name,);
+                let path_template = "/v2/{name}:dropRowRange";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3431,6 +4007,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/DropRowRange")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3459,7 +4044,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3473,10 +4058,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:generateConsistencyToken", var_name,);
+                let path_template = "/v2/{name}:generateConsistencyToken";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3499,6 +4086,17 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/GenerateConsistencyToken",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3521,7 +4119,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3535,10 +4133,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:checkConsistency", var_name,);
+                let path_template = "/v2/{name}:checkConsistency";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3561,6 +4161,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/CheckConsistency")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3583,7 +4192,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3597,10 +4206,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:snapshot", var_name,);
+                let path_template = "/v2/{name}:snapshot";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3623,6 +4234,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/SnapshotTable")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3645,7 +4265,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3661,10 +4281,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3689,6 +4311,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/GetSnapshot")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3711,7 +4342,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3725,12 +4356,14 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/snapshots", var_parent,);
+                let path_template = "/v2/{parent}/snapshots";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3753,6 +4386,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/ListSnapshots")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3775,7 +4417,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3791,10 +4433,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3819,6 +4463,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/DeleteSnapshot")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3847,7 +4500,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3861,11 +4514,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/backups", var_parent,);
+                let path_template = "/v2/{parent}/backups";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("backupId", &req.backup_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3888,6 +4543,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/CreateBackup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3910,7 +4574,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3926,10 +4590,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3954,6 +4620,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/GetBackup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3976,7 +4651,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_backup_name = try_match(
                     Some(&req)
@@ -3995,6 +4670,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_backup_name,);
+                let path_template = "/v2/{backup.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4010,7 +4686,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4038,6 +4714,14 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/UpdateBackup")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4060,7 +4744,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4076,10 +4760,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4104,6 +4790,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/DeleteBackup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4132,7 +4827,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4146,14 +4841,16 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/backups", var_parent,);
+                let path_template = "/v2/{parent}/backups";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4176,6 +4873,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/ListBackups")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4198,7 +4904,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4210,10 +4916,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/tables:restore", var_parent,);
+                let path_template = "/v2/{parent}/tables:restore";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4234,6 +4942,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/RestoreTable")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4256,7 +4973,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4270,10 +4987,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/backups:copy", var_parent,);
+                let path_template = "/v2/{parent}/backups:copy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4296,6 +5015,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/CopyBackup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4318,7 +5046,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4332,10 +5060,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:getIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:getIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4352,10 +5082,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:getIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:getIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4372,10 +5104,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:getIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:getIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4392,10 +5126,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:getIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:getIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4475,6 +5211,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4497,7 +5242,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4511,10 +5256,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:setIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:setIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4531,10 +5278,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:setIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:setIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4551,10 +5300,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:setIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:setIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4571,10 +5322,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:setIamPolicy", var_resource,);
+                let path_template = "/v2/{resource}:setIamPolicy";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4654,6 +5407,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4676,7 +5438,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4690,10 +5452,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:testIamPermissions", var_resource,);
+                let path_template = "/v2/{resource}:testIamPermissions";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4710,10 +5474,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:testIamPermissions", var_resource,);
+                let path_template = "/v2/{resource}:testIamPermissions";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4730,10 +5496,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:testIamPermissions", var_resource,);
+                let path_template = "/v2/{resource}:testIamPermissions";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4750,10 +5518,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:testIamPermissions", var_resource,);
+                let path_template = "/v2/{resource}:testIamPermissions";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4833,6 +5603,17 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/TestIamPermissions",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4855,7 +5636,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4869,11 +5650,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/schemaBundles", var_parent,);
+                let path_template = "/v2/{parent}/schemaBundles";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("schemaBundleId", &req.schema_bundle_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4896,6 +5679,17 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/CreateSchemaBundle",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4918,7 +5712,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_schema_bundle_name = try_match(
                     Some(&req)
@@ -4937,6 +5731,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_schema_bundle_name,);
+                let path_template = "/v2/{schema_bundle.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4953,7 +5748,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     let builder = builder.query(&[("ignoreWarnings", &req.ignore_warnings)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4981,6 +5776,16 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/UpdateSchemaBundle",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5003,7 +5808,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5019,10 +5824,12 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5047,6 +5854,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/GetSchemaBundle")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5069,7 +5885,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5083,12 +5899,14 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/schemaBundles", var_parent,);
+                let path_template = "/v2/{parent}/schemaBundles";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5111,6 +5929,15 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.bigtable.admin.v2.BigtableTableAdmin/ListSchemaBundles")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5133,7 +5960,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5149,11 +5976,13 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//bigtableadmin.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5178,6 +6007,17 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.bigtable.admin.v2.BigtableTableAdmin/DeleteSchemaBundle",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5206,7 +6046,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5216,6 +6056,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -5224,7 +6065,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5243,6 +6084,14 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5265,7 +6114,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5275,10 +6124,11 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5297,6 +6147,14 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5319,7 +6177,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5329,10 +6187,11 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5351,6 +6210,14 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5379,7 +6246,7 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5389,10 +6256,11 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5411,6 +6279,14 @@ impl super::stub::BigtableTableAdmin for BigtableTableAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

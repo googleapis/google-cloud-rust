@@ -34,7 +34,15 @@ impl std::fmt::Debug for GatewayControl {
 
 impl GatewayControl {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::GatewayControl for GatewayControl {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -64,6 +72,7 @@ impl super::stub::GatewayControl for GatewayControl {
                     ],
                 )?;
                 let path = format!("/v1/{}:generateCredentials", var_name,);
+                let path_template = "/v1/{name}:generateCredentials";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("forceUseAgent", &req.force_use_agent)]);
@@ -71,7 +80,7 @@ impl super::stub::GatewayControl for GatewayControl {
                 let builder = builder.query(&[("kubernetesNamespace", &req.kubernetes_namespace)]);
                 let builder = builder.query(&[("operatingSystem", &req.operating_system)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -94,6 +103,16 @@ impl super::stub::GatewayControl for GatewayControl {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.gkeconnect.gateway.v1.GatewayControl/GenerateCredentials",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
