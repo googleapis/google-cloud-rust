@@ -345,7 +345,6 @@ mod tests {
             ClientRequestAttributes::default()
                 .set_rpc_method(TEST_METHOD)
                 .set_url_template(TEST_URL_TEMPLATE)
-                .set_rpc_system("grpc")
                 .set_resource_name("//test.googleapis.com/test-only".to_string()),
         );
 
