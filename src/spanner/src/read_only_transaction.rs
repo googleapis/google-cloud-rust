@@ -1405,8 +1405,8 @@ pub(crate) mod tests {
     async fn inline_begin_read_failure_retry_success() -> anyhow::Result<()> {
         use crate::client::{KeySet, ReadRequest};
         use crate::value::Value;
+        use gaxi::grpc::tonic::Response;
         use gaxi::grpc::tonic::Status;
-        use tonic::Response;
 
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
