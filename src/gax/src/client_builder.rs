@@ -252,7 +252,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
 
     /// Configure the universe domain.
     ///
-    /// The universe domain is the default service domain for a given Cloud universe.
+    /// The universe domain is the default service domain for a given cloud universe.
     /// The default value is "googleapis.com".
     // TODO(#3646): Make this public and let example run when universe domain support is done.
     #[allow(dead_code)]
@@ -427,6 +427,7 @@ pub mod internal {
     #[non_exhaustive]
     pub struct ClientConfig<Cr> {
         pub endpoint: Option<String>,
+        pub universe_domain: Option<String>,
         pub cred: Option<Cr>,
         pub tracing: bool,
         pub retry_policy: Option<Arc<dyn RetryPolicy>>,
@@ -438,7 +439,6 @@ pub mod internal {
         pub disable_follow_redirects: bool,
         pub grpc_subchannel_count: Option<usize>,
         pub grpc_request_buffer_capacity: Option<usize>,
-        pub universe_domain: Option<String>,
         pub grpc_max_header_list_size: Option<u32>,
     }
 
@@ -448,6 +448,7 @@ pub mod internal {
             use std::sync::{Arc, Mutex};
             Self {
                 endpoint: None,
+                universe_domain: None,
                 cred: None,
                 tracing: false,
                 retry_policy: None,
@@ -459,7 +460,6 @@ pub mod internal {
                 disable_follow_redirects: false,
                 grpc_subchannel_count: None,
                 grpc_request_buffer_capacity: None,
-                universe_domain: None,
                 grpc_max_header_list_size: None,
             }
         }
