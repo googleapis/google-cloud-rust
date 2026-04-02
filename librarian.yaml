@@ -114,6 +114,7 @@ default:
       - broken_intra_doc_links
     generate_setter_samples: "true"
     generate_rpc_samples: "true"
+    detailed_tracing_attributes: true
 libraries:
   - name: common
     copyright_year: "2025"
@@ -1360,8 +1361,6 @@ libraries:
       - showcase
       - googleapis
     skip_release: true
-    rust:
-      detailed_tracing_attributes: true
   - name: google-cloud-spanner
     copyright_year: "2026"
     output: src/spanner
@@ -1442,7 +1441,6 @@ libraries:
     copyright_year: "2025"
     output: src/storage
     rust:
-      detailed_tracing_attributes: true
       modules:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
