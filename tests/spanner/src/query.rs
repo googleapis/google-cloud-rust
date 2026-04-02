@@ -275,7 +275,10 @@ pub async fn multi_use_read_only_transaction_invalid_query_fallback(
         .execute_query(Statement::builder("SELECT * FROM NonExistentTable").build())
         .await;
 
-    assert!(rs_result.is_err(), "Expected an error from an invalid query");
+    assert!(
+        rs_result.is_err(),
+        "Expected an error from an invalid query"
+    );
 
     // The read timestamp should now be available because the transaction
     // fell back to an explicit BeginTransaction.
