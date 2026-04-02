@@ -468,7 +468,7 @@ impl TokenProvider for MDSAccessTokenProvider {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
+    use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
