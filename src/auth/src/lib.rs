@@ -63,7 +63,7 @@ pub(crate) mod retry;
 pub mod signer;
 pub(crate) mod token;
 pub(crate) mod token_cache;
-pub mod universe_domain;
+pub(crate) mod universe_domain;
 
 /// A `Result` alias where the `Err` case is [BuildCredentialsError].
 pub(crate) type BuildResult<T> = std::result::Result<T, build_errors::Error>;
