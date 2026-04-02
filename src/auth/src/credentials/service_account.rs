@@ -934,12 +934,22 @@ mod tests {
         let credentials = Builder::new(json_value.clone()).build()?;
 
         let universe_domain = credentials.universe_domain().await;
-        assert_eq!(universe_domain.as_deref(), Some("some-universe-domain.com"), "{universe_domain:?}");
+        assert_eq!(
+            universe_domain.as_deref(),
+            Some("some-universe-domain.com"),
+            "{universe_domain:?}"
+        );
 
-        let credentials = Builder::new(json_value).with_universe_domain("other-universe-domain.com").build()?;
+        let credentials = Builder::new(json_value)
+            .with_universe_domain("other-universe-domain.com")
+            .build()?;
 
         let universe_domain = credentials.universe_domain().await;
-        assert_eq!(universe_domain.as_deref(), Some("other-universe-domain.com"), "{universe_domain:?}");
+        assert_eq!(
+            universe_domain.as_deref(),
+            Some("other-universe-domain.com"),
+            "{universe_domain:?}"
+        );
 
         Ok(())
     }
