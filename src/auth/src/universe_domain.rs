@@ -14,11 +14,14 @@
 
 use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
 use crate::credentials::Credentials;
-use crate::errors::CredentialsError;
 
+/// Returns `true` if the given universe domain is the Default Google Universe (GDU).
+///
+/// This serves as a feature gate for capabilities that are only supported in the GDU
+/// (e.g., `googleapis.com`). For example, Regional Access Boundaries should be disabled,
+/// and User Account credentials should return an error when running outside the GDU.
 #[allow(dead_code)]
-pub(crate) fn is_default_universe_domain<S: Into<String>>(universe_domain: Option<S>) -> bool {
-    let universe_domain = universe_domain.map(|s| s.into());
+pub(crate) fn is_default_universe_domain(universe_domain: Option<String>) -> bool {
     match universe_domain {
         Some(ud) => ud == DEFAULT_UNIVERSE_DOMAIN,
         None => true,
@@ -26,12 +29,12 @@ pub(crate) fn is_default_universe_domain<S: Into<String>>(universe_domain: Optio
 }
 
 #[allow(dead_code)]
-pub(crate) async fn resolve(cred: &Credentials) -> Result<String, CredentialsError> {
+pub(crate) async fn resolve(cred: &Credentials) -> String {
     let cred_universe = cred.universe_domain().await;
-    Ok(cred_universe
+    cred_universe
         .as_deref()
         .unwrap_or(DEFAULT_UNIVERSE_DOMAIN)
-        .to_string())
+        .to_string()
 }
 
 #[cfg(test)]
@@ -56,7 +59,7 @@ mod tests {
         let mut mock = MockCredentials::new();
         mock.expect_universe_domain().return_const(None);
         let cred = Credentials::from(mock);
-        let result = resolve(&cred).await.unwrap();
+        let result = resolve(&cred).await;
         assert_eq!(result, DEFAULT_UNIVERSE_DOMAIN);
     }
 
@@ -66,7 +69,7 @@ mod tests {
         mock.expect_universe_domain()
             .return_const(Some("some-universe-domain.com".into()));
         let cred = Credentials::from(mock);
-        let result = resolve(&cred).await.unwrap();
+        let result = resolve(&cred).await;
         assert_eq!(result, "some-universe-domain.com");
     }
 
@@ -74,6 +77,9 @@ mod tests {
     #[test_case(Some(DEFAULT_UNIVERSE_DOMAIN), true)]
     #[test_case(Some("some-universe-domain.com"), false)]
     fn test_is_default_universe_domain(universe_domain: Option<&str>, expected: bool) {
-        assert_eq!(is_default_universe_domain(universe_domain), expected);
+        assert_eq!(
+            is_default_universe_domain(universe_domain.map(|s| s.to_string())),
+            expected
+        );
     }
 }
