@@ -61,6 +61,15 @@ The benchmark outputs data in CSV format with the following columns:
 
 ## Examples
 
+### Setup
+
+Create a topic and subscription:
+
+```bash
+gcloud pubsub topics create my-topic
+gcloud pubsub subscriptions create my-subscription --topic=my-topic
+```
+
 ### Publisher Run
 
 ```bash
