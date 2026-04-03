@@ -228,17 +228,6 @@ libraries:
                     description: Allows usage of the API without watermarks.
                   - name: EXTENDED_TILE_CACHE_PERIOD
                     type: INT64
-        - id: .google.api.MethodSettings.selector
-          match: |2-
-               publishing:
-                 method_settings:
-                 - selector: google.storage.control.v2.StorageControl.CreateFolder
-                   # method settings for CreateFolder...
-          replace: |2-
-                publishing:
-                  method_settings:
-                  - selector: google.storage.control.v2.StorageControl.CreateFolder
-                    # method settings for CreateFolder...
         - id: .google.api.MethodSettings.long_running
           match: |2-
                publishing:
