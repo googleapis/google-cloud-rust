@@ -160,6 +160,27 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_shared_regional_certificate_authority(
+        &self,
+        req: crate::model::GetSharedRegionalCertificateAuthorityRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SharedRegionalCertificateAuthority>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudRedisCluster::get_shared_regional_certificate_authority",
+                self.inner.get_shared_regional_certificate_authority(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner
+            .get_shared_regional_certificate_authority(req, options)
+            .await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn reschedule_cluster_maintenance(
         &self,
         req: crate::model::RescheduleClusterMaintenanceRequest,

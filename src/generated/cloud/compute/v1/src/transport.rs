@@ -75,6 +75,7 @@ use crate::Error;
     feature = "public-advertised-prefixes",
     feature = "public-delegated-prefixes",
     feature = "region-autoscalers",
+    feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-composite-health-checks",
@@ -2184,6 +2185,97 @@ impl super::stub::BackendBuckets for BackendBuckets {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn aggregated_list(
+        &self,
+        req: crate::model::backend_buckets::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucketAggregatedList>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/aggregated/backendBuckets",
+                    var_project,
+                );
+                let path_template = "/compute/v1/projects/{project}/aggregated/backendBuckets";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = req
+                    .filter
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                let builder = req.include_all_scopes.iter().fold(builder, |builder, p| {
+                    builder.query(&[("includeAllScopes", p)])
+                });
+                let builder = req
+                    .max_results
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
+                let builder = req
+                    .order_by
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
+                let builder = req
+                    .page_token
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                let builder = req
+                    .return_partial_success
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("returnPartialSuccess", p)])
+                    });
+                let builder = req
+                    .service_project_number
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("serviceProjectNumber", p)])
+                    });
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.backendBuckets/aggregatedList")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn delete(
         &self,
         req: crate::model::backend_buckets::DeleteRequest,
@@ -2597,6 +2689,89 @@ impl super::stub::BackendBuckets for BackendBuckets {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.compute.v1.backendBuckets/list")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_usable(
+        &self,
+        req: crate::model::backend_buckets::ListUsableRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucketListUsable>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/global/backendBuckets/listUsable",
+                    var_project,
+                );
+                let path_template =
+                    "/compute/v1/projects/{project}/global/backendBuckets/listUsable";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = req
+                    .filter
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                let builder = req
+                    .max_results
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
+                let builder = req
+                    .order_by
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
+                let builder = req
+                    .page_token
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                let builder = req
+                    .return_partial_success
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("returnPartialSuccess", p)])
+                    });
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.backendBuckets/listUsable")
                     .set_url_template(_path_template),
             );
         }
@@ -6772,6 +6947,91 @@ impl super::stub::Disks for Disks {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.compute.v1.disks/update")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_kms_key(
+        &self,
+        req: crate::model::disks::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_zone = try_match(
+                    Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_disk = try_match(
+                    Some(&req).map(|m| &m.disk).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/zones/{}/disks/{}/updateKmsKey",
+                    var_project, var_zone, var_disk,
+                );
+                let path_template =
+                    "/compute/v1/projects/{project}/zones/{zone}/disks/{disk}/updateKmsKey";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = req
+                    .request_id
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.zone).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "zone",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.disk).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "disk",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.disks/updateKmsKey")
                     .set_url_template(_path_template),
             );
         }
@@ -43697,6 +43957,822 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
     }
 }
 
+/// Implements [RegionBackendBuckets](super::stub::RegionBackendBuckets) using a [gaxi::http::ReqwestClient].
+#[cfg(feature = "region-backend-buckets")]
+#[derive(Clone)]
+pub struct RegionBackendBuckets {
+    inner: gaxi::http::ReqwestClient,
+}
+
+#[cfg(feature = "region-backend-buckets")]
+impl std::fmt::Debug for RegionBackendBuckets {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("RegionBackendBuckets")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+#[cfg(feature = "region-backend-buckets")]
+impl RegionBackendBuckets {
+    pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
+        Ok(Self { inner })
+    }
+}
+
+#[cfg(feature = "region-backend-buckets")]
+impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
+    async fn delete(
+        &self,
+        req: crate::model::region_backend_buckets::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_backend_bucket = try_match(Some(&req).map(|m| &m.backend_bucket).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/backendBuckets/{}",
+                var_project,
+                var_region,
+                var_backend_bucket,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/backendBuckets/{backend_bucket}";
+
+            let builder = self.inner.builder(Method::DELETE, path);
+            let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::DELETE, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.backend_bucket).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "backend_bucket",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionBackendBuckets/delete")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get(
+        &self,
+        req: crate::model::region_backend_buckets::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucket>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_backend_bucket = try_match(Some(&req).map(|m| &m.backend_bucket).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/backendBuckets/{}",
+                var_project,
+                var_region,
+                var_backend_bucket,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/backendBuckets/{backend_bucket}";
+
+            let builder = self.inner.builder(Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::GET, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.backend_bucket).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "backend_bucket",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionBackendBuckets/get")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::region_backend_buckets::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/backendBuckets/{}/getIamPolicy",
+                var_project,
+                var_region,
+                var_resource,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/backendBuckets/{resource}/getIamPolicy";
+
+            let builder = self.inner.builder(Method::GET, path);
+            let builder = req.options_requested_policy_version.iter().fold(builder, |builder, p| builder.query(&[("optionsRequestedPolicyVersion", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::GET, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "resource",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionBackendBuckets/getIamPolicy")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn insert(
+        &self,
+        req: crate::model::region_backend_buckets::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_region = try_match(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/regions/{}/backendBuckets",
+                    var_project, var_region,
+                );
+                let path_template =
+                    "/compute/v1/projects/{project}/regions/{region}/backendBuckets";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = req
+                    .request_id
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "region",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionBackendBuckets/insert")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list(
+        &self,
+        req: crate::model::region_backend_buckets::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucketList>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_region = try_match(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/regions/{}/backendBuckets",
+                    var_project, var_region,
+                );
+                let path_template =
+                    "/compute/v1/projects/{project}/regions/{region}/backendBuckets";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = req
+                    .filter
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                let builder = req
+                    .max_results
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
+                let builder = req
+                    .order_by
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
+                let builder = req
+                    .page_token
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                let builder = req
+                    .return_partial_success
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("returnPartialSuccess", p)])
+                    });
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "region",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionBackendBuckets/list")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_usable(
+        &self,
+        req: crate::model::region_backend_buckets::ListUsableRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucketListUsable>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_region = try_match(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/regions/{}/backendBuckets/listUsable",
+                    var_project, var_region,
+                );
+                let path_template =
+                    "/compute/v1/projects/{project}/regions/{region}/backendBuckets/listUsable";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = req
+                    .filter
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                let builder = req
+                    .max_results
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("maxResults", p)]));
+                let builder = req
+                    .order_by
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("orderBy", p)]));
+                let builder = req
+                    .page_token
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+                let builder = req
+                    .return_partial_success
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("returnPartialSuccess", p)])
+                    });
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "region",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionBackendBuckets/listUsable")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn patch(
+        &self,
+        req: crate::model::region_backend_buckets::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_backend_bucket = try_match(Some(&req).map(|m| &m.backend_bucket).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/backendBuckets/{}",
+                var_project,
+                var_region,
+                var_backend_bucket,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/backendBuckets/{backend_bucket}";
+
+            let builder = self.inner.builder(Method::PATCH, path);
+            let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::PATCH, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.backend_bucket).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "backend_bucket",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionBackendBuckets/patch")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::region_backend_buckets::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/backendBuckets/{}/setIamPolicy",
+                var_project,
+                var_region,
+                var_resource,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/backendBuckets/{resource}/setIamPolicy";
+
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "resource",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionBackendBuckets/setIamPolicy")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_backend_buckets::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/backendBuckets/{}/testIamPermissions",
+                var_project,
+                var_region,
+                var_resource,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/backendBuckets/{resource}/testIamPermissions";
+
+            let builder = self.inner.builder(Method::POST, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::POST, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "resource",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.compute.v1.regionBackendBuckets/testIamPermissions",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_region = try_match(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_operation = try_match(
+                    Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+                );
+                let path_template =
+                    "/compute/v1/projects/{project}/regions/{region}/operations/{operation}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "region",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "operation",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionBackendBuckets/getOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
 /// Implements [RegionBackendServices](super::stub::RegionBackendServices) using a [gaxi::http::ReqwestClient].
 #[cfg(feature = "region-backend-services")]
 #[derive(Clone)]
@@ -45550,6 +46626,76 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.compute.v1.regionCompositeHealthChecks/get")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_health(
+        &self,
+        req: crate::model::region_composite_health_checks::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CompositeHealthCheckHealth>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_composite_health_check = try_match(Some(&req).map(|m| &m.composite_health_check).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/compositeHealthChecks/{}/getHealth",
+                var_project,
+                var_region,
+                var_composite_health_check,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/compositeHealthChecks/{composite_health_check}/getHealth";
+
+            let builder = self.inner.builder(Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::GET, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.composite_health_check).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "composite_health_check",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionCompositeHealthChecks/getHealth")
                     .set_url_template(_path_template),
             );
         }
@@ -47551,6 +48697,91 @@ impl super::stub::RegionDisks for RegionDisks {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.compute.v1.regionDisks/update")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_kms_key(
+        &self,
+        req: crate::model::region_disks::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_region = try_match(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_disk = try_match(
+                    Some(&req).map(|m| &m.disk).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/regions/{}/disks/{}/updateKmsKey",
+                    var_project, var_region, var_disk,
+                );
+                let path_template =
+                    "/compute/v1/projects/{project}/regions/{region}/disks/{disk}/updateKmsKey";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = req
+                    .request_id
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "region",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.disk).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "disk",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionDisks/updateKmsKey")
                     .set_url_template(_path_template),
             );
         }
@@ -49997,6 +51228,76 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.compute.v1.regionHealthSources/get")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_health(
+        &self,
+        req: crate::model::region_health_sources::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthSourceHealth>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_health_source = try_match(Some(&req).map(|m| &m.health_source).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/healthSources/{}/getHealth",
+                var_project,
+                var_region,
+                var_health_source,
+            );
+            let path_template = "/compute/v1/projects/{project}/regions/{region}/healthSources/{health_source}/getHealth";
+
+            let builder = self.inner.builder(Method::GET, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::GET, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "region",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.health_source).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "health_source",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.regionHealthSources/getHealth")
                     .set_url_template(_path_template),
             );
         }
@@ -70493,6 +71794,81 @@ impl super::stub::Snapshots for Snapshots {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.compute.v1.snapshots/testIamPermissions")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_kms_key(
+        &self,
+        req: crate::model::snapshots::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_snapshot = try_match(
+                    Some(&req).map(|m| &m.snapshot).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/compute/v1/projects/{}/global/snapshots/{}/updateKmsKey",
+                    var_project, var_snapshot,
+                );
+                let path_template =
+                    "/compute/v1/projects/{project}/global/snapshots/{snapshot}/updateKmsKey";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = req
+                    .request_id
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("requestId", p)]));
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.snapshot).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "snapshot",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.compute.v1.snapshots/updateKmsKey")
                     .set_url_template(_path_template),
             );
         }

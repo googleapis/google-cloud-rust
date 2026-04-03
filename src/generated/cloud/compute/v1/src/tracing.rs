@@ -72,6 +72,7 @@
     feature = "public-advertised-prefixes",
     feature = "public-delegated-prefixes",
     feature = "region-autoscalers",
+    feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-composite-health-checks",
@@ -759,6 +760,25 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn aggregated_list(
+        &self,
+        req: crate::model::backend_buckets::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucketAggregatedList>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::BackendBuckets::aggregated_list",
+                self.inner.aggregated_list(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.aggregated_list(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete(
         &self,
         req: crate::model::backend_buckets::DeleteRequest,
@@ -870,6 +890,25 @@ where
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_usable(
+        &self,
+        req: crate::model::backend_buckets::ListUsableRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucketListUsable>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::BackendBuckets::list_usable",
+                self.inner.list_usable(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.list_usable(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -2030,6 +2069,25 @@ where
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_kms_key(
+        &self,
+        req: crate::model::disks::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::Disks::update_kms_key",
+                self.inner.update_kms_key(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.update_kms_key(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -13139,6 +13197,242 @@ where
     }
 }
 
+/// Implements a [RegionBackendBuckets](super::stub::RegionBackendBuckets) decorator for logging and tracing.
+#[cfg(feature = "region-backend-buckets")]
+#[derive(Clone, Debug)]
+pub struct RegionBackendBuckets<T>
+where
+    T: super::stub::RegionBackendBuckets + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
+}
+
+#[cfg(feature = "region-backend-buckets")]
+impl<T> RegionBackendBuckets<T>
+where
+    T: super::stub::RegionBackendBuckets + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+#[cfg(feature = "region-backend-buckets")]
+impl<T> super::stub::RegionBackendBuckets for RegionBackendBuckets<T>
+where
+    T: super::stub::RegionBackendBuckets + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete(
+        &self,
+        req: crate::model::region_backend_buckets::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionBackendBuckets::delete",
+                self.inner.delete(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.delete(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get(
+        &self,
+        req: crate::model::region_backend_buckets::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucket>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionBackendBuckets::get",
+                self.inner.get(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.get(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::region_backend_buckets::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionBackendBuckets::get_iam_policy",
+                self.inner.get_iam_policy(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.get_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn insert(
+        &self,
+        req: crate::model::region_backend_buckets::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionBackendBuckets::insert",
+                self.inner.insert(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.insert(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list(
+        &self,
+        req: crate::model::region_backend_buckets::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucketList>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionBackendBuckets::list",
+                self.inner.list(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.list(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_usable(
+        &self,
+        req: crate::model::region_backend_buckets::ListUsableRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendBucketListUsable>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionBackendBuckets::list_usable",
+                self.inner.list_usable(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.list_usable(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn patch(
+        &self,
+        req: crate::model::region_backend_buckets::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionBackendBuckets::patch",
+                self.inner.patch(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.patch(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::region_backend_buckets::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionBackendBuckets::set_iam_policy",
+                self.inner.set_iam_policy(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.set_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_backend_buckets::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionBackendBuckets::test_iam_permissions",
+                self.inner.test_iam_permissions(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionBackendBuckets::get_operation",
+                self.inner.get_operation(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
 /// Implements a [RegionBackendServices](super::stub::RegionBackendServices) decorator for logging and tracing.
 #[cfg(feature = "region-backend-services")]
 #[derive(Clone, Debug)]
@@ -13681,6 +13975,25 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_health(
+        &self,
+        req: crate::model::region_composite_health_checks::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::CompositeHealthCheckHealth>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionCompositeHealthChecks::get_health",
+                self.inner.get_health(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.get_health(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn insert(
         &self,
         req: crate::model::region_composite_health_checks::InsertRequest,
@@ -14212,6 +14525,25 @@ where
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_kms_key(
+        &self,
+        req: crate::model::region_disks::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionDisks::update_kms_key",
+                self.inner.update_kms_key(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.update_kms_key(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -14928,6 +15260,25 @@ where
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_health(
+        &self,
+        req: crate::model::region_health_sources::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthSourceHealth>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::RegionHealthSources::get_health",
+                self.inner.get_health(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.get_health(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -20988,6 +21339,25 @@ where
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_kms_key(
+        &self,
+        req: crate::model::snapshots::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::Snapshots::update_kms_key",
+                self.inner.update_kms_key(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.update_kms_key(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

@@ -4,7 +4,7 @@
 
 Creates and runs virtual machines on Google Cloud Platform.
 
-This client library was generated from the "20260306" revision of the API.
+This client library was generated from the "20260320" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
@@ -74,6 +74,7 @@ The main types to work with this crate are the clients:
 - [PublicAdvertisedPrefixes]: enabled by the `public-advertised-prefixes` feature.
 - [PublicDelegatedPrefixes]: enabled by the `public-delegated-prefixes` feature.
 - [RegionAutoscalers]: enabled by the `region-autoscalers` feature.
+- [RegionBackendBuckets]: enabled by the `region-backend-buckets` feature.
 - [RegionBackendServices]: enabled by the `region-backend-services` feature.
 - [RegionCommitments]: enabled by the `region-commitments` feature.
 - [RegionCompositeHealthChecks]: enabled by the `region-composite-health-checks` feature.
@@ -208,6 +209,7 @@ The main types to work with this crate are the clients:
 [PublicAdvertisedPrefixes]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.PublicAdvertisedPrefixes.html
 [PublicDelegatedPrefixes]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.PublicDelegatedPrefixes.html
 [RegionAutoscalers]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionAutoscalers.html
+[RegionBackendBuckets]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionBackendBuckets.html
 [RegionBackendServices]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionBackendServices.html
 [RegionCommitments]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionCommitments.html
 [RegionCompositeHealthChecks]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionCompositeHealthChecks.html

@@ -3,6 +3,7 @@
     "api_shortname": "networksecurity",
     "client_documentation": "https://docs.rs/google-cloud-networksecurity-v1/latest",
     "distribution_name": "google-cloud-networksecurity-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1132189\u0026template=1639113",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name": "networksecurity",
