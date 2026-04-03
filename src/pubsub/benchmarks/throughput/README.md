@@ -12,37 +12,11 @@ rates in messages per second and megabytes per second.
 cargo run --release -p pubsub-throughput -- [COMMAND] [OPTIONS]
 ```
 
-### Commands
+To see the commands and options use:
 
-- `publisher`: Measure publishing throughput.
-- `subscriber`: Measure subscribing throughput.
-
-### Common Options (Global)
-
-- `--project`: The Google Cloud project ID.
-- `--report-interval`: The interval between progress reports (e.g., `5s`, `1m`;
-  default: `5s`).
-- `--duration`: The total duration to run the benchmark (e.g., `5m`, `1h`;
-  default: `5m`).
-- `--grpc-channels`: The number of gRPC channels to use (default: `1`).
-- `--max-outstanding-messages`: The maximum number of unacknowledged messages
-  held in memory (default: `100000`).
-
-### Publisher Options
-
-- `--topic-id`: The ID of the Pub/Sub topic to publish to (Required).
-- `--payload-size`: The size of each message payload in bytes (default: `1024`).
-- `--batch-size`: The maximum number of messages in a batch (default: `1000`).
-- `--batch-bytes`: The maximum size of a batch in bytes (default: `10485760`
-  which is 10 MB).
-- `--batch-delay`: The maximum time to wait before sending a batch (default:
-  `100ms`).
-
-### Subscriber Options
-
-- `--subscription-id`: The ID of the Pub/Sub subscription to receive from
-  (Required).
-- `--streams`: The number of subscriber streams to run (default: `1`).
+```bash
+cargo run -p pubsub-throughput -- --help
+```
 
 ## Output Format
 

@@ -28,7 +28,7 @@ workspace = true
 [dependencies]
 anyhow.workspace    = true
 bytes.workspace     = true
-clap                = { workspace = true, features = ["derive", "env", "std"] }
+clap                = { workspace = true, features = ["derive", "env", "help", "std"] }
 google-cloud-pubsub = { workspace = true, features = ["default-rustls-provider"] }
 futures.workspace   = true
 humantime.workspace = true
