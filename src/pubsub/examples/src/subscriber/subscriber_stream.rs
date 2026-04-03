@@ -30,7 +30,7 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
 
     println!("listening for messages...");
 
-    let stream = stream.into_stream();
+    let mut stream = stream.into_stream();
     while let Some((message, handler)) = stream.try_next().await? {
         println!("received message: {message:?}");
         handler.ack();
