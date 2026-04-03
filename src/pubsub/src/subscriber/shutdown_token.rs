@@ -48,6 +48,11 @@ impl ShutdownToken {
         self.inner.cancel();
         self.fut.clone().await
     }
+
+    #[cfg(test)]
+    pub(super) async fn wait_for_shutdown(&self) {
+        self.fut.clone().await
+    }
 }
 
 #[cfg(test)]
