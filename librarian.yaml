@@ -228,25 +228,6 @@ libraries:
                     description: Allows usage of the API without watermarks.
                   - name: EXTENDED_TILE_CACHE_PERIOD
                     type: INT64
-        - id: .google.api.MethodSettings.long_running
-          match: |2-
-               publishing:
-                 method_settings:
-                 - selector: google.cloud.speech.v2.Speech.BatchRecognize
-                   long_running:
-                     initial_poll_delay: 60s # 1 minute
-                     poll_delay_multiplier: 1.5
-                     max_poll_delay: 360s # 6 minutes
-                     total_poll_timeout: 54000s # 90 minutes
-          replace: |2-
-                publishing:
-                  method_settings:
-                  - selector: google.cloud.speech.v2.Speech.BatchRecognize
-                    long_running:
-                      initial_poll_delay: 60s # 1 minute
-                      poll_delay_multiplier: 1.5
-                      max_poll_delay: 360s # 6 minutes
-                      total_poll_timeout: 54000s # 90 minutes
         - id: .google.api.MethodSettings.auto_populated_fields
           match: |2-
                publishing:
