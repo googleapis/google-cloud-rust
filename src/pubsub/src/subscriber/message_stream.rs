@@ -18,7 +18,6 @@ use super::lease_loop::LeaseLoop;
 use super::lease_state::{AtLeastOnceInfo, ExactlyOnceInfo, LeaseInfo, LeaseOptions, NewMessage};
 use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
-#[cfg(test)]
 use super::shutdown_token::ShutdownToken;
 use super::stream::Stream;
 use super::stub::TonicStreaming as _;
@@ -65,7 +64,6 @@ pub struct MessageStream {
     /// the same time.
     inner: MessageStreamImpl,
 
-    #[allow(dead_code)] // TODO(#5024) - implementation in progress...
     /// This future is ready when the lease loop shutdown completes.
     lease_loop: Shared<BoxFuture<'static, ()>>,
 
@@ -254,7 +252,28 @@ impl MessageStream {
         }))
     }
 
-    #[cfg(test)] // TODO(#5024) - document and make public
+    /// Returns a shutdown token for the stream.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::MessageStream;
+    /// # async fn sample(mut stream: MessageStream) {
+    /// // Get a shutdown token for the stream.
+    /// let shutdown_token = stream.shutdown_token();
+    ///
+    /// // Signal and await a shutdown of the stream.
+    /// shutdown_token.shutdown().await;
+    ///
+    /// // The stream stops yielding messages after a cancel.
+    /// assert!(stream.next().await.is_none());
+    /// # }
+    /// ```
+    ///
+    /// Use this token to signal and/or await shutdown of the stream.
+    ///
+    /// Awaiting a stream shutdown gives the subscriber time to flush its
+    /// pending acknowledgements, and schedule other messages for redelivery to
+    /// another client as soon as possible.
     pub fn shutdown_token(&self) -> ShutdownToken {
         ShutdownToken {
             inner: self.shutdown.clone(),

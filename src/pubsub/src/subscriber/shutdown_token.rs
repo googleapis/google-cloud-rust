@@ -18,7 +18,7 @@ use tokio_util::sync::CancellationToken;
 /// A token to signal and await shutdown of a stream.
 ///
 /// # Example
-/// ```no_rust
+/// ```
 /// use google_cloud_pubsub::subscriber::MessageStream;
 /// async fn sample(stream: MessageStream) {
 ///   // Get a shutdown token for the stream.
