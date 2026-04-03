@@ -12,8 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use futures::stream::{BoxStream, StreamExt};
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
 use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
+
+pub type ExecuteStreamingSqlStream =
+    BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>;
 
 #[tonic::async_trait]
 pub trait SpannerInterceptor: Send + Sync + 'static {
@@ -66,10 +70,21 @@ pub trait SpannerInterceptor: Send + Sync + 'static {
         &self,
         request: tonic::Request<spanner_v1::ExecuteSqlRequest>,
     ) -> std::result::Result<
-        tonic::Response<tonic::codec::Streaming<spanner_v1::PartialResultSet>>,
+        tonic::Response<
+            BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>,
+        >,
         tonic::Status,
     > {
-        self.emulator_client().execute_streaming_sql(request).await
+        let res = self
+            .emulator_client()
+            .execute_streaming_sql(request)
+            .await?;
+        let (metadata, stream, extensions) = res.into_parts();
+        Ok(tonic::Response::from_parts(
+            metadata,
+            stream.boxed(),
+            extensions,
+        ))
     }
 
     async fn execute_batch_dml(
@@ -91,10 +106,18 @@ pub trait SpannerInterceptor: Send + Sync + 'static {
         &self,
         request: tonic::Request<spanner_v1::ReadRequest>,
     ) -> std::result::Result<
-        tonic::Response<tonic::codec::Streaming<spanner_v1::PartialResultSet>>,
+        tonic::Response<
+            BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>,
+        >,
         tonic::Status,
     > {
-        self.emulator_client().streaming_read(request).await
+        let res = self.emulator_client().streaming_read(request).await?;
+        let (metadata, stream, extensions) = res.into_parts();
+        Ok(tonic::Response::from_parts(
+            metadata,
+            stream.boxed(),
+            extensions,
+        ))
     }
 
     async fn begin_transaction(
@@ -136,10 +159,18 @@ pub trait SpannerInterceptor: Send + Sync + 'static {
         &self,
         request: tonic::Request<spanner_v1::BatchWriteRequest>,
     ) -> std::result::Result<
-        tonic::Response<tonic::codec::Streaming<spanner_v1::BatchWriteResponse>>,
+        tonic::Response<
+            BoxStream<'static, std::result::Result<spanner_v1::BatchWriteResponse, tonic::Status>>,
+        >,
         tonic::Status,
     > {
-        self.emulator_client().batch_write(request).await
+        let res = self.emulator_client().batch_write(request).await?;
+        let (metadata, stream, extensions) = res.into_parts();
+        Ok(tonic::Response::from_parts(
+            metadata,
+            stream.boxed(),
+            extensions,
+        ))
     }
 }
 
@@ -190,7 +221,8 @@ impl<T: SpannerInterceptor> spanner_v1::spanner_server::Spanner for InterceptedS
         self.0.execute_sql(request).await
     }
 
-    type ExecuteStreamingSqlStream = tonic::codec::Streaming<spanner_v1::PartialResultSet>;
+    type ExecuteStreamingSqlStream =
+        BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>;
 
     async fn execute_streaming_sql(
         &self,
@@ -214,7 +246,8 @@ impl<T: SpannerInterceptor> spanner_v1::spanner_server::Spanner for InterceptedS
         self.0.read(request).await
     }
 
-    type StreamingReadStream = tonic::codec::Streaming<spanner_v1::PartialResultSet>;
+    type StreamingReadStream =
+        BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>;
 
     async fn streaming_read(
         &self,
@@ -258,7 +291,8 @@ impl<T: SpannerInterceptor> spanner_v1::spanner_server::Spanner for InterceptedS
         self.0.partition_read(request).await
     }
 
-    type BatchWriteStream = tonic::codec::Streaming<spanner_v1::BatchWriteResponse>;
+    type BatchWriteStream =
+        BoxStream<'static, std::result::Result<spanner_v1::BatchWriteResponse, tonic::Status>>;
 
     async fn batch_write(
         &self,

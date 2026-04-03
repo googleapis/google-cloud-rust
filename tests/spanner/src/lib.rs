@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod client;
+pub mod concurrent_inline_begin;
 pub mod partitioned_dml;
 pub mod query;
 pub mod read;

@@ -310,7 +310,7 @@ impl ResultSet {
                             transaction
                                 .read_timestamp
                                 .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
-                        );
+                        )?;
                     } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
                         let is_started = matches!(
                             &*lazy.lock().expect("transaction state mutex poisoned"),
@@ -368,8 +368,16 @@ impl ResultSet {
     }
 
     async fn restart_stream(&mut self) -> crate::Result<()> {
+        if let Some(s) = &self.transaction_selector {
+            s.maybe_reset_starting();
+        }
+
         // Get the latest transaction selector for this transaction.
-        let transaction_selector = self.transaction_selector.as_ref().map(|s| s.selector());
+        let transaction_selector = if let Some(s) = &self.transaction_selector {
+            Some(s.selector().await?)
+        } else {
+            None
+        };
 
         match &mut self.operation {
             StreamOperation::Query(req) => {

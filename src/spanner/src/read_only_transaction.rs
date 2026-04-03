@@ -20,6 +20,7 @@ use crate::result_set::{ResultSet, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
 use std::sync::{Arc, Mutex};
+use tokio::sync::Notify;
 
 /// A builder for [SingleUseReadOnlyTransaction].
 ///
@@ -445,28 +446,72 @@ pub(crate) enum ReadContextTransactionSelector {
 #[derive(Clone, Debug)]
 pub(crate) enum TransactionState {
     NotStarted(crate::model::TransactionOptions),
+    Starting(crate::model::TransactionOptions, Arc<Notify>),
     Started(crate::model::TransactionSelector, Option<wkt::Timestamp>),
+    Failed(Arc<crate::Error>),
 }
 
-impl TransactionState {
-    fn selector(&self) -> crate::model::TransactionSelector {
-        match self {
-            Self::Started(selector, _) => selector.clone(),
-            Self::NotStarted(options) => {
-                crate::model::TransactionSelector::default().set_begin(options.clone())
-            }
-        }
-    }
+enum SelectorStatus {
+    Ready(crate::model::TransactionSelector),
+    Wait(std::sync::Arc<tokio::sync::Notify>),
 }
 
 impl ReadContextTransactionSelector {
-    pub(crate) fn selector(&self) -> crate::model::TransactionSelector {
+    pub(crate) async fn selector(&self) -> crate::Result<crate::model::TransactionSelector> {
         match self {
-            Self::Fixed(selector, _) => selector.clone(),
-            Self::Lazy(lazy) => lazy
-                .lock()
-                .expect("transaction state mutex poisoned")
-                .selector(),
+            Self::Fixed(selector, _) => Ok(selector.clone()),
+            Self::Lazy(_) => loop {
+                match self.poll_selector_status()? {
+                    SelectorStatus::Ready(selector) => return Ok(selector),
+                    SelectorStatus::Wait(notify) => notify.notified().await,
+                }
+            },
+        }
+    }
+
+    /// Inspects the current lazy selector state returning whether it is ready,
+    /// failed, or needs to wait for the transaction to start.
+    fn poll_selector_status(&self) -> crate::Result<SelectorStatus> {
+        let Self::Lazy(lazy) = self else {
+            unreachable!("poll_selector_status called on non-Lazy selector");
+        };
+        let mut guard = lazy.lock().expect("transaction state mutex poisoned");
+
+        // Fast path: Transaction is already started.
+        if let TransactionState::Started(selector, _) = &*guard {
+            return Ok(SelectorStatus::Ready(selector.clone()));
+        }
+
+        // If the transaction has not started, extract options and proceed to transition.
+        let pending_options = if let TransactionState::NotStarted(options) = &*guard {
+            Some(options.clone())
+        } else {
+            None
+        };
+        if let Some(options) = pending_options {
+            let notify = Arc::new(Notify::new());
+            *guard = TransactionState::Starting(options.clone(), Arc::clone(&notify));
+            return Ok(SelectorStatus::Ready(
+                crate::model::TransactionSelector::default().set_begin(options),
+            ));
+        }
+
+        // Handle other states: yield error or wait.
+        match &*guard {
+            // Note: Failed will only be reached if the following happens:
+            // 1. The first query fails and the transaction falls back to an explicit BeginTransaction RPC.
+            // 2. The BeginTransaction RPC fails. This is the error that will be returned to all the waiting queries.
+            TransactionState::Failed(err) => {
+                let error = if let Some(status) = err.status() {
+                    crate::Error::service(status.clone())
+                } else {
+                    crate::error::internal_error(format!("Transaction failed to start: {}", err))
+                };
+                Err(error)
+            }
+            // Transaction is starting. Wait until a transaction ID is returned.
+            TransactionState::Starting(_, notify) => Ok(SelectorStatus::Wait(Arc::clone(notify))),
+            TransactionState::Started(_, _) | TransactionState::NotStarted(_) => unreachable!(),
         }
     }
 
@@ -482,29 +527,101 @@ impl ReadContextTransactionSelector {
             return Ok(());
         };
 
-        let options = {
+        let (options, notify_opt) = {
             let guard = lazy.lock().expect("transaction state mutex poisoned");
-            let TransactionState::NotStarted(options) = &*guard else {
-                return Ok(());
-            };
-            options.clone()
+            match &*guard {
+                // This should never happen in the current implementation.
+                TransactionState::NotStarted(_) => {
+                    return Err(crate::error::internal_error(
+                        "explicit begin with NotStarted state is currently unsupported",
+                    ));
+                }
+                TransactionState::Starting(options, notify) => {
+                    (options.clone(), Some(Arc::clone(notify)))
+                }
+                TransactionState::Started(_, _) | TransactionState::Failed(_) => return Ok(()),
+            }
         };
 
-        let response = execute_begin_transaction(client, options).await?;
-        self.update(response.id, response.read_timestamp);
+        let response = match execute_begin_transaction(client, options).await {
+            Ok(r) => r,
+            Err(e) => {
+                let mut guard = lazy.lock().expect("transaction state mutex poisoned");
+                let error = Arc::new(e);
+                *guard = TransactionState::Failed(Arc::clone(&error));
+                // Release the lock and notify all the waiting queries that
+                // the transaction has failed.
+                drop(guard);
+                if let Some(notify) = notify_opt {
+                    notify.notify_waiters();
+                }
+
+                let return_error = if let Some(status) = error.status() {
+                    crate::Error::service(status.clone())
+                } else {
+                    crate::error::internal_error(format!("Transaction failed to start: {}", error))
+                };
+                return Err(return_error);
+            }
+        };
+
+        self.update(response.id, response.read_timestamp)?;
 
         Ok(())
     }
 
-    pub(crate) fn update(&self, id: bytes::Bytes, timestamp: Option<wkt::Timestamp>) {
-        if let Self::Lazy(lazy) = self {
-            let mut guard = lazy.lock().expect("transaction state mutex poisoned");
-            if matches!(&*guard, TransactionState::NotStarted(_)) {
-                *guard = TransactionState::Started(
+    pub(crate) fn update(
+        &self,
+        id: bytes::Bytes,
+        timestamp: Option<wkt::Timestamp>,
+    ) -> crate::Result<()> {
+        let Self::Lazy(lazy) = self else {
+            return Ok(());
+        };
+        let mut guard = lazy.lock().expect("transaction state mutex poisoned");
+
+        if matches!(
+            &*guard,
+            TransactionState::NotStarted(_) | TransactionState::Starting(_, _)
+        ) {
+            let previous_state = std::mem::replace(
+                &mut *guard,
+                TransactionState::Started(
                     crate::model::TransactionSelector::default().set_id(id),
                     timestamp,
-                );
+                ),
+            );
+            drop(guard);
+
+            // Notify all queries that are waiting for the transaction.
+            if let TransactionState::Starting(_, notify) = previous_state {
+                notify.notify_waiters();
             }
+            Ok(())
+        } else {
+            Err(crate::error::internal_error(
+                "got a transaction id for an already Started or Failed transaction",
+            ))
+        }
+    }
+
+    /// Resets the selector state from `Starting` back to `NotStarted`.
+    ///
+    /// This is used during stream resume fallbacks when the first query stream
+    /// fails before yielding a transaction ID. It unlocks any parked waiters
+    /// allowing them (or the retry attempt) to include the begin option again.
+    pub(crate) fn maybe_reset_starting(&self) {
+        let Self::Lazy(lazy) = self else {
+            return;
+        };
+
+        let mut guard = lazy.lock().expect("transaction state mutex poisoned");
+        if let TransactionState::Starting(options, notify) = &*guard {
+            let options = options.clone();
+            let notify = Arc::clone(notify);
+            *guard = TransactionState::NotStarted(options);
+            drop(guard);
+            notify.notify_waiters();
         }
     }
 
@@ -583,7 +700,7 @@ macro_rules! execute_stream_with_retry {
             Ok(s) => s,
             Err(e) => {
                 if $self.begin_explicitly_if_not_started().await? {
-                    $request.transaction = Some($self.transaction_selector.selector());
+                    $request.transaction = Some($self.transaction_selector.selector().await?);
                     $self
                         .client
                         .spanner
@@ -616,7 +733,7 @@ impl ReadContext {
             .into()
             .into_request()
             .set_session(self.client.session.name.clone())
-            .set_transaction(self.transaction_selector.selector());
+            .set_transaction(self.transaction_selector.selector().await?);
         request.request_options = self.amend_request_options(request.request_options);
 
         execute_stream_with_retry!(self, request, execute_streaming_sql, StreamOperation::Query)
@@ -630,7 +747,7 @@ impl ReadContext {
             .into()
             .into_request()
             .set_session(self.client.session.name.clone())
-            .set_transaction(self.transaction_selector.selector());
+            .set_transaction(self.transaction_selector.selector().await?);
         request.request_options = self.amend_request_options(request.request_options);
 
         execute_stream_with_retry!(self, request, streaming_read, StreamOperation::Read)
@@ -640,8 +757,16 @@ impl ReadContext {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use crate::client::Statement;
     use crate::result_set::tests::string_val;
+    use crate::value::Value;
+    use gaxi::grpc::tonic::{self, Code, Response, Status};
+    use mock_v1::transaction_selector::Selector;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+    use std::pin::Pin;
+    use std::sync::Arc;
+    use std::task::{Context, Poll};
+    use tokio::sync::{Barrier, Mutex, Notify, mpsc};
 
     #[test]
     fn auto_traits() {
@@ -655,12 +780,10 @@ pub(crate) mod tests {
     pub(crate) fn create_session_mock() -> spanner_grpc_mock::MockSpanner {
         let mut mock = spanner_grpc_mock::MockSpanner::new();
         mock.expect_create_session().once().returning(|_| {
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Session {
-                    name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
-                    ..Default::default()
-                },
-            ))
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
         });
         mock
     }
@@ -689,6 +812,7 @@ pub(crate) mod tests {
         let (address, server) = spanner_grpc_mock::start("0.0.0.0:0", mock)
             .await
             .expect("Failed to start mock server");
+
         let spanner = Spanner::builder()
             .with_endpoint(address)
             .with_credentials(Anonymous::new().build())
@@ -712,7 +836,12 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = db_client.single_use().build();
-        let selector = tx.context.transaction_selector.selector();
+        let selector = tx
+            .context
+            .transaction_selector
+            .selector()
+            .await
+            .expect("Failed to get selector");
         let ro = selector
             .single_use()
             .expect("Expected SingleUse selector")
@@ -729,7 +858,12 @@ pub(crate) mod tests {
                 std::time::Duration::from_secs(10),
             ))
             .build();
-        let selector = tx2.context.transaction_selector.selector();
+        let selector = tx2
+            .context
+            .transaction_selector
+            .selector()
+            .await
+            .expect("Failed to get selector");
         let ro2 = selector
             .single_use()
             .expect("Expected SingleUse selector")
@@ -761,9 +895,9 @@ pub(crate) mod tests {
             );
             assert_eq!(req.sql, "SELECT 1");
 
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Ok(setup_select1())]),
-            )))
+            Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
+                Ok(setup_select1()),
+            ]))))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -795,7 +929,7 @@ pub(crate) mod tests {
                 req.session,
                 "projects/p/instances/i/databases/d/sessions/123"
             );
-            Ok(gaxi::grpc::tonic::Response::new(mock_v1::Transaction {
+            Ok(tonic::Response::new(mock_v1::Transaction {
                 id: vec![1, 2, 3],
                 // prost_types::Timestamp fields need to be explicitly set because default is 0 for both
                 read_timestamp: Some(prost_types::Timestamp {
@@ -822,9 +956,9 @@ pub(crate) mod tests {
                     mock_v1::transaction_selector::Selector::Id(vec![1, 2, 3])
                 );
 
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(setup_select1())]),
-                )))
+                Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
+                    Ok(setup_select1()),
+                ]))))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -894,9 +1028,9 @@ pub(crate) mod tests {
                     }),
                     ..Default::default()
                 });
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(rs)]),
-                )))
+                Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
+                    Ok(rs),
+                ]))))
             });
 
         mock.expect_execute_streaming_sql()
@@ -911,9 +1045,9 @@ pub(crate) mod tests {
                     }
                     _ => panic!("Expected Selector::Id"),
                 }
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(setup_select1())]),
-                )))
+                Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
+                    Ok(setup_select1()),
+                ]))))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -969,9 +1103,9 @@ pub(crate) mod tests {
             assert_eq!(req.table, "Users");
             assert_eq!(req.columns, vec!["Id".to_string(), "Name".to_string()]);
 
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Ok(setup_select1())]),
-            )))
+            Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
+                Ok(setup_select1()),
+            ]))))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -991,8 +1125,8 @@ pub(crate) mod tests {
     #[tokio::test]
     async fn inline_begin_failure_retry_success() -> anyhow::Result<()> {
         use crate::value::Value;
-        use gaxi::grpc::tonic::Response;
         use gaxi::grpc::tonic::Status;
+        use tonic::Response;
 
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
@@ -1068,8 +1202,8 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn inline_begin_failure_retry_failure() -> anyhow::Result<()> {
-        use gaxi::grpc::tonic::Response;
         use gaxi::grpc::tonic::Status;
+        use tonic::Response;
 
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
@@ -1174,8 +1308,8 @@ pub(crate) mod tests {
     async fn inline_begin_read_failure_retry_success() -> anyhow::Result<()> {
         use crate::client::{KeySet, ReadRequest};
         use crate::value::Value;
-        use gaxi::grpc::tonic::Response;
         use gaxi::grpc::tonic::Status;
+        use tonic::Response;
 
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
@@ -1292,9 +1426,9 @@ pub(crate) mod tests {
                     read_timestamp: None,
                     ..Default::default()
                 });
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(rs)]),
-                )))
+                Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
+                    Ok(rs),
+                ]))))
             });
 
         // 2. Second query fails immediately upon send()
@@ -1325,6 +1459,690 @@ pub(crate) mod tests {
         assert!(rs_result.is_err());
         let err_str = rs_result.unwrap_err().to_string();
         assert!(err_str.contains("Internal error second query"));
+
+        Ok(())
+    }
+
+    /// A wrapper that implements `tokio_stream::Stream` for a `mpsc::Receiver`.
+    /// Useful in mock setups to yield controlled streaming test responses.
+    struct ReceiverStream<T>(mpsc::Receiver<T>);
+    impl<T> tokio_stream::Stream for ReceiverStream<T> {
+        type Item = T;
+        fn poll_next(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Option<T>> {
+            self.0.poll_recv(cx)
+        }
+    }
+
+    #[tokio::test]
+    async fn execute_concurrent_queries_inline_begin() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().never();
+
+        let mut seq = mockall::Sequence::new();
+        let (tx_sender, rx_receiver) = mpsc::channel(1);
+        let rx_receiver = Arc::new(Mutex::new(Some(rx_receiver)));
+
+        let task1_ready = Arc::new(Notify::new());
+        let task1_ready_clone = Arc::clone(&task1_ready);
+        let tasks_started = Arc::new(Barrier::new(3));
+
+        // 1. First query: should include Selector::Begin
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                task1_ready_clone.notify_one();
+                let req = req.into_inner();
+                match req.transaction.unwrap().selector.unwrap() {
+                    Selector::Begin(_) => {}
+                    _ => panic!("Expected Selector::Begin for first query"),
+                }
+                let rx = rx_receiver
+                    .try_lock()
+                    .expect("mutex poisoned")
+                    .take()
+                    .unwrap();
+                Ok(Response::new(Box::pin(ReceiverStream(rx))))
+            });
+
+        // 2. The other queries: should include populated Selector::Id
+        mock.expect_execute_streaming_sql()
+            .times(2)
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                match req.transaction.unwrap().selector.unwrap() {
+                    Selector::Id(id) => {
+                        assert_eq!(id, vec![4, 5, 6]);
+                    }
+                    _ => panic!("Expected Selector::Id for other queries"),
+                }
+
+                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
+                    setup_select1(),
+                )]))))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+        let tx = Arc::new(tx);
+
+        // Spawn 3 concurrent queries.
+        // Task 1 launches first and executes the first query.
+        let tx1 = Arc::clone(&tx);
+        let handle1 = tokio::spawn(async move {
+            let mut rs = tx1
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await?;
+            // Read the first result to get the transaction ID.
+            let _ = rs.next().await;
+            Ok::<_, crate::Error>(rs)
+        });
+
+        // Wait for Task 1 to reach the mock server.
+        task1_ready.notified().await;
+
+        let tx2 = Arc::clone(&tx);
+        let tasks_started2 = Arc::clone(&tasks_started);
+        let handle2 = tokio::spawn(async move {
+            tasks_started2.wait().await;
+            tx2.execute_query(Statement::builder("SELECT 1").build())
+                .await
+        });
+
+        let tx3 = Arc::clone(&tx);
+        let tasks_started3 = Arc::clone(&tasks_started);
+        let handle3 = tokio::spawn(async move {
+            tasks_started3.wait().await;
+            tx3.execute_query(Statement::builder("SELECT 1").build())
+                .await
+        });
+
+        // Ensure both Tasks 2 and 3 have reached the barrier before proceeding.
+        tasks_started.wait().await;
+
+        // Flush the scheduler on this single-threaded executor.
+        // This guarantees that Tasks 2 & 3 run until they both hit the internal
+        // selector Notify latch and become suspended.
+        tokio::task::yield_now().await;
+
+        // Provide the first result (including the transaction ID) to Task 1.
+        // This transitions the selector to 'Started' and unblocks Tasks 2 and 3.
+        let mut rs = setup_select1();
+        rs.metadata.as_mut().unwrap().transaction = Some(mock_v1::Transaction {
+            id: vec![4, 5, 6],
+            read_timestamp: Some(prost_types::Timestamp {
+                seconds: 987654321,
+                nanos: 0,
+            }),
+            ..Default::default()
+        });
+        tx_sender.send(Ok(rs)).await.expect("channel broken");
+        drop(tx_sender);
+
+        // Collect all results
+        let mut rs1 = handle1.await??;
+        let mut rs2 = handle2.await??;
+        let mut rs3 = handle3.await??;
+
+        // Verify the query results
+        assert!(rs1.next().await.is_none());
+
+        let row2 = rs2.next().await.expect("Expected a row")?;
+        assert_eq!(row2.raw_values(), [Value(string_val("1"))]);
+        assert!(rs2.next().await.is_none());
+
+        let row3 = rs3.next().await.expect("Expected a row")?;
+        assert_eq!(row3.raw_values(), [Value(string_val("1"))]);
+        assert!(rs3.next().await.is_none());
+
+        // Verify that the read timestamp was populated
+        assert_eq!(tx.read_timestamp().unwrap().seconds(), 987654321);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_concurrent_queries_inline_begin_failed_cascade() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        let (tx_sender, rx_receiver) = mpsc::channel(1);
+        let rx_receiver = Arc::new(Mutex::new(Some(rx_receiver)));
+
+        let task1_ready = Arc::new(Notify::new());
+        let task1_ready_clone = Arc::clone(&task1_ready);
+        let tasks_started = Arc::new(Barrier::new(3));
+
+        // 1. Return a stream connected to tx_sender.
+        // We will use tx_sender later in the test to inject a failed first chunk.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(move |_req| {
+                task1_ready_clone.notify_one();
+                let rx = rx_receiver
+                    .try_lock()
+                    .expect("mutex poisoned")
+                    .take()
+                    .unwrap();
+                Ok(tonic::Response::new(Box::pin(ReceiverStream(rx))))
+            });
+
+        // 2. Fallback BeginTransaction RPC fails
+        mock.expect_begin_transaction()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Err(gaxi::grpc::tonic::Status::internal(
+                    "Fallback BeginTransaction failed",
+                ))
+            });
+
+        // The other queries will never be executed.
+        mock.expect_execute_streaming_sql().times(0).returning(|_| {
+            panic!("Other queries should not launch after failure to start the transaction")
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+        let tx = Arc::new(tx);
+
+        // Spawn 3 concurrent queries.
+        let tx1 = Arc::clone(&tx);
+        let handle1 = tokio::spawn(async move {
+            let mut rs = tx1
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await?;
+            rs.next().await.ok_or_else(|| {
+                crate::error::internal_error("stream exhausted (this should never happen)")
+            })??;
+            Ok::<_, crate::Error>(rs)
+        });
+
+        // Wait for Task 1 to reach the mock and transition the selector to Starting.
+        task1_ready.notified().await;
+
+        let tx2 = Arc::clone(&tx);
+        let tasks_started2 = Arc::clone(&tasks_started);
+        let handle2 = tokio::spawn(async move {
+            tasks_started2.wait().await;
+            tx2.execute_query(Statement::builder("SELECT 1").build())
+                .await
+        });
+
+        let tx3 = Arc::clone(&tx);
+        let tasks_started3 = Arc::clone(&tasks_started);
+        let handle3 = tokio::spawn(async move {
+            tasks_started3.wait().await;
+            tx3.execute_query(Statement::builder("SELECT 1").build())
+                .await
+        });
+
+        // Ensure both Tasks 2 and 3 have reached the barrier before proceeding.
+        tasks_started.wait().await;
+
+        // Flush the scheduler on this single-threaded executor.
+        // This guarantees that Tasks 2 & 3 run until they both hit the internal
+        // selector Notify latch and become suspended.
+        tokio::task::yield_now().await;
+
+        // Push error to channel failing first query stream!
+        tx_sender
+            .send(Err(gaxi::grpc::tonic::Status::internal(
+                "Mocked boot failed",
+            )))
+            .await
+            .expect("channel broken");
+        drop(tx_sender);
+
+        // Collect all results - all should fail with identical cached error!
+        let err1 = handle1.await?.unwrap_err().to_string();
+        let err2 = handle2.await?.unwrap_err().to_string();
+        let err3 = handle3.await?.unwrap_err().to_string();
+
+        assert!(
+            err1.contains("Fallback BeginTransaction failed"),
+            "err1: {}",
+            err1
+        );
+        assert!(
+            err2.contains("Fallback BeginTransaction failed"),
+            "err2: {}",
+            err2
+        );
+        assert!(
+            err3.contains("Fallback BeginTransaction failed"),
+            "err3: {}",
+            err3
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_concurrent_queries_inline_begin_stream_restart_deadlock_prevention()
+    -> crate::Result<()> {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().never();
+
+        let mut seq = mockall::Sequence::new();
+
+        let (tx_sender, rx_receiver) = mpsc::channel(1);
+        let rx_receiver = Arc::new(Mutex::new(Some(rx_receiver)));
+
+        let task1_ready = Arc::new(Notify::new());
+        let task1_ready_clone = Arc::clone(&task1_ready);
+        let tasks_started = Arc::new(Barrier::new(3));
+
+        // 1. Task 1 initial query: Return a stream connected to tx_sender for error injection.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                // Return a stream connected to tx_sender.
+                // We will use tx_sender later in the test to inject a transient error.
+                task1_ready_clone.notify_one();
+                match req.transaction.unwrap().selector.unwrap() {
+                    Selector::Begin(_) => {}
+                    _ => panic!("Expected Selector::Begin for first query"),
+                }
+                let rx = rx_receiver
+                    .try_lock()
+                    .expect("mutex poisoned")
+                    .take()
+                    .unwrap();
+                Ok(Response::new(Box::pin(ReceiverStream(rx))))
+            });
+
+        // 2. Task 1 restart query: should include Selector::Begin, since
+        // it failed with a transient error.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                match req.transaction.unwrap().selector.unwrap() {
+                    Selector::Begin(_) => {
+                        let mut rs = setup_select1();
+                        rs.metadata.as_mut().unwrap().transaction = Some(mock_v1::Transaction {
+                            id: vec![4, 5, 6],
+                            ..Default::default()
+                        });
+                        Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(rs)]))))
+                    }
+                    _ => panic!("Expected Selector::Begin for stream restart query"),
+                }
+            });
+
+        // 3. Tasks 2 & 3: should include populated Selector::Id
+        mock.expect_execute_streaming_sql()
+            .times(2)
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                match req.transaction.unwrap().selector.unwrap() {
+                    Selector::Id(id) => {
+                        assert_eq!(id, vec![4, 5, 6]);
+                        Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
+                            setup_select1(),
+                        )]))))
+                    }
+                    _ => panic!("Expected Selector::Id for concurrent queries"),
+                }
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+        let tx = Arc::new(tx);
+
+        let handle1_tx = Arc::clone(&tx);
+        let handle1 = tokio::spawn(async move {
+            let mut rs = handle1_tx
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await?;
+            let _ = rs.next().await.ok_or_else(|| {
+                crate::error::internal_error("stream exhausted (this should never happen)")
+            })??;
+            Ok::<_, crate::Error>(rs)
+        });
+
+        // Wait for Task 1 to reach the mock and transition the selector to Starting.
+        task1_ready.notified().await;
+
+        let handle2_tx = Arc::clone(&tx);
+        let tasks_started2 = Arc::clone(&tasks_started);
+        let handle2 = tokio::spawn(async move {
+            tasks_started2.wait().await;
+            let mut rs = handle2_tx
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await?;
+            let _ = rs.next().await.ok_or_else(|| {
+                crate::error::internal_error("stream exhausted (this should never happen)")
+            })??;
+            Ok::<_, crate::Error>(rs)
+        });
+
+        let handle3_tx = Arc::clone(&tx);
+        let tasks_started3 = Arc::clone(&tasks_started);
+        let handle3 = tokio::spawn(async move {
+            tasks_started3.wait().await;
+            let mut rs = handle3_tx
+                .execute_query(Statement::builder("SELECT 1").build())
+                .await?;
+            let _ = rs.next().await.ok_or_else(|| {
+                crate::error::internal_error("stream exhausted (this should never happen)")
+            })??;
+            Ok::<_, crate::Error>(rs)
+        });
+
+        // Ensure both Tasks 2 and 3 have reached the barrier before proceeding.
+        tasks_started.wait().await;
+
+        // Flush the scheduler on this single-threaded executor.
+        // This guarantees that Tasks 2 & 3 run until they both hit the internal
+        // selector Notify latch and become suspended.
+        tokio::task::yield_now().await;
+
+        let grpc_status = Status::new(gaxi::grpc::tonic::Code::Unavailable, "transient error");
+        tx_sender.send(Err(grpc_status)).await.expect("send failed");
+        drop(tx_sender);
+
+        // Collect and verify all results.
+        // handle.await returns Result<Result<ResultSet, Error>, JoinError>.
+        // The first ? handles the potential JoinError (panic in the task),
+        // and the second ? handles the Spanner error.
+        let mut rs1 = handle1.await.expect("Task 1 panicked")?;
+        let mut rs2 = handle2.await.expect("Task 2 panicked")?;
+        let mut rs3 = handle3.await.expect("Task 3 panicked")?;
+
+        // Verify that all results have been exhausted.
+        // (The tasks themselves already successfully read the first row).
+        assert!(rs1.next().await.is_none(), "Stream 1 should be exhausted");
+        assert!(rs2.next().await.is_none(), "Stream 2 should be exhausted");
+        assert!(rs3.next().await.is_none(), "Stream 3 should be exhausted");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_concurrent_queries_late_arrival_failure() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        // 1. Initial query fails.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let req = req.into_inner();
+                match req.transaction.unwrap().selector.unwrap() {
+                    Selector::Begin(_) => {}
+                    _ => panic!("Expected Selector::Begin for first query"),
+                }
+                Err(Status::internal("Initial inline-begin failed"))
+            });
+
+        // 2. Fallback BeginTransaction RPC also fails.
+        mock.expect_begin_transaction()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::internal("Fallback BeginTransaction failed")));
+
+        // Any further attempts would panic because we haven't mocked them.
+        mock.expect_execute_streaming_sql().never();
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+
+        // First query: triggers the failure and transitions the state to Failed.
+        let err1 = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await
+            .expect_err("First query should fail");
+        assert!(
+            err1.to_string()
+                .contains("Fallback BeginTransaction failed")
+        );
+
+        // Second query: starts AFTER the failure is already cached.
+        // It should immediately return the same error without invoking the mock server.
+        let err2 = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await
+            .expect_err("Late query should fail immediately");
+        assert!(
+            err2.to_string()
+                .contains("Fallback BeginTransaction failed")
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_concurrent_reads_inline_begin() -> anyhow::Result<()> {
+        use crate::client::{KeySet, ReadRequest};
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().never();
+
+        let mut seq = mockall::Sequence::new();
+        let (tx_sender, rx_receiver) = mpsc::channel(1);
+        let rx_receiver = Arc::new(Mutex::new(Some(rx_receiver)));
+
+        let task1_ready = Arc::new(Notify::new());
+        let task1_ready_clone = Arc::clone(&task1_ready);
+        let tasks_started = Arc::new(Barrier::new(3));
+
+        // 1. First read: should include Selector::Begin
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                task1_ready_clone.notify_one();
+                let req = req.into_inner();
+                match req.transaction.unwrap().selector.unwrap() {
+                    mock_v1::transaction_selector::Selector::Begin(_) => {}
+                    _ => panic!("Expected Selector::Begin for first read"),
+                }
+
+                let rx = rx_receiver
+                    .try_lock()
+                    .expect("mutex poisoned")
+                    .take()
+                    .unwrap();
+                Ok(Response::new(Box::pin(ReceiverStream(rx))))
+            });
+
+        // 2. The other reads: should include populated Selector::Id
+        mock.expect_streaming_read()
+            .times(2)
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                match req.transaction.unwrap().selector.unwrap() {
+                    mock_v1::transaction_selector::Selector::Id(id) => {
+                        assert_eq!(id, vec![4, 5, 6]);
+                    }
+                    _ => panic!("Expected Selector::Id for other reads"),
+                }
+
+                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
+                    setup_select1(),
+                )]))))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+        let tx = Arc::new(tx);
+
+        let read_req = ReadRequest::builder("Table", vec!["Col"])
+            .with_keys(KeySet::all())
+            .build();
+
+        // Spawn 3 concurrent reads.
+        let tx1 = Arc::clone(&tx);
+        let read1 = read_req.clone();
+        let handle1 = tokio::spawn(async move {
+            let mut rs = tx1.execute_read(read1).await?;
+            let _ = rs.next().await;
+            Ok::<_, crate::Error>(rs)
+        });
+
+        task1_ready.notified().await;
+
+        let tx2 = Arc::clone(&tx);
+        let read2 = read_req.clone();
+        let tasks_started2 = Arc::clone(&tasks_started);
+        let handle2 = tokio::spawn(async move {
+            tasks_started2.wait().await;
+            let mut rs = tx2.execute_read(read2).await?;
+            let _ = rs.next().await;
+            Ok::<_, crate::Error>(rs)
+        });
+
+        let tx3 = Arc::clone(&tx);
+        let read3 = read_req.clone();
+        let tasks_started3 = Arc::clone(&tasks_started);
+        let handle3 = tokio::spawn(async move {
+            tasks_started3.wait().await;
+            let mut rs = tx3.execute_read(read3).await?;
+            let _ = rs.next().await;
+            Ok::<_, crate::Error>(rs)
+        });
+
+        tasks_started.wait().await;
+        tokio::task::yield_now().await;
+
+        // Provide the transaction ID.
+        let mut rs = setup_select1();
+        rs.metadata.as_mut().unwrap().transaction = Some(mock_v1::Transaction {
+            id: vec![4, 5, 6],
+            ..Default::default()
+        });
+        tx_sender.send(Ok(rs)).await.expect("send failed");
+        drop(tx_sender);
+
+        let mut rs1 = handle1.await.expect("Task 1 panicked")?;
+        let mut rs2 = handle2.await.expect("Task 2 panicked")?;
+        let mut rs3 = handle3.await.expect("Task 3 panicked")?;
+
+        assert!(rs1.next().await.is_none());
+        assert!(rs2.next().await.is_none());
+        assert!(rs3.next().await.is_none());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_inline_begin_idempotent_update() -> anyhow::Result<()> {
+        let (db_client, _server) = setup_db_client(create_session_mock()).await;
+        // Access internal state for unit testing.
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+
+        let id1 = bytes::Bytes::from_static(b"tx1");
+        let id2 = bytes::Bytes::from_static(b"tx2");
+
+        // 1. Initial update.
+        tx.context.transaction_selector.update(id1.clone(), None)?;
+        assert_eq!(
+            tx.context
+                .transaction_selector
+                .selector()
+                .await?
+                .id()
+                .unwrap(),
+            &id1
+        );
+
+        // 2. Redundant update with same ID should result in an error.
+        // The implementation explicitly prevents redundant updates to ensure state consistency.
+        let err1 = tx
+            .context
+            .transaction_selector
+            .update(id1.clone(), None)
+            .expect_err("Redundant update should fail");
+        assert!(err1.to_string().contains("already Started or Failed"));
+
+        // 3. Update with DIFFERENT ID after already Started should also fail.
+        let err2 = tx
+            .context
+            .transaction_selector
+            .update(id2, None)
+            .expect_err("Update after Started should fail");
+        assert!(err2.to_string().contains("already Started or Failed"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_inline_begin_with_transient_failure() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+        let mut seq = mockall::Sequence::new();
+
+        // 1. First attempt fails transiently.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::new(Code::Unavailable, "Transient 1")));
+
+        // 2. Fallback BeginTransaction succeeds.
+        mock.expect_begin_transaction()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Ok(Response::new(mock_v1::Transaction {
+                    id: vec![7, 8, 9],
+                    ..Default::default()
+                }))
+            });
+
+        // 3. The manual retry of the query (which happens after explicit begin fallback).
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
+                    setup_select1(),
+                )]))))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+
+        let mut rs = tx
+            .execute_query(Statement::builder("SELECT 1").build())
+            .await?;
+        assert!(rs.next().await.is_some());
+        assert!(rs.next().await.is_none());
 
         Ok(())
     }
