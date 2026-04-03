@@ -228,19 +228,6 @@ libraries:
                     description: Allows usage of the API without watermarks.
                   - name: EXTENDED_TILE_CACHE_PERIOD
                     type: INT64
-        - id: .google.api.MethodSettings.auto_populated_fields
-          match: |2-
-               publishing:
-                 method_settings:
-                 - selector: google.example.v1.ExampleService.CreateExample
-                   auto_populated_fields:
-                   - request_id
-          replace: |2-
-                publishing:
-                  method_settings:
-                  - selector: google.example.v1.ExampleService.CreateExample
-                    auto_populated_fields:
-                    - request_id
   - name: google-cloud-api-cloudquotas-v1
     version: 1.7.0
     apis:
