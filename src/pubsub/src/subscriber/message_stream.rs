@@ -798,7 +798,7 @@ mod tests {
             let Some((_, Handler::AtLeastOnce(h))) = stream.next().await.transpose()? else {
                 anyhow::bail!("expected message {i}")
             };
-            drop(h);
+            h.nack();
         }
         // Take a long time to process some messages
         let mut hold = Vec::new();

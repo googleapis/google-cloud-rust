@@ -81,8 +81,7 @@ pub async fn basic_nack(topic_name: &str, subscription_name: &str) -> Result<()>
     };
     assert_eq!(m.data, "Hello, World!");
     tracing::info!("successfully received the message");
-    // Nack the message by dropping.
-    drop(h);
+    h.nack();
 
     let Some((m, h)) = stream.next().await.transpose()? else {
         unreachable!("the stream stays open.")
