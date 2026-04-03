@@ -50,11 +50,10 @@ pub async fn basic_subscriber(subscription_name: String) -> Result<()> {
     let mut stream = subscriber.subscribe(subscription_name).build();
 
     let mut got = HashSet::new();
-    for _ in 0..2 {
-        if let Some((m, h)) = stream.next().await.transpose()? {
-            got.insert(m.data);
-            h.ack();
-        }
+    while got.len() < 2 {
+        let (m, h) = stream.next().await.expect("stream ended unexpectedly")?;
+        got.insert(m.data);
+        h.ack();
     }
 
     let want = HashSet::from([Bytes::from("Hello"), Bytes::from("World")]);
