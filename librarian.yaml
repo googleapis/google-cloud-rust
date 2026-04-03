@@ -483,6 +483,10 @@ libraries:
   - name: google-cloud-certificatemanager-v1
     version: 1.8.0
     copyright_year: "2025"
+  - name: google-cloud-ces-v1
+    version: 1.0.0
+    copyright_year: "2026"
+    rust: {}
   - name: google-cloud-chronicle-v1
     version: 1.8.0
     copyright_year: "2025"
