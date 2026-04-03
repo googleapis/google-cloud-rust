@@ -34,7 +34,15 @@ impl std::fmt::Debug for LoggingServiceV2 {
 
 impl LoggingServiceV2 {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_log_name = try_match(
                     Some(&req).map(|m| &m.log_name).map(|s| s.as_str()),
@@ -62,10 +70,12 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_log_name,);
+                let path_template = "/v2/{log_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_log_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_log_name = try_match(
@@ -79,10 +89,12 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_log_name,);
+                let path_template = "/v2/{log_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_log_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_log_name = try_match(
@@ -95,10 +107,12 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_log_name,);
+                let path_template = "/v2/{log_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_log_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_log_name = try_match(
@@ -111,10 +125,12 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_log_name,);
+                let path_template = "/v2/{log_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_log_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_log_name = try_match(
@@ -127,10 +143,12 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_log_name,);
+                let path_template = "/v2/{log_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_log_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -212,6 +230,15 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.LoggingServiceV2/DeleteLog")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -238,13 +265,14 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v2/entries:write".to_string();
+                let path_template = "/v2/entries:write";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -254,6 +282,14 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.LoggingServiceV2/WriteLogEntries")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -274,13 +310,14 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v2/entries:list".to_string();
+                let path_template = "/v2/entries:list";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -290,6 +327,14 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.LoggingServiceV2/ListLogEntries")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -310,15 +355,16 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v2/monitoredResourceDescriptors".to_string();
+                let path_template = "/v2/monitoredResourceDescriptors";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -328,6 +374,16 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.logging.v2.LoggingServiceV2/ListMonitoredResourceDescriptors",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -350,7 +406,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -361,7 +417,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/logs", var_parent,);
+                let path_template = "/v2/{parent}/logs";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .resource_names
@@ -370,7 +428,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -378,7 +436,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/logs", var_parent,);
+                let path_template = "/v2/{parent}/logs";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .resource_names
@@ -387,7 +447,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -395,7 +455,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/logs", var_parent,);
+                let path_template = "/v2/{parent}/logs";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .resource_names
@@ -404,7 +466,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -412,7 +474,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     &[Segment::Literal("folders/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/logs", var_parent,);
+                let path_template = "/v2/{parent}/logs";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .resource_names
@@ -421,7 +485,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -432,7 +496,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/logs", var_parent,);
+                let path_template = "/v2/{parent}/logs";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .resource_names
@@ -441,7 +507,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -458,7 +524,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/logs", var_parent,);
+                let path_template = "/v2/{parent}/logs";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .resource_names
@@ -467,7 +535,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -484,7 +552,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/logs", var_parent,);
+                let path_template = "/v2/{parent}/logs";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .resource_names
@@ -493,7 +563,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -510,7 +580,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/logs", var_parent,);
+                let path_template = "/v2/{parent}/logs";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .resource_names
@@ -519,7 +591,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -536,7 +608,9 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/logs", var_parent,);
+                let path_template = "/v2/{parent}/logs";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .resource_names
@@ -545,7 +619,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -684,6 +758,15 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.LoggingServiceV2/ListLogs")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -706,7 +789,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -719,6 +802,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -727,7 +811,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -740,6 +824,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -748,7 +833,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -761,6 +846,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -769,7 +855,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -782,6 +868,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -790,7 +877,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -803,6 +890,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -811,7 +899,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -893,6 +981,14 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -915,7 +1011,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -930,10 +1026,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -948,10 +1045,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -966,10 +1064,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -984,10 +1083,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1002,10 +1102,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1097,6 +1198,14 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1119,7 +1228,7 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1134,10 +1243,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1152,10 +1262,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1170,10 +1281,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1188,10 +1300,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1206,10 +1319,11 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1301,6 +1415,14 @@ impl super::stub::LoggingServiceV2 for LoggingServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1336,7 +1458,15 @@ impl std::fmt::Debug for ConfigServiceV2 {
 
 impl ConfigServiceV2 {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1352,7 +1482,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1365,12 +1495,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets", var_parent,);
+                let path_template = "/v2/{parent}/buckets";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1383,12 +1515,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets", var_parent,);
+                let path_template = "/v2/{parent}/buckets";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1401,12 +1535,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets", var_parent,);
+                let path_template = "/v2/{parent}/buckets";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1419,12 +1555,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets", var_parent,);
+                let path_template = "/v2/{parent}/buckets";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1437,12 +1575,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets", var_parent,);
+                let path_template = "/v2/{parent}/buckets";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1524,6 +1664,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/ListBuckets")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1546,7 +1695,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1561,10 +1710,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1579,10 +1730,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1597,10 +1750,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1615,10 +1770,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1633,10 +1790,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1728,6 +1887,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/GetBucket")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1750,7 +1918,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1763,11 +1931,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets:createAsync", var_parent,);
+                let path_template = "/v2/{parent}/buckets:createAsync";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1780,11 +1950,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets:createAsync", var_parent,);
+                let path_template = "/v2/{parent}/buckets:createAsync";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1797,11 +1969,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets:createAsync", var_parent,);
+                let path_template = "/v2/{parent}/buckets:createAsync";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1814,11 +1988,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets:createAsync", var_parent,);
+                let path_template = "/v2/{parent}/buckets:createAsync";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1831,11 +2007,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets:createAsync", var_parent,);
+                let path_template = "/v2/{parent}/buckets:createAsync";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1917,6 +2095,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/CreateBucketAsync")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1939,7 +2126,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1954,7 +2141,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:updateAsync", var_name,);
+                let path_template = "/v2/{name}:updateAsync";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
                     let builder = req
@@ -1969,7 +2158,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1984,7 +2173,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:updateAsync", var_name,);
+                let path_template = "/v2/{name}:updateAsync";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
                     let builder = req
@@ -1999,7 +2190,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2014,7 +2205,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:updateAsync", var_name,);
+                let path_template = "/v2/{name}:updateAsync";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
                     let builder = req
@@ -2029,7 +2222,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2044,7 +2237,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:updateAsync", var_name,);
+                let path_template = "/v2/{name}:updateAsync";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
                     let builder = req
@@ -2059,7 +2254,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2074,7 +2269,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:updateAsync", var_name,);
+                let path_template = "/v2/{name}:updateAsync";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
                     let builder = req
@@ -2089,7 +2286,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2181,6 +2378,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/UpdateBucketAsync")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2203,7 +2409,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2216,11 +2422,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets", var_parent,);
+                let path_template = "/v2/{parent}/buckets";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2233,11 +2441,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets", var_parent,);
+                let path_template = "/v2/{parent}/buckets";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2250,11 +2460,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets", var_parent,);
+                let path_template = "/v2/{parent}/buckets";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2267,11 +2479,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets", var_parent,);
+                let path_template = "/v2/{parent}/buckets";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2284,11 +2498,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/buckets", var_parent,);
+                let path_template = "/v2/{parent}/buckets";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("bucketId", &req.bucket_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2370,6 +2586,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/CreateBucket")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2392,7 +2617,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2407,7 +2632,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -2422,7 +2649,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2437,7 +2664,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -2452,7 +2681,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2467,7 +2696,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -2482,7 +2713,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2497,7 +2728,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -2512,7 +2745,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2527,7 +2760,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -2542,7 +2777,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2634,6 +2869,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/UpdateBucket")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2656,7 +2900,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2671,10 +2915,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2689,10 +2935,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2707,10 +2955,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2725,10 +2975,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2743,10 +2995,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2838,6 +3092,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/DeleteBucket")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2866,7 +3129,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2881,10 +3144,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:undelete", var_name,);
+                let path_template = "/v2/{name}:undelete";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2899,10 +3164,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:undelete", var_name,);
+                let path_template = "/v2/{name}:undelete";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2917,10 +3184,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:undelete", var_name,);
+                let path_template = "/v2/{name}:undelete";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2935,10 +3204,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:undelete", var_name,);
+                let path_template = "/v2/{name}:undelete";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2953,10 +3224,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:undelete", var_name,);
+                let path_template = "/v2/{name}:undelete";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3048,6 +3321,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/UndeleteBucket")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3076,7 +3358,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3091,12 +3373,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/views", var_parent,);
+                let path_template = "/v2/{parent}/views";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3111,12 +3394,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/views", var_parent,);
+                let path_template = "/v2/{parent}/views";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3131,12 +3415,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/views", var_parent,);
+                let path_template = "/v2/{parent}/views";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3151,12 +3436,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/views", var_parent,);
+                let path_template = "/v2/{parent}/views";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3171,12 +3457,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/views", var_parent,);
+                let path_template = "/v2/{parent}/views";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3268,6 +3555,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/ListViews")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3290,7 +3585,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3307,10 +3602,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3327,10 +3624,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3347,10 +3646,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3367,10 +3668,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3387,10 +3690,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3492,6 +3797,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/GetView")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3514,7 +3828,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3529,11 +3843,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/views", var_parent,);
+                let path_template = "/v2/{parent}/views";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("viewId", &req.view_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3548,11 +3863,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/views", var_parent,);
+                let path_template = "/v2/{parent}/views";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("viewId", &req.view_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3567,11 +3883,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/views", var_parent,);
+                let path_template = "/v2/{parent}/views";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("viewId", &req.view_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3586,11 +3903,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/views", var_parent,);
+                let path_template = "/v2/{parent}/views";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("viewId", &req.view_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3605,11 +3923,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/views", var_parent,);
+                let path_template = "/v2/{parent}/views";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("viewId", &req.view_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3701,6 +4020,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/CreateView")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3723,7 +4050,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3740,6 +4067,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3755,7 +4083,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3772,6 +4100,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3787,7 +4116,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3804,6 +4133,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3819,7 +4149,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3836,6 +4166,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3851,7 +4182,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3868,6 +4199,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3883,7 +4215,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3985,6 +4317,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/UpdateView")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4007,7 +4347,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4024,10 +4364,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4044,10 +4386,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4064,10 +4408,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4084,10 +4430,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4104,10 +4452,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4209,6 +4559,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/DeleteView")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4237,7 +4596,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4248,12 +4607,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/sinks", var_parent,);
+                let path_template = "/v2/{parent}/sinks";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4261,12 +4622,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/sinks", var_parent,);
+                let path_template = "/v2/{parent}/sinks";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4274,12 +4637,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/sinks", var_parent,);
+                let path_template = "/v2/{parent}/sinks";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4287,12 +4652,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("folders/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/sinks", var_parent,);
+                let path_template = "/v2/{parent}/sinks";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4303,12 +4670,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/sinks", var_parent,);
+                let path_template = "/v2/{parent}/sinks";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4371,6 +4740,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/ListSinks")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4393,7 +4771,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_sink_name = try_match(
                     Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
@@ -4406,10 +4784,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4422,10 +4802,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4438,10 +4820,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4454,10 +4838,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4470,10 +4856,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4555,6 +4943,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/GetSink")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4577,7 +4974,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4588,12 +4985,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/sinks", var_parent,);
+                let path_template = "/v2/{parent}/sinks";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("uniqueWriterIdentity", &req.unique_writer_identity)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4601,12 +5000,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/sinks", var_parent,);
+                let path_template = "/v2/{parent}/sinks";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("uniqueWriterIdentity", &req.unique_writer_identity)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4614,12 +5015,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/sinks", var_parent,);
+                let path_template = "/v2/{parent}/sinks";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("uniqueWriterIdentity", &req.unique_writer_identity)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4627,12 +5030,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("folders/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/sinks", var_parent,);
+                let path_template = "/v2/{parent}/sinks";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("uniqueWriterIdentity", &req.unique_writer_identity)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4643,12 +5048,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/sinks", var_parent,);
+                let path_template = "/v2/{parent}/sinks";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("uniqueWriterIdentity", &req.unique_writer_identity)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4711,6 +5118,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/CreateSink")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4733,7 +5149,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_sink_name = try_match(
                     Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
@@ -4746,7 +5162,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = (|| {
                     let builder =
@@ -4763,7 +5181,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4776,7 +5194,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = (|| {
                     let builder =
@@ -4793,7 +5213,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4806,7 +5226,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = (|| {
                     let builder =
@@ -4823,7 +5245,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4836,7 +5258,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = (|| {
                     let builder =
@@ -4853,7 +5277,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4866,7 +5290,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = (|| {
                     let builder =
@@ -4883,7 +5309,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4896,7 +5322,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder =
@@ -4913,7 +5341,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4926,7 +5354,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder =
@@ -4943,7 +5373,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4956,7 +5386,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder =
@@ -4973,7 +5405,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -4986,7 +5418,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder =
@@ -5003,7 +5437,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5145,6 +5579,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/UpdateSink")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5167,7 +5610,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_sink_name = try_match(
                     Some(&req).map(|m| &m.sink_name).map(|s| s.as_str()),
@@ -5180,10 +5623,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -5196,10 +5641,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -5212,10 +5659,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -5228,10 +5677,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_sink_name = try_match(
@@ -5244,10 +5695,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sink_name,);
+                let path_template = "/v2/{sink_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_sink_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5329,6 +5782,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/DeleteSink")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5357,7 +5819,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5372,11 +5834,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/links", var_parent,);
+                let path_template = "/v2/{parent}/links";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("linkId", &req.link_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5391,11 +5855,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/links", var_parent,);
+                let path_template = "/v2/{parent}/links";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("linkId", &req.link_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5410,11 +5876,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/links", var_parent,);
+                let path_template = "/v2/{parent}/links";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("linkId", &req.link_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5429,11 +5897,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/links", var_parent,);
+                let path_template = "/v2/{parent}/links";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("linkId", &req.link_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5448,11 +5918,13 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/links", var_parent,);
+                let path_template = "/v2/{parent}/links";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("linkId", &req.link_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5544,6 +6016,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/CreateLink")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5566,7 +6047,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5583,10 +6064,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5603,10 +6086,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5623,10 +6108,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5643,10 +6130,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5663,10 +6152,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5768,6 +6259,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/DeleteLink")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5790,7 +6290,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5805,12 +6305,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/links", var_parent,);
+                let path_template = "/v2/{parent}/links";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5825,12 +6327,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/links", var_parent,);
+                let path_template = "/v2/{parent}/links";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5845,12 +6349,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/links", var_parent,);
+                let path_template = "/v2/{parent}/links";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5865,12 +6371,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/links", var_parent,);
+                let path_template = "/v2/{parent}/links";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5885,12 +6393,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/links", var_parent,);
+                let path_template = "/v2/{parent}/links";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5982,6 +6492,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/ListLinks")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6004,7 +6523,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6021,10 +6540,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6041,10 +6562,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6061,10 +6584,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6081,10 +6606,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6101,10 +6628,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6206,6 +6735,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/GetLink")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6228,7 +6766,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6239,12 +6777,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/exclusions", var_parent,);
+                let path_template = "/v2/{parent}/exclusions";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6252,12 +6792,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/exclusions", var_parent,);
+                let path_template = "/v2/{parent}/exclusions";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6265,12 +6807,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/exclusions", var_parent,);
+                let path_template = "/v2/{parent}/exclusions";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6278,12 +6822,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("folders/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/exclusions", var_parent,);
+                let path_template = "/v2/{parent}/exclusions";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6294,12 +6840,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/exclusions", var_parent,);
+                let path_template = "/v2/{parent}/exclusions";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6362,6 +6910,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/ListExclusions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6384,7 +6941,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6397,10 +6954,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6413,10 +6972,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6429,10 +6990,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6445,10 +7008,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6461,10 +7026,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6546,6 +7113,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/GetExclusion")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6568,7 +7144,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6579,10 +7155,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/exclusions", var_parent,);
+                let path_template = "/v2/{parent}/exclusions";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6590,10 +7168,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/exclusions", var_parent,);
+                let path_template = "/v2/{parent}/exclusions";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6601,10 +7181,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/exclusions", var_parent,);
+                let path_template = "/v2/{parent}/exclusions";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6612,10 +7194,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("folders/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/exclusions", var_parent,);
+                let path_template = "/v2/{parent}/exclusions";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6626,10 +7210,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/exclusions", var_parent,);
+                let path_template = "/v2/{parent}/exclusions";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6692,6 +7278,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/CreateExclusion")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6714,7 +7309,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6727,7 +7322,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -6742,7 +7339,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6755,7 +7352,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -6770,7 +7369,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6783,7 +7382,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -6798,7 +7399,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6811,7 +7412,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -6826,7 +7429,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6839,7 +7442,9 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -6854,7 +7459,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6936,6 +7541,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/UpdateExclusion")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6958,7 +7572,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6971,10 +7585,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6987,10 +7603,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7003,10 +7621,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7019,10 +7639,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7035,10 +7657,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7120,6 +7744,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/DeleteExclusion")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7148,7 +7781,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7159,10 +7792,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/cmekSettings", var_name,);
+                let path_template = "/v2/{name}/cmekSettings";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7170,10 +7805,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/cmekSettings", var_name,);
+                let path_template = "/v2/{name}/cmekSettings";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7181,10 +7818,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/cmekSettings", var_name,);
+                let path_template = "/v2/{name}/cmekSettings";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7192,10 +7831,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("folders/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/cmekSettings", var_name,);
+                let path_template = "/v2/{name}/cmekSettings";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7206,10 +7847,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/cmekSettings", var_name,);
+                let path_template = "/v2/{name}/cmekSettings";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7272,6 +7915,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/GetCmekSettings")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7294,7 +7946,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7305,6 +7957,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/cmekSettings", var_name,);
+                let path_template = "/v2/{name}/cmekSettings";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7320,7 +7973,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7328,6 +7981,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/cmekSettings", var_name,);
+                let path_template = "/v2/{name}/cmekSettings";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7343,7 +7997,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7373,6 +8027,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/UpdateCmekSettings")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7395,7 +8057,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7406,10 +8068,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/settings", var_name,);
+                let path_template = "/v2/{name}/settings";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7417,10 +8081,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/settings", var_name,);
+                let path_template = "/v2/{name}/settings";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7428,10 +8094,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/settings", var_name,);
+                let path_template = "/v2/{name}/settings";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7439,10 +8107,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("folders/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/settings", var_name,);
+                let path_template = "/v2/{name}/settings";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7453,10 +8123,12 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/settings", var_name,);
+                let path_template = "/v2/{name}/settings";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7519,6 +8191,15 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/GetSettings")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7541,7 +8222,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7552,6 +8233,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/settings", var_name,);
+                let path_template = "/v2/{name}/settings";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7567,7 +8249,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7575,6 +8257,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/settings", var_name,);
+                let path_template = "/v2/{name}/settings";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7590,7 +8273,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7598,6 +8281,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     &[Segment::Literal("folders/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/settings", var_name,);
+                let path_template = "/v2/{name}/settings";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7613,7 +8297,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7653,6 +8337,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/UpdateSettings")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7673,13 +8365,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v2/entries:copy".to_string();
+                let path_template = "/v2/entries:copy";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7689,6 +8382,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.ConfigServiceV2/CopyLogEntries")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7711,7 +8412,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7724,6 +8425,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -7732,7 +8434,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7745,6 +8447,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -7753,7 +8456,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7766,6 +8469,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -7774,7 +8478,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7787,6 +8491,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -7795,7 +8500,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7808,6 +8513,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -7816,7 +8522,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7898,6 +8604,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7920,7 +8634,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7935,10 +8649,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7953,10 +8668,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7971,10 +8687,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7989,10 +8706,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8007,10 +8725,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8102,6 +8821,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8124,7 +8851,7 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8139,10 +8866,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8157,10 +8885,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8175,10 +8904,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8193,10 +8923,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8211,10 +8942,11 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8306,6 +9038,14 @@ impl super::stub::ConfigServiceV2 for ConfigServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8355,7 +9095,15 @@ impl std::fmt::Debug for MetricsServiceV2 {
 
 impl MetricsServiceV2 {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -8371,19 +9119,21 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/metrics", var_parent,);
+                let path_template = "/v2/{parent}/metrics";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8399,6 +9149,15 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.MetricsServiceV2/ListLogMetrics")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8421,7 +9180,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_metric_name = try_match(
                     Some(&req).map(|m| &m.metric_name).map(|s| s.as_str()),
@@ -8433,10 +9192,12 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_metric_name,);
+                let path_template = "/v2/{metric_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_metric_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8457,6 +9218,15 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.MetricsServiceV2/GetLogMetric")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8479,17 +9249,19 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/metrics", var_parent,);
+                let path_template = "/v2/{parent}/metrics";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8505,6 +9277,15 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.MetricsServiceV2/CreateLogMetric")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8527,7 +9308,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_metric_name = try_match(
                     Some(&req).map(|m| &m.metric_name).map(|s| s.as_str()),
@@ -8539,10 +9320,12 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_metric_name,);
+                let path_template = "/v2/{metric_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_metric_name,);
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8563,6 +9346,15 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.MetricsServiceV2/UpdateLogMetric")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8585,7 +9377,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_metric_name = try_match(
                     Some(&req).map(|m| &m.metric_name).map(|s| s.as_str()),
@@ -8597,10 +9389,12 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_metric_name,);
+                let path_template = "/v2/{metric_name}";
 
+                let resource_name = format!("//logging.googleapis.com/{}", var_metric_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8621,6 +9415,15 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.logging.v2.MetricsServiceV2/DeleteLogMetric")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8649,7 +9452,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8662,6 +9465,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -8670,7 +9474,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8683,6 +9487,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -8691,7 +9496,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8704,6 +9509,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -8712,7 +9518,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8725,6 +9531,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -8733,7 +9540,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8746,6 +9553,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -8754,7 +9562,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8836,6 +9644,14 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8858,7 +9674,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8873,10 +9689,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8891,10 +9708,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8909,10 +9727,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8927,10 +9746,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8945,10 +9765,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9040,6 +9861,14 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9062,7 +9891,7 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9077,10 +9906,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9095,10 +9925,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9113,10 +9944,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9131,10 +9963,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9149,10 +9982,11 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9244,6 +10078,14 @@ impl super::stub::MetricsServiceV2 for MetricsServiceV2 {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
