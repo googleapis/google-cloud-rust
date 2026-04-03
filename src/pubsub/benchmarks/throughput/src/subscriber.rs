@@ -42,8 +42,7 @@ pub async fn run(config: SubscriberArgs) -> Result<(), anyhow::Error> {
     let subscriber = Subscriber::builder()
         .with_grpc_subchannel_count(config.common.grpc_channels)
         .build()
-        .await
-        .unwrap();
+        .await?;
 
     run_subscriber(Arc::new(config.clone()), subscriber, &subscription_name).await;
 
@@ -91,15 +90,13 @@ async fn run_subscriber(
     let stats = Arc::new(Stats::default());
     let mut tasks = Vec::new();
     let max_outstanding_per_task = config.common.max_outstanding_messages / config.streams;
-    if max_outstanding_per_task > 0 {
-        for _ in 0..config.streams {
-            tasks.push(tokio::spawn(subscriber_task(
-                subscriber.clone(),
-                subscription_name.to_string(),
-                max_outstanding_per_task,
-                stats.clone(),
-            )));
-        }
+    for _ in 0..config.streams {
+        tasks.push(tokio::spawn(subscriber_task(
+            subscriber.clone(),
+            subscription_name.to_string(),
+            max_outstanding_per_task,
+            stats.clone(),
+        )));
     }
 
     let start = Instant::now();

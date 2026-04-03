@@ -43,8 +43,7 @@ async fn main() -> Result<(), anyhow::Error> {
 
 /// Returns true if the benchmark has exceeded its maximum allowed runtime.
 pub(crate) fn done(maximum_runtime: Duration, start: Instant) -> bool {
-    let now = Instant::now();
-    now >= start + maximum_runtime
+    start.elapsed() >= maximum_runtime
 }
 
 /// Returns the current Unix timestamp in milliseconds.
