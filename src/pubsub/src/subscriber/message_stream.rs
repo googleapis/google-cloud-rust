@@ -72,9 +72,10 @@ pub struct MessageStream {
     /// A token that can detect a shutdown from the application.
     shutdown: CancellationToken,
 
-    /// Shutdown the stream gracefully if the application drops this struct.
+    /// Signal a shutdown if the application drops this struct.
     ///
-    /// It is simpler to hold a `DropGuard` than `impl Drop for MessageStream`.
+    /// This field is intentionally unused; it exists solely to trigger a
+    /// shutdown signal via its `Drop` implementation.
     _shutdown_guard: DropGuard,
 }
 
@@ -257,6 +258,7 @@ impl MessageStream {
     pub fn shutdown_token(&self) -> ShutdownToken {
         ShutdownToken {
             inner: self.shutdown.clone(),
+            // This future is ready when the lease loop shutdown completes.
             fut: self.lease_loop.clone(),
         }
     }
