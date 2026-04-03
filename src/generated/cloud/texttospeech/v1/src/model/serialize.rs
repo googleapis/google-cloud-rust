@@ -123,6 +123,59 @@ impl serde::ser::Serialize for super::AdvancedVoiceOptions {
         if !wkt::internal::is_default(&self.relax_safety_filters) {
             state.serialize_entry("relaxSafetyFilters", &self.relax_safety_filters)?;
         }
+        if self.safety_settings.is_some() {
+            state.serialize_entry("safetySettings", &self.safety_settings)?;
+        }
+        if self.enable_textnorm.is_some() {
+            state.serialize_entry("enableTextnorm", &self.enable_textnorm)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::advanced_voice_options::SafetySetting {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.category) {
+            state.serialize_entry("category", &self.category)?;
+        }
+        if !wkt::internal::is_default(&self.threshold) {
+            state.serialize_entry("threshold", &self.threshold)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::advanced_voice_options::SafetySettings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.settings.is_empty() {
+            state.serialize_entry("settings", &self.settings)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -599,6 +652,9 @@ impl serde::ser::Serialize for super::StreamingSynthesizeConfig {
         }
         if self.custom_pronunciations.is_some() {
             state.serialize_entry("customPronunciations", &self.custom_pronunciations)?;
+        }
+        if self.advanced_voice_options.is_some() {
+            state.serialize_entry("advancedVoiceOptions", &self.advanced_voice_options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

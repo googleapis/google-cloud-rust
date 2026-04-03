@@ -293,6 +293,29 @@ impl Memorystore {
         super::builder::memorystore::GetCertificateAuthority::new(self.inner.clone())
     }
 
+    /// Gets the details of shared regional certificate authority information for
+    /// Memorystore instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_shared_regional_certificate_authority()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_shared_regional_certificate_authority(
+        &self,
+    ) -> super::builder::memorystore::GetSharedRegionalCertificateAuthority {
+        super::builder::memorystore::GetSharedRegionalCertificateAuthority::new(self.inner.clone())
+    }
+
     /// Reschedules upcoming maintenance event.
     ///
     /// # Long running operations

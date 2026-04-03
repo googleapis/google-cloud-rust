@@ -40,7 +40,7 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
-    /// Optional. A unique identifier for an instance. The name should be of the
+    /// Identifier. A unique identifier for an instance. The name should be of the
     /// format:
     /// `projects/{project_number}/locations/{location_id}/instances/{instance_id}`
     ///
@@ -61,6 +61,10 @@ pub struct Instance {
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Labels as key value pairs.
+    /// Keys and values can contain only lowercase letters, numeric characters,
+    /// underscores, and dashes.
+    /// For more information, see [Requirements for
+    /// labels](https://cloud.google.com/resource-manager/docs/best-practices-labels#label_encoding).
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Private settings for private instance.
@@ -452,6 +456,10 @@ pub mod instance {
         /// included in this list.
         pub psc_allowed_projects: std::vec::Vec<std::string::String>,
 
+        /// Optional. Custom host config for the instance.
+        pub custom_host_config:
+            std::option::Option<crate::model::instance::private_config::CustomHostConfig>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -530,11 +538,136 @@ pub mod instance {
             self.psc_allowed_projects = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [custom_host_config][crate::model::instance::PrivateConfig::custom_host_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
+        /// use google_cloud_securesourcemanager_v1::model::instance::private_config::CustomHostConfig;
+        /// let x = PrivateConfig::new().set_custom_host_config(CustomHostConfig::default()/* use setters */);
+        /// ```
+        pub fn set_custom_host_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::instance::private_config::CustomHostConfig>,
+        {
+            self.custom_host_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_host_config][crate::model::instance::PrivateConfig::custom_host_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_securesourcemanager_v1::model::instance::PrivateConfig;
+        /// use google_cloud_securesourcemanager_v1::model::instance::private_config::CustomHostConfig;
+        /// let x = PrivateConfig::new().set_or_clear_custom_host_config(Some(CustomHostConfig::default()/* use setters */));
+        /// let x = PrivateConfig::new().set_or_clear_custom_host_config(None::<CustomHostConfig>);
+        /// ```
+        pub fn set_or_clear_custom_host_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::instance::private_config::CustomHostConfig>,
+        {
+            self.custom_host_config = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for PrivateConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.securesourcemanager.v1.Instance.PrivateConfig"
+        }
+    }
+
+    /// Defines additional types related to [PrivateConfig].
+    pub mod private_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Custom host config for the instance.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct CustomHostConfig {
+            /// Required. The custom UI hostname for the instance, e.g.,
+            /// "git.source.internal.mycompany.com"
+            pub html: std::string::String,
+
+            /// Required. The custom API hostname for the instance, e.g.,
+            /// "api.source.internal.mycompany.com"
+            pub api: std::string::String,
+
+            /// Required. The custom git ssh hostname for the instance, e.g.,
+            /// "ssh.source.internal.mycompany.com"
+            pub git_ssh: std::string::String,
+
+            /// Required. The custom git http hostname for the instance, e.g.,
+            /// "git.source.internal.mycompany.com"
+            pub git_http: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl CustomHostConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [html][crate::model::instance::private_config::CustomHostConfig::html].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_securesourcemanager_v1::model::instance::private_config::CustomHostConfig;
+            /// let x = CustomHostConfig::new().set_html("example");
+            /// ```
+            pub fn set_html<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.html = v.into();
+                self
+            }
+
+            /// Sets the value of [api][crate::model::instance::private_config::CustomHostConfig::api].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_securesourcemanager_v1::model::instance::private_config::CustomHostConfig;
+            /// let x = CustomHostConfig::new().set_api("example");
+            /// ```
+            pub fn set_api<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.api = v.into();
+                self
+            }
+
+            /// Sets the value of [git_ssh][crate::model::instance::private_config::CustomHostConfig::git_ssh].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_securesourcemanager_v1::model::instance::private_config::CustomHostConfig;
+            /// let x = CustomHostConfig::new().set_git_ssh("example");
+            /// ```
+            pub fn set_git_ssh<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.git_ssh = v.into();
+                self
+            }
+
+            /// Sets the value of [git_http][crate::model::instance::private_config::CustomHostConfig::git_http].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_securesourcemanager_v1::model::instance::private_config::CustomHostConfig;
+            /// let x = CustomHostConfig::new().set_git_http("example");
+            /// ```
+            pub fn set_git_http<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.git_http = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for CustomHostConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.securesourcemanager.v1.Instance.PrivateConfig.CustomHostConfig"
+            }
         }
     }
 
@@ -865,7 +998,7 @@ pub mod instance {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Repository {
-    /// Optional. A unique identifier for a repository. The name should be of the
+    /// Identifier. A unique identifier for a repository. The name should be of the
     /// format:
     /// `projects/{project}/locations/{location_id}/repositories/{repository_id}`
     pub name: std::string::String,
@@ -1805,7 +1938,7 @@ pub mod hook {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BranchRule {
-    /// Optional. A unique identifier for a BranchRule. The name should be of the
+    /// Identifier. A unique identifier for a BranchRule. The name should be of the
     /// format:
     /// `projects/{project}/locations/{location}/repositories/{repository}/branchRules/{branch_rule}`
     pub name: std::string::String,
@@ -1848,6 +1981,10 @@ pub struct BranchRule {
     /// Optional. The minimum number of approvals required for the branch rule to
     /// be matched.
     pub minimum_approvals_count: i32,
+
+    /// Optional. Determines if code owners must approve before merging to the
+    /// branch.
+    pub require_code_owner_approval: bool,
 
     /// Optional. Determines if require comments resolved before merging to the
     /// branch.
@@ -2055,6 +2192,18 @@ impl BranchRule {
         self
     }
 
+    /// Sets the value of [require_code_owner_approval][crate::model::BranchRule::require_code_owner_approval].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// let x = BranchRule::new().set_require_code_owner_approval(true);
+    /// ```
+    pub fn set_require_code_owner_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.require_code_owner_approval = v.into();
+        self
+    }
+
     /// Sets the value of [require_comments_resolved][crate::model::BranchRule::require_comments_resolved].
     ///
     /// # Example
@@ -2165,8 +2314,8 @@ pub mod branch_rule {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PullRequest {
-    /// Output only. A unique identifier for a PullRequest. The number appended at
-    /// the end is generated by the server. Format:
+    /// Output only. Identifier. A unique identifier for a PullRequest. The number
+    /// appended at the end is generated by the server. Format:
     /// `projects/{project}/locations/{location}/repositories/{repository}/pullRequests/{pull_request_id}`
     pub name: std::string::String,
 
@@ -4055,17 +4204,17 @@ pub struct ListInstancesRequest {
     /// Required. Parent value for ListInstancesRequest.
     pub parent: std::string::String,
 
-    /// Requested page size. Server may return fewer items than requested.
-    /// If unspecified, server will pick an appropriate default.
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
     pub page_size: i32,
 
-    /// A token identifying a page of results the server should return.
+    /// Optional. A token identifying a page of results the server should return.
     pub page_token: std::string::String,
 
-    /// Filter for filtering results.
+    /// Optional. Filter for filtering results.
     pub filter: std::string::String,
 
-    /// Hint for how to order the results.
+    /// Optional. Hint for how to order the results.
     pub order_by: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4403,6 +4552,9 @@ pub struct DeleteInstanceRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     pub request_id: std::string::String,
 
+    /// Optional. If set to true, will force the deletion of the instance.
+    pub force: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4432,6 +4584,18 @@ impl DeleteInstanceRequest {
     /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteInstanceRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_securesourcemanager_v1::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
         self
     }
 }
@@ -4622,11 +4786,11 @@ pub struct ListRepositoriesRequest {
     /// Required. Parent value for ListRepositoriesRequest.
     pub parent: std::string::String,
 
-    /// Optional. Requested page size. Server may return fewer items than
-    /// requested. If unspecified, server will pick an appropriate default.
+    /// Optional. Requested page size. If unspecified, a default size of 30 will be
+    /// used. The maximum value is 100; values above 100 will be coerced to 100.
     pub page_size: i32,
 
-    /// A token identifying a page of results the server should return.
+    /// Optional. A token identifying a page of results the server should return.
     pub page_token: std::string::String,
 
     /// Optional. Filter results.
@@ -5081,8 +5245,8 @@ pub struct ListHooksRequest {
     /// Required. Parent value for ListHooksRequest.
     pub parent: std::string::String,
 
-    /// Optional. Requested page size. Server may return fewer items than
-    /// requested. If unspecified, server will pick an appropriate default.
+    /// Optional. Requested page size. If unspecified, a default size of 30 will be
+    /// used. The maximum value is 100; values above 100 will be coerced to 100.
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -5342,7 +5506,7 @@ impl wkt::message::Message for CreateHookRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateHookRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// hook resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
     /// the full request. A field will be overwritten if it is in the mask.
@@ -5593,8 +5757,11 @@ impl wkt::message::Message for CreateBranchRuleRequest {
 pub struct ListBranchRulesRequest {
     pub parent: std::string::String,
 
+    /// Optional. Requested page size. If unspecified, a default size of 30 will be
+    /// used. The maximum value is 100; values above 100 will be coerced to 100.
     pub page_size: i32,
 
+    /// Optional. A token identifying a page of results the server should return.
     pub page_token: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -5707,7 +5874,7 @@ pub struct UpdateBranchRuleRequest {
     /// actually post it.  (<https://google.aip.dev/163>, for declarative friendly)
     pub validate_only: bool,
 
-    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
     /// branchRule resource by the update.
     /// The fields specified in the update_mask are relative to the resource, not
     /// the full request. A field will be overwritten if it is in the mask.
@@ -5995,8 +6162,8 @@ pub struct ListPullRequestsRequest {
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`
     pub parent: std::string::String,
 
-    /// Optional. Requested page size. Server may return fewer items than
-    /// requested. If unspecified, server will pick an appropriate default.
+    /// Optional. Requested page size. If unspecified, a default size of 30 will be
+    /// used. The maximum value is 100; values above 100 will be coerced to 100.
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -6339,8 +6506,8 @@ pub struct ListPullRequestFileDiffsRequest {
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
     pub name: std::string::String,
 
-    /// Optional. Requested page size. Server may return fewer items than
-    /// requested. If unspecified, server will pick an appropriate default.
+    /// Optional. Requested page size. If unspecified, a default size of 30 will be
+    /// used. The maximum value is 100; values above 100 will be coerced to 100.
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -6586,8 +6753,8 @@ pub struct ListIssuesRequest {
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}`
     pub parent: std::string::String,
 
-    /// Optional. Requested page size. Server may return fewer items than
-    /// requested. If unspecified, server will pick an appropriate default.
+    /// Optional. Requested page size. If unspecified, a default size of 30 will be
+    /// used. The maximum value is 100; values above 100 will be coerced to 100.
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7513,9 +7680,8 @@ pub struct ListPullRequestCommentsRequest {
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}`
     pub parent: std::string::String,
 
-    /// Optional. Requested page size. If unspecified, at most 100 pull request
-    /// comments will be returned. The maximum value is 100; values above 100 will
-    /// be coerced to 100.
+    /// Optional. Requested page size. If unspecified, a default size of 30 will be
+    /// used. The maximum value is 100; values above 100 will be coerced to 100.
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -8345,8 +8511,8 @@ pub struct ListIssueCommentsRequest {
     /// `projects/{project_number}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}`
     pub parent: std::string::String,
 
-    /// Optional. Requested page size. Server may return fewer items than
-    /// requested. If unspecified, server will pick an appropriate default.
+    /// Optional. Requested page size. If unspecified, a default size of 30 will be
+    /// used. The maximum value is 100; values above 100 will be coerced to 100.
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.

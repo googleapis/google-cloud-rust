@@ -494,6 +494,12 @@ pub mod secure_source_manager {
             self.0.request.request_id = v.into();
             self
         }
+
+        /// Sets the value of [force][crate::model::DeleteInstanceRequest::force].
+        pub fn set_force<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.force = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1488,8 +1494,6 @@ pub mod secure_source_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateHookRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -1499,8 +1503,6 @@ pub mod secure_source_manager {
         }
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateHookRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2346,8 +2348,6 @@ pub mod secure_source_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBranchRuleRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_update_mask<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,
@@ -2357,8 +2357,6 @@ pub mod secure_source_manager {
         }
 
         /// Sets or clears the value of [update_mask][crate::model::UpdateBranchRuleRequest::update_mask].
-        ///
-        /// This is a **required** field for requests.
         pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FieldMask>,

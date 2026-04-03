@@ -317,6 +317,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedVoiceOptions {
         enum __FieldTag {
             __low_latency_journey_synthesis,
             __relax_safety_filters,
+            __safety_settings,
+            __enable_textnorm,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -345,6 +347,10 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedVoiceOptions {
                             }
                             "relaxSafetyFilters" => Ok(__FieldTag::__relax_safety_filters),
                             "relax_safety_filters" => Ok(__FieldTag::__relax_safety_filters),
+                            "safetySettings" => Ok(__FieldTag::__safety_settings),
+                            "safety_settings" => Ok(__FieldTag::__safety_settings),
+                            "enableTextnorm" => Ok(__FieldTag::__enable_textnorm),
+                            "enable_textnorm" => Ok(__FieldTag::__enable_textnorm),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -387,6 +393,205 @@ impl<'de> serde::de::Deserialize<'de> for super::AdvancedVoiceOptions {
                             }
                             result.relax_safety_filters = map
                                 .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__safety_settings => {
+                            if !fields.insert(__FieldTag::__safety_settings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for safety_settings",
+                                ));
+                            }
+                            result.safety_settings = map.next_value::<std::option::Option<
+                                crate::model::advanced_voice_options::SafetySettings,
+                            >>()?;
+                        }
+                        __FieldTag::__enable_textnorm => {
+                            if !fields.insert(__FieldTag::__enable_textnorm) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_textnorm",
+                                ));
+                            }
+                            result.enable_textnorm =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::advanced_voice_options::SafetySetting {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __category,
+            __threshold,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SafetySetting")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "category" => Ok(__FieldTag::__category),
+                            "threshold" => Ok(__FieldTag::__threshold),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::advanced_voice_options::SafetySetting;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SafetySetting")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__category => {
+                            if !fields.insert(__FieldTag::__category) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category",
+                                ));
+                            }
+                            result.category = map
+                                .next_value::<std::option::Option<
+                                    crate::model::advanced_voice_options::HarmCategory,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__threshold => {
+                            if !fields.insert(__FieldTag::__threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threshold",
+                                ));
+                            }
+                            result.threshold = map
+                                .next_value::<std::option::Option<
+                                    crate::model::advanced_voice_options::HarmBlockThreshold,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::advanced_voice_options::SafetySettings {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __settings,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SafetySettings")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "settings" => Ok(__FieldTag::__settings),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::advanced_voice_options::SafetySettings;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SafetySettings")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__settings => {
+                            if !fields.insert(__FieldTag::__settings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for settings",
+                                ));
+                            }
+                            result.settings = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::advanced_voice_options::SafetySetting,
+                                    >,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -1977,6 +2182,7 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamingSynthesizeConfig {
             __voice,
             __streaming_audio_config,
             __custom_pronunciations,
+            __advanced_voice_options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2002,6 +2208,8 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamingSynthesizeConfig {
                             "streaming_audio_config" => Ok(__FieldTag::__streaming_audio_config),
                             "customPronunciations" => Ok(__FieldTag::__custom_pronunciations),
                             "custom_pronunciations" => Ok(__FieldTag::__custom_pronunciations),
+                            "advancedVoiceOptions" => Ok(__FieldTag::__advanced_voice_options),
+                            "advanced_voice_options" => Ok(__FieldTag::__advanced_voice_options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2052,6 +2260,15 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamingSynthesizeConfig {
                                 ));
                             }
                             result.custom_pronunciations = map.next_value::<std::option::Option<crate::model::CustomPronunciations>>()?
+                                ;
+                        }
+                        __FieldTag::__advanced_voice_options => {
+                            if !fields.insert(__FieldTag::__advanced_voice_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for advanced_voice_options",
+                                ));
+                            }
+                            result.advanced_voice_options = map.next_value::<std::option::Option<crate::model::AdvancedVoiceOptions>>()?
                                 ;
                         }
                         __FieldTag::Unknown(key) => {

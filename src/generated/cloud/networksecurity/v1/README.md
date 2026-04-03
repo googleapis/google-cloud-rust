@@ -14,7 +14,12 @@ The main types to work with this crate are the clients:
 
 - [AddressGroupService]
 - [OrganizationAddressGroupService]
+- [DnsThreatDetectorService]
+- [FirewallActivation]
+- [Intercept]
+- [Mirroring]
 - [NetworkSecurity]
+- [OrganizationSecurityProfileGroupService]
 
 ## Features
 
@@ -32,4 +37,9 @@ The main types to work with this crate are the clients:
 [ring]: https://crates.io/crates/ring
 [AddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.8.0/google_cloud_networksecurity_v1/client/struct.AddressGroupService.html
 [OrganizationAddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.8.0/google_cloud_networksecurity_v1/client/struct.OrganizationAddressGroupService.html
+[DnsThreatDetectorService]: https://docs.rs/google-cloud-networksecurity-v1/1.8.0/google_cloud_networksecurity_v1/client/struct.DnsThreatDetectorService.html
+[FirewallActivation]: https://docs.rs/google-cloud-networksecurity-v1/1.8.0/google_cloud_networksecurity_v1/client/struct.FirewallActivation.html
+[Intercept]: https://docs.rs/google-cloud-networksecurity-v1/1.8.0/google_cloud_networksecurity_v1/client/struct.Intercept.html
+[Mirroring]: https://docs.rs/google-cloud-networksecurity-v1/1.8.0/google_cloud_networksecurity_v1/client/struct.Mirroring.html
 [NetworkSecurity]: https://docs.rs/google-cloud-networksecurity-v1/1.8.0/google_cloud_networksecurity_v1/client/struct.NetworkSecurity.html
+[OrganizationSecurityProfileGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.8.0/google_cloud_networksecurity_v1/client/struct.OrganizationSecurityProfileGroupService.html

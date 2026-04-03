@@ -259,6 +259,7 @@ impl std::fmt::Debug for super::CompletionStats {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -280,6 +281,7 @@ impl std::fmt::Debug for super::Content {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -304,6 +306,7 @@ impl std::fmt::Debug for super::Part {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -324,6 +327,7 @@ impl std::fmt::Debug for super::part::MediaResolution {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -345,6 +349,7 @@ impl std::fmt::Debug for super::Blob {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -366,6 +371,7 @@ impl std::fmt::Debug for super::FileData {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -386,7 +392,11 @@ impl std::fmt::Debug for super::VideoMetadata {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::PrebuiltVoiceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PrebuiltVoiceConfig");
@@ -398,7 +408,11 @@ impl std::fmt::Debug for super::PrebuiltVoiceConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::ReplicatedVoiceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ReplicatedVoiceConfig");
@@ -411,7 +425,11 @@ impl std::fmt::Debug for super::ReplicatedVoiceConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::VoiceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("VoiceConfig");
@@ -423,7 +441,11 @@ impl std::fmt::Debug for super::VoiceConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::SpeakerVoiceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeakerVoiceConfig");
@@ -436,7 +458,11 @@ impl std::fmt::Debug for super::SpeakerVoiceConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::MultiSpeakerVoiceConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MultiSpeakerVoiceConfig");
@@ -448,7 +474,11 @@ impl std::fmt::Debug for super::MultiSpeakerVoiceConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::SpeechConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SpeechConfig");
@@ -465,7 +495,11 @@ impl std::fmt::Debug for super::SpeechConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::ImageConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageConfig");
@@ -480,7 +514,11 @@ impl std::fmt::Debug for super::ImageConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::image_config::ImageOutputOptions {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ImageOutputOptions");
@@ -493,7 +531,11 @@ impl std::fmt::Debug for super::image_config::ImageOutputOptions {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::GenerationConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GenerationConfig");
@@ -525,7 +567,11 @@ impl std::fmt::Debug for super::GenerationConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::generation_config::RoutingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RoutingConfig");
@@ -537,7 +583,11 @@ impl std::fmt::Debug for super::generation_config::RoutingConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::generation_config::routing_config::AutoRoutingMode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AutoRoutingMode");
@@ -549,7 +599,11 @@ impl std::fmt::Debug for super::generation_config::routing_config::AutoRoutingMo
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::generation_config::routing_config::ManualRoutingMode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ManualRoutingMode");
@@ -561,7 +615,11 @@ impl std::fmt::Debug for super::generation_config::routing_config::ManualRouting
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 impl std::fmt::Debug for super::generation_config::ThinkingConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ThinkingConfig");
@@ -2642,11 +2700,171 @@ impl std::fmt::Debug for super::EvaluateInstancesRequest {
     }
 }
 
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::Metric {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Metric");
+        debug_struct.field("aggregation_metrics", &self.aggregation_metrics);
+        debug_struct.field("metric_spec", &self.metric_spec);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::AutoraterConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoraterConfig");
+        debug_struct.field("sampling_count", &self.sampling_count);
+        debug_struct.field("flip_enabled", &self.flip_enabled);
+        debug_struct.field("autorater_model", &self.autorater_model);
+        debug_struct.field("generation_config", &self.generation_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "evaluation-service")]
 impl std::fmt::Debug for super::EvaluateInstancesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EvaluateInstancesResponse");
+        debug_struct.field("metric_results", &self.metric_results);
         debug_struct.field("evaluation_results", &self.evaluation_results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "evaluation-service")]
+impl std::fmt::Debug for super::MetricResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("MetricResult");
+        debug_struct.field("score", &self.score);
+        debug_struct.field("explanation", &self.explanation);
+        debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::OutputConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputConfig");
+        debug_struct.field("destination", &self.destination);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::EvaluationDataset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluationDataset");
+        debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::EvaluateDatasetResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluateDatasetResponse");
+        debug_struct.field("aggregation_output", &self.aggregation_output);
+        debug_struct.field("output_info", &self.output_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::OutputInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OutputInfo");
+        debug_struct.field("output_location", &self.output_location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::AggregationOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AggregationOutput");
+        debug_struct.field("dataset", &self.dataset);
+        debug_struct.field("aggregation_results", &self.aggregation_results);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::AggregationResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AggregationResult");
+        debug_struct.field("aggregation_metric", &self.aggregation_metric);
+        debug_struct.field("aggregation_result", &self.aggregation_result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::PredefinedMetricSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PredefinedMetricSpec");
+        debug_struct.field("metric_spec_name", &self.metric_spec_name);
+        debug_struct.field("metric_spec_parameters", &self.metric_spec_parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::ComputationBasedMetricSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ComputationBasedMetricSpec");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("parameters", &self.parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::LLMBasedMetricSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LLMBasedMetricSpec");
+        debug_struct.field("metric_prompt_template", &self.metric_prompt_template);
+        debug_struct.field("system_instruction", &self.system_instruction);
+        debug_struct.field("judge_autorater_config", &self.judge_autorater_config);
+        debug_struct.field("additional_config", &self.additional_config);
+        debug_struct.field("rubrics_source", &self.rubrics_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2680,7 +2898,7 @@ impl std::fmt::Debug for super::ExactMatchInstance {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 impl std::fmt::Debug for super::ExactMatchSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExactMatchSpec");
@@ -2703,7 +2921,7 @@ impl std::fmt::Debug for super::ExactMatchResults {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 impl std::fmt::Debug for super::ExactMatchMetricValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ExactMatchMetricValue");
@@ -2741,7 +2959,7 @@ impl std::fmt::Debug for super::BleuInstance {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 impl std::fmt::Debug for super::BleuSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BleuSpec");
@@ -2765,7 +2983,7 @@ impl std::fmt::Debug for super::BleuResults {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 impl std::fmt::Debug for super::BleuMetricValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BleuMetricValue");
@@ -2803,7 +3021,7 @@ impl std::fmt::Debug for super::RougeInstance {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 impl std::fmt::Debug for super::RougeSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RougeSpec");
@@ -2829,7 +3047,7 @@ impl std::fmt::Debug for super::RougeResults {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 impl std::fmt::Debug for super::RougeMetricValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RougeMetricValue");
@@ -3620,11 +3838,16 @@ impl std::fmt::Debug for super::PointwiseMetricInstance {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 impl std::fmt::Debug for super::PointwiseMetricSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PointwiseMetricSpec");
         debug_struct.field("metric_prompt_template", &self.metric_prompt_template);
+        debug_struct.field("system_instruction", &self.system_instruction);
+        debug_struct.field(
+            "custom_output_format_config",
+            &self.custom_output_format_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3632,12 +3855,52 @@ impl std::fmt::Debug for super::PointwiseMetricSpec {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
+impl std::fmt::Debug for super::CustomOutputFormatConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomOutputFormatConfig");
+        debug_struct.field(
+            "custom_output_format_config",
+            &self.custom_output_format_config,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 impl std::fmt::Debug for super::PointwiseMetricResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PointwiseMetricResult");
         debug_struct.field("score", &self.score);
         debug_struct.field("explanation", &self.explanation);
+        debug_struct.field("custom_output", &self.custom_output);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
+impl std::fmt::Debug for super::CustomOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomOutput");
+        debug_struct.field("custom_output", &self.custom_output);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
+impl std::fmt::Debug for super::RawOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RawOutput");
+        debug_struct.field("raw_output", &self.raw_output);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3670,11 +3933,24 @@ impl std::fmt::Debug for super::PairwiseMetricInstance {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 impl std::fmt::Debug for super::PairwiseMetricSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PairwiseMetricSpec");
         debug_struct.field("metric_prompt_template", &self.metric_prompt_template);
+        debug_struct.field(
+            "candidate_response_field_name",
+            &self.candidate_response_field_name,
+        );
+        debug_struct.field(
+            "baseline_response_field_name",
+            &self.baseline_response_field_name,
+        );
+        debug_struct.field("system_instruction", &self.system_instruction);
+        debug_struct.field(
+            "custom_output_format_config",
+            &self.custom_output_format_config,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3682,12 +3958,13 @@ impl std::fmt::Debug for super::PairwiseMetricSpec {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 impl std::fmt::Debug for super::PairwiseMetricResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PairwiseMetricResult");
         debug_struct.field("pairwise_choice", &self.pairwise_choice);
         debug_struct.field("explanation", &self.explanation);
+        debug_struct.field("custom_output", &self.custom_output);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4051,6 +4328,30 @@ impl std::fmt::Debug for super::MetricxResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MetricxResult");
         debug_struct.field("score", &self.score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "evaluation-service")]
+impl std::fmt::Debug for super::ContentMap {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContentMap");
+        debug_struct.field("values", &self.values);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "evaluation-service")]
+impl std::fmt::Debug for super::content_map::Contents {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Contents");
+        debug_struct.field("contents", &self.contents);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7652,6 +7953,7 @@ impl std::fmt::Debug for super::CsvSource {
     feature = "deployment-resource-pool-service",
     feature = "endpoint-service",
     feature = "featurestore-service",
+    feature = "gen-ai-tuning-service",
     feature = "job-service",
     feature = "model-service",
     feature = "pipeline-service",
@@ -7692,6 +7994,7 @@ impl std::fmt::Debug for super::GcsDestination {
 #[cfg(any(
     feature = "feature-registry-service",
     feature = "featurestore-service",
+    feature = "gen-ai-tuning-service",
     feature = "job-service",
 ))]
 impl std::fmt::Debug for super::BigQuerySource {
@@ -12091,6 +12394,7 @@ impl std::fmt::Debug for super::NotebookSoftwareConfig {
 
 #[cfg(any(
     feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
     feature = "vertex-rag-service",
@@ -13585,6 +13889,18 @@ impl std::fmt::Debug for super::reasoning_engine_spec::source_code_spec::PythonS
         debug_struct.field("entrypoint_module", &self.entrypoint_module);
         debug_struct.field("entrypoint_object", &self.entrypoint_object);
         debug_struct.field("requirements_file", &self.requirements_file);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+impl std::fmt::Debug for super::reasoning_engine_spec::ContainerSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContainerSpec");
+        debug_struct.field("image_uri", &self.image_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15684,6 +16000,7 @@ impl std::fmt::Debug for super::FunctionDeclaration {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -15707,6 +16024,7 @@ impl std::fmt::Debug for super::FunctionCall {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -15729,6 +16047,7 @@ impl std::fmt::Debug for super::PartialArg {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -15749,6 +16068,7 @@ impl std::fmt::Debug for super::FunctionResponsePart {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -15771,6 +16091,7 @@ impl std::fmt::Debug for super::FunctionResponseBlob {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -15793,6 +16114,7 @@ impl std::fmt::Debug for super::FunctionResponseFileData {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -15815,6 +16137,7 @@ impl std::fmt::Debug for super::FunctionResponse {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -15836,6 +16159,7 @@ impl std::fmt::Debug for super::ExecutableCode {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -16286,6 +16610,7 @@ impl std::fmt::Debug for super::TuningJob {
         debug_struct.field("tuning_data_stats", &self.tuning_data_stats);
         debug_struct.field("encryption_spec", &self.encryption_spec);
         debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("evaluate_dataset_runs", &self.evaluate_dataset_runs);
         debug_struct.field("source_model", &self.source_model);
         debug_struct.field("tuning_spec", &self.tuning_spec);
         if !self._unknown_fields.is_empty() {
@@ -16427,6 +16752,7 @@ impl std::fmt::Debug for super::SupervisedTuningSpec {
             "export_last_checkpoint_only",
             &self.export_last_checkpoint_only,
         );
+        debug_struct.field("evaluation_config", &self.evaluation_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16439,6 +16765,40 @@ impl std::fmt::Debug for super::TunedModelRef {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TunedModelRef");
         debug_struct.field("tuned_model_ref", &self.tuned_model_ref);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::EvaluationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluationConfig");
+        debug_struct.field("metrics", &self.metrics);
+        debug_struct.field("output_config", &self.output_config);
+        debug_struct.field("autorater_config", &self.autorater_config);
+        debug_struct.field(
+            "inference_generation_config",
+            &self.inference_generation_config,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+impl std::fmt::Debug for super::EvaluateDatasetRun {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EvaluateDatasetRun");
+        debug_struct.field("operation_name", &self.operation_name);
+        debug_struct.field("evaluation_run", &self.evaluation_run);
+        debug_struct.field("checkpoint_id", &self.checkpoint_id);
+        debug_struct.field("evaluate_dataset_response", &self.evaluate_dataset_response);
+        debug_struct.field("error", &self.error);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

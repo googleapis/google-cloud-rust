@@ -349,6 +349,7 @@ impl<'de> serde::de::Deserialize<'de> for super::instance::PrivateConfig {
             __http_service_attachment,
             __ssh_service_attachment,
             __psc_allowed_projects,
+            __custom_host_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -379,6 +380,8 @@ impl<'de> serde::de::Deserialize<'de> for super::instance::PrivateConfig {
                             "ssh_service_attachment" => Ok(__FieldTag::__ssh_service_attachment),
                             "pscAllowedProjects" => Ok(__FieldTag::__psc_allowed_projects),
                             "psc_allowed_projects" => Ok(__FieldTag::__psc_allowed_projects),
+                            "customHostConfig" => Ok(__FieldTag::__custom_host_config),
+                            "custom_host_config" => Ok(__FieldTag::__custom_host_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -451,6 +454,134 @@ impl<'de> serde::de::Deserialize<'de> for super::instance::PrivateConfig {
                                 ));
                             }
                             result.psc_allowed_projects = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__custom_host_config => {
+                            if !fields.insert(__FieldTag::__custom_host_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_host_config",
+                                ));
+                            }
+                            result.custom_host_config = map.next_value::<std::option::Option<
+                                crate::model::instance::private_config::CustomHostConfig,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::instance::private_config::CustomHostConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __html,
+            __api,
+            __git_ssh,
+            __git_http,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CustomHostConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "html" => Ok(__FieldTag::__html),
+                            "api" => Ok(__FieldTag::__api),
+                            "gitSsh" => Ok(__FieldTag::__git_ssh),
+                            "git_ssh" => Ok(__FieldTag::__git_ssh),
+                            "gitHttp" => Ok(__FieldTag::__git_http),
+                            "git_http" => Ok(__FieldTag::__git_http),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::instance::private_config::CustomHostConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CustomHostConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__html => {
+                            if !fields.insert(__FieldTag::__html) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for html",
+                                ));
+                            }
+                            result.html = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__api => {
+                            if !fields.insert(__FieldTag::__api) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for api",
+                                ));
+                            }
+                            result.api = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__git_ssh => {
+                            if !fields.insert(__FieldTag::__git_ssh) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for git_ssh",
+                                ));
+                            }
+                            result.git_ssh = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__git_http => {
+                            if !fields.insert(__FieldTag::__git_http) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for git_http",
+                                ));
+                            }
+                            result.git_http = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1224,6 +1355,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BranchRule {
             __require_pull_request,
             __minimum_reviews_count,
             __minimum_approvals_count,
+            __require_code_owner_approval,
             __require_comments_resolved,
             __allow_stale_reviews,
             __require_linear_history,
@@ -1265,6 +1397,12 @@ impl<'de> serde::de::Deserialize<'de> for super::BranchRule {
                             "minimum_reviews_count" => Ok(__FieldTag::__minimum_reviews_count),
                             "minimumApprovalsCount" => Ok(__FieldTag::__minimum_approvals_count),
                             "minimum_approvals_count" => Ok(__FieldTag::__minimum_approvals_count),
+                            "requireCodeOwnerApproval" => {
+                                Ok(__FieldTag::__require_code_owner_approval)
+                            }
+                            "require_code_owner_approval" => {
+                                Ok(__FieldTag::__require_code_owner_approval)
+                            }
                             "requireCommentsResolved" => {
                                 Ok(__FieldTag::__require_comments_resolved)
                             }
@@ -1434,6 +1572,16 @@ impl<'de> serde::de::Deserialize<'de> for super::BranchRule {
                             }
                             result.minimum_approvals_count =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__require_code_owner_approval => {
+                            if !fields.insert(__FieldTag::__require_code_owner_approval) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for require_code_owner_approval",
+                                ));
+                            }
+                            result.require_code_owner_approval = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__require_comments_resolved => {
                             if !fields.insert(__FieldTag::__require_comments_resolved) {
@@ -3285,6 +3433,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteInstanceRequest {
         enum __FieldTag {
             __name,
             __request_id,
+            __force,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3308,6 +3457,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteInstanceRequest {
                             "name" => Ok(__FieldTag::__name),
                             "requestId" => Ok(__FieldTag::__request_id),
                             "request_id" => Ok(__FieldTag::__request_id),
+                            "force" => Ok(__FieldTag::__force),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3351,6 +3501,16 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteInstanceRequest {
                             }
                             result.request_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__force => {
+                            if !fields.insert(__FieldTag::__force) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for force",
+                                ));
+                            }
+                            result.force = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

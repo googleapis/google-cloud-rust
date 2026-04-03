@@ -1559,17 +1559,19 @@ pub struct AuthorizationPolicy {
     /// Output only. The timestamp when the resource was updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Optional. Set of label tags associated with the AuthorizationPolicy resource.
+    /// Optional. Set of label tags associated with the AuthorizationPolicy
+    /// resource.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The action to take when a rule match is found. Possible values
     /// are "ALLOW" or "DENY".
     pub action: crate::model::authorization_policy::Action,
 
-    /// Optional. List of rules to match. Note that at least one of the rules must match in
-    /// order for the action specified in the 'action' field to be taken. A rule is
-    /// a match if there is a matching source and destination. If left blank, the
-    /// action specified in the `action` field will be applied on every request.
+    /// Optional. List of rules to match. Note that at least one of the rules must
+    /// match in order for the action specified in the 'action' field to be taken.
+    /// A rule is a match if there is a matching source and destination. If left
+    /// blank, the action specified in the `action` field will be applied on every
+    /// request.
     pub rules: std::vec::Vec<crate::model::authorization_policy::Rule>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1746,15 +1748,15 @@ pub mod authorization_policy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Rule {
-        /// Optional. List of attributes for the traffic source. All of the sources must match.
-        /// A source is a match if both principals and ip_blocks match. If not set,
-        /// the action specified in the 'action' field will be applied without any
-        /// rule checks for the source.
+        /// Optional. List of attributes for the traffic source. All of the sources
+        /// must match. A source is a match if both principals and ip_blocks match.
+        /// If not set, the action specified in the 'action' field will be applied
+        /// without any rule checks for the source.
         pub sources: std::vec::Vec<crate::model::authorization_policy::rule::Source>,
 
-        /// Optional. List of attributes for the traffic destination. All of the destinations
-        /// must match. A destination is a match if a request matches all the
-        /// specified hosts, ports, methods and headers. If not set, the
+        /// Optional. List of attributes for the traffic destination. All of the
+        /// destinations must match. A destination is a match if a request matches
+        /// all the specified hosts, ports, methods and headers. If not set, the
         /// action specified in the 'action' field will be applied without any rule
         /// checks for the destination.
         pub destinations: std::vec::Vec<crate::model::authorization_policy::rule::Destination>,
@@ -1827,19 +1829,19 @@ pub mod authorization_policy {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Source {
-            /// Optional. List of peer identities to match for authorization. At least one
-            /// principal should match. Each peer can be an exact match, or a prefix
-            /// match (example, "namespace/*") or a suffix match (example,
+            /// Optional. List of peer identities to match for authorization. At least
+            /// one principal should match. Each peer can be an exact match, or a
+            /// prefix match (example, "namespace/*") or a suffix match (example,
             /// "*/service-account") or a presence match "*". Authorization based on
             /// the principal name without certificate validation (configured by
             /// ServerTlsPolicy resource) is considered insecure.
             pub principals: std::vec::Vec<std::string::String>,
 
-            /// Optional. List of CIDR ranges to match based on source IP address. At least one
-            /// IP block should match. Single IP (e.g., "1.2.3.4") and CIDR (e.g.,
-            /// "1.2.3.0/24") are supported. Authorization based on source IP alone
-            /// should be avoided. The IP addresses of any load balancers or proxies
-            /// should be considered untrusted.
+            /// Optional. List of CIDR ranges to match based on source IP address. At
+            /// least one IP block should match. Single IP (e.g., "1.2.3.4") and CIDR
+            /// (e.g., "1.2.3.0/24") are supported. Authorization based on source IP
+            /// alone should be avoided. The IP addresses of any load balancers or
+            /// proxies should be considered untrusted.
             pub ip_blocks: std::vec::Vec<std::string::String>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1895,24 +1897,25 @@ pub mod authorization_policy {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Destination {
-            /// Required. List of host names to match. Matched against the ":authority" header in
-            /// http requests. At least one host should match. Each host can be an
-            /// exact match, or a prefix match (example "mydomain.*") or a suffix
+            /// Required. List of host names to match. Matched against the ":authority"
+            /// header in http requests. At least one host should match. Each host can
+            /// be an exact match, or a prefix match (example "mydomain.*") or a suffix
             /// match (example "*.myorg.com") or a presence (any) match "*".
             pub hosts: std::vec::Vec<std::string::String>,
 
-            /// Required. List of destination ports to match. At least one port should match.
+            /// Required. List of destination ports to match. At least one port should
+            /// match.
             pub ports: std::vec::Vec<u32>,
 
             /// Optional. A list of HTTP methods to match. At least one method should
             /// match. Should not be set for gRPC services.
             pub methods: std::vec::Vec<std::string::String>,
 
-            /// Optional. Match against key:value pair in http header. Provides a flexible match
-            /// based on HTTP headers, for potentially advanced use cases. At least one
-            /// header should match. Avoid using header matches to make authorization
-            /// decisions unless there is a strong guarantee that requests arrive
-            /// through a trusted client or proxy.
+            /// Optional. Match against key:value pair in http header. Provides a
+            /// flexible match based on HTTP headers, for potentially advanced use
+            /// cases. At least one header should match. Avoid using header matches to
+            /// make authorization decisions unless there is a strong guarantee that
+            /// requests arrive through a trusted client or proxy.
             pub http_header_match: std::option::Option<
                 crate::model::authorization_policy::rule::destination::HttpHeaderMatch,
             >,
@@ -2647,8 +2650,8 @@ impl wkt::message::Message for UpdateAuthorizationPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAuthorizationPolicyRequest {
-    /// Required. A name of the AuthorizationPolicy to delete. Must be in the format
-    /// `projects/{project}/locations/{location}/authorizationPolicies/*`.
+    /// Required. A name of the AuthorizationPolicy to delete. Must be in the
+    /// format `projects/{project}/locations/{location}/authorizationPolicies/*`.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2678,6 +2681,4068 @@ impl wkt::message::Message for DeleteAuthorizationPolicyRequest {
     }
 }
 
+/// `AuthzPolicy` is a resource that allows to forward traffic to a
+/// callout backend designed to scan the traffic for security purposes.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AuthzPolicy {
+    /// Required. Identifier. Name of the `AuthzPolicy` resource in the following
+    /// format:
+    /// `projects/{project}/locations/{location}/authzPolicies/{authz_policy}`.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. A human-readable description of the resource.
+    pub description: std::string::String,
+
+    /// Optional. Set of labels associated with the `AuthzPolicy` resource.
+    ///
+    /// The format must comply with [the following
+    /// requirements](/compute/docs/labeling-resources#requirements).
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. Specifies the set of resources to which this policy should be
+    /// applied to.
+    pub target: std::option::Option<crate::model::authz_policy::Target>,
+
+    /// Optional. A list of authorization HTTP rules to match against the incoming
+    /// request. A policy match occurs when at least one HTTP rule matches the
+    /// request or when no HTTP rules are specified in the policy.
+    /// At least one HTTP Rule is required for Allow or Deny Action. Limited
+    /// to 5 rules.
+    pub http_rules: std::vec::Vec<crate::model::authz_policy::AuthzRule>,
+
+    /// Required. Can be one of `ALLOW`, `DENY`, `CUSTOM`.
+    ///
+    /// When the action is `CUSTOM`, `customProvider` must be specified.
+    ///
+    /// When the action is `ALLOW`, only requests matching the policy will
+    /// be allowed.
+    ///
+    /// When the action is `DENY`, only requests matching the policy will be
+    /// denied.
+    ///
+    /// When a request arrives, the policies are evaluated in the following order:
+    ///
+    /// 1. If there is a `CUSTOM` policy that matches the request, the `CUSTOM`
+    ///    policy is evaluated using the custom authorization providers and the
+    ///    request is denied if the provider rejects the request.
+    ///
+    /// 1. If there are any `DENY` policies that match the request, the request
+    ///    is denied.
+    ///
+    /// 1. If there are no `ALLOW` policies for the resource or if any of the
+    ///    `ALLOW` policies match the request, the request is allowed.
+    ///
+    /// 1. Else the request is denied by default if none of the configured
+    ///    AuthzPolicies with `ALLOW` action match the request.
+    ///
+    pub action: crate::model::authz_policy::AuthzAction,
+
+    /// Optional. Required if the action is `CUSTOM`. Allows delegating
+    /// authorization decisions to Cloud IAP or to Service Extensions. One of
+    /// `cloudIap` or `authzExtension` must be specified.
+    pub custom_provider: std::option::Option<crate::model::authz_policy::CustomProvider>,
+
+    /// Optional. Immutable. Defines the type of authorization being performed.
+    /// If not specified, `REQUEST_AUTHZ` is applied. This field cannot be changed
+    /// once AuthzPolicy is created.
+    pub policy_profile: crate::model::authz_policy::PolicyProfile,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AuthzPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AuthzPolicy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// let x = AuthzPolicy::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AuthzPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AuthzPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AuthzPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AuthzPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AuthzPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AuthzPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AuthzPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AuthzPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AuthzPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AuthzPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::AuthzPolicy::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// let x = AuthzPolicy::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::AuthzPolicy::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// let x = AuthzPolicy::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [target][crate::model::AuthzPolicy::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use google_cloud_networksecurity_v1::model::authz_policy::Target;
+    /// let x = AuthzPolicy::new().set_target(Target::default()/* use setters */);
+    /// ```
+    pub fn set_target<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::authz_policy::Target>,
+    {
+        self.target = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [target][crate::model::AuthzPolicy::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use google_cloud_networksecurity_v1::model::authz_policy::Target;
+    /// let x = AuthzPolicy::new().set_or_clear_target(Some(Target::default()/* use setters */));
+    /// let x = AuthzPolicy::new().set_or_clear_target(None::<Target>);
+    /// ```
+    pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::authz_policy::Target>,
+    {
+        self.target = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [http_rules][crate::model::AuthzPolicy::http_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use google_cloud_networksecurity_v1::model::authz_policy::AuthzRule;
+    /// let x = AuthzPolicy::new()
+    ///     .set_http_rules([
+    ///         AuthzRule::default()/* use setters */,
+    ///         AuthzRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_http_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::authz_policy::AuthzRule>,
+    {
+        use std::iter::Iterator;
+        self.http_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [action][crate::model::AuthzPolicy::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use google_cloud_networksecurity_v1::model::authz_policy::AuthzAction;
+    /// let x0 = AuthzPolicy::new().set_action(AuthzAction::Allow);
+    /// let x1 = AuthzPolicy::new().set_action(AuthzAction::Deny);
+    /// let x2 = AuthzPolicy::new().set_action(AuthzAction::Custom);
+    /// ```
+    pub fn set_action<T: std::convert::Into<crate::model::authz_policy::AuthzAction>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_provider][crate::model::AuthzPolicy::custom_provider].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use google_cloud_networksecurity_v1::model::authz_policy::CustomProvider;
+    /// let x = AuthzPolicy::new().set_custom_provider(CustomProvider::default()/* use setters */);
+    /// ```
+    pub fn set_custom_provider<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::authz_policy::CustomProvider>,
+    {
+        self.custom_provider = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [custom_provider][crate::model::AuthzPolicy::custom_provider].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use google_cloud_networksecurity_v1::model::authz_policy::CustomProvider;
+    /// let x = AuthzPolicy::new().set_or_clear_custom_provider(Some(CustomProvider::default()/* use setters */));
+    /// let x = AuthzPolicy::new().set_or_clear_custom_provider(None::<CustomProvider>);
+    /// ```
+    pub fn set_or_clear_custom_provider<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::authz_policy::CustomProvider>,
+    {
+        self.custom_provider = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [policy_profile][crate::model::AuthzPolicy::policy_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use google_cloud_networksecurity_v1::model::authz_policy::PolicyProfile;
+    /// let x0 = AuthzPolicy::new().set_policy_profile(PolicyProfile::RequestAuthz);
+    /// let x1 = AuthzPolicy::new().set_policy_profile(PolicyProfile::ContentAuthz);
+    /// ```
+    pub fn set_policy_profile<T: std::convert::Into<crate::model::authz_policy::PolicyProfile>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.policy_profile = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AuthzPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy"
+    }
+}
+
+/// Defines additional types related to [AuthzPolicy].
+pub mod authz_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Specifies the set of targets to which this policy should be applied to.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Target {
+        /// Optional. All gateways and forwarding rules referenced by this policy and
+        /// extensions must share the same load balancing scheme. Supported values:
+        /// `INTERNAL_MANAGED` and `EXTERNAL_MANAGED`. For more information, refer
+        /// to [Backend services
+        /// overview](https://cloud.google.com/load-balancing/docs/backend-service).
+        pub load_balancing_scheme: crate::model::authz_policy::LoadBalancingScheme,
+
+        /// Required. A list of references to the Forwarding Rules on which this
+        /// policy will be applied.
+        pub resources: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Target {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [load_balancing_scheme][crate::model::authz_policy::Target::load_balancing_scheme].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::Target;
+        /// use google_cloud_networksecurity_v1::model::authz_policy::LoadBalancingScheme;
+        /// let x0 = Target::new().set_load_balancing_scheme(LoadBalancingScheme::InternalManaged);
+        /// let x1 = Target::new().set_load_balancing_scheme(LoadBalancingScheme::ExternalManaged);
+        /// let x2 = Target::new().set_load_balancing_scheme(LoadBalancingScheme::InternalSelfManaged);
+        /// ```
+        pub fn set_load_balancing_scheme<
+            T: std::convert::Into<crate::model::authz_policy::LoadBalancingScheme>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.load_balancing_scheme = v.into();
+            self
+        }
+
+        /// Sets the value of [resources][crate::model::authz_policy::Target::resources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::Target;
+        /// let x = Target::new().set_resources(["a", "b", "c"]);
+        /// ```
+        pub fn set_resources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.resources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Target {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.Target"
+        }
+    }
+
+    /// Conditions to match against the incoming request.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AuthzRule {
+        /// Optional. Describes properties of a source of a request.
+        pub from: std::option::Option<crate::model::authz_policy::authz_rule::From>,
+
+        /// Optional. Describes properties of a target of a request.
+        pub to: std::option::Option<crate::model::authz_policy::authz_rule::To>,
+
+        /// Optional. CEL expression that describes the conditions to be satisfied
+        /// for the action. The result of the CEL expression is ANDed with the from
+        /// and to. Refer to the CEL language reference for a list of available
+        /// attributes.
+        pub when: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AuthzRule {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [from][crate::model::authz_policy::AuthzRule::from].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::AuthzRule;
+        /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::From;
+        /// let x = AuthzRule::new().set_from(From::default()/* use setters */);
+        /// ```
+        pub fn set_from<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::authz_policy::authz_rule::From>,
+        {
+            self.from = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [from][crate::model::authz_policy::AuthzRule::from].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::AuthzRule;
+        /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::From;
+        /// let x = AuthzRule::new().set_or_clear_from(Some(From::default()/* use setters */));
+        /// let x = AuthzRule::new().set_or_clear_from(None::<From>);
+        /// ```
+        pub fn set_or_clear_from<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::authz_policy::authz_rule::From>,
+        {
+            self.from = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [to][crate::model::authz_policy::AuthzRule::to].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::AuthzRule;
+        /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::To;
+        /// let x = AuthzRule::new().set_to(To::default()/* use setters */);
+        /// ```
+        pub fn set_to<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::authz_policy::authz_rule::To>,
+        {
+            self.to = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [to][crate::model::authz_policy::AuthzRule::to].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::AuthzRule;
+        /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::To;
+        /// let x = AuthzRule::new().set_or_clear_to(Some(To::default()/* use setters */));
+        /// let x = AuthzRule::new().set_or_clear_to(None::<To>);
+        /// ```
+        pub fn set_or_clear_to<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::authz_policy::authz_rule::To>,
+        {
+            self.to = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [when][crate::model::authz_policy::AuthzRule::when].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::AuthzRule;
+        /// let x = AuthzRule::new().set_when("example");
+        /// ```
+        pub fn set_when<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.when = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AuthzRule {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule"
+        }
+    }
+
+    /// Defines additional types related to [AuthzRule].
+    pub mod authz_rule {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Determines how a string value should be matched.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct StringMatch {
+            /// If true, indicates the exact/prefix/suffix/contains matching should be
+            /// case insensitive. For example, the matcher ``data`` will match both
+            /// input string ``Data`` and ``data`` if set to true.
+            pub ignore_case: bool,
+
+            pub match_pattern: std::option::Option<
+                crate::model::authz_policy::authz_rule::string_match::MatchPattern,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl StringMatch {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [ignore_case][crate::model::authz_policy::authz_rule::StringMatch::ignore_case].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = StringMatch::new().set_ignore_case(true);
+            /// ```
+            pub fn set_ignore_case<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.ignore_case = v.into();
+                self
+            }
+
+            /// Sets the value of [match_pattern][crate::model::authz_policy::authz_rule::StringMatch::match_pattern].
+            ///
+            /// Note that all the setters affecting `match_pattern` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::string_match::MatchPattern;
+            /// let x = StringMatch::new().set_match_pattern(Some(MatchPattern::Exact("example".to_string())));
+            /// ```
+            pub fn set_match_pattern<
+                T: std::convert::Into<
+                        std::option::Option<
+                            crate::model::authz_policy::authz_rule::string_match::MatchPattern,
+                        >,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.match_pattern = v.into();
+                self
+            }
+
+            /// The value of [match_pattern][crate::model::authz_policy::authz_rule::StringMatch::match_pattern]
+            /// if it holds a `Exact`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn exact(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.match_pattern.as_ref().and_then(|v| match v {
+                    crate::model::authz_policy::authz_rule::string_match::MatchPattern::Exact(
+                        v,
+                    ) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [match_pattern][crate::model::authz_policy::authz_rule::StringMatch::match_pattern]
+            /// to hold a `Exact`.
+            ///
+            /// Note that all the setters affecting `match_pattern` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = StringMatch::new().set_exact("example");
+            /// assert!(x.exact().is_some());
+            /// assert!(x.prefix().is_none());
+            /// assert!(x.suffix().is_none());
+            /// assert!(x.contains().is_none());
+            /// ```
+            pub fn set_exact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.match_pattern = std::option::Option::Some(
+                    crate::model::authz_policy::authz_rule::string_match::MatchPattern::Exact(
+                        v.into(),
+                    ),
+                );
+                self
+            }
+
+            /// The value of [match_pattern][crate::model::authz_policy::authz_rule::StringMatch::match_pattern]
+            /// if it holds a `Prefix`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn prefix(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.match_pattern.as_ref().and_then(|v| match v {
+                    crate::model::authz_policy::authz_rule::string_match::MatchPattern::Prefix(
+                        v,
+                    ) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [match_pattern][crate::model::authz_policy::authz_rule::StringMatch::match_pattern]
+            /// to hold a `Prefix`.
+            ///
+            /// Note that all the setters affecting `match_pattern` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = StringMatch::new().set_prefix("example");
+            /// assert!(x.prefix().is_some());
+            /// assert!(x.exact().is_none());
+            /// assert!(x.suffix().is_none());
+            /// assert!(x.contains().is_none());
+            /// ```
+            pub fn set_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.match_pattern = std::option::Option::Some(
+                    crate::model::authz_policy::authz_rule::string_match::MatchPattern::Prefix(
+                        v.into(),
+                    ),
+                );
+                self
+            }
+
+            /// The value of [match_pattern][crate::model::authz_policy::authz_rule::StringMatch::match_pattern]
+            /// if it holds a `Suffix`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn suffix(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.match_pattern.as_ref().and_then(|v| match v {
+                    crate::model::authz_policy::authz_rule::string_match::MatchPattern::Suffix(
+                        v,
+                    ) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [match_pattern][crate::model::authz_policy::authz_rule::StringMatch::match_pattern]
+            /// to hold a `Suffix`.
+            ///
+            /// Note that all the setters affecting `match_pattern` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = StringMatch::new().set_suffix("example");
+            /// assert!(x.suffix().is_some());
+            /// assert!(x.exact().is_none());
+            /// assert!(x.prefix().is_none());
+            /// assert!(x.contains().is_none());
+            /// ```
+            pub fn set_suffix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.match_pattern = std::option::Option::Some(
+                    crate::model::authz_policy::authz_rule::string_match::MatchPattern::Suffix(
+                        v.into(),
+                    ),
+                );
+                self
+            }
+
+            /// The value of [match_pattern][crate::model::authz_policy::authz_rule::StringMatch::match_pattern]
+            /// if it holds a `Contains`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn contains(&self) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.match_pattern.as_ref().and_then(|v| match v {
+                    crate::model::authz_policy::authz_rule::string_match::MatchPattern::Contains(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [match_pattern][crate::model::authz_policy::authz_rule::StringMatch::match_pattern]
+            /// to hold a `Contains`.
+            ///
+            /// Note that all the setters affecting `match_pattern` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = StringMatch::new().set_contains("example");
+            /// assert!(x.contains().is_some());
+            /// assert!(x.exact().is_none());
+            /// assert!(x.prefix().is_none());
+            /// assert!(x.suffix().is_none());
+            /// ```
+            pub fn set_contains<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.match_pattern = std::option::Option::Some(
+                    crate::model::authz_policy::authz_rule::string_match::MatchPattern::Contains(
+                        v.into(),
+                    ),
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for StringMatch {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.StringMatch"
+            }
+        }
+
+        /// Defines additional types related to [StringMatch].
+        pub mod string_match {
+            #[allow(unused_imports)]
+            use super::*;
+
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum MatchPattern {
+                /// The input string must match exactly the string specified here.
+                ///
+                /// Examples:
+                ///
+                /// * ``abc`` only matches the value ``abc``.
+                Exact(std::string::String),
+                /// The input string must have the prefix specified here.
+                /// Note: empty prefix is not allowed, please use regex instead.
+                ///
+                /// Examples:
+                ///
+                /// * ``abc`` matches the value ``abc.xyz``
+                Prefix(std::string::String),
+                /// The input string must have the suffix specified here.
+                /// Note: empty prefix is not allowed, please use regex instead.
+                ///
+                /// Examples:
+                ///
+                /// * ``abc`` matches the value ``xyz.abc``
+                Suffix(std::string::String),
+                /// The input string must have the substring specified here.
+                /// Note: empty contains match is not allowed, please use regex instead.
+                ///
+                /// Examples:
+                ///
+                /// * ``abc`` matches the value ``xyz.abc.def``
+                Contains(std::string::String),
+            }
+        }
+
+        /// Represents a range of IP Addresses.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct IpBlock {
+            /// Required. The address prefix.
+            pub prefix: std::string::String,
+
+            /// Required. The length of the address range.
+            pub length: i32,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl IpBlock {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [prefix][crate::model::authz_policy::authz_rule::IpBlock::prefix].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::IpBlock;
+            /// let x = IpBlock::new().set_prefix("example");
+            /// ```
+            pub fn set_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.prefix = v.into();
+                self
+            }
+
+            /// Sets the value of [length][crate::model::authz_policy::authz_rule::IpBlock::length].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::IpBlock;
+            /// let x = IpBlock::new().set_length(42);
+            /// ```
+            pub fn set_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.length = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for IpBlock {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.IpBlock"
+            }
+        }
+
+        /// Describes the properties of a client VM resource accessing the internal
+        /// application load balancers.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RequestResource {
+            /// Optional. A list of resource tag value permanent IDs to match against
+            /// the resource manager tags value associated with the source VM of a
+            /// request.
+            pub tag_value_id_set: std::option::Option<
+                crate::model::authz_policy::authz_rule::request_resource::TagValueIdSet,
+            >,
+
+            /// Optional. An IAM service account to match against the source
+            /// service account of the VM sending the request.
+            pub iam_service_account:
+                std::option::Option<crate::model::authz_policy::authz_rule::StringMatch>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RequestResource {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [tag_value_id_set][crate::model::authz_policy::authz_rule::RequestResource::tag_value_id_set].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::RequestResource;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::request_resource::TagValueIdSet;
+            /// let x = RequestResource::new().set_tag_value_id_set(TagValueIdSet::default()/* use setters */);
+            /// ```
+            pub fn set_tag_value_id_set<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::authz_policy::authz_rule::request_resource::TagValueIdSet,
+                    >,
+            {
+                self.tag_value_id_set = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [tag_value_id_set][crate::model::authz_policy::authz_rule::RequestResource::tag_value_id_set].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::RequestResource;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::request_resource::TagValueIdSet;
+            /// let x = RequestResource::new().set_or_clear_tag_value_id_set(Some(TagValueIdSet::default()/* use setters */));
+            /// let x = RequestResource::new().set_or_clear_tag_value_id_set(None::<TagValueIdSet>);
+            /// ```
+            pub fn set_or_clear_tag_value_id_set<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::authz_policy::authz_rule::request_resource::TagValueIdSet,
+                    >,
+            {
+                self.tag_value_id_set = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [iam_service_account][crate::model::authz_policy::authz_rule::RequestResource::iam_service_account].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::RequestResource;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = RequestResource::new().set_iam_service_account(StringMatch::default()/* use setters */);
+            /// ```
+            pub fn set_iam_service_account<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::authz_policy::authz_rule::StringMatch>,
+            {
+                self.iam_service_account = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [iam_service_account][crate::model::authz_policy::authz_rule::RequestResource::iam_service_account].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::RequestResource;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = RequestResource::new().set_or_clear_iam_service_account(Some(StringMatch::default()/* use setters */));
+            /// let x = RequestResource::new().set_or_clear_iam_service_account(None::<StringMatch>);
+            /// ```
+            pub fn set_or_clear_iam_service_account<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::authz_policy::authz_rule::StringMatch>,
+            {
+                self.iam_service_account = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for RequestResource {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.RequestResource"
+            }
+        }
+
+        /// Defines additional types related to [RequestResource].
+        pub mod request_resource {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Describes a set of resource tag value permanent IDs to match against
+            /// the resource manager tags value associated with the source VM of a
+            /// request.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct TagValueIdSet {
+                /// Required. A list of resource tag value permanent IDs to match against
+                /// the resource manager tags value associated with the source VM of a
+                /// request. The match follows AND semantics which means all
+                /// the ids must match. Limited to 5 ids in the Tag value id set.
+                pub ids: std::vec::Vec<i64>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl TagValueIdSet {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [ids][crate::model::authz_policy::authz_rule::request_resource::TagValueIdSet::ids].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::request_resource::TagValueIdSet;
+                /// let x = TagValueIdSet::new().set_ids([1, 2, 3]);
+                /// ```
+                pub fn set_ids<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<i64>,
+                {
+                    use std::iter::Iterator;
+                    self.ids = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for TagValueIdSet {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.RequestResource.TagValueIdSet"
+                }
+            }
+        }
+
+        /// Determines how a HTTP header should be matched.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct HeaderMatch {
+            /// Optional. Specifies the name of the header in the request.
+            pub name: std::string::String,
+
+            /// Optional. Specifies how the header match will be performed.
+            pub value: std::option::Option<crate::model::authz_policy::authz_rule::StringMatch>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl HeaderMatch {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [name][crate::model::authz_policy::authz_rule::HeaderMatch::name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::HeaderMatch;
+            /// let x = HeaderMatch::new().set_name("example");
+            /// ```
+            pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.name = v.into();
+                self
+            }
+
+            /// Sets the value of [value][crate::model::authz_policy::authz_rule::HeaderMatch::value].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::HeaderMatch;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = HeaderMatch::new().set_value(StringMatch::default()/* use setters */);
+            /// ```
+            pub fn set_value<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::authz_policy::authz_rule::StringMatch>,
+            {
+                self.value = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [value][crate::model::authz_policy::authz_rule::HeaderMatch::value].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::HeaderMatch;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = HeaderMatch::new().set_or_clear_value(Some(StringMatch::default()/* use setters */));
+            /// let x = HeaderMatch::new().set_or_clear_value(None::<StringMatch>);
+            /// ```
+            pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::authz_policy::authz_rule::StringMatch>,
+            {
+                self.value = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for HeaderMatch {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.HeaderMatch"
+            }
+        }
+
+        /// Describes the properties of a principal to be matched against.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct Principal {
+            /// Optional. An enum to decide what principal value the principal rule
+            /// will match against. If not specified, the PrincipalSelector is
+            /// CLIENT_CERT_URI_SAN.
+            pub principal_selector:
+                crate::model::authz_policy::authz_rule::principal::PrincipalSelector,
+
+            /// Required. A non-empty string whose value is matched against the
+            /// principal value based on the principal_selector. Only exact match can
+            /// be applied for CLIENT_CERT_URI_SAN, CLIENT_CERT_DNS_NAME_SAN,
+            /// CLIENT_CERT_COMMON_NAME selectors.
+            pub principal: std::option::Option<crate::model::authz_policy::authz_rule::StringMatch>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl Principal {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [principal_selector][crate::model::authz_policy::authz_rule::Principal::principal_selector].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::Principal;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::principal::PrincipalSelector;
+            /// let x0 = Principal::new().set_principal_selector(PrincipalSelector::ClientCertUriSan);
+            /// let x1 = Principal::new().set_principal_selector(PrincipalSelector::ClientCertDnsNameSan);
+            /// let x2 = Principal::new().set_principal_selector(PrincipalSelector::ClientCertCommonName);
+            /// ```
+            pub fn set_principal_selector<
+                T: std::convert::Into<
+                        crate::model::authz_policy::authz_rule::principal::PrincipalSelector,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.principal_selector = v.into();
+                self
+            }
+
+            /// Sets the value of [principal][crate::model::authz_policy::authz_rule::Principal::principal].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::Principal;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = Principal::new().set_principal(StringMatch::default()/* use setters */);
+            /// ```
+            pub fn set_principal<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<crate::model::authz_policy::authz_rule::StringMatch>,
+            {
+                self.principal = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [principal][crate::model::authz_policy::authz_rule::Principal::principal].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::Principal;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+            /// let x = Principal::new().set_or_clear_principal(Some(StringMatch::default()/* use setters */));
+            /// let x = Principal::new().set_or_clear_principal(None::<StringMatch>);
+            /// ```
+            pub fn set_or_clear_principal<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<crate::model::authz_policy::authz_rule::StringMatch>,
+            {
+                self.principal = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for Principal {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.Principal"
+            }
+        }
+
+        /// Defines additional types related to [Principal].
+        pub mod principal {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// The principal value the principal rule will match against.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum PrincipalSelector {
+                /// Unspecified principal selector. It will be treated as
+                /// CLIENT_CERT_URI_SAN by default.
+                Unspecified,
+                /// The principal rule is matched against a list of URI SANs in the
+                /// validated client's certificate. A match happens when there is any
+                /// exact URI SAN value match. This is the default principal selector.
+                ClientCertUriSan,
+                /// The principal rule is matched against a list of DNS Name SANs in the
+                /// validated client's certificate. A match happens when there is any
+                /// exact DNS Name SAN value match.
+                /// This is only applicable for Application Load Balancers
+                /// except for classic Global External Application load balancer.
+                /// CLIENT_CERT_DNS_NAME_SAN is not supported for INTERNAL_SELF_MANAGED
+                /// load balancing scheme.
+                ClientCertDnsNameSan,
+                /// The principal rule is matched against the common name in the client's
+                /// certificate. Authorization against multiple common names in the
+                /// client certificate is not supported. Requests with multiple common
+                /// names in the client certificate will be rejected if
+                /// CLIENT_CERT_COMMON_NAME is set as the principal selector. A match
+                /// happens when there is an exact common name value match.
+                /// This is only applicable for Application Load Balancers
+                /// except for global external Application Load Balancer and
+                /// classic Application Load Balancer.
+                /// CLIENT_CERT_COMMON_NAME is not supported for INTERNAL_SELF_MANAGED
+                /// load balancing scheme.
+                ClientCertCommonName,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [PrincipalSelector::value] or
+                /// [PrincipalSelector::name].
+                UnknownValue(principal_selector::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod principal_selector {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl PrincipalSelector {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::ClientCertUriSan => std::option::Option::Some(1),
+                        Self::ClientCertDnsNameSan => std::option::Option::Some(2),
+                        Self::ClientCertCommonName => std::option::Option::Some(3),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("PRINCIPAL_SELECTOR_UNSPECIFIED")
+                        }
+                        Self::ClientCertUriSan => std::option::Option::Some("CLIENT_CERT_URI_SAN"),
+                        Self::ClientCertDnsNameSan => {
+                            std::option::Option::Some("CLIENT_CERT_DNS_NAME_SAN")
+                        }
+                        Self::ClientCertCommonName => {
+                            std::option::Option::Some("CLIENT_CERT_COMMON_NAME")
+                        }
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for PrincipalSelector {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for PrincipalSelector {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for PrincipalSelector {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::ClientCertUriSan,
+                        2 => Self::ClientCertDnsNameSan,
+                        3 => Self::ClientCertCommonName,
+                        _ => Self::UnknownValue(principal_selector::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for PrincipalSelector {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "PRINCIPAL_SELECTOR_UNSPECIFIED" => Self::Unspecified,
+                        "CLIENT_CERT_URI_SAN" => Self::ClientCertUriSan,
+                        "CLIENT_CERT_DNS_NAME_SAN" => Self::ClientCertDnsNameSan,
+                        "CLIENT_CERT_COMMON_NAME" => Self::ClientCertCommonName,
+                        _ => Self::UnknownValue(principal_selector::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for PrincipalSelector {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::ClientCertUriSan => serializer.serialize_i32(1),
+                        Self::ClientCertDnsNameSan => serializer.serialize_i32(2),
+                        Self::ClientCertCommonName => serializer.serialize_i32(3),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for PrincipalSelector {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<PrincipalSelector>::new(
+                        ".google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.Principal.PrincipalSelector"))
+                }
+            }
+        }
+
+        /// Describes properties of one or more sources of a request.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct From {
+            /// Optional. Describes the properties of a request's sources. At least one
+            /// of sources or notSources must be specified. Limited to 1 source.
+            /// A match occurs when ANY source (in sources or notSources) matches the
+            /// request. Within a single source, the match follows AND semantics
+            /// across fields and OR semantics within a single field, i.e. a match
+            /// occurs when ANY principal matches AND ANY ipBlocks match.
+            pub sources: std::vec::Vec<crate::model::authz_policy::authz_rule::from::RequestSource>,
+
+            /// Optional. Describes the negated properties of request sources. Matches
+            /// requests from sources that do not match the criteria specified in this
+            /// field. At least one of sources or notSources must be specified.
+            pub not_sources:
+                std::vec::Vec<crate::model::authz_policy::authz_rule::from::RequestSource>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl From {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [sources][crate::model::authz_policy::authz_rule::From::sources].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::From;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::from::RequestSource;
+            /// let x = From::new()
+            ///     .set_sources([
+            ///         RequestSource::default()/* use setters */,
+            ///         RequestSource::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_sources<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::authz_policy::authz_rule::from::RequestSource>,
+            {
+                use std::iter::Iterator;
+                self.sources = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [not_sources][crate::model::authz_policy::authz_rule::From::not_sources].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::From;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::from::RequestSource;
+            /// let x = From::new()
+            ///     .set_not_sources([
+            ///         RequestSource::default()/* use setters */,
+            ///         RequestSource::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_not_sources<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::authz_policy::authz_rule::from::RequestSource>,
+            {
+                use std::iter::Iterator;
+                self.not_sources = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for From {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.From"
+            }
+        }
+
+        /// Defines additional types related to [From].
+        pub mod from {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Describes the properties of a single source.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct RequestSource {
+                /// Optional. A list of identities derived from the client's certificate.
+                /// This field will not match on a request unless frontend mutual TLS is
+                /// enabled for the forwarding rule or Gateway and the client certificate
+                /// has been successfully validated by mTLS.
+                /// Each identity is a string whose value is matched against a list of
+                /// URI SANs, DNS Name SANs, or the common name in the client's
+                /// certificate. A match happens when any principal matches with the
+                /// rule. Limited to 50 principals per Authorization Policy for regional
+                /// internal Application Load Balancers, regional external Application
+                /// Load Balancers, cross-region internal Application Load Balancers, and
+                /// Cloud Service Mesh. This field is not supported for global external
+                /// Application Load Balancers.
+                pub principals: std::vec::Vec<crate::model::authz_policy::authz_rule::Principal>,
+
+                /// Optional. A list of IP addresses or IP address ranges to match
+                /// against the source IP address of the request. Limited to 10 ip_blocks
+                /// per Authorization Policy
+                pub ip_blocks: std::vec::Vec<crate::model::authz_policy::authz_rule::IpBlock>,
+
+                /// Optional. A list of resources to match against the resource of the
+                /// source VM of a request. Limited to 10 resources per Authorization
+                /// Policy.
+                pub resources:
+                    std::vec::Vec<crate::model::authz_policy::authz_rule::RequestResource>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl RequestSource {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [principals][crate::model::authz_policy::authz_rule::from::RequestSource::principals].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::from::RequestSource;
+                /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::Principal;
+                /// let x = RequestSource::new()
+                ///     .set_principals([
+                ///         Principal::default()/* use setters */,
+                ///         Principal::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_principals<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::authz_policy::authz_rule::Principal>,
+                {
+                    use std::iter::Iterator;
+                    self.principals = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [ip_blocks][crate::model::authz_policy::authz_rule::from::RequestSource::ip_blocks].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::from::RequestSource;
+                /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::IpBlock;
+                /// let x = RequestSource::new()
+                ///     .set_ip_blocks([
+                ///         IpBlock::default()/* use setters */,
+                ///         IpBlock::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_ip_blocks<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::authz_policy::authz_rule::IpBlock>,
+                {
+                    use std::iter::Iterator;
+                    self.ip_blocks = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [resources][crate::model::authz_policy::authz_rule::from::RequestSource::resources].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::from::RequestSource;
+                /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::RequestResource;
+                /// let x = RequestSource::new()
+                ///     .set_resources([
+                ///         RequestResource::default()/* use setters */,
+                ///         RequestResource::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_resources<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::authz_policy::authz_rule::RequestResource>,
+                {
+                    use std::iter::Iterator;
+                    self.resources = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for RequestSource {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.From.RequestSource"
+                }
+            }
+        }
+
+        /// Describes properties of one or more targets of a request.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct To {
+            /// Optional. Describes properties of one or more targets of a request. At
+            /// least one of operations or notOperations must be specified. Limited to
+            /// 1 operation. A match occurs when ANY operation (in operations or
+            /// notOperations) matches. Within an operation, the match follows AND
+            /// semantics across fields and OR semantics within a field, i.e. a match
+            /// occurs when ANY path matches AND ANY header matches and ANY method
+            /// matches.
+            pub operations:
+                std::vec::Vec<crate::model::authz_policy::authz_rule::to::RequestOperation>,
+
+            /// Optional. Describes the negated properties of the targets of a request.
+            /// Matches requests for operations that do not match the criteria
+            /// specified in this field. At least one of operations or notOperations
+            /// must be specified.
+            pub not_operations:
+                std::vec::Vec<crate::model::authz_policy::authz_rule::to::RequestOperation>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl To {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [operations][crate::model::authz_policy::authz_rule::To::operations].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::To;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::RequestOperation;
+            /// let x = To::new()
+            ///     .set_operations([
+            ///         RequestOperation::default()/* use setters */,
+            ///         RequestOperation::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_operations<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::authz_policy::authz_rule::to::RequestOperation>,
+            {
+                use std::iter::Iterator;
+                self.operations = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [not_operations][crate::model::authz_policy::authz_rule::To::not_operations].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::To;
+            /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::RequestOperation;
+            /// let x = To::new()
+            ///     .set_not_operations([
+            ///         RequestOperation::default()/* use setters */,
+            ///         RequestOperation::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_not_operations<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::authz_policy::authz_rule::to::RequestOperation>,
+            {
+                use std::iter::Iterator;
+                self.not_operations = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for To {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.To"
+            }
+        }
+
+        /// Defines additional types related to [To].
+        pub mod to {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Describes properties of one or more targets of a request.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct RequestOperation {
+                /// Optional. A list of headers to match against in http header.
+                pub header_set: std::option::Option<
+                    crate::model::authz_policy::authz_rule::to::request_operation::HeaderSet,
+                >,
+
+                /// Optional. A list of HTTP Hosts to match against. The match can be one
+                /// of exact, prefix, suffix, or contains (substring match). Matches are
+                /// always case sensitive unless the ignoreCase is set. Limited to 10
+                /// hosts per Authorization Policy.
+                pub hosts: std::vec::Vec<crate::model::authz_policy::authz_rule::StringMatch>,
+
+                /// Optional. A list of paths to match against. The match can be one of
+                /// exact, prefix, suffix, or contains (substring match). Matches are
+                /// always case sensitive unless the ignoreCase is set. Limited to 10
+                /// paths per Authorization Policy.
+                /// Note that this path match includes the query parameters. For gRPC
+                /// services, this should be a fully-qualified name of the form
+                /// /package.service/method.
+                pub paths: std::vec::Vec<crate::model::authz_policy::authz_rule::StringMatch>,
+
+                /// Optional. A list of HTTP methods to match against. Each entry must be
+                /// a valid HTTP method name (GET, PUT, POST, HEAD, PATCH, DELETE,
+                /// OPTIONS). It only allows exact match and is always case sensitive.
+                /// Limited to 10 methods per Authorization Policy.
+                pub methods: std::vec::Vec<std::string::String>,
+
+                /// Optional. Defines the MCP protocol attributes to match on. If the MCP
+                /// payload in the request body cannot be successfully parsed, the
+                /// request will be denied. This field can be set only for AuthzPolicies
+                /// targeting AgentGateway resources.
+                pub mcp: std::option::Option<
+                    crate::model::authz_policy::authz_rule::to::request_operation::Mcp,
+                >,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl RequestOperation {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [header_set][crate::model::authz_policy::authz_rule::to::RequestOperation::header_set].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::RequestOperation;
+                /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::HeaderSet;
+                /// let x = RequestOperation::new().set_header_set(HeaderSet::default()/* use setters */);
+                /// ```
+                pub fn set_header_set<T>(mut self, v: T) -> Self
+                where T: std::convert::Into<crate::model::authz_policy::authz_rule::to::request_operation::HeaderSet>
+                {
+                    self.header_set = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [header_set][crate::model::authz_policy::authz_rule::to::RequestOperation::header_set].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::RequestOperation;
+                /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::HeaderSet;
+                /// let x = RequestOperation::new().set_or_clear_header_set(Some(HeaderSet::default()/* use setters */));
+                /// let x = RequestOperation::new().set_or_clear_header_set(None::<HeaderSet>);
+                /// ```
+                pub fn set_or_clear_header_set<T>(mut self, v: std::option::Option<T>) -> Self
+                where T: std::convert::Into<crate::model::authz_policy::authz_rule::to::request_operation::HeaderSet>
+                {
+                    self.header_set = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [hosts][crate::model::authz_policy::authz_rule::to::RequestOperation::hosts].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::RequestOperation;
+                /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+                /// let x = RequestOperation::new()
+                ///     .set_hosts([
+                ///         StringMatch::default()/* use setters */,
+                ///         StringMatch::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_hosts<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::authz_policy::authz_rule::StringMatch>,
+                {
+                    use std::iter::Iterator;
+                    self.hosts = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [paths][crate::model::authz_policy::authz_rule::to::RequestOperation::paths].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::RequestOperation;
+                /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+                /// let x = RequestOperation::new()
+                ///     .set_paths([
+                ///         StringMatch::default()/* use setters */,
+                ///         StringMatch::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_paths<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::authz_policy::authz_rule::StringMatch>,
+                {
+                    use std::iter::Iterator;
+                    self.paths = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [methods][crate::model::authz_policy::authz_rule::to::RequestOperation::methods].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::RequestOperation;
+                /// let x = RequestOperation::new().set_methods(["a", "b", "c"]);
+                /// ```
+                pub fn set_methods<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<std::string::String>,
+                {
+                    use std::iter::Iterator;
+                    self.methods = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [mcp][crate::model::authz_policy::authz_rule::to::RequestOperation::mcp].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::RequestOperation;
+                /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::Mcp;
+                /// let x = RequestOperation::new().set_mcp(Mcp::default()/* use setters */);
+                /// ```
+                pub fn set_mcp<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<
+                            crate::model::authz_policy::authz_rule::to::request_operation::Mcp,
+                        >,
+                {
+                    self.mcp = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [mcp][crate::model::authz_policy::authz_rule::to::RequestOperation::mcp].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::RequestOperation;
+                /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::Mcp;
+                /// let x = RequestOperation::new().set_or_clear_mcp(Some(Mcp::default()/* use setters */));
+                /// let x = RequestOperation::new().set_or_clear_mcp(None::<Mcp>);
+                /// ```
+                pub fn set_or_clear_mcp<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<
+                            crate::model::authz_policy::authz_rule::to::request_operation::Mcp,
+                        >,
+                {
+                    self.mcp = v.map(|x| x.into());
+                    self
+                }
+            }
+
+            impl wkt::message::Message for RequestOperation {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.To.RequestOperation"
+                }
+            }
+
+            /// Defines additional types related to [RequestOperation].
+            pub mod request_operation {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Describes a set of HTTP headers to match against.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct HeaderSet {
+                    /// Required. A list of headers to match against in http header.
+                    /// The match can be one of exact, prefix, suffix, or contains
+                    /// (substring match). The match follows AND semantics which means all
+                    /// the headers must match. Matches are always case sensitive unless
+                    /// the ignoreCase is set. Limited to 10 headers per Authorization
+                    /// Policy.
+                    pub headers: std::vec::Vec<crate::model::authz_policy::authz_rule::HeaderMatch>,
+
+                    pub(crate) _unknown_fields:
+                        serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl HeaderSet {
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [headers][crate::model::authz_policy::authz_rule::to::request_operation::HeaderSet::headers].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::HeaderSet;
+                    /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::HeaderMatch;
+                    /// let x = HeaderSet::new()
+                    ///     .set_headers([
+                    ///         HeaderMatch::default()/* use setters */,
+                    ///         HeaderMatch::default()/* use (different) setters */,
+                    ///     ]);
+                    /// ```
+                    pub fn set_headers<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<crate::model::authz_policy::authz_rule::HeaderMatch>,
+                    {
+                        use std::iter::Iterator;
+                        self.headers = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for HeaderSet {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.To.RequestOperation.HeaderSet"
+                    }
+                }
+
+                /// Describes a set of MCP methods to match against.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct MCPMethod {
+                    /// Required. The MCP method to match against. Allowed values are as
+                    /// follows:
+                    ///
+                    /// 1. `tools`, `prompts`, `resources` - these will match against all
+                    ///    sub methods under the respective methods.
+                    /// 1. `prompts/list`, `tools/list`, `resources/list`,
+                    ///    `resources/templates/list`
+                    /// 1. `prompts/get`, `tools/call`, `resources/subscribe`,
+                    ///    `resources/unsubscribe`, `resources/read`
+                    ///    Params cannot be specified for categories 1 and 2.
+                    pub name: std::string::String,
+
+                    /// Optional. A list of MCP method parameters to match against. The
+                    /// match can be one of exact, prefix, suffix, or contains (substring
+                    /// match). Matches are always case sensitive unless the ignoreCase is
+                    /// set. Limited to 10 MCP method parameters per Authorization Policy.
+                    pub params: std::vec::Vec<crate::model::authz_policy::authz_rule::StringMatch>,
+
+                    pub(crate) _unknown_fields:
+                        serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl MCPMethod {
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [name][crate::model::authz_policy::authz_rule::to::request_operation::MCPMethod::name].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::MCPMethod;
+                    /// let x = MCPMethod::new().set_name("example");
+                    /// ```
+                    pub fn set_name<T: std::convert::Into<std::string::String>>(
+                        mut self,
+                        v: T,
+                    ) -> Self {
+                        self.name = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [params][crate::model::authz_policy::authz_rule::to::request_operation::MCPMethod::params].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::MCPMethod;
+                    /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::StringMatch;
+                    /// let x = MCPMethod::new()
+                    ///     .set_params([
+                    ///         StringMatch::default()/* use setters */,
+                    ///         StringMatch::default()/* use (different) setters */,
+                    ///     ]);
+                    /// ```
+                    pub fn set_params<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<crate::model::authz_policy::authz_rule::StringMatch>,
+                    {
+                        use std::iter::Iterator;
+                        self.params = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for MCPMethod {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.To.RequestOperation.MCPMethod"
+                    }
+                }
+
+                /// Describes a set of MCP protocol attributes to match against for a
+                /// given MCP request.
+                #[derive(Clone, Default, PartialEq)]
+                #[non_exhaustive]
+                pub struct Mcp {
+
+                    /// Optional. If specified, matches on the MCP protocol’s non-access
+                    /// specific methods namely:
+                    ///
+                    /// * initialize
+                    /// * completion/
+                    /// * logging/
+                    /// * notifications/
+                    /// * ping
+                    ///   Defaults to SKIP_BASE_PROTOCOL_METHODS if not specified.
+                    pub base_protocol_methods_option: crate::model::authz_policy::authz_rule::to::request_operation::BaseProtocolMethodsOption,
+
+                    /// Optional. A list of MCP methods and associated parameters to match
+                    /// on. It is recommended to use this field to match on tools, prompts
+                    /// and resource accesses while setting the baseProtocolMethodsOption
+                    /// to MATCH_BASE_PROTOCOL_METHODS to match on all the other MCP
+                    /// protocol methods.
+                    /// Limited to 10 MCP methods per Authorization Policy.
+                    pub methods: std::vec::Vec<crate::model::authz_policy::authz_rule::to::request_operation::MCPMethod>,
+
+                    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+                }
+
+                impl Mcp {
+                    pub fn new() -> Self {
+                        std::default::Default::default()
+                    }
+
+                    /// Sets the value of [base_protocol_methods_option][crate::model::authz_policy::authz_rule::to::request_operation::Mcp::base_protocol_methods_option].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::Mcp;
+                    /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::BaseProtocolMethodsOption;
+                    /// let x0 = Mcp::new().set_base_protocol_methods_option(BaseProtocolMethodsOption::SkipBaseProtocolMethods);
+                    /// let x1 = Mcp::new().set_base_protocol_methods_option(BaseProtocolMethodsOption::MatchBaseProtocolMethods);
+                    /// ```
+                    pub fn set_base_protocol_methods_option<T: std::convert::Into<crate::model::authz_policy::authz_rule::to::request_operation::BaseProtocolMethodsOption>>(mut self, v: T) -> Self{
+                        self.base_protocol_methods_option = v.into();
+                        self
+                    }
+
+                    /// Sets the value of [methods][crate::model::authz_policy::authz_rule::to::request_operation::Mcp::methods].
+                    ///
+                    /// # Example
+                    /// ```ignore,no_run
+                    /// # use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::Mcp;
+                    /// use google_cloud_networksecurity_v1::model::authz_policy::authz_rule::to::request_operation::MCPMethod;
+                    /// let x = Mcp::new()
+                    ///     .set_methods([
+                    ///         MCPMethod::default()/* use setters */,
+                    ///         MCPMethod::default()/* use (different) setters */,
+                    ///     ]);
+                    /// ```
+                    pub fn set_methods<T, V>(mut self, v: T) -> Self
+                    where
+                        T: std::iter::IntoIterator<Item = V>,
+                        V: std::convert::Into<crate::model::authz_policy::authz_rule::to::request_operation::MCPMethod>
+                    {
+                        use std::iter::Iterator;
+                        self.methods = v.into_iter().map(|i| i.into()).collect();
+                        self
+                    }
+                }
+
+                impl wkt::message::Message for Mcp {
+                    fn typename() -> &'static str {
+                        "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.To.RequestOperation.MCP"
+                    }
+                }
+
+                /// Describes the option to match against the base MCP protocol methods.
+                ///
+                /// # Working with unknown values
+                ///
+                /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+                /// additional enum variants at any time. Adding new variants is not considered
+                /// a breaking change. Applications should write their code in anticipation of:
+                ///
+                /// - New values appearing in future releases of the client library, **and**
+                /// - New values received dynamically, without application changes.
+                ///
+                /// Please consult the [Working with enums] section in the user guide for some
+                /// guidelines.
+                ///
+                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum BaseProtocolMethodsOption {
+                    /// Unspecified option. Defaults to SKIP_BASE_PROTOCOL_METHODS.
+                    Unspecified,
+                    /// Skip matching on the base MCP protocol methods.
+                    SkipBaseProtocolMethods,
+                    /// Match on the base MCP protocol methods.
+                    MatchBaseProtocolMethods,
+                    /// If set, the enum was initialized with an unknown value.
+                    ///
+                    /// Applications can examine the value using [BaseProtocolMethodsOption::value] or
+                    /// [BaseProtocolMethodsOption::name].
+                    UnknownValue(base_protocol_methods_option::UnknownValue),
+                }
+
+                #[doc(hidden)]
+                pub mod base_protocol_methods_option {
+                    #[allow(unused_imports)]
+                    use super::*;
+                    #[derive(Clone, Debug, PartialEq)]
+                    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+                }
+
+                impl BaseProtocolMethodsOption {
+                    /// Gets the enum value.
+                    ///
+                    /// Returns `None` if the enum contains an unknown value deserialized from
+                    /// the string representation of enums.
+                    pub fn value(&self) -> std::option::Option<i32> {
+                        match self {
+                            Self::Unspecified => std::option::Option::Some(0),
+                            Self::SkipBaseProtocolMethods => std::option::Option::Some(1),
+                            Self::MatchBaseProtocolMethods => std::option::Option::Some(2),
+                            Self::UnknownValue(u) => u.0.value(),
+                        }
+                    }
+
+                    /// Gets the enum value as a string.
+                    ///
+                    /// Returns `None` if the enum contains an unknown value deserialized from
+                    /// the integer representation of enums.
+                    pub fn name(&self) -> std::option::Option<&str> {
+                        match self {
+                            Self::Unspecified => std::option::Option::Some(
+                                "BASE_PROTOCOL_METHODS_OPTION_UNSPECIFIED",
+                            ),
+                            Self::SkipBaseProtocolMethods => {
+                                std::option::Option::Some("SKIP_BASE_PROTOCOL_METHODS")
+                            }
+                            Self::MatchBaseProtocolMethods => {
+                                std::option::Option::Some("MATCH_BASE_PROTOCOL_METHODS")
+                            }
+                            Self::UnknownValue(u) => u.0.name(),
+                        }
+                    }
+                }
+
+                impl std::default::Default for BaseProtocolMethodsOption {
+                    fn default() -> Self {
+                        use std::convert::From;
+                        Self::from(0)
+                    }
+                }
+
+                impl std::fmt::Display for BaseProtocolMethodsOption {
+                    fn fmt(
+                        &self,
+                        f: &mut std::fmt::Formatter<'_>,
+                    ) -> std::result::Result<(), std::fmt::Error> {
+                        wkt::internal::display_enum(f, self.name(), self.value())
+                    }
+                }
+
+                impl std::convert::From<i32> for BaseProtocolMethodsOption {
+                    fn from(value: i32) -> Self {
+                        match value {
+                            0 => Self::Unspecified,
+                            1 => Self::SkipBaseProtocolMethods,
+                            2 => Self::MatchBaseProtocolMethods,
+                            _ => Self::UnknownValue(base_protocol_methods_option::UnknownValue(
+                                wkt::internal::UnknownEnumValue::Integer(value),
+                            )),
+                        }
+                    }
+                }
+
+                impl std::convert::From<&str> for BaseProtocolMethodsOption {
+                    fn from(value: &str) -> Self {
+                        use std::string::ToString;
+                        match value {
+                            "BASE_PROTOCOL_METHODS_OPTION_UNSPECIFIED" => Self::Unspecified,
+                            "SKIP_BASE_PROTOCOL_METHODS" => Self::SkipBaseProtocolMethods,
+                            "MATCH_BASE_PROTOCOL_METHODS" => Self::MatchBaseProtocolMethods,
+                            _ => Self::UnknownValue(base_protocol_methods_option::UnknownValue(
+                                wkt::internal::UnknownEnumValue::String(value.to_string()),
+                            )),
+                        }
+                    }
+                }
+
+                impl serde::ser::Serialize for BaseProtocolMethodsOption {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::Serializer,
+                    {
+                        match self {
+                            Self::Unspecified => serializer.serialize_i32(0),
+                            Self::SkipBaseProtocolMethods => serializer.serialize_i32(1),
+                            Self::MatchBaseProtocolMethods => serializer.serialize_i32(2),
+                            Self::UnknownValue(u) => u.0.serialize(serializer),
+                        }
+                    }
+                }
+
+                impl<'de> serde::de::Deserialize<'de> for BaseProtocolMethodsOption {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        deserializer.deserialize_any(wkt::internal::EnumVisitor::<BaseProtocolMethodsOption>::new(
+                            ".google.cloud.networksecurity.v1.AuthzPolicy.AuthzRule.To.RequestOperation.BaseProtocolMethodsOption"))
+                    }
+                }
+            }
+        }
+    }
+
+    /// Allows delegating authorization decisions to Cloud IAP or to
+    /// Service Extensions.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CustomProvider {
+        /// Optional. Delegates authorization decisions to Cloud IAP. Applicable
+        /// only for managed load balancers. Enabling Cloud IAP at the AuthzPolicy
+        /// level is not compatible with Cloud IAP settings in the BackendService.
+        /// Enabling IAP in both places will result in request failure. Ensure that
+        /// IAP is enabled in either the AuthzPolicy or the BackendService but not in
+        /// both places.
+        pub cloud_iap: std::option::Option<crate::model::authz_policy::custom_provider::CloudIap>,
+
+        /// Optional. Delegate authorization decision to user authored Service
+        /// Extension. Only one of cloudIap or authzExtension can be specified.
+        pub authz_extension:
+            std::option::Option<crate::model::authz_policy::custom_provider::AuthzExtension>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CustomProvider {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [cloud_iap][crate::model::authz_policy::CustomProvider::cloud_iap].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::CustomProvider;
+        /// use google_cloud_networksecurity_v1::model::authz_policy::custom_provider::CloudIap;
+        /// let x = CustomProvider::new().set_cloud_iap(CloudIap::default()/* use setters */);
+        /// ```
+        pub fn set_cloud_iap<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::authz_policy::custom_provider::CloudIap>,
+        {
+            self.cloud_iap = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cloud_iap][crate::model::authz_policy::CustomProvider::cloud_iap].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::CustomProvider;
+        /// use google_cloud_networksecurity_v1::model::authz_policy::custom_provider::CloudIap;
+        /// let x = CustomProvider::new().set_or_clear_cloud_iap(Some(CloudIap::default()/* use setters */));
+        /// let x = CustomProvider::new().set_or_clear_cloud_iap(None::<CloudIap>);
+        /// ```
+        pub fn set_or_clear_cloud_iap<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::authz_policy::custom_provider::CloudIap>,
+        {
+            self.cloud_iap = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [authz_extension][crate::model::authz_policy::CustomProvider::authz_extension].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::CustomProvider;
+        /// use google_cloud_networksecurity_v1::model::authz_policy::custom_provider::AuthzExtension;
+        /// let x = CustomProvider::new().set_authz_extension(AuthzExtension::default()/* use setters */);
+        /// ```
+        pub fn set_authz_extension<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::authz_policy::custom_provider::AuthzExtension>,
+        {
+            self.authz_extension = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authz_extension][crate::model::authz_policy::CustomProvider::authz_extension].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::authz_policy::CustomProvider;
+        /// use google_cloud_networksecurity_v1::model::authz_policy::custom_provider::AuthzExtension;
+        /// let x = CustomProvider::new().set_or_clear_authz_extension(Some(AuthzExtension::default()/* use setters */));
+        /// let x = CustomProvider::new().set_or_clear_authz_extension(None::<AuthzExtension>);
+        /// ```
+        pub fn set_or_clear_authz_extension<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::authz_policy::custom_provider::AuthzExtension>,
+        {
+            self.authz_extension = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for CustomProvider {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.CustomProvider"
+        }
+    }
+
+    /// Defines additional types related to [CustomProvider].
+    pub mod custom_provider {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Optional. Delegates authorization decisions to Cloud IAP. Applicable
+        /// only for managed load balancers. Enabling Cloud IAP at the AuthzPolicy
+        /// level is not compatible with Cloud IAP settings in the BackendService.
+        /// Enabling IAP in both places will result in request failure. Ensure that
+        /// IAP is enabled in either the AuthzPolicy or the BackendService but not in
+        /// both places.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct CloudIap {
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl CloudIap {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
+
+        impl wkt::message::Message for CloudIap {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.CustomProvider.CloudIap"
+            }
+        }
+
+        /// Optional. Delegate authorization decision to user authored extension.
+        /// Only one of cloudIap or authzExtension can be specified.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct AuthzExtension {
+            /// Required. A list of references to authorization
+            /// extensions that will be invoked for requests matching this policy.
+            /// Limited to 1 custom provider.
+            pub resources: std::vec::Vec<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl AuthzExtension {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [resources][crate::model::authz_policy::custom_provider::AuthzExtension::resources].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_networksecurity_v1::model::authz_policy::custom_provider::AuthzExtension;
+            /// let x = AuthzExtension::new().set_resources(["a", "b", "c"]);
+            /// ```
+            pub fn set_resources<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.resources = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for AuthzExtension {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.networksecurity.v1.AuthzPolicy.CustomProvider.AuthzExtension"
+            }
+        }
+    }
+
+    /// Load balancing schemes supported by the `AuthzPolicy` resource. The valid
+    /// values are `INTERNAL_MANAGED` and
+    /// `EXTERNAL_MANAGED`. For more information, refer to [Backend services
+    /// overview](https://cloud.google.com/load-balancing/docs/backend-service).
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum LoadBalancingScheme {
+        /// Default value. Do not use.
+        Unspecified,
+        /// Signifies that this is used for Regional internal or Cross-region
+        /// internal Application Load Balancing.
+        InternalManaged,
+        /// Signifies that this is used for Global external or Regional external
+        /// Application Load Balancing.
+        ExternalManaged,
+        /// Signifies that this is used for Cloud Service Mesh. Meant for use by
+        /// CSM GKE controller only.
+        InternalSelfManaged,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [LoadBalancingScheme::value] or
+        /// [LoadBalancingScheme::name].
+        UnknownValue(load_balancing_scheme::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod load_balancing_scheme {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl LoadBalancingScheme {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InternalManaged => std::option::Option::Some(1),
+                Self::ExternalManaged => std::option::Option::Some(2),
+                Self::InternalSelfManaged => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("LOAD_BALANCING_SCHEME_UNSPECIFIED"),
+                Self::InternalManaged => std::option::Option::Some("INTERNAL_MANAGED"),
+                Self::ExternalManaged => std::option::Option::Some("EXTERNAL_MANAGED"),
+                Self::InternalSelfManaged => std::option::Option::Some("INTERNAL_SELF_MANAGED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for LoadBalancingScheme {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for LoadBalancingScheme {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for LoadBalancingScheme {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InternalManaged,
+                2 => Self::ExternalManaged,
+                3 => Self::InternalSelfManaged,
+                _ => Self::UnknownValue(load_balancing_scheme::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for LoadBalancingScheme {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "LOAD_BALANCING_SCHEME_UNSPECIFIED" => Self::Unspecified,
+                "INTERNAL_MANAGED" => Self::InternalManaged,
+                "EXTERNAL_MANAGED" => Self::ExternalManaged,
+                "INTERNAL_SELF_MANAGED" => Self::InternalSelfManaged,
+                _ => Self::UnknownValue(load_balancing_scheme::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for LoadBalancingScheme {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InternalManaged => serializer.serialize_i32(1),
+                Self::ExternalManaged => serializer.serialize_i32(2),
+                Self::InternalSelfManaged => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LoadBalancingScheme {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoadBalancingScheme>::new(
+                ".google.cloud.networksecurity.v1.AuthzPolicy.LoadBalancingScheme",
+            ))
+        }
+    }
+
+    /// The action to be applied to this policy. Valid values are
+    /// `ALLOW`, `DENY`, `CUSTOM`.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AuthzAction {
+        /// Unspecified action.
+        Unspecified,
+        /// Allow request to pass through to the backend.
+        Allow,
+        /// Deny the request and return a HTTP 404 to the client.
+        Deny,
+        /// Delegate the authorization decision to an external authorization engine.
+        Custom,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AuthzAction::value] or
+        /// [AuthzAction::name].
+        UnknownValue(authz_action::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod authz_action {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AuthzAction {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Allow => std::option::Option::Some(1),
+                Self::Deny => std::option::Option::Some(2),
+                Self::Custom => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("AUTHZ_ACTION_UNSPECIFIED"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::Deny => std::option::Option::Some("DENY"),
+                Self::Custom => std::option::Option::Some("CUSTOM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AuthzAction {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AuthzAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AuthzAction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Allow,
+                2 => Self::Deny,
+                3 => Self::Custom,
+                _ => Self::UnknownValue(authz_action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AuthzAction {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AUTHZ_ACTION_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW" => Self::Allow,
+                "DENY" => Self::Deny,
+                "CUSTOM" => Self::Custom,
+                _ => Self::UnknownValue(authz_action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AuthzAction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Allow => serializer.serialize_i32(1),
+                Self::Deny => serializer.serialize_i32(2),
+                Self::Custom => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AuthzAction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AuthzAction>::new(
+                ".google.cloud.networksecurity.v1.AuthzPolicy.AuthzAction",
+            ))
+        }
+    }
+
+    /// The type of authorization being performed.
+    /// New values may be added in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PolicyProfile {
+        /// Unspecified policy profile.
+        Unspecified,
+        /// Applies to request authorization. `CUSTOM` authorization
+        /// policies with Authz extensions will be allowed with `EXT_AUTHZ_GRPC` or
+        /// `EXT_PROC_GRPC` protocols. Extensions are invoked only for request header
+        /// events.
+        RequestAuthz,
+        /// Applies to content security, sanitization, etc. Only
+        /// `CUSTOM` action is allowed in this policy profile. AuthzExtensions in the
+        /// custom provider must support `EXT_PROC_GRPC` protocol only and be capable
+        /// of receiving all `EXT_PROC_GRPC` events (REQUEST_HEADERS, REQUEST_BODY,
+        /// REQUEST_TRAILERS, RESPONSE_HEADERS, RESPONSE_BODY, RESPONSE_TRAILERS)
+        /// with `FULL_DUPLEX_STREAMED` body send mode.
+        ContentAuthz,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PolicyProfile::value] or
+        /// [PolicyProfile::name].
+        UnknownValue(policy_profile::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod policy_profile {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl PolicyProfile {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::RequestAuthz => std::option::Option::Some(1),
+                Self::ContentAuthz => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("POLICY_PROFILE_UNSPECIFIED"),
+                Self::RequestAuthz => std::option::Option::Some("REQUEST_AUTHZ"),
+                Self::ContentAuthz => std::option::Option::Some("CONTENT_AUTHZ"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for PolicyProfile {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PolicyProfile {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PolicyProfile {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::RequestAuthz,
+                2 => Self::ContentAuthz,
+                _ => Self::UnknownValue(policy_profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PolicyProfile {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "POLICY_PROFILE_UNSPECIFIED" => Self::Unspecified,
+                "REQUEST_AUTHZ" => Self::RequestAuthz,
+                "CONTENT_AUTHZ" => Self::ContentAuthz,
+                _ => Self::UnknownValue(policy_profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PolicyProfile {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::RequestAuthz => serializer.serialize_i32(1),
+                Self::ContentAuthz => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PolicyProfile {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PolicyProfile>::new(
+                ".google.cloud.networksecurity.v1.AuthzPolicy.PolicyProfile",
+            ))
+        }
+    }
+}
+
+/// Message for creating an `AuthzPolicy` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateAuthzPolicyRequest {
+    /// Required. The parent resource of the `AuthzPolicy` resource. Must be in
+    /// the format `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Required. User-provided ID of the `AuthzPolicy` resource to be created.
+    pub authz_policy_id: std::string::String,
+
+    /// Required. `AuthzPolicy` resource to be created.
+    pub authz_policy: std::option::Option<crate::model::AuthzPolicy>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server can ignore
+    /// the request if it has already been completed. The server guarantees
+    /// that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, ignores the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAuthzPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateAuthzPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateAuthzPolicyRequest;
+    /// let x = CreateAuthzPolicyRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [authz_policy_id][crate::model::CreateAuthzPolicyRequest::authz_policy_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateAuthzPolicyRequest;
+    /// let x = CreateAuthzPolicyRequest::new().set_authz_policy_id("example");
+    /// ```
+    pub fn set_authz_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.authz_policy_id = v.into();
+        self
+    }
+
+    /// Sets the value of [authz_policy][crate::model::CreateAuthzPolicyRequest::authz_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateAuthzPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// let x = CreateAuthzPolicyRequest::new().set_authz_policy(AuthzPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_authz_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthzPolicy>,
+    {
+        self.authz_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [authz_policy][crate::model::CreateAuthzPolicyRequest::authz_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateAuthzPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// let x = CreateAuthzPolicyRequest::new().set_or_clear_authz_policy(Some(AuthzPolicy::default()/* use setters */));
+    /// let x = CreateAuthzPolicyRequest::new().set_or_clear_authz_policy(None::<AuthzPolicy>);
+    /// ```
+    pub fn set_or_clear_authz_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthzPolicy>,
+    {
+        self.authz_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateAuthzPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateAuthzPolicyRequest;
+    /// let x = CreateAuthzPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAuthzPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateAuthzPolicyRequest"
+    }
+}
+
+/// Message for requesting list of `AuthzPolicy` resources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAuthzPoliciesRequest {
+    /// Required. The project and location from which the `AuthzPolicy` resources
+    /// are listed, specified in the following format:
+    /// `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. The server might return fewer items than
+    /// requested. If unspecified, the server picks an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results that the server returns.
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. Hint for how to order the results.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAuthzPoliciesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAuthzPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListAuthzPoliciesRequest;
+    /// let x = ListAuthzPoliciesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAuthzPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListAuthzPoliciesRequest;
+    /// let x = ListAuthzPoliciesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAuthzPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListAuthzPoliciesRequest;
+    /// let x = ListAuthzPoliciesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListAuthzPoliciesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListAuthzPoliciesRequest;
+    /// let x = ListAuthzPoliciesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListAuthzPoliciesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListAuthzPoliciesRequest;
+    /// let x = ListAuthzPoliciesRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAuthzPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListAuthzPoliciesRequest"
+    }
+}
+
+/// Message for response to listing `AuthzPolicy` resources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAuthzPoliciesResponse {
+    /// The list of `AuthzPolicy` resources.
+    pub authz_policies: std::vec::Vec<crate::model::AuthzPolicy>,
+
+    /// A token identifying a page of results that the server returns.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAuthzPoliciesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [authz_policies][crate::model::ListAuthzPoliciesResponse::authz_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListAuthzPoliciesResponse;
+    /// use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// let x = ListAuthzPoliciesResponse::new()
+    ///     .set_authz_policies([
+    ///         AuthzPolicy::default()/* use setters */,
+    ///         AuthzPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_authz_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuthzPolicy>,
+    {
+        use std::iter::Iterator;
+        self.authz_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAuthzPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListAuthzPoliciesResponse;
+    /// let x = ListAuthzPoliciesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAuthzPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListAuthzPoliciesResponse;
+    /// let x = ListAuthzPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAuthzPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListAuthzPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAuthzPoliciesResponse {
+    type PageItem = crate::model::AuthzPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.authz_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Message for getting a `AuthzPolicy` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAuthzPolicyRequest {
+    /// Required. A name of the `AuthzPolicy` resource to get. Must be in the
+    /// format
+    /// `projects/{project}/locations/{location}/authzPolicies/{authz_policy}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAuthzPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAuthzPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetAuthzPolicyRequest;
+    /// let x = GetAuthzPolicyRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAuthzPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetAuthzPolicyRequest"
+    }
+}
+
+/// Message for updating an `AuthzPolicy` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateAuthzPolicyRequest {
+    /// Required. Used to specify the fields to be overwritten in the
+    /// `AuthzPolicy` resource by the update.
+    /// The fields specified in the `update_mask` are relative to the resource, not
+    /// the full request. A field is overwritten if it is in the mask. If the
+    /// user does not specify a mask, then all fields are overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. `AuthzPolicy` resource being updated.
+    pub authz_policy: std::option::Option<crate::model::AuthzPolicy>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server can ignore
+    /// the request if it has already been completed. The server guarantees
+    /// that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, ignores the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAuthzPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateAuthzPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateAuthzPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAuthzPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAuthzPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateAuthzPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAuthzPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAuthzPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [authz_policy][crate::model::UpdateAuthzPolicyRequest::authz_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateAuthzPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// let x = UpdateAuthzPolicyRequest::new().set_authz_policy(AuthzPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_authz_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthzPolicy>,
+    {
+        self.authz_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [authz_policy][crate::model::UpdateAuthzPolicyRequest::authz_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateAuthzPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// let x = UpdateAuthzPolicyRequest::new().set_or_clear_authz_policy(Some(AuthzPolicy::default()/* use setters */));
+    /// let x = UpdateAuthzPolicyRequest::new().set_or_clear_authz_policy(None::<AuthzPolicy>);
+    /// ```
+    pub fn set_or_clear_authz_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthzPolicy>,
+    {
+        self.authz_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateAuthzPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateAuthzPolicyRequest;
+    /// let x = UpdateAuthzPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAuthzPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateAuthzPolicyRequest"
+    }
+}
+
+/// Message for deleting an `AuthzPolicy` resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteAuthzPolicyRequest {
+    /// Required. The name of the `AuthzPolicy` resource to delete. Must be in
+    /// the format
+    /// `projects/{project}/locations/{location}/authzPolicies/{authz_policy}`.
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server can ignore
+    /// the request if it has already been completed. The server guarantees
+    /// that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, ignores the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteAuthzPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteAuthzPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteAuthzPolicyRequest;
+    /// let x = DeleteAuthzPolicyRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteAuthzPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteAuthzPolicyRequest;
+    /// let x = DeleteAuthzPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteAuthzPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteAuthzPolicyRequest"
+    }
+}
+
+/// BackendAuthenticationConfig message groups the TrustConfig together with
+/// other settings that control how the load balancer authenticates, and
+/// expresses its identity to, the backend:
+///
+/// * `trustConfig` is the attached TrustConfig.
+///
+/// * `wellKnownRoots` indicates whether the load balance should trust backend
+///   server certificates that are issued by public certificate authorities, in
+///   addition to certificates trusted by the TrustConfig.
+///
+/// * `clientCertificate` is a client certificate that the load balancer uses to
+///   express its identity to the backend, if the connection to the backend uses
+///   mTLS.
+///
+///
+/// You can attach the BackendAuthenticationConfig to the load balancer's
+/// BackendService directly determining how that BackendService negotiates TLS.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackendAuthenticationConfig {
+    /// Required. Name of the BackendAuthenticationConfig resource. It matches the
+    /// pattern
+    /// `projects/*/locations/{location}/backendAuthenticationConfigs/{backend_authentication_config}`
+    pub name: std::string::String,
+
+    /// Optional. Free-text description of the resource.
+    pub description: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Set of label tags associated with the resource.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. A reference to a certificatemanager.googleapis.com.Certificate
+    /// resource. This is a relative resource path following the form
+    /// "projects/{project}/locations/{location}/certificates/{certificate}".
+    ///
+    /// Used by a BackendService to negotiate mTLS when the backend connection uses
+    /// TLS and the backend requests a client certificate. Must have a CLIENT_AUTH
+    /// scope.
+    pub client_certificate: std::string::String,
+
+    /// Optional. A reference to a TrustConfig resource from the
+    /// certificatemanager.googleapis.com namespace. This is a relative resource
+    /// path following the form
+    /// "projects/{project}/locations/{location}/trustConfigs/{trust_config}".
+    ///
+    /// A BackendService uses the chain of trust represented by this TrustConfig,
+    /// if specified, to validate the server certificates presented by the backend.
+    /// Required unless wellKnownRoots is set to PUBLIC_ROOTS.
+    pub trust_config: std::string::String,
+
+    /// Well known roots to use for server certificate validation.
+    pub well_known_roots: crate::model::backend_authentication_config::WellKnownRoots,
+
+    /// Output only. Etag of the resource.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackendAuthenticationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BackendAuthenticationConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = BackendAuthenticationConfig::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::BackendAuthenticationConfig::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = BackendAuthenticationConfig::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::BackendAuthenticationConfig::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// use wkt::Timestamp;
+    /// let x = BackendAuthenticationConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::BackendAuthenticationConfig::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// use wkt::Timestamp;
+    /// let x = BackendAuthenticationConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackendAuthenticationConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::BackendAuthenticationConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// use wkt::Timestamp;
+    /// let x = BackendAuthenticationConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::BackendAuthenticationConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// use wkt::Timestamp;
+    /// let x = BackendAuthenticationConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackendAuthenticationConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::BackendAuthenticationConfig::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = BackendAuthenticationConfig::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [client_certificate][crate::model::BackendAuthenticationConfig::client_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = BackendAuthenticationConfig::new().set_client_certificate("example");
+    /// ```
+    pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.client_certificate = v.into();
+        self
+    }
+
+    /// Sets the value of [trust_config][crate::model::BackendAuthenticationConfig::trust_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = BackendAuthenticationConfig::new().set_trust_config("example");
+    /// ```
+    pub fn set_trust_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.trust_config = v.into();
+        self
+    }
+
+    /// Sets the value of [well_known_roots][crate::model::BackendAuthenticationConfig::well_known_roots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// use google_cloud_networksecurity_v1::model::backend_authentication_config::WellKnownRoots;
+    /// let x0 = BackendAuthenticationConfig::new().set_well_known_roots(WellKnownRoots::None);
+    /// let x1 = BackendAuthenticationConfig::new().set_well_known_roots(WellKnownRoots::PublicRoots);
+    /// ```
+    pub fn set_well_known_roots<
+        T: std::convert::Into<crate::model::backend_authentication_config::WellKnownRoots>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.well_known_roots = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::BackendAuthenticationConfig::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = BackendAuthenticationConfig::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackendAuthenticationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.BackendAuthenticationConfig"
+    }
+}
+
+/// Defines additional types related to [BackendAuthenticationConfig].
+pub mod backend_authentication_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Enum to specify the well known roots to use for server certificate
+    /// validation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum WellKnownRoots {
+        /// Equivalent to NONE.
+        Unspecified,
+        /// The BackendService will only validate server certificates against roots
+        /// specified in TrustConfig.
+        None,
+        /// The BackendService uses a set of well-known public roots, in addition to
+        /// any roots specified in the trustConfig field, when validating the server
+        /// certificates presented by the backend. Validation with these roots is
+        /// only considered when the TlsSettings.sni field in the BackendService is
+        /// set.
+        ///
+        /// The well-known roots are a set of root CAs managed by Google. CAs in this
+        /// set can be added or removed without notice.
+        PublicRoots,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [WellKnownRoots::value] or
+        /// [WellKnownRoots::name].
+        UnknownValue(well_known_roots::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod well_known_roots {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl WellKnownRoots {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::None => std::option::Option::Some(1),
+                Self::PublicRoots => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("WELL_KNOWN_ROOTS_UNSPECIFIED"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::PublicRoots => std::option::Option::Some("PUBLIC_ROOTS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for WellKnownRoots {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for WellKnownRoots {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for WellKnownRoots {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::None,
+                2 => Self::PublicRoots,
+                _ => Self::UnknownValue(well_known_roots::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for WellKnownRoots {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "WELL_KNOWN_ROOTS_UNSPECIFIED" => Self::Unspecified,
+                "NONE" => Self::None,
+                "PUBLIC_ROOTS" => Self::PublicRoots,
+                _ => Self::UnknownValue(well_known_roots::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for WellKnownRoots {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::None => serializer.serialize_i32(1),
+                Self::PublicRoots => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WellKnownRoots {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<WellKnownRoots>::new(
+                ".google.cloud.networksecurity.v1.BackendAuthenticationConfig.WellKnownRoots",
+            ))
+        }
+    }
+}
+
+/// Request used by the ListBackendAuthenticationConfigs method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBackendAuthenticationConfigsRequest {
+    /// Required. The project and location from which the
+    /// BackendAuthenticationConfigs should be listed, specified in the format
+    /// `projects/*/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Maximum number of BackendAuthenticationConfigs to return per call.
+    pub page_size: i32,
+
+    /// The value returned by the last `ListBackendAuthenticationConfigsResponse`
+    /// Indicates that this is a continuation of a prior
+    /// `ListBackendAuthenticationConfigs` call, and that the system
+    /// should return the next page of data.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackendAuthenticationConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListBackendAuthenticationConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListBackendAuthenticationConfigsRequest;
+    /// let x = ListBackendAuthenticationConfigsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBackendAuthenticationConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListBackendAuthenticationConfigsRequest;
+    /// let x = ListBackendAuthenticationConfigsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBackendAuthenticationConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListBackendAuthenticationConfigsRequest;
+    /// let x = ListBackendAuthenticationConfigsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackendAuthenticationConfigsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListBackendAuthenticationConfigsRequest"
+    }
+}
+
+/// Response returned by the ListBackendAuthenticationConfigs method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBackendAuthenticationConfigsResponse {
+    /// List of BackendAuthenticationConfig resources.
+    pub backend_authentication_configs: std::vec::Vec<crate::model::BackendAuthenticationConfig>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// `next_page_token` is included. To get the next set of results, call this
+    /// method again using the value of `next_page_token` as `page_token`.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBackendAuthenticationConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backend_authentication_configs][crate::model::ListBackendAuthenticationConfigsResponse::backend_authentication_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListBackendAuthenticationConfigsResponse;
+    /// use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = ListBackendAuthenticationConfigsResponse::new()
+    ///     .set_backend_authentication_configs([
+    ///         BackendAuthenticationConfig::default()/* use setters */,
+    ///         BackendAuthenticationConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_backend_authentication_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackendAuthenticationConfig>,
+    {
+        use std::iter::Iterator;
+        self.backend_authentication_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBackendAuthenticationConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListBackendAuthenticationConfigsResponse;
+    /// let x = ListBackendAuthenticationConfigsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListBackendAuthenticationConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListBackendAuthenticationConfigsResponse;
+    /// let x = ListBackendAuthenticationConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBackendAuthenticationConfigsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListBackendAuthenticationConfigsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListBackendAuthenticationConfigsResponse
+{
+    type PageItem = crate::model::BackendAuthenticationConfig;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.backend_authentication_configs
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request used by the GetBackendAuthenticationConfig method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetBackendAuthenticationConfigRequest {
+    /// Required. A name of the BackendAuthenticationConfig to get. Must be in the
+    /// format `projects/*/locations/{location}/backendAuthenticationConfigs/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetBackendAuthenticationConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetBackendAuthenticationConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetBackendAuthenticationConfigRequest;
+    /// let x = GetBackendAuthenticationConfigRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetBackendAuthenticationConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetBackendAuthenticationConfigRequest"
+    }
+}
+
+/// Request used by the CreateBackendAuthenticationConfig method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateBackendAuthenticationConfigRequest {
+    /// Required. The parent resource of the BackendAuthenticationConfig. Must be
+    /// in the format `projects/*/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Required. Short name of the BackendAuthenticationConfig resource to be
+    /// created. This value should be 1-63 characters long, containing only
+    /// letters, numbers, hyphens, and underscores, and should not start with a
+    /// number. E.g. "backend-auth-config".
+    pub backend_authentication_config_id: std::string::String,
+
+    /// Required. BackendAuthenticationConfig resource to be created.
+    pub backend_authentication_config:
+        std::option::Option<crate::model::BackendAuthenticationConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateBackendAuthenticationConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateBackendAuthenticationConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateBackendAuthenticationConfigRequest;
+    /// let x = CreateBackendAuthenticationConfigRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [backend_authentication_config_id][crate::model::CreateBackendAuthenticationConfigRequest::backend_authentication_config_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateBackendAuthenticationConfigRequest;
+    /// let x = CreateBackendAuthenticationConfigRequest::new().set_backend_authentication_config_id("example");
+    /// ```
+    pub fn set_backend_authentication_config_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backend_authentication_config_id = v.into();
+        self
+    }
+
+    /// Sets the value of [backend_authentication_config][crate::model::CreateBackendAuthenticationConfigRequest::backend_authentication_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateBackendAuthenticationConfigRequest;
+    /// use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = CreateBackendAuthenticationConfigRequest::new().set_backend_authentication_config(BackendAuthenticationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_backend_authentication_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackendAuthenticationConfig>,
+    {
+        self.backend_authentication_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backend_authentication_config][crate::model::CreateBackendAuthenticationConfigRequest::backend_authentication_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateBackendAuthenticationConfigRequest;
+    /// use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = CreateBackendAuthenticationConfigRequest::new().set_or_clear_backend_authentication_config(Some(BackendAuthenticationConfig::default()/* use setters */));
+    /// let x = CreateBackendAuthenticationConfigRequest::new().set_or_clear_backend_authentication_config(None::<BackendAuthenticationConfig>);
+    /// ```
+    pub fn set_or_clear_backend_authentication_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::BackendAuthenticationConfig>,
+    {
+        self.backend_authentication_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateBackendAuthenticationConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateBackendAuthenticationConfigRequest"
+    }
+}
+
+/// Request used by UpdateBackendAuthenticationConfig method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateBackendAuthenticationConfigRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// BackendAuthenticationConfig resource by the update.  The fields
+    /// specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the
+    /// mask. If the user does not provide a mask then all fields will be
+    /// overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated BackendAuthenticationConfig resource.
+    pub backend_authentication_config:
+        std::option::Option<crate::model::BackendAuthenticationConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateBackendAuthenticationConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateBackendAuthenticationConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateBackendAuthenticationConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackendAuthenticationConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateBackendAuthenticationConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateBackendAuthenticationConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackendAuthenticationConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBackendAuthenticationConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [backend_authentication_config][crate::model::UpdateBackendAuthenticationConfigRequest::backend_authentication_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateBackendAuthenticationConfigRequest;
+    /// use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = UpdateBackendAuthenticationConfigRequest::new().set_backend_authentication_config(BackendAuthenticationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_backend_authentication_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackendAuthenticationConfig>,
+    {
+        self.backend_authentication_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backend_authentication_config][crate::model::UpdateBackendAuthenticationConfigRequest::backend_authentication_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateBackendAuthenticationConfigRequest;
+    /// use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// let x = UpdateBackendAuthenticationConfigRequest::new().set_or_clear_backend_authentication_config(Some(BackendAuthenticationConfig::default()/* use setters */));
+    /// let x = UpdateBackendAuthenticationConfigRequest::new().set_or_clear_backend_authentication_config(None::<BackendAuthenticationConfig>);
+    /// ```
+    pub fn set_or_clear_backend_authentication_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::BackendAuthenticationConfig>,
+    {
+        self.backend_authentication_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateBackendAuthenticationConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateBackendAuthenticationConfigRequest"
+    }
+}
+
+/// Request used by the DeleteBackendAuthenticationConfig method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteBackendAuthenticationConfigRequest {
+    /// Required. A name of the BackendAuthenticationConfig to delete. Must be in
+    /// the format
+    /// `projects/*/locations/{location}/backendAuthenticationConfigs/*`.
+    pub name: std::string::String,
+
+    /// Optional. Etag of the resource.
+    /// If this is provided, it must match the server's etag.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteBackendAuthenticationConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteBackendAuthenticationConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteBackendAuthenticationConfigRequest;
+    /// let x = DeleteBackendAuthenticationConfigRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteBackendAuthenticationConfigRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteBackendAuthenticationConfigRequest;
+    /// let x = DeleteBackendAuthenticationConfigRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteBackendAuthenticationConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteBackendAuthenticationConfigRequest"
+    }
+}
+
 /// ClientTlsPolicy is a resource that specifies how a client should authenticate
 /// connections to backends of a service. This resource itself does not affect
 /// configuration unless it is attached to a backend service resource.
@@ -2685,7 +6750,7 @@ impl wkt::message::Message for DeleteAuthorizationPolicyRequest {
 #[non_exhaustive]
 pub struct ClientTlsPolicy {
     /// Required. Name of the ClientTlsPolicy resource. It matches the pattern
-    /// `projects/*/locations/{location}/clientTlsPolicies/{client_tls_policy}`
+    /// `projects/{project}/locations/{location}/clientTlsPolicies/{client_tls_policy}`
     pub name: std::string::String,
 
     /// Optional. Free-text description of the resource.
@@ -2704,13 +6769,14 @@ pub struct ClientTlsPolicy {
     /// handshake. E.g: "secure.example.com".
     pub sni: std::string::String,
 
-    /// Optional. Defines a mechanism to provision client identity (public and private keys)
-    /// for peer to peer authentication. The presence of this dictates mTLS.
+    /// Optional. Defines a mechanism to provision client identity (public and
+    /// private keys) for peer to peer authentication. The presence of this
+    /// dictates mTLS.
     pub client_certificate: std::option::Option<crate::model::CertificateProvider>,
 
-    /// Optional. Defines the mechanism to obtain the Certificate Authority certificate to
-    /// validate the server certificate. If empty, client does not validate the
-    /// server certificate.
+    /// Optional. Defines the mechanism to obtain the Certificate Authority
+    /// certificate to validate the server certificate. If empty, client does not
+    /// validate the server certificate.
     pub server_validation_ca: std::vec::Vec<crate::model::ValidationCA>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3092,9 +7158,10 @@ pub struct CreateClientTlsPolicyRequest {
     /// the format `projects/*/locations/{location}`.
     pub parent: std::string::String,
 
-    /// Required. Short name of the ClientTlsPolicy resource to be created. This value should
-    /// be 1-63 characters long, containing only letters, numbers, hyphens, and
-    /// underscores, and should not start with a number. E.g. "client_mtls_policy".
+    /// Required. Short name of the ClientTlsPolicy resource to be created. This
+    /// value should be 1-63 characters long, containing only letters, numbers,
+    /// hyphens, and underscores, and should not start with a number. E.g.
+    /// "client_mtls_policy".
     pub client_tls_policy_id: std::string::String,
 
     /// Required. ClientTlsPolicy resource to be created.
@@ -3327,8 +7394,9 @@ pub struct OperationMetadata {
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
-    /// have [Operation.error][] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
-    /// corresponding to `Code.CANCELLED`.
+    /// have [Operation.error][] value with a
+    /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
+    /// `Code.CANCELLED`.
     ///
     /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
     pub requested_cancellation: bool,
@@ -3477,9 +7545,15319 @@ impl wkt::message::Message for OperationMetadata {
     }
 }
 
+/// A DNS threat detector sends DNS query logs to a _provider_ that then
+/// analyzes the logs to identify threat events in the DNS queries.
+/// By default, all VPC networks in your projects are included. You can exclude
+/// specific networks by supplying `excluded_networks`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DnsThreatDetector {
+    /// Immutable. Identifier. Name of the DnsThreatDetector resource.
+    pub name: std::string::String,
+
+    /// Output only. Create time stamp.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Update time stamp.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Any labels associated with the DnsThreatDetector, listed as key
+    /// value pairs.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. A list of network resource names which aren't monitored by this
+    /// DnsThreatDetector.
+    ///
+    /// Example:
+    /// `projects/PROJECT_ID/global/networks/NETWORK_NAME`.
+    pub excluded_networks: std::vec::Vec<std::string::String>,
+
+    /// Required. The provider used for DNS threat analysis.
+    pub provider: crate::model::dns_threat_detector::Provider,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DnsThreatDetector {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DnsThreatDetector::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// let x = DnsThreatDetector::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::DnsThreatDetector::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// use wkt::Timestamp;
+    /// let x = DnsThreatDetector::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DnsThreatDetector::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// use wkt::Timestamp;
+    /// let x = DnsThreatDetector::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DnsThreatDetector::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DnsThreatDetector::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// use wkt::Timestamp;
+    /// let x = DnsThreatDetector::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DnsThreatDetector::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// use wkt::Timestamp;
+    /// let x = DnsThreatDetector::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DnsThreatDetector::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::DnsThreatDetector::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// let x = DnsThreatDetector::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [excluded_networks][crate::model::DnsThreatDetector::excluded_networks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// let x = DnsThreatDetector::new().set_excluded_networks(["a", "b", "c"]);
+    /// ```
+    pub fn set_excluded_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.excluded_networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [provider][crate::model::DnsThreatDetector::provider].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// use google_cloud_networksecurity_v1::model::dns_threat_detector::Provider;
+    /// let x0 = DnsThreatDetector::new().set_provider(Provider::Infoblox);
+    /// ```
+    pub fn set_provider<T: std::convert::Into<crate::model::dns_threat_detector::Provider>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.provider = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DnsThreatDetector {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DnsThreatDetector"
+    }
+}
+
+/// Defines additional types related to [DnsThreatDetector].
+pub mod dns_threat_detector {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Name of the provider used for DNS threat analysis.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Provider {
+        /// An unspecified provider.
+        Unspecified,
+        /// The Infoblox DNS threat detector provider.
+        Infoblox,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Provider::value] or
+        /// [Provider::name].
+        UnknownValue(provider::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod provider {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Provider {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Infoblox => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROVIDER_UNSPECIFIED"),
+                Self::Infoblox => std::option::Option::Some("INFOBLOX"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Provider {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Provider {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Provider {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Infoblox,
+                _ => Self::UnknownValue(provider::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Provider {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROVIDER_UNSPECIFIED" => Self::Unspecified,
+                "INFOBLOX" => Self::Infoblox,
+                _ => Self::UnknownValue(provider::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Provider {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Infoblox => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Provider {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Provider>::new(
+                ".google.cloud.networksecurity.v1.DnsThreatDetector.Provider",
+            ))
+        }
+    }
+}
+
+/// The message for requesting a list of DnsThreatDetectors in the project.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDnsThreatDetectorsRequest {
+    /// Required. The parent value for `ListDnsThreatDetectorsRequest`.
+    pub parent: std::string::String,
+
+    /// Optional. The requested page size. The server may return fewer items than
+    /// requested. If unspecified, the server picks an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A page token received from a previous
+    /// `ListDnsThreatDetectorsRequest` call. Provide this to retrieve the
+    /// subsequent page.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDnsThreatDetectorsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDnsThreatDetectorsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListDnsThreatDetectorsRequest;
+    /// let x = ListDnsThreatDetectorsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDnsThreatDetectorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListDnsThreatDetectorsRequest;
+    /// let x = ListDnsThreatDetectorsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDnsThreatDetectorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListDnsThreatDetectorsRequest;
+    /// let x = ListDnsThreatDetectorsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDnsThreatDetectorsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListDnsThreatDetectorsRequest"
+    }
+}
+
+/// The response message to requesting a list of DnsThreatDetectors.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDnsThreatDetectorsResponse {
+    /// The list of DnsThreatDetector resources.
+    pub dns_threat_detectors: std::vec::Vec<crate::model::DnsThreatDetector>,
+
+    /// A token, which can be sent as `page_token`, to retrieve the next page.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Unreachable `DnsThreatDetector` resources.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDnsThreatDetectorsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dns_threat_detectors][crate::model::ListDnsThreatDetectorsResponse::dns_threat_detectors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListDnsThreatDetectorsResponse;
+    /// use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// let x = ListDnsThreatDetectorsResponse::new()
+    ///     .set_dns_threat_detectors([
+    ///         DnsThreatDetector::default()/* use setters */,
+    ///         DnsThreatDetector::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_dns_threat_detectors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DnsThreatDetector>,
+    {
+        use std::iter::Iterator;
+        self.dns_threat_detectors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDnsThreatDetectorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListDnsThreatDetectorsResponse;
+    /// let x = ListDnsThreatDetectorsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListDnsThreatDetectorsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListDnsThreatDetectorsResponse;
+    /// let x = ListDnsThreatDetectorsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDnsThreatDetectorsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListDnsThreatDetectorsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDnsThreatDetectorsResponse {
+    type PageItem = crate::model::DnsThreatDetector;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.dns_threat_detectors
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The message sent to get a DnsThreatDetector.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDnsThreatDetectorRequest {
+    /// Required. Name of the DnsThreatDetector resource.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDnsThreatDetectorRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDnsThreatDetectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetDnsThreatDetectorRequest;
+    /// let x = GetDnsThreatDetectorRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDnsThreatDetectorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetDnsThreatDetectorRequest"
+    }
+}
+
+/// The message to create a DnsThreatDetector.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateDnsThreatDetectorRequest {
+    /// Required. The value for the parent of the DnsThreatDetector resource.
+    pub parent: std::string::String,
+
+    /// Optional. The ID of the requesting DnsThreatDetector object.
+    /// If this field is not supplied, the service generates an identifier.
+    pub dns_threat_detector_id: std::string::String,
+
+    /// Required. The `DnsThreatDetector` resource to create.
+    pub dns_threat_detector: std::option::Option<crate::model::DnsThreatDetector>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateDnsThreatDetectorRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateDnsThreatDetectorRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateDnsThreatDetectorRequest;
+    /// let x = CreateDnsThreatDetectorRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [dns_threat_detector_id][crate::model::CreateDnsThreatDetectorRequest::dns_threat_detector_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateDnsThreatDetectorRequest;
+    /// let x = CreateDnsThreatDetectorRequest::new().set_dns_threat_detector_id("example");
+    /// ```
+    pub fn set_dns_threat_detector_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dns_threat_detector_id = v.into();
+        self
+    }
+
+    /// Sets the value of [dns_threat_detector][crate::model::CreateDnsThreatDetectorRequest::dns_threat_detector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateDnsThreatDetectorRequest;
+    /// use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// let x = CreateDnsThreatDetectorRequest::new().set_dns_threat_detector(DnsThreatDetector::default()/* use setters */);
+    /// ```
+    pub fn set_dns_threat_detector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsThreatDetector>,
+    {
+        self.dns_threat_detector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dns_threat_detector][crate::model::CreateDnsThreatDetectorRequest::dns_threat_detector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateDnsThreatDetectorRequest;
+    /// use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// let x = CreateDnsThreatDetectorRequest::new().set_or_clear_dns_threat_detector(Some(DnsThreatDetector::default()/* use setters */));
+    /// let x = CreateDnsThreatDetectorRequest::new().set_or_clear_dns_threat_detector(None::<DnsThreatDetector>);
+    /// ```
+    pub fn set_or_clear_dns_threat_detector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsThreatDetector>,
+    {
+        self.dns_threat_detector = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateDnsThreatDetectorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateDnsThreatDetectorRequest"
+    }
+}
+
+/// The message for updating a DnsThreatDetector.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateDnsThreatDetectorRequest {
+    /// Optional. The field mask is used to specify the fields to be overwritten in
+    /// the DnsThreatDetector resource by the update. The fields specified in the
+    /// update_mask are relative to the resource, not the full request. A field
+    /// will be overwritten if it is in the mask. If the mask is not provided then
+    /// all fields present in the request will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The DnsThreatDetector resource being updated.
+    pub dns_threat_detector: std::option::Option<crate::model::DnsThreatDetector>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateDnsThreatDetectorRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateDnsThreatDetectorRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateDnsThreatDetectorRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDnsThreatDetectorRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDnsThreatDetectorRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateDnsThreatDetectorRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDnsThreatDetectorRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDnsThreatDetectorRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dns_threat_detector][crate::model::UpdateDnsThreatDetectorRequest::dns_threat_detector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateDnsThreatDetectorRequest;
+    /// use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// let x = UpdateDnsThreatDetectorRequest::new().set_dns_threat_detector(DnsThreatDetector::default()/* use setters */);
+    /// ```
+    pub fn set_dns_threat_detector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsThreatDetector>,
+    {
+        self.dns_threat_detector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dns_threat_detector][crate::model::UpdateDnsThreatDetectorRequest::dns_threat_detector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateDnsThreatDetectorRequest;
+    /// use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// let x = UpdateDnsThreatDetectorRequest::new().set_or_clear_dns_threat_detector(Some(DnsThreatDetector::default()/* use setters */));
+    /// let x = UpdateDnsThreatDetectorRequest::new().set_or_clear_dns_threat_detector(None::<DnsThreatDetector>);
+    /// ```
+    pub fn set_or_clear_dns_threat_detector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DnsThreatDetector>,
+    {
+        self.dns_threat_detector = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateDnsThreatDetectorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateDnsThreatDetectorRequest"
+    }
+}
+
+/// The message for deleting a DnsThreatDetector.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteDnsThreatDetectorRequest {
+    /// Required. Name of the DnsThreatDetector resource.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteDnsThreatDetectorRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteDnsThreatDetectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteDnsThreatDetectorRequest;
+    /// let x = DeleteDnsThreatDetectorRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteDnsThreatDetectorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteDnsThreatDetectorRequest"
+    }
+}
+
+/// Message describing Endpoint object.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FirewallEndpoint {
+    /// Immutable. Identifier. Name of resource.
+    pub name: std::string::String,
+
+    /// Optional. Description of the firewall endpoint. Max length 2048
+    /// characters.
+    pub description: std::string::String,
+
+    /// Output only. Create time stamp.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Update time stamp
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels as key value pairs
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. Current state of the endpoint.
+    pub state: crate::model::firewall_endpoint::State,
+
+    /// Output only. Whether reconciling is in progress, recommended per
+    /// <https://google.aip.dev/128>.
+    pub reconciling: bool,
+
+    /// Output only. List of networks that are associated with this endpoint in the
+    /// local zone. This is a projection of the FirewallEndpointAssociations
+    /// pointing at this endpoint. A network will only appear in this list after
+    /// traffic routing is fully configured. Format:
+    /// projects/{project}/global/networks/{name}.
+    #[deprecated]
+    pub associated_networks: std::vec::Vec<std::string::String>,
+
+    /// Output only. List of FirewallEndpointAssociations that are associated to
+    /// this endpoint. An association will only appear in this list after traffic
+    /// routing is fully configured.
+    pub associations: std::vec::Vec<crate::model::firewall_endpoint::AssociationReference>,
+
+    /// Output only. [Output Only] Reserved for future use.
+    pub satisfies_pzs: std::option::Option<bool>,
+
+    /// Output only. [Output Only] Reserved for future use.
+    pub satisfies_pzi: std::option::Option<bool>,
+
+    /// Optional. Project to charge for the deployed firewall endpoint.
+    /// This field must be specified when creating the endpoint in the organization
+    /// scope, and should be omitted otherwise.
+    pub billing_project_id: std::string::String,
+
+    /// Optional. Settings for the endpoint.
+    pub endpoint_settings: std::option::Option<crate::model::firewall_endpoint::EndpointSettings>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FirewallEndpoint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FirewallEndpoint::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = FirewallEndpoint::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::FirewallEndpoint::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = FirewallEndpoint::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::FirewallEndpoint::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// use wkt::Timestamp;
+    /// let x = FirewallEndpoint::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::FirewallEndpoint::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// use wkt::Timestamp;
+    /// let x = FirewallEndpoint::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FirewallEndpoint::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::FirewallEndpoint::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// use wkt::Timestamp;
+    /// let x = FirewallEndpoint::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FirewallEndpoint::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// use wkt::Timestamp;
+    /// let x = FirewallEndpoint::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FirewallEndpoint::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::FirewallEndpoint::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = FirewallEndpoint::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::FirewallEndpoint::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// use google_cloud_networksecurity_v1::model::firewall_endpoint::State;
+    /// let x0 = FirewallEndpoint::new().set_state(State::Creating);
+    /// let x1 = FirewallEndpoint::new().set_state(State::Active);
+    /// let x2 = FirewallEndpoint::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::firewall_endpoint::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::FirewallEndpoint::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = FirewallEndpoint::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [associated_networks][crate::model::FirewallEndpoint::associated_networks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = FirewallEndpoint::new().set_associated_networks(["a", "b", "c"]);
+    /// ```
+    #[deprecated]
+    pub fn set_associated_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.associated_networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [associations][crate::model::FirewallEndpoint::associations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// use google_cloud_networksecurity_v1::model::firewall_endpoint::AssociationReference;
+    /// let x = FirewallEndpoint::new()
+    ///     .set_associations([
+    ///         AssociationReference::default()/* use setters */,
+    ///         AssociationReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_associations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::firewall_endpoint::AssociationReference>,
+    {
+        use std::iter::Iterator;
+        self.associations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::FirewallEndpoint::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = FirewallEndpoint::new().set_satisfies_pzs(true);
+    /// ```
+    pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzs][crate::model::FirewallEndpoint::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = FirewallEndpoint::new().set_or_clear_satisfies_pzs(Some(false));
+    /// let x = FirewallEndpoint::new().set_or_clear_satisfies_pzs(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzs = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [satisfies_pzi][crate::model::FirewallEndpoint::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = FirewallEndpoint::new().set_satisfies_pzi(true);
+    /// ```
+    pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [satisfies_pzi][crate::model::FirewallEndpoint::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = FirewallEndpoint::new().set_or_clear_satisfies_pzi(Some(false));
+    /// let x = FirewallEndpoint::new().set_or_clear_satisfies_pzi(None::<bool>);
+    /// ```
+    pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.satisfies_pzi = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [billing_project_id][crate::model::FirewallEndpoint::billing_project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = FirewallEndpoint::new().set_billing_project_id("example");
+    /// ```
+    pub fn set_billing_project_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.billing_project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [endpoint_settings][crate::model::FirewallEndpoint::endpoint_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// use google_cloud_networksecurity_v1::model::firewall_endpoint::EndpointSettings;
+    /// let x = FirewallEndpoint::new().set_endpoint_settings(EndpointSettings::default()/* use setters */);
+    /// ```
+    pub fn set_endpoint_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_endpoint::EndpointSettings>,
+    {
+        self.endpoint_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [endpoint_settings][crate::model::FirewallEndpoint::endpoint_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// use google_cloud_networksecurity_v1::model::firewall_endpoint::EndpointSettings;
+    /// let x = FirewallEndpoint::new().set_or_clear_endpoint_settings(Some(EndpointSettings::default()/* use setters */));
+    /// let x = FirewallEndpoint::new().set_or_clear_endpoint_settings(None::<EndpointSettings>);
+    /// ```
+    pub fn set_or_clear_endpoint_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_endpoint::EndpointSettings>,
+    {
+        self.endpoint_settings = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for FirewallEndpoint {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.FirewallEndpoint"
+    }
+}
+
+/// Defines additional types related to [FirewallEndpoint].
+pub mod firewall_endpoint {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// This is a subset of the FirewallEndpointAssociation message, containing
+    /// fields to be used by the consumer.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AssociationReference {
+        /// Output only. The resource name of the FirewallEndpointAssociation.
+        /// Format:
+        /// projects/{project}/locations/{location}/firewallEndpointAssociations/{id}
+        pub name: std::string::String,
+
+        /// Output only. The VPC network associated. Format:
+        /// projects/{project}/global/networks/{name}.
+        pub network: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AssociationReference {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::firewall_endpoint::AssociationReference::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::firewall_endpoint::AssociationReference;
+        /// let x = AssociationReference::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [network][crate::model::firewall_endpoint::AssociationReference::network].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::firewall_endpoint::AssociationReference;
+        /// let x = AssociationReference::new().set_network("example");
+        /// ```
+        pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.network = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AssociationReference {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.FirewallEndpoint.AssociationReference"
+        }
+    }
+
+    /// Settings for the endpoint.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EndpointSettings {
+        /// Optional. Immutable. Indicates whether Jumbo Frames are enabled.
+        /// Default value is false.
+        pub jumbo_frames_enabled: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EndpointSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [jumbo_frames_enabled][crate::model::firewall_endpoint::EndpointSettings::jumbo_frames_enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::firewall_endpoint::EndpointSettings;
+        /// let x = EndpointSettings::new().set_jumbo_frames_enabled(true);
+        /// ```
+        pub fn set_jumbo_frames_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.jumbo_frames_enabled = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for EndpointSettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.FirewallEndpoint.EndpointSettings"
+        }
+    }
+
+    /// Endpoint state.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// Being created.
+        Creating,
+        /// Processing configuration updates.
+        Active,
+        /// Being deleted.
+        Deleting,
+        /// Down or in an error state.
+        Inactive,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Inactive => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Deleting,
+                4 => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETING" => Self::Deleting,
+                "INACTIVE" => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Inactive => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.FirewallEndpoint.State",
+            ))
+        }
+    }
+}
+
+/// Message for requesting list of Endpoints
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFirewallEndpointsRequest {
+    /// Required. Parent value for ListEndpointsRequest
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
+    pub page_size: i32,
+
+    /// A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results
+    pub filter: std::string::String,
+
+    /// Hint for how to order the results
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFirewallEndpointsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListFirewallEndpointsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointsRequest;
+    /// let x = ListFirewallEndpointsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListFirewallEndpointsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointsRequest;
+    /// let x = ListFirewallEndpointsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListFirewallEndpointsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointsRequest;
+    /// let x = ListFirewallEndpointsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListFirewallEndpointsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointsRequest;
+    /// let x = ListFirewallEndpointsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListFirewallEndpointsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointsRequest;
+    /// let x = ListFirewallEndpointsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFirewallEndpointsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListFirewallEndpointsRequest"
+    }
+}
+
+/// Message for response to listing Endpoints
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFirewallEndpointsResponse {
+    /// The list of Endpoint
+    pub firewall_endpoints: std::vec::Vec<crate::model::FirewallEndpoint>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFirewallEndpointsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [firewall_endpoints][crate::model::ListFirewallEndpointsResponse::firewall_endpoints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointsResponse;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = ListFirewallEndpointsResponse::new()
+    ///     .set_firewall_endpoints([
+    ///         FirewallEndpoint::default()/* use setters */,
+    ///         FirewallEndpoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_firewall_endpoints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FirewallEndpoint>,
+    {
+        use std::iter::Iterator;
+        self.firewall_endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFirewallEndpointsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointsResponse;
+    /// let x = ListFirewallEndpointsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListFirewallEndpointsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointsResponse;
+    /// let x = ListFirewallEndpointsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFirewallEndpointsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListFirewallEndpointsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFirewallEndpointsResponse {
+    type PageItem = crate::model::FirewallEndpoint;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.firewall_endpoints
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Message for getting a Endpoint
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetFirewallEndpointRequest {
+    /// Required. Name of the resource
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetFirewallEndpointRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetFirewallEndpointRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetFirewallEndpointRequest;
+    /// let x = GetFirewallEndpointRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetFirewallEndpointRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetFirewallEndpointRequest"
+    }
+}
+
+/// Message for creating a Endpoint
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateFirewallEndpointRequest {
+    /// Required. Value for parent.
+    pub parent: std::string::String,
+
+    /// Required. Id of the requesting object.
+    /// If auto-generating Id server-side, remove this field and
+    /// firewall_endpoint_id from the method_signature of Create RPC.
+    pub firewall_endpoint_id: std::string::String,
+
+    /// Required. The resource being created
+    pub firewall_endpoint: std::option::Option<crate::model::FirewallEndpoint>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateFirewallEndpointRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateFirewallEndpointRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointRequest;
+    /// let x = CreateFirewallEndpointRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [firewall_endpoint_id][crate::model::CreateFirewallEndpointRequest::firewall_endpoint_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointRequest;
+    /// let x = CreateFirewallEndpointRequest::new().set_firewall_endpoint_id("example");
+    /// ```
+    pub fn set_firewall_endpoint_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.firewall_endpoint_id = v.into();
+        self
+    }
+
+    /// Sets the value of [firewall_endpoint][crate::model::CreateFirewallEndpointRequest::firewall_endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointRequest;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = CreateFirewallEndpointRequest::new().set_firewall_endpoint(FirewallEndpoint::default()/* use setters */);
+    /// ```
+    pub fn set_firewall_endpoint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FirewallEndpoint>,
+    {
+        self.firewall_endpoint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [firewall_endpoint][crate::model::CreateFirewallEndpointRequest::firewall_endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointRequest;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = CreateFirewallEndpointRequest::new().set_or_clear_firewall_endpoint(Some(FirewallEndpoint::default()/* use setters */));
+    /// let x = CreateFirewallEndpointRequest::new().set_or_clear_firewall_endpoint(None::<FirewallEndpoint>);
+    /// ```
+    pub fn set_or_clear_firewall_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FirewallEndpoint>,
+    {
+        self.firewall_endpoint = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateFirewallEndpointRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointRequest;
+    /// let x = CreateFirewallEndpointRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateFirewallEndpointRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateFirewallEndpointRequest"
+    }
+}
+
+/// Message for updating a Endpoint
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateFirewallEndpointRequest {
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// Endpoint resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated
+    pub firewall_endpoint: std::option::Option<crate::model::FirewallEndpoint>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateFirewallEndpointRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateFirewallEndpointRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateFirewallEndpointRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFirewallEndpointRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFirewallEndpointRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateFirewallEndpointRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFirewallEndpointRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFirewallEndpointRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [firewall_endpoint][crate::model::UpdateFirewallEndpointRequest::firewall_endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateFirewallEndpointRequest;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = UpdateFirewallEndpointRequest::new().set_firewall_endpoint(FirewallEndpoint::default()/* use setters */);
+    /// ```
+    pub fn set_firewall_endpoint<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FirewallEndpoint>,
+    {
+        self.firewall_endpoint = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [firewall_endpoint][crate::model::UpdateFirewallEndpointRequest::firewall_endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateFirewallEndpointRequest;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// let x = UpdateFirewallEndpointRequest::new().set_or_clear_firewall_endpoint(Some(FirewallEndpoint::default()/* use setters */));
+    /// let x = UpdateFirewallEndpointRequest::new().set_or_clear_firewall_endpoint(None::<FirewallEndpoint>);
+    /// ```
+    pub fn set_or_clear_firewall_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FirewallEndpoint>,
+    {
+        self.firewall_endpoint = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateFirewallEndpointRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateFirewallEndpointRequest;
+    /// let x = UpdateFirewallEndpointRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateFirewallEndpointRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateFirewallEndpointRequest"
+    }
+}
+
+/// Message for deleting a Endpoint
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteFirewallEndpointRequest {
+    /// Required. Name of the resource
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteFirewallEndpointRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteFirewallEndpointRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteFirewallEndpointRequest;
+    /// let x = DeleteFirewallEndpointRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteFirewallEndpointRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteFirewallEndpointRequest;
+    /// let x = DeleteFirewallEndpointRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteFirewallEndpointRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteFirewallEndpointRequest"
+    }
+}
+
+/// Message describing Association object
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FirewallEndpointAssociation {
+    /// Immutable. Identifier. name of resource
+    pub name: std::string::String,
+
+    /// Output only. Create time stamp
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Update time stamp
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels as key value pairs
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. Current state of the association.
+    pub state: crate::model::firewall_endpoint_association::State,
+
+    /// Required. The URL of the network that is being associated.
+    pub network: std::string::String,
+
+    /// Required. The URL of the FirewallEndpoint that is being associated.
+    pub firewall_endpoint: std::string::String,
+
+    /// Optional. The URL of the TlsInspectionPolicy that is being associated.
+    pub tls_inspection_policy: std::string::String,
+
+    /// Output only. Whether reconciling is in progress, recommended per
+    /// <https://google.aip.dev/128>.
+    pub reconciling: bool,
+
+    /// Optional. Whether the association is disabled.
+    /// True indicates that traffic won't be intercepted
+    pub disabled: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FirewallEndpointAssociation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FirewallEndpointAssociation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = FirewallEndpointAssociation::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::FirewallEndpointAssociation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// use wkt::Timestamp;
+    /// let x = FirewallEndpointAssociation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::FirewallEndpointAssociation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// use wkt::Timestamp;
+    /// let x = FirewallEndpointAssociation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FirewallEndpointAssociation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::FirewallEndpointAssociation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// use wkt::Timestamp;
+    /// let x = FirewallEndpointAssociation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::FirewallEndpointAssociation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// use wkt::Timestamp;
+    /// let x = FirewallEndpointAssociation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FirewallEndpointAssociation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::FirewallEndpointAssociation::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = FirewallEndpointAssociation::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::FirewallEndpointAssociation::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// use google_cloud_networksecurity_v1::model::firewall_endpoint_association::State;
+    /// let x0 = FirewallEndpointAssociation::new().set_state(State::Creating);
+    /// let x1 = FirewallEndpointAssociation::new().set_state(State::Active);
+    /// let x2 = FirewallEndpointAssociation::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::firewall_endpoint_association::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::FirewallEndpointAssociation::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = FirewallEndpointAssociation::new().set_network("example");
+    /// ```
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [firewall_endpoint][crate::model::FirewallEndpointAssociation::firewall_endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = FirewallEndpointAssociation::new().set_firewall_endpoint("example");
+    /// ```
+    pub fn set_firewall_endpoint<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.firewall_endpoint = v.into();
+        self
+    }
+
+    /// Sets the value of [tls_inspection_policy][crate::model::FirewallEndpointAssociation::tls_inspection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = FirewallEndpointAssociation::new().set_tls_inspection_policy("example");
+    /// ```
+    pub fn set_tls_inspection_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tls_inspection_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::FirewallEndpointAssociation::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = FirewallEndpointAssociation::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [disabled][crate::model::FirewallEndpointAssociation::disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = FirewallEndpointAssociation::new().set_disabled(true);
+    /// ```
+    pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.disabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FirewallEndpointAssociation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.FirewallEndpointAssociation"
+    }
+}
+
+/// Defines additional types related to [FirewallEndpointAssociation].
+pub mod firewall_endpoint_association {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Association state.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// Being created.
+        Creating,
+        /// Active and ready for traffic.
+        Active,
+        /// Being deleted.
+        Deleting,
+        /// Down or in an error state.
+        Inactive,
+        /// The project that housed the association has been deleted.
+        Orphan,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Inactive => std::option::Option::Some(4),
+                Self::Orphan => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::Orphan => std::option::Option::Some("ORPHAN"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Deleting,
+                4 => Self::Inactive,
+                5 => Self::Orphan,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETING" => Self::Deleting,
+                "INACTIVE" => Self::Inactive,
+                "ORPHAN" => Self::Orphan,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Inactive => serializer.serialize_i32(4),
+                Self::Orphan => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.FirewallEndpointAssociation.State",
+            ))
+        }
+    }
+}
+
+/// Message for requesting list of Associations
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFirewallEndpointAssociationsRequest {
+    /// Required. Parent value for ListAssociationsRequest
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
+    pub page_size: i32,
+
+    /// A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results
+    pub filter: std::string::String,
+
+    /// Hint for how to order the results
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFirewallEndpointAssociationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListFirewallEndpointAssociationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointAssociationsRequest;
+    /// let x = ListFirewallEndpointAssociationsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListFirewallEndpointAssociationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointAssociationsRequest;
+    /// let x = ListFirewallEndpointAssociationsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListFirewallEndpointAssociationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointAssociationsRequest;
+    /// let x = ListFirewallEndpointAssociationsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListFirewallEndpointAssociationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointAssociationsRequest;
+    /// let x = ListFirewallEndpointAssociationsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListFirewallEndpointAssociationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointAssociationsRequest;
+    /// let x = ListFirewallEndpointAssociationsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFirewallEndpointAssociationsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListFirewallEndpointAssociationsRequest"
+    }
+}
+
+/// Message for response to listing Associations
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFirewallEndpointAssociationsResponse {
+    /// The list of Association
+    pub firewall_endpoint_associations: std::vec::Vec<crate::model::FirewallEndpointAssociation>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFirewallEndpointAssociationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [firewall_endpoint_associations][crate::model::ListFirewallEndpointAssociationsResponse::firewall_endpoint_associations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointAssociationsResponse;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = ListFirewallEndpointAssociationsResponse::new()
+    ///     .set_firewall_endpoint_associations([
+    ///         FirewallEndpointAssociation::default()/* use setters */,
+    ///         FirewallEndpointAssociation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_firewall_endpoint_associations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FirewallEndpointAssociation>,
+    {
+        use std::iter::Iterator;
+        self.firewall_endpoint_associations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFirewallEndpointAssociationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointAssociationsResponse;
+    /// let x = ListFirewallEndpointAssociationsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListFirewallEndpointAssociationsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListFirewallEndpointAssociationsResponse;
+    /// let x = ListFirewallEndpointAssociationsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFirewallEndpointAssociationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListFirewallEndpointAssociationsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListFirewallEndpointAssociationsResponse
+{
+    type PageItem = crate::model::FirewallEndpointAssociation;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.firewall_endpoint_associations
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Message for getting a Association
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetFirewallEndpointAssociationRequest {
+    /// Required. Name of the resource
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetFirewallEndpointAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetFirewallEndpointAssociationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetFirewallEndpointAssociationRequest;
+    /// let x = GetFirewallEndpointAssociationRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetFirewallEndpointAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetFirewallEndpointAssociationRequest"
+    }
+}
+
+/// Message for creating a Association
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateFirewallEndpointAssociationRequest {
+    /// Required. Value for parent.
+    pub parent: std::string::String,
+
+    /// Optional. Id of the requesting object.
+    /// If auto-generating Id server-side, remove this field and
+    /// firewall_endpoint_association_id from the method_signature of Create RPC.
+    pub firewall_endpoint_association_id: std::string::String,
+
+    /// Required. The resource being created
+    pub firewall_endpoint_association:
+        std::option::Option<crate::model::FirewallEndpointAssociation>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateFirewallEndpointAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateFirewallEndpointAssociationRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointAssociationRequest;
+    /// let x = CreateFirewallEndpointAssociationRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [firewall_endpoint_association_id][crate::model::CreateFirewallEndpointAssociationRequest::firewall_endpoint_association_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointAssociationRequest;
+    /// let x = CreateFirewallEndpointAssociationRequest::new().set_firewall_endpoint_association_id("example");
+    /// ```
+    pub fn set_firewall_endpoint_association_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.firewall_endpoint_association_id = v.into();
+        self
+    }
+
+    /// Sets the value of [firewall_endpoint_association][crate::model::CreateFirewallEndpointAssociationRequest::firewall_endpoint_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = CreateFirewallEndpointAssociationRequest::new().set_firewall_endpoint_association(FirewallEndpointAssociation::default()/* use setters */);
+    /// ```
+    pub fn set_firewall_endpoint_association<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FirewallEndpointAssociation>,
+    {
+        self.firewall_endpoint_association = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [firewall_endpoint_association][crate::model::CreateFirewallEndpointAssociationRequest::firewall_endpoint_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = CreateFirewallEndpointAssociationRequest::new().set_or_clear_firewall_endpoint_association(Some(FirewallEndpointAssociation::default()/* use setters */));
+    /// let x = CreateFirewallEndpointAssociationRequest::new().set_or_clear_firewall_endpoint_association(None::<FirewallEndpointAssociation>);
+    /// ```
+    pub fn set_or_clear_firewall_endpoint_association<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::FirewallEndpointAssociation>,
+    {
+        self.firewall_endpoint_association = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateFirewallEndpointAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateFirewallEndpointAssociationRequest;
+    /// let x = CreateFirewallEndpointAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateFirewallEndpointAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateFirewallEndpointAssociationRequest"
+    }
+}
+
+/// Message for deleting a Association
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteFirewallEndpointAssociationRequest {
+    /// Required. Name of the resource
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteFirewallEndpointAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteFirewallEndpointAssociationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteFirewallEndpointAssociationRequest;
+    /// let x = DeleteFirewallEndpointAssociationRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteFirewallEndpointAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteFirewallEndpointAssociationRequest;
+    /// let x = DeleteFirewallEndpointAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteFirewallEndpointAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteFirewallEndpointAssociationRequest"
+    }
+}
+
+/// Message for updating an Association
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateFirewallEndpointAssociationRequest {
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// Association resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated
+    pub firewall_endpoint_association:
+        std::option::Option<crate::model::FirewallEndpointAssociation>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateFirewallEndpointAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateFirewallEndpointAssociationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateFirewallEndpointAssociationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFirewallEndpointAssociationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateFirewallEndpointAssociationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateFirewallEndpointAssociationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFirewallEndpointAssociationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFirewallEndpointAssociationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [firewall_endpoint_association][crate::model::UpdateFirewallEndpointAssociationRequest::firewall_endpoint_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateFirewallEndpointAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = UpdateFirewallEndpointAssociationRequest::new().set_firewall_endpoint_association(FirewallEndpointAssociation::default()/* use setters */);
+    /// ```
+    pub fn set_firewall_endpoint_association<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FirewallEndpointAssociation>,
+    {
+        self.firewall_endpoint_association = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [firewall_endpoint_association][crate::model::UpdateFirewallEndpointAssociationRequest::firewall_endpoint_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateFirewallEndpointAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// let x = UpdateFirewallEndpointAssociationRequest::new().set_or_clear_firewall_endpoint_association(Some(FirewallEndpointAssociation::default()/* use setters */));
+    /// let x = UpdateFirewallEndpointAssociationRequest::new().set_or_clear_firewall_endpoint_association(None::<FirewallEndpointAssociation>);
+    /// ```
+    pub fn set_or_clear_firewall_endpoint_association<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::FirewallEndpointAssociation>,
+    {
+        self.firewall_endpoint_association = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateFirewallEndpointAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateFirewallEndpointAssociationRequest;
+    /// let x = UpdateFirewallEndpointAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateFirewallEndpointAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateFirewallEndpointAssociationRequest"
+    }
+}
+
+/// The GatewaySecurityPolicy resource contains a collection of
+/// GatewaySecurityPolicyRules and associated metadata.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GatewaySecurityPolicy {
+    /// Required. Name of the resource. Name is of the form
+    /// projects/{project}/locations/{location}/gatewaySecurityPolicies/{gateway_security_policy}
+    /// gateway_security_policy should match the
+    /// pattern:(^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$).
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Free-text description of the resource.
+    pub description: std::string::String,
+
+    /// Optional. Name of a TLS Inspection Policy resource that defines how TLS
+    /// inspection will be performed for any rule(s) which enables it.
+    pub tls_inspection_policy: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GatewaySecurityPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GatewaySecurityPolicy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// let x = GatewaySecurityPolicy::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::GatewaySecurityPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// use wkt::Timestamp;
+    /// let x = GatewaySecurityPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::GatewaySecurityPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// use wkt::Timestamp;
+    /// let x = GatewaySecurityPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GatewaySecurityPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::GatewaySecurityPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// use wkt::Timestamp;
+    /// let x = GatewaySecurityPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::GatewaySecurityPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// use wkt::Timestamp;
+    /// let x = GatewaySecurityPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GatewaySecurityPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::GatewaySecurityPolicy::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// let x = GatewaySecurityPolicy::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [tls_inspection_policy][crate::model::GatewaySecurityPolicy::tls_inspection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// let x = GatewaySecurityPolicy::new().set_tls_inspection_policy("example");
+    /// ```
+    pub fn set_tls_inspection_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tls_inspection_policy = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GatewaySecurityPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GatewaySecurityPolicy"
+    }
+}
+
+/// Request used by the CreateGatewaySecurityPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateGatewaySecurityPolicyRequest {
+    /// Required. The parent resource of the GatewaySecurityPolicy. Must be in the
+    /// format `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Required. Short name of the GatewaySecurityPolicy resource to be created.
+    /// This value should be 1-63 characters long, containing only
+    /// letters, numbers, hyphens, and underscores, and should not start
+    /// with a number. E.g. "gateway_security_policy1".
+    pub gateway_security_policy_id: std::string::String,
+
+    /// Required. GatewaySecurityPolicy resource to be created.
+    pub gateway_security_policy: std::option::Option<crate::model::GatewaySecurityPolicy>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateGatewaySecurityPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateGatewaySecurityPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateGatewaySecurityPolicyRequest;
+    /// let x = CreateGatewaySecurityPolicyRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [gateway_security_policy_id][crate::model::CreateGatewaySecurityPolicyRequest::gateway_security_policy_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateGatewaySecurityPolicyRequest;
+    /// let x = CreateGatewaySecurityPolicyRequest::new().set_gateway_security_policy_id("example");
+    /// ```
+    pub fn set_gateway_security_policy_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gateway_security_policy_id = v.into();
+        self
+    }
+
+    /// Sets the value of [gateway_security_policy][crate::model::CreateGatewaySecurityPolicyRequest::gateway_security_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateGatewaySecurityPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// let x = CreateGatewaySecurityPolicyRequest::new().set_gateway_security_policy(GatewaySecurityPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_gateway_security_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewaySecurityPolicy>,
+    {
+        self.gateway_security_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gateway_security_policy][crate::model::CreateGatewaySecurityPolicyRequest::gateway_security_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateGatewaySecurityPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// let x = CreateGatewaySecurityPolicyRequest::new().set_or_clear_gateway_security_policy(Some(GatewaySecurityPolicy::default()/* use setters */));
+    /// let x = CreateGatewaySecurityPolicyRequest::new().set_or_clear_gateway_security_policy(None::<GatewaySecurityPolicy>);
+    /// ```
+    pub fn set_or_clear_gateway_security_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewaySecurityPolicy>,
+    {
+        self.gateway_security_policy = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateGatewaySecurityPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateGatewaySecurityPolicyRequest"
+    }
+}
+
+/// Request used with the ListGatewaySecurityPolicies method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGatewaySecurityPoliciesRequest {
+    /// Required. The project and location from which the GatewaySecurityPolicies
+    /// should be listed, specified in the format
+    /// `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Maximum number of GatewaySecurityPolicies to return per call.
+    pub page_size: i32,
+
+    /// The value returned by the last
+    /// 'ListGatewaySecurityPoliciesResponse' Indicates that this is a
+    /// continuation of a prior 'ListGatewaySecurityPolicies' call, and
+    /// that the system should return the next page of data.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGatewaySecurityPoliciesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListGatewaySecurityPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPoliciesRequest;
+    /// let x = ListGatewaySecurityPoliciesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListGatewaySecurityPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPoliciesRequest;
+    /// let x = ListGatewaySecurityPoliciesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListGatewaySecurityPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPoliciesRequest;
+    /// let x = ListGatewaySecurityPoliciesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGatewaySecurityPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListGatewaySecurityPoliciesRequest"
+    }
+}
+
+/// Response returned by the ListGatewaySecurityPolicies method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGatewaySecurityPoliciesResponse {
+    /// List of GatewaySecurityPolicies resources.
+    pub gateway_security_policies: std::vec::Vec<crate::model::GatewaySecurityPolicy>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// 'next_page_token' is included. To get the next set of results, call this
+    /// method again using the value of 'next_page_token' as 'page_token'.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGatewaySecurityPoliciesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [gateway_security_policies][crate::model::ListGatewaySecurityPoliciesResponse::gateway_security_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPoliciesResponse;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// let x = ListGatewaySecurityPoliciesResponse::new()
+    ///     .set_gateway_security_policies([
+    ///         GatewaySecurityPolicy::default()/* use setters */,
+    ///         GatewaySecurityPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_gateway_security_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GatewaySecurityPolicy>,
+    {
+        use std::iter::Iterator;
+        self.gateway_security_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGatewaySecurityPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPoliciesResponse;
+    /// let x = ListGatewaySecurityPoliciesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListGatewaySecurityPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPoliciesResponse;
+    /// let x = ListGatewaySecurityPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGatewaySecurityPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListGatewaySecurityPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListGatewaySecurityPoliciesResponse
+{
+    type PageItem = crate::model::GatewaySecurityPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.gateway_security_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request used by the GetGatewaySecurityPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetGatewaySecurityPolicyRequest {
+    /// Required. A name of the GatewaySecurityPolicy to get. Must be in the format
+    /// `projects/{project}/locations/{location}/gatewaySecurityPolicies/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetGatewaySecurityPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetGatewaySecurityPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetGatewaySecurityPolicyRequest;
+    /// let x = GetGatewaySecurityPolicyRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetGatewaySecurityPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetGatewaySecurityPolicyRequest"
+    }
+}
+
+/// Request used by the DeleteGatewaySecurityPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteGatewaySecurityPolicyRequest {
+    /// Required. A name of the GatewaySecurityPolicy to delete. Must be in the
+    /// format `projects/{project}/locations/{location}/gatewaySecurityPolicies/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteGatewaySecurityPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteGatewaySecurityPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteGatewaySecurityPolicyRequest;
+    /// let x = DeleteGatewaySecurityPolicyRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteGatewaySecurityPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteGatewaySecurityPolicyRequest"
+    }
+}
+
+/// Request used by the UpdateGatewaySecurityPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateGatewaySecurityPolicyRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// GatewaySecurityPolicy resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated GatewaySecurityPolicy resource.
+    pub gateway_security_policy: std::option::Option<crate::model::GatewaySecurityPolicy>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateGatewaySecurityPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateGatewaySecurityPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateGatewaySecurityPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGatewaySecurityPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGatewaySecurityPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateGatewaySecurityPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGatewaySecurityPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGatewaySecurityPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [gateway_security_policy][crate::model::UpdateGatewaySecurityPolicyRequest::gateway_security_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateGatewaySecurityPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// let x = UpdateGatewaySecurityPolicyRequest::new().set_gateway_security_policy(GatewaySecurityPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_gateway_security_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewaySecurityPolicy>,
+    {
+        self.gateway_security_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gateway_security_policy][crate::model::UpdateGatewaySecurityPolicyRequest::gateway_security_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateGatewaySecurityPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// let x = UpdateGatewaySecurityPolicyRequest::new().set_or_clear_gateway_security_policy(Some(GatewaySecurityPolicy::default()/* use setters */));
+    /// let x = UpdateGatewaySecurityPolicyRequest::new().set_or_clear_gateway_security_policy(None::<GatewaySecurityPolicy>);
+    /// ```
+    pub fn set_or_clear_gateway_security_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewaySecurityPolicy>,
+    {
+        self.gateway_security_policy = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateGatewaySecurityPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateGatewaySecurityPolicyRequest"
+    }
+}
+
+/// The GatewaySecurityPolicyRule resource is in a nested collection within a
+/// GatewaySecurityPolicy and represents a traffic matching condition and
+/// associated action to perform.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GatewaySecurityPolicyRule {
+    /// Required. Immutable. Name of the resource. ame is the full resource name so
+    /// projects/{project}/locations/{location}/gatewaySecurityPolicies/{gateway_security_policy}/rules/{rule}
+    /// rule should match the
+    /// pattern: (^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$).
+    pub name: std::string::String,
+
+    /// Output only. Time when the rule was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time when the rule was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Required. Whether the rule is enforced.
+    pub enabled: bool,
+
+    /// Required. Priority of the rule.
+    /// Lower number corresponds to higher precedence.
+    pub priority: i32,
+
+    /// Optional. Free-text description of the resource.
+    pub description: std::string::String,
+
+    /// Required. CEL expression for matching on session criteria.
+    pub session_matcher: std::string::String,
+
+    /// Optional. CEL expression for matching on L7/application level criteria.
+    pub application_matcher: std::string::String,
+
+    /// Optional. Flag to enable TLS inspection of traffic matching on
+    /// <session_matcher>, can only be true if the parent GatewaySecurityPolicy
+    /// references a TLSInspectionConfig.
+    pub tls_inspection_enabled: bool,
+
+    pub profile: std::option::Option<crate::model::gateway_security_policy_rule::Profile>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GatewaySecurityPolicyRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GatewaySecurityPolicyRule::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = GatewaySecurityPolicyRule::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::GatewaySecurityPolicyRule::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// use wkt::Timestamp;
+    /// let x = GatewaySecurityPolicyRule::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::GatewaySecurityPolicyRule::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// use wkt::Timestamp;
+    /// let x = GatewaySecurityPolicyRule::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GatewaySecurityPolicyRule::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::GatewaySecurityPolicyRule::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// use wkt::Timestamp;
+    /// let x = GatewaySecurityPolicyRule::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::GatewaySecurityPolicyRule::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// use wkt::Timestamp;
+    /// let x = GatewaySecurityPolicyRule::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GatewaySecurityPolicyRule::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [enabled][crate::model::GatewaySecurityPolicyRule::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = GatewaySecurityPolicyRule::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [priority][crate::model::GatewaySecurityPolicyRule::priority].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = GatewaySecurityPolicyRule::new().set_priority(42);
+    /// ```
+    pub fn set_priority<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.priority = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::GatewaySecurityPolicyRule::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = GatewaySecurityPolicyRule::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [session_matcher][crate::model::GatewaySecurityPolicyRule::session_matcher].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = GatewaySecurityPolicyRule::new().set_session_matcher("example");
+    /// ```
+    pub fn set_session_matcher<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.session_matcher = v.into();
+        self
+    }
+
+    /// Sets the value of [application_matcher][crate::model::GatewaySecurityPolicyRule::application_matcher].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = GatewaySecurityPolicyRule::new().set_application_matcher("example");
+    /// ```
+    pub fn set_application_matcher<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.application_matcher = v.into();
+        self
+    }
+
+    /// Sets the value of [tls_inspection_enabled][crate::model::GatewaySecurityPolicyRule::tls_inspection_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = GatewaySecurityPolicyRule::new().set_tls_inspection_enabled(true);
+    /// ```
+    pub fn set_tls_inspection_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.tls_inspection_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [profile][crate::model::GatewaySecurityPolicyRule::profile].
+    ///
+    /// Note that all the setters affecting `profile` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// use google_cloud_networksecurity_v1::model::gateway_security_policy_rule::BasicProfile;
+    /// let x0 = GatewaySecurityPolicyRule::new().set_profile(Some(
+    ///     google_cloud_networksecurity_v1::model::gateway_security_policy_rule::Profile::BasicProfile(BasicProfile::Allow)));
+    /// let x1 = GatewaySecurityPolicyRule::new().set_profile(Some(
+    ///     google_cloud_networksecurity_v1::model::gateway_security_policy_rule::Profile::BasicProfile(BasicProfile::Deny)));
+    /// ```
+    pub fn set_profile<
+        T: std::convert::Into<
+                std::option::Option<crate::model::gateway_security_policy_rule::Profile>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = v.into();
+        self
+    }
+
+    /// The value of [profile][crate::model::GatewaySecurityPolicyRule::profile]
+    /// if it holds a `BasicProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn basic_profile(
+        &self,
+    ) -> std::option::Option<&crate::model::gateway_security_policy_rule::BasicProfile> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::gateway_security_policy_rule::Profile::BasicProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::GatewaySecurityPolicyRule::profile]
+    /// to hold a `BasicProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// use google_cloud_networksecurity_v1::model::gateway_security_policy_rule::BasicProfile;
+    /// let x0 = GatewaySecurityPolicyRule::new().set_basic_profile(BasicProfile::Allow);
+    /// let x1 = GatewaySecurityPolicyRule::new().set_basic_profile(BasicProfile::Deny);
+    /// assert!(x0.basic_profile().is_some());
+    /// assert!(x1.basic_profile().is_some());
+    /// ```
+    pub fn set_basic_profile<
+        T: std::convert::Into<crate::model::gateway_security_policy_rule::BasicProfile>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::gateway_security_policy_rule::Profile::BasicProfile(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for GatewaySecurityPolicyRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GatewaySecurityPolicyRule"
+    }
+}
+
+/// Defines additional types related to [GatewaySecurityPolicyRule].
+pub mod gateway_security_policy_rule {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// enum to define the primitive action.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BasicProfile {
+        /// If there is not a mentioned action for the target.
+        Unspecified,
+        /// Allow the matched traffic.
+        Allow,
+        /// Deny the matched traffic.
+        Deny,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BasicProfile::value] or
+        /// [BasicProfile::name].
+        UnknownValue(basic_profile::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod basic_profile {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl BasicProfile {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Allow => std::option::Option::Some(1),
+                Self::Deny => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("BASIC_PROFILE_UNSPECIFIED"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::Deny => std::option::Option::Some("DENY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for BasicProfile {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BasicProfile {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BasicProfile {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Allow,
+                2 => Self::Deny,
+                _ => Self::UnknownValue(basic_profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BasicProfile {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BASIC_PROFILE_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW" => Self::Allow,
+                "DENY" => Self::Deny,
+                _ => Self::UnknownValue(basic_profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BasicProfile {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Allow => serializer.serialize_i32(1),
+                Self::Deny => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BasicProfile {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<BasicProfile>::new(
+                ".google.cloud.networksecurity.v1.GatewaySecurityPolicyRule.BasicProfile",
+            ))
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Profile {
+        /// Required. Profile which tells what the primitive action should be.
+        BasicProfile(crate::model::gateway_security_policy_rule::BasicProfile),
+    }
+}
+
+/// Methods for GatewaySecurityPolicy RULES/GatewaySecurityPolicyRules.
+/// Request used by the CreateGatewaySecurityPolicyRule method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateGatewaySecurityPolicyRuleRequest {
+    /// Required. The parent where this rule will be created.
+    /// Format :
+    /// projects/{project}/location/{location}/gatewaySecurityPolicies/*
+    pub parent: std::string::String,
+
+    /// Required. The rule to be created.
+    pub gateway_security_policy_rule: std::option::Option<crate::model::GatewaySecurityPolicyRule>,
+
+    /// The ID to use for the rule, which will become the final component of
+    /// the rule's resource name.
+    /// This value should be 4-63 characters, and valid characters
+    /// are /[a-z][0-9]-/.
+    pub gateway_security_policy_rule_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateGatewaySecurityPolicyRuleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateGatewaySecurityPolicyRuleRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateGatewaySecurityPolicyRuleRequest;
+    /// let x = CreateGatewaySecurityPolicyRuleRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [gateway_security_policy_rule][crate::model::CreateGatewaySecurityPolicyRuleRequest::gateway_security_policy_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateGatewaySecurityPolicyRuleRequest;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = CreateGatewaySecurityPolicyRuleRequest::new().set_gateway_security_policy_rule(GatewaySecurityPolicyRule::default()/* use setters */);
+    /// ```
+    pub fn set_gateway_security_policy_rule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewaySecurityPolicyRule>,
+    {
+        self.gateway_security_policy_rule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gateway_security_policy_rule][crate::model::CreateGatewaySecurityPolicyRuleRequest::gateway_security_policy_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateGatewaySecurityPolicyRuleRequest;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = CreateGatewaySecurityPolicyRuleRequest::new().set_or_clear_gateway_security_policy_rule(Some(GatewaySecurityPolicyRule::default()/* use setters */));
+    /// let x = CreateGatewaySecurityPolicyRuleRequest::new().set_or_clear_gateway_security_policy_rule(None::<GatewaySecurityPolicyRule>);
+    /// ```
+    pub fn set_or_clear_gateway_security_policy_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewaySecurityPolicyRule>,
+    {
+        self.gateway_security_policy_rule = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [gateway_security_policy_rule_id][crate::model::CreateGatewaySecurityPolicyRuleRequest::gateway_security_policy_rule_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateGatewaySecurityPolicyRuleRequest;
+    /// let x = CreateGatewaySecurityPolicyRuleRequest::new().set_gateway_security_policy_rule_id("example");
+    /// ```
+    pub fn set_gateway_security_policy_rule_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gateway_security_policy_rule_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateGatewaySecurityPolicyRuleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateGatewaySecurityPolicyRuleRequest"
+    }
+}
+
+/// Request used by the GetGatewaySecurityPolicyRule method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetGatewaySecurityPolicyRuleRequest {
+    /// Required. The name of the GatewaySecurityPolicyRule to retrieve.
+    /// Format:
+    /// projects/{project}/location/{location}/gatewaySecurityPolicies/*/rules/*
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetGatewaySecurityPolicyRuleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetGatewaySecurityPolicyRuleRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetGatewaySecurityPolicyRuleRequest;
+    /// let x = GetGatewaySecurityPolicyRuleRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetGatewaySecurityPolicyRuleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetGatewaySecurityPolicyRuleRequest"
+    }
+}
+
+/// Request used by the UpdateGatewaySecurityPolicyRule method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateGatewaySecurityPolicyRuleRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// GatewaySecurityPolicy resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated GatewaySecurityPolicyRule resource.
+    pub gateway_security_policy_rule: std::option::Option<crate::model::GatewaySecurityPolicyRule>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateGatewaySecurityPolicyRuleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateGatewaySecurityPolicyRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateGatewaySecurityPolicyRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGatewaySecurityPolicyRuleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGatewaySecurityPolicyRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateGatewaySecurityPolicyRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGatewaySecurityPolicyRuleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGatewaySecurityPolicyRuleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [gateway_security_policy_rule][crate::model::UpdateGatewaySecurityPolicyRuleRequest::gateway_security_policy_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateGatewaySecurityPolicyRuleRequest;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = UpdateGatewaySecurityPolicyRuleRequest::new().set_gateway_security_policy_rule(GatewaySecurityPolicyRule::default()/* use setters */);
+    /// ```
+    pub fn set_gateway_security_policy_rule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewaySecurityPolicyRule>,
+    {
+        self.gateway_security_policy_rule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gateway_security_policy_rule][crate::model::UpdateGatewaySecurityPolicyRuleRequest::gateway_security_policy_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateGatewaySecurityPolicyRuleRequest;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = UpdateGatewaySecurityPolicyRuleRequest::new().set_or_clear_gateway_security_policy_rule(Some(GatewaySecurityPolicyRule::default()/* use setters */));
+    /// let x = UpdateGatewaySecurityPolicyRuleRequest::new().set_or_clear_gateway_security_policy_rule(None::<GatewaySecurityPolicyRule>);
+    /// ```
+    pub fn set_or_clear_gateway_security_policy_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GatewaySecurityPolicyRule>,
+    {
+        self.gateway_security_policy_rule = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateGatewaySecurityPolicyRuleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateGatewaySecurityPolicyRuleRequest"
+    }
+}
+
+/// Request used with the ListGatewaySecurityPolicyRules method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGatewaySecurityPolicyRulesRequest {
+    /// Required. The project, location and GatewaySecurityPolicy from which the
+    /// GatewaySecurityPolicyRules should be listed, specified in the format
+    /// `projects/{project}/locations/{location}/gatewaySecurityPolicies/{gatewaySecurityPolicy}`.
+    pub parent: std::string::String,
+
+    /// Maximum number of GatewaySecurityPolicyRules to return per call.
+    pub page_size: i32,
+
+    /// The value returned by the last
+    /// 'ListGatewaySecurityPolicyRulesResponse' Indicates that this is a
+    /// continuation of a prior 'ListGatewaySecurityPolicyRules' call, and
+    /// that the system should return the next page of data.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGatewaySecurityPolicyRulesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListGatewaySecurityPolicyRulesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPolicyRulesRequest;
+    /// let x = ListGatewaySecurityPolicyRulesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListGatewaySecurityPolicyRulesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPolicyRulesRequest;
+    /// let x = ListGatewaySecurityPolicyRulesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListGatewaySecurityPolicyRulesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPolicyRulesRequest;
+    /// let x = ListGatewaySecurityPolicyRulesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGatewaySecurityPolicyRulesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListGatewaySecurityPolicyRulesRequest"
+    }
+}
+
+/// Response returned by the ListGatewaySecurityPolicyRules method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListGatewaySecurityPolicyRulesResponse {
+    /// List of GatewaySecurityPolicyRule resources.
+    pub gateway_security_policy_rules: std::vec::Vec<crate::model::GatewaySecurityPolicyRule>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// 'next_page_token' is included. To get the next set of results, call this
+    /// method again using the value of 'next_page_token' as 'page_token'.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGatewaySecurityPolicyRulesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [gateway_security_policy_rules][crate::model::ListGatewaySecurityPolicyRulesResponse::gateway_security_policy_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPolicyRulesResponse;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// let x = ListGatewaySecurityPolicyRulesResponse::new()
+    ///     .set_gateway_security_policy_rules([
+    ///         GatewaySecurityPolicyRule::default()/* use setters */,
+    ///         GatewaySecurityPolicyRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_gateway_security_policy_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GatewaySecurityPolicyRule>,
+    {
+        use std::iter::Iterator;
+        self.gateway_security_policy_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGatewaySecurityPolicyRulesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPolicyRulesResponse;
+    /// let x = ListGatewaySecurityPolicyRulesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListGatewaySecurityPolicyRulesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListGatewaySecurityPolicyRulesResponse;
+    /// let x = ListGatewaySecurityPolicyRulesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGatewaySecurityPolicyRulesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListGatewaySecurityPolicyRulesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListGatewaySecurityPolicyRulesResponse
+{
+    type PageItem = crate::model::GatewaySecurityPolicyRule;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.gateway_security_policy_rules
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request used by the DeleteGatewaySecurityPolicyRule method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteGatewaySecurityPolicyRuleRequest {
+    /// Required. A name of the GatewaySecurityPolicyRule to delete. Must be in the
+    /// format
+    /// `projects/{project}/locations/{location}/gatewaySecurityPolicies/{gatewaySecurityPolicy}/rules/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteGatewaySecurityPolicyRuleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteGatewaySecurityPolicyRuleRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteGatewaySecurityPolicyRuleRequest;
+    /// let x = DeleteGatewaySecurityPolicyRuleRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteGatewaySecurityPolicyRuleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteGatewaySecurityPolicyRuleRequest"
+    }
+}
+
+/// An endpoint group is a consumer frontend for a deployment group (backend).
+/// In order to configure intercept for a network, consumers must create:
+///
+/// - An association between their network and the endpoint group.
+/// - A security profile that points to the endpoint group.
+/// - A firewall rule that references the security profile (group).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InterceptEndpointGroup {
+    /// Immutable. Identifier. The resource name of this endpoint group, for
+    /// example:
+    /// `projects/123456789/locations/global/interceptEndpointGroups/my-eg`.
+    /// See <https://google.aip.dev/122> for more details.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was most recently updated.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels are key/value pairs that help to organize and filter
+    /// resources.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. Immutable. The deployment group that this endpoint group is
+    /// connected to, for example:
+    /// `projects/123456789/locations/global/interceptDeploymentGroups/my-dg`.
+    /// See <https://google.aip.dev/124>.
+    pub intercept_deployment_group: std::string::String,
+
+    /// Output only. Details about the connected deployment group to this endpoint
+    /// group.
+    pub connected_deployment_group:
+        std::option::Option<crate::model::intercept_endpoint_group::ConnectedDeploymentGroup>,
+
+    /// Output only. The current state of the endpoint group.
+    /// See <https://google.aip.dev/216>.
+    pub state: crate::model::intercept_endpoint_group::State,
+
+    /// Output only. The current state of the resource does not match the user's
+    /// intended state, and the system is working to reconcile them. This is part
+    /// of the normal operation (e.g. adding a new association to the group). See
+    /// <https://google.aip.dev/128>.
+    pub reconciling: bool,
+
+    /// Output only. List of associations to this endpoint group.
+    pub associations: std::vec::Vec<crate::model::intercept_endpoint_group::AssociationDetails>,
+
+    /// Optional. User-provided description of the endpoint group.
+    /// Used as additional context for the endpoint group.
+    pub description: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InterceptEndpointGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::InterceptEndpointGroup::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// let x = InterceptEndpointGroup::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::InterceptEndpointGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// use wkt::Timestamp;
+    /// let x = InterceptEndpointGroup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::InterceptEndpointGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// use wkt::Timestamp;
+    /// let x = InterceptEndpointGroup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InterceptEndpointGroup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::InterceptEndpointGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// use wkt::Timestamp;
+    /// let x = InterceptEndpointGroup::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::InterceptEndpointGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// use wkt::Timestamp;
+    /// let x = InterceptEndpointGroup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InterceptEndpointGroup::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::InterceptEndpointGroup::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// let x = InterceptEndpointGroup::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [intercept_deployment_group][crate::model::InterceptEndpointGroup::intercept_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// let x = InterceptEndpointGroup::new().set_intercept_deployment_group("example");
+    /// ```
+    pub fn set_intercept_deployment_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intercept_deployment_group = v.into();
+        self
+    }
+
+    /// Sets the value of [connected_deployment_group][crate::model::InterceptEndpointGroup::connected_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// use google_cloud_networksecurity_v1::model::intercept_endpoint_group::ConnectedDeploymentGroup;
+    /// let x = InterceptEndpointGroup::new().set_connected_deployment_group(ConnectedDeploymentGroup::default()/* use setters */);
+    /// ```
+    pub fn set_connected_deployment_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::intercept_endpoint_group::ConnectedDeploymentGroup>,
+    {
+        self.connected_deployment_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [connected_deployment_group][crate::model::InterceptEndpointGroup::connected_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// use google_cloud_networksecurity_v1::model::intercept_endpoint_group::ConnectedDeploymentGroup;
+    /// let x = InterceptEndpointGroup::new().set_or_clear_connected_deployment_group(Some(ConnectedDeploymentGroup::default()/* use setters */));
+    /// let x = InterceptEndpointGroup::new().set_or_clear_connected_deployment_group(None::<ConnectedDeploymentGroup>);
+    /// ```
+    pub fn set_or_clear_connected_deployment_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::intercept_endpoint_group::ConnectedDeploymentGroup>,
+    {
+        self.connected_deployment_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::InterceptEndpointGroup::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// use google_cloud_networksecurity_v1::model::intercept_endpoint_group::State;
+    /// let x0 = InterceptEndpointGroup::new().set_state(State::Active);
+    /// let x1 = InterceptEndpointGroup::new().set_state(State::Closed);
+    /// let x2 = InterceptEndpointGroup::new().set_state(State::Creating);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::intercept_endpoint_group::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::InterceptEndpointGroup::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// let x = InterceptEndpointGroup::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [associations][crate::model::InterceptEndpointGroup::associations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// use google_cloud_networksecurity_v1::model::intercept_endpoint_group::AssociationDetails;
+    /// let x = InterceptEndpointGroup::new()
+    ///     .set_associations([
+    ///         AssociationDetails::default()/* use setters */,
+    ///         AssociationDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_associations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::intercept_endpoint_group::AssociationDetails>,
+    {
+        use std::iter::Iterator;
+        self.associations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::InterceptEndpointGroup::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// let x = InterceptEndpointGroup::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InterceptEndpointGroup {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.InterceptEndpointGroup"
+    }
+}
+
+/// Defines additional types related to [InterceptEndpointGroup].
+pub mod intercept_endpoint_group {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The endpoint group's view of a connected deployment group.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConnectedDeploymentGroup {
+        /// Output only. The connected deployment group's resource name, for example:
+        /// `projects/123456789/locations/global/interceptDeploymentGroups/my-dg`.
+        /// See <https://google.aip.dev/124>.
+        pub name: std::string::String,
+
+        /// Output only. The list of locations where the deployment group is present.
+        pub locations: std::vec::Vec<crate::model::InterceptLocation>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ConnectedDeploymentGroup {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::intercept_endpoint_group::ConnectedDeploymentGroup::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::intercept_endpoint_group::ConnectedDeploymentGroup;
+        /// let x = ConnectedDeploymentGroup::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [locations][crate::model::intercept_endpoint_group::ConnectedDeploymentGroup::locations].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::intercept_endpoint_group::ConnectedDeploymentGroup;
+        /// use google_cloud_networksecurity_v1::model::InterceptLocation;
+        /// let x = ConnectedDeploymentGroup::new()
+        ///     .set_locations([
+        ///         InterceptLocation::default()/* use setters */,
+        ///         InterceptLocation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::InterceptLocation>,
+        {
+            use std::iter::Iterator;
+            self.locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConnectedDeploymentGroup {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.InterceptEndpointGroup.ConnectedDeploymentGroup"
+        }
+    }
+
+    /// The endpoint group's view of a connected association.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AssociationDetails {
+        /// Output only. The connected association's resource name, for example:
+        /// `projects/123456789/locations/global/interceptEndpointGroupAssociations/my-ega`.
+        /// See <https://google.aip.dev/124>.
+        pub name: std::string::String,
+
+        /// Output only. The associated network, for example:
+        /// projects/123456789/global/networks/my-network.
+        /// See <https://google.aip.dev/124>.
+        pub network: std::string::String,
+
+        /// Output only. Most recent known state of the association.
+        pub state: crate::model::intercept_endpoint_group_association::State,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AssociationDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::intercept_endpoint_group::AssociationDetails::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::intercept_endpoint_group::AssociationDetails;
+        /// let x = AssociationDetails::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [network][crate::model::intercept_endpoint_group::AssociationDetails::network].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::intercept_endpoint_group::AssociationDetails;
+        /// let x = AssociationDetails::new().set_network("example");
+        /// ```
+        pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.network = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::intercept_endpoint_group::AssociationDetails::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::intercept_endpoint_group::AssociationDetails;
+        /// use google_cloud_networksecurity_v1::model::intercept_endpoint_group_association::State;
+        /// let x0 = AssociationDetails::new().set_state(State::Active);
+        /// let x1 = AssociationDetails::new().set_state(State::Creating);
+        /// let x2 = AssociationDetails::new().set_state(State::Deleting);
+        /// ```
+        pub fn set_state<
+            T: std::convert::Into<crate::model::intercept_endpoint_group_association::State>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AssociationDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.InterceptEndpointGroup.AssociationDetails"
+        }
+    }
+
+    /// Endpoint group state.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set (this is not a valid state).
+        Unspecified,
+        /// The endpoint group is ready and in sync with the target deployment group.
+        Active,
+        /// The deployment group backing this endpoint group has been force-deleted.
+        /// This endpoint group cannot be used and interception is effectively
+        /// disabled.
+        Closed,
+        /// The endpoint group is being created.
+        Creating,
+        /// The endpoint group is being deleted.
+        Deleting,
+        /// The endpoint group is out of sync with the backing deployment group.
+        /// In most cases, this is a result of a transient issue within the system
+        /// (e.g. an inaccessible location) and the system is expected to recover
+        /// automatically. See the associations field for details per network and
+        /// location.
+        OutOfSync,
+        /// An attempt to delete the endpoint group has failed. This is a terminal
+        /// state and the endpoint group is not expected to recover.
+        /// The only permitted operation is to retry deleting the endpoint group.
+        DeleteFailed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Closed => std::option::Option::Some(2),
+                Self::Creating => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::OutOfSync => std::option::Option::Some(5),
+                Self::DeleteFailed => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Closed => std::option::Option::Some("CLOSED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::OutOfSync => std::option::Option::Some("OUT_OF_SYNC"),
+                Self::DeleteFailed => std::option::Option::Some("DELETE_FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Closed,
+                3 => Self::Creating,
+                4 => Self::Deleting,
+                5 => Self::OutOfSync,
+                6 => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CLOSED" => Self::Closed,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                "OUT_OF_SYNC" => Self::OutOfSync,
+                "DELETE_FAILED" => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Closed => serializer.serialize_i32(2),
+                Self::Creating => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::OutOfSync => serializer.serialize_i32(5),
+                Self::DeleteFailed => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.InterceptEndpointGroup.State",
+            ))
+        }
+    }
+}
+
+/// Request message for ListInterceptEndpointGroups.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInterceptEndpointGroupsRequest {
+    /// Required. The parent, which owns this collection of endpoint groups.
+    /// Example: `projects/123456789/locations/global`.
+    /// See <https://google.aip.dev/132> for more details.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default. See
+    /// <https://google.aip.dev/158> for more details.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListInterceptEndpointGroups` call. Provide this to retrieve the subsequent
+    /// page. When paginating, all other parameters provided to
+    /// `ListInterceptEndpointGroups` must match the call that provided the page
+    /// token.
+    /// See <https://google.aip.dev/158> for more details.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression.
+    /// See <https://google.aip.dev/160#filtering> for more details.
+    pub filter: std::string::String,
+
+    /// Optional. Sort expression.
+    /// See <https://google.aip.dev/132#ordering> for more details.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInterceptEndpointGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListInterceptEndpointGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupsRequest;
+    /// let x = ListInterceptEndpointGroupsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListInterceptEndpointGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupsRequest;
+    /// let x = ListInterceptEndpointGroupsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListInterceptEndpointGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupsRequest;
+    /// let x = ListInterceptEndpointGroupsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListInterceptEndpointGroupsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupsRequest;
+    /// let x = ListInterceptEndpointGroupsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListInterceptEndpointGroupsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupsRequest;
+    /// let x = ListInterceptEndpointGroupsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInterceptEndpointGroupsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListInterceptEndpointGroupsRequest"
+    }
+}
+
+/// Response message for ListInterceptEndpointGroups.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInterceptEndpointGroupsResponse {
+    /// The endpoint groups from the specified parent.
+    pub intercept_endpoint_groups: std::vec::Vec<crate::model::InterceptEndpointGroup>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    /// See <https://google.aip.dev/158> for more details.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInterceptEndpointGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [intercept_endpoint_groups][crate::model::ListInterceptEndpointGroupsResponse::intercept_endpoint_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupsResponse;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// let x = ListInterceptEndpointGroupsResponse::new()
+    ///     .set_intercept_endpoint_groups([
+    ///         InterceptEndpointGroup::default()/* use setters */,
+    ///         InterceptEndpointGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_intercept_endpoint_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InterceptEndpointGroup>,
+    {
+        use std::iter::Iterator;
+        self.intercept_endpoint_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInterceptEndpointGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupsResponse;
+    /// let x = ListInterceptEndpointGroupsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInterceptEndpointGroupsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListInterceptEndpointGroupsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListInterceptEndpointGroupsResponse
+{
+    type PageItem = crate::model::InterceptEndpointGroup;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.intercept_endpoint_groups
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetInterceptEndpointGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetInterceptEndpointGroupRequest {
+    /// Required. The name of the endpoint group to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/interceptEndpointGroups/{intercept_endpoint_group}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetInterceptEndpointGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetInterceptEndpointGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetInterceptEndpointGroupRequest;
+    /// let x = GetInterceptEndpointGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetInterceptEndpointGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetInterceptEndpointGroupRequest"
+    }
+}
+
+/// Request message for CreateInterceptEndpointGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateInterceptEndpointGroupRequest {
+    /// Required. The parent resource where this endpoint group will be created.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the endpoint group, which will become the final
+    /// component of the endpoint group's resource name.
+    pub intercept_endpoint_group_id: std::string::String,
+
+    /// Required. The endpoint group to create.
+    pub intercept_endpoint_group: std::option::Option<crate::model::InterceptEndpointGroup>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateInterceptEndpointGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateInterceptEndpointGroupRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupRequest;
+    /// let x = CreateInterceptEndpointGroupRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [intercept_endpoint_group_id][crate::model::CreateInterceptEndpointGroupRequest::intercept_endpoint_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupRequest;
+    /// let x = CreateInterceptEndpointGroupRequest::new().set_intercept_endpoint_group_id("example");
+    /// ```
+    pub fn set_intercept_endpoint_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intercept_endpoint_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [intercept_endpoint_group][crate::model::CreateInterceptEndpointGroupRequest::intercept_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// let x = CreateInterceptEndpointGroupRequest::new().set_intercept_endpoint_group(InterceptEndpointGroup::default()/* use setters */);
+    /// ```
+    pub fn set_intercept_endpoint_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptEndpointGroup>,
+    {
+        self.intercept_endpoint_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intercept_endpoint_group][crate::model::CreateInterceptEndpointGroupRequest::intercept_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// let x = CreateInterceptEndpointGroupRequest::new().set_or_clear_intercept_endpoint_group(Some(InterceptEndpointGroup::default()/* use setters */));
+    /// let x = CreateInterceptEndpointGroupRequest::new().set_or_clear_intercept_endpoint_group(None::<InterceptEndpointGroup>);
+    /// ```
+    pub fn set_or_clear_intercept_endpoint_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptEndpointGroup>,
+    {
+        self.intercept_endpoint_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateInterceptEndpointGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupRequest;
+    /// let x = CreateInterceptEndpointGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateInterceptEndpointGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateInterceptEndpointGroupRequest"
+    }
+}
+
+/// Request message for UpdateInterceptEndpointGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateInterceptEndpointGroupRequest {
+    /// Optional. The list of fields to update.
+    /// Fields are specified relative to the endpoint group
+    /// (e.g. `description`; *not* `intercept_endpoint_group.description`).
+    /// See <https://google.aip.dev/161> for more details.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The endpoint group to update.
+    pub intercept_endpoint_group: std::option::Option<crate::model::InterceptEndpointGroup>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateInterceptEndpointGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateInterceptEndpointGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptEndpointGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInterceptEndpointGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateInterceptEndpointGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptEndpointGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInterceptEndpointGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInterceptEndpointGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [intercept_endpoint_group][crate::model::UpdateInterceptEndpointGroupRequest::intercept_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptEndpointGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// let x = UpdateInterceptEndpointGroupRequest::new().set_intercept_endpoint_group(InterceptEndpointGroup::default()/* use setters */);
+    /// ```
+    pub fn set_intercept_endpoint_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptEndpointGroup>,
+    {
+        self.intercept_endpoint_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intercept_endpoint_group][crate::model::UpdateInterceptEndpointGroupRequest::intercept_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptEndpointGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// let x = UpdateInterceptEndpointGroupRequest::new().set_or_clear_intercept_endpoint_group(Some(InterceptEndpointGroup::default()/* use setters */));
+    /// let x = UpdateInterceptEndpointGroupRequest::new().set_or_clear_intercept_endpoint_group(None::<InterceptEndpointGroup>);
+    /// ```
+    pub fn set_or_clear_intercept_endpoint_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptEndpointGroup>,
+    {
+        self.intercept_endpoint_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateInterceptEndpointGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptEndpointGroupRequest;
+    /// let x = UpdateInterceptEndpointGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateInterceptEndpointGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateInterceptEndpointGroupRequest"
+    }
+}
+
+/// Request message for DeleteInterceptEndpointGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteInterceptEndpointGroupRequest {
+    /// Required. The endpoint group to delete.
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteInterceptEndpointGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteInterceptEndpointGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteInterceptEndpointGroupRequest;
+    /// let x = DeleteInterceptEndpointGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteInterceptEndpointGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteInterceptEndpointGroupRequest;
+    /// let x = DeleteInterceptEndpointGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteInterceptEndpointGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteInterceptEndpointGroupRequest"
+    }
+}
+
+/// An endpoint group association represents a link between a network and an
+/// endpoint group in the organization.
+///
+/// Creating an association creates the networking infrastructure linking the
+/// network to the endpoint group, but does not enable intercept by itself.
+/// To enable intercept, the user must also create a network firewall policy
+/// containing intercept rules and associate it with the network.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InterceptEndpointGroupAssociation {
+    /// Immutable. Identifier. The resource name of this endpoint group
+    /// association, for example:
+    /// `projects/123456789/locations/global/interceptEndpointGroupAssociations/my-eg-association`.
+    /// See <https://google.aip.dev/122> for more details.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was most recently updated.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels are key/value pairs that help to organize and filter
+    /// resources.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. Immutable. The endpoint group that this association is connected
+    /// to, for example:
+    /// `projects/123456789/locations/global/interceptEndpointGroups/my-eg`.
+    /// See <https://google.aip.dev/124>.
+    pub intercept_endpoint_group: std::string::String,
+
+    /// Required. Immutable. The VPC network that is associated. for example:
+    /// `projects/123456789/global/networks/my-network`.
+    /// See <https://google.aip.dev/124>.
+    pub network: std::string::String,
+
+    /// Output only. The list of locations where the association is present. This
+    /// information is retrieved from the linked endpoint group, and not configured
+    /// as part of the association itself.
+    #[deprecated]
+    pub locations_details:
+        std::vec::Vec<crate::model::intercept_endpoint_group_association::LocationDetails>,
+
+    /// Output only. Current state of the endpoint group association.
+    pub state: crate::model::intercept_endpoint_group_association::State,
+
+    /// Output only. The current state of the resource does not match the user's
+    /// intended state, and the system is working to reconcile them. This part of
+    /// the normal operation (e.g. adding a new location to the target deployment
+    /// group). See <https://google.aip.dev/128>.
+    pub reconciling: bool,
+
+    /// Output only. The list of locations where the association is configured.
+    /// This information is retrieved from the linked endpoint group.
+    pub locations: std::vec::Vec<crate::model::InterceptLocation>,
+
+    /// Output only. Identifier used by the data-path.
+    /// See the NSI GENEVE format for more details:
+    /// <https://docs.cloud.google.com/network-security-integration/docs/understand-geneve#network_id>
+    pub network_cookie: u32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InterceptEndpointGroupAssociation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::InterceptEndpointGroupAssociation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = InterceptEndpointGroupAssociation::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::InterceptEndpointGroupAssociation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// use wkt::Timestamp;
+    /// let x = InterceptEndpointGroupAssociation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::InterceptEndpointGroupAssociation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// use wkt::Timestamp;
+    /// let x = InterceptEndpointGroupAssociation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InterceptEndpointGroupAssociation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::InterceptEndpointGroupAssociation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// use wkt::Timestamp;
+    /// let x = InterceptEndpointGroupAssociation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::InterceptEndpointGroupAssociation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// use wkt::Timestamp;
+    /// let x = InterceptEndpointGroupAssociation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InterceptEndpointGroupAssociation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::InterceptEndpointGroupAssociation::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = InterceptEndpointGroupAssociation::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [intercept_endpoint_group][crate::model::InterceptEndpointGroupAssociation::intercept_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = InterceptEndpointGroupAssociation::new().set_intercept_endpoint_group("example");
+    /// ```
+    pub fn set_intercept_endpoint_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intercept_endpoint_group = v.into();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::InterceptEndpointGroupAssociation::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = InterceptEndpointGroupAssociation::new().set_network("example");
+    /// ```
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [locations_details][crate::model::InterceptEndpointGroupAssociation::locations_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// use google_cloud_networksecurity_v1::model::intercept_endpoint_group_association::LocationDetails;
+    /// let x = InterceptEndpointGroupAssociation::new()
+    ///     .set_locations_details([
+    ///         LocationDetails::default()/* use setters */,
+    ///         LocationDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    #[deprecated]
+    pub fn set_locations_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::intercept_endpoint_group_association::LocationDetails>,
+    {
+        use std::iter::Iterator;
+        self.locations_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::InterceptEndpointGroupAssociation::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// use google_cloud_networksecurity_v1::model::intercept_endpoint_group_association::State;
+    /// let x0 = InterceptEndpointGroupAssociation::new().set_state(State::Active);
+    /// let x1 = InterceptEndpointGroupAssociation::new().set_state(State::Creating);
+    /// let x2 = InterceptEndpointGroupAssociation::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<
+        T: std::convert::Into<crate::model::intercept_endpoint_group_association::State>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::InterceptEndpointGroupAssociation::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = InterceptEndpointGroupAssociation::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::InterceptEndpointGroupAssociation::locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// use google_cloud_networksecurity_v1::model::InterceptLocation;
+    /// let x = InterceptEndpointGroupAssociation::new()
+    ///     .set_locations([
+    ///         InterceptLocation::default()/* use setters */,
+    ///         InterceptLocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InterceptLocation>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [network_cookie][crate::model::InterceptEndpointGroupAssociation::network_cookie].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = InterceptEndpointGroupAssociation::new().set_network_cookie(42_u32);
+    /// ```
+    pub fn set_network_cookie<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
+        self.network_cookie = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InterceptEndpointGroupAssociation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.InterceptEndpointGroupAssociation"
+    }
+}
+
+/// Defines additional types related to [InterceptEndpointGroupAssociation].
+pub mod intercept_endpoint_group_association {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Contains details about the state of an association in a specific cloud
+    /// location.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct LocationDetails {
+        /// Output only. The cloud location, e.g. "us-central1-a" or "asia-south1".
+        pub location: std::string::String,
+
+        /// Output only. The current state of the association in this location.
+        pub state: crate::model::intercept_endpoint_group_association::location_details::State,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl LocationDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [location][crate::model::intercept_endpoint_group_association::LocationDetails::location].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::intercept_endpoint_group_association::LocationDetails;
+        /// let x = LocationDetails::new().set_location("example");
+        /// ```
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::intercept_endpoint_group_association::LocationDetails::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::intercept_endpoint_group_association::LocationDetails;
+        /// use google_cloud_networksecurity_v1::model::intercept_endpoint_group_association::location_details::State;
+        /// let x0 = LocationDetails::new().set_state(State::Active);
+        /// let x1 = LocationDetails::new().set_state(State::OutOfSync);
+        /// ```
+        pub fn set_state<
+            T: std::convert::Into<
+                    crate::model::intercept_endpoint_group_association::location_details::State,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for LocationDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.InterceptEndpointGroupAssociation.LocationDetails"
+        }
+    }
+
+    /// Defines additional types related to [LocationDetails].
+    pub mod location_details {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The state of association.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum State {
+            /// Not set.
+            Unspecified,
+            /// The association is ready and in sync with the linked endpoint group.
+            Active,
+            /// The association is out of sync with the linked endpoint group.
+            /// In most cases, this is a result of a transient issue within the system
+            /// (e.g. an inaccessible location) and the system is expected to recover
+            /// automatically.
+            OutOfSync,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [State::value] or
+            /// [State::name].
+            UnknownValue(state::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod state {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl State {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Active => std::option::Option::Some(1),
+                    Self::OutOfSync => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                    Self::Active => std::option::Option::Some("ACTIVE"),
+                    Self::OutOfSync => std::option::Option::Some("OUT_OF_SYNC"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for State {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Active,
+                    2 => Self::OutOfSync,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for State {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "STATE_UNSPECIFIED" => Self::Unspecified,
+                    "ACTIVE" => Self::Active,
+                    "OUT_OF_SYNC" => Self::OutOfSync,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for State {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Active => serializer.serialize_i32(1),
+                    Self::OutOfSync => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for State {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                    ".google.cloud.networksecurity.v1.InterceptEndpointGroupAssociation.LocationDetails.State"))
+            }
+        }
+    }
+
+    /// The state of the association.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// The association is ready and in sync with the linked endpoint group.
+        Active,
+        /// The association is being created.
+        Creating,
+        /// The association is being deleted.
+        Deleting,
+        /// The association is disabled due to a breaking change in another resource.
+        Closed,
+        /// The association is out of sync with the linked endpoint group.
+        /// In most cases, this is a result of a transient issue within the system
+        /// (e.g. an inaccessible location) and the system is expected to recover
+        /// automatically. Check the `locations_details` field for more details.
+        OutOfSync,
+        /// An attempt to delete the association has failed. This is a terminal state
+        /// and the association is not expected to be usable as some of its resources
+        /// have been deleted.
+        /// The only permitted operation is to retry deleting the association.
+        DeleteFailed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Closed => std::option::Option::Some(4),
+                Self::OutOfSync => std::option::Option::Some(5),
+                Self::DeleteFailed => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Closed => std::option::Option::Some("CLOSED"),
+                Self::OutOfSync => std::option::Option::Some("OUT_OF_SYNC"),
+                Self::DeleteFailed => std::option::Option::Some("DELETE_FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Creating,
+                3 => Self::Deleting,
+                4 => Self::Closed,
+                5 => Self::OutOfSync,
+                6 => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                "CLOSED" => Self::Closed,
+                "OUT_OF_SYNC" => Self::OutOfSync,
+                "DELETE_FAILED" => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Closed => serializer.serialize_i32(4),
+                Self::OutOfSync => serializer.serialize_i32(5),
+                Self::DeleteFailed => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.InterceptEndpointGroupAssociation.State",
+            ))
+        }
+    }
+}
+
+/// Request message for ListInterceptEndpointGroupAssociations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInterceptEndpointGroupAssociationsRequest {
+    /// Required. The parent, which owns this collection of associations.
+    /// Example: `projects/123456789/locations/global`.
+    /// See <https://google.aip.dev/132> for more details.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default. See
+    /// <https://google.aip.dev/158> for more details.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListInterceptEndpointGroups` call. Provide this to retrieve the subsequent
+    /// page. When paginating, all other parameters provided to
+    /// `ListInterceptEndpointGroups` must match the call that provided the page
+    /// token. See <https://google.aip.dev/158> for more details.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression.
+    /// See <https://google.aip.dev/160#filtering> for more details.
+    pub filter: std::string::String,
+
+    /// Optional. Sort expression.
+    /// See <https://google.aip.dev/132#ordering> for more details.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInterceptEndpointGroupAssociationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListInterceptEndpointGroupAssociationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupAssociationsRequest;
+    /// let x = ListInterceptEndpointGroupAssociationsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListInterceptEndpointGroupAssociationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupAssociationsRequest;
+    /// let x = ListInterceptEndpointGroupAssociationsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListInterceptEndpointGroupAssociationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupAssociationsRequest;
+    /// let x = ListInterceptEndpointGroupAssociationsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListInterceptEndpointGroupAssociationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupAssociationsRequest;
+    /// let x = ListInterceptEndpointGroupAssociationsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListInterceptEndpointGroupAssociationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupAssociationsRequest;
+    /// let x = ListInterceptEndpointGroupAssociationsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInterceptEndpointGroupAssociationsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListInterceptEndpointGroupAssociationsRequest"
+    }
+}
+
+/// Response message for ListInterceptEndpointGroupAssociations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInterceptEndpointGroupAssociationsResponse {
+    /// The associations from the specified parent.
+    pub intercept_endpoint_group_associations:
+        std::vec::Vec<crate::model::InterceptEndpointGroupAssociation>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    /// See <https://google.aip.dev/158> for more details.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInterceptEndpointGroupAssociationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [intercept_endpoint_group_associations][crate::model::ListInterceptEndpointGroupAssociationsResponse::intercept_endpoint_group_associations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupAssociationsResponse;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = ListInterceptEndpointGroupAssociationsResponse::new()
+    ///     .set_intercept_endpoint_group_associations([
+    ///         InterceptEndpointGroupAssociation::default()/* use setters */,
+    ///         InterceptEndpointGroupAssociation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_intercept_endpoint_group_associations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InterceptEndpointGroupAssociation>,
+    {
+        use std::iter::Iterator;
+        self.intercept_endpoint_group_associations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInterceptEndpointGroupAssociationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptEndpointGroupAssociationsResponse;
+    /// let x = ListInterceptEndpointGroupAssociationsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInterceptEndpointGroupAssociationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListInterceptEndpointGroupAssociationsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListInterceptEndpointGroupAssociationsResponse
+{
+    type PageItem = crate::model::InterceptEndpointGroupAssociation;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.intercept_endpoint_group_associations
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetInterceptEndpointGroupAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetInterceptEndpointGroupAssociationRequest {
+    /// Required. The name of the association to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/interceptEndpointGroupAssociations/{intercept_endpoint_group_association}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetInterceptEndpointGroupAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetInterceptEndpointGroupAssociationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetInterceptEndpointGroupAssociationRequest;
+    /// let x = GetInterceptEndpointGroupAssociationRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetInterceptEndpointGroupAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetInterceptEndpointGroupAssociationRequest"
+    }
+}
+
+/// Request message for CreateInterceptEndpointGroupAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateInterceptEndpointGroupAssociationRequest {
+    /// Required. The parent resource where this association will be created.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Optional. The ID to use for the new association, which will become the
+    /// final component of the endpoint group's resource name. If not provided, the
+    /// server will generate a unique ID.
+    pub intercept_endpoint_group_association_id: std::string::String,
+
+    /// Required. The association to create.
+    pub intercept_endpoint_group_association:
+        std::option::Option<crate::model::InterceptEndpointGroupAssociation>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateInterceptEndpointGroupAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateInterceptEndpointGroupAssociationRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupAssociationRequest;
+    /// let x = CreateInterceptEndpointGroupAssociationRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [intercept_endpoint_group_association_id][crate::model::CreateInterceptEndpointGroupAssociationRequest::intercept_endpoint_group_association_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupAssociationRequest;
+    /// let x = CreateInterceptEndpointGroupAssociationRequest::new().set_intercept_endpoint_group_association_id("example");
+    /// ```
+    pub fn set_intercept_endpoint_group_association_id<
+        T: std::convert::Into<std::string::String>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intercept_endpoint_group_association_id = v.into();
+        self
+    }
+
+    /// Sets the value of [intercept_endpoint_group_association][crate::model::CreateInterceptEndpointGroupAssociationRequest::intercept_endpoint_group_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = CreateInterceptEndpointGroupAssociationRequest::new().set_intercept_endpoint_group_association(InterceptEndpointGroupAssociation::default()/* use setters */);
+    /// ```
+    pub fn set_intercept_endpoint_group_association<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptEndpointGroupAssociation>,
+    {
+        self.intercept_endpoint_group_association = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intercept_endpoint_group_association][crate::model::CreateInterceptEndpointGroupAssociationRequest::intercept_endpoint_group_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = CreateInterceptEndpointGroupAssociationRequest::new().set_or_clear_intercept_endpoint_group_association(Some(InterceptEndpointGroupAssociation::default()/* use setters */));
+    /// let x = CreateInterceptEndpointGroupAssociationRequest::new().set_or_clear_intercept_endpoint_group_association(None::<InterceptEndpointGroupAssociation>);
+    /// ```
+    pub fn set_or_clear_intercept_endpoint_group_association<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptEndpointGroupAssociation>,
+    {
+        self.intercept_endpoint_group_association = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateInterceptEndpointGroupAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptEndpointGroupAssociationRequest;
+    /// let x = CreateInterceptEndpointGroupAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateInterceptEndpointGroupAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateInterceptEndpointGroupAssociationRequest"
+    }
+}
+
+/// Request message for UpdateInterceptEndpointGroupAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateInterceptEndpointGroupAssociationRequest {
+    /// Optional. The list of fields to update.
+    /// Fields are specified relative to the association
+    /// (e.g. `description`; *not*
+    /// `intercept_endpoint_group_association.description`). See
+    /// <https://google.aip.dev/161> for more details.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The association to update.
+    pub intercept_endpoint_group_association:
+        std::option::Option<crate::model::InterceptEndpointGroupAssociation>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateInterceptEndpointGroupAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateInterceptEndpointGroupAssociationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptEndpointGroupAssociationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInterceptEndpointGroupAssociationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateInterceptEndpointGroupAssociationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptEndpointGroupAssociationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInterceptEndpointGroupAssociationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInterceptEndpointGroupAssociationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [intercept_endpoint_group_association][crate::model::UpdateInterceptEndpointGroupAssociationRequest::intercept_endpoint_group_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptEndpointGroupAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = UpdateInterceptEndpointGroupAssociationRequest::new().set_intercept_endpoint_group_association(InterceptEndpointGroupAssociation::default()/* use setters */);
+    /// ```
+    pub fn set_intercept_endpoint_group_association<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptEndpointGroupAssociation>,
+    {
+        self.intercept_endpoint_group_association = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intercept_endpoint_group_association][crate::model::UpdateInterceptEndpointGroupAssociationRequest::intercept_endpoint_group_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptEndpointGroupAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// let x = UpdateInterceptEndpointGroupAssociationRequest::new().set_or_clear_intercept_endpoint_group_association(Some(InterceptEndpointGroupAssociation::default()/* use setters */));
+    /// let x = UpdateInterceptEndpointGroupAssociationRequest::new().set_or_clear_intercept_endpoint_group_association(None::<InterceptEndpointGroupAssociation>);
+    /// ```
+    pub fn set_or_clear_intercept_endpoint_group_association<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptEndpointGroupAssociation>,
+    {
+        self.intercept_endpoint_group_association = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateInterceptEndpointGroupAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptEndpointGroupAssociationRequest;
+    /// let x = UpdateInterceptEndpointGroupAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateInterceptEndpointGroupAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateInterceptEndpointGroupAssociationRequest"
+    }
+}
+
+/// Request message for DeleteInterceptEndpointGroupAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteInterceptEndpointGroupAssociationRequest {
+    /// Required. The association to delete.
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteInterceptEndpointGroupAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteInterceptEndpointGroupAssociationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteInterceptEndpointGroupAssociationRequest;
+    /// let x = DeleteInterceptEndpointGroupAssociationRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteInterceptEndpointGroupAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteInterceptEndpointGroupAssociationRequest;
+    /// let x = DeleteInterceptEndpointGroupAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteInterceptEndpointGroupAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteInterceptEndpointGroupAssociationRequest"
+    }
+}
+
+/// A deployment group aggregates many zonal intercept backends (deployments)
+/// into a single global intercept service. Consumers can connect this service
+/// using an endpoint group.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InterceptDeploymentGroup {
+    /// Immutable. Identifier. The resource name of this deployment group, for
+    /// example:
+    /// `projects/123456789/locations/global/interceptDeploymentGroups/my-dg`.
+    /// See <https://google.aip.dev/122> for more details.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was most recently updated.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels are key/value pairs that help to organize and filter
+    /// resources.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. Immutable. The network that will be used for all child
+    /// deployments, for example: `projects/{project}/global/networks/{network}`.
+    /// See <https://google.aip.dev/124>.
+    pub network: std::string::String,
+
+    /// Output only. The list of endpoint groups that are connected to this
+    /// resource.
+    pub connected_endpoint_groups:
+        std::vec::Vec<crate::model::intercept_deployment_group::ConnectedEndpointGroup>,
+
+    /// Output only. The list of Intercept Deployments that belong to this group.
+    #[deprecated]
+    pub nested_deployments: std::vec::Vec<crate::model::intercept_deployment_group::Deployment>,
+
+    /// Output only. The current state of the deployment group.
+    /// See <https://google.aip.dev/216>.
+    pub state: crate::model::intercept_deployment_group::State,
+
+    /// Output only. The current state of the resource does not match the user's
+    /// intended state, and the system is working to reconcile them. This is part
+    /// of the normal operation (e.g. adding a new deployment to the group) See
+    /// <https://google.aip.dev/128>.
+    pub reconciling: bool,
+
+    /// Optional. User-provided description of the deployment group.
+    /// Used as additional context for the deployment group.
+    pub description: std::string::String,
+
+    /// Output only. The list of locations where the deployment group is present.
+    pub locations: std::vec::Vec<crate::model::InterceptLocation>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InterceptDeploymentGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::InterceptDeploymentGroup::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// let x = InterceptDeploymentGroup::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::InterceptDeploymentGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = InterceptDeploymentGroup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::InterceptDeploymentGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = InterceptDeploymentGroup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InterceptDeploymentGroup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::InterceptDeploymentGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = InterceptDeploymentGroup::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::InterceptDeploymentGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = InterceptDeploymentGroup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InterceptDeploymentGroup::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::InterceptDeploymentGroup::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// let x = InterceptDeploymentGroup::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::InterceptDeploymentGroup::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// let x = InterceptDeploymentGroup::new().set_network("example");
+    /// ```
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [connected_endpoint_groups][crate::model::InterceptDeploymentGroup::connected_endpoint_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::model::intercept_deployment_group::ConnectedEndpointGroup;
+    /// let x = InterceptDeploymentGroup::new()
+    ///     .set_connected_endpoint_groups([
+    ///         ConnectedEndpointGroup::default()/* use setters */,
+    ///         ConnectedEndpointGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_connected_endpoint_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::intercept_deployment_group::ConnectedEndpointGroup>,
+    {
+        use std::iter::Iterator;
+        self.connected_endpoint_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [nested_deployments][crate::model::InterceptDeploymentGroup::nested_deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::model::intercept_deployment_group::Deployment;
+    /// let x = InterceptDeploymentGroup::new()
+    ///     .set_nested_deployments([
+    ///         Deployment::default()/* use setters */,
+    ///         Deployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    #[deprecated]
+    pub fn set_nested_deployments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::intercept_deployment_group::Deployment>,
+    {
+        use std::iter::Iterator;
+        self.nested_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::InterceptDeploymentGroup::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::model::intercept_deployment_group::State;
+    /// let x0 = InterceptDeploymentGroup::new().set_state(State::Active);
+    /// let x1 = InterceptDeploymentGroup::new().set_state(State::Creating);
+    /// let x2 = InterceptDeploymentGroup::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::intercept_deployment_group::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::InterceptDeploymentGroup::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// let x = InterceptDeploymentGroup::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::InterceptDeploymentGroup::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// let x = InterceptDeploymentGroup::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::InterceptDeploymentGroup::locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::model::InterceptLocation;
+    /// let x = InterceptDeploymentGroup::new()
+    ///     .set_locations([
+    ///         InterceptLocation::default()/* use setters */,
+    ///         InterceptLocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InterceptLocation>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for InterceptDeploymentGroup {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.InterceptDeploymentGroup"
+    }
+}
+
+/// Defines additional types related to [InterceptDeploymentGroup].
+pub mod intercept_deployment_group {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// An endpoint group connected to this deployment group.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConnectedEndpointGroup {
+        /// Output only. The connected endpoint group's resource name, for example:
+        /// `projects/123456789/locations/global/interceptEndpointGroups/my-eg`.
+        /// See <https://google.aip.dev/124>.
+        pub name: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ConnectedEndpointGroup {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::intercept_deployment_group::ConnectedEndpointGroup::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::intercept_deployment_group::ConnectedEndpointGroup;
+        /// let x = ConnectedEndpointGroup::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConnectedEndpointGroup {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.InterceptDeploymentGroup.ConnectedEndpointGroup"
+        }
+    }
+
+    /// A deployment belonging to this deployment group.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Deployment {
+        /// Output only. The name of the Intercept Deployment, in the format:
+        /// `projects/{project}/locations/{location}/interceptDeployments/{intercept_deployment}`.
+        pub name: std::string::String,
+
+        /// Output only. Most recent known state of the deployment.
+        pub state: crate::model::intercept_deployment::State,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Deployment {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::intercept_deployment_group::Deployment::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::intercept_deployment_group::Deployment;
+        /// let x = Deployment::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::intercept_deployment_group::Deployment::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::intercept_deployment_group::Deployment;
+        /// use google_cloud_networksecurity_v1::model::intercept_deployment::State;
+        /// let x0 = Deployment::new().set_state(State::Active);
+        /// let x1 = Deployment::new().set_state(State::Creating);
+        /// let x2 = Deployment::new().set_state(State::Deleting);
+        /// ```
+        pub fn set_state<T: std::convert::Into<crate::model::intercept_deployment::State>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Deployment {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.InterceptDeploymentGroup.Deployment"
+        }
+    }
+
+    /// The current state of the deployment group.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set (this is not a valid state).
+        Unspecified,
+        /// The deployment group is ready.
+        Active,
+        /// The deployment group is being created.
+        Creating,
+        /// The deployment group is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Creating,
+                3 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.InterceptDeploymentGroup.State",
+            ))
+        }
+    }
+}
+
+/// Request message for ListInterceptDeploymentGroups.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInterceptDeploymentGroupsRequest {
+    /// Required. The parent, which owns this collection of deployment groups.
+    /// Example: `projects/123456789/locations/global`.
+    /// See <https://google.aip.dev/132> for more details.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default. See
+    /// <https://google.aip.dev/158> for more details.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListInterceptDeploymentGroups` call. Provide this to retrieve the
+    /// subsequent page. When paginating, all other parameters provided to
+    /// `ListInterceptDeploymentGroups` must match the call that provided the page
+    /// token. See <https://google.aip.dev/158> for more details.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression.
+    /// See <https://google.aip.dev/160#filtering> for more details.
+    pub filter: std::string::String,
+
+    /// Optional. Sort expression.
+    /// See <https://google.aip.dev/132#ordering> for more details.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInterceptDeploymentGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListInterceptDeploymentGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentGroupsRequest;
+    /// let x = ListInterceptDeploymentGroupsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListInterceptDeploymentGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentGroupsRequest;
+    /// let x = ListInterceptDeploymentGroupsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListInterceptDeploymentGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentGroupsRequest;
+    /// let x = ListInterceptDeploymentGroupsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListInterceptDeploymentGroupsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentGroupsRequest;
+    /// let x = ListInterceptDeploymentGroupsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListInterceptDeploymentGroupsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentGroupsRequest;
+    /// let x = ListInterceptDeploymentGroupsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInterceptDeploymentGroupsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListInterceptDeploymentGroupsRequest"
+    }
+}
+
+/// Response message for ListInterceptDeploymentGroups.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInterceptDeploymentGroupsResponse {
+    /// The deployment groups from the specified parent.
+    pub intercept_deployment_groups: std::vec::Vec<crate::model::InterceptDeploymentGroup>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    /// See <https://google.aip.dev/158> for more details.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInterceptDeploymentGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [intercept_deployment_groups][crate::model::ListInterceptDeploymentGroupsResponse::intercept_deployment_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentGroupsResponse;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// let x = ListInterceptDeploymentGroupsResponse::new()
+    ///     .set_intercept_deployment_groups([
+    ///         InterceptDeploymentGroup::default()/* use setters */,
+    ///         InterceptDeploymentGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_intercept_deployment_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InterceptDeploymentGroup>,
+    {
+        use std::iter::Iterator;
+        self.intercept_deployment_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInterceptDeploymentGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentGroupsResponse;
+    /// let x = ListInterceptDeploymentGroupsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInterceptDeploymentGroupsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListInterceptDeploymentGroupsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListInterceptDeploymentGroupsResponse
+{
+    type PageItem = crate::model::InterceptDeploymentGroup;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.intercept_deployment_groups
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetInterceptDeploymentGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetInterceptDeploymentGroupRequest {
+    /// Required. The name of the deployment group to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/interceptDeploymentGroups/{intercept_deployment_group}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetInterceptDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetInterceptDeploymentGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetInterceptDeploymentGroupRequest;
+    /// let x = GetInterceptDeploymentGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetInterceptDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetInterceptDeploymentGroupRequest"
+    }
+}
+
+/// Request message for CreateInterceptDeploymentGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateInterceptDeploymentGroupRequest {
+    /// Required. The parent resource where this deployment group will be created.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the new deployment group, which will become the
+    /// final component of the deployment group's resource name.
+    pub intercept_deployment_group_id: std::string::String,
+
+    /// Required. The deployment group to create.
+    pub intercept_deployment_group: std::option::Option<crate::model::InterceptDeploymentGroup>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateInterceptDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateInterceptDeploymentGroupRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentGroupRequest;
+    /// let x = CreateInterceptDeploymentGroupRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [intercept_deployment_group_id][crate::model::CreateInterceptDeploymentGroupRequest::intercept_deployment_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentGroupRequest;
+    /// let x = CreateInterceptDeploymentGroupRequest::new().set_intercept_deployment_group_id("example");
+    /// ```
+    pub fn set_intercept_deployment_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intercept_deployment_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [intercept_deployment_group][crate::model::CreateInterceptDeploymentGroupRequest::intercept_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// let x = CreateInterceptDeploymentGroupRequest::new().set_intercept_deployment_group(InterceptDeploymentGroup::default()/* use setters */);
+    /// ```
+    pub fn set_intercept_deployment_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptDeploymentGroup>,
+    {
+        self.intercept_deployment_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intercept_deployment_group][crate::model::CreateInterceptDeploymentGroupRequest::intercept_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// let x = CreateInterceptDeploymentGroupRequest::new().set_or_clear_intercept_deployment_group(Some(InterceptDeploymentGroup::default()/* use setters */));
+    /// let x = CreateInterceptDeploymentGroupRequest::new().set_or_clear_intercept_deployment_group(None::<InterceptDeploymentGroup>);
+    /// ```
+    pub fn set_or_clear_intercept_deployment_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptDeploymentGroup>,
+    {
+        self.intercept_deployment_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateInterceptDeploymentGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentGroupRequest;
+    /// let x = CreateInterceptDeploymentGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateInterceptDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateInterceptDeploymentGroupRequest"
+    }
+}
+
+/// Request message for UpdateInterceptDeploymentGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateInterceptDeploymentGroupRequest {
+    /// Optional. The list of fields to update.
+    /// Fields are specified relative to the deployment group
+    /// (e.g. `description`; *not*
+    /// `intercept_deployment_group.description`). See
+    /// <https://google.aip.dev/161> for more details.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The deployment group to update.
+    pub intercept_deployment_group: std::option::Option<crate::model::InterceptDeploymentGroup>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateInterceptDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateInterceptDeploymentGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptDeploymentGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInterceptDeploymentGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateInterceptDeploymentGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptDeploymentGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInterceptDeploymentGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInterceptDeploymentGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [intercept_deployment_group][crate::model::UpdateInterceptDeploymentGroupRequest::intercept_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptDeploymentGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// let x = UpdateInterceptDeploymentGroupRequest::new().set_intercept_deployment_group(InterceptDeploymentGroup::default()/* use setters */);
+    /// ```
+    pub fn set_intercept_deployment_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptDeploymentGroup>,
+    {
+        self.intercept_deployment_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intercept_deployment_group][crate::model::UpdateInterceptDeploymentGroupRequest::intercept_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptDeploymentGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// let x = UpdateInterceptDeploymentGroupRequest::new().set_or_clear_intercept_deployment_group(Some(InterceptDeploymentGroup::default()/* use setters */));
+    /// let x = UpdateInterceptDeploymentGroupRequest::new().set_or_clear_intercept_deployment_group(None::<InterceptDeploymentGroup>);
+    /// ```
+    pub fn set_or_clear_intercept_deployment_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptDeploymentGroup>,
+    {
+        self.intercept_deployment_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateInterceptDeploymentGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptDeploymentGroupRequest;
+    /// let x = UpdateInterceptDeploymentGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateInterceptDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateInterceptDeploymentGroupRequest"
+    }
+}
+
+/// Request message for DeleteInterceptDeploymentGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteInterceptDeploymentGroupRequest {
+    /// Required. The deployment group to delete.
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteInterceptDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteInterceptDeploymentGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteInterceptDeploymentGroupRequest;
+    /// let x = DeleteInterceptDeploymentGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteInterceptDeploymentGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteInterceptDeploymentGroupRequest;
+    /// let x = DeleteInterceptDeploymentGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteInterceptDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteInterceptDeploymentGroupRequest"
+    }
+}
+
+/// A deployment represents a zonal intercept backend ready to accept
+/// GENEVE-encapsulated traffic, e.g. a zonal instance group fronted by an
+/// internal passthrough load balancer. Deployments are always part of a
+/// global deployment group which represents a global intercept service.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InterceptDeployment {
+    /// Immutable. Identifier. The resource name of this deployment, for example:
+    /// `projects/123456789/locations/us-central1-a/interceptDeployments/my-dep`.
+    /// See <https://google.aip.dev/122> for more details.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was most recently updated.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels are key/value pairs that help to organize and filter
+    /// resources.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. Immutable. The regional forwarding rule that fronts the
+    /// interceptors, for example:
+    /// `projects/123456789/regions/us-central1/forwardingRules/my-rule`.
+    /// See <https://google.aip.dev/124>.
+    pub forwarding_rule: std::string::String,
+
+    /// Required. Immutable. The deployment group that this deployment is a part
+    /// of, for example:
+    /// `projects/123456789/locations/global/interceptDeploymentGroups/my-dg`.
+    /// See <https://google.aip.dev/124>.
+    pub intercept_deployment_group: std::string::String,
+
+    /// Output only. The current state of the deployment.
+    /// See <https://google.aip.dev/216>.
+    pub state: crate::model::intercept_deployment::State,
+
+    /// Output only. The current state of the resource does not match the user's
+    /// intended state, and the system is working to reconcile them. This part of
+    /// the normal operation (e.g. linking a new association to the parent group).
+    /// See <https://google.aip.dev/128>.
+    pub reconciling: bool,
+
+    /// Optional. User-provided description of the deployment.
+    /// Used as additional context for the deployment.
+    pub description: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InterceptDeployment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::InterceptDeployment::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = InterceptDeployment::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::InterceptDeployment::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// use wkt::Timestamp;
+    /// let x = InterceptDeployment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::InterceptDeployment::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// use wkt::Timestamp;
+    /// let x = InterceptDeployment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InterceptDeployment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::InterceptDeployment::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// use wkt::Timestamp;
+    /// let x = InterceptDeployment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::InterceptDeployment::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// use wkt::Timestamp;
+    /// let x = InterceptDeployment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InterceptDeployment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::InterceptDeployment::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = InterceptDeployment::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [forwarding_rule][crate::model::InterceptDeployment::forwarding_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = InterceptDeployment::new().set_forwarding_rule("example");
+    /// ```
+    pub fn set_forwarding_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.forwarding_rule = v.into();
+        self
+    }
+
+    /// Sets the value of [intercept_deployment_group][crate::model::InterceptDeployment::intercept_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = InterceptDeployment::new().set_intercept_deployment_group("example");
+    /// ```
+    pub fn set_intercept_deployment_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intercept_deployment_group = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::InterceptDeployment::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// use google_cloud_networksecurity_v1::model::intercept_deployment::State;
+    /// let x0 = InterceptDeployment::new().set_state(State::Active);
+    /// let x1 = InterceptDeployment::new().set_state(State::Creating);
+    /// let x2 = InterceptDeployment::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::intercept_deployment::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::InterceptDeployment::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = InterceptDeployment::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::InterceptDeployment::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = InterceptDeployment::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InterceptDeployment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.InterceptDeployment"
+    }
+}
+
+/// Defines additional types related to [InterceptDeployment].
+pub mod intercept_deployment {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The current state of the deployment.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set (this is not a valid state).
+        Unspecified,
+        /// The deployment is ready and in sync with the parent group.
+        Active,
+        /// The deployment is being created.
+        Creating,
+        /// The deployment is being deleted.
+        Deleting,
+        /// The deployment is out of sync with the parent group.
+        /// In most cases, this is a result of a transient issue within the system
+        /// (e.g. a delayed data-path config) and the system is expected to recover
+        /// automatically. See the parent deployment group's state for more details.
+        OutOfSync,
+        /// An attempt to delete the deployment has failed. This is a terminal state
+        /// and the deployment is not expected to recover. The only permitted
+        /// operation is to retry deleting the deployment.
+        DeleteFailed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::OutOfSync => std::option::Option::Some(4),
+                Self::DeleteFailed => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::OutOfSync => std::option::Option::Some("OUT_OF_SYNC"),
+                Self::DeleteFailed => std::option::Option::Some("DELETE_FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Creating,
+                3 => Self::Deleting,
+                4 => Self::OutOfSync,
+                5 => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                "OUT_OF_SYNC" => Self::OutOfSync,
+                "DELETE_FAILED" => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::OutOfSync => serializer.serialize_i32(4),
+                Self::DeleteFailed => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.InterceptDeployment.State",
+            ))
+        }
+    }
+}
+
+/// Request message for ListInterceptDeployments.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInterceptDeploymentsRequest {
+    /// Required. The parent, which owns this collection of deployments.
+    /// Example: `projects/123456789/locations/us-central1-a`.
+    /// See <https://google.aip.dev/132> for more details.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default. See
+    /// <https://google.aip.dev/158> for more details.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListInterceptDeployments`
+    /// call. Provide this to retrieve the subsequent page. When paginating, all
+    /// other parameters provided to `ListInterceptDeployments` must match the call
+    /// that provided the page token. See <https://google.aip.dev/158> for more
+    /// details.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression.
+    /// See <https://google.aip.dev/160#filtering> for more details.
+    pub filter: std::string::String,
+
+    /// Optional. Sort expression.
+    /// See <https://google.aip.dev/132#ordering> for more details.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInterceptDeploymentsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListInterceptDeploymentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentsRequest;
+    /// let x = ListInterceptDeploymentsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListInterceptDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentsRequest;
+    /// let x = ListInterceptDeploymentsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListInterceptDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentsRequest;
+    /// let x = ListInterceptDeploymentsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListInterceptDeploymentsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentsRequest;
+    /// let x = ListInterceptDeploymentsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListInterceptDeploymentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentsRequest;
+    /// let x = ListInterceptDeploymentsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInterceptDeploymentsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListInterceptDeploymentsRequest"
+    }
+}
+
+/// Response message for ListInterceptDeployments.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInterceptDeploymentsResponse {
+    /// The deployments from the specified parent.
+    pub intercept_deployments: std::vec::Vec<crate::model::InterceptDeployment>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    /// See <https://google.aip.dev/158> for more details.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInterceptDeploymentsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [intercept_deployments][crate::model::ListInterceptDeploymentsResponse::intercept_deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentsResponse;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = ListInterceptDeploymentsResponse::new()
+    ///     .set_intercept_deployments([
+    ///         InterceptDeployment::default()/* use setters */,
+    ///         InterceptDeployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_intercept_deployments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InterceptDeployment>,
+    {
+        use std::iter::Iterator;
+        self.intercept_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInterceptDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentsResponse;
+    /// let x = ListInterceptDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListInterceptDeploymentsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListInterceptDeploymentsResponse;
+    /// let x = ListInterceptDeploymentsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInterceptDeploymentsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListInterceptDeploymentsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListInterceptDeploymentsResponse {
+    type PageItem = crate::model::InterceptDeployment;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.intercept_deployments
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetInterceptDeployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetInterceptDeploymentRequest {
+    /// Required. The name of the deployment to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/interceptDeployments/{intercept_deployment}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetInterceptDeploymentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetInterceptDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetInterceptDeploymentRequest;
+    /// let x = GetInterceptDeploymentRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetInterceptDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetInterceptDeploymentRequest"
+    }
+}
+
+/// Request message for CreateInterceptDeployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateInterceptDeploymentRequest {
+    /// Required. The parent resource where this deployment will be created.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the new deployment, which will become the final
+    /// component of the deployment's resource name.
+    pub intercept_deployment_id: std::string::String,
+
+    /// Required. The deployment to create.
+    pub intercept_deployment: std::option::Option<crate::model::InterceptDeployment>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateInterceptDeploymentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateInterceptDeploymentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentRequest;
+    /// let x = CreateInterceptDeploymentRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [intercept_deployment_id][crate::model::CreateInterceptDeploymentRequest::intercept_deployment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentRequest;
+    /// let x = CreateInterceptDeploymentRequest::new().set_intercept_deployment_id("example");
+    /// ```
+    pub fn set_intercept_deployment_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intercept_deployment_id = v.into();
+        self
+    }
+
+    /// Sets the value of [intercept_deployment][crate::model::CreateInterceptDeploymentRequest::intercept_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = CreateInterceptDeploymentRequest::new().set_intercept_deployment(InterceptDeployment::default()/* use setters */);
+    /// ```
+    pub fn set_intercept_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptDeployment>,
+    {
+        self.intercept_deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intercept_deployment][crate::model::CreateInterceptDeploymentRequest::intercept_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = CreateInterceptDeploymentRequest::new().set_or_clear_intercept_deployment(Some(InterceptDeployment::default()/* use setters */));
+    /// let x = CreateInterceptDeploymentRequest::new().set_or_clear_intercept_deployment(None::<InterceptDeployment>);
+    /// ```
+    pub fn set_or_clear_intercept_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptDeployment>,
+    {
+        self.intercept_deployment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateInterceptDeploymentRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateInterceptDeploymentRequest;
+    /// let x = CreateInterceptDeploymentRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateInterceptDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateInterceptDeploymentRequest"
+    }
+}
+
+/// Request message for UpdateInterceptDeployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateInterceptDeploymentRequest {
+    /// Optional. The list of fields to update.
+    /// Fields are specified relative to the deployment
+    /// (e.g. `description`; *not* `intercept_deployment.description`).
+    /// See <https://google.aip.dev/161> for more details.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The deployment to update.
+    pub intercept_deployment: std::option::Option<crate::model::InterceptDeployment>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateInterceptDeploymentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateInterceptDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInterceptDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateInterceptDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInterceptDeploymentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInterceptDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [intercept_deployment][crate::model::UpdateInterceptDeploymentRequest::intercept_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptDeploymentRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = UpdateInterceptDeploymentRequest::new().set_intercept_deployment(InterceptDeployment::default()/* use setters */);
+    /// ```
+    pub fn set_intercept_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptDeployment>,
+    {
+        self.intercept_deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [intercept_deployment][crate::model::UpdateInterceptDeploymentRequest::intercept_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptDeploymentRequest;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// let x = UpdateInterceptDeploymentRequest::new().set_or_clear_intercept_deployment(Some(InterceptDeployment::default()/* use setters */));
+    /// let x = UpdateInterceptDeploymentRequest::new().set_or_clear_intercept_deployment(None::<InterceptDeployment>);
+    /// ```
+    pub fn set_or_clear_intercept_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InterceptDeployment>,
+    {
+        self.intercept_deployment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateInterceptDeploymentRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateInterceptDeploymentRequest;
+    /// let x = UpdateInterceptDeploymentRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateInterceptDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateInterceptDeploymentRequest"
+    }
+}
+
+/// Request message for DeleteInterceptDeployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteInterceptDeploymentRequest {
+    /// Required. Name of the resource
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteInterceptDeploymentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteInterceptDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteInterceptDeploymentRequest;
+    /// let x = DeleteInterceptDeploymentRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteInterceptDeploymentRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteInterceptDeploymentRequest;
+    /// let x = DeleteInterceptDeploymentRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteInterceptDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteInterceptDeploymentRequest"
+    }
+}
+
+/// Details about intercept in a specific cloud location.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InterceptLocation {
+    /// Output only. The cloud location, e.g. "us-central1-a" or "asia-south1".
+    pub location: std::string::String,
+
+    /// Output only. The current state of the association in this location.
+    pub state: crate::model::intercept_location::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InterceptLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [location][crate::model::InterceptLocation::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptLocation;
+    /// let x = InterceptLocation::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::InterceptLocation::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::InterceptLocation;
+    /// use google_cloud_networksecurity_v1::model::intercept_location::State;
+    /// let x0 = InterceptLocation::new().set_state(State::Active);
+    /// let x1 = InterceptLocation::new().set_state(State::OutOfSync);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::intercept_location::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InterceptLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.InterceptLocation"
+    }
+}
+
+/// Defines additional types related to [InterceptLocation].
+pub mod intercept_location {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The current state of a resource in the location.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set (this is not a valid state).
+        Unspecified,
+        /// The resource is ready and in sync in the location.
+        Active,
+        /// The resource is out of sync in the location.
+        /// In most cases, this is a result of a transient issue within the system
+        /// (e.g. an inaccessible location) and the system is expected to recover
+        /// automatically.
+        OutOfSync,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::OutOfSync => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::OutOfSync => std::option::Option::Some("OUT_OF_SYNC"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::OutOfSync,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "OUT_OF_SYNC" => Self::OutOfSync,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::OutOfSync => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.InterceptLocation.State",
+            ))
+        }
+    }
+}
+
+/// An endpoint group is a consumer frontend for a deployment group (backend).
+/// In order to configure mirroring for a network, consumers must create:
+///
+/// - An association between their network and the endpoint group.
+/// - A security profile that points to the endpoint group.
+/// - A mirroring rule that references the security profile (group).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MirroringEndpointGroup {
+    /// Immutable. Identifier. The resource name of this endpoint group, for
+    /// example:
+    /// `projects/123456789/locations/global/mirroringEndpointGroups/my-eg`.
+    /// See <https://google.aip.dev/122> for more details.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was most recently updated.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels are key/value pairs that help to organize and filter
+    /// resources.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Immutable. The deployment group that this DIRECT endpoint group is
+    /// connected to, for example:
+    /// `projects/123456789/locations/global/mirroringDeploymentGroups/my-dg`.
+    /// See <https://google.aip.dev/124>.
+    pub mirroring_deployment_group: std::string::String,
+
+    /// Output only. List of details about the connected deployment groups to this
+    /// endpoint group.
+    pub connected_deployment_groups:
+        std::vec::Vec<crate::model::mirroring_endpoint_group::ConnectedDeploymentGroup>,
+
+    /// Output only. The current state of the endpoint group.
+    /// See <https://google.aip.dev/216>.
+    pub state: crate::model::mirroring_endpoint_group::State,
+
+    /// Output only. The current state of the resource does not match the user's
+    /// intended state, and the system is working to reconcile them. This is part
+    /// of the normal operation (e.g. adding a new association to the group). See
+    /// <https://google.aip.dev/128>.
+    pub reconciling: bool,
+
+    /// Immutable. The type of the endpoint group.
+    /// If left unspecified, defaults to DIRECT.
+    pub r#type: crate::model::mirroring_endpoint_group::Type,
+
+    /// Output only. List of associations to this endpoint group.
+    pub associations: std::vec::Vec<crate::model::mirroring_endpoint_group::AssociationDetails>,
+
+    /// Optional. User-provided description of the endpoint group.
+    /// Used as additional context for the endpoint group.
+    pub description: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MirroringEndpointGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MirroringEndpointGroup::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// let x = MirroringEndpointGroup::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::MirroringEndpointGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// use wkt::Timestamp;
+    /// let x = MirroringEndpointGroup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::MirroringEndpointGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// use wkt::Timestamp;
+    /// let x = MirroringEndpointGroup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MirroringEndpointGroup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::MirroringEndpointGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// use wkt::Timestamp;
+    /// let x = MirroringEndpointGroup::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::MirroringEndpointGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// use wkt::Timestamp;
+    /// let x = MirroringEndpointGroup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MirroringEndpointGroup::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::MirroringEndpointGroup::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// let x = MirroringEndpointGroup::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [mirroring_deployment_group][crate::model::MirroringEndpointGroup::mirroring_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// let x = MirroringEndpointGroup::new().set_mirroring_deployment_group("example");
+    /// ```
+    pub fn set_mirroring_deployment_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mirroring_deployment_group = v.into();
+        self
+    }
+
+    /// Sets the value of [connected_deployment_groups][crate::model::MirroringEndpointGroup::connected_deployment_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::ConnectedDeploymentGroup;
+    /// let x = MirroringEndpointGroup::new()
+    ///     .set_connected_deployment_groups([
+    ///         ConnectedDeploymentGroup::default()/* use setters */,
+    ///         ConnectedDeploymentGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_connected_deployment_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::mirroring_endpoint_group::ConnectedDeploymentGroup>,
+    {
+        use std::iter::Iterator;
+        self.connected_deployment_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::MirroringEndpointGroup::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::State;
+    /// let x0 = MirroringEndpointGroup::new().set_state(State::Active);
+    /// let x1 = MirroringEndpointGroup::new().set_state(State::Closed);
+    /// let x2 = MirroringEndpointGroup::new().set_state(State::Creating);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::mirroring_endpoint_group::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::MirroringEndpointGroup::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// let x = MirroringEndpointGroup::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::MirroringEndpointGroup::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::Type;
+    /// let x0 = MirroringEndpointGroup::new().set_type(Type::Direct);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::mirroring_endpoint_group::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [associations][crate::model::MirroringEndpointGroup::associations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::AssociationDetails;
+    /// let x = MirroringEndpointGroup::new()
+    ///     .set_associations([
+    ///         AssociationDetails::default()/* use setters */,
+    ///         AssociationDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_associations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::mirroring_endpoint_group::AssociationDetails>,
+    {
+        use std::iter::Iterator;
+        self.associations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::MirroringEndpointGroup::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// let x = MirroringEndpointGroup::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MirroringEndpointGroup {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.MirroringEndpointGroup"
+    }
+}
+
+/// Defines additional types related to [MirroringEndpointGroup].
+pub mod mirroring_endpoint_group {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The endpoint group's view of a connected deployment group.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConnectedDeploymentGroup {
+        /// Output only. The connected deployment group's resource name, for example:
+        /// `projects/123456789/locations/global/mirroringDeploymentGroups/my-dg`.
+        /// See <https://google.aip.dev/124>.
+        pub name: std::string::String,
+
+        /// Output only. The list of locations where the deployment group is present.
+        pub locations: std::vec::Vec<crate::model::MirroringLocation>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ConnectedDeploymentGroup {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::mirroring_endpoint_group::ConnectedDeploymentGroup::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::ConnectedDeploymentGroup;
+        /// let x = ConnectedDeploymentGroup::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [locations][crate::model::mirroring_endpoint_group::ConnectedDeploymentGroup::locations].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::ConnectedDeploymentGroup;
+        /// use google_cloud_networksecurity_v1::model::MirroringLocation;
+        /// let x = ConnectedDeploymentGroup::new()
+        ///     .set_locations([
+        ///         MirroringLocation::default()/* use setters */,
+        ///         MirroringLocation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::MirroringLocation>,
+        {
+            use std::iter::Iterator;
+            self.locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConnectedDeploymentGroup {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.MirroringEndpointGroup.ConnectedDeploymentGroup"
+        }
+    }
+
+    /// The endpoint group's view of a connected association.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AssociationDetails {
+        /// Output only. The connected association's resource name, for example:
+        /// `projects/123456789/locations/global/mirroringEndpointGroupAssociations/my-ega`.
+        /// See <https://google.aip.dev/124>.
+        pub name: std::string::String,
+
+        /// Output only. The associated network, for example:
+        /// projects/123456789/global/networks/my-network.
+        /// See <https://google.aip.dev/124>.
+        pub network: std::string::String,
+
+        /// Output only. Most recent known state of the association.
+        pub state: crate::model::mirroring_endpoint_group_association::State,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AssociationDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::mirroring_endpoint_group::AssociationDetails::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::AssociationDetails;
+        /// let x = AssociationDetails::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [network][crate::model::mirroring_endpoint_group::AssociationDetails::network].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::AssociationDetails;
+        /// let x = AssociationDetails::new().set_network("example");
+        /// ```
+        pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.network = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::mirroring_endpoint_group::AssociationDetails::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::mirroring_endpoint_group::AssociationDetails;
+        /// use google_cloud_networksecurity_v1::model::mirroring_endpoint_group_association::State;
+        /// let x0 = AssociationDetails::new().set_state(State::Active);
+        /// let x1 = AssociationDetails::new().set_state(State::Creating);
+        /// let x2 = AssociationDetails::new().set_state(State::Deleting);
+        /// ```
+        pub fn set_state<
+            T: std::convert::Into<crate::model::mirroring_endpoint_group_association::State>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AssociationDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.MirroringEndpointGroup.AssociationDetails"
+        }
+    }
+
+    /// The current state of the endpoint group.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set (this is not a valid state).
+        Unspecified,
+        /// The endpoint group is ready and in sync with the target deployment group.
+        Active,
+        /// The deployment group backing this endpoint group has been force-deleted.
+        /// This endpoint group cannot be used and mirroring is effectively disabled.
+        Closed,
+        /// The endpoint group is being created.
+        Creating,
+        /// The endpoint group is being deleted.
+        Deleting,
+        /// The endpoint group is out of sync with the backing deployment group.
+        /// In most cases, this is a result of a transient issue within the system
+        /// (e.g. an inaccessible location) and the system is expected to recover
+        /// automatically. See the associations field for details per network and
+        /// location.
+        OutOfSync,
+        /// An attempt to delete the endpoint group has failed. This is a terminal
+        /// state and the endpoint group is not expected to recover.
+        /// The only permitted operation is to retry deleting the endpoint group.
+        DeleteFailed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Closed => std::option::Option::Some(2),
+                Self::Creating => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::OutOfSync => std::option::Option::Some(5),
+                Self::DeleteFailed => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Closed => std::option::Option::Some("CLOSED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::OutOfSync => std::option::Option::Some("OUT_OF_SYNC"),
+                Self::DeleteFailed => std::option::Option::Some("DELETE_FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Closed,
+                3 => Self::Creating,
+                4 => Self::Deleting,
+                5 => Self::OutOfSync,
+                6 => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CLOSED" => Self::Closed,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                "OUT_OF_SYNC" => Self::OutOfSync,
+                "DELETE_FAILED" => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Closed => serializer.serialize_i32(2),
+                Self::Creating => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::OutOfSync => serializer.serialize_i32(5),
+                Self::DeleteFailed => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.MirroringEndpointGroup.State",
+            ))
+        }
+    }
+
+    /// The type of the endpoint group.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Not set.
+        Unspecified,
+        /// An endpoint group that sends packets to a single deployment group.
+        Direct,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Direct => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Direct => std::option::Option::Some("DIRECT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Direct,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "DIRECT" => Self::Direct,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Direct => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.networksecurity.v1.MirroringEndpointGroup.Type",
+            ))
+        }
+    }
+}
+
+/// Request message for ListMirroringEndpointGroups.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMirroringEndpointGroupsRequest {
+    /// Required. The parent, which owns this collection of endpoint groups.
+    /// Example: `projects/123456789/locations/global`.
+    /// See <https://google.aip.dev/132> for more details.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default. See
+    /// <https://google.aip.dev/158> for more details.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListMirroringEndpointGroups` call. Provide this to retrieve the subsequent
+    /// page. When paginating, all other parameters provided to
+    /// `ListMirroringEndpointGroups` must match the call that provided the page
+    /// token.
+    /// See <https://google.aip.dev/158> for more details.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression.
+    /// See <https://google.aip.dev/160#filtering> for more details.
+    pub filter: std::string::String,
+
+    /// Optional. Sort expression.
+    /// See <https://google.aip.dev/132#ordering> for more details.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMirroringEndpointGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMirroringEndpointGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupsRequest;
+    /// let x = ListMirroringEndpointGroupsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMirroringEndpointGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupsRequest;
+    /// let x = ListMirroringEndpointGroupsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMirroringEndpointGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupsRequest;
+    /// let x = ListMirroringEndpointGroupsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListMirroringEndpointGroupsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupsRequest;
+    /// let x = ListMirroringEndpointGroupsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListMirroringEndpointGroupsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupsRequest;
+    /// let x = ListMirroringEndpointGroupsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMirroringEndpointGroupsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListMirroringEndpointGroupsRequest"
+    }
+}
+
+/// Response message for ListMirroringEndpointGroups.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMirroringEndpointGroupsResponse {
+    /// The endpoint groups from the specified parent.
+    pub mirroring_endpoint_groups: std::vec::Vec<crate::model::MirroringEndpointGroup>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    /// See <https://google.aip.dev/158> for more details.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMirroringEndpointGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mirroring_endpoint_groups][crate::model::ListMirroringEndpointGroupsResponse::mirroring_endpoint_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupsResponse;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// let x = ListMirroringEndpointGroupsResponse::new()
+    ///     .set_mirroring_endpoint_groups([
+    ///         MirroringEndpointGroup::default()/* use setters */,
+    ///         MirroringEndpointGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_mirroring_endpoint_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MirroringEndpointGroup>,
+    {
+        use std::iter::Iterator;
+        self.mirroring_endpoint_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMirroringEndpointGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupsResponse;
+    /// let x = ListMirroringEndpointGroupsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMirroringEndpointGroupsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListMirroringEndpointGroupsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListMirroringEndpointGroupsResponse
+{
+    type PageItem = crate::model::MirroringEndpointGroup;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.mirroring_endpoint_groups
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetMirroringEndpointGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetMirroringEndpointGroupRequest {
+    /// Required. The name of the endpoint group to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/mirroringEndpointGroups/{mirroring_endpoint_group}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetMirroringEndpointGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMirroringEndpointGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetMirroringEndpointGroupRequest;
+    /// let x = GetMirroringEndpointGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMirroringEndpointGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetMirroringEndpointGroupRequest"
+    }
+}
+
+/// Request message for CreateMirroringEndpointGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateMirroringEndpointGroupRequest {
+    /// Required. The parent resource where this endpoint group will be created.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the endpoint group, which will become the final
+    /// component of the endpoint group's resource name.
+    pub mirroring_endpoint_group_id: std::string::String,
+
+    /// Required. The endpoint group to create.
+    pub mirroring_endpoint_group: std::option::Option<crate::model::MirroringEndpointGroup>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateMirroringEndpointGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMirroringEndpointGroupRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupRequest;
+    /// let x = CreateMirroringEndpointGroupRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [mirroring_endpoint_group_id][crate::model::CreateMirroringEndpointGroupRequest::mirroring_endpoint_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupRequest;
+    /// let x = CreateMirroringEndpointGroupRequest::new().set_mirroring_endpoint_group_id("example");
+    /// ```
+    pub fn set_mirroring_endpoint_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mirroring_endpoint_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [mirroring_endpoint_group][crate::model::CreateMirroringEndpointGroupRequest::mirroring_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// let x = CreateMirroringEndpointGroupRequest::new().set_mirroring_endpoint_group(MirroringEndpointGroup::default()/* use setters */);
+    /// ```
+    pub fn set_mirroring_endpoint_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringEndpointGroup>,
+    {
+        self.mirroring_endpoint_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mirroring_endpoint_group][crate::model::CreateMirroringEndpointGroupRequest::mirroring_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// let x = CreateMirroringEndpointGroupRequest::new().set_or_clear_mirroring_endpoint_group(Some(MirroringEndpointGroup::default()/* use setters */));
+    /// let x = CreateMirroringEndpointGroupRequest::new().set_or_clear_mirroring_endpoint_group(None::<MirroringEndpointGroup>);
+    /// ```
+    pub fn set_or_clear_mirroring_endpoint_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringEndpointGroup>,
+    {
+        self.mirroring_endpoint_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateMirroringEndpointGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupRequest;
+    /// let x = CreateMirroringEndpointGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMirroringEndpointGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateMirroringEndpointGroupRequest"
+    }
+}
+
+/// Request message for UpdateMirroringEndpointGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateMirroringEndpointGroupRequest {
+    /// Optional. The list of fields to update.
+    /// Fields are specified relative to the endpoint group
+    /// (e.g. `description`; *not* `mirroring_endpoint_group.description`).
+    /// See <https://google.aip.dev/161> for more details.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The endpoint group to update.
+    pub mirroring_endpoint_group: std::option::Option<crate::model::MirroringEndpointGroup>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateMirroringEndpointGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateMirroringEndpointGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringEndpointGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMirroringEndpointGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMirroringEndpointGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringEndpointGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMirroringEndpointGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMirroringEndpointGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [mirroring_endpoint_group][crate::model::UpdateMirroringEndpointGroupRequest::mirroring_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringEndpointGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// let x = UpdateMirroringEndpointGroupRequest::new().set_mirroring_endpoint_group(MirroringEndpointGroup::default()/* use setters */);
+    /// ```
+    pub fn set_mirroring_endpoint_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringEndpointGroup>,
+    {
+        self.mirroring_endpoint_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mirroring_endpoint_group][crate::model::UpdateMirroringEndpointGroupRequest::mirroring_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringEndpointGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// let x = UpdateMirroringEndpointGroupRequest::new().set_or_clear_mirroring_endpoint_group(Some(MirroringEndpointGroup::default()/* use setters */));
+    /// let x = UpdateMirroringEndpointGroupRequest::new().set_or_clear_mirroring_endpoint_group(None::<MirroringEndpointGroup>);
+    /// ```
+    pub fn set_or_clear_mirroring_endpoint_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringEndpointGroup>,
+    {
+        self.mirroring_endpoint_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateMirroringEndpointGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringEndpointGroupRequest;
+    /// let x = UpdateMirroringEndpointGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMirroringEndpointGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateMirroringEndpointGroupRequest"
+    }
+}
+
+/// Request message for DeleteMirroringEndpointGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteMirroringEndpointGroupRequest {
+    /// Required. The endpoint group to delete.
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteMirroringEndpointGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteMirroringEndpointGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteMirroringEndpointGroupRequest;
+    /// let x = DeleteMirroringEndpointGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteMirroringEndpointGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteMirroringEndpointGroupRequest;
+    /// let x = DeleteMirroringEndpointGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteMirroringEndpointGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteMirroringEndpointGroupRequest"
+    }
+}
+
+/// An endpoint group association represents a link between a network and an
+/// endpoint group in the organization.
+///
+/// Creating an association creates the networking infrastructure linking the
+/// network to the endpoint group, but does not enable mirroring by itself.
+/// To enable mirroring, the user must also create a network firewall policy
+/// containing mirroring rules and associate it with the network.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MirroringEndpointGroupAssociation {
+    /// Immutable. Identifier. The resource name of this endpoint group
+    /// association, for example:
+    /// `projects/123456789/locations/global/mirroringEndpointGroupAssociations/my-eg-association`.
+    /// See <https://google.aip.dev/122> for more details.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was most recently updated.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels are key/value pairs that help to organize and filter
+    /// resources.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Immutable. The endpoint group that this association is connected to, for
+    /// example:
+    /// `projects/123456789/locations/global/mirroringEndpointGroups/my-eg`.
+    /// See <https://google.aip.dev/124>.
+    pub mirroring_endpoint_group: std::string::String,
+
+    /// Immutable. The VPC network that is associated. for example:
+    /// `projects/123456789/global/networks/my-network`.
+    /// See <https://google.aip.dev/124>.
+    pub network: std::string::String,
+
+    /// Output only. The list of locations where the association is present. This
+    /// information is retrieved from the linked endpoint group, and not configured
+    /// as part of the association itself.
+    #[deprecated]
+    pub locations_details:
+        std::vec::Vec<crate::model::mirroring_endpoint_group_association::LocationDetails>,
+
+    /// Output only. Current state of the endpoint group association.
+    pub state: crate::model::mirroring_endpoint_group_association::State,
+
+    /// Output only. The current state of the resource does not match the user's
+    /// intended state, and the system is working to reconcile them. This part of
+    /// the normal operation (e.g. adding a new location to the target deployment
+    /// group). See <https://google.aip.dev/128>.
+    pub reconciling: bool,
+
+    /// Output only. The list of locations where the association is configured.
+    /// This information is retrieved from the linked endpoint group.
+    pub locations: std::vec::Vec<crate::model::MirroringLocation>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MirroringEndpointGroupAssociation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MirroringEndpointGroupAssociation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// let x = MirroringEndpointGroupAssociation::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::MirroringEndpointGroupAssociation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// use wkt::Timestamp;
+    /// let x = MirroringEndpointGroupAssociation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::MirroringEndpointGroupAssociation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// use wkt::Timestamp;
+    /// let x = MirroringEndpointGroupAssociation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MirroringEndpointGroupAssociation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::MirroringEndpointGroupAssociation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// use wkt::Timestamp;
+    /// let x = MirroringEndpointGroupAssociation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::MirroringEndpointGroupAssociation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// use wkt::Timestamp;
+    /// let x = MirroringEndpointGroupAssociation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MirroringEndpointGroupAssociation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::MirroringEndpointGroupAssociation::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// let x = MirroringEndpointGroupAssociation::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [mirroring_endpoint_group][crate::model::MirroringEndpointGroupAssociation::mirroring_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// let x = MirroringEndpointGroupAssociation::new().set_mirroring_endpoint_group("example");
+    /// ```
+    pub fn set_mirroring_endpoint_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mirroring_endpoint_group = v.into();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::MirroringEndpointGroupAssociation::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// let x = MirroringEndpointGroupAssociation::new().set_network("example");
+    /// ```
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [locations_details][crate::model::MirroringEndpointGroupAssociation::locations_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// use google_cloud_networksecurity_v1::model::mirroring_endpoint_group_association::LocationDetails;
+    /// let x = MirroringEndpointGroupAssociation::new()
+    ///     .set_locations_details([
+    ///         LocationDetails::default()/* use setters */,
+    ///         LocationDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    #[deprecated]
+    pub fn set_locations_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::mirroring_endpoint_group_association::LocationDetails>,
+    {
+        use std::iter::Iterator;
+        self.locations_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::MirroringEndpointGroupAssociation::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// use google_cloud_networksecurity_v1::model::mirroring_endpoint_group_association::State;
+    /// let x0 = MirroringEndpointGroupAssociation::new().set_state(State::Active);
+    /// let x1 = MirroringEndpointGroupAssociation::new().set_state(State::Creating);
+    /// let x2 = MirroringEndpointGroupAssociation::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<
+        T: std::convert::Into<crate::model::mirroring_endpoint_group_association::State>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::MirroringEndpointGroupAssociation::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// let x = MirroringEndpointGroupAssociation::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::MirroringEndpointGroupAssociation::locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// use google_cloud_networksecurity_v1::model::MirroringLocation;
+    /// let x = MirroringEndpointGroupAssociation::new()
+    ///     .set_locations([
+    ///         MirroringLocation::default()/* use setters */,
+    ///         MirroringLocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MirroringLocation>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MirroringEndpointGroupAssociation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.MirroringEndpointGroupAssociation"
+    }
+}
+
+/// Defines additional types related to [MirroringEndpointGroupAssociation].
+pub mod mirroring_endpoint_group_association {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Contains details about the state of an association in a specific cloud
+    /// location.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct LocationDetails {
+        /// Output only. The cloud location, e.g. "us-central1-a" or "asia-south1".
+        pub location: std::string::String,
+
+        /// Output only. The current state of the association in this location.
+        pub state: crate::model::mirroring_endpoint_group_association::location_details::State,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl LocationDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [location][crate::model::mirroring_endpoint_group_association::LocationDetails::location].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::mirroring_endpoint_group_association::LocationDetails;
+        /// let x = LocationDetails::new().set_location("example");
+        /// ```
+        pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.location = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::mirroring_endpoint_group_association::LocationDetails::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::mirroring_endpoint_group_association::LocationDetails;
+        /// use google_cloud_networksecurity_v1::model::mirroring_endpoint_group_association::location_details::State;
+        /// let x0 = LocationDetails::new().set_state(State::Active);
+        /// let x1 = LocationDetails::new().set_state(State::OutOfSync);
+        /// ```
+        pub fn set_state<
+            T: std::convert::Into<
+                    crate::model::mirroring_endpoint_group_association::location_details::State,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for LocationDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.MirroringEndpointGroupAssociation.LocationDetails"
+        }
+    }
+
+    /// Defines additional types related to [LocationDetails].
+    pub mod location_details {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The state of association.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum State {
+            /// Not set.
+            Unspecified,
+            /// The association is ready and in sync with the linked endpoint group.
+            Active,
+            /// The association is out of sync with the linked endpoint group.
+            /// In most cases, this is a result of a transient issue within the system
+            /// (e.g. an inaccessible location) and the system is expected to recover
+            /// automatically.
+            OutOfSync,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [State::value] or
+            /// [State::name].
+            UnknownValue(state::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod state {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl State {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Active => std::option::Option::Some(1),
+                    Self::OutOfSync => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                    Self::Active => std::option::Option::Some("ACTIVE"),
+                    Self::OutOfSync => std::option::Option::Some("OUT_OF_SYNC"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for State {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for State {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for State {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Active,
+                    2 => Self::OutOfSync,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for State {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "STATE_UNSPECIFIED" => Self::Unspecified,
+                    "ACTIVE" => Self::Active,
+                    "OUT_OF_SYNC" => Self::OutOfSync,
+                    _ => Self::UnknownValue(state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for State {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Active => serializer.serialize_i32(1),
+                    Self::OutOfSync => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for State {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                    ".google.cloud.networksecurity.v1.MirroringEndpointGroupAssociation.LocationDetails.State"))
+            }
+        }
+    }
+
+    /// The state of the association.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// The association is ready and in sync with the linked endpoint group.
+        Active,
+        /// The association is being created.
+        Creating,
+        /// The association is being deleted.
+        Deleting,
+        /// The association is disabled due to a breaking change in another resource.
+        Closed,
+        /// The association is out of sync with the linked endpoint group.
+        /// In most cases, this is a result of a transient issue within the system
+        /// (e.g. an inaccessible location) and the system is expected to recover
+        /// automatically. Check the `locations_details` field for more details.
+        OutOfSync,
+        /// An attempt to delete the association has failed. This is a terminal state
+        /// and the association is not expected to be usable as some of its resources
+        /// have been deleted.
+        /// The only permitted operation is to retry deleting the association.
+        DeleteFailed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::Closed => std::option::Option::Some(5),
+                Self::OutOfSync => std::option::Option::Some(6),
+                Self::DeleteFailed => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Closed => std::option::Option::Some("CLOSED"),
+                Self::OutOfSync => std::option::Option::Some("OUT_OF_SYNC"),
+                Self::DeleteFailed => std::option::Option::Some("DELETE_FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                3 => Self::Creating,
+                4 => Self::Deleting,
+                5 => Self::Closed,
+                6 => Self::OutOfSync,
+                7 => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                "CLOSED" => Self::Closed,
+                "OUT_OF_SYNC" => Self::OutOfSync,
+                "DELETE_FAILED" => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::Closed => serializer.serialize_i32(5),
+                Self::OutOfSync => serializer.serialize_i32(6),
+                Self::DeleteFailed => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.MirroringEndpointGroupAssociation.State",
+            ))
+        }
+    }
+}
+
+/// Request message for ListMirroringEndpointGroupAssociations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMirroringEndpointGroupAssociationsRequest {
+    /// Required. The parent, which owns this collection of associations.
+    /// Example: `projects/123456789/locations/global`.
+    /// See <https://google.aip.dev/132> for more details.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default. See
+    /// <https://google.aip.dev/158> for more details.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListMirroringEndpointGroups` call. Provide this to retrieve the subsequent
+    /// page. When paginating, all other parameters provided to
+    /// `ListMirroringEndpointGroups` must match the call that provided the page
+    /// token. See <https://google.aip.dev/158> for more details.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression.
+    /// See <https://google.aip.dev/160#filtering> for more details.
+    pub filter: std::string::String,
+
+    /// Optional. Sort expression.
+    /// See <https://google.aip.dev/132#ordering> for more details.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMirroringEndpointGroupAssociationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMirroringEndpointGroupAssociationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupAssociationsRequest;
+    /// let x = ListMirroringEndpointGroupAssociationsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMirroringEndpointGroupAssociationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupAssociationsRequest;
+    /// let x = ListMirroringEndpointGroupAssociationsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMirroringEndpointGroupAssociationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupAssociationsRequest;
+    /// let x = ListMirroringEndpointGroupAssociationsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListMirroringEndpointGroupAssociationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupAssociationsRequest;
+    /// let x = ListMirroringEndpointGroupAssociationsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListMirroringEndpointGroupAssociationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupAssociationsRequest;
+    /// let x = ListMirroringEndpointGroupAssociationsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMirroringEndpointGroupAssociationsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListMirroringEndpointGroupAssociationsRequest"
+    }
+}
+
+/// Response message for ListMirroringEndpointGroupAssociations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMirroringEndpointGroupAssociationsResponse {
+    /// The associations from the specified parent.
+    pub mirroring_endpoint_group_associations:
+        std::vec::Vec<crate::model::MirroringEndpointGroupAssociation>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    /// See <https://google.aip.dev/158> for more details.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMirroringEndpointGroupAssociationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mirroring_endpoint_group_associations][crate::model::ListMirroringEndpointGroupAssociationsResponse::mirroring_endpoint_group_associations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupAssociationsResponse;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// let x = ListMirroringEndpointGroupAssociationsResponse::new()
+    ///     .set_mirroring_endpoint_group_associations([
+    ///         MirroringEndpointGroupAssociation::default()/* use setters */,
+    ///         MirroringEndpointGroupAssociation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_mirroring_endpoint_group_associations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MirroringEndpointGroupAssociation>,
+    {
+        use std::iter::Iterator;
+        self.mirroring_endpoint_group_associations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMirroringEndpointGroupAssociationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringEndpointGroupAssociationsResponse;
+    /// let x = ListMirroringEndpointGroupAssociationsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMirroringEndpointGroupAssociationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListMirroringEndpointGroupAssociationsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListMirroringEndpointGroupAssociationsResponse
+{
+    type PageItem = crate::model::MirroringEndpointGroupAssociation;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.mirroring_endpoint_group_associations
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetMirroringEndpointGroupAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetMirroringEndpointGroupAssociationRequest {
+    /// Required. The name of the association to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/mirroringEndpointGroupAssociations/{mirroring_endpoint_group_association}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetMirroringEndpointGroupAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMirroringEndpointGroupAssociationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetMirroringEndpointGroupAssociationRequest;
+    /// let x = GetMirroringEndpointGroupAssociationRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMirroringEndpointGroupAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetMirroringEndpointGroupAssociationRequest"
+    }
+}
+
+/// Request message for CreateMirroringEndpointGroupAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateMirroringEndpointGroupAssociationRequest {
+    /// Required. The parent resource where this association will be created.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Optional. The ID to use for the new association, which will become the
+    /// final component of the endpoint group's resource name. If not provided, the
+    /// server will generate a unique ID.
+    pub mirroring_endpoint_group_association_id: std::string::String,
+
+    /// Required. The association to create.
+    pub mirroring_endpoint_group_association:
+        std::option::Option<crate::model::MirroringEndpointGroupAssociation>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateMirroringEndpointGroupAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMirroringEndpointGroupAssociationRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupAssociationRequest;
+    /// let x = CreateMirroringEndpointGroupAssociationRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [mirroring_endpoint_group_association_id][crate::model::CreateMirroringEndpointGroupAssociationRequest::mirroring_endpoint_group_association_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupAssociationRequest;
+    /// let x = CreateMirroringEndpointGroupAssociationRequest::new().set_mirroring_endpoint_group_association_id("example");
+    /// ```
+    pub fn set_mirroring_endpoint_group_association_id<
+        T: std::convert::Into<std::string::String>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mirroring_endpoint_group_association_id = v.into();
+        self
+    }
+
+    /// Sets the value of [mirroring_endpoint_group_association][crate::model::CreateMirroringEndpointGroupAssociationRequest::mirroring_endpoint_group_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// let x = CreateMirroringEndpointGroupAssociationRequest::new().set_mirroring_endpoint_group_association(MirroringEndpointGroupAssociation::default()/* use setters */);
+    /// ```
+    pub fn set_mirroring_endpoint_group_association<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringEndpointGroupAssociation>,
+    {
+        self.mirroring_endpoint_group_association = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mirroring_endpoint_group_association][crate::model::CreateMirroringEndpointGroupAssociationRequest::mirroring_endpoint_group_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// let x = CreateMirroringEndpointGroupAssociationRequest::new().set_or_clear_mirroring_endpoint_group_association(Some(MirroringEndpointGroupAssociation::default()/* use setters */));
+    /// let x = CreateMirroringEndpointGroupAssociationRequest::new().set_or_clear_mirroring_endpoint_group_association(None::<MirroringEndpointGroupAssociation>);
+    /// ```
+    pub fn set_or_clear_mirroring_endpoint_group_association<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringEndpointGroupAssociation>,
+    {
+        self.mirroring_endpoint_group_association = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateMirroringEndpointGroupAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringEndpointGroupAssociationRequest;
+    /// let x = CreateMirroringEndpointGroupAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMirroringEndpointGroupAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateMirroringEndpointGroupAssociationRequest"
+    }
+}
+
+/// Request message for UpdateMirroringEndpointGroupAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateMirroringEndpointGroupAssociationRequest {
+    /// Optional. The list of fields to update.
+    /// Fields are specified relative to the association
+    /// (e.g. `description`; *not*
+    /// `mirroring_endpoint_group_association.description`). See
+    /// <https://google.aip.dev/161> for more details.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The association to update.
+    pub mirroring_endpoint_group_association:
+        std::option::Option<crate::model::MirroringEndpointGroupAssociation>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateMirroringEndpointGroupAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateMirroringEndpointGroupAssociationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringEndpointGroupAssociationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMirroringEndpointGroupAssociationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMirroringEndpointGroupAssociationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringEndpointGroupAssociationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMirroringEndpointGroupAssociationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMirroringEndpointGroupAssociationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [mirroring_endpoint_group_association][crate::model::UpdateMirroringEndpointGroupAssociationRequest::mirroring_endpoint_group_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringEndpointGroupAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// let x = UpdateMirroringEndpointGroupAssociationRequest::new().set_mirroring_endpoint_group_association(MirroringEndpointGroupAssociation::default()/* use setters */);
+    /// ```
+    pub fn set_mirroring_endpoint_group_association<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringEndpointGroupAssociation>,
+    {
+        self.mirroring_endpoint_group_association = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mirroring_endpoint_group_association][crate::model::UpdateMirroringEndpointGroupAssociationRequest::mirroring_endpoint_group_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringEndpointGroupAssociationRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// let x = UpdateMirroringEndpointGroupAssociationRequest::new().set_or_clear_mirroring_endpoint_group_association(Some(MirroringEndpointGroupAssociation::default()/* use setters */));
+    /// let x = UpdateMirroringEndpointGroupAssociationRequest::new().set_or_clear_mirroring_endpoint_group_association(None::<MirroringEndpointGroupAssociation>);
+    /// ```
+    pub fn set_or_clear_mirroring_endpoint_group_association<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringEndpointGroupAssociation>,
+    {
+        self.mirroring_endpoint_group_association = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateMirroringEndpointGroupAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringEndpointGroupAssociationRequest;
+    /// let x = UpdateMirroringEndpointGroupAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMirroringEndpointGroupAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateMirroringEndpointGroupAssociationRequest"
+    }
+}
+
+/// Request message for DeleteMirroringEndpointGroupAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteMirroringEndpointGroupAssociationRequest {
+    /// Required. The association to delete.
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteMirroringEndpointGroupAssociationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteMirroringEndpointGroupAssociationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteMirroringEndpointGroupAssociationRequest;
+    /// let x = DeleteMirroringEndpointGroupAssociationRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteMirroringEndpointGroupAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteMirroringEndpointGroupAssociationRequest;
+    /// let x = DeleteMirroringEndpointGroupAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteMirroringEndpointGroupAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteMirroringEndpointGroupAssociationRequest"
+    }
+}
+
+/// A deployment group aggregates many zonal mirroring backends (deployments)
+/// into a single global mirroring service. Consumers can connect this service
+/// using an endpoint group.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MirroringDeploymentGroup {
+    /// Immutable. Identifier. The resource name of this deployment group, for
+    /// example:
+    /// `projects/123456789/locations/global/mirroringDeploymentGroups/my-dg`.
+    /// See <https://google.aip.dev/122> for more details.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was most recently updated.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels are key/value pairs that help to organize and filter
+    /// resources.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. Immutable. The network that will be used for all child
+    /// deployments, for example: `projects/{project}/global/networks/{network}`.
+    /// See <https://google.aip.dev/124>.
+    pub network: std::string::String,
+
+    /// Output only. The list of endpoint groups that are connected to this
+    /// resource.
+    pub connected_endpoint_groups:
+        std::vec::Vec<crate::model::mirroring_deployment_group::ConnectedEndpointGroup>,
+
+    /// Output only. The list of Mirroring Deployments that belong to this group.
+    #[deprecated]
+    pub nested_deployments: std::vec::Vec<crate::model::mirroring_deployment_group::Deployment>,
+
+    /// Output only. The current state of the deployment group.
+    /// See <https://google.aip.dev/216>.
+    pub state: crate::model::mirroring_deployment_group::State,
+
+    /// Output only. The current state of the resource does not match the user's
+    /// intended state, and the system is working to reconcile them. This is part
+    /// of the normal operation (e.g. adding a new deployment to the group) See
+    /// <https://google.aip.dev/128>.
+    pub reconciling: bool,
+
+    /// Optional. User-provided description of the deployment group.
+    /// Used as additional context for the deployment group.
+    pub description: std::string::String,
+
+    /// Output only. The list of locations where the deployment group is present.
+    pub locations: std::vec::Vec<crate::model::MirroringLocation>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MirroringDeploymentGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MirroringDeploymentGroup::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// let x = MirroringDeploymentGroup::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::MirroringDeploymentGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = MirroringDeploymentGroup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::MirroringDeploymentGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = MirroringDeploymentGroup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MirroringDeploymentGroup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::MirroringDeploymentGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = MirroringDeploymentGroup::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::MirroringDeploymentGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = MirroringDeploymentGroup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MirroringDeploymentGroup::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::MirroringDeploymentGroup::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// let x = MirroringDeploymentGroup::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::MirroringDeploymentGroup::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// let x = MirroringDeploymentGroup::new().set_network("example");
+    /// ```
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [connected_endpoint_groups][crate::model::MirroringDeploymentGroup::connected_endpoint_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::model::mirroring_deployment_group::ConnectedEndpointGroup;
+    /// let x = MirroringDeploymentGroup::new()
+    ///     .set_connected_endpoint_groups([
+    ///         ConnectedEndpointGroup::default()/* use setters */,
+    ///         ConnectedEndpointGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_connected_endpoint_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::mirroring_deployment_group::ConnectedEndpointGroup>,
+    {
+        use std::iter::Iterator;
+        self.connected_endpoint_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [nested_deployments][crate::model::MirroringDeploymentGroup::nested_deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::model::mirroring_deployment_group::Deployment;
+    /// let x = MirroringDeploymentGroup::new()
+    ///     .set_nested_deployments([
+    ///         Deployment::default()/* use setters */,
+    ///         Deployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    #[deprecated]
+    pub fn set_nested_deployments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::mirroring_deployment_group::Deployment>,
+    {
+        use std::iter::Iterator;
+        self.nested_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::MirroringDeploymentGroup::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::model::mirroring_deployment_group::State;
+    /// let x0 = MirroringDeploymentGroup::new().set_state(State::Active);
+    /// let x1 = MirroringDeploymentGroup::new().set_state(State::Creating);
+    /// let x2 = MirroringDeploymentGroup::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::mirroring_deployment_group::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::MirroringDeploymentGroup::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// let x = MirroringDeploymentGroup::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::MirroringDeploymentGroup::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// let x = MirroringDeploymentGroup::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::MirroringDeploymentGroup::locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::model::MirroringLocation;
+    /// let x = MirroringDeploymentGroup::new()
+    ///     .set_locations([
+    ///         MirroringLocation::default()/* use setters */,
+    ///         MirroringLocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MirroringLocation>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MirroringDeploymentGroup {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.MirroringDeploymentGroup"
+    }
+}
+
+/// Defines additional types related to [MirroringDeploymentGroup].
+pub mod mirroring_deployment_group {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// An endpoint group connected to this deployment group.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConnectedEndpointGroup {
+        /// Output only. The connected endpoint group's resource name, for example:
+        /// `projects/123456789/locations/global/mirroringEndpointGroups/my-eg`.
+        /// See <https://google.aip.dev/124>.
+        pub name: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ConnectedEndpointGroup {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::mirroring_deployment_group::ConnectedEndpointGroup::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::mirroring_deployment_group::ConnectedEndpointGroup;
+        /// let x = ConnectedEndpointGroup::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ConnectedEndpointGroup {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.MirroringDeploymentGroup.ConnectedEndpointGroup"
+        }
+    }
+
+    /// A deployment belonging to this deployment group.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Deployment {
+        /// Output only. The name of the Mirroring Deployment, in the format:
+        /// `projects/{project}/locations/{location}/mirroringDeployments/{mirroring_deployment}`.
+        pub name: std::string::String,
+
+        /// Output only. Most recent known state of the deployment.
+        pub state: crate::model::mirroring_deployment::State,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Deployment {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::mirroring_deployment_group::Deployment::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::mirroring_deployment_group::Deployment;
+        /// let x = Deployment::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::mirroring_deployment_group::Deployment::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::mirroring_deployment_group::Deployment;
+        /// use google_cloud_networksecurity_v1::model::mirroring_deployment::State;
+        /// let x0 = Deployment::new().set_state(State::Active);
+        /// let x1 = Deployment::new().set_state(State::Creating);
+        /// let x2 = Deployment::new().set_state(State::Deleting);
+        /// ```
+        pub fn set_state<T: std::convert::Into<crate::model::mirroring_deployment::State>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.state = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Deployment {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networksecurity.v1.MirroringDeploymentGroup.Deployment"
+        }
+    }
+
+    /// The current state of the deployment group.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set (this is not a valid state).
+        Unspecified,
+        /// The deployment group is ready.
+        Active,
+        /// The deployment group is being created.
+        Creating,
+        /// The deployment group is being deleted.
+        Deleting,
+        /// The deployment group is being wiped out (project deleted).
+        Closed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Closed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Closed => std::option::Option::Some("CLOSED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Creating,
+                3 => Self::Deleting,
+                4 => Self::Closed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                "CLOSED" => Self::Closed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Closed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.MirroringDeploymentGroup.State",
+            ))
+        }
+    }
+}
+
+/// Request message for ListMirroringDeploymentGroups.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMirroringDeploymentGroupsRequest {
+    /// Required. The parent, which owns this collection of deployment groups.
+    /// Example: `projects/123456789/locations/global`.
+    /// See <https://google.aip.dev/132> for more details.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default. See
+    /// <https://google.aip.dev/158> for more details.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListMirroringDeploymentGroups` call. Provide this to retrieve the
+    /// subsequent page. When paginating, all other parameters provided to
+    /// `ListMirroringDeploymentGroups` must match the call that provided the page
+    /// token. See <https://google.aip.dev/158> for more details.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression.
+    /// See <https://google.aip.dev/160#filtering> for more details.
+    pub filter: std::string::String,
+
+    /// Optional. Sort expression.
+    /// See <https://google.aip.dev/132#ordering> for more details.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMirroringDeploymentGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMirroringDeploymentGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentGroupsRequest;
+    /// let x = ListMirroringDeploymentGroupsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMirroringDeploymentGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentGroupsRequest;
+    /// let x = ListMirroringDeploymentGroupsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMirroringDeploymentGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentGroupsRequest;
+    /// let x = ListMirroringDeploymentGroupsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListMirroringDeploymentGroupsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentGroupsRequest;
+    /// let x = ListMirroringDeploymentGroupsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListMirroringDeploymentGroupsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentGroupsRequest;
+    /// let x = ListMirroringDeploymentGroupsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMirroringDeploymentGroupsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListMirroringDeploymentGroupsRequest"
+    }
+}
+
+/// Response message for ListMirroringDeploymentGroups.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMirroringDeploymentGroupsResponse {
+    /// The deployment groups from the specified parent.
+    pub mirroring_deployment_groups: std::vec::Vec<crate::model::MirroringDeploymentGroup>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    /// See <https://google.aip.dev/158> for more details.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMirroringDeploymentGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mirroring_deployment_groups][crate::model::ListMirroringDeploymentGroupsResponse::mirroring_deployment_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentGroupsResponse;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// let x = ListMirroringDeploymentGroupsResponse::new()
+    ///     .set_mirroring_deployment_groups([
+    ///         MirroringDeploymentGroup::default()/* use setters */,
+    ///         MirroringDeploymentGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_mirroring_deployment_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MirroringDeploymentGroup>,
+    {
+        use std::iter::Iterator;
+        self.mirroring_deployment_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMirroringDeploymentGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentGroupsResponse;
+    /// let x = ListMirroringDeploymentGroupsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMirroringDeploymentGroupsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListMirroringDeploymentGroupsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListMirroringDeploymentGroupsResponse
+{
+    type PageItem = crate::model::MirroringDeploymentGroup;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.mirroring_deployment_groups
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetMirroringDeploymentGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetMirroringDeploymentGroupRequest {
+    /// Required. The name of the deployment group to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/mirroringDeploymentGroups/{mirroring_deployment_group}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetMirroringDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMirroringDeploymentGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetMirroringDeploymentGroupRequest;
+    /// let x = GetMirroringDeploymentGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMirroringDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetMirroringDeploymentGroupRequest"
+    }
+}
+
+/// Request message for CreateMirroringDeploymentGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateMirroringDeploymentGroupRequest {
+    /// Required. The parent resource where this deployment group will be created.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the new deployment group, which will become the
+    /// final component of the deployment group's resource name.
+    pub mirroring_deployment_group_id: std::string::String,
+
+    /// Required. The deployment group to create.
+    pub mirroring_deployment_group: std::option::Option<crate::model::MirroringDeploymentGroup>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateMirroringDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMirroringDeploymentGroupRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentGroupRequest;
+    /// let x = CreateMirroringDeploymentGroupRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [mirroring_deployment_group_id][crate::model::CreateMirroringDeploymentGroupRequest::mirroring_deployment_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentGroupRequest;
+    /// let x = CreateMirroringDeploymentGroupRequest::new().set_mirroring_deployment_group_id("example");
+    /// ```
+    pub fn set_mirroring_deployment_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mirroring_deployment_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [mirroring_deployment_group][crate::model::CreateMirroringDeploymentGroupRequest::mirroring_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// let x = CreateMirroringDeploymentGroupRequest::new().set_mirroring_deployment_group(MirroringDeploymentGroup::default()/* use setters */);
+    /// ```
+    pub fn set_mirroring_deployment_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringDeploymentGroup>,
+    {
+        self.mirroring_deployment_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mirroring_deployment_group][crate::model::CreateMirroringDeploymentGroupRequest::mirroring_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// let x = CreateMirroringDeploymentGroupRequest::new().set_or_clear_mirroring_deployment_group(Some(MirroringDeploymentGroup::default()/* use setters */));
+    /// let x = CreateMirroringDeploymentGroupRequest::new().set_or_clear_mirroring_deployment_group(None::<MirroringDeploymentGroup>);
+    /// ```
+    pub fn set_or_clear_mirroring_deployment_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringDeploymentGroup>,
+    {
+        self.mirroring_deployment_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateMirroringDeploymentGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentGroupRequest;
+    /// let x = CreateMirroringDeploymentGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMirroringDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateMirroringDeploymentGroupRequest"
+    }
+}
+
+/// Request message for UpdateMirroringDeploymentGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateMirroringDeploymentGroupRequest {
+    /// Optional. The list of fields to update.
+    /// Fields are specified relative to the deployment group
+    /// (e.g. `description`; *not*
+    /// `mirroring_deployment_group.description`). See
+    /// <https://google.aip.dev/161> for more details.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The deployment group to update.
+    pub mirroring_deployment_group: std::option::Option<crate::model::MirroringDeploymentGroup>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateMirroringDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateMirroringDeploymentGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringDeploymentGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMirroringDeploymentGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMirroringDeploymentGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringDeploymentGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMirroringDeploymentGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMirroringDeploymentGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [mirroring_deployment_group][crate::model::UpdateMirroringDeploymentGroupRequest::mirroring_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringDeploymentGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// let x = UpdateMirroringDeploymentGroupRequest::new().set_mirroring_deployment_group(MirroringDeploymentGroup::default()/* use setters */);
+    /// ```
+    pub fn set_mirroring_deployment_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringDeploymentGroup>,
+    {
+        self.mirroring_deployment_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mirroring_deployment_group][crate::model::UpdateMirroringDeploymentGroupRequest::mirroring_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringDeploymentGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// let x = UpdateMirroringDeploymentGroupRequest::new().set_or_clear_mirroring_deployment_group(Some(MirroringDeploymentGroup::default()/* use setters */));
+    /// let x = UpdateMirroringDeploymentGroupRequest::new().set_or_clear_mirroring_deployment_group(None::<MirroringDeploymentGroup>);
+    /// ```
+    pub fn set_or_clear_mirroring_deployment_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringDeploymentGroup>,
+    {
+        self.mirroring_deployment_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateMirroringDeploymentGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringDeploymentGroupRequest;
+    /// let x = UpdateMirroringDeploymentGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMirroringDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateMirroringDeploymentGroupRequest"
+    }
+}
+
+/// Request message for DeleteMirroringDeploymentGroup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteMirroringDeploymentGroupRequest {
+    /// Required. The deployment group to delete.
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteMirroringDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteMirroringDeploymentGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteMirroringDeploymentGroupRequest;
+    /// let x = DeleteMirroringDeploymentGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteMirroringDeploymentGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteMirroringDeploymentGroupRequest;
+    /// let x = DeleteMirroringDeploymentGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteMirroringDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteMirroringDeploymentGroupRequest"
+    }
+}
+
+/// A deployment represents a zonal mirroring backend ready to accept
+/// GENEVE-encapsulated replica traffic, e.g. a zonal instance group fronted by
+/// an internal passthrough load balancer. Deployments are always part of a
+/// global deployment group which represents a global mirroring service.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MirroringDeployment {
+    /// Immutable. Identifier. The resource name of this deployment, for example:
+    /// `projects/123456789/locations/us-central1-a/mirroringDeployments/my-dep`.
+    /// See <https://google.aip.dev/122> for more details.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was most recently updated.
+    /// See <https://google.aip.dev/148#timestamps>.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Labels are key/value pairs that help to organize and filter
+    /// resources.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. Immutable. The regional forwarding rule that fronts the mirroring
+    /// collectors, for example:
+    /// `projects/123456789/regions/us-central1/forwardingRules/my-rule`. See
+    /// <https://google.aip.dev/124>.
+    pub forwarding_rule: std::string::String,
+
+    /// Required. Immutable. The deployment group that this deployment is a part
+    /// of, for example:
+    /// `projects/123456789/locations/global/mirroringDeploymentGroups/my-dg`.
+    /// See <https://google.aip.dev/124>.
+    pub mirroring_deployment_group: std::string::String,
+
+    /// Output only. The current state of the deployment.
+    /// See <https://google.aip.dev/216>.
+    pub state: crate::model::mirroring_deployment::State,
+
+    /// Output only. The current state of the resource does not match the user's
+    /// intended state, and the system is working to reconcile them. This part of
+    /// the normal operation (e.g. linking a new association to the parent group).
+    /// See <https://google.aip.dev/128>.
+    pub reconciling: bool,
+
+    /// Optional. User-provided description of the deployment.
+    /// Used as additional context for the deployment.
+    pub description: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MirroringDeployment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MirroringDeployment::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = MirroringDeployment::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::MirroringDeployment::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// use wkt::Timestamp;
+    /// let x = MirroringDeployment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::MirroringDeployment::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// use wkt::Timestamp;
+    /// let x = MirroringDeployment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MirroringDeployment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::MirroringDeployment::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// use wkt::Timestamp;
+    /// let x = MirroringDeployment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::MirroringDeployment::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// use wkt::Timestamp;
+    /// let x = MirroringDeployment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MirroringDeployment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::MirroringDeployment::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = MirroringDeployment::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [forwarding_rule][crate::model::MirroringDeployment::forwarding_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = MirroringDeployment::new().set_forwarding_rule("example");
+    /// ```
+    pub fn set_forwarding_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.forwarding_rule = v.into();
+        self
+    }
+
+    /// Sets the value of [mirroring_deployment_group][crate::model::MirroringDeployment::mirroring_deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = MirroringDeployment::new().set_mirroring_deployment_group("example");
+    /// ```
+    pub fn set_mirroring_deployment_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mirroring_deployment_group = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::MirroringDeployment::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// use google_cloud_networksecurity_v1::model::mirroring_deployment::State;
+    /// let x0 = MirroringDeployment::new().set_state(State::Active);
+    /// let x1 = MirroringDeployment::new().set_state(State::Creating);
+    /// let x2 = MirroringDeployment::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::mirroring_deployment::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::MirroringDeployment::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = MirroringDeployment::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::MirroringDeployment::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = MirroringDeployment::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MirroringDeployment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.MirroringDeployment"
+    }
+}
+
+/// Defines additional types related to [MirroringDeployment].
+pub mod mirroring_deployment {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The current state of the deployment.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set (this is not a valid state).
+        Unspecified,
+        /// The deployment is ready and in sync with the parent group.
+        Active,
+        /// The deployment is being created.
+        Creating,
+        /// The deployment is being deleted.
+        Deleting,
+        /// The deployment is out of sync with the parent group.
+        /// In most cases, this is a result of a transient issue within the system
+        /// (e.g. a delayed data-path config) and the system is expected to recover
+        /// automatically. See the parent deployment group's state for more details.
+        OutOfSync,
+        /// An attempt to delete the deployment has failed. This is a terminal state
+        /// and the deployment is not expected to recover. The only permitted
+        /// operation is to retry deleting the deployment.
+        DeleteFailed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Creating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::OutOfSync => std::option::Option::Some(4),
+                Self::DeleteFailed => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::OutOfSync => std::option::Option::Some("OUT_OF_SYNC"),
+                Self::DeleteFailed => std::option::Option::Some("DELETE_FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Creating,
+                3 => Self::Deleting,
+                4 => Self::OutOfSync,
+                5 => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "CREATING" => Self::Creating,
+                "DELETING" => Self::Deleting,
+                "OUT_OF_SYNC" => Self::OutOfSync,
+                "DELETE_FAILED" => Self::DeleteFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Creating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::OutOfSync => serializer.serialize_i32(4),
+                Self::DeleteFailed => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.MirroringDeployment.State",
+            ))
+        }
+    }
+}
+
+/// Request message for ListMirroringDeployments.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMirroringDeploymentsRequest {
+    /// Required. The parent, which owns this collection of deployments.
+    /// Example: `projects/123456789/locations/us-central1-a`.
+    /// See <https://google.aip.dev/132> for more details.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default. See
+    /// <https://google.aip.dev/158> for more details.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListMirroringDeployments`
+    /// call. Provide this to retrieve the subsequent page. When paginating, all
+    /// other parameters provided to `ListMirroringDeployments` must match the call
+    /// that provided the page token. See <https://google.aip.dev/158> for more
+    /// details.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression.
+    /// See <https://google.aip.dev/160#filtering> for more details.
+    pub filter: std::string::String,
+
+    /// Optional. Sort expression.
+    /// See <https://google.aip.dev/132#ordering> for more details.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMirroringDeploymentsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMirroringDeploymentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentsRequest;
+    /// let x = ListMirroringDeploymentsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMirroringDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentsRequest;
+    /// let x = ListMirroringDeploymentsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMirroringDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentsRequest;
+    /// let x = ListMirroringDeploymentsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListMirroringDeploymentsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentsRequest;
+    /// let x = ListMirroringDeploymentsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListMirroringDeploymentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentsRequest;
+    /// let x = ListMirroringDeploymentsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMirroringDeploymentsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListMirroringDeploymentsRequest"
+    }
+}
+
+/// Response message for ListMirroringDeployments.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListMirroringDeploymentsResponse {
+    /// The deployments from the specified parent.
+    pub mirroring_deployments: std::vec::Vec<crate::model::MirroringDeployment>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    /// See <https://google.aip.dev/158> for more details.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMirroringDeploymentsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mirroring_deployments][crate::model::ListMirroringDeploymentsResponse::mirroring_deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentsResponse;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = ListMirroringDeploymentsResponse::new()
+    ///     .set_mirroring_deployments([
+    ///         MirroringDeployment::default()/* use setters */,
+    ///         MirroringDeployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_mirroring_deployments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MirroringDeployment>,
+    {
+        use std::iter::Iterator;
+        self.mirroring_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMirroringDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentsResponse;
+    /// let x = ListMirroringDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListMirroringDeploymentsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListMirroringDeploymentsResponse;
+    /// let x = ListMirroringDeploymentsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMirroringDeploymentsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListMirroringDeploymentsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListMirroringDeploymentsResponse {
+    type PageItem = crate::model::MirroringDeployment;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.mirroring_deployments
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for GetMirroringDeployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetMirroringDeploymentRequest {
+    /// Required. The name of the deployment to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/mirroringDeployments/{mirroring_deployment}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetMirroringDeploymentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMirroringDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetMirroringDeploymentRequest;
+    /// let x = GetMirroringDeploymentRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMirroringDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetMirroringDeploymentRequest"
+    }
+}
+
+/// Request message for CreateMirroringDeployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateMirroringDeploymentRequest {
+    /// Required. The parent resource where this deployment will be created.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the new deployment, which will become the final
+    /// component of the deployment's resource name.
+    pub mirroring_deployment_id: std::string::String,
+
+    /// Required. The deployment to create.
+    pub mirroring_deployment: std::option::Option<crate::model::MirroringDeployment>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateMirroringDeploymentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateMirroringDeploymentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentRequest;
+    /// let x = CreateMirroringDeploymentRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [mirroring_deployment_id][crate::model::CreateMirroringDeploymentRequest::mirroring_deployment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentRequest;
+    /// let x = CreateMirroringDeploymentRequest::new().set_mirroring_deployment_id("example");
+    /// ```
+    pub fn set_mirroring_deployment_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mirroring_deployment_id = v.into();
+        self
+    }
+
+    /// Sets the value of [mirroring_deployment][crate::model::CreateMirroringDeploymentRequest::mirroring_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = CreateMirroringDeploymentRequest::new().set_mirroring_deployment(MirroringDeployment::default()/* use setters */);
+    /// ```
+    pub fn set_mirroring_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringDeployment>,
+    {
+        self.mirroring_deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mirroring_deployment][crate::model::CreateMirroringDeploymentRequest::mirroring_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = CreateMirroringDeploymentRequest::new().set_or_clear_mirroring_deployment(Some(MirroringDeployment::default()/* use setters */));
+    /// let x = CreateMirroringDeploymentRequest::new().set_or_clear_mirroring_deployment(None::<MirroringDeployment>);
+    /// ```
+    pub fn set_or_clear_mirroring_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringDeployment>,
+    {
+        self.mirroring_deployment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateMirroringDeploymentRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateMirroringDeploymentRequest;
+    /// let x = CreateMirroringDeploymentRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateMirroringDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateMirroringDeploymentRequest"
+    }
+}
+
+/// Request message for UpdateMirroringDeployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateMirroringDeploymentRequest {
+    /// Optional. The list of fields to update.
+    /// Fields are specified relative to the deployment
+    /// (e.g. `description`; *not* `mirroring_deployment.description`).
+    /// See <https://google.aip.dev/161> for more details.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The deployment to update.
+    pub mirroring_deployment: std::option::Option<crate::model::MirroringDeployment>,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateMirroringDeploymentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateMirroringDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMirroringDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateMirroringDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMirroringDeploymentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMirroringDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [mirroring_deployment][crate::model::UpdateMirroringDeploymentRequest::mirroring_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringDeploymentRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = UpdateMirroringDeploymentRequest::new().set_mirroring_deployment(MirroringDeployment::default()/* use setters */);
+    /// ```
+    pub fn set_mirroring_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringDeployment>,
+    {
+        self.mirroring_deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mirroring_deployment][crate::model::UpdateMirroringDeploymentRequest::mirroring_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringDeploymentRequest;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// let x = UpdateMirroringDeploymentRequest::new().set_or_clear_mirroring_deployment(Some(MirroringDeployment::default()/* use setters */));
+    /// let x = UpdateMirroringDeploymentRequest::new().set_or_clear_mirroring_deployment(None::<MirroringDeployment>);
+    /// ```
+    pub fn set_or_clear_mirroring_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MirroringDeployment>,
+    {
+        self.mirroring_deployment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateMirroringDeploymentRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateMirroringDeploymentRequest;
+    /// let x = UpdateMirroringDeploymentRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateMirroringDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateMirroringDeploymentRequest"
+    }
+}
+
+/// Request message for DeleteMirroringDeployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteMirroringDeploymentRequest {
+    /// Required. Name of the resource
+    pub name: std::string::String,
+
+    /// Optional. A unique identifier for this request. Must be a UUID4.
+    /// This request is only idempotent if a `request_id` is provided.
+    /// See <https://google.aip.dev/155> for more details.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteMirroringDeploymentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteMirroringDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteMirroringDeploymentRequest;
+    /// let x = DeleteMirroringDeploymentRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteMirroringDeploymentRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteMirroringDeploymentRequest;
+    /// let x = DeleteMirroringDeploymentRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteMirroringDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteMirroringDeploymentRequest"
+    }
+}
+
+/// Details about mirroring in a specific cloud location.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MirroringLocation {
+    /// Output only. The cloud location, e.g. "us-central1-a" or "asia-south1".
+    pub location: std::string::String,
+
+    /// Output only. The current state of the association in this location.
+    pub state: crate::model::mirroring_location::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MirroringLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [location][crate::model::MirroringLocation::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringLocation;
+    /// let x = MirroringLocation::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::MirroringLocation::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::MirroringLocation;
+    /// use google_cloud_networksecurity_v1::model::mirroring_location::State;
+    /// let x0 = MirroringLocation::new().set_state(State::Active);
+    /// let x1 = MirroringLocation::new().set_state(State::OutOfSync);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::mirroring_location::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MirroringLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.MirroringLocation"
+    }
+}
+
+/// Defines additional types related to [MirroringLocation].
+pub mod mirroring_location {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The current state of a resource in the location.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set (this is not a valid state).
+        Unspecified,
+        /// The resource is ready and in sync in the location.
+        Active,
+        /// The resource is out of sync in the location.
+        /// In most cases, this is a result of a transient issue within the system
+        /// (e.g. an inaccessible location) and the system is expected to recover
+        /// automatically.
+        OutOfSync,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::OutOfSync => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::OutOfSync => std::option::Option::Some("OUT_OF_SYNC"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::OutOfSync,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "OUT_OF_SYNC" => Self::OutOfSync,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::OutOfSync => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.networksecurity.v1.MirroringLocation.State",
+            ))
+        }
+    }
+}
+
+/// SecurityProfileGroup is a resource that defines the behavior for various
+/// ProfileTypes.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SecurityProfileGroup {
+    /// Immutable. Identifier. Name of the SecurityProfileGroup resource. It
+    /// matches pattern
+    /// `projects|organizations/*/locations/{location}/securityProfileGroups/{security_profile_group}`.
+    pub name: std::string::String,
+
+    /// Optional. An optional description of the profile group. Max length 2048
+    /// characters.
+    pub description: std::string::String,
+
+    /// Output only. Resource creation timestamp.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Last resource update timestamp.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. This checksum is computed by the server based on the value of
+    /// other fields, and may be sent on update and delete requests to ensure the
+    /// client has an up-to-date value before proceeding.
+    pub etag: std::string::String,
+
+    /// Output only. Identifier used by the data-path. Unique within {container,
+    /// location}.
+    pub data_path_id: u64,
+
+    /// Optional. Labels as key value pairs.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Reference to a SecurityProfile with the ThreatPrevention
+    /// configuration.
+    pub threat_prevention_profile: std::string::String,
+
+    /// Optional. Reference to a SecurityProfile with the CustomMirroring
+    /// configuration.
+    pub custom_mirroring_profile: std::string::String,
+
+    /// Optional. Reference to a SecurityProfile with the CustomIntercept
+    /// configuration.
+    pub custom_intercept_profile: std::string::String,
+
+    /// Optional. Reference to a SecurityProfile with the UrlFiltering
+    /// configuration.
+    pub url_filtering_profile: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SecurityProfileGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SecurityProfileGroup::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = SecurityProfileGroup::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::SecurityProfileGroup::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = SecurityProfileGroup::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::SecurityProfileGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// use wkt::Timestamp;
+    /// let x = SecurityProfileGroup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::SecurityProfileGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// use wkt::Timestamp;
+    /// let x = SecurityProfileGroup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecurityProfileGroup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::SecurityProfileGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// use wkt::Timestamp;
+    /// let x = SecurityProfileGroup::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::SecurityProfileGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// use wkt::Timestamp;
+    /// let x = SecurityProfileGroup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecurityProfileGroup::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::SecurityProfileGroup::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = SecurityProfileGroup::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [data_path_id][crate::model::SecurityProfileGroup::data_path_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = SecurityProfileGroup::new().set_data_path_id(42_u32);
+    /// ```
+    pub fn set_data_path_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
+        self.data_path_id = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::SecurityProfileGroup::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = SecurityProfileGroup::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [threat_prevention_profile][crate::model::SecurityProfileGroup::threat_prevention_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = SecurityProfileGroup::new().set_threat_prevention_profile("example");
+    /// ```
+    pub fn set_threat_prevention_profile<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.threat_prevention_profile = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_mirroring_profile][crate::model::SecurityProfileGroup::custom_mirroring_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = SecurityProfileGroup::new().set_custom_mirroring_profile("example");
+    /// ```
+    pub fn set_custom_mirroring_profile<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.custom_mirroring_profile = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_intercept_profile][crate::model::SecurityProfileGroup::custom_intercept_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = SecurityProfileGroup::new().set_custom_intercept_profile("example");
+    /// ```
+    pub fn set_custom_intercept_profile<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.custom_intercept_profile = v.into();
+        self
+    }
+
+    /// Sets the value of [url_filtering_profile][crate::model::SecurityProfileGroup::url_filtering_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = SecurityProfileGroup::new().set_url_filtering_profile("example");
+    /// ```
+    pub fn set_url_filtering_profile<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.url_filtering_profile = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SecurityProfileGroup {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.SecurityProfileGroup"
+    }
+}
+
+/// SecurityProfile is a resource that defines the behavior for one of many
+/// ProfileTypes.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SecurityProfile {
+    /// Immutable. Identifier. Name of the SecurityProfile resource. It matches
+    /// pattern
+    /// `projects|organizations/*/locations/{location}/securityProfiles/{security_profile}`.
+    pub name: std::string::String,
+
+    /// Optional. An optional description of the profile. Max length 512
+    /// characters.
+    pub description: std::string::String,
+
+    /// Output only. Resource creation timestamp.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Last resource update timestamp.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. This checksum is computed by the server based on the value of
+    /// other fields, and may be sent on update and delete requests to ensure the
+    /// client has an up-to-date value before proceeding.
+    pub etag: std::string::String,
+
+    /// Optional. Labels as key value pairs.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Immutable. The single ProfileType that the SecurityProfile resource
+    /// configures.
+    pub r#type: crate::model::security_profile::ProfileType,
+
+    /// The behavior for the ProfileType that the SecurityProfile resource is meant
+    /// to configure. This field must correspond to the ProfileType of the
+    /// SecurityProfile.
+    pub profile: std::option::Option<crate::model::security_profile::Profile>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SecurityProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SecurityProfile::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// let x = SecurityProfile::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::SecurityProfile::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// let x = SecurityProfile::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::SecurityProfile::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use wkt::Timestamp;
+    /// let x = SecurityProfile::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::SecurityProfile::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use wkt::Timestamp;
+    /// let x = SecurityProfile::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecurityProfile::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::SecurityProfile::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use wkt::Timestamp;
+    /// let x = SecurityProfile::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::SecurityProfile::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use wkt::Timestamp;
+    /// let x = SecurityProfile::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SecurityProfile::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::SecurityProfile::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// let x = SecurityProfile::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::SecurityProfile::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// let x = SecurityProfile::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::SecurityProfile::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use google_cloud_networksecurity_v1::model::security_profile::ProfileType;
+    /// let x0 = SecurityProfile::new().set_type(ProfileType::ThreatPrevention);
+    /// let x1 = SecurityProfile::new().set_type(ProfileType::CustomMirroring);
+    /// let x2 = SecurityProfile::new().set_type(ProfileType::CustomIntercept);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::security_profile::ProfileType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [profile][crate::model::SecurityProfile::profile].
+    ///
+    /// Note that all the setters affecting `profile` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use google_cloud_networksecurity_v1::model::ThreatPreventionProfile;
+    /// let x = SecurityProfile::new().set_profile(Some(
+    ///     google_cloud_networksecurity_v1::model::security_profile::Profile::ThreatPreventionProfile(ThreatPreventionProfile::default().into())));
+    /// ```
+    pub fn set_profile<
+        T: std::convert::Into<std::option::Option<crate::model::security_profile::Profile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = v.into();
+        self
+    }
+
+    /// The value of [profile][crate::model::SecurityProfile::profile]
+    /// if it holds a `ThreatPreventionProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn threat_prevention_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ThreatPreventionProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::security_profile::Profile::ThreatPreventionProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::SecurityProfile::profile]
+    /// to hold a `ThreatPreventionProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use google_cloud_networksecurity_v1::model::ThreatPreventionProfile;
+    /// let x = SecurityProfile::new().set_threat_prevention_profile(ThreatPreventionProfile::default()/* use setters */);
+    /// assert!(x.threat_prevention_profile().is_some());
+    /// assert!(x.custom_mirroring_profile().is_none());
+    /// assert!(x.custom_intercept_profile().is_none());
+    /// assert!(x.url_filtering_profile().is_none());
+    /// ```
+    pub fn set_threat_prevention_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::ThreatPreventionProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::security_profile::Profile::ThreatPreventionProfile(v.into()),
+        );
+        self
+    }
+
+    /// The value of [profile][crate::model::SecurityProfile::profile]
+    /// if it holds a `CustomMirroringProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn custom_mirroring_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomMirroringProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::security_profile::Profile::CustomMirroringProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::SecurityProfile::profile]
+    /// to hold a `CustomMirroringProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use google_cloud_networksecurity_v1::model::CustomMirroringProfile;
+    /// let x = SecurityProfile::new().set_custom_mirroring_profile(CustomMirroringProfile::default()/* use setters */);
+    /// assert!(x.custom_mirroring_profile().is_some());
+    /// assert!(x.threat_prevention_profile().is_none());
+    /// assert!(x.custom_intercept_profile().is_none());
+    /// assert!(x.url_filtering_profile().is_none());
+    /// ```
+    pub fn set_custom_mirroring_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::CustomMirroringProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::security_profile::Profile::CustomMirroringProfile(v.into()),
+        );
+        self
+    }
+
+    /// The value of [profile][crate::model::SecurityProfile::profile]
+    /// if it holds a `CustomInterceptProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn custom_intercept_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomInterceptProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::security_profile::Profile::CustomInterceptProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::SecurityProfile::profile]
+    /// to hold a `CustomInterceptProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use google_cloud_networksecurity_v1::model::CustomInterceptProfile;
+    /// let x = SecurityProfile::new().set_custom_intercept_profile(CustomInterceptProfile::default()/* use setters */);
+    /// assert!(x.custom_intercept_profile().is_some());
+    /// assert!(x.threat_prevention_profile().is_none());
+    /// assert!(x.custom_mirroring_profile().is_none());
+    /// assert!(x.url_filtering_profile().is_none());
+    /// ```
+    pub fn set_custom_intercept_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::CustomInterceptProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::security_profile::Profile::CustomInterceptProfile(v.into()),
+        );
+        self
+    }
+
+    /// The value of [profile][crate::model::SecurityProfile::profile]
+    /// if it holds a `UrlFilteringProfile`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn url_filtering_profile(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UrlFilteringProfile>> {
+        #[allow(unreachable_patterns)]
+        self.profile.as_ref().and_then(|v| match v {
+            crate::model::security_profile::Profile::UrlFilteringProfile(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [profile][crate::model::SecurityProfile::profile]
+    /// to hold a `UrlFilteringProfile`.
+    ///
+    /// Note that all the setters affecting `profile` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use google_cloud_networksecurity_v1::model::UrlFilteringProfile;
+    /// let x = SecurityProfile::new().set_url_filtering_profile(UrlFilteringProfile::default()/* use setters */);
+    /// assert!(x.url_filtering_profile().is_some());
+    /// assert!(x.threat_prevention_profile().is_none());
+    /// assert!(x.custom_mirroring_profile().is_none());
+    /// assert!(x.custom_intercept_profile().is_none());
+    /// ```
+    pub fn set_url_filtering_profile<
+        T: std::convert::Into<std::boxed::Box<crate::model::UrlFilteringProfile>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.profile = std::option::Option::Some(
+            crate::model::security_profile::Profile::UrlFilteringProfile(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SecurityProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.SecurityProfile"
+    }
+}
+
+/// Defines additional types related to [SecurityProfile].
+pub mod security_profile {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The possible types that the SecurityProfile resource can configure.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProfileType {
+        /// Profile type not specified.
+        Unspecified,
+        /// Profile type for threat prevention.
+        ThreatPrevention,
+        /// Profile type for packet mirroring v2
+        CustomMirroring,
+        /// Profile type for TPPI.
+        CustomIntercept,
+        /// Profile type for URL filtering.
+        UrlFiltering,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProfileType::value] or
+        /// [ProfileType::name].
+        UnknownValue(profile_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod profile_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ProfileType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ThreatPrevention => std::option::Option::Some(1),
+                Self::CustomMirroring => std::option::Option::Some(2),
+                Self::CustomIntercept => std::option::Option::Some(3),
+                Self::UrlFiltering => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROFILE_TYPE_UNSPECIFIED"),
+                Self::ThreatPrevention => std::option::Option::Some("THREAT_PREVENTION"),
+                Self::CustomMirroring => std::option::Option::Some("CUSTOM_MIRRORING"),
+                Self::CustomIntercept => std::option::Option::Some("CUSTOM_INTERCEPT"),
+                Self::UrlFiltering => std::option::Option::Some("URL_FILTERING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ProfileType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ProfileType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ProfileType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ThreatPrevention,
+                2 => Self::CustomMirroring,
+                3 => Self::CustomIntercept,
+                5 => Self::UrlFiltering,
+                _ => Self::UnknownValue(profile_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ProfileType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROFILE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "THREAT_PREVENTION" => Self::ThreatPrevention,
+                "CUSTOM_MIRRORING" => Self::CustomMirroring,
+                "CUSTOM_INTERCEPT" => Self::CustomIntercept,
+                "URL_FILTERING" => Self::UrlFiltering,
+                _ => Self::UnknownValue(profile_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ProfileType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ThreatPrevention => serializer.serialize_i32(1),
+                Self::CustomMirroring => serializer.serialize_i32(2),
+                Self::CustomIntercept => serializer.serialize_i32(3),
+                Self::UrlFiltering => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProfileType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProfileType>::new(
+                ".google.cloud.networksecurity.v1.SecurityProfile.ProfileType",
+            ))
+        }
+    }
+
+    /// The behavior for the ProfileType that the SecurityProfile resource is meant
+    /// to configure. This field must correspond to the ProfileType of the
+    /// SecurityProfile.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Profile {
+        /// The threat prevention configuration for the SecurityProfile.
+        ThreatPreventionProfile(std::boxed::Box<crate::model::ThreatPreventionProfile>),
+        /// The custom Packet Mirroring v2 configuration for the SecurityProfile.
+        CustomMirroringProfile(std::boxed::Box<crate::model::CustomMirroringProfile>),
+        /// The custom TPPI configuration for the SecurityProfile.
+        CustomInterceptProfile(std::boxed::Box<crate::model::CustomInterceptProfile>),
+        /// The URL filtering configuration for the SecurityProfile.
+        UrlFilteringProfile(std::boxed::Box<crate::model::UrlFilteringProfile>),
+    }
+}
+
+/// CustomInterceptProfile defines in-band integration behavior (intercept).
+/// It is used by firewall rules with an APPLY_SECURITY_PROFILE_GROUP action.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CustomInterceptProfile {
+    /// Required. The target InterceptEndpointGroup.
+    /// When a firewall rule with this security profile attached matches a packet,
+    /// the packet will be intercepted to the location-local target in this group.
+    pub intercept_endpoint_group: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CustomInterceptProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [intercept_endpoint_group][crate::model::CustomInterceptProfile::intercept_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CustomInterceptProfile;
+    /// let x = CustomInterceptProfile::new().set_intercept_endpoint_group("example");
+    /// ```
+    pub fn set_intercept_endpoint_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intercept_endpoint_group = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CustomInterceptProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CustomInterceptProfile"
+    }
+}
+
+/// CustomMirroringProfile defines out-of-band integration behavior (mirroring).
+/// It is used by mirroring rules with a MIRROR action.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CustomMirroringProfile {
+    /// Required. Immutable. The target MirroringEndpointGroup.
+    /// When a mirroring rule with this security profile attached matches a packet,
+    /// a replica will be mirrored to the location-local target in this group.
+    pub mirroring_endpoint_group: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CustomMirroringProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mirroring_endpoint_group][crate::model::CustomMirroringProfile::mirroring_endpoint_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CustomMirroringProfile;
+    /// let x = CustomMirroringProfile::new().set_mirroring_endpoint_group("example");
+    /// ```
+    pub fn set_mirroring_endpoint_group<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mirroring_endpoint_group = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CustomMirroringProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CustomMirroringProfile"
+    }
+}
+
+/// Request used with the ListSecurityProfileGroups method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSecurityProfileGroupsRequest {
+    /// Required. The project or organization and location from which the
+    /// SecurityProfileGroups should be listed, specified in the format
+    /// `projects|organizations/*/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Optional. Maximum number of SecurityProfileGroups to return per call.
+    pub page_size: i32,
+
+    /// Optional. The value returned by the last
+    /// `ListSecurityProfileGroupsResponse` Indicates that this is a
+    /// continuation of a prior `ListSecurityProfileGroups` call, and
+    /// that the system should return the next page of data.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSecurityProfileGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSecurityProfileGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSecurityProfileGroupsRequest;
+    /// let x = ListSecurityProfileGroupsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSecurityProfileGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSecurityProfileGroupsRequest;
+    /// let x = ListSecurityProfileGroupsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSecurityProfileGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSecurityProfileGroupsRequest;
+    /// let x = ListSecurityProfileGroupsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSecurityProfileGroupsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListSecurityProfileGroupsRequest"
+    }
+}
+
+/// Response returned by the ListSecurityProfileGroups method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSecurityProfileGroupsResponse {
+    /// List of SecurityProfileGroups resources.
+    pub security_profile_groups: std::vec::Vec<crate::model::SecurityProfileGroup>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// `next_page_token` is included. To get the next set of results, call this
+    /// method again using the value of `next_page_token` as `page_token`.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSecurityProfileGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [security_profile_groups][crate::model::ListSecurityProfileGroupsResponse::security_profile_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSecurityProfileGroupsResponse;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = ListSecurityProfileGroupsResponse::new()
+    ///     .set_security_profile_groups([
+    ///         SecurityProfileGroup::default()/* use setters */,
+    ///         SecurityProfileGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_security_profile_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecurityProfileGroup>,
+    {
+        use std::iter::Iterator;
+        self.security_profile_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSecurityProfileGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSecurityProfileGroupsResponse;
+    /// let x = ListSecurityProfileGroupsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSecurityProfileGroupsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListSecurityProfileGroupsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSecurityProfileGroupsResponse {
+    type PageItem = crate::model::SecurityProfileGroup;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.security_profile_groups
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request used by the GetSecurityProfileGroup method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSecurityProfileGroupRequest {
+    /// Required. A name of the SecurityProfileGroup to get. Must be in the format
+    /// `projects|organizations/*/locations/{location}/securityProfileGroups/{security_profile_group}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSecurityProfileGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSecurityProfileGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetSecurityProfileGroupRequest;
+    /// let x = GetSecurityProfileGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSecurityProfileGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetSecurityProfileGroupRequest"
+    }
+}
+
+/// Request used by the CreateSecurityProfileGroup method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSecurityProfileGroupRequest {
+    /// Required. The parent resource of the SecurityProfileGroup. Must be in the
+    /// format `projects|organizations/*/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Required. Short name of the SecurityProfileGroup resource to be created.
+    /// This value should be 1-63 characters long, containing only
+    /// letters, numbers, hyphens, and underscores, and should not start
+    /// with a number. E.g. "security_profile_group1".
+    pub security_profile_group_id: std::string::String,
+
+    /// Required. SecurityProfileGroup resource to be created.
+    pub security_profile_group: std::option::Option<crate::model::SecurityProfileGroup>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSecurityProfileGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateSecurityProfileGroupRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSecurityProfileGroupRequest;
+    /// let x = CreateSecurityProfileGroupRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [security_profile_group_id][crate::model::CreateSecurityProfileGroupRequest::security_profile_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSecurityProfileGroupRequest;
+    /// let x = CreateSecurityProfileGroupRequest::new().set_security_profile_group_id("example");
+    /// ```
+    pub fn set_security_profile_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.security_profile_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [security_profile_group][crate::model::CreateSecurityProfileGroupRequest::security_profile_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSecurityProfileGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = CreateSecurityProfileGroupRequest::new().set_security_profile_group(SecurityProfileGroup::default()/* use setters */);
+    /// ```
+    pub fn set_security_profile_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityProfileGroup>,
+    {
+        self.security_profile_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [security_profile_group][crate::model::CreateSecurityProfileGroupRequest::security_profile_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSecurityProfileGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = CreateSecurityProfileGroupRequest::new().set_or_clear_security_profile_group(Some(SecurityProfileGroup::default()/* use setters */));
+    /// let x = CreateSecurityProfileGroupRequest::new().set_or_clear_security_profile_group(None::<SecurityProfileGroup>);
+    /// ```
+    pub fn set_or_clear_security_profile_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityProfileGroup>,
+    {
+        self.security_profile_group = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSecurityProfileGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateSecurityProfileGroupRequest"
+    }
+}
+
+/// Request used by the UpdateSecurityProfileGroup method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateSecurityProfileGroupRequest {
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// SecurityProfileGroup resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated SecurityProfileGroup resource.
+    pub security_profile_group: std::option::Option<crate::model::SecurityProfileGroup>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateSecurityProfileGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateSecurityProfileGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateSecurityProfileGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSecurityProfileGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateSecurityProfileGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateSecurityProfileGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSecurityProfileGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSecurityProfileGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [security_profile_group][crate::model::UpdateSecurityProfileGroupRequest::security_profile_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateSecurityProfileGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = UpdateSecurityProfileGroupRequest::new().set_security_profile_group(SecurityProfileGroup::default()/* use setters */);
+    /// ```
+    pub fn set_security_profile_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityProfileGroup>,
+    {
+        self.security_profile_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [security_profile_group][crate::model::UpdateSecurityProfileGroupRequest::security_profile_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateSecurityProfileGroupRequest;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// let x = UpdateSecurityProfileGroupRequest::new().set_or_clear_security_profile_group(Some(SecurityProfileGroup::default()/* use setters */));
+    /// let x = UpdateSecurityProfileGroupRequest::new().set_or_clear_security_profile_group(None::<SecurityProfileGroup>);
+    /// ```
+    pub fn set_or_clear_security_profile_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityProfileGroup>,
+    {
+        self.security_profile_group = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateSecurityProfileGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateSecurityProfileGroupRequest"
+    }
+}
+
+/// Request used by the DeleteSecurityProfileGroup method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteSecurityProfileGroupRequest {
+    /// Required. A name of the SecurityProfileGroup to delete. Must be in the
+    /// format
+    /// `projects|organizations/*/locations/{location}/securityProfileGroups/{security_profile_group}`.
+    pub name: std::string::String,
+
+    /// Optional. If client provided etag is out of date, delete will return
+    /// FAILED_PRECONDITION error.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteSecurityProfileGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteSecurityProfileGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteSecurityProfileGroupRequest;
+    /// let x = DeleteSecurityProfileGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteSecurityProfileGroupRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteSecurityProfileGroupRequest;
+    /// let x = DeleteSecurityProfileGroupRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteSecurityProfileGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteSecurityProfileGroupRequest"
+    }
+}
+
+/// Request used with the ListSecurityProfiles method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSecurityProfilesRequest {
+    /// Required. The project or organization and location from which the
+    /// SecurityProfiles should be listed, specified in the format
+    /// `projects|organizations/*/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Optional. Maximum number of SecurityProfiles to return per call.
+    pub page_size: i32,
+
+    /// Optional. The value returned by the last
+    /// `ListSecurityProfilesResponse` Indicates that this is a continuation of a
+    /// prior `ListSecurityProfiles` call, and that the system should return the
+    /// next page of data.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSecurityProfilesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSecurityProfilesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSecurityProfilesRequest;
+    /// let x = ListSecurityProfilesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSecurityProfilesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSecurityProfilesRequest;
+    /// let x = ListSecurityProfilesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSecurityProfilesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSecurityProfilesRequest;
+    /// let x = ListSecurityProfilesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSecurityProfilesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListSecurityProfilesRequest"
+    }
+}
+
+/// Response returned by the ListSecurityProfiles method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSecurityProfilesResponse {
+    /// List of SecurityProfile resources.
+    pub security_profiles: std::vec::Vec<crate::model::SecurityProfile>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// `next_page_token` is included. To get the next set of results, call this
+    /// method again using the value of `next_page_token` as `page_token`.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSecurityProfilesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [security_profiles][crate::model::ListSecurityProfilesResponse::security_profiles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSecurityProfilesResponse;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// let x = ListSecurityProfilesResponse::new()
+    ///     .set_security_profiles([
+    ///         SecurityProfile::default()/* use setters */,
+    ///         SecurityProfile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_security_profiles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecurityProfile>,
+    {
+        use std::iter::Iterator;
+        self.security_profiles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSecurityProfilesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListSecurityProfilesResponse;
+    /// let x = ListSecurityProfilesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSecurityProfilesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListSecurityProfilesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSecurityProfilesResponse {
+    type PageItem = crate::model::SecurityProfile;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.security_profiles
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request used by the GetSecurityProfile method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSecurityProfileRequest {
+    /// Required. A name of the SecurityProfile to get. Must be in the format
+    /// `projects|organizations/*/locations/{location}/securityProfiles/{security_profile_id}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSecurityProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSecurityProfileRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetSecurityProfileRequest;
+    /// let x = GetSecurityProfileRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSecurityProfileRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetSecurityProfileRequest"
+    }
+}
+
+/// Request used by the CreateSecurityProfile method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSecurityProfileRequest {
+    /// Required. The parent resource of the SecurityProfile. Must be in the format
+    /// `projects|organizations/*/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Required. Short name of the SecurityProfile resource to be created. This
+    /// value should be 1-63 characters long, containing only letters, numbers,
+    /// hyphens, and underscores, and should not start with a number. E.g.
+    /// "security_profile1".
+    pub security_profile_id: std::string::String,
+
+    /// Required. SecurityProfile resource to be created.
+    pub security_profile: std::option::Option<crate::model::SecurityProfile>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSecurityProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateSecurityProfileRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSecurityProfileRequest;
+    /// let x = CreateSecurityProfileRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [security_profile_id][crate::model::CreateSecurityProfileRequest::security_profile_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSecurityProfileRequest;
+    /// let x = CreateSecurityProfileRequest::new().set_security_profile_id("example");
+    /// ```
+    pub fn set_security_profile_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.security_profile_id = v.into();
+        self
+    }
+
+    /// Sets the value of [security_profile][crate::model::CreateSecurityProfileRequest::security_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSecurityProfileRequest;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// let x = CreateSecurityProfileRequest::new().set_security_profile(SecurityProfile::default()/* use setters */);
+    /// ```
+    pub fn set_security_profile<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityProfile>,
+    {
+        self.security_profile = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [security_profile][crate::model::CreateSecurityProfileRequest::security_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateSecurityProfileRequest;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// let x = CreateSecurityProfileRequest::new().set_or_clear_security_profile(Some(SecurityProfile::default()/* use setters */));
+    /// let x = CreateSecurityProfileRequest::new().set_or_clear_security_profile(None::<SecurityProfile>);
+    /// ```
+    pub fn set_or_clear_security_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityProfile>,
+    {
+        self.security_profile = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSecurityProfileRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateSecurityProfileRequest"
+    }
+}
+
+/// Request used by the UpdateSecurityProfile method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateSecurityProfileRequest {
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// SecurityProfile resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated SecurityProfile resource.
+    pub security_profile: std::option::Option<crate::model::SecurityProfile>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateSecurityProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateSecurityProfileRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateSecurityProfileRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSecurityProfileRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateSecurityProfileRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateSecurityProfileRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSecurityProfileRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSecurityProfileRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [security_profile][crate::model::UpdateSecurityProfileRequest::security_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateSecurityProfileRequest;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// let x = UpdateSecurityProfileRequest::new().set_security_profile(SecurityProfile::default()/* use setters */);
+    /// ```
+    pub fn set_security_profile<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityProfile>,
+    {
+        self.security_profile = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [security_profile][crate::model::UpdateSecurityProfileRequest::security_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateSecurityProfileRequest;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// let x = UpdateSecurityProfileRequest::new().set_or_clear_security_profile(Some(SecurityProfile::default()/* use setters */));
+    /// let x = UpdateSecurityProfileRequest::new().set_or_clear_security_profile(None::<SecurityProfile>);
+    /// ```
+    pub fn set_or_clear_security_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SecurityProfile>,
+    {
+        self.security_profile = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateSecurityProfileRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateSecurityProfileRequest"
+    }
+}
+
+/// Request used by the DeleteSecurityProfile method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteSecurityProfileRequest {
+    /// Required. A name of the SecurityProfile to delete. Must be in the format
+    /// `projects|organizations/*/locations/{location}/securityProfiles/{security_profile_id}`.
+    pub name: std::string::String,
+
+    /// Optional. If client provided etag is out of date, delete will return
+    /// FAILED_PRECONDITION error.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteSecurityProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteSecurityProfileRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteSecurityProfileRequest;
+    /// let x = DeleteSecurityProfileRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteSecurityProfileRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteSecurityProfileRequest;
+    /// let x = DeleteSecurityProfileRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteSecurityProfileRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteSecurityProfileRequest"
+    }
+}
+
+/// ThreatPreventionProfile defines an action for specific threat signatures or
+/// severity levels.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ThreatPreventionProfile {
+    /// Optional. Configuration for overriding threats actions by severity match.
+    pub severity_overrides: std::vec::Vec<crate::model::SeverityOverride>,
+
+    /// Optional. Configuration for overriding threats actions by threat_id match.
+    /// If a threat is matched both by configuration provided in severity_overrides
+    /// and threat_overrides, the threat_overrides action is applied.
+    pub threat_overrides: std::vec::Vec<crate::model::ThreatOverride>,
+
+    /// Optional. Configuration for overriding antivirus actions per protocol.
+    pub antivirus_overrides: std::vec::Vec<crate::model::AntivirusOverride>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ThreatPreventionProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [severity_overrides][crate::model::ThreatPreventionProfile::severity_overrides].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ThreatPreventionProfile;
+    /// use google_cloud_networksecurity_v1::model::SeverityOverride;
+    /// let x = ThreatPreventionProfile::new()
+    ///     .set_severity_overrides([
+    ///         SeverityOverride::default()/* use setters */,
+    ///         SeverityOverride::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_severity_overrides<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SeverityOverride>,
+    {
+        use std::iter::Iterator;
+        self.severity_overrides = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [threat_overrides][crate::model::ThreatPreventionProfile::threat_overrides].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ThreatPreventionProfile;
+    /// use google_cloud_networksecurity_v1::model::ThreatOverride;
+    /// let x = ThreatPreventionProfile::new()
+    ///     .set_threat_overrides([
+    ///         ThreatOverride::default()/* use setters */,
+    ///         ThreatOverride::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_threat_overrides<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ThreatOverride>,
+    {
+        use std::iter::Iterator;
+        self.threat_overrides = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [antivirus_overrides][crate::model::ThreatPreventionProfile::antivirus_overrides].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ThreatPreventionProfile;
+    /// use google_cloud_networksecurity_v1::model::AntivirusOverride;
+    /// let x = ThreatPreventionProfile::new()
+    ///     .set_antivirus_overrides([
+    ///         AntivirusOverride::default()/* use setters */,
+    ///         AntivirusOverride::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_antivirus_overrides<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AntivirusOverride>,
+    {
+        use std::iter::Iterator;
+        self.antivirus_overrides = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ThreatPreventionProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ThreatPreventionProfile"
+    }
+}
+
+/// Defines what action to take for a specific severity match.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SeverityOverride {
+    /// Required. Severity level to match.
+    pub severity: crate::model::Severity,
+
+    /// Required. Threat action override.
+    pub action: crate::model::ThreatAction,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SeverityOverride {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [severity][crate::model::SeverityOverride::severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SeverityOverride;
+    /// use google_cloud_networksecurity_v1::model::Severity;
+    /// let x0 = SeverityOverride::new().set_severity(Severity::Informational);
+    /// let x1 = SeverityOverride::new().set_severity(Severity::Low);
+    /// let x2 = SeverityOverride::new().set_severity(Severity::Medium);
+    /// ```
+    pub fn set_severity<T: std::convert::Into<crate::model::Severity>>(mut self, v: T) -> Self {
+        self.severity = v.into();
+        self
+    }
+
+    /// Sets the value of [action][crate::model::SeverityOverride::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::SeverityOverride;
+    /// use google_cloud_networksecurity_v1::model::ThreatAction;
+    /// let x0 = SeverityOverride::new().set_action(ThreatAction::DefaultAction);
+    /// let x1 = SeverityOverride::new().set_action(ThreatAction::Allow);
+    /// let x2 = SeverityOverride::new().set_action(ThreatAction::Alert);
+    /// ```
+    pub fn set_action<T: std::convert::Into<crate::model::ThreatAction>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SeverityOverride {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.SeverityOverride"
+    }
+}
+
+/// Defines what action to take for a specific threat_id match.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ThreatOverride {
+    /// Required. Vendor-specific ID of a threat to override.
+    pub threat_id: std::string::String,
+
+    /// Output only. Type of the threat (read only).
+    pub r#type: crate::model::ThreatType,
+
+    /// Required. Threat action override. For some threat types, only a subset of
+    /// actions applies.
+    pub action: crate::model::ThreatAction,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ThreatOverride {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [threat_id][crate::model::ThreatOverride::threat_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ThreatOverride;
+    /// let x = ThreatOverride::new().set_threat_id("example");
+    /// ```
+    pub fn set_threat_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.threat_id = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::ThreatOverride::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ThreatOverride;
+    /// use google_cloud_networksecurity_v1::model::ThreatType;
+    /// let x0 = ThreatOverride::new().set_type(ThreatType::Unknown);
+    /// let x1 = ThreatOverride::new().set_type(ThreatType::Vulnerability);
+    /// let x2 = ThreatOverride::new().set_type(ThreatType::Antivirus);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::ThreatType>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [action][crate::model::ThreatOverride::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ThreatOverride;
+    /// use google_cloud_networksecurity_v1::model::ThreatAction;
+    /// let x0 = ThreatOverride::new().set_action(ThreatAction::DefaultAction);
+    /// let x1 = ThreatOverride::new().set_action(ThreatAction::Allow);
+    /// let x2 = ThreatOverride::new().set_action(ThreatAction::Alert);
+    /// ```
+    pub fn set_action<T: std::convert::Into<crate::model::ThreatAction>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ThreatOverride {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ThreatOverride"
+    }
+}
+
+/// Defines what action to take for antivirus threats per protocol.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AntivirusOverride {
+    /// Required. Protocol to match.
+    pub protocol: crate::model::Protocol,
+
+    /// Required. Threat action override. For some threat types, only a subset of
+    /// actions applies.
+    pub action: crate::model::ThreatAction,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AntivirusOverride {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [protocol][crate::model::AntivirusOverride::protocol].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AntivirusOverride;
+    /// use google_cloud_networksecurity_v1::model::Protocol;
+    /// let x0 = AntivirusOverride::new().set_protocol(Protocol::Smtp);
+    /// let x1 = AntivirusOverride::new().set_protocol(Protocol::Smb);
+    /// let x2 = AntivirusOverride::new().set_protocol(Protocol::Pop3);
+    /// ```
+    pub fn set_protocol<T: std::convert::Into<crate::model::Protocol>>(mut self, v: T) -> Self {
+        self.protocol = v.into();
+        self
+    }
+
+    /// Sets the value of [action][crate::model::AntivirusOverride::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::AntivirusOverride;
+    /// use google_cloud_networksecurity_v1::model::ThreatAction;
+    /// let x0 = AntivirusOverride::new().set_action(ThreatAction::DefaultAction);
+    /// let x1 = AntivirusOverride::new().set_action(ThreatAction::Allow);
+    /// let x2 = AntivirusOverride::new().set_action(ThreatAction::Alert);
+    /// ```
+    pub fn set_action<T: std::convert::Into<crate::model::ThreatAction>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AntivirusOverride {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.AntivirusOverride"
+    }
+}
+
+/// UrlFilteringProfile defines filters based on URL.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UrlFilteringProfile {
+    /// Optional. The list of filtering configs in which each config defines an
+    /// action to take for some URL match.
+    pub url_filters: std::vec::Vec<crate::model::UrlFilter>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UrlFilteringProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [url_filters][crate::model::UrlFilteringProfile::url_filters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlFilteringProfile;
+    /// use google_cloud_networksecurity_v1::model::UrlFilter;
+    /// let x = UrlFilteringProfile::new()
+    ///     .set_url_filters([
+    ///         UrlFilter::default()/* use setters */,
+    ///         UrlFilter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_url_filters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UrlFilter>,
+    {
+        use std::iter::Iterator;
+        self.url_filters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for UrlFilteringProfile {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UrlFilteringProfile"
+    }
+}
+
+/// A URL filter defines an action to take for some URL match.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UrlFilter {
+    /// Required. The action taken when this filter is applied.
+    pub filtering_action: crate::model::url_filter::UrlFilteringAction,
+
+    /// Required. The list of strings that a URL must match with for this filter to
+    /// be applied.
+    pub urls: std::vec::Vec<std::string::String>,
+
+    /// Required. The priority of this filter within the URL Filtering Profile.
+    /// Lower integers indicate higher priorities. The priority of a filter must be
+    /// unique within a URL Filtering Profile.
+    pub priority: std::option::Option<i32>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UrlFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [filtering_action][crate::model::UrlFilter::filtering_action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlFilter;
+    /// use google_cloud_networksecurity_v1::model::url_filter::UrlFilteringAction;
+    /// let x0 = UrlFilter::new().set_filtering_action(UrlFilteringAction::Allow);
+    /// let x1 = UrlFilter::new().set_filtering_action(UrlFilteringAction::Deny);
+    /// ```
+    pub fn set_filtering_action<
+        T: std::convert::Into<crate::model::url_filter::UrlFilteringAction>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.filtering_action = v.into();
+        self
+    }
+
+    /// Sets the value of [urls][crate::model::UrlFilter::urls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlFilter;
+    /// let x = UrlFilter::new().set_urls(["a", "b", "c"]);
+    /// ```
+    pub fn set_urls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.urls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [priority][crate::model::UrlFilter::priority].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlFilter;
+    /// let x = UrlFilter::new().set_priority(42);
+    /// ```
+    pub fn set_priority<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.priority = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [priority][crate::model::UrlFilter::priority].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlFilter;
+    /// let x = UrlFilter::new().set_or_clear_priority(Some(42));
+    /// let x = UrlFilter::new().set_or_clear_priority(None::<i32>);
+    /// ```
+    pub fn set_or_clear_priority<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.priority = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UrlFilter {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UrlFilter"
+    }
+}
+
+/// Defines additional types related to [UrlFilter].
+pub mod url_filter {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Action to be taken when a URL matches a filter.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum UrlFilteringAction {
+        /// Filtering action not specified.
+        Unspecified,
+        /// The connection matching this filter will be allowed to transmit.
+        Allow,
+        /// The connection matching this filter will be dropped.
+        Deny,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [UrlFilteringAction::value] or
+        /// [UrlFilteringAction::name].
+        UnknownValue(url_filtering_action::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod url_filtering_action {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl UrlFilteringAction {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Allow => std::option::Option::Some(1),
+                Self::Deny => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("URL_FILTERING_ACTION_UNSPECIFIED"),
+                Self::Allow => std::option::Option::Some("ALLOW"),
+                Self::Deny => std::option::Option::Some("DENY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for UrlFilteringAction {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for UrlFilteringAction {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for UrlFilteringAction {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Allow,
+                2 => Self::Deny,
+                _ => Self::UnknownValue(url_filtering_action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for UrlFilteringAction {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "URL_FILTERING_ACTION_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW" => Self::Allow,
+                "DENY" => Self::Deny,
+                _ => Self::UnknownValue(url_filtering_action::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for UrlFilteringAction {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Allow => serializer.serialize_i32(1),
+                Self::Deny => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for UrlFilteringAction {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<UrlFilteringAction>::new(
+                ".google.cloud.networksecurity.v1.UrlFilter.UrlFilteringAction",
+            ))
+        }
+    }
+}
+
 /// ServerTlsPolicy is a resource that specifies how a server should authenticate
 /// incoming requests. This resource itself does not affect configuration unless
-/// it is attached to a target https proxy or endpoint config selector resource.
+/// it is attached to a target HTTPS proxy or endpoint config selector resource.
+///
+/// ServerTlsPolicy in the form accepted by Application Load Balancers can
+/// be attached only to TargetHttpsProxy with an `EXTERNAL`, `EXTERNAL_MANAGED`
+/// or `INTERNAL_MANAGED` load balancing scheme. Traffic Director compatible
+/// ServerTlsPolicies can be attached to EndpointPolicy and TargetHttpsProxy with
+/// Traffic Director `INTERNAL_SELF_MANAGED` load balancing scheme.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerTlsPolicy {
@@ -3499,6 +22877,9 @@ pub struct ServerTlsPolicy {
     /// Set of label tags associated with the resource.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// This field applies only for Traffic Director policies. It is must be set to
+    /// false for Application Load Balancer policies.
+    ///
     /// Determines if server allows plaintext connections. If set to true, server
     /// allows plain text connections. By default, it is set to false. This setting
     /// is not exclusive of other encryption modes. For example, if `allow_open`
@@ -3510,11 +22891,17 @@ pub struct ServerTlsPolicy {
     /// while having mixed TLS and non-TLS traffic reaching port :80.
     pub allow_open: bool,
 
+    /// Optional if policy is to be used with Traffic Director. For Application
+    /// Load Balancers must be empty.
+    ///
     /// Defines a mechanism to provision server identity (public and private keys).
     /// Cannot be combined with `allow_open` as a permissive mode that allows both
     /// plain text and TLS is not supported.
     pub server_certificate: std::option::Option<crate::model::CertificateProvider>,
 
+    /// This field is required if the policy is used with Application Load
+    /// Balancers. This field can be empty for Traffic Director.
+    ///
     /// Defines a mechanism to provision peer validation certificates for peer to
     /// peer authentication (Mutual TLS - mTLS). If not specified, client
     /// certificate will not be requested. The connection is treated as TLS and not
@@ -3735,9 +23122,31 @@ pub mod server_tls_policy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MTLSPolicy {
+        /// When the client presents an invalid certificate or no certificate to the
+        /// load balancer, the `client_validation_mode` specifies how the client
+        /// connection is handled.
+        ///
+        /// Required if the policy is to be used with the Application Load
+        /// Balancers. For Traffic Director it must be empty.
+        pub client_validation_mode:
+            crate::model::server_tls_policy::mtls_policy::ClientValidationMode,
+
+        /// Required if the policy is to be used with Traffic Director. For
+        /// Application Load Balancers it must be empty.
+        ///
         /// Defines the mechanism to obtain the Certificate Authority certificate to
         /// validate the client certificate.
         pub client_validation_ca: std::vec::Vec<crate::model::ValidationCA>,
+
+        /// Reference to the TrustConfig from certificatemanager.googleapis.com
+        /// namespace.
+        ///
+        /// If specified, the chain validation will be performed against certificates
+        /// configured in the given TrustConfig.
+        ///
+        /// Allowed only if the policy is to be used with Application Load
+        /// Balancers.
+        pub client_validation_trust_config: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -3745,6 +23154,25 @@ pub mod server_tls_policy {
     impl MTLSPolicy {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [client_validation_mode][crate::model::server_tls_policy::MTLSPolicy::client_validation_mode].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::server_tls_policy::MTLSPolicy;
+        /// use google_cloud_networksecurity_v1::model::server_tls_policy::mtls_policy::ClientValidationMode;
+        /// let x0 = MTLSPolicy::new().set_client_validation_mode(ClientValidationMode::AllowInvalidOrMissingClientCert);
+        /// let x1 = MTLSPolicy::new().set_client_validation_mode(ClientValidationMode::RejectInvalid);
+        /// ```
+        pub fn set_client_validation_mode<
+            T: std::convert::Into<crate::model::server_tls_policy::mtls_policy::ClientValidationMode>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.client_validation_mode = v.into();
+            self
         }
 
         /// Sets the value of [client_validation_ca][crate::model::server_tls_policy::MTLSPolicy::client_validation_ca].
@@ -3768,11 +23196,180 @@ pub mod server_tls_policy {
             self.client_validation_ca = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [client_validation_trust_config][crate::model::server_tls_policy::MTLSPolicy::client_validation_trust_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_networksecurity_v1::model::server_tls_policy::MTLSPolicy;
+        /// let x = MTLSPolicy::new().set_client_validation_trust_config("example");
+        /// ```
+        pub fn set_client_validation_trust_config<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.client_validation_trust_config = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for MTLSPolicy {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.networksecurity.v1.ServerTlsPolicy.MTLSPolicy"
+        }
+    }
+
+    /// Defines additional types related to [MTLSPolicy].
+    pub mod mtls_policy {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Mutual TLS certificate validation mode.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ClientValidationMode {
+            /// Not allowed.
+            Unspecified,
+            /// Allow connection even if certificate chain validation
+            /// of the client certificate failed or no client certificate was
+            /// presented. The proof of possession of the private key is always checked
+            /// if client certificate was presented. This mode requires the backend to
+            /// implement processing of data extracted from a client certificate to
+            /// authenticate the peer, or to reject connections if the client
+            /// certificate fingerprint is missing.
+            AllowInvalidOrMissingClientCert,
+            /// Require a client certificate and allow connection to the backend only
+            /// if validation of the client certificate passed.
+            ///
+            /// If set, requires a reference to non-empty TrustConfig specified in
+            /// `client_validation_trust_config`.
+            RejectInvalid,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ClientValidationMode::value] or
+            /// [ClientValidationMode::name].
+            UnknownValue(client_validation_mode::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod client_validation_mode {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl ClientValidationMode {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::AllowInvalidOrMissingClientCert => std::option::Option::Some(1),
+                    Self::RejectInvalid => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("CLIENT_VALIDATION_MODE_UNSPECIFIED")
+                    }
+                    Self::AllowInvalidOrMissingClientCert => {
+                        std::option::Option::Some("ALLOW_INVALID_OR_MISSING_CLIENT_CERT")
+                    }
+                    Self::RejectInvalid => std::option::Option::Some("REJECT_INVALID"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for ClientValidationMode {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for ClientValidationMode {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for ClientValidationMode {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::AllowInvalidOrMissingClientCert,
+                    2 => Self::RejectInvalid,
+                    _ => Self::UnknownValue(client_validation_mode::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for ClientValidationMode {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CLIENT_VALIDATION_MODE_UNSPECIFIED" => Self::Unspecified,
+                    "ALLOW_INVALID_OR_MISSING_CLIENT_CERT" => Self::AllowInvalidOrMissingClientCert,
+                    "REJECT_INVALID" => Self::RejectInvalid,
+                    _ => Self::UnknownValue(client_validation_mode::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for ClientValidationMode {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::AllowInvalidOrMissingClientCert => serializer.serialize_i32(1),
+                    Self::RejectInvalid => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for ClientValidationMode {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClientValidationMode>::new(
+                    ".google.cloud.networksecurity.v1.ServerTlsPolicy.MTLSPolicy.ClientValidationMode"))
+            }
         }
     }
 }
@@ -3793,6 +23390,13 @@ pub struct ListServerTlsPoliciesRequest {
     /// `ListServerTlsPolicies` call, and that the system
     /// should return the next page of data.
     pub page_token: std::string::String,
+
+    /// Optional. Setting this field to `true` will opt the request into returning
+    /// the resources that are reachable, and into including the names of those
+    /// that were unreachable in the [ListServerTlsPoliciesResponse.unreachable]
+    /// field. This can only be `true` when reading across collections e.g. when
+    /// `parent` is set to `"projects/example/locations/-"`.
+    pub return_partial_success: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3837,6 +23441,18 @@ impl ListServerTlsPoliciesRequest {
         self.page_token = v.into();
         self
     }
+
+    /// Sets the value of [return_partial_success][crate::model::ListServerTlsPoliciesRequest::return_partial_success].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListServerTlsPoliciesRequest;
+    /// let x = ListServerTlsPoliciesRequest::new().set_return_partial_success(true);
+    /// ```
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ListServerTlsPoliciesRequest {
@@ -3856,6 +23472,11 @@ pub struct ListServerTlsPoliciesResponse {
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     pub next_page_token: std::string::String,
+
+    /// Unreachable resources. Populated when the request opts into
+    /// `return_partial_success` and reading across collections e.g. when
+    /// attempting to list all resources across all supported locations.
+    pub unreachable: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3896,6 +23517,23 @@ impl ListServerTlsPoliciesResponse {
     /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListServerTlsPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListServerTlsPoliciesResponse;
+    /// let x = ListServerTlsPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3963,9 +23601,10 @@ pub struct CreateServerTlsPolicyRequest {
     /// the format `projects/*/locations/{location}`.
     pub parent: std::string::String,
 
-    /// Required. Short name of the ServerTlsPolicy resource to be created. This value should
-    /// be 1-63 characters long, containing only letters, numbers, hyphens, and
-    /// underscores, and should not start with a number. E.g. "server_mtls_policy".
+    /// Required. Short name of the ServerTlsPolicy resource to be created. This
+    /// value should be 1-63 characters long, containing only letters, numbers,
+    /// hyphens, and underscores, and should not start with a number. E.g.
+    /// "server_mtls_policy".
     pub server_tls_policy_id: std::string::String,
 
     /// Required. ServerTlsPolicy resource to be created.
@@ -4181,8 +23820,8 @@ impl wkt::message::Message for DeleteServerTlsPolicyRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GrpcEndpoint {
-    /// Required. The target URI of the gRPC endpoint. Only UDS path is supported, and
-    /// should start with "unix:".
+    /// Required. The target URI of the gRPC endpoint. Only UDS path is supported,
+    /// and should start with "unix:".
     pub target_uri: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4360,9 +23999,9 @@ pub mod validation_ca {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CertificateProviderInstance {
-    /// Required. Plugin instance name, used to locate and load CertificateProvider instance
-    /// configuration. Set to "google_cloud_private_spiffe" to use Certificate
-    /// Authority Service certificate provider instance.
+    /// Required. Plugin instance name, used to locate and load CertificateProvider
+    /// instance configuration. Set to "google_cloud_private_spiffe" to use
+    /// Certificate Authority Service certificate provider instance.
     pub plugin_instance: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4535,5 +24174,2240 @@ pub mod certificate_provider {
         /// the data plane, which will be used to load necessary credential
         /// information.
         CertificateProviderInstance(std::boxed::Box<crate::model::CertificateProviderInstance>),
+    }
+}
+
+/// The TlsInspectionPolicy resource contains references to CA pools in
+/// Certificate Authority Service and associated metadata.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TlsInspectionPolicy {
+    /// Required. Name of the resource. Name is of the form
+    /// projects/{project}/locations/{location}/tlsInspectionPolicies/{tls_inspection_policy}
+    /// tls_inspection_policy should match the
+    /// pattern:(^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$).
+    pub name: std::string::String,
+
+    /// Optional. Free-text description of the resource.
+    pub description: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Required. A CA pool resource used to issue interception certificates.
+    /// The CA pool string has a relative resource path following the form
+    /// "projects/{project}/locations/{location}/caPools/{ca_pool}".
+    pub ca_pool: std::string::String,
+
+    /// Optional. A TrustConfig resource used when making a connection to the TLS
+    /// server. This is a relative resource path following the form
+    /// "projects/{project}/locations/{location}/trustConfigs/{trust_config}". This
+    /// is necessary to intercept TLS connections to servers with certificates
+    /// signed by a private CA or self-signed certificates.
+    /// Note that Secure Web Proxy does not yet honor this field.
+    pub trust_config: std::string::String,
+
+    /// Optional. If  FALSE (the default), use our default set of public CAs in
+    /// addition to any CAs specified in trust_config. These public CAs are
+    /// currently based on the Mozilla Root Program and are subject to change over
+    /// time. If TRUE, do not accept our default set of public CAs. Only CAs
+    /// specified in trust_config will be accepted. This defaults to FALSE (use
+    /// public CAs in addition to trust_config) for backwards compatibility, but
+    /// trusting public root CAs is *not recommended* unless the traffic in
+    /// question is outbound to public web servers. When possible, prefer setting
+    /// this to "false" and explicitly specifying trusted CAs and certificates in a
+    /// TrustConfig. Note that Secure Web Proxy does not yet honor this field.
+    pub exclude_public_ca_set: std::option::Option<bool>,
+
+    /// Optional. Minimum TLS version that the firewall should use when negotiating
+    /// connections with both clients and servers. If this is not set, then the
+    /// default value is to allow the broadest set of clients and servers (TLS 1.0
+    /// or higher). Setting this to more restrictive values may improve security,
+    /// but may also prevent the firewall from connecting to some clients or
+    /// servers.
+    /// Note that Secure Web Proxy does not yet honor this field.
+    pub min_tls_version: crate::model::tls_inspection_policy::TlsVersion,
+
+    /// Optional. The selected Profile. If this is not set, then the default value
+    /// is to allow the broadest set of clients and servers ("PROFILE_COMPATIBLE").
+    /// Setting this to more restrictive values may improve security, but may also
+    /// prevent the TLS inspection proxy from connecting to some clients or
+    /// servers. Note that Secure Web Proxy does not yet honor this field.
+    pub tls_feature_profile: crate::model::tls_inspection_policy::Profile,
+
+    /// Optional. List of custom TLS cipher suites selected.
+    /// This field is valid only if the selected tls_feature_profile is CUSTOM.
+    /// The [compute.SslPoliciesService.ListAvailableFeatures][] method returns the
+    /// set of features that can be specified in this list.
+    /// Note that Secure Web Proxy does not yet honor this field.
+    pub custom_tls_features: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TlsInspectionPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::TlsInspectionPolicy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = TlsInspectionPolicy::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::TlsInspectionPolicy::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = TlsInspectionPolicy::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::TlsInspectionPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = TlsInspectionPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::TlsInspectionPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = TlsInspectionPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TlsInspectionPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::TlsInspectionPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = TlsInspectionPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::TlsInspectionPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = TlsInspectionPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TlsInspectionPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ca_pool][crate::model::TlsInspectionPolicy::ca_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = TlsInspectionPolicy::new().set_ca_pool("example");
+    /// ```
+    pub fn set_ca_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ca_pool = v.into();
+        self
+    }
+
+    /// Sets the value of [trust_config][crate::model::TlsInspectionPolicy::trust_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = TlsInspectionPolicy::new().set_trust_config("example");
+    /// ```
+    pub fn set_trust_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.trust_config = v.into();
+        self
+    }
+
+    /// Sets the value of [exclude_public_ca_set][crate::model::TlsInspectionPolicy::exclude_public_ca_set].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = TlsInspectionPolicy::new().set_exclude_public_ca_set(true);
+    /// ```
+    pub fn set_exclude_public_ca_set<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.exclude_public_ca_set = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exclude_public_ca_set][crate::model::TlsInspectionPolicy::exclude_public_ca_set].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = TlsInspectionPolicy::new().set_or_clear_exclude_public_ca_set(Some(false));
+    /// let x = TlsInspectionPolicy::new().set_or_clear_exclude_public_ca_set(None::<bool>);
+    /// ```
+    pub fn set_or_clear_exclude_public_ca_set<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.exclude_public_ca_set = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [min_tls_version][crate::model::TlsInspectionPolicy::min_tls_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// use google_cloud_networksecurity_v1::model::tls_inspection_policy::TlsVersion;
+    /// let x0 = TlsInspectionPolicy::new().set_min_tls_version(TlsVersion::Tls10);
+    /// let x1 = TlsInspectionPolicy::new().set_min_tls_version(TlsVersion::Tls11);
+    /// let x2 = TlsInspectionPolicy::new().set_min_tls_version(TlsVersion::Tls12);
+    /// ```
+    pub fn set_min_tls_version<
+        T: std::convert::Into<crate::model::tls_inspection_policy::TlsVersion>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.min_tls_version = v.into();
+        self
+    }
+
+    /// Sets the value of [tls_feature_profile][crate::model::TlsInspectionPolicy::tls_feature_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// use google_cloud_networksecurity_v1::model::tls_inspection_policy::Profile;
+    /// let x0 = TlsInspectionPolicy::new().set_tls_feature_profile(Profile::Compatible);
+    /// let x1 = TlsInspectionPolicy::new().set_tls_feature_profile(Profile::Modern);
+    /// let x2 = TlsInspectionPolicy::new().set_tls_feature_profile(Profile::Restricted);
+    /// ```
+    pub fn set_tls_feature_profile<
+        T: std::convert::Into<crate::model::tls_inspection_policy::Profile>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tls_feature_profile = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_tls_features][crate::model::TlsInspectionPolicy::custom_tls_features].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = TlsInspectionPolicy::new().set_custom_tls_features(["a", "b", "c"]);
+    /// ```
+    pub fn set_custom_tls_features<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.custom_tls_features = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for TlsInspectionPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.TlsInspectionPolicy"
+    }
+}
+
+/// Defines additional types related to [TlsInspectionPolicy].
+pub mod tls_inspection_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The minimum version of TLS protocol that can be used by clients or servers
+    /// to establish a connection with the TLS inspection proxy.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TlsVersion {
+        /// Indicates no TLS version was specified.
+        Unspecified,
+        /// TLS 1.0
+        Tls10,
+        /// TLS 1.1
+        Tls11,
+        /// TLS 1.2
+        Tls12,
+        /// TLS 1.3
+        Tls13,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TlsVersion::value] or
+        /// [TlsVersion::name].
+        UnknownValue(tls_version::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod tls_version {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl TlsVersion {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Tls10 => std::option::Option::Some(1),
+                Self::Tls11 => std::option::Option::Some(2),
+                Self::Tls12 => std::option::Option::Some(3),
+                Self::Tls13 => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TLS_VERSION_UNSPECIFIED"),
+                Self::Tls10 => std::option::Option::Some("TLS_1_0"),
+                Self::Tls11 => std::option::Option::Some("TLS_1_1"),
+                Self::Tls12 => std::option::Option::Some("TLS_1_2"),
+                Self::Tls13 => std::option::Option::Some("TLS_1_3"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for TlsVersion {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TlsVersion {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TlsVersion {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Tls10,
+                2 => Self::Tls11,
+                3 => Self::Tls12,
+                4 => Self::Tls13,
+                _ => Self::UnknownValue(tls_version::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TlsVersion {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TLS_VERSION_UNSPECIFIED" => Self::Unspecified,
+                "TLS_1_0" => Self::Tls10,
+                "TLS_1_1" => Self::Tls11,
+                "TLS_1_2" => Self::Tls12,
+                "TLS_1_3" => Self::Tls13,
+                _ => Self::UnknownValue(tls_version::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TlsVersion {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Tls10 => serializer.serialize_i32(1),
+                Self::Tls11 => serializer.serialize_i32(2),
+                Self::Tls12 => serializer.serialize_i32(3),
+                Self::Tls13 => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TlsVersion {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TlsVersion>::new(
+                ".google.cloud.networksecurity.v1.TlsInspectionPolicy.TlsVersion",
+            ))
+        }
+    }
+
+    /// Profile specifies the set of TLS cipher suites (and possibly
+    /// other features in the future) that can be used by the firewall when
+    /// negotiating TLS connections with clients and servers. The meaning of these
+    /// fields is identical to the load balancers' SSLPolicy resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Profile {
+        /// Indicates no profile was specified.
+        Unspecified,
+        /// Compatible profile. Allows the broadest set of clients, even those
+        /// which support only out-of-date SSL features to negotiate with the TLS
+        /// inspection proxy.
+        Compatible,
+        /// Modern profile. Supports a wide set of SSL features, allowing modern
+        /// clients to negotiate SSL with the TLS inspection proxy.
+        Modern,
+        /// Restricted profile. Supports a reduced set of SSL features, intended to
+        /// meet stricter compliance requirements.
+        Restricted,
+        /// Custom profile. Allow only the set of allowed SSL features specified in
+        /// the custom_features field of SslPolicy.
+        Custom,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Profile::value] or
+        /// [Profile::name].
+        UnknownValue(profile::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod profile {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Profile {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Compatible => std::option::Option::Some(1),
+                Self::Modern => std::option::Option::Some(2),
+                Self::Restricted => std::option::Option::Some(3),
+                Self::Custom => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROFILE_UNSPECIFIED"),
+                Self::Compatible => std::option::Option::Some("PROFILE_COMPATIBLE"),
+                Self::Modern => std::option::Option::Some("PROFILE_MODERN"),
+                Self::Restricted => std::option::Option::Some("PROFILE_RESTRICTED"),
+                Self::Custom => std::option::Option::Some("PROFILE_CUSTOM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Profile {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Profile {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Profile {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Compatible,
+                2 => Self::Modern,
+                3 => Self::Restricted,
+                4 => Self::Custom,
+                _ => Self::UnknownValue(profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Profile {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROFILE_UNSPECIFIED" => Self::Unspecified,
+                "PROFILE_COMPATIBLE" => Self::Compatible,
+                "PROFILE_MODERN" => Self::Modern,
+                "PROFILE_RESTRICTED" => Self::Restricted,
+                "PROFILE_CUSTOM" => Self::Custom,
+                _ => Self::UnknownValue(profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Profile {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Compatible => serializer.serialize_i32(1),
+                Self::Modern => serializer.serialize_i32(2),
+                Self::Restricted => serializer.serialize_i32(3),
+                Self::Custom => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Profile {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Profile>::new(
+                ".google.cloud.networksecurity.v1.TlsInspectionPolicy.Profile",
+            ))
+        }
+    }
+}
+
+/// Request used by the CreateTlsInspectionPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateTlsInspectionPolicyRequest {
+    /// Required. The parent resource of the TlsInspectionPolicy. Must be in the
+    /// format `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Required. Short name of the TlsInspectionPolicy resource to be created.
+    /// This value should be 1-63 characters long, containing only
+    /// letters, numbers, hyphens, and underscores, and should not start
+    /// with a number. E.g. "tls_inspection_policy1".
+    pub tls_inspection_policy_id: std::string::String,
+
+    /// Required. TlsInspectionPolicy resource to be created.
+    pub tls_inspection_policy: std::option::Option<crate::model::TlsInspectionPolicy>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateTlsInspectionPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateTlsInspectionPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateTlsInspectionPolicyRequest;
+    /// let x = CreateTlsInspectionPolicyRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [tls_inspection_policy_id][crate::model::CreateTlsInspectionPolicyRequest::tls_inspection_policy_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateTlsInspectionPolicyRequest;
+    /// let x = CreateTlsInspectionPolicyRequest::new().set_tls_inspection_policy_id("example");
+    /// ```
+    pub fn set_tls_inspection_policy_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tls_inspection_policy_id = v.into();
+        self
+    }
+
+    /// Sets the value of [tls_inspection_policy][crate::model::CreateTlsInspectionPolicyRequest::tls_inspection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateTlsInspectionPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = CreateTlsInspectionPolicyRequest::new().set_tls_inspection_policy(TlsInspectionPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_tls_inspection_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TlsInspectionPolicy>,
+    {
+        self.tls_inspection_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tls_inspection_policy][crate::model::CreateTlsInspectionPolicyRequest::tls_inspection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateTlsInspectionPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = CreateTlsInspectionPolicyRequest::new().set_or_clear_tls_inspection_policy(Some(TlsInspectionPolicy::default()/* use setters */));
+    /// let x = CreateTlsInspectionPolicyRequest::new().set_or_clear_tls_inspection_policy(None::<TlsInspectionPolicy>);
+    /// ```
+    pub fn set_or_clear_tls_inspection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TlsInspectionPolicy>,
+    {
+        self.tls_inspection_policy = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateTlsInspectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateTlsInspectionPolicyRequest"
+    }
+}
+
+/// Request used with the ListTlsInspectionPolicies method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListTlsInspectionPoliciesRequest {
+    /// Required. The project and location from which the TlsInspectionPolicies
+    /// should be listed, specified in the format
+    /// `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Maximum number of TlsInspectionPolicies to return per call.
+    pub page_size: i32,
+
+    /// The value returned by the last
+    /// 'ListTlsInspectionPoliciesResponse' Indicates that this is a
+    /// continuation of a prior 'ListTlsInspectionPolicies' call, and
+    /// that the system should return the next page of data.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListTlsInspectionPoliciesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListTlsInspectionPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListTlsInspectionPoliciesRequest;
+    /// let x = ListTlsInspectionPoliciesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListTlsInspectionPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListTlsInspectionPoliciesRequest;
+    /// let x = ListTlsInspectionPoliciesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListTlsInspectionPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListTlsInspectionPoliciesRequest;
+    /// let x = ListTlsInspectionPoliciesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListTlsInspectionPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListTlsInspectionPoliciesRequest"
+    }
+}
+
+/// Response returned by the ListTlsInspectionPolicies method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListTlsInspectionPoliciesResponse {
+    /// List of TlsInspectionPolicies resources.
+    pub tls_inspection_policies: std::vec::Vec<crate::model::TlsInspectionPolicy>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// 'next_page_token' is included. To get the next set of results, call this
+    /// method again using the value of 'next_page_token' as 'page_token'.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListTlsInspectionPoliciesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tls_inspection_policies][crate::model::ListTlsInspectionPoliciesResponse::tls_inspection_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListTlsInspectionPoliciesResponse;
+    /// use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = ListTlsInspectionPoliciesResponse::new()
+    ///     .set_tls_inspection_policies([
+    ///         TlsInspectionPolicy::default()/* use setters */,
+    ///         TlsInspectionPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_tls_inspection_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TlsInspectionPolicy>,
+    {
+        use std::iter::Iterator;
+        self.tls_inspection_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListTlsInspectionPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListTlsInspectionPoliciesResponse;
+    /// let x = ListTlsInspectionPoliciesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListTlsInspectionPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListTlsInspectionPoliciesResponse;
+    /// let x = ListTlsInspectionPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListTlsInspectionPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListTlsInspectionPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListTlsInspectionPoliciesResponse {
+    type PageItem = crate::model::TlsInspectionPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.tls_inspection_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request used by the GetTlsInspectionPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetTlsInspectionPolicyRequest {
+    /// Required. A name of the TlsInspectionPolicy to get. Must be in the format
+    /// `projects/{project}/locations/{location}/tlsInspectionPolicies/{tls_inspection_policy}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetTlsInspectionPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetTlsInspectionPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetTlsInspectionPolicyRequest;
+    /// let x = GetTlsInspectionPolicyRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetTlsInspectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetTlsInspectionPolicyRequest"
+    }
+}
+
+/// Request used by the DeleteTlsInspectionPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteTlsInspectionPolicyRequest {
+    /// Required. A name of the TlsInspectionPolicy to delete. Must be in the
+    /// format
+    /// `projects/{project}/locations/{location}/tlsInspectionPolicies/{tls_inspection_policy}`.
+    pub name: std::string::String,
+
+    /// If set to true, any rules for this TlsInspectionPolicy will also be
+    /// deleted. (Otherwise, the request will only work if the TlsInspectionPolicy
+    /// has no rules.)
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteTlsInspectionPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteTlsInspectionPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteTlsInspectionPolicyRequest;
+    /// let x = DeleteTlsInspectionPolicyRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteTlsInspectionPolicyRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteTlsInspectionPolicyRequest;
+    /// let x = DeleteTlsInspectionPolicyRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteTlsInspectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteTlsInspectionPolicyRequest"
+    }
+}
+
+/// Request used by the UpdateTlsInspectionPolicy method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateTlsInspectionPolicyRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// TlsInspectionPolicy resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated TlsInspectionPolicy resource.
+    pub tls_inspection_policy: std::option::Option<crate::model::TlsInspectionPolicy>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateTlsInspectionPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateTlsInspectionPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateTlsInspectionPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTlsInspectionPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateTlsInspectionPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateTlsInspectionPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTlsInspectionPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTlsInspectionPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [tls_inspection_policy][crate::model::UpdateTlsInspectionPolicyRequest::tls_inspection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateTlsInspectionPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = UpdateTlsInspectionPolicyRequest::new().set_tls_inspection_policy(TlsInspectionPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_tls_inspection_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TlsInspectionPolicy>,
+    {
+        self.tls_inspection_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tls_inspection_policy][crate::model::UpdateTlsInspectionPolicyRequest::tls_inspection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateTlsInspectionPolicyRequest;
+    /// use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// let x = UpdateTlsInspectionPolicyRequest::new().set_or_clear_tls_inspection_policy(Some(TlsInspectionPolicy::default()/* use setters */));
+    /// let x = UpdateTlsInspectionPolicyRequest::new().set_or_clear_tls_inspection_policy(None::<TlsInspectionPolicy>);
+    /// ```
+    pub fn set_or_clear_tls_inspection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TlsInspectionPolicy>,
+    {
+        self.tls_inspection_policy = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateTlsInspectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateTlsInspectionPolicyRequest"
+    }
+}
+
+/// UrlList proto helps users to set reusable, independently manageable lists
+/// of hosts, host patterns, URLs, URL patterns.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UrlList {
+    /// Required. Name of the resource provided by the user.
+    /// Name is of the form
+    /// projects/{project}/locations/{location}/urlLists/{url_list}
+    /// url_list should match the
+    /// pattern:(^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$).
+    pub name: std::string::String,
+
+    /// Output only. Time when the security policy was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time when the security policy was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Free-text description of the resource.
+    pub description: std::string::String,
+
+    /// Required. FQDNs and URLs.
+    pub values: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UrlList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::UrlList::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlList;
+    /// let x = UrlList::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::UrlList::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlList;
+    /// use wkt::Timestamp;
+    /// let x = UrlList::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::UrlList::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlList;
+    /// use wkt::Timestamp;
+    /// let x = UrlList::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UrlList::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::UrlList::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlList;
+    /// use wkt::Timestamp;
+    /// let x = UrlList::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::UrlList::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlList;
+    /// use wkt::Timestamp;
+    /// let x = UrlList::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UrlList::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::UrlList::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlList;
+    /// let x = UrlList::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [values][crate::model::UrlList::values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UrlList;
+    /// let x = UrlList::new().set_values(["a", "b", "c"]);
+    /// ```
+    pub fn set_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for UrlList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UrlList"
+    }
+}
+
+/// Request used by the ListUrlList method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListUrlListsRequest {
+    /// Required. The project and location from which the UrlLists should
+    /// be listed, specified in the format
+    /// `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Maximum number of UrlLists to return per call.
+    pub page_size: i32,
+
+    /// The value returned by the last `ListUrlListsResponse`
+    /// Indicates that this is a continuation of a prior
+    /// `ListUrlLists` call, and that the system
+    /// should return the next page of data.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListUrlListsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListUrlListsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListUrlListsRequest;
+    /// let x = ListUrlListsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListUrlListsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListUrlListsRequest;
+    /// let x = ListUrlListsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListUrlListsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListUrlListsRequest;
+    /// let x = ListUrlListsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListUrlListsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListUrlListsRequest"
+    }
+}
+
+/// Response returned by the ListUrlLists method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListUrlListsResponse {
+    /// List of UrlList resources.
+    pub url_lists: std::vec::Vec<crate::model::UrlList>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// `next_page_token` is included. To get the next set of results, call this
+    /// method again using the value of `next_page_token` as `page_token`.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListUrlListsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [url_lists][crate::model::ListUrlListsResponse::url_lists].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListUrlListsResponse;
+    /// use google_cloud_networksecurity_v1::model::UrlList;
+    /// let x = ListUrlListsResponse::new()
+    ///     .set_url_lists([
+    ///         UrlList::default()/* use setters */,
+    ///         UrlList::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_url_lists<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UrlList>,
+    {
+        use std::iter::Iterator;
+        self.url_lists = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUrlListsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListUrlListsResponse;
+    /// let x = ListUrlListsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListUrlListsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::ListUrlListsResponse;
+    /// let x = ListUrlListsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListUrlListsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.ListUrlListsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListUrlListsResponse {
+    type PageItem = crate::model::UrlList;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.url_lists
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request used by the GetUrlList method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetUrlListRequest {
+    /// Required. A name of the UrlList to get. Must be in the format
+    /// `projects/*/locations/{location}/urlLists/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetUrlListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetUrlListRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::GetUrlListRequest;
+    /// let x = GetUrlListRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetUrlListRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.GetUrlListRequest"
+    }
+}
+
+/// Request used by the CreateUrlList method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateUrlListRequest {
+    /// Required. The parent resource of the UrlList. Must be in
+    /// the format `projects/*/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Required. Short name of the UrlList resource to be created. This value
+    /// should be 1-63 characters long, containing only letters, numbers, hyphens,
+    /// and underscores, and should not start with a number. E.g. "url_list".
+    pub url_list_id: std::string::String,
+
+    /// Required. UrlList resource to be created.
+    pub url_list: std::option::Option<crate::model::UrlList>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateUrlListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateUrlListRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateUrlListRequest;
+    /// let x = CreateUrlListRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [url_list_id][crate::model::CreateUrlListRequest::url_list_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateUrlListRequest;
+    /// let x = CreateUrlListRequest::new().set_url_list_id("example");
+    /// ```
+    pub fn set_url_list_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.url_list_id = v.into();
+        self
+    }
+
+    /// Sets the value of [url_list][crate::model::CreateUrlListRequest::url_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateUrlListRequest;
+    /// use google_cloud_networksecurity_v1::model::UrlList;
+    /// let x = CreateUrlListRequest::new().set_url_list(UrlList::default()/* use setters */);
+    /// ```
+    pub fn set_url_list<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UrlList>,
+    {
+        self.url_list = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [url_list][crate::model::CreateUrlListRequest::url_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::CreateUrlListRequest;
+    /// use google_cloud_networksecurity_v1::model::UrlList;
+    /// let x = CreateUrlListRequest::new().set_or_clear_url_list(Some(UrlList::default()/* use setters */));
+    /// let x = CreateUrlListRequest::new().set_or_clear_url_list(None::<UrlList>);
+    /// ```
+    pub fn set_or_clear_url_list<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UrlList>,
+    {
+        self.url_list = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateUrlListRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.CreateUrlListRequest"
+    }
+}
+
+/// Request used by UpdateUrlList method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateUrlListRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// UrlList resource by the update.  The fields
+    /// specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the
+    /// mask. If the user does not provide a mask then all fields will be
+    /// overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated UrlList resource.
+    pub url_list: std::option::Option<crate::model::UrlList>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateUrlListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateUrlListRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateUrlListRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateUrlListRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateUrlListRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateUrlListRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateUrlListRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateUrlListRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [url_list][crate::model::UpdateUrlListRequest::url_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateUrlListRequest;
+    /// use google_cloud_networksecurity_v1::model::UrlList;
+    /// let x = UpdateUrlListRequest::new().set_url_list(UrlList::default()/* use setters */);
+    /// ```
+    pub fn set_url_list<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UrlList>,
+    {
+        self.url_list = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [url_list][crate::model::UpdateUrlListRequest::url_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::UpdateUrlListRequest;
+    /// use google_cloud_networksecurity_v1::model::UrlList;
+    /// let x = UpdateUrlListRequest::new().set_or_clear_url_list(Some(UrlList::default()/* use setters */));
+    /// let x = UpdateUrlListRequest::new().set_or_clear_url_list(None::<UrlList>);
+    /// ```
+    pub fn set_or_clear_url_list<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UrlList>,
+    {
+        self.url_list = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateUrlListRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.UpdateUrlListRequest"
+    }
+}
+
+/// Request used by the DeleteUrlList method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteUrlListRequest {
+    /// Required. A name of the UrlList to delete. Must be in
+    /// the format `projects/*/locations/{location}/urlLists/*`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteUrlListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteUrlListRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networksecurity_v1::model::DeleteUrlListRequest;
+    /// let x = DeleteUrlListRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteUrlListRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networksecurity.v1.DeleteUrlListRequest"
+    }
+}
+
+/// Severity level.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Severity {
+    /// Severity level not specified.
+    Unspecified,
+    /// Suspicious events that do not pose an immediate threat, but that are
+    /// reported to call attention to deeper problems that could possibly exist.
+    Informational,
+    /// Warning-level threats that have very little impact on an organization's
+    /// infrastructure. They usually require local or physical system access and
+    /// may often result in victim privacy issues and information leakage.
+    Low,
+    /// Minor threats in which impact is minimized, that do not compromise the
+    /// target or exploits that require an attacker to reside on the same local
+    /// network as the victim, affect only non-standard configurations or obscure
+    /// applications, or provide very limited access.
+    Medium,
+    /// Threats that have the ability to become critical but have mitigating
+    /// factors; for example, they may be difficult to exploit, do not result in
+    /// elevated privileges, or do not have a large victim pool.
+    High,
+    /// Serious threats, such as those that affect default installations of widely
+    /// deployed software, result in root compromise of servers, and the exploit
+    /// code is widely available to attackers. The attacker usually does not need
+    /// any special authentication credentials or knowledge about the individual
+    /// victims and the target does not need to be manipulated into performing any
+    /// special functions.
+    Critical,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Severity::value] or
+    /// [Severity::name].
+    UnknownValue(severity::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod severity {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl Severity {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Informational => std::option::Option::Some(1),
+            Self::Low => std::option::Option::Some(2),
+            Self::Medium => std::option::Option::Some(3),
+            Self::High => std::option::Option::Some(4),
+            Self::Critical => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SEVERITY_UNSPECIFIED"),
+            Self::Informational => std::option::Option::Some("INFORMATIONAL"),
+            Self::Low => std::option::Option::Some("LOW"),
+            Self::Medium => std::option::Option::Some("MEDIUM"),
+            Self::High => std::option::Option::Some("HIGH"),
+            Self::Critical => std::option::Option::Some("CRITICAL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for Severity {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Severity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Severity {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Informational,
+            2 => Self::Low,
+            3 => Self::Medium,
+            4 => Self::High,
+            5 => Self::Critical,
+            _ => Self::UnknownValue(severity::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Severity {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SEVERITY_UNSPECIFIED" => Self::Unspecified,
+            "INFORMATIONAL" => Self::Informational,
+            "LOW" => Self::Low,
+            "MEDIUM" => Self::Medium,
+            "HIGH" => Self::High,
+            "CRITICAL" => Self::Critical,
+            _ => Self::UnknownValue(severity::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Severity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Informational => serializer.serialize_i32(1),
+            Self::Low => serializer.serialize_i32(2),
+            Self::Medium => serializer.serialize_i32(3),
+            Self::High => serializer.serialize_i32(4),
+            Self::Critical => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Severity {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Severity>::new(
+            ".google.cloud.networksecurity.v1.Severity",
+        ))
+    }
+}
+
+/// Type of threat.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ThreatType {
+    /// Type of threat not specified.
+    Unspecified,
+    /// Type of threat is not derivable from threat ID. An override will be
+    /// created for all types. Firewall will ignore overridden signature ID's
+    /// that don't exist in the specific type.
+    Unknown,
+    /// Threats related to system flaws that an attacker might otherwise attempt
+    /// to exploit.
+    Vulnerability,
+    /// Threats related to viruses and malware found in executables and file
+    /// types.
+    Antivirus,
+    /// Threats related to command-and-control (C2) activity, where spyware on an
+    /// infected client is collecting data without the user's consent and/or
+    /// communicating with a remote attacker.
+    Spyware,
+    /// Threats related to DNS.
+    Dns,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ThreatType::value] or
+    /// [ThreatType::name].
+    UnknownValue(threat_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod threat_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl ThreatType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Unknown => std::option::Option::Some(1),
+            Self::Vulnerability => std::option::Option::Some(2),
+            Self::Antivirus => std::option::Option::Some(3),
+            Self::Spyware => std::option::Option::Some(4),
+            Self::Dns => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("THREAT_TYPE_UNSPECIFIED"),
+            Self::Unknown => std::option::Option::Some("UNKNOWN"),
+            Self::Vulnerability => std::option::Option::Some("VULNERABILITY"),
+            Self::Antivirus => std::option::Option::Some("ANTIVIRUS"),
+            Self::Spyware => std::option::Option::Some("SPYWARE"),
+            Self::Dns => std::option::Option::Some("DNS"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for ThreatType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ThreatType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ThreatType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Unknown,
+            2 => Self::Vulnerability,
+            3 => Self::Antivirus,
+            4 => Self::Spyware,
+            5 => Self::Dns,
+            _ => Self::UnknownValue(threat_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ThreatType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "THREAT_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "UNKNOWN" => Self::Unknown,
+            "VULNERABILITY" => Self::Vulnerability,
+            "ANTIVIRUS" => Self::Antivirus,
+            "SPYWARE" => Self::Spyware,
+            "DNS" => Self::Dns,
+            _ => Self::UnknownValue(threat_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ThreatType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Unknown => serializer.serialize_i32(1),
+            Self::Vulnerability => serializer.serialize_i32(2),
+            Self::Antivirus => serializer.serialize_i32(3),
+            Self::Spyware => serializer.serialize_i32(4),
+            Self::Dns => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ThreatType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ThreatType>::new(
+            ".google.cloud.networksecurity.v1.ThreatType",
+        ))
+    }
+}
+
+/// Threat action override.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ThreatAction {
+    /// Threat action not specified.
+    Unspecified,
+    /// The default action (as specified by the vendor) is taken.
+    DefaultAction,
+    /// The packet matching this rule will be allowed to transmit.
+    Allow,
+    /// The packet matching this rule will be allowed to transmit, but a threat_log
+    /// entry will be sent to the consumer project.
+    Alert,
+    /// The packet matching this rule will be dropped, and a threat_log entry will
+    /// be sent to the consumer project.
+    Deny,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ThreatAction::value] or
+    /// [ThreatAction::name].
+    UnknownValue(threat_action::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod threat_action {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl ThreatAction {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::DefaultAction => std::option::Option::Some(4),
+            Self::Allow => std::option::Option::Some(1),
+            Self::Alert => std::option::Option::Some(2),
+            Self::Deny => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("THREAT_ACTION_UNSPECIFIED"),
+            Self::DefaultAction => std::option::Option::Some("DEFAULT_ACTION"),
+            Self::Allow => std::option::Option::Some("ALLOW"),
+            Self::Alert => std::option::Option::Some("ALERT"),
+            Self::Deny => std::option::Option::Some("DENY"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for ThreatAction {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ThreatAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ThreatAction {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Allow,
+            2 => Self::Alert,
+            3 => Self::Deny,
+            4 => Self::DefaultAction,
+            _ => Self::UnknownValue(threat_action::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ThreatAction {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "THREAT_ACTION_UNSPECIFIED" => Self::Unspecified,
+            "DEFAULT_ACTION" => Self::DefaultAction,
+            "ALLOW" => Self::Allow,
+            "ALERT" => Self::Alert,
+            "DENY" => Self::Deny,
+            _ => Self::UnknownValue(threat_action::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ThreatAction {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::DefaultAction => serializer.serialize_i32(4),
+            Self::Allow => serializer.serialize_i32(1),
+            Self::Alert => serializer.serialize_i32(2),
+            Self::Deny => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ThreatAction {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ThreatAction>::new(
+            ".google.cloud.networksecurity.v1.ThreatAction",
+        ))
+    }
+}
+
+/// Antivirus protocol.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Protocol {
+    /// Protocol not specified.
+    Unspecified,
+    /// SMTP protocol
+    Smtp,
+    /// SMB protocol
+    Smb,
+    /// POP3 protocol
+    Pop3,
+    /// IMAP protocol
+    Imap,
+    /// HTTP2 protocol
+    Http2,
+    /// HTTP protocol
+    Http,
+    /// FTP protocol
+    Ftp,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Protocol::value] or
+    /// [Protocol::name].
+    UnknownValue(protocol::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod protocol {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl Protocol {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Smtp => std::option::Option::Some(1),
+            Self::Smb => std::option::Option::Some(2),
+            Self::Pop3 => std::option::Option::Some(3),
+            Self::Imap => std::option::Option::Some(4),
+            Self::Http2 => std::option::Option::Some(5),
+            Self::Http => std::option::Option::Some(6),
+            Self::Ftp => std::option::Option::Some(7),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("PROTOCOL_UNSPECIFIED"),
+            Self::Smtp => std::option::Option::Some("SMTP"),
+            Self::Smb => std::option::Option::Some("SMB"),
+            Self::Pop3 => std::option::Option::Some("POP3"),
+            Self::Imap => std::option::Option::Some("IMAP"),
+            Self::Http2 => std::option::Option::Some("HTTP2"),
+            Self::Http => std::option::Option::Some("HTTP"),
+            Self::Ftp => std::option::Option::Some("FTP"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for Protocol {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Protocol {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Protocol {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Smtp,
+            2 => Self::Smb,
+            3 => Self::Pop3,
+            4 => Self::Imap,
+            5 => Self::Http2,
+            6 => Self::Http,
+            7 => Self::Ftp,
+            _ => Self::UnknownValue(protocol::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Protocol {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "PROTOCOL_UNSPECIFIED" => Self::Unspecified,
+            "SMTP" => Self::Smtp,
+            "SMB" => Self::Smb,
+            "POP3" => Self::Pop3,
+            "IMAP" => Self::Imap,
+            "HTTP2" => Self::Http2,
+            "HTTP" => Self::Http,
+            "FTP" => Self::Ftp,
+            _ => Self::UnknownValue(protocol::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Protocol {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Smtp => serializer.serialize_i32(1),
+            Self::Smb => serializer.serialize_i32(2),
+            Self::Pop3 => serializer.serialize_i32(3),
+            Self::Imap => serializer.serialize_i32(4),
+            Self::Http2 => serializer.serialize_i32(5),
+            Self::Http => serializer.serialize_i32(6),
+            Self::Ftp => serializer.serialize_i32(7),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Protocol {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Protocol>::new(
+            ".google.cloud.networksecurity.v1.Protocol",
+        ))
     }
 }

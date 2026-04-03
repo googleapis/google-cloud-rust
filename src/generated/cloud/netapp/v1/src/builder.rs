@@ -1543,6 +1543,151 @@ pub mod net_app {
         }
     }
 
+    /// The request builder for [NetApp::establish_volume_peering][crate::client::NetApp::establish_volume_peering] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::EstablishVolumePeering;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> EstablishVolumePeering {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct EstablishVolumePeering(RequestBuilder<crate::model::EstablishVolumePeeringRequest>);
+
+    impl EstablishVolumePeering {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::EstablishVolumePeeringRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [establish_volume_peering][crate::client::NetApp::establish_volume_peering].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .establish_volume_peering(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `establish_volume_peering`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::Volume, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::Volume,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::EstablishVolumePeeringRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [peer_cluster_name][crate::model::EstablishVolumePeeringRequest::peer_cluster_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_peer_cluster_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.peer_cluster_name = v.into();
+            self
+        }
+
+        /// Sets the value of [peer_svm_name][crate::model::EstablishVolumePeeringRequest::peer_svm_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_peer_svm_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.peer_svm_name = v.into();
+            self
+        }
+
+        /// Sets the value of [peer_ip_addresses][crate::model::EstablishVolumePeeringRequest::peer_ip_addresses].
+        pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [peer_volume_name][crate::model::EstablishVolumePeeringRequest::peer_volume_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.peer_volume_name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for EstablishVolumePeering {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [NetApp::list_snapshots][crate::client::NetApp::list_snapshots] calls.
     ///
     /// # Example
@@ -7492,6 +7637,299 @@ pub mod net_app {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for DeleteHostGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetApp::execute_ontap_post][crate::client::NetApp::execute_ontap_post] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ExecuteOntapPost;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ExecuteOntapPost {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ExecuteOntapPost(RequestBuilder<crate::model::ExecuteOntapPostRequest>);
+
+    impl ExecuteOntapPost {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ExecuteOntapPostRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ExecuteOntapPostResponse> {
+            (*self.0.stub)
+                .execute_ontap_post(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [body][crate::model::ExecuteOntapPostRequest::body].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::ExecuteOntapPostRequest::body].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [ontap_path][crate::model::ExecuteOntapPostRequest::ontap_path].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_ontap_path<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.ontap_path = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ExecuteOntapPost {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetApp::execute_ontap_get][crate::client::NetApp::execute_ontap_get] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ExecuteOntapGet;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ExecuteOntapGet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ExecuteOntapGet(RequestBuilder<crate::model::ExecuteOntapGetRequest>);
+
+    impl ExecuteOntapGet {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ExecuteOntapGetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ExecuteOntapGetResponse> {
+            (*self.0.stub)
+                .execute_ontap_get(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [ontap_path][crate::model::ExecuteOntapGetRequest::ontap_path].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_ontap_path<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.ontap_path = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ExecuteOntapGet {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetApp::execute_ontap_delete][crate::client::NetApp::execute_ontap_delete] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ExecuteOntapDelete;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ExecuteOntapDelete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ExecuteOntapDelete(RequestBuilder<crate::model::ExecuteOntapDeleteRequest>);
+
+    impl ExecuteOntapDelete {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ExecuteOntapDeleteRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ExecuteOntapDeleteResponse> {
+            (*self.0.stub)
+                .execute_ontap_delete(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [ontap_path][crate::model::ExecuteOntapDeleteRequest::ontap_path].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_ontap_path<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.ontap_path = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ExecuteOntapDelete {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetApp::execute_ontap_patch][crate::client::NetApp::execute_ontap_patch] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ExecuteOntapPatch;
+    /// # async fn sample() -> google_cloud_netapp_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ExecuteOntapPatch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ExecuteOntapPatch(RequestBuilder<crate::model::ExecuteOntapPatchRequest>);
+
+    impl ExecuteOntapPatch {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ExecuteOntapPatchRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ExecuteOntapPatchResponse> {
+            (*self.0.stub)
+                .execute_ontap_patch(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [body][crate::model::ExecuteOntapPatchRequest::body].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::ExecuteOntapPatchRequest::body].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [ontap_path][crate::model::ExecuteOntapPatchRequest::ontap_path].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_ontap_path<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.ontap_path = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ExecuteOntapPatch {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

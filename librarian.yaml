@@ -19,11 +19,11 @@ sources:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 3910620cfc0751697395bdfa2a837354b24425fc
-    sha256: 8b4640b40b43dcdd7d3e88ce610cf3787db82d8ff54c8897bfeebfd17509c1b7
+    commit: dd5e36b667e8548043b869f5864a1b2ec5d2199d
+    sha256: 2f2d0a16898efe4ef50b4d3921e8247cc22d651256ae7dc122364c31dd7f7bac
   googleapis:
-    commit: 59d5f2b46924714af627ac29ea6de78641a00835
-    sha256: 82a521f299cee025f1ffc0bf2e593b66d8c98c0e1a9ea994964344436a4abb91
+    commit: 8d52a0bd5332bec365647fd792102a25a665e9fe
+    sha256: 8894b58c24fa8ac0dc500af48caee2fcbb3f7d8aa0b5533da297ce5f599128d6
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -228,49 +228,6 @@ libraries:
                     description: Allows usage of the API without watermarks.
                   - name: EXTENDED_TILE_CACHE_PERIOD
                     type: INT64
-        - id: .google.api.MethodSettings.selector
-          match: |2-
-               publishing:
-                 method_settings:
-                 - selector: google.storage.control.v2.StorageControl.CreateFolder
-                   # method settings for CreateFolder...
-          replace: |2-
-                publishing:
-                  method_settings:
-                  - selector: google.storage.control.v2.StorageControl.CreateFolder
-                    # method settings for CreateFolder...
-        - id: .google.api.MethodSettings.long_running
-          match: |2-
-               publishing:
-                 method_settings:
-                 - selector: google.cloud.speech.v2.Speech.BatchRecognize
-                   long_running:
-                     initial_poll_delay: 60s # 1 minute
-                     poll_delay_multiplier: 1.5
-                     max_poll_delay: 360s # 6 minutes
-                     total_poll_timeout: 54000s # 90 minutes
-          replace: |2-
-                publishing:
-                  method_settings:
-                  - selector: google.cloud.speech.v2.Speech.BatchRecognize
-                    long_running:
-                      initial_poll_delay: 60s # 1 minute
-                      poll_delay_multiplier: 1.5
-                      max_poll_delay: 360s # 6 minutes
-                      total_poll_timeout: 54000s # 90 minutes
-        - id: .google.api.MethodSettings.auto_populated_fields
-          match: |2-
-               publishing:
-                 method_settings:
-                 - selector: google.example.v1.ExampleService.CreateExample
-                   auto_populated_fields:
-                   - request_id
-          replace: |2-
-                publishing:
-                  method_settings:
-                  - selector: google.example.v1.ExampleService.CreateExample
-                    auto_populated_fields:
-                    - request_id
   - name: google-cloud-api-cloudquotas-v1
     version: 1.7.0
     apis:

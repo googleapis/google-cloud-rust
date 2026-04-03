@@ -291,6 +291,25 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn establish_volume_peering(
+        &self,
+        req: crate::model::EstablishVolumePeeringRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::NetApp::establish_volume_peering",
+                self.inner.establish_volume_peering(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.establish_volume_peering(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_snapshots(
         &self,
         req: crate::model::ListSnapshotsRequest,
@@ -1295,6 +1314,82 @@ where
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_host_group(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn execute_ontap_post(
+        &self,
+        req: crate::model::ExecuteOntapPostRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExecuteOntapPostResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::NetApp::execute_ontap_post",
+                self.inner.execute_ontap_post(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.execute_ontap_post(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn execute_ontap_get(
+        &self,
+        req: crate::model::ExecuteOntapGetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExecuteOntapGetResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::NetApp::execute_ontap_get",
+                self.inner.execute_ontap_get(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.execute_ontap_get(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn execute_ontap_delete(
+        &self,
+        req: crate::model::ExecuteOntapDeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExecuteOntapDeleteResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::NetApp::execute_ontap_delete",
+                self.inner.execute_ontap_delete(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.execute_ontap_delete(req, options).await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn execute_ontap_patch(
+        &self,
+        req: crate::model::ExecuteOntapPatchRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExecuteOntapPatchResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::NetApp::execute_ontap_patch",
+                self.inner.execute_ontap_patch(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.inner.execute_ontap_patch(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
