@@ -12,11 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-<<<<<<< HEAD
 use crate::client::{get_database_id, get_emulator_host};
-=======
-use crate::client::{get_database_id, get_emulator_host, get_emulator_rest_endpoint};
->>>>>>> 255a00797 (test(spanner): add integration test for inline-begin error handling)
 use crate::test_proxy::{InterceptedSpanner, SpannerInterceptor};
 use google_cloud_spanner::client::{DatabaseClient, Kind, Spanner, Statement};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;

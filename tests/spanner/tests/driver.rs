@@ -115,4 +115,9 @@ mod spanner {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn run_concurrent_inline_begin_tests() -> anyhow::Result<()> {
+        integration_tests_spanner::concurrent_inline_begin::test_concurrent_inline_begin_with_snapshot_consistency().await
+    }
 }
