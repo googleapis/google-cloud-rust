@@ -13,9 +13,9 @@
 # limitations under the License.
 
 [package]
-name                 = "pubsub-throughput"
-version              = "0.0.0"
-publish              = false
+name    = "pubsub-throughput"
+version = "0.0.0"
+publish = false
 # Inherit other attributes from the workspace.
 edition.workspace    = true
 authors.workspace    = true
