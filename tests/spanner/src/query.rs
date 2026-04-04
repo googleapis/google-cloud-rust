@@ -158,14 +158,14 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
 
     // 1. Simple normal query
     let sql = "SELECT 1 as num, 'Alice' as name";
-    let mut rs = rot.execute_query(Statement::builder(sql).build()).await?;
+    let mut result_set = rot.execute_query(Statement::builder(sql).build()).await?;
 
-    assert!(rs.next().await.transpose()?.is_some());
-    let metadata = rs.metadata()?;
+    let metadata = result_set.metadata().await?;
     assert_eq!(
         metadata.column_names(),
         &["num".to_string(), "name".to_string()]
     );
+    assert!(result_set.next().await.transpose()?.is_some());
 
     // 2. Query that returns zero rows
     let sql_zero_rows = r#"
@@ -174,25 +174,25 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
     )
     SELECT num, name FROM Data WHERE 1=0
     "#;
-    let mut rs_zero_rows = rot
+    let mut result_set_zero_rows = rot
         .execute_query(Statement::builder(sql_zero_rows).build())
         .await?;
 
-    assert!(rs_zero_rows.next().await.transpose()?.is_none());
-    let metadata_zero_rows = rs_zero_rows.metadata()?;
+    let metadata_zero_rows = result_set_zero_rows.metadata().await?;
     assert_eq!(
         metadata_zero_rows.column_names(),
         &["num".to_string(), "name".to_string()]
     );
+    assert!(result_set_zero_rows.next().await.transpose()?.is_none());
 
     // 3. Query with duplicate aliases
     let sql_dup = "SELECT 1 as dup, 2 as dup";
-    let mut rs_dup = rot
+    let mut result_set_dup = rot
         .execute_query(Statement::builder(sql_dup).build())
         .await?;
 
-    let row_dup = rs_dup.next().await.transpose()?.unwrap();
-    let metadata_dup = rs_dup.metadata()?;
+    let row_dup = result_set_dup.next().await.transpose()?.unwrap();
+    let metadata_dup = result_set_dup.metadata().await?;
     assert_eq!(
         metadata_dup.column_names(),
         &["dup".to_string(), "dup".to_string()]
