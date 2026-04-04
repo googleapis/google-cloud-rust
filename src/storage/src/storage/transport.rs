@@ -577,6 +577,7 @@ mod tests {
 
     #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
+    #[ignore = "flaky test, see #5290"]
     async fn open_object_success() -> anyhow::Result<()> {
         // TODO(#4772) - Move these `use` declarations and constants once the tracing APIs are stable.
         use crate::model_ext::ReadRange;
