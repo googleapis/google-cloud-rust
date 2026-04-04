@@ -58,7 +58,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -75,9 +75,13 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/backupRuns/{id}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}/backupRuns/{}",
+                    var_project, var_instance, var_id,
+                );
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -110,7 +114,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlBackupRunsService/Delete")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -135,7 +140,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -152,9 +157,13 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/backupRuns/{id}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}/backupRuns/{}",
+                    var_project, var_instance, var_id,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -187,7 +196,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlBackupRunsService/Get")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -212,7 +222,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -228,9 +238,13 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/backupRuns";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -257,7 +271,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlBackupRunsService/Insert")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -282,7 +297,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -298,11 +313,15 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/backupRuns";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -329,7 +348,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlBackupRunsService/List")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -575,7 +595,7 @@ impl super::stub::SqlBackupsService for SqlBackupsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_backup_name = try_match(
                     Some(&req)
@@ -592,6 +612,7 @@ impl super::stub::SqlBackupsService for SqlBackupsService {
                 let path = format!("/v1/{}", var_backup_name,);
                 let path_template = "/v1/{backup.name}";
 
+                let resource_name = format!("//sqladmin.googleapis.com/{}", var_backup_name,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
                     let builder = req
@@ -606,7 +627,7 @@ impl super::stub::SqlBackupsService for SqlBackupsService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -635,7 +656,8 @@ impl super::stub::SqlBackupsService for SqlBackupsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlBackupsService/UpdateBackup")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -760,7 +782,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -776,6 +798,10 @@ impl super::stub::SqlConnectService for SqlConnectService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/connectSettings";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -790,7 +816,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -817,7 +843,8 @@ impl super::stub::SqlConnectService for SqlConnectService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlConnectService/GetConnectSettings")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -842,7 +869,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -859,9 +886,13 @@ impl super::stub::SqlConnectService for SqlConnectService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}:generateEphemeralCert";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -888,7 +919,8 @@ impl super::stub::SqlConnectService for SqlConnectService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlConnectService/GenerateEphemeralCert")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -944,7 +976,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -965,9 +997,13 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/databases/{database}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}/databases/{}",
+                    var_project, var_instance, var_database,
+                );
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1000,7 +1036,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlDatabasesService/Delete")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1025,7 +1062,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1046,9 +1083,13 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/databases/{database}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}/databases/{}",
+                    var_project, var_instance, var_database,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1081,7 +1122,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlDatabasesService/Get")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1106,7 +1148,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1122,9 +1164,13 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/databases";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1151,7 +1197,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlDatabasesService/Insert")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1176,7 +1223,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1192,9 +1239,13 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/databases";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1221,7 +1272,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlDatabasesService/List")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1246,7 +1298,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1267,9 +1319,13 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/databases/{database}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}/databases/{}",
+                    var_project, var_instance, var_database,
+                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1302,7 +1358,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlDatabasesService/Patch")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1327,7 +1384,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1348,9 +1405,13 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/databases/{database}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}/databases/{}",
+                    var_project, var_instance, var_database,
+                );
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT, path_template)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1383,7 +1444,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlDatabasesService/Update")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1520,7 +1582,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1536,9 +1598,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/addServerCa";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1565,7 +1631,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/AddServerCa")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1590,7 +1657,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1607,9 +1674,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/addServerCertificate";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1636,7 +1707,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/AddServerCertificate")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1661,7 +1733,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1678,9 +1750,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/addEntraIdCertificate";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1707,7 +1783,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/AddEntraIdCertificate")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1732,7 +1809,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1748,9 +1825,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/clone";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1777,7 +1858,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Clone")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1802,7 +1884,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1815,6 +1897,10 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path = format!("/v1/projects/{}/instances/{}", var_project, var_instance,);
                 let path_template = "/v1/projects/{project}/instances/{instance}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = (|| {
                     let builder = req.enable_final_backup.iter().fold(builder, |builder, p| {
@@ -1839,7 +1925,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         builder.query(&[("finalBackupDescription", &req.final_backup_description)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1866,7 +1952,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Delete")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1891,7 +1978,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1907,9 +1994,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/demoteMaster";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1936,7 +2027,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/DemoteMaster")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1961,7 +2053,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1977,9 +2069,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/demote";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2006,7 +2102,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Demote")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2031,7 +2128,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2047,9 +2144,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/export";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2076,7 +2177,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Export")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2101,7 +2203,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2117,9 +2219,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/failover";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2146,7 +2252,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Failover")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2171,7 +2278,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2187,9 +2294,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/reencrypt";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2216,7 +2327,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Reencrypt")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2241,7 +2353,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2254,9 +2366,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path = format!("/v1/projects/{}/instances/{}", var_project, var_instance,);
                 let path_template = "/v1/projects/{project}/instances/{instance}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2283,7 +2399,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Get")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2308,7 +2425,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2324,9 +2441,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/import";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2353,7 +2474,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Import")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2378,7 +2500,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2387,9 +2509,10 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path = format!("/v1/projects/{}/instances", var_project,);
                 let path_template = "/v1/projects/{project}/instances";
 
+                let resource_name = format!("//sqladmin.googleapis.com/projects/{}", var_project,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2410,7 +2533,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Insert")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2435,7 +2559,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2444,12 +2568,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path = format!("/v1/projects/{}/instances", var_project,);
                 let path_template = "/v1/projects/{project}/instances";
 
+                let resource_name = format!("//sqladmin.googleapis.com/projects/{}", var_project,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2470,7 +2595,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/List")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2495,7 +2621,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2511,9 +2637,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/listServerCas";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2540,7 +2670,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/ListServerCas")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2565,7 +2696,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2582,9 +2713,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/listServerCertificates";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2613,7 +2748,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     .set_rpc_method(
                         "google.cloud.sql.v1.SqlInstancesService/ListServerCertificates",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2638,7 +2774,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2655,9 +2791,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/listEntraIdCertificates";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2686,7 +2826,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     .set_rpc_method(
                         "google.cloud.sql.v1.SqlInstancesService/ListEntraIdCertificates",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2711,7 +2852,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2724,9 +2865,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path = format!("/v1/projects/{}/instances/{}", var_project, var_instance,);
                 let path_template = "/v1/projects/{project}/instances/{instance}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2753,7 +2898,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Patch")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2778,7 +2924,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2794,10 +2940,14 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/promoteReplica";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("failover", &req.failover)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2824,7 +2974,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/PromoteReplica")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2849,7 +3000,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2865,6 +3016,10 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/switchover";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
                     let builder = req
@@ -2879,7 +3034,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2906,7 +3061,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Switchover")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2931,7 +3087,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2947,10 +3103,14 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/resetSslConfig";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("mode", &req.mode)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2977,7 +3137,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/ResetSslConfig")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3002,7 +3163,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3018,9 +3179,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/restart";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3047,7 +3212,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Restart")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3072,7 +3238,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3088,9 +3254,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/restoreBackup";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3117,7 +3287,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/RestoreBackup")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3142,7 +3313,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3158,9 +3329,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/rotateServerCa";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3187,7 +3362,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/RotateServerCa")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3212,7 +3388,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3229,9 +3405,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/rotateServerCertificate";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3260,7 +3440,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     .set_rpc_method(
                         "google.cloud.sql.v1.SqlInstancesService/RotateServerCertificate",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3285,7 +3466,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3302,9 +3483,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/rotateEntraIdCertificate";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3333,7 +3518,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     .set_rpc_method(
                         "google.cloud.sql.v1.SqlInstancesService/RotateEntraIdCertificate",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3358,7 +3544,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3374,9 +3560,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/startReplica";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3403,7 +3593,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/StartReplica")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3428,7 +3619,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3444,9 +3635,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/stopReplica";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3473,7 +3668,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/StopReplica")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3498,7 +3694,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3514,9 +3710,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/truncateLog";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3543,7 +3743,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/TruncateLog")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3568,7 +3769,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3581,9 +3782,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path = format!("/v1/projects/{}/instances/{}", var_project, var_instance,);
                 let path_template = "/v1/projects/{project}/instances/{instance}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT, path_template)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3610,7 +3815,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Update")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3635,7 +3841,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3651,9 +3857,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/createEphemeral";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3680,7 +3890,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/CreateEphemeral")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3705,7 +3916,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3722,9 +3933,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/rescheduleMaintenance";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3751,7 +3966,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/RescheduleMaintenance")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3776,7 +3992,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3793,9 +4009,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/verifyExternalSyncSettings";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3824,7 +4044,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     .set_rpc_method(
                         "google.cloud.sql.v1.SqlInstancesService/VerifyExternalSyncSettings",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3849,7 +4070,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3865,9 +4086,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/startExternalSync";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3894,7 +4119,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/StartExternalSync")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3919,7 +4145,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -3935,9 +4161,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/performDiskShrink";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3964,7 +4194,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/PerformDiskShrink")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3989,7 +4220,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4006,9 +4237,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/getDiskShrinkConfig";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4035,7 +4270,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/GetDiskShrinkConfig")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4060,7 +4296,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4076,9 +4312,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/resetReplicaSize";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4105,7 +4345,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/ResetReplicaSize")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4130,7 +4371,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4147,6 +4388,10 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/getLatestRecoveryTime";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -4161,7 +4406,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4188,7 +4433,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/GetLatestRecoveryTime")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4213,7 +4459,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4229,9 +4475,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/executeSql";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4258,7 +4508,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/ExecuteSql")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4283,7 +4534,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4299,9 +4550,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/acquireSsrsLease";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4328,7 +4583,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/AcquireSsrsLease")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4353,7 +4609,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4369,9 +4625,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/releaseSsrsLease";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4398,7 +4658,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/ReleaseSsrsLease")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4423,7 +4684,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4440,9 +4701,13 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/preCheckMajorVersionUpgrade";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4471,7 +4736,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                     .set_rpc_method(
                         "google.cloud.sql.v1.SqlInstancesService/PreCheckMajorVersionUpgrade",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4496,7 +4762,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4505,9 +4771,10 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let path = format!("/v1/{}:pointInTimeRestore", var_parent,);
                 let path_template = "/v1/{parent}:pointInTimeRestore";
 
+                let resource_name = format!("//sqladmin.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4528,7 +4795,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/PointInTimeRestore")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4584,7 +4852,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4597,9 +4865,13 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 let path = format!("/v1/projects/{}/operations/{}", var_project, var_operation,);
                 let path_template = "/v1/projects/{project}/operations/{operation}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/operations/{}",
+                    var_project, var_operation,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4626,7 +4898,8 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlOperationsService/Get")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4651,7 +4924,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4660,12 +4933,13 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 let path = format!("/v1/projects/{}/operations", var_project,);
                 let path_template = "/v1/projects/{project}/operations";
 
+                let resource_name = format!("//sqladmin.googleapis.com/projects/{}", var_project,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("instance", &req.instance)]);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4686,7 +4960,8 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlOperationsService/List")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4711,7 +4986,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4727,9 +5002,13 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 );
                 let path_template = "/v1/projects/{project}/operations/{operation}/cancel";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/operations/{}",
+                    var_project, var_operation,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4756,7 +5035,8 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlOperationsService/Cancel")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4818,7 +5098,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4839,9 +5119,13 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/sslCerts/{sha1_fingerprint}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}/sslCerts/{}",
+                    var_project, var_instance, var_sha1_fingerprint,
+                );
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4874,7 +5158,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlSslCertsService/Delete")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4899,7 +5184,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4920,9 +5205,13 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 let path_template =
                     "/v1/projects/{project}/instances/{instance}/sslCerts/{sha1_fingerprint}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}/sslCerts/{}",
+                    var_project, var_instance, var_sha1_fingerprint,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4955,7 +5244,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlSslCertsService/Get")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4980,7 +5270,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -4996,9 +5286,13 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/sslCerts";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5025,7 +5319,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlSslCertsService/Insert")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5050,7 +5345,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -5066,9 +5361,13 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/sslCerts";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5095,7 +5394,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlSslCertsService/List")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5151,7 +5451,7 @@ impl super::stub::SqlTiersService for SqlTiersService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -5160,9 +5460,10 @@ impl super::stub::SqlTiersService for SqlTiersService {
                 let path = format!("/v1/projects/{}/tiers", var_project,);
                 let path_template = "/v1/projects/{project}/tiers";
 
+                let resource_name = format!("//sqladmin.googleapis.com/projects/{}", var_project,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5183,7 +5484,8 @@ impl super::stub::SqlTiersService for SqlTiersService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlTiersService/List")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5239,7 +5541,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -5255,11 +5557,15 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/users";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("host", &req.host)]);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5286,7 +5592,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlUsersService/Delete")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5311,7 +5618,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -5331,10 +5638,14 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/users/{name}";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}/users/{}",
+                    var_project, var_instance, var_name,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("host", &req.host)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5367,7 +5678,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlUsersService/Get")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5392,7 +5704,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -5408,9 +5720,13 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/users";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5437,7 +5753,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlUsersService/Insert")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5462,7 +5779,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -5478,9 +5795,13 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/users";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5507,7 +5828,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlUsersService/List")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5532,7 +5854,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -5548,6 +5870,10 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 );
                 let path_template = "/v1/projects/{project}/instances/{instance}/users";
 
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = builder.query(&[("host", &req.host)]);
                 let builder = builder.query(&[("name", &req.name)]);
@@ -5562,7 +5888,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
                         builder.query(&[("revokeExistingRoles", p)])
                     });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT, path_template)))
+                Some(builder.map(|b| (b, Method::PUT, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5589,7 +5915,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlUsersService/Update")
-                    .set_url_template(_path_template),
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

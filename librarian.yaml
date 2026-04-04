@@ -528,6 +528,7 @@ libraries:
         - broken_intra_doc_links
         - redundant_explicit_links
       generate_rpc_samples: "false"
+      resource_name_heuristic: true
       per_service_features: true
       package_name_override: google-cloud-compute-v1
       default_features:
@@ -1393,6 +1394,7 @@ libraries:
     version: 2.4.0
     copyright_year: "2025"
     rust:
+      resource_name_heuristic: true
       pagination_overrides:
         - id: .google.cloud.sql.v1.SqlInstancesService.List
           item_field: items
@@ -1402,6 +1404,7 @@ libraries:
     copyright_year: "2025"
     output: src/storage
     rust:
+      resource_name_heuristic: true
       modules:
         - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
