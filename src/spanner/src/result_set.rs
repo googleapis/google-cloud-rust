@@ -25,6 +25,10 @@ use gaxi::prost::FromProto;
 use google_cloud_gax::error::rpc::Code;
 use std::collections::VecDeque;
 use std::mem::take;
+use std::sync::Arc;
+use std::sync::atomic::{AtomicUsize, Ordering};
+use tokio::sync::mpsc;
+use tokio::sync::watch;
 
 #[cfg(feature = "unstable-stream")]
 use futures::Stream;
@@ -44,11 +48,20 @@ use futures::Stream;
 /// ```
 #[derive(Debug)]
 pub struct ResultSet {
+    receiver: mpsc::Receiver<crate::Result<Row>>,
+    metadata: watch::Receiver<Option<ResultSetMetadata>>,
+    // This field is only modified in tests to set a small buffer size.
+    #[allow(dead_code)]
+    max_buffered_partial_result_sets: Arc<AtomicUsize>,
+}
+
+#[derive(Debug)]
+struct ResultSetWorker {
     stream: PartialResultSetStream,
     buffered_values: Vec<prost_types::Value>,
     chunked: bool,
     ready_rows: VecDeque<Row>,
-    metadata: Option<ResultSetMetadata>,
+    metadata: watch::Sender<Option<ResultSetMetadata>>,
     precommit_token_tracker: PrecommitTokenTracker,
 
     // Fields for retries and buffering of a stream of PartialResultSets.
@@ -57,7 +70,7 @@ pub struct ResultSet {
     last_resume_token: Bytes,
     partial_result_sets_buffer: VecDeque<PartialResultSet>,
     safe_to_retry: bool,
-    max_buffered_partial_result_sets: usize,
+    max_buffered_partial_result_sets: Arc<AtomicUsize>,
     retry_count: usize,
     transaction_selector: Option<ReadContextTransactionSelector>,
 }
@@ -91,21 +104,33 @@ impl ResultSet {
         client: DatabaseClient,
         operation: StreamOperation,
     ) -> Self {
-        Self {
+        let (sender, receiver) = mpsc::channel(4);
+        let (metadata_sender, metadata_receiver) = watch::channel(None);
+        let max_buffered_partial_result_sets =
+            Arc::new(AtomicUsize::new(MAX_BUFFERED_PARTIAL_RESULT_SETS));
+
+        let mut worker = ResultSetWorker::new(
             stream,
-            buffered_values: Vec::new(),
-            chunked: false,
-            ready_rows: VecDeque::new(),
-            metadata: None,
+            transaction_selector,
             precommit_token_tracker,
             client,
             operation,
-            last_resume_token: Bytes::new(),
-            partial_result_sets_buffer: VecDeque::new(),
-            safe_to_retry: true,
-            max_buffered_partial_result_sets: MAX_BUFFERED_PARTIAL_RESULT_SETS,
-            retry_count: 0,
-            transaction_selector,
+            metadata_sender,
+            Arc::clone(&max_buffered_partial_result_sets),
+        );
+
+        tokio::spawn(async move {
+            while let Some(row) = worker.next().await {
+                if sender.send(row).await.is_err() {
+                    break; // Receiver dropped
+                }
+            }
+        });
+
+        Self {
+            receiver,
+            metadata: metadata_receiver,
+            max_buffered_partial_result_sets,
         }
     }
 
@@ -114,21 +139,29 @@ impl ResultSet {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::{ResultSet, Row};
-    /// # async fn fetch_metadata(mut rs: ResultSet) -> Result<(), Box<dyn std::error::Error>> {
-    /// if let Some(row) = rs.next().await.transpose()? {
-    ///     let metadata = rs.metadata()?;
-    ///     for column in metadata.column_names() {
-    ///         println!("Column name: {}", column);
-    ///     }
+    /// # async fn fetch_metadata(mut result_set: ResultSet) -> Result<(), Box<dyn std::error::Error>> {
+    /// let metadata = result_set.metadata().await?;
+    /// for column in metadata.column_names() {
+    ///     println!("Column name: {}", column);
     /// }
     /// # Ok(())
     /// # }
     /// ```
     ///
-    /// The metadata is only available after the first call to [`next`](Self::next).
-    /// If called before the first `next()` call, it returns a [`ResultSetError::MetadataNotAvailable`] error.
-    pub fn metadata(&self) -> Result<ResultSetMetadata, ResultSetError> {
-        self.metadata
+    /// This method blocks until the metadata is available, which is after the
+    /// first chunk is received from the server. If the stream ends or fails
+    /// before metadata is available, it returns [`ResultSetError::MetadataNotAvailable`].
+    pub async fn metadata(&self) -> Result<ResultSetMetadata, ResultSetError> {
+        let mut receiver = self.metadata.clone();
+        if let Some(metadata) = &*receiver.borrow() {
+            return Ok(metadata.clone());
+        }
+        receiver
+            .changed()
+            .await
+            .map_err(|_| ResultSetError::MetadataNotAvailable)?;
+        receiver
+            .borrow()
             .clone()
             .ok_or(ResultSetError::MetadataNotAvailable)
     }
@@ -148,6 +181,73 @@ impl ResultSet {
     ///
     /// Returns `None` when all rows have been retrieved.
     pub async fn next(&mut self) -> Option<crate::Result<Row>> {
+        self.receiver.recv().await
+    }
+
+    /// Converts the [`ResultSet`] into a [`Stream`].
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_spanner::client::ResultSet;
+    /// # use futures::TryStreamExt;
+    /// # use std::future::ready;
+    /// # async fn example(result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
+    /// let rows: Vec<_> = result_set
+    ///     .into_stream()
+    ///     .try_filter(|row| {
+    ///         let id = row.get::<String, _>("Id");
+    ///         ready(id == "id1")
+    ///     })
+    ///     .try_collect()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This consumes the [`ResultSet`] and returns a stream of rows.
+    #[cfg(feature = "unstable-stream")]
+    pub fn into_stream(self) -> impl Stream<Item = crate::Result<Row>> + Unpin {
+        use futures::stream::unfold;
+        Box::pin(unfold(self, |mut result_set| async move {
+            result_set.next().await.map(|row| (row, result_set))
+        }))
+    }
+}
+
+impl ResultSetWorker {
+    /// Creates a new result set worker.
+    pub(crate) fn new(
+        stream: PartialResultSetStream,
+        transaction_selector: Option<ReadContextTransactionSelector>,
+        precommit_token_tracker: PrecommitTokenTracker,
+        client: DatabaseClient,
+        operation: StreamOperation,
+        metadata: watch::Sender<Option<ResultSetMetadata>>,
+        max_buffered_partial_result_sets: Arc<AtomicUsize>,
+    ) -> Self {
+        Self {
+            stream,
+            buffered_values: Vec::new(),
+            chunked: false,
+            ready_rows: VecDeque::new(),
+            metadata,
+            precommit_token_tracker,
+            client,
+            operation,
+            last_resume_token: Bytes::new(),
+            partial_result_sets_buffer: VecDeque::new(),
+            safe_to_retry: true,
+            max_buffered_partial_result_sets,
+            retry_count: 0,
+            transaction_selector,
+        }
+    }
+
+    /// Fetches the next row from the result set.
+    ///
+    /// Returns `None` when all rows have been retrieved.
+    pub(crate) async fn next(&mut self) -> Option<crate::Result<Row>> {
         if let Some(row) = self.ready_rows.pop_front() {
             return Some(Ok(row));
         }
@@ -210,7 +310,11 @@ impl ResultSet {
 
         // The PartialResultSet did not have a resume_token. Buffer the result
         // and continue with the next PartialResultSet, unless the buffer is full.
-        if self.partial_result_sets_buffer.len() >= self.max_buffered_partial_result_sets {
+        if self.partial_result_sets_buffer.len()
+            >= self
+                .max_buffered_partial_result_sets
+                .load(Ordering::Relaxed)
+        {
             // Mark this stream as 'unsafe to retry', meaning that any transient error
             // that we see will not be retried. We will instead propagate the error.
             self.safe_to_retry = false;
@@ -290,37 +394,47 @@ impl ResultSet {
         &mut self,
         partial_result_set: PartialResultSet,
     ) -> crate::Result<()> {
-        match (self.metadata.as_ref(), partial_result_set.metadata) {
-            (Some(_), None) => {}
-            (None, None) => {
-                return Err(internal_error(
-                    "First PartialResultSet did not contain metadata",
-                ));
+        let update_selector = {
+            let metadata_ref = self.metadata.borrow();
+            match (&*metadata_ref, partial_result_set.metadata) {
+                (Some(_), None) => None,
+                (None, None) => {
+                    return Err(internal_error(
+                        "First PartialResultSet did not contain metadata",
+                    ));
+                }
+                (Some(_), Some(_)) => {
+                    return Err(internal_error("Additional metadata after first result set"));
+                }
+                (None, Some(mut m)) => {
+                    let transaction = m.transaction.take();
+                    Some((ResultSetMetadata::new(Some(m)), transaction))
+                }
             }
-            (Some(_), Some(_)) => {
-                return Err(internal_error("Additional metadata after first result set"));
-            }
-            (None, Some(mut m)) => {
-                let transaction = m.transaction.take();
-                self.metadata = Some(ResultSetMetadata::new(Some(m)));
-                if let Some(selector) = &self.transaction_selector {
-                    if let Some(transaction) = transaction {
-                        selector.update(
-                            transaction.id,
-                            transaction
-                                .read_timestamp
-                                .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
-                        )?;
-                    } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
-                        let is_started = matches!(
-                            &*lazy.lock().expect("transaction state mutex poisoned"),
-                            crate::read_only_transaction::TransactionState::Started(_, _)
-                        );
-                        if !is_started {
-                            return Err(internal_error(
-                                "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
-                            ));
-                        }
+        };
+
+        if let Some((metadata, transaction)) = update_selector {
+            self.metadata
+                .send(Some(metadata))
+                .map_err(|_| internal_error("Failed to send metadata"))?;
+
+            if let Some(selector) = &self.transaction_selector {
+                if let Some(transaction) = transaction {
+                    selector.update(
+                        transaction.id,
+                        transaction
+                            .read_timestamp
+                            .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
+                    )?;
+                } else if let ReadContextTransactionSelector::Lazy(lazy) = selector {
+                    let is_started = matches!(
+                        &*lazy.lock().expect("transaction state mutex poisoned"),
+                        crate::read_only_transaction::TransactionState::Started(_, _)
+                    );
+                    if !is_started {
+                        return Err(internal_error(
+                            "Spanner failed to return a transaction ID for a query that included a BeginTransaction option",
+                        ));
                     }
                 }
             }
@@ -329,7 +443,8 @@ impl ResultSet {
         if partial_result_set.values.is_empty() {
             return Ok(());
         }
-        let metadata = self.metadata.as_ref().unwrap();
+
+        let metadata = self.metadata.borrow().as_ref().unwrap().clone();
         if metadata.column_types.is_empty() {
             return Err(internal_error(
                 "PartialResultSet contained values but no column metadata was provided",
@@ -418,36 +533,6 @@ impl ResultSet {
         e.status()
             .is_some_and(|status| status.code == Code::Unavailable)
     }
-
-    /// Converts the [`ResultSet`] into a [`Stream`].
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use google_cloud_spanner::client::ResultSet;
-    /// # use futures::TryStreamExt;
-    /// # use std::future::ready;
-    /// # async fn example(result_set: ResultSet) -> Result<(), google_cloud_spanner::Error> {
-    /// let rows: Vec<_> = result_set
-    ///     .into_stream()
-    ///     .try_filter(|row| {
-    ///         let id = row.get::<String, _>("Id");
-    ///         ready(id == "id1")
-    ///     })
-    ///     .try_collect()
-    ///     .await?;
-    /// # Ok(())
-    /// # }
-    /// ```
-    ///
-    /// This consumes the [`ResultSet`] and returns a stream of rows.
-    #[cfg(feature = "unstable-stream")]
-    pub fn into_stream(self) -> impl Stream<Item = crate::Result<Row>> + Unpin {
-        use futures::stream::unfold;
-        Box::pin(unfold(self, |mut result_set| async move {
-            result_set.next().await.map(|row| (row, result_set))
-        }))
-    }
 }
 
 /// Merges two values from successive `PartialResultSet`s into a single value.
@@ -505,7 +590,8 @@ fn merge_values(target: &mut prost_types::Value, source: prost_types::Value) -> 
 #[cfg(test)]
 impl ResultSet {
     pub(crate) fn set_max_buffered_partial_result_sets(&mut self, limit: usize) {
-        self.max_buffered_partial_result_sets = limit;
+        self.max_buffered_partial_result_sets
+            .store(limit, Ordering::Relaxed);
     }
 }
 
@@ -624,25 +710,17 @@ pub(crate) mod tests {
         }])
         .await;
 
-        // Called before next() -> returns MetadataNotAvailable
-        let meta_err = rs.metadata();
-        assert!(meta_err.is_err());
-        assert!(matches!(
-            meta_err.unwrap_err(),
-            ResultSetError::MetadataNotAvailable
-        ));
-
-        // Advance to fetch metadata
-        let _next = rs.next().await.expect("Expected a row")?;
-
-        // Called after next() -> returns metadata
-        let meta = rs.metadata();
+        // Called before next() -> blocks and returns metadata
+        let meta = rs.metadata().await;
         assert!(meta.is_ok());
         let meta = meta.unwrap();
         assert_eq!(
             meta.column_names(),
             &["col0".to_string(), "col1".to_string()]
         );
+
+        // Now consume the row
+        let _next = rs.next().await.expect("Expected a row")?;
 
         Ok(())
     }
@@ -1107,21 +1185,62 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    async fn test_result_set_precommit_token_tracked() {
-        let mut rs = run_mock_query(vec![PartialResultSet {
-            metadata: metadata(1),
-            precommit_token: Some(
-                spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
-                    precommit_token: b"test_token".to_vec(),
-                    seq_num: 99,
-                },
-            ),
-            ..Default::default()
-        }])
-        .await;
+    async fn test_result_set_precommit_token_tracked() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        mock.expect_execute_streaming_sql()
+            .returning(move |_request| {
+                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                    metadata: metadata(1),
+                    precommit_token: Some(
+                        spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
+                            precommit_token: b"test_token".to_vec(),
+                            seq_num: 99,
+                        },
+                    ),
+                    ..Default::default()
+                })]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+                ))
+            });
 
-        // Force tracking mode since run_mock_query uses a ReadOnly transaction (NoOp).
-        rs.precommit_token_tracker = PrecommitTokenTracker::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+
+        let req = crate::model::ExecuteSqlRequest::default()
+            .set_session(db_client.session.name.clone())
+            .set_sql("SELECT 1".to_string());
+
+        let stream = db_client
+            .spanner
+            .execute_streaming_sql(req.clone(), crate::RequestOptions::default())
+            .send()
+            .await?;
+
+        let tracker = PrecommitTokenTracker::new(); // Track mode!
+
+        let mut rs = ResultSet::new(
+            stream,
+            None,
+            tracker.clone(),
+            db_client.clone(),
+            StreamOperation::Query(req),
+        );
 
         // Read a row to trigger precommit token extraction
         assert!(
@@ -1130,12 +1249,11 @@ pub(crate) mod tests {
         );
 
         // Validate the tracker correctly intercepted and preserved the token
-        let token = rs
-            .precommit_token_tracker
-            .get()
-            .expect("token should be tracked");
+        let token = tracker.get().expect("token should be tracked");
         assert_eq!(token.seq_num, 99);
         assert_eq!(token.precommit_token, bytes::Bytes::from("test_token"));
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -1920,6 +2038,210 @@ pub(crate) mod tests {
             "Caught implicit gap boundary: {}",
             err_str
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_lazy_begin_deadlock_fixed() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+        use spanner_grpc_mock::start;
+
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+
+        // Setup mock to return metadata with transaction ID on first query.
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|_request| {
+                let mut meta = metadata(1).expect("failed to create metadata");
+                meta.transaction = Some(mock_v1::Transaction {
+                    id: b"lazy_tx_id".to_vec(),
+                    ..Default::default()
+                });
+                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                    metadata: Some(meta),
+                    values: vec![string_val("1")],
+                    ..Default::default()
+                })]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+                ))
+            });
+
+        // Mock call for second query which must carry the returned transaction ID
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let req = req.into_inner();
+                let selector = req
+                    .transaction
+                    .expect("missing transaction component")
+                    .selector
+                    .expect("missing selector component");
+
+                match selector {
+                    mock_v1::transaction_selector::Selector::Id(id) => {
+                        assert_eq!(id, b"lazy_tx_id".to_vec());
+                    }
+                    _ => panic!("Expected Selector::Id"),
+                }
+
+                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                    metadata: metadata(1),
+                    values: vec![string_val("2")],
+                    ..Default::default()
+                })]);
+                Ok(Response::new(
+                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+                ))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+
+        // Use inline begin transaction
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+
+        // Execute query but DO NOT call rs.next()
+        let _rs = tx.execute_query("SELECT 1").await?;
+
+        // Execute second query against same transaction
+        let mut rs2 = tx.execute_query("SELECT 2").await?;
+
+        // Assert it does not hang and yielded elements properly
+        let row2 = rs2.next().await;
+        assert!(
+            row2.is_some(),
+            "Implicit deadlock encountered; query 2 stalled!"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_result_set_metadata_not_available() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response;
+        use gaxi::grpc::tonic::Status;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::start;
+
+        let mut mock = MockSpanner::new();
+
+        // Setup mock to return a stream that fails immediately.
+        mock.expect_execute_streaming_sql().returning(|_request| {
+            let stream = tokio_stream::iter(vec![Err(Status::internal("Internal error"))]);
+            Ok(Response::new(
+                Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+            ))
+        });
+
+        mock.expect_create_session().returning(|_| {
+            use spanner_grpc_mock::google::spanner::v1::Session;
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let tx = db_client.single_use().build();
+
+        let rs = tx.execute_query("SELECT 1").await?;
+
+        // Call metadata() immediately. It should fail because the stream ends without metadata.
+        let result = rs.metadata().await;
+        assert!(result.is_err(), "Expected error but got Ok");
+        assert!(
+            matches!(result.unwrap_err(), ResultSetError::MetadataNotAvailable),
+            "Expected MetadataNotAvailable error"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_result_set_metadata_available_before_next() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Response;
+        use spanner_grpc_mock::MockSpanner;
+        use spanner_grpc_mock::start;
+
+        let mut mock = MockSpanner::new();
+
+        // Setup mock to return metadata in first chunk.
+        mock.expect_execute_streaming_sql().returning(|_request| {
+            let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                metadata: metadata(1),
+                values: vec![string_val("1")],
+                ..Default::default()
+            })]);
+            Ok(Response::new(
+                Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
+            ))
+        });
+
+        mock.expect_create_session().returning(|_| {
+            use spanner_grpc_mock::google::spanner::v1::Session;
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let tx = db_client.single_use().build();
+
+        let mut rs = tx.execute_query("SELECT 1").await?;
+
+        // Call metadata() BEFORE next(). It should succeed.
+        let metadata = rs.metadata().await?;
+        assert_eq!(metadata.column_names().len(), 1);
+        assert_eq!(metadata.column_names()[0], "col0");
+
+        // Now consume the row
+        let row = rs.next().await;
+        assert!(row.is_some());
 
         Ok(())
     }
