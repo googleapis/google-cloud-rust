@@ -611,7 +611,6 @@ impl ReadContextTransactionSelector {
     /// This method inspects the selector and returns the transaction ID if the
     /// transaction has already started. It returns `None` if the transaction
     /// has not yet started or is in a state without an ID.
-    #[allow(dead_code)]
     pub(crate) fn get_id_no_wait(&self) -> Option<bytes::Bytes> {
         use crate::generated::gapic_dataplane::model::transaction_selector::Selector;
         match self {
