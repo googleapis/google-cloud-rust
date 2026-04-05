@@ -22,7 +22,6 @@ where
     T: super::stub::BigQueryWrite + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -33,7 +32,6 @@ where
     pub fn new(inner: T) -> Self {
         Self {
             inner,
-            #[cfg(google_cloud_unstable_tracing)]
             duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
         }
     }
@@ -49,7 +47,6 @@ where
         req: crate::model::CreateWriteStreamRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WriteStream>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -58,8 +55,6 @@ where
                 self.inner.create_write_stream(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_write_stream(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -68,7 +63,6 @@ where
         req: crate::model::GetWriteStreamRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WriteStream>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -77,8 +71,6 @@ where
                 self.inner.get_write_stream(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_write_stream(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -87,7 +79,6 @@ where
         req: crate::model::FinalizeWriteStreamRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FinalizeWriteStreamResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -96,8 +87,6 @@ where
                 self.inner.finalize_write_stream(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.finalize_write_stream(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -106,7 +95,6 @@ where
         req: crate::model::BatchCommitWriteStreamsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BatchCommitWriteStreamsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -115,8 +103,6 @@ where
                 self.inner.batch_commit_write_streams(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.batch_commit_write_streams(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -125,7 +111,6 @@ where
         req: crate::model::FlushRowsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FlushRowsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -134,12 +119,9 @@ where
                 self.inner.flush_rows(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.flush_rows(req, options).await
     }
 }
 
-#[cfg(google_cloud_unstable_tracing)]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");

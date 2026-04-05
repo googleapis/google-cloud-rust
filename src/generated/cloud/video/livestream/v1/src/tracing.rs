@@ -22,7 +22,6 @@ where
     T: super::stub::LivestreamService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -33,7 +32,6 @@ where
     pub fn new(inner: T) -> Self {
         Self {
             inner,
-            #[cfg(google_cloud_unstable_tracing)]
             duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
         }
     }
@@ -49,7 +47,6 @@ where
         req: crate::model::CreateChannelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -58,8 +55,6 @@ where
                 self.inner.create_channel(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_channel(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -68,7 +63,6 @@ where
         req: crate::model::ListChannelsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListChannelsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -77,8 +71,6 @@ where
                 self.inner.list_channels(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_channels(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -87,7 +79,6 @@ where
         req: crate::model::GetChannelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Channel>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -96,8 +87,6 @@ where
                 self.inner.get_channel(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_channel(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -106,7 +95,6 @@ where
         req: crate::model::DeleteChannelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -115,8 +103,6 @@ where
                 self.inner.delete_channel(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_channel(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -125,7 +111,6 @@ where
         req: crate::model::UpdateChannelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -134,8 +119,6 @@ where
                 self.inner.update_channel(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_channel(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -144,7 +127,6 @@ where
         req: crate::model::StartChannelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -153,8 +135,6 @@ where
                 self.inner.start_channel(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.start_channel(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -163,7 +143,6 @@ where
         req: crate::model::StopChannelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -172,8 +151,6 @@ where
                 self.inner.stop_channel(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.stop_channel(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -182,7 +159,6 @@ where
         req: crate::model::StartDistributionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -191,8 +167,6 @@ where
                 self.inner.start_distribution(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.start_distribution(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -201,7 +175,6 @@ where
         req: crate::model::StopDistributionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -210,8 +183,6 @@ where
                 self.inner.stop_distribution(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.stop_distribution(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -220,7 +191,6 @@ where
         req: crate::model::CreateInputRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -229,8 +199,6 @@ where
                 self.inner.create_input(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_input(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -239,7 +207,6 @@ where
         req: crate::model::ListInputsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListInputsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -248,8 +215,6 @@ where
                 self.inner.list_inputs(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_inputs(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -258,7 +223,6 @@ where
         req: crate::model::GetInputRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Input>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -267,8 +231,6 @@ where
                 self.inner.get_input(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_input(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -277,7 +239,6 @@ where
         req: crate::model::DeleteInputRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -286,8 +247,6 @@ where
                 self.inner.delete_input(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_input(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -296,7 +255,6 @@ where
         req: crate::model::UpdateInputRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -305,8 +263,6 @@ where
                 self.inner.update_input(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_input(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -315,7 +271,6 @@ where
         req: crate::model::PreviewInputRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PreviewInputResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -324,8 +279,6 @@ where
                 self.inner.preview_input(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.preview_input(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -334,7 +287,6 @@ where
         req: crate::model::CreateEventRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Event>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -343,8 +295,6 @@ where
                 self.inner.create_event(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_event(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -353,7 +303,6 @@ where
         req: crate::model::ListEventsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListEventsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -362,8 +311,6 @@ where
                 self.inner.list_events(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_events(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -372,7 +319,6 @@ where
         req: crate::model::GetEventRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Event>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -381,8 +327,6 @@ where
                 self.inner.get_event(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_event(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -391,7 +335,6 @@ where
         req: crate::model::DeleteEventRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -400,8 +343,6 @@ where
                 self.inner.delete_event(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_event(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -410,7 +351,6 @@ where
         req: crate::model::ListClipsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListClipsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -419,8 +359,6 @@ where
                 self.inner.list_clips(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_clips(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -429,7 +367,6 @@ where
         req: crate::model::GetClipRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Clip>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -438,8 +375,6 @@ where
                 self.inner.get_clip(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_clip(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -448,7 +383,6 @@ where
         req: crate::model::CreateClipRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -457,8 +391,6 @@ where
                 self.inner.create_clip(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_clip(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -467,7 +399,6 @@ where
         req: crate::model::DeleteClipRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -476,8 +407,6 @@ where
                 self.inner.delete_clip(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_clip(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -486,7 +415,6 @@ where
         req: crate::model::CreateDvrSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -495,8 +423,6 @@ where
                 self.inner.create_dvr_session(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_dvr_session(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -505,7 +431,6 @@ where
         req: crate::model::ListDvrSessionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDvrSessionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -514,8 +439,6 @@ where
                 self.inner.list_dvr_sessions(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_dvr_sessions(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -524,7 +447,6 @@ where
         req: crate::model::GetDvrSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DvrSession>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -533,8 +455,6 @@ where
                 self.inner.get_dvr_session(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_dvr_session(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -543,7 +463,6 @@ where
         req: crate::model::DeleteDvrSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -552,8 +471,6 @@ where
                 self.inner.delete_dvr_session(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_dvr_session(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -562,7 +479,6 @@ where
         req: crate::model::UpdateDvrSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -571,8 +487,6 @@ where
                 self.inner.update_dvr_session(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_dvr_session(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -581,7 +495,6 @@ where
         req: crate::model::CreateAssetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -590,8 +503,6 @@ where
                 self.inner.create_asset(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_asset(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -600,7 +511,6 @@ where
         req: crate::model::DeleteAssetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -609,8 +519,6 @@ where
                 self.inner.delete_asset(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_asset(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -619,7 +527,6 @@ where
         req: crate::model::GetAssetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Asset>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -628,8 +535,6 @@ where
                 self.inner.get_asset(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_asset(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -638,7 +543,6 @@ where
         req: crate::model::ListAssetsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAssetsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -647,8 +551,6 @@ where
                 self.inner.list_assets(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_assets(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -657,7 +559,6 @@ where
         req: crate::model::GetPoolRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Pool>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -666,8 +567,6 @@ where
                 self.inner.get_pool(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_pool(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -676,7 +575,6 @@ where
         req: crate::model::UpdatePoolRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -685,8 +583,6 @@ where
                 self.inner.update_pool(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_pool(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -695,7 +591,6 @@ where
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -704,8 +599,6 @@ where
                 self.inner.list_locations(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_locations(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -714,7 +607,6 @@ where
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -723,8 +615,6 @@ where
                 self.inner.get_location(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_location(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -733,7 +623,6 @@ where
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -742,8 +631,6 @@ where
                 self.inner.list_operations(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_operations(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -752,7 +639,6 @@ where
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -761,8 +647,6 @@ where
                 self.inner.get_operation(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_operation(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -771,7 +655,6 @@ where
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -780,8 +663,6 @@ where
                 self.inner.delete_operation(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_operation(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -790,7 +671,6 @@ where
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -799,8 +679,6 @@ where
                 self.inner.cancel_operation(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.cancel_operation(req, options).await
     }
 
     fn get_polling_error_policy(
@@ -818,7 +696,6 @@ where
     }
 }
 
-#[cfg(google_cloud_unstable_tracing)]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");

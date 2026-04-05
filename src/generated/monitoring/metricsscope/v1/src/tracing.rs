@@ -22,7 +22,6 @@ where
     T: super::stub::MetricsScopes + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -33,7 +32,6 @@ where
     pub fn new(inner: T) -> Self {
         Self {
             inner,
-            #[cfg(google_cloud_unstable_tracing)]
             duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
         }
     }
@@ -49,7 +47,6 @@ where
         req: crate::model::GetMetricsScopeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::MetricsScope>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -58,8 +55,6 @@ where
                 self.inner.get_metrics_scope(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_metrics_scope(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -68,7 +63,6 @@ where
         req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListMetricsScopesByMonitoredProjectResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -77,10 +71,6 @@ where
                 self.inner.list_metrics_scopes_by_monitored_project(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner
-            .list_metrics_scopes_by_monitored_project(req, options)
-            .await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -89,7 +79,6 @@ where
         req: crate::model::CreateMonitoredProjectRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -98,8 +87,6 @@ where
                 self.inner.create_monitored_project(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_monitored_project(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -108,7 +95,6 @@ where
         req: crate::model::DeleteMonitoredProjectRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -117,8 +103,6 @@ where
                 self.inner.delete_monitored_project(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_monitored_project(req, options).await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,7 +111,6 @@ where
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             let (_span, pending) = gaxi::client_request_signals!(
                 metric: self.duration.clone(),
@@ -136,8 +119,6 @@ where
                 self.inner.get_operation(req, options));
             pending.await
         }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_operation(req, options).await
     }
 
     fn get_polling_error_policy(
@@ -155,7 +136,6 @@ where
     }
 }
 
-#[cfg(google_cloud_unstable_tracing)]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
