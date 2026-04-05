@@ -120,7 +120,7 @@ impl RequestRecorder {
     /// }
     /// ```
     pub fn current() -> Option<Self> {
-        RECORDER.try_get().ok()
+        RECORDER.try_with(|r| r.clone()).ok()
     }
 
     /// Returns the data captured for the client layer.
