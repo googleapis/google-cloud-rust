@@ -193,8 +193,11 @@ mod tests {
 
         let options = RequestOptions::default().insert_extension(PathTemplate("/error"));
         let request = client.builder(Method::GET, "/error".to_string());
-        let _response: Result<Response<TestResponse>> =
-            client.execute(request, None::<NoBody>, options).await;
+        let recorder = RequestRecorder::new(*TEST_INSTRUMENTATION_INFO);
+        recorder.on_client_request(ClientRequestAttributes::default().set_url_template("/error"));
+        let _response: Result<Response<TestResponse>> = recorder
+            .scope(async { client.execute(request, None::<NoBody>, options).await })
+            .await;
 
         let got = http_request_attributes(&guard);
         let want: BTreeMap<String, AttributeValue> = [
@@ -248,8 +251,11 @@ mod tests {
         let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::POST, "/test".to_string());
         let body = serde_json::json!({"name": "test"});
-        let _response: Result<Response<TestResponse>> =
-            client.execute(request, Some(body), options).await;
+        let recorder = RequestRecorder::new(*TEST_INSTRUMENTATION_INFO);
+        recorder.on_client_request(ClientRequestAttributes::default().set_url_template("/test"));
+        let _response: Result<Response<TestResponse>> = recorder
+            .scope(async { client.execute(request, Some(body), options).await })
+            .await;
 
         let got = http_request_attributes(&guard);
         let want: BTreeMap<String, AttributeValue> = [
@@ -312,8 +318,12 @@ mod tests {
 
         let options = RequestOptions::default().insert_extension(PathTemplate("/error-info"));
         let request = client.builder(Method::GET, "/error-info".to_string());
-        let result: Result<Response<TestResponse>> =
-            client.execute(request, None::<NoBody>, options).await;
+        let recorder = RequestRecorder::new(*TEST_INSTRUMENTATION_INFO);
+        recorder
+            .on_client_request(ClientRequestAttributes::default().set_url_template("/error-info"));
+        let result: Result<Response<TestResponse>> = recorder
+            .scope(async { client.execute(request, None::<NoBody>, options).await })
+            .await;
 
         assert!(result.is_err(), "{result:?}");
 

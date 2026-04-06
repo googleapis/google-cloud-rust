@@ -97,8 +97,21 @@ mod tests {
             let guard = TestLayer::initialize();
 
             let builder = client.builder(reqwest::Method::GET, "/".into());
-            let result = client
-                .execute::<Value, Value>(builder, Option::<Value>::None, options)
+            let mut test_info =
+                google_cloud_gax_internal::options::InstrumentationClientInfo::default();
+            test_info.service_name = "test-service";
+            test_info.client_version = "1.2.3";
+            test_info.client_artifact = "test-artifact";
+            test_info.default_host = "localhost";
+            let recorder =
+                google_cloud_gax_internal::observability::RequestRecorder::new(test_info);
+
+            let result = recorder
+                .scope(async {
+                    client
+                        .execute::<Value, Value>(builder, Option::<Value>::None, options)
+                        .await
+                })
                 .await;
 
             assert!(result.is_err(), "Expected connection error");
@@ -176,8 +189,25 @@ mod tests {
             let guard = TestLayer::initialize();
 
             let builder = client.builder(reqwest::Method::GET, "loop".into());
-            let result = client
-                .execute::<Value, Value>(builder, Option::<Value>::None, RequestOptions::default())
+            let mut test_info =
+                google_cloud_gax_internal::options::InstrumentationClientInfo::default();
+            test_info.service_name = "test-service";
+            test_info.client_version = "1.2.3";
+            test_info.client_artifact = "test-artifact";
+            test_info.default_host = "localhost";
+            let recorder =
+                google_cloud_gax_internal::observability::RequestRecorder::new(test_info);
+
+            let result = recorder
+                .scope(async {
+                    client
+                        .execute::<Value, Value>(
+                            builder,
+                            Option::<Value>::None,
+                            RequestOptions::default(),
+                        )
+                        .await
+                })
                 .await;
 
             assert!(result.is_err(), "Expected redirect error");
