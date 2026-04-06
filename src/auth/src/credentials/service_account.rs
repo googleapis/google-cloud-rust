@@ -267,27 +267,11 @@ impl Builder {
         self
     }
 
-    /// Sets the universe domain for this credentials.
+    /// Sets the Google Cloud universe domain for these credentials.
     ///
-    /// The universe domain is the default service domain for a given cloud universe.
-    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_auth::credentials::service_account::Builder;
-    /// # use serde_json::json;
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// # let config = json!({
-    /// #     "type": "service_account",
-    /// #     "client_email": "foo@bar.com",
-    /// #     "private_key": "---BEGIN---"
-    /// # });
-    /// let credentials = Builder::new(config)
-    ///     .with_universe_domain("googleapis.com")
-    ///     .build()?;
-    /// # Ok(()) }
-    /// ```
-    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.      
+    #[allow(dead_code)]
+    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
@@ -920,7 +904,7 @@ mod tests {
         let credentials = Builder::new(json_value).build()?;
 
         let universe_domain = credentials.universe_domain().await;
-        assert_eq!(universe_domain, None, "{universe_domain:?}");
+        assert_eq!(universe_domain, None);
 
         // SA key with universe_domain
         let json_value = json!({
@@ -936,8 +920,7 @@ mod tests {
         let universe_domain = credentials.universe_domain().await;
         assert_eq!(
             universe_domain.as_deref(),
-            Some("some-universe-domain.com"),
-            "{universe_domain:?}"
+            Some("some-universe-domain.com")
         );
 
         let credentials = Builder::new(json_value)
@@ -947,8 +930,7 @@ mod tests {
         let universe_domain = credentials.universe_domain().await;
         assert_eq!(
             universe_domain.as_deref(),
-            Some("other-universe-domain.com"),
-            "{universe_domain:?}"
+            Some("other-universe-domain.com")
         );
 
         Ok(())
