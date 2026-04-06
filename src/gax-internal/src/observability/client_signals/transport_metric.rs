@@ -188,9 +188,7 @@ mod tests {
     use super::*;
     use crate::observability::ClientRequestAttributes;
     use crate::observability::attributes::SCHEMA_URL_VALUE;
-    use crate::observability::attributes::keys::*;
     use crate::options::InstrumentationClientInfo;
-    use google_cloud_gax::error::Error;
     use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
     use std::sync::Arc;
     use std::time::Duration;
@@ -200,6 +198,7 @@ mod tests {
         client_artifact: "test-artifact",
         client_version: "1.2.3",
         service_name: "test-service",
+        default_host: "example.com",
     };
     const DELAY: Duration = Duration::from_millis(123);
 
