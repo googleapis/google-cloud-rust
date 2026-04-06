@@ -15,6 +15,7 @@
 pub(crate) mod client;
 
 pub(crate) const MDS_DEFAULT_URI: &str = "/computeMetadata/v1/instance/service-accounts/default";
+pub(crate) const MDS_UNIVERSE_DOMAIN_URI: &str = "/computeMetadata/v1/universe/universe-domain";
 pub(crate) const METADATA_FLAVOR_VALUE: &str = "Google";
 pub(crate) const METADATA_FLAVOR: &str = "metadata-flavor";
 pub(crate) const METADATA_ROOT: &str = "http://metadata.google.internal";

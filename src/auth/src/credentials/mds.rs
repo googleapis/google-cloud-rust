@@ -460,6 +460,7 @@ impl TokenProvider for MDSAccessTokenProvider {
     async fn token(&self) -> Result<Token> {
         self.client
             .access_token(self.scopes.clone())
+            .send()
             .await
             .map_err(|e| CredentialsError::new(e.is_transient(), self.error_message(), e))
     }
