@@ -387,7 +387,7 @@ p256                  = { default-features = false, version = "0.13" }
 rust_decimal          = { default-features = false, version = "1.41.0", features = ["std"] }
 rustls                = { default-features = false, version = "0.23.37" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
-semver                = { default-features = false, version = "1.0.26" }
+semver                = { default-features = false, version = "1.0.28" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
 serde_json            = { default-features = false, version = "1.0.148", features = ["std"] }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
