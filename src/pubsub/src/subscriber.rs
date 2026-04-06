@@ -16,6 +16,7 @@ pub mod handler;
 
 pub use message_stream::MessageStream;
 pub use shutdown_behavior::ShutdownBehavior;
+pub use shutdown_token::ShutdownToken;
 
 pub(super) mod builder;
 pub(super) mod client;
@@ -27,7 +28,6 @@ mod leaser;
 mod message_stream;
 mod retry_policy;
 mod shutdown_behavior;
-#[allow(dead_code)] // TODO(#5024) - implementation in progress...
 mod shutdown_token;
 mod stream;
 mod stub;

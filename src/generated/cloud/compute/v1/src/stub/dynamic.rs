@@ -442,6 +442,12 @@ pub trait BackendBuckets: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
+    async fn aggregated_list(
+        &self,
+        req: crate::model::backend_buckets::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackendBucketAggregatedList>>;
+
     async fn delete(
         &self,
         req: crate::model::backend_buckets::DeleteRequest,
@@ -477,6 +483,12 @@ pub trait BackendBuckets: std::fmt::Debug + Send + Sync {
         req: crate::model::backend_buckets::ListRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::BackendBucketList>>;
+
+    async fn list_usable(
+        &self,
+        req: crate::model::backend_buckets::ListUsableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackendBucketListUsable>>;
 
     async fn patch(
         &self,
@@ -539,6 +551,15 @@ impl<T: super::BackendBuckets> BackendBuckets for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn aggregated_list(
+        &self,
+        req: crate::model::backend_buckets::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackendBucketAggregatedList>> {
+        T::aggregated_list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete(
         &self,
         req: crate::model::backend_buckets::DeleteRequest,
@@ -590,6 +611,15 @@ impl<T: super::BackendBuckets> BackendBuckets for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::BackendBucketList>> {
         T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_usable(
+        &self,
+        req: crate::model::backend_buckets::ListUsableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackendBucketListUsable>> {
+        T::list_usable(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1262,6 +1292,12 @@ pub trait Disks: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
+    async fn update_kms_key(
+        &self,
+        req: crate::model::disks::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn get_operation(
         &self,
         req: crate::model::zone_operations::GetRequest,
@@ -1452,6 +1488,15 @@ impl<T: super::Disks> Disks for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::update(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_kms_key(
+        &self,
+        req: crate::model::disks::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::update_kms_key(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -10003,6 +10048,190 @@ impl<T: super::RegionAutoscalers> RegionAutoscalers for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::RegionBackendBuckets].
+#[cfg(feature = "region-backend-buckets")]
+#[async_trait::async_trait]
+pub trait RegionBackendBuckets: std::fmt::Debug + Send + Sync {
+    async fn delete(
+        &self,
+        req: crate::model::region_backend_buckets::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::region_backend_buckets::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackendBucket>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::region_backend_buckets::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::region_backend_buckets::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::region_backend_buckets::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackendBucketList>>;
+
+    async fn list_usable(
+        &self,
+        req: crate::model::region_backend_buckets::ListUsableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackendBucketListUsable>>;
+
+    async fn patch(
+        &self,
+        req: crate::model::region_backend_buckets::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::region_backend_buckets::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_backend_buckets::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::RegionBackendBuckets] also implement [RegionBackendBuckets].
+#[cfg(feature = "region-backend-buckets")]
+#[async_trait::async_trait]
+impl<T: super::RegionBackendBuckets> RegionBackendBuckets for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::region_backend_buckets::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::region_backend_buckets::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackendBucket>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::region_backend_buckets::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::region_backend_buckets::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::region_backend_buckets::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackendBucketList>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_usable(
+        &self,
+        req: crate::model::region_backend_buckets::ListUsableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BackendBucketListUsable>> {
+        T::list_usable(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn patch(
+        &self,
+        req: crate::model::region_backend_buckets::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::patch(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::region_backend_buckets::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_backend_buckets::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::RegionBackendServices].
 #[cfg(feature = "region-backend-services")]
 #[async_trait::async_trait]
@@ -10378,6 +10607,12 @@ pub trait RegionCompositeHealthChecks: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CompositeHealthCheck>>;
 
+    async fn get_health(
+        &self,
+        req: crate::model::region_composite_health_checks::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompositeHealthCheckHealth>>;
+
     async fn insert(
         &self,
         req: crate::model::region_composite_health_checks::InsertRequest,
@@ -10448,6 +10683,15 @@ impl<T: super::RegionCompositeHealthChecks> RegionCompositeHealthChecks for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CompositeHealthCheck>> {
         T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_health(
+        &self,
+        req: crate::model::region_composite_health_checks::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::CompositeHealthCheckHealth>> {
+        T::get_health(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -10656,6 +10900,12 @@ pub trait RegionDisks: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
+    async fn update_kms_key(
+        &self,
+        req: crate::model::region_disks::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
@@ -10828,6 +11078,15 @@ impl<T: super::RegionDisks> RegionDisks for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::update(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_kms_key(
+        &self,
+        req: crate::model::region_disks::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::update_kms_key(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -11338,6 +11597,12 @@ pub trait RegionHealthSources: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::HealthSource>>;
 
+    async fn get_health(
+        &self,
+        req: crate::model::region_health_sources::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthSourceHealth>>;
+
     async fn insert(
         &self,
         req: crate::model::region_health_sources::InsertRequest,
@@ -11408,6 +11673,15 @@ impl<T: super::RegionHealthSources> RegionHealthSources for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::HealthSource>> {
         T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_health(
+        &self,
+        req: crate::model::region_health_sources::GetHealthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthSourceHealth>> {
+        T::get_health(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -15986,6 +16260,12 @@ pub trait Snapshots: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>>;
 
+    async fn update_kms_key(
+        &self,
+        req: crate::model::snapshots::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
@@ -16077,6 +16357,15 @@ impl<T: super::Snapshots> Snapshots for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_kms_key(
+        &self,
+        req: crate::model::snapshots::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::update_kms_key(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

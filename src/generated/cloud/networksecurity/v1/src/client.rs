@@ -405,6 +405,22 @@ impl AddressGroupService {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
@@ -1021,6 +1037,22 @@ impl OrganizationAddressGroupService {
 
     /// Lists information about the supported locations for this service.
     ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
@@ -1238,6 +1270,3050 @@ impl OrganizationAddressGroupService {
         &self,
     ) -> super::builder::organization_address_group_service::CancelOperation {
         super::builder::organization_address_group_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Network Security API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DnsThreatDetectorService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_dns_threat_detectors()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// The Network Security API for DNS Threat Detectors.
+///
+/// # Configuration
+///
+/// To configure `DnsThreatDetectorService` use the `with_*` methods in the type returned
+/// by [builder()][DnsThreatDetectorService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networksecurity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::dns_threat_detector_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::dns_threat_detector_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `DnsThreatDetectorService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `DnsThreatDetectorService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct DnsThreatDetectorService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::DnsThreatDetectorService>,
+}
+
+impl DnsThreatDetectorService {
+    /// Returns a builder for [DnsThreatDetectorService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// let client = DnsThreatDetectorService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::dns_threat_detector_service::ClientBuilder {
+        crate::new_client_builder(super::builder::dns_threat_detector_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::DnsThreatDetectorService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::DnsThreatDetectorService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DnsThreatDetectorService> {
+        super::transport::DnsThreatDetectorService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DnsThreatDetectorService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DnsThreatDetectorService::new)
+    }
+
+    /// Lists DnsThreatDetectors in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_dns_threat_detectors()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_dns_threat_detectors(
+        &self,
+    ) -> super::builder::dns_threat_detector_service::ListDnsThreatDetectors {
+        super::builder::dns_threat_detector_service::ListDnsThreatDetectors::new(self.inner.clone())
+    }
+
+    /// Gets the details of a single DnsThreatDetector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dns_threat_detector()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_dns_threat_detector(
+        &self,
+    ) -> super::builder::dns_threat_detector_service::GetDnsThreatDetector {
+        super::builder::dns_threat_detector_service::GetDnsThreatDetector::new(self.inner.clone())
+    }
+
+    /// Creates a new DnsThreatDetector in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_dns_threat_detector()
+    ///         .set_parent(parent)
+    ///         .set_dns_threat_detector(
+    ///             DnsThreatDetector::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_dns_threat_detector(
+        &self,
+    ) -> super::builder::dns_threat_detector_service::CreateDnsThreatDetector {
+        super::builder::dns_threat_detector_service::CreateDnsThreatDetector::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates a single DnsThreatDetector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::DnsThreatDetector;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_dns_threat_detector()
+    ///         .set_dns_threat_detector(
+    ///             DnsThreatDetector::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_dns_threat_detector(
+        &self,
+    ) -> super::builder::dns_threat_detector_service::UpdateDnsThreatDetector {
+        super::builder::dns_threat_detector_service::UpdateDnsThreatDetector::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes a single DnsThreatDetector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_dns_threat_detector()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_dns_threat_detector(
+        &self,
+    ) -> super::builder::dns_threat_detector_service::DeleteDnsThreatDetector {
+        super::builder::dns_threat_detector_service::DeleteDnsThreatDetector::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_locations(&self) -> super::builder::dns_threat_detector_service::ListLocations {
+        super::builder::dns_threat_detector_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::dns_threat_detector_service::GetLocation {
+        super::builder::dns_threat_detector_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::dns_threat_detector_service::SetIamPolicy {
+        super::builder::dns_threat_detector_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::dns_threat_detector_service::GetIamPolicy {
+        super::builder::dns_threat_detector_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::dns_threat_detector_service::TestIamPermissions {
+        super::builder::dns_threat_detector_service::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::dns_threat_detector_service::ListOperations {
+        super::builder::dns_threat_detector_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::dns_threat_detector_service::GetOperation {
+        super::builder::dns_threat_detector_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::dns_threat_detector_service::DeleteOperation {
+        super::builder::dns_threat_detector_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::DnsThreatDetectorService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsThreatDetectorService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::dns_threat_detector_service::CancelOperation {
+        super::builder::dns_threat_detector_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Network Security API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = FirewallActivation::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_firewall_endpoints()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing Firewall Endpoints and Associations.
+///
+/// # Configuration
+///
+/// To configure `FirewallActivation` use the `with_*` methods in the type returned
+/// by [builder()][FirewallActivation::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networksecurity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::firewall_activation::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::firewall_activation::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `FirewallActivation` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `FirewallActivation` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct FirewallActivation {
+    inner: std::sync::Arc<dyn super::stub::dynamic::FirewallActivation>,
+}
+
+impl FirewallActivation {
+    /// Returns a builder for [FirewallActivation].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// let client = FirewallActivation::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::firewall_activation::ClientBuilder {
+        crate::new_client_builder(super::builder::firewall_activation::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::FirewallActivation + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::FirewallActivation>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::FirewallActivation> {
+        super::transport::FirewallActivation::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::FirewallActivation> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::FirewallActivation::new)
+    }
+
+    /// Lists FirewallEndpoints in a given organization and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_firewall_endpoints()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_firewall_endpoints(
+        &self,
+    ) -> super::builder::firewall_activation::ListFirewallEndpoints {
+        super::builder::firewall_activation::ListFirewallEndpoints::new(self.inner.clone())
+    }
+
+    /// Gets details of a single org Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_firewall_endpoint()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_firewall_endpoint(
+        &self,
+    ) -> super::builder::firewall_activation::GetFirewallEndpoint {
+        super::builder::firewall_activation::GetFirewallEndpoint::new(self.inner.clone())
+    }
+
+    /// Creates a new FirewallEndpoint in a given organization and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_firewall_endpoint()
+    ///         .set_parent(parent)
+    ///         .set_firewall_endpoint(
+    ///             FirewallEndpoint::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_firewall_endpoint(
+        &self,
+    ) -> super::builder::firewall_activation::CreateFirewallEndpoint {
+        super::builder::firewall_activation::CreateFirewallEndpoint::new(self.inner.clone())
+    }
+
+    /// Deletes a single org Endpoint.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_firewall_endpoint()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_firewall_endpoint(
+        &self,
+    ) -> super::builder::firewall_activation::DeleteFirewallEndpoint {
+        super::builder::firewall_activation::DeleteFirewallEndpoint::new(self.inner.clone())
+    }
+
+    /// Update a single org Endpoint.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpoint;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_firewall_endpoint()
+    ///         .set_firewall_endpoint(
+    ///             FirewallEndpoint::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_firewall_endpoint(
+        &self,
+    ) -> super::builder::firewall_activation::UpdateFirewallEndpoint {
+        super::builder::firewall_activation::UpdateFirewallEndpoint::new(self.inner.clone())
+    }
+
+    /// Lists Associations in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_firewall_endpoint_associations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_firewall_endpoint_associations(
+        &self,
+    ) -> super::builder::firewall_activation::ListFirewallEndpointAssociations {
+        super::builder::firewall_activation::ListFirewallEndpointAssociations::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets details of a single FirewallEndpointAssociation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_firewall_endpoint_association()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_firewall_endpoint_association(
+        &self,
+    ) -> super::builder::firewall_activation::GetFirewallEndpointAssociation {
+        super::builder::firewall_activation::GetFirewallEndpointAssociation::new(self.inner.clone())
+    }
+
+    /// Creates a new FirewallEndpointAssociation in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_firewall_endpoint_association()
+    ///         .set_parent(parent)
+    ///         .set_firewall_endpoint_association(
+    ///             FirewallEndpointAssociation::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_firewall_endpoint_association(
+        &self,
+    ) -> super::builder::firewall_activation::CreateFirewallEndpointAssociation {
+        super::builder::firewall_activation::CreateFirewallEndpointAssociation::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes a single FirewallEndpointAssociation.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_firewall_endpoint_association()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_firewall_endpoint_association(
+        &self,
+    ) -> super::builder::firewall_activation::DeleteFirewallEndpointAssociation {
+        super::builder::firewall_activation::DeleteFirewallEndpointAssociation::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Update a single FirewallEndpointAssociation.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::FirewallEndpointAssociation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_firewall_endpoint_association()
+    ///         .set_firewall_endpoint_association(
+    ///             FirewallEndpointAssociation::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_firewall_endpoint_association(
+        &self,
+    ) -> super::builder::firewall_activation::UpdateFirewallEndpointAssociation {
+        super::builder::firewall_activation::UpdateFirewallEndpointAssociation::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_locations(&self) -> super::builder::firewall_activation::ListLocations {
+        super::builder::firewall_activation::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::firewall_activation::GetLocation {
+        super::builder::firewall_activation::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::firewall_activation::SetIamPolicy {
+        super::builder::firewall_activation::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::firewall_activation::GetIamPolicy {
+        super::builder::firewall_activation::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::firewall_activation::TestIamPermissions {
+        super::builder::firewall_activation::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::firewall_activation::ListOperations {
+        super::builder::firewall_activation::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::firewall_activation::GetOperation {
+        super::builder::firewall_activation::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::firewall_activation::DeleteOperation {
+        super::builder::firewall_activation::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::FirewallActivation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &FirewallActivation
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::firewall_activation::CancelOperation {
+        super::builder::firewall_activation::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Network Security API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_networksecurity_v1::client::Intercept;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Intercept::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_intercept_endpoint_groups()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for Third-Party Packet Intercept (TPPI).
+/// TPPI is the "in-band" flavor of the Network Security Integrations product.
+///
+/// # Configuration
+///
+/// To configure `Intercept` use the `with_*` methods in the type returned
+/// by [builder()][Intercept::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networksecurity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::intercept::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::intercept::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Intercept` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `Intercept` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct Intercept {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Intercept>,
+}
+
+impl Intercept {
+    /// Returns a builder for [Intercept].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// let client = Intercept::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::intercept::ClientBuilder {
+        crate::new_client_builder(super::builder::intercept::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Intercept + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Intercept>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Intercept> {
+        super::transport::Intercept::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Intercept> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Intercept::new)
+    }
+
+    /// Lists endpoint groups in a given project and location.
+    /// See <https://google.aip.dev/132>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_intercept_endpoint_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_intercept_endpoint_groups(
+        &self,
+    ) -> super::builder::intercept::ListInterceptEndpointGroups {
+        super::builder::intercept::ListInterceptEndpointGroups::new(self.inner.clone())
+    }
+
+    /// Gets a specific endpoint group.
+    /// See <https://google.aip.dev/131>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_intercept_endpoint_group()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_intercept_endpoint_group(
+        &self,
+    ) -> super::builder::intercept::GetInterceptEndpointGroup {
+        super::builder::intercept::GetInterceptEndpointGroup::new(self.inner.clone())
+    }
+
+    /// Creates an endpoint group in a given project and location.
+    /// See <https://google.aip.dev/133>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_intercept_endpoint_group()
+    ///         .set_parent(parent)
+    ///         .set_intercept_endpoint_group(
+    ///             InterceptEndpointGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_intercept_endpoint_group(
+        &self,
+    ) -> super::builder::intercept::CreateInterceptEndpointGroup {
+        super::builder::intercept::CreateInterceptEndpointGroup::new(self.inner.clone())
+    }
+
+    /// Updates an endpoint group.
+    /// See <https://google.aip.dev/134>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_intercept_endpoint_group()
+    ///         .set_intercept_endpoint_group(
+    ///             InterceptEndpointGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_intercept_endpoint_group(
+        &self,
+    ) -> super::builder::intercept::UpdateInterceptEndpointGroup {
+        super::builder::intercept::UpdateInterceptEndpointGroup::new(self.inner.clone())
+    }
+
+    /// Deletes an endpoint group.
+    /// See <https://google.aip.dev/135>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_intercept_endpoint_group()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_intercept_endpoint_group(
+        &self,
+    ) -> super::builder::intercept::DeleteInterceptEndpointGroup {
+        super::builder::intercept::DeleteInterceptEndpointGroup::new(self.inner.clone())
+    }
+
+    /// Lists associations in a given project and location.
+    /// See <https://google.aip.dev/132>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_intercept_endpoint_group_associations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_intercept_endpoint_group_associations(
+        &self,
+    ) -> super::builder::intercept::ListInterceptEndpointGroupAssociations {
+        super::builder::intercept::ListInterceptEndpointGroupAssociations::new(self.inner.clone())
+    }
+
+    /// Gets a specific association.
+    /// See <https://google.aip.dev/131>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_intercept_endpoint_group_association()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_intercept_endpoint_group_association(
+        &self,
+    ) -> super::builder::intercept::GetInterceptEndpointGroupAssociation {
+        super::builder::intercept::GetInterceptEndpointGroupAssociation::new(self.inner.clone())
+    }
+
+    /// Creates an association in a given project and location.
+    /// See <https://google.aip.dev/133>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_intercept_endpoint_group_association()
+    ///         .set_parent(parent)
+    ///         .set_intercept_endpoint_group_association(
+    ///             InterceptEndpointGroupAssociation::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_intercept_endpoint_group_association(
+        &self,
+    ) -> super::builder::intercept::CreateInterceptEndpointGroupAssociation {
+        super::builder::intercept::CreateInterceptEndpointGroupAssociation::new(self.inner.clone())
+    }
+
+    /// Updates an association.
+    /// See <https://google.aip.dev/134>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::InterceptEndpointGroupAssociation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_intercept_endpoint_group_association()
+    ///         .set_intercept_endpoint_group_association(
+    ///             InterceptEndpointGroupAssociation::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_intercept_endpoint_group_association(
+        &self,
+    ) -> super::builder::intercept::UpdateInterceptEndpointGroupAssociation {
+        super::builder::intercept::UpdateInterceptEndpointGroupAssociation::new(self.inner.clone())
+    }
+
+    /// Deletes an association.
+    /// See <https://google.aip.dev/135>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_intercept_endpoint_group_association()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_intercept_endpoint_group_association(
+        &self,
+    ) -> super::builder::intercept::DeleteInterceptEndpointGroupAssociation {
+        super::builder::intercept::DeleteInterceptEndpointGroupAssociation::new(self.inner.clone())
+    }
+
+    /// Lists deployment groups in a given project and location.
+    /// See <https://google.aip.dev/132>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_intercept_deployment_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_intercept_deployment_groups(
+        &self,
+    ) -> super::builder::intercept::ListInterceptDeploymentGroups {
+        super::builder::intercept::ListInterceptDeploymentGroups::new(self.inner.clone())
+    }
+
+    /// Gets a specific deployment group.
+    /// See <https://google.aip.dev/131>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_intercept_deployment_group()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_intercept_deployment_group(
+        &self,
+    ) -> super::builder::intercept::GetInterceptDeploymentGroup {
+        super::builder::intercept::GetInterceptDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Creates a deployment group in a given project and location.
+    /// See <https://google.aip.dev/133>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_intercept_deployment_group()
+    ///         .set_parent(parent)
+    ///         .set_intercept_deployment_group(
+    ///             InterceptDeploymentGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_intercept_deployment_group(
+        &self,
+    ) -> super::builder::intercept::CreateInterceptDeploymentGroup {
+        super::builder::intercept::CreateInterceptDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Updates a deployment group.
+    /// See <https://google.aip.dev/134>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_intercept_deployment_group()
+    ///         .set_intercept_deployment_group(
+    ///             InterceptDeploymentGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_intercept_deployment_group(
+        &self,
+    ) -> super::builder::intercept::UpdateInterceptDeploymentGroup {
+        super::builder::intercept::UpdateInterceptDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Deletes a deployment group.
+    /// See <https://google.aip.dev/135>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_intercept_deployment_group()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_intercept_deployment_group(
+        &self,
+    ) -> super::builder::intercept::DeleteInterceptDeploymentGroup {
+        super::builder::intercept::DeleteInterceptDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Lists deployments in a given project and location.
+    /// See <https://google.aip.dev/132>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_intercept_deployments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_intercept_deployments(
+        &self,
+    ) -> super::builder::intercept::ListInterceptDeployments {
+        super::builder::intercept::ListInterceptDeployments::new(self.inner.clone())
+    }
+
+    /// Gets a specific deployment.
+    /// See <https://google.aip.dev/131>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_intercept_deployment()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_intercept_deployment(&self) -> super::builder::intercept::GetInterceptDeployment {
+        super::builder::intercept::GetInterceptDeployment::new(self.inner.clone())
+    }
+
+    /// Creates a deployment in a given project and location.
+    /// See <https://google.aip.dev/133>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_intercept_deployment()
+    ///         .set_parent(parent)
+    ///         .set_intercept_deployment(
+    ///             InterceptDeployment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_intercept_deployment(
+        &self,
+    ) -> super::builder::intercept::CreateInterceptDeployment {
+        super::builder::intercept::CreateInterceptDeployment::new(self.inner.clone())
+    }
+
+    /// Updates a deployment.
+    /// See <https://google.aip.dev/134>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::InterceptDeployment;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_intercept_deployment()
+    ///         .set_intercept_deployment(
+    ///             InterceptDeployment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_intercept_deployment(
+        &self,
+    ) -> super::builder::intercept::UpdateInterceptDeployment {
+        super::builder::intercept::UpdateInterceptDeployment::new(self.inner.clone())
+    }
+
+    /// Deletes a deployment.
+    /// See <https://google.aip.dev/135>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_intercept_deployment()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_intercept_deployment(
+        &self,
+    ) -> super::builder::intercept::DeleteInterceptDeployment {
+        super::builder::intercept::DeleteInterceptDeployment::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_locations(&self) -> super::builder::intercept::ListLocations {
+        super::builder::intercept::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::intercept::GetLocation {
+        super::builder::intercept::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::intercept::SetIamPolicy {
+        super::builder::intercept::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::intercept::GetIamPolicy {
+        super::builder::intercept::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::intercept::TestIamPermissions {
+        super::builder::intercept::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::intercept::ListOperations {
+        super::builder::intercept::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::intercept::GetOperation {
+        super::builder::intercept::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::intercept::DeleteOperation {
+        super::builder::intercept::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Intercept;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Intercept
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::intercept::CancelOperation {
+        super::builder::intercept::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Network Security API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_networksecurity_v1::client::Mirroring;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Mirroring::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_mirroring_endpoint_groups()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// PM2 is the "out-of-band" flavor of the Network Security Integrations product.
+///
+/// # Configuration
+///
+/// To configure `Mirroring` use the `with_*` methods in the type returned
+/// by [builder()][Mirroring::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networksecurity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::mirroring::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::mirroring::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Mirroring` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `Mirroring` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct Mirroring {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Mirroring>,
+}
+
+impl Mirroring {
+    /// Returns a builder for [Mirroring].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// let client = Mirroring::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::mirroring::ClientBuilder {
+        crate::new_client_builder(super::builder::mirroring::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Mirroring + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::Mirroring>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Mirroring> {
+        super::transport::Mirroring::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::Mirroring> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Mirroring::new)
+    }
+
+    /// Lists endpoint groups in a given project and location.
+    /// See <https://google.aip.dev/132>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_mirroring_endpoint_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_mirroring_endpoint_groups(
+        &self,
+    ) -> super::builder::mirroring::ListMirroringEndpointGroups {
+        super::builder::mirroring::ListMirroringEndpointGroups::new(self.inner.clone())
+    }
+
+    /// Gets a specific endpoint group.
+    /// See <https://google.aip.dev/131>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_mirroring_endpoint_group()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_mirroring_endpoint_group(
+        &self,
+    ) -> super::builder::mirroring::GetMirroringEndpointGroup {
+        super::builder::mirroring::GetMirroringEndpointGroup::new(self.inner.clone())
+    }
+
+    /// Creates an endpoint group in a given project and location.
+    /// See <https://google.aip.dev/133>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_mirroring_endpoint_group()
+    ///         .set_parent(parent)
+    ///         .set_mirroring_endpoint_group(
+    ///             MirroringEndpointGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_mirroring_endpoint_group(
+        &self,
+    ) -> super::builder::mirroring::CreateMirroringEndpointGroup {
+        super::builder::mirroring::CreateMirroringEndpointGroup::new(self.inner.clone())
+    }
+
+    /// Updates an endpoint group.
+    /// See <https://google.aip.dev/134>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_mirroring_endpoint_group()
+    ///         .set_mirroring_endpoint_group(
+    ///             MirroringEndpointGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_mirroring_endpoint_group(
+        &self,
+    ) -> super::builder::mirroring::UpdateMirroringEndpointGroup {
+        super::builder::mirroring::UpdateMirroringEndpointGroup::new(self.inner.clone())
+    }
+
+    /// Deletes an endpoint group.
+    /// See <https://google.aip.dev/135>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_mirroring_endpoint_group()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_mirroring_endpoint_group(
+        &self,
+    ) -> super::builder::mirroring::DeleteMirroringEndpointGroup {
+        super::builder::mirroring::DeleteMirroringEndpointGroup::new(self.inner.clone())
+    }
+
+    /// Lists associations in a given project and location.
+    /// See <https://google.aip.dev/132>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_mirroring_endpoint_group_associations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_mirroring_endpoint_group_associations(
+        &self,
+    ) -> super::builder::mirroring::ListMirroringEndpointGroupAssociations {
+        super::builder::mirroring::ListMirroringEndpointGroupAssociations::new(self.inner.clone())
+    }
+
+    /// Gets a specific association.
+    /// See <https://google.aip.dev/131>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_mirroring_endpoint_group_association()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_mirroring_endpoint_group_association(
+        &self,
+    ) -> super::builder::mirroring::GetMirroringEndpointGroupAssociation {
+        super::builder::mirroring::GetMirroringEndpointGroupAssociation::new(self.inner.clone())
+    }
+
+    /// Creates an association in a given project and location.
+    /// See <https://google.aip.dev/133>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_mirroring_endpoint_group_association()
+    ///         .set_parent(parent)
+    ///         .set_mirroring_endpoint_group_association(
+    ///             MirroringEndpointGroupAssociation::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_mirroring_endpoint_group_association(
+        &self,
+    ) -> super::builder::mirroring::CreateMirroringEndpointGroupAssociation {
+        super::builder::mirroring::CreateMirroringEndpointGroupAssociation::new(self.inner.clone())
+    }
+
+    /// Updates an association.
+    /// See <https://google.aip.dev/134>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::MirroringEndpointGroupAssociation;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_mirroring_endpoint_group_association()
+    ///         .set_mirroring_endpoint_group_association(
+    ///             MirroringEndpointGroupAssociation::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_mirroring_endpoint_group_association(
+        &self,
+    ) -> super::builder::mirroring::UpdateMirroringEndpointGroupAssociation {
+        super::builder::mirroring::UpdateMirroringEndpointGroupAssociation::new(self.inner.clone())
+    }
+
+    /// Deletes an association.
+    /// See <https://google.aip.dev/135>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_mirroring_endpoint_group_association()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_mirroring_endpoint_group_association(
+        &self,
+    ) -> super::builder::mirroring::DeleteMirroringEndpointGroupAssociation {
+        super::builder::mirroring::DeleteMirroringEndpointGroupAssociation::new(self.inner.clone())
+    }
+
+    /// Lists deployment groups in a given project and location.
+    /// See <https://google.aip.dev/132>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_mirroring_deployment_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_mirroring_deployment_groups(
+        &self,
+    ) -> super::builder::mirroring::ListMirroringDeploymentGroups {
+        super::builder::mirroring::ListMirroringDeploymentGroups::new(self.inner.clone())
+    }
+
+    /// Gets a specific deployment group.
+    /// See <https://google.aip.dev/131>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_mirroring_deployment_group()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_mirroring_deployment_group(
+        &self,
+    ) -> super::builder::mirroring::GetMirroringDeploymentGroup {
+        super::builder::mirroring::GetMirroringDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Creates a deployment group in a given project and location.
+    /// See <https://google.aip.dev/133>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_mirroring_deployment_group()
+    ///         .set_parent(parent)
+    ///         .set_mirroring_deployment_group(
+    ///             MirroringDeploymentGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_mirroring_deployment_group(
+        &self,
+    ) -> super::builder::mirroring::CreateMirroringDeploymentGroup {
+        super::builder::mirroring::CreateMirroringDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Updates a deployment group.
+    /// See <https://google.aip.dev/134>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeploymentGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_mirroring_deployment_group()
+    ///         .set_mirroring_deployment_group(
+    ///             MirroringDeploymentGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_mirroring_deployment_group(
+        &self,
+    ) -> super::builder::mirroring::UpdateMirroringDeploymentGroup {
+        super::builder::mirroring::UpdateMirroringDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Deletes a deployment group.
+    /// See <https://google.aip.dev/135>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_mirroring_deployment_group()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_mirroring_deployment_group(
+        &self,
+    ) -> super::builder::mirroring::DeleteMirroringDeploymentGroup {
+        super::builder::mirroring::DeleteMirroringDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Lists deployments in a given project and location.
+    /// See <https://google.aip.dev/132>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_mirroring_deployments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_mirroring_deployments(
+        &self,
+    ) -> super::builder::mirroring::ListMirroringDeployments {
+        super::builder::mirroring::ListMirroringDeployments::new(self.inner.clone())
+    }
+
+    /// Gets a specific deployment.
+    /// See <https://google.aip.dev/131>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_mirroring_deployment()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_mirroring_deployment(&self) -> super::builder::mirroring::GetMirroringDeployment {
+        super::builder::mirroring::GetMirroringDeployment::new(self.inner.clone())
+    }
+
+    /// Creates a deployment in a given project and location.
+    /// See <https://google.aip.dev/133>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_mirroring_deployment()
+    ///         .set_parent(parent)
+    ///         .set_mirroring_deployment(
+    ///             MirroringDeployment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_mirroring_deployment(
+        &self,
+    ) -> super::builder::mirroring::CreateMirroringDeployment {
+        super::builder::mirroring::CreateMirroringDeployment::new(self.inner.clone())
+    }
+
+    /// Updates a deployment.
+    /// See <https://google.aip.dev/134>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::MirroringDeployment;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_mirroring_deployment()
+    ///         .set_mirroring_deployment(
+    ///             MirroringDeployment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_mirroring_deployment(
+        &self,
+    ) -> super::builder::mirroring::UpdateMirroringDeployment {
+        super::builder::mirroring::UpdateMirroringDeployment::new(self.inner.clone())
+    }
+
+    /// Deletes a deployment.
+    /// See <https://google.aip.dev/135>.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_mirroring_deployment()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_mirroring_deployment(
+        &self,
+    ) -> super::builder::mirroring::DeleteMirroringDeployment {
+        super::builder::mirroring::DeleteMirroringDeployment::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_locations(&self) -> super::builder::mirroring::ListLocations {
+        super::builder::mirroring::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::mirroring::GetLocation {
+        super::builder::mirroring::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::mirroring::SetIamPolicy {
+        super::builder::mirroring::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::mirroring::GetIamPolicy {
+        super::builder::mirroring::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::mirroring::TestIamPermissions {
+        super::builder::mirroring::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::mirroring::ListOperations {
+        super::builder::mirroring::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::mirroring::GetOperation {
+        super::builder::mirroring::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::mirroring::DeleteOperation {
+        super::builder::mirroring::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::Mirroring;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &Mirroring
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::mirroring::CancelOperation {
+        super::builder::mirroring::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -1505,6 +4581,164 @@ impl NetworkSecurity {
         &self,
     ) -> super::builder::network_security::DeleteAuthorizationPolicy {
         super::builder::network_security::DeleteAuthorizationPolicy::new(self.inner.clone())
+    }
+
+    /// Lists BackendAuthenticationConfigs in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backend_authentication_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_backend_authentication_configs(
+        &self,
+    ) -> super::builder::network_security::ListBackendAuthenticationConfigs {
+        super::builder::network_security::ListBackendAuthenticationConfigs::new(self.inner.clone())
+    }
+
+    /// Gets details of a single BackendAuthenticationConfig to
+    /// BackendAuthenticationConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backend_authentication_config()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_backend_authentication_config(
+        &self,
+    ) -> super::builder::network_security::GetBackendAuthenticationConfig {
+        super::builder::network_security::GetBackendAuthenticationConfig::new(self.inner.clone())
+    }
+
+    /// Creates a new BackendAuthenticationConfig in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backend_authentication_config()
+    ///         .set_parent(parent)
+    ///         .set_backend_authentication_config(
+    ///             BackendAuthenticationConfig::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_backend_authentication_config(
+        &self,
+    ) -> super::builder::network_security::CreateBackendAuthenticationConfig {
+        super::builder::network_security::CreateBackendAuthenticationConfig::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single BackendAuthenticationConfig to
+    /// BackendAuthenticationConfig.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::BackendAuthenticationConfig;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backend_authentication_config()
+    ///         .set_backend_authentication_config(
+    ///             BackendAuthenticationConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_backend_authentication_config(
+        &self,
+    ) -> super::builder::network_security::UpdateBackendAuthenticationConfig {
+        super::builder::network_security::UpdateBackendAuthenticationConfig::new(self.inner.clone())
+    }
+
+    /// Deletes a single BackendAuthenticationConfig to
+    /// BackendAuthenticationConfig.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backend_authentication_config()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_backend_authentication_config(
+        &self,
+    ) -> super::builder::network_security::DeleteBackendAuthenticationConfig {
+        super::builder::network_security::DeleteBackendAuthenticationConfig::new(self.inner.clone())
     }
 
     /// Lists ServerTlsPolicies in a given project and location.
@@ -1813,7 +5047,778 @@ impl NetworkSecurity {
         super::builder::network_security::DeleteClientTlsPolicy::new(self.inner.clone())
     }
 
+    /// Lists GatewaySecurityPolicies in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_gateway_security_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_gateway_security_policies(
+        &self,
+    ) -> super::builder::network_security::ListGatewaySecurityPolicies {
+        super::builder::network_security::ListGatewaySecurityPolicies::new(self.inner.clone())
+    }
+
+    /// Gets details of a single GatewaySecurityPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_gateway_security_policy()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_gateway_security_policy(
+        &self,
+    ) -> super::builder::network_security::GetGatewaySecurityPolicy {
+        super::builder::network_security::GetGatewaySecurityPolicy::new(self.inner.clone())
+    }
+
+    /// Creates a new GatewaySecurityPolicy in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_gateway_security_policy()
+    ///         .set_parent(parent)
+    ///         .set_gateway_security_policy(
+    ///             GatewaySecurityPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_gateway_security_policy(
+        &self,
+    ) -> super::builder::network_security::CreateGatewaySecurityPolicy {
+        super::builder::network_security::CreateGatewaySecurityPolicy::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single GatewaySecurityPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_gateway_security_policy()
+    ///         .set_gateway_security_policy(
+    ///             GatewaySecurityPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_gateway_security_policy(
+        &self,
+    ) -> super::builder::network_security::UpdateGatewaySecurityPolicy {
+        super::builder::network_security::UpdateGatewaySecurityPolicy::new(self.inner.clone())
+    }
+
+    /// Deletes a single GatewaySecurityPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_gateway_security_policy()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_gateway_security_policy(
+        &self,
+    ) -> super::builder::network_security::DeleteGatewaySecurityPolicy {
+        super::builder::network_security::DeleteGatewaySecurityPolicy::new(self.inner.clone())
+    }
+
+    /// Lists GatewaySecurityPolicyRules in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_gateway_security_policy_rules()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_gateway_security_policy_rules(
+        &self,
+    ) -> super::builder::network_security::ListGatewaySecurityPolicyRules {
+        super::builder::network_security::ListGatewaySecurityPolicyRules::new(self.inner.clone())
+    }
+
+    /// Gets details of a single GatewaySecurityPolicyRule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_gateway_security_policy_rule()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_gateway_security_policy_rule(
+        &self,
+    ) -> super::builder::network_security::GetGatewaySecurityPolicyRule {
+        super::builder::network_security::GetGatewaySecurityPolicyRule::new(self.inner.clone())
+    }
+
+    /// Creates a new GatewaySecurityPolicy in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_gateway_security_policy_rule()
+    ///         .set_parent(parent)
+    ///         .set_gateway_security_policy_rule(
+    ///             GatewaySecurityPolicyRule::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_gateway_security_policy_rule(
+        &self,
+    ) -> super::builder::network_security::CreateGatewaySecurityPolicyRule {
+        super::builder::network_security::CreateGatewaySecurityPolicyRule::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single GatewaySecurityPolicyRule.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::GatewaySecurityPolicyRule;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_gateway_security_policy_rule()
+    ///         .set_gateway_security_policy_rule(
+    ///             GatewaySecurityPolicyRule::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_gateway_security_policy_rule(
+        &self,
+    ) -> super::builder::network_security::UpdateGatewaySecurityPolicyRule {
+        super::builder::network_security::UpdateGatewaySecurityPolicyRule::new(self.inner.clone())
+    }
+
+    /// Deletes a single GatewaySecurityPolicyRule.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_gateway_security_policy_rule()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_gateway_security_policy_rule(
+        &self,
+    ) -> super::builder::network_security::DeleteGatewaySecurityPolicyRule {
+        super::builder::network_security::DeleteGatewaySecurityPolicyRule::new(self.inner.clone())
+    }
+
+    /// Lists UrlLists in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_url_lists()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_url_lists(&self) -> super::builder::network_security::ListUrlLists {
+        super::builder::network_security::ListUrlLists::new(self.inner.clone())
+    }
+
+    /// Gets details of a single UrlList.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_url_list()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_url_list(&self) -> super::builder::network_security::GetUrlList {
+        super::builder::network_security::GetUrlList::new(self.inner.clone())
+    }
+
+    /// Creates a new UrlList in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::UrlList;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_url_list()
+    ///         .set_parent(parent)
+    ///         .set_url_list(
+    ///             UrlList::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_url_list(&self) -> super::builder::network_security::CreateUrlList {
+        super::builder::network_security::CreateUrlList::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single UrlList.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::UrlList;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_url_list()
+    ///         .set_url_list(
+    ///             UrlList::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_url_list(&self) -> super::builder::network_security::UpdateUrlList {
+        super::builder::network_security::UpdateUrlList::new(self.inner.clone())
+    }
+
+    /// Deletes a single UrlList.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_url_list()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_url_list(&self) -> super::builder::network_security::DeleteUrlList {
+        super::builder::network_security::DeleteUrlList::new(self.inner.clone())
+    }
+
+    /// Lists TlsInspectionPolicies in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tls_inspection_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_tls_inspection_policies(
+        &self,
+    ) -> super::builder::network_security::ListTlsInspectionPolicies {
+        super::builder::network_security::ListTlsInspectionPolicies::new(self.inner.clone())
+    }
+
+    /// Gets details of a single TlsInspectionPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_tls_inspection_policy()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_tls_inspection_policy(
+        &self,
+    ) -> super::builder::network_security::GetTlsInspectionPolicy {
+        super::builder::network_security::GetTlsInspectionPolicy::new(self.inner.clone())
+    }
+
+    /// Creates a new TlsInspectionPolicy in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_tls_inspection_policy()
+    ///         .set_parent(parent)
+    ///         .set_tls_inspection_policy(
+    ///             TlsInspectionPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_tls_inspection_policy(
+        &self,
+    ) -> super::builder::network_security::CreateTlsInspectionPolicy {
+        super::builder::network_security::CreateTlsInspectionPolicy::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single TlsInspectionPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::TlsInspectionPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_tls_inspection_policy()
+    ///         .set_tls_inspection_policy(
+    ///             TlsInspectionPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_tls_inspection_policy(
+        &self,
+    ) -> super::builder::network_security::UpdateTlsInspectionPolicy {
+        super::builder::network_security::UpdateTlsInspectionPolicy::new(self.inner.clone())
+    }
+
+    /// Deletes a single TlsInspectionPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_tls_inspection_policy()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_tls_inspection_policy(
+        &self,
+    ) -> super::builder::network_security::DeleteTlsInspectionPolicy {
+        super::builder::network_security::DeleteTlsInspectionPolicy::new(self.inner.clone())
+    }
+
+    /// Lists AuthzPolicies in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_authz_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_authz_policies(&self) -> super::builder::network_security::ListAuthzPolicies {
+        super::builder::network_security::ListAuthzPolicies::new(self.inner.clone())
+    }
+
+    /// Gets details of a single AuthzPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_authz_policy()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_authz_policy(&self) -> super::builder::network_security::GetAuthzPolicy {
+        super::builder::network_security::GetAuthzPolicy::new(self.inner.clone())
+    }
+
+    /// Creates a new AuthzPolicy in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_authz_policy()
+    ///         .set_parent(parent)
+    ///         .set_authz_policy(
+    ///             AuthzPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_authz_policy(&self) -> super::builder::network_security::CreateAuthzPolicy {
+        super::builder::network_security::CreateAuthzPolicy::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single AuthzPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::AuthzPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_authz_policy()
+    ///         .set_authz_policy(
+    ///             AuthzPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_authz_policy(&self) -> super::builder::network_security::UpdateAuthzPolicy {
+        super::builder::network_security::UpdateAuthzPolicy::new(self.inner.clone())
+    }
+
+    /// Deletes a single AuthzPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_authz_policy()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_authz_policy(&self) -> super::builder::network_security::DeleteAuthzPolicy {
+        super::builder::network_security::DeleteAuthzPolicy::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -2014,5 +6019,708 @@ impl NetworkSecurity {
     /// ```
     pub fn cancel_operation(&self) -> super::builder::network_security::CancelOperation {
         super::builder::network_security::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Network Security API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = OrganizationSecurityProfileGroupService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_security_profile_groups()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Organization SecurityProfileGroup is created under organization.
+///
+/// # Configuration
+///
+/// To configure `OrganizationSecurityProfileGroupService` use the `with_*` methods in the type returned
+/// by [builder()][OrganizationSecurityProfileGroupService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://networksecurity.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::organization_security_profile_group_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::organization_security_profile_group_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `OrganizationSecurityProfileGroupService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `OrganizationSecurityProfileGroupService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct OrganizationSecurityProfileGroupService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::OrganizationSecurityProfileGroupService>,
+}
+
+impl OrganizationSecurityProfileGroupService {
+    /// Returns a builder for [OrganizationSecurityProfileGroupService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// let client = OrganizationSecurityProfileGroupService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::organization_security_profile_group_service::ClientBuilder {
+        crate::new_client_builder(
+            super::builder::organization_security_profile_group_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::OrganizationSecurityProfileGroupService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::OrganizationSecurityProfileGroupService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::OrganizationSecurityProfileGroupService> {
+        super::transport::OrganizationSecurityProfileGroupService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::OrganizationSecurityProfileGroupService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::OrganizationSecurityProfileGroupService::new)
+    }
+
+    /// Lists SecurityProfileGroups in a given organization and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_security_profile_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_security_profile_groups(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::ListSecurityProfileGroups
+    {
+        super::builder::organization_security_profile_group_service::ListSecurityProfileGroups::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets details of a single SecurityProfileGroup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_security_profile_group()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_security_profile_group(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::GetSecurityProfileGroup {
+        super::builder::organization_security_profile_group_service::GetSecurityProfileGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Creates a new SecurityProfileGroup in a given organization and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_security_profile_group()
+    ///         .set_parent(parent)
+    ///         .set_security_profile_group(
+    ///             SecurityProfileGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_security_profile_group(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::CreateSecurityProfileGroup
+    {
+        super::builder::organization_security_profile_group_service::CreateSecurityProfileGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates the parameters of a single SecurityProfileGroup.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfileGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_security_profile_group()
+    ///         .set_security_profile_group(
+    ///             SecurityProfileGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_security_profile_group(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::UpdateSecurityProfileGroup
+    {
+        super::builder::organization_security_profile_group_service::UpdateSecurityProfileGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes a single SecurityProfileGroup.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_security_profile_group()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_security_profile_group(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::DeleteSecurityProfileGroup
+    {
+        super::builder::organization_security_profile_group_service::DeleteSecurityProfileGroup::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists SecurityProfiles in a given organization and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_security_profiles()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_security_profiles(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::ListSecurityProfiles {
+        super::builder::organization_security_profile_group_service::ListSecurityProfiles::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets details of a single SecurityProfile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_security_profile()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_security_profile(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::GetSecurityProfile {
+        super::builder::organization_security_profile_group_service::GetSecurityProfile::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Creates a new SecurityProfile in a given organization and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_security_profile()
+    ///         .set_parent(parent)
+    ///         .set_security_profile(
+    ///             SecurityProfile::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_security_profile(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::CreateSecurityProfile {
+        super::builder::organization_security_profile_group_service::CreateSecurityProfile::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Updates the parameters of a single SecurityProfile.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::SecurityProfile;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_security_profile()
+    ///         .set_security_profile(
+    ///             SecurityProfile::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_security_profile(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::UpdateSecurityProfile {
+        super::builder::organization_security_profile_group_service::UpdateSecurityProfile::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes a single SecurityProfile.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_security_profile()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_security_profile(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::DeleteSecurityProfile {
+        super::builder::organization_security_profile_group_service::DeleteSecurityProfile::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_locations(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::ListLocations {
+        super::builder::organization_security_profile_group_service::ListLocations::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::GetLocation {
+        super::builder::organization_security_profile_group_service::GetLocation::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::SetIamPolicy {
+        super::builder::organization_security_profile_group_service::SetIamPolicy::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::GetIamPolicy {
+        super::builder::organization_security_profile_group_service::GetIamPolicy::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::TestIamPermissions {
+        super::builder::organization_security_profile_group_service::TestIamPermissions::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::ListOperations {
+        super::builder::organization_security_profile_group_service::ListOperations::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::GetOperation {
+        super::builder::organization_security_profile_group_service::GetOperation::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::DeleteOperation {
+        super::builder::organization_security_profile_group_service::DeleteOperation::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationSecurityProfileGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationSecurityProfileGroupService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(
+        &self,
+    ) -> super::builder::organization_security_profile_group_service::CancelOperation {
+        super::builder::organization_security_profile_group_service::CancelOperation::new(
+            self.inner.clone(),
+        )
     }
 }

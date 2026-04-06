@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,27 +24,25 @@ pub(crate) async fn resolve(
 ) -> Result<String, CredentialsError> {
     let env_universe = std::env::var(UNIVERSE_DOMAIN_VAR).ok();
     let cred_universe = cred.universe_domain().await;
-
-    let universe_domain = env_universe
+    let cred_universe = cred_universe.as_deref().unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
+    let client_universe = env_universe
         .as_deref()
         .or(universe_domain_client_override)
-        .unwrap_or(DEFAULT_UNIVERSE_DOMAIN)
-        .to_string();
+        .unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
 
-    let cred_universe = cred_universe.as_deref().unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
-
-    if universe_domain != cred_universe {
+    if !cred_universe.eq(client_universe) {
         return Err(CredentialsError::from_msg(
             false,
             format!(
                 "The configured universe domain ({}) does not match the universe domain found in the credentials ({}). If you haven't configured the universe domain explicitly, `googleapis.com` is the default.",
-                universe_domain, cred_universe
+                client_universe, cred_universe
             ),
         ));
     }
 
-    Ok(universe_domain)
+    Ok(client_universe.to_string())
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -67,41 +65,59 @@ mod tests {
         }
     }
 
+    fn mock_credentials(universe_domain: Option<&str>) -> Credentials {
+        let mut provider = MockCredentials::new();
+        let universe_domain = universe_domain.map(|s| s.to_string());
+        provider
+            .expect_universe_domain()
+            .returning(move || universe_domain.clone());
+        Credentials::from(provider)
+    }
+
     #[tokio::test]
-    #[test_case(None, None, None, Ok(DEFAULT_UNIVERSE_DOMAIN); "default")]
-    #[test_case(Some("universe.com"), None, Some("universe.com"), Ok("universe.com"); "env var only")]
-    #[test_case(None, Some("universe.com"), Some("universe.com"), Ok("universe.com"); "client override only")]
-    #[test_case(Some("universe.com"), Some("universe.com"), Some("universe.com"), Ok("universe.com"); "all")]
-    #[test_case(None, None, Some("universe.com"), Err(CredentialsError::from_msg(false, "universe domain mismatch")); "credentials only")]
-    #[test_case(None, Some("test.com"), Some("universe.com"), Err(CredentialsError::from_msg(false, "universe domain mismatch")); "client override mismatch")]
-    #[test_case( Some("test.com"), None, Some("universe.com"), Err(CredentialsError::from_msg(false, "universe domain mismatch")); "env var override mismatch")]
+    #[test_case(None, None, None, DEFAULT_UNIVERSE_DOMAIN; "default")]
+    #[test_case(Some("universe.com"), None, Some("universe.com"), "universe.com"; "env var only")]
+    #[test_case(None, Some("universe.com"), Some("universe.com"), "universe.com"; "client override only")]
+    #[test_case(Some("universe.com"), Some("universe.com"), Some("universe.com"), "universe.com"; "all")]
     #[serial]
-    async fn universe_domain_resolve(
+    async fn universe_domain_resolve_success(
         env_domain: Option<&str>,
         client_override: Option<&str>,
         cred_domain: Option<&str>,
-        expected: Result<&str, CredentialsError>,
+        expected: &str,
     ) -> TestResult {
         let _env = match env_domain {
-            Some(domain) => ScopedEnv::set("GOOGLE_CLOUD_UNIVERSE_DOMAIN", domain),
-            None => ScopedEnv::remove("GOOGLE_CLOUD_UNIVERSE_DOMAIN"),
+            Some(domain) => ScopedEnv::set(UNIVERSE_DOMAIN_VAR, domain),
+            None => ScopedEnv::remove(UNIVERSE_DOMAIN_VAR),
         };
-        let mut provider = MockCredentials::new();
-        let cred_domain = cred_domain.map(|s| s.to_string());
-        provider
-            .expect_universe_domain()
-            .returning(move || cred_domain.clone());
-        let cred = Credentials::from(provider);
+        let cred = mock_credentials(cred_domain);
 
-        let universe_domain = resolve(client_override, &cred).await;
-        let expected = expected.map(|s| s.to_string());
-        match (universe_domain, expected) {
-            (Ok(got), Ok(expected)) => {
-                assert_eq!(got, expected, "{got:?}");
-                Ok(())
-            }
-            (Err(_), Err(_)) => Ok(()),
-            (got, expected) => panic!("Expected {:?}, got {:?}", expected, got),
-        }
+        let universe_domain = resolve(client_override, &cred).await?;
+        assert_eq!(universe_domain.as_str(), expected, "{universe_domain:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[test_case(None, None, Some("universe.com"); "credentials only")]
+    #[test_case(None, Some("test.com"), Some("universe.com"); "client override mismatch")]
+    #[test_case( Some("test.com"), None, Some("universe.com"); "env var override mismatch")]
+    #[test_case(None, Some("universe.com"), None; "client override only mismatch")]
+    #[serial]
+    async fn universe_domain_resolve_failure(
+        env_domain: Option<&str>,
+        client_override: Option<&str>,
+        cred_domain: Option<&str>,
+    ) -> TestResult {
+        let _env = match env_domain {
+            Some(domain) => ScopedEnv::set(UNIVERSE_DOMAIN_VAR, domain),
+            None => ScopedEnv::remove(UNIVERSE_DOMAIN_VAR),
+        };
+        let cred = mock_credentials(cred_domain);
+
+        let err = resolve(client_override, &cred).await.unwrap_err();
+        assert!(!err.is_transient(), "{err:?}");
+
+        Ok(())
     }
 }

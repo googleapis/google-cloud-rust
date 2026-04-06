@@ -18,7 +18,7 @@ use tokio_util::sync::CancellationToken;
 /// A token to signal and await shutdown of a stream.
 ///
 /// # Example
-/// ```no_rust
+/// ```
 /// use google_cloud_pubsub::subscriber::MessageStream;
 /// async fn sample(stream: MessageStream) {
 ///   // Get a shutdown token for the stream.
@@ -46,6 +46,11 @@ impl ShutdownToken {
     /// [setter]: crate::builder::subscriber::Subscribe::set_shutdown_behavior
     pub async fn shutdown(&self) {
         self.inner.cancel();
+        self.fut.clone().await
+    }
+
+    #[cfg(test)]
+    pub(super) async fn wait_for_shutdown(&self) {
         self.fut.clone().await
     }
 }

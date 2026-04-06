@@ -103,6 +103,17 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Memorystore::get_shared_regional_certificate_authority].
+    fn get_shared_regional_certificate_authority(
+        &self,
+        _req: crate::model::GetSharedRegionalCertificateAuthorityRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SharedRegionalCertificateAuthority>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Memorystore::reschedule_maintenance].
     fn reschedule_maintenance(
         &self,

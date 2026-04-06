@@ -22,6 +22,8 @@ where
     T: super::stub::PolicyTroubleshooter + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> PolicyTroubleshooter<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::PolicyTroubleshooter + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,12 +43,38 @@ impl<T> super::stub::PolicyTroubleshooter for PolicyTroubleshooter<T>
 where
     T: super::stub::PolicyTroubleshooter + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn troubleshoot_iam_policy(
         &self,
         req: crate::model::TroubleshootIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TroubleshootIamPolicyResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::PolicyTroubleshooter::troubleshoot_iam_policy",
+                self.inner.troubleshoot_iam_policy(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.troubleshoot_iam_policy(req, options).await
     }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    pub(crate) static INSTRUMENTATION_CLIENT_INFO: std::sync::LazyLock<
+        gaxi::options::InstrumentationClientInfo,
+    > = std::sync::LazyLock::new(|| {
+        let mut info = gaxi::options::InstrumentationClientInfo::default();
+        info.service_name = "policytroubleshooter";
+        info.client_version = VERSION;
+        info.client_artifact = NAME;
+        info.default_host = "policytroubleshooter";
+        info
+    });
 }

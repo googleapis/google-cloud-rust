@@ -219,11 +219,20 @@ pub struct AdvancedVoiceOptions {
     /// and has a higher latency.
     pub low_latency_journey_synthesis: std::option::Option<bool>,
 
-    /// Optional. Input only. If true, relaxes safety filters for Gemini TTS. Only
-    /// supported for accounts linked to Invoiced (Offline) Cloud billing accounts.
-    /// Otherwise, will return result
-    /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
+    /// Optional. Input only. Deprecated, use safety_settings instead.
+    /// If true, relaxes safety filters for Gemini TTS.
+    #[deprecated]
     pub relax_safety_filters: bool,
+
+    /// Optional. Input only. This applies to Gemini TTS only. If set, the category
+    /// specified in the safety setting will be blocked if the harm probability is
+    /// above the threshold. Otherwise, the safety filter will be disabled by
+    /// default.
+    pub safety_settings: std::option::Option<crate::model::advanced_voice_options::SafetySettings>,
+
+    /// Optional. If true, textnorm will be applied to text input. This feature is
+    /// enabled by default. Only applies for Gemini TTS.
+    pub enable_textnorm: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -274,8 +283,73 @@ impl AdvancedVoiceOptions {
     /// # use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
     /// let x = AdvancedVoiceOptions::new().set_relax_safety_filters(true);
     /// ```
+    #[deprecated]
     pub fn set_relax_safety_filters<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.relax_safety_filters = v.into();
+        self
+    }
+
+    /// Sets the value of [safety_settings][crate::model::AdvancedVoiceOptions::safety_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// use google_cloud_texttospeech_v1::model::advanced_voice_options::SafetySettings;
+    /// let x = AdvancedVoiceOptions::new().set_safety_settings(SafetySettings::default()/* use setters */);
+    /// ```
+    pub fn set_safety_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::advanced_voice_options::SafetySettings>,
+    {
+        self.safety_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [safety_settings][crate::model::AdvancedVoiceOptions::safety_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// use google_cloud_texttospeech_v1::model::advanced_voice_options::SafetySettings;
+    /// let x = AdvancedVoiceOptions::new().set_or_clear_safety_settings(Some(SafetySettings::default()/* use setters */));
+    /// let x = AdvancedVoiceOptions::new().set_or_clear_safety_settings(None::<SafetySettings>);
+    /// ```
+    pub fn set_or_clear_safety_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::advanced_voice_options::SafetySettings>,
+    {
+        self.safety_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [enable_textnorm][crate::model::AdvancedVoiceOptions::enable_textnorm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// let x = AdvancedVoiceOptions::new().set_enable_textnorm(true);
+    /// ```
+    pub fn set_enable_textnorm<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_textnorm = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_textnorm][crate::model::AdvancedVoiceOptions::enable_textnorm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// let x = AdvancedVoiceOptions::new().set_or_clear_enable_textnorm(Some(false));
+    /// let x = AdvancedVoiceOptions::new().set_or_clear_enable_textnorm(None::<bool>);
+    /// ```
+    pub fn set_or_clear_enable_textnorm<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_textnorm = v.map(|x| x.into());
         self
     }
 }
@@ -283,6 +357,425 @@ impl AdvancedVoiceOptions {
 impl wkt::message::Message for AdvancedVoiceOptions {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.texttospeech.v1.AdvancedVoiceOptions"
+    }
+}
+
+/// Defines additional types related to [AdvancedVoiceOptions].
+pub mod advanced_voice_options {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Safety setting for a single harm category.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SafetySetting {
+        /// The harm category to apply the safety setting to.
+        pub category: crate::model::advanced_voice_options::HarmCategory,
+
+        /// The harm block threshold for the safety setting.
+        pub threshold: crate::model::advanced_voice_options::HarmBlockThreshold,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SafetySetting {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [category][crate::model::advanced_voice_options::SafetySetting::category].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_texttospeech_v1::model::advanced_voice_options::SafetySetting;
+        /// use google_cloud_texttospeech_v1::model::advanced_voice_options::HarmCategory;
+        /// let x0 = SafetySetting::new().set_category(HarmCategory::HateSpeech);
+        /// let x1 = SafetySetting::new().set_category(HarmCategory::DangerousContent);
+        /// let x2 = SafetySetting::new().set_category(HarmCategory::Harassment);
+        /// ```
+        pub fn set_category<
+            T: std::convert::Into<crate::model::advanced_voice_options::HarmCategory>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.category = v.into();
+            self
+        }
+
+        /// Sets the value of [threshold][crate::model::advanced_voice_options::SafetySetting::threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_texttospeech_v1::model::advanced_voice_options::SafetySetting;
+        /// use google_cloud_texttospeech_v1::model::advanced_voice_options::HarmBlockThreshold;
+        /// let x0 = SafetySetting::new().set_threshold(HarmBlockThreshold::BlockLowAndAbove);
+        /// let x1 = SafetySetting::new().set_threshold(HarmBlockThreshold::BlockMediumAndAbove);
+        /// let x2 = SafetySetting::new().set_threshold(HarmBlockThreshold::BlockOnlyHigh);
+        /// ```
+        pub fn set_threshold<
+            T: std::convert::Into<crate::model::advanced_voice_options::HarmBlockThreshold>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.threshold = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SafetySetting {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.texttospeech.v1.AdvancedVoiceOptions.SafetySetting"
+        }
+    }
+
+    /// Safety settings for the request.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SafetySettings {
+        /// The safety settings for the request.
+        pub settings: std::vec::Vec<crate::model::advanced_voice_options::SafetySetting>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SafetySettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [settings][crate::model::advanced_voice_options::SafetySettings::settings].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_texttospeech_v1::model::advanced_voice_options::SafetySettings;
+        /// use google_cloud_texttospeech_v1::model::advanced_voice_options::SafetySetting;
+        /// let x = SafetySettings::new()
+        ///     .set_settings([
+        ///         SafetySetting::default()/* use setters */,
+        ///         SafetySetting::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_settings<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::advanced_voice_options::SafetySetting>,
+        {
+            use std::iter::Iterator;
+            self.settings = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SafetySettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.texttospeech.v1.AdvancedVoiceOptions.SafetySettings"
+        }
+    }
+
+    /// Harm categories that will block the content.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HarmCategory {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Content that promotes violence or incites hatred against individuals or
+        /// groups based on certain attributes.
+        HateSpeech,
+        /// Content that promotes, facilitates, or enables dangerous activities.
+        DangerousContent,
+        /// Abusive, threatening, or content intended to bully, torment, or ridicule.
+        Harassment,
+        /// Content that contains sexually explicit material.
+        SexuallyExplicit,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HarmCategory::value] or
+        /// [HarmCategory::name].
+        UnknownValue(harm_category::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod harm_category {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl HarmCategory {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::HateSpeech => std::option::Option::Some(1),
+                Self::DangerousContent => std::option::Option::Some(2),
+                Self::Harassment => std::option::Option::Some(3),
+                Self::SexuallyExplicit => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("HARM_CATEGORY_UNSPECIFIED"),
+                Self::HateSpeech => std::option::Option::Some("HARM_CATEGORY_HATE_SPEECH"),
+                Self::DangerousContent => {
+                    std::option::Option::Some("HARM_CATEGORY_DANGEROUS_CONTENT")
+                }
+                Self::Harassment => std::option::Option::Some("HARM_CATEGORY_HARASSMENT"),
+                Self::SexuallyExplicit => {
+                    std::option::Option::Some("HARM_CATEGORY_SEXUALLY_EXPLICIT")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for HarmCategory {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for HarmCategory {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for HarmCategory {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::HateSpeech,
+                2 => Self::DangerousContent,
+                3 => Self::Harassment,
+                4 => Self::SexuallyExplicit,
+                _ => Self::UnknownValue(harm_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for HarmCategory {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HARM_CATEGORY_UNSPECIFIED" => Self::Unspecified,
+                "HARM_CATEGORY_HATE_SPEECH" => Self::HateSpeech,
+                "HARM_CATEGORY_DANGEROUS_CONTENT" => Self::DangerousContent,
+                "HARM_CATEGORY_HARASSMENT" => Self::Harassment,
+                "HARM_CATEGORY_SEXUALLY_EXPLICIT" => Self::SexuallyExplicit,
+                _ => Self::UnknownValue(harm_category::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for HarmCategory {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::HateSpeech => serializer.serialize_i32(1),
+                Self::DangerousContent => serializer.serialize_i32(2),
+                Self::Harassment => serializer.serialize_i32(3),
+                Self::SexuallyExplicit => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for HarmCategory {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HarmCategory>::new(
+                ".google.cloud.texttospeech.v1.AdvancedVoiceOptions.HarmCategory",
+            ))
+        }
+    }
+
+    /// Harm block thresholds for the safety settings.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HarmBlockThreshold {
+        /// The harm block threshold is unspecified.
+        Unspecified,
+        /// Block content with a low harm probability or higher.
+        BlockLowAndAbove,
+        /// Block content with a medium harm probability or higher.
+        BlockMediumAndAbove,
+        /// Block content with a high harm probability.
+        BlockOnlyHigh,
+        /// Do not block any content, regardless of its harm probability.
+        BlockNone,
+        /// Turn off the safety filter entirely.
+        Off,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HarmBlockThreshold::value] or
+        /// [HarmBlockThreshold::name].
+        UnknownValue(harm_block_threshold::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod harm_block_threshold {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl HarmBlockThreshold {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::BlockLowAndAbove => std::option::Option::Some(1),
+                Self::BlockMediumAndAbove => std::option::Option::Some(2),
+                Self::BlockOnlyHigh => std::option::Option::Some(3),
+                Self::BlockNone => std::option::Option::Some(4),
+                Self::Off => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("HARM_BLOCK_THRESHOLD_UNSPECIFIED"),
+                Self::BlockLowAndAbove => std::option::Option::Some("BLOCK_LOW_AND_ABOVE"),
+                Self::BlockMediumAndAbove => std::option::Option::Some("BLOCK_MEDIUM_AND_ABOVE"),
+                Self::BlockOnlyHigh => std::option::Option::Some("BLOCK_ONLY_HIGH"),
+                Self::BlockNone => std::option::Option::Some("BLOCK_NONE"),
+                Self::Off => std::option::Option::Some("OFF"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for HarmBlockThreshold {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for HarmBlockThreshold {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for HarmBlockThreshold {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::BlockLowAndAbove,
+                2 => Self::BlockMediumAndAbove,
+                3 => Self::BlockOnlyHigh,
+                4 => Self::BlockNone,
+                5 => Self::Off,
+                _ => Self::UnknownValue(harm_block_threshold::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for HarmBlockThreshold {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HARM_BLOCK_THRESHOLD_UNSPECIFIED" => Self::Unspecified,
+                "BLOCK_LOW_AND_ABOVE" => Self::BlockLowAndAbove,
+                "BLOCK_MEDIUM_AND_ABOVE" => Self::BlockMediumAndAbove,
+                "BLOCK_ONLY_HIGH" => Self::BlockOnlyHigh,
+                "BLOCK_NONE" => Self::BlockNone,
+                "OFF" => Self::Off,
+                _ => Self::UnknownValue(harm_block_threshold::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for HarmBlockThreshold {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::BlockLowAndAbove => serializer.serialize_i32(1),
+                Self::BlockMediumAndAbove => serializer.serialize_i32(2),
+                Self::BlockOnlyHigh => serializer.serialize_i32(3),
+                Self::BlockNone => serializer.serialize_i32(4),
+                Self::Off => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for HarmBlockThreshold {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HarmBlockThreshold>::new(
+                ".google.cloud.texttospeech.v1.AdvancedVoiceOptions.HarmBlockThreshold",
+            ))
+        }
     }
 }
 
@@ -299,7 +792,7 @@ pub struct SynthesizeSpeechRequest {
     /// Required. The configuration of the synthesized audio.
     pub audio_config: std::option::Option<crate::model::AudioConfig>,
 
-    /// Advanced voice options.
+    /// Optional. Advanced voice options.
     pub advanced_voice_options: std::option::Option<crate::model::AdvancedVoiceOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1276,8 +1769,8 @@ pub mod synthesis_input {
     pub enum InputSource {
         /// The raw text to be synthesized.
         Text(std::string::String),
-        /// Markup for HD voices specifically. This field may not be used with any
-        /// other voices.
+        /// Markup for Chirp 3: HD voices specifically. This field may not be used
+        /// with any other voices.
         Markup(std::string::String),
         /// The SSML document to be synthesized. The SSML document must be valid
         /// and well-formed. Otherwise the RPC will fail and return
@@ -2022,6 +2515,9 @@ pub struct StreamingSynthesizeConfig {
     /// be inside a phoneme tag.
     pub custom_pronunciations: std::option::Option<crate::model::CustomPronunciations>,
 
+    /// Optional. Advanced voice options.
+    pub advanced_voice_options: std::option::Option<crate::model::AdvancedVoiceOptions>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2126,6 +2622,39 @@ impl StreamingSynthesizeConfig {
         T: std::convert::Into<crate::model::CustomPronunciations>,
     {
         self.custom_pronunciations = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [advanced_voice_options][crate::model::StreamingSynthesizeConfig::advanced_voice_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeConfig;
+    /// use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// let x = StreamingSynthesizeConfig::new().set_advanced_voice_options(AdvancedVoiceOptions::default()/* use setters */);
+    /// ```
+    pub fn set_advanced_voice_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+    {
+        self.advanced_voice_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [advanced_voice_options][crate::model::StreamingSynthesizeConfig::advanced_voice_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_texttospeech_v1::model::StreamingSynthesizeConfig;
+    /// use google_cloud_texttospeech_v1::model::AdvancedVoiceOptions;
+    /// let x = StreamingSynthesizeConfig::new().set_or_clear_advanced_voice_options(Some(AdvancedVoiceOptions::default()/* use setters */));
+    /// let x = StreamingSynthesizeConfig::new().set_or_clear_advanced_voice_options(None::<AdvancedVoiceOptions>);
+    /// ```
+    pub fn set_or_clear_advanced_voice_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+    {
+        self.advanced_voice_options = v.map(|x| x.into());
         self
     }
 }
@@ -2336,8 +2865,8 @@ pub mod streaming_synthesis_input {
         /// contains complete, terminating sentences, which results in better prosody
         /// in the output audio.
         Text(std::string::String),
-        /// Markup for HD voices specifically. This field may not be used with any
-        /// other voices.
+        /// Markup for Chirp 3: HD voices specifically. This field may not be used
+        /// with any other voices.
         Markup(std::string::String),
         /// Multi-speaker markup for Gemini TTS. This field may not
         /// be used with any other voices.

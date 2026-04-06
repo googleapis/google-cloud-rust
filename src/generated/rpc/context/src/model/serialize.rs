@@ -223,6 +223,9 @@ impl serde::ser::Serialize for super::attribute_context::Request {
         if self.auth.is_some() {
             state.serialize_entry("auth", &self.auth)?;
         }
+        if !self.origin.is_empty() {
+            state.serialize_entry("origin", &self.origin)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

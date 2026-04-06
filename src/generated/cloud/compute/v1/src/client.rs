@@ -685,6 +685,15 @@ impl BackendBuckets {
         super::builder::backend_buckets::AddSignedUrlKey::new(self.inner.clone())
     }
 
+    /// Retrieves the list of all BackendBucket resources, regional and global,
+    /// available to the specified project.
+    ///
+    /// To prevent failure, it is recommended that you set the
+    /// `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(&self) -> super::builder::backend_buckets::AggregatedList {
+        super::builder::backend_buckets::AggregatedList::new(self.inner.clone())
+    }
+
     /// Deletes the specified BackendBucket resource.
     pub fn delete(&self) -> super::builder::backend_buckets::Delete {
         super::builder::backend_buckets::Delete::new(self.inner.clone())
@@ -717,6 +726,11 @@ impl BackendBuckets {
     /// project.
     pub fn list(&self) -> super::builder::backend_buckets::List {
         super::builder::backend_buckets::List::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of all usable backend buckets in the specified project.
+    pub fn list_usable(&self) -> super::builder::backend_buckets::ListUsable {
+        super::builder::backend_buckets::ListUsable::new(self.inner.clone())
     }
 
     /// Updates the specified BackendBucket resource with the data included in the
@@ -1474,6 +1488,12 @@ impl Disks {
     /// of update-mask.
     pub fn update(&self) -> super::builder::disks::Update {
         super::builder::disks::Update::new(self.inner.clone())
+    }
+
+    /// Rotates the customer-managed
+    /// encryption key to the latest version for the specified persistent disk.
+    pub fn update_kms_key(&self) -> super::builder::disks::UpdateKmsKey {
+        super::builder::disks::UpdateKmsKey::new(self.inner.clone())
     }
 
     /// Retrieves the specified zone-specific Operations resource.
@@ -9944,6 +9964,173 @@ impl RegionAutoscalers {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::RegionBackendBuckets;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = RegionBackendBuckets::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionBackendBuckets` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionBackendBuckets` use the `with_*` methods in the type returned
+/// by [builder()][RegionBackendBuckets::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_backend_buckets::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_backend_buckets::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionBackendBuckets` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `RegionBackendBuckets` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-backend-buckets")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-backend-buckets")))]
+#[derive(Clone, Debug)]
+pub struct RegionBackendBuckets {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionBackendBuckets>,
+}
+
+#[cfg(feature = "region-backend-buckets")]
+impl RegionBackendBuckets {
+    /// Returns a builder for [RegionBackendBuckets].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::RegionBackendBuckets;
+    /// let client = RegionBackendBuckets::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::region_backend_buckets::ClientBuilder {
+        crate::new_client_builder(super::builder::region_backend_buckets::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionBackendBuckets + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RegionBackendBuckets>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionBackendBuckets> {
+        super::transport::RegionBackendBuckets::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionBackendBuckets> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionBackendBuckets::new)
+    }
+
+    /// Deletes the specified regional BackendBucket resource.
+    pub fn delete(&self) -> super::builder::region_backend_buckets::Delete {
+        super::builder::region_backend_buckets::Delete::new(self.inner.clone())
+    }
+
+    /// Returns the specified regional BackendBucket resource.
+    pub fn get(&self) -> super::builder::region_backend_buckets::Get {
+        super::builder::region_backend_buckets::Get::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. May be empty if no such
+    /// policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::region_backend_buckets::GetIamPolicy {
+        super::builder::region_backend_buckets::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Creates a RegionBackendBucket in the specified project in the given scope
+    /// using the parameters that are included in the request.
+    pub fn insert(&self) -> super::builder::region_backend_buckets::Insert {
+        super::builder::region_backend_buckets::Insert::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of BackendBucket resources available to the specified
+    /// project in the given region.
+    pub fn list(&self) -> super::builder::region_backend_buckets::List {
+        super::builder::region_backend_buckets::List::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of all usable backend buckets in the specified project in
+    /// the given region.
+    pub fn list_usable(&self) -> super::builder::region_backend_buckets::ListUsable {
+        super::builder::region_backend_buckets::ListUsable::new(self.inner.clone())
+    }
+
+    /// Updates the specified  BackendBucket resource with the data included in the
+    /// request. This method supportsPATCH
+    /// semantics and uses theJSON merge
+    /// patch format and processing rules.
+    pub fn patch(&self) -> super::builder::region_backend_buckets::Patch {
+        super::builder::region_backend_buckets::Patch::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource.
+    /// Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::region_backend_buckets::SetIamPolicy {
+        super::builder::region_backend_buckets::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::region_backend_buckets::TestIamPermissions {
+        super::builder::region_backend_buckets::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::region_backend_buckets::GetOperation {
+        super::builder::region_backend_buckets::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::RegionBackendServices;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = RegionBackendServices::builder().build().await?;
@@ -10404,6 +10591,12 @@ impl RegionCompositeHealthChecks {
         super::builder::region_composite_health_checks::Get::new(self.inner.clone())
     }
 
+    /// Gets the most recent health check results for this
+    /// regional CompositeHealthCheck.
+    pub fn get_health(&self) -> super::builder::region_composite_health_checks::GetHealth {
+        super::builder::region_composite_health_checks::GetHealth::new(self.inner.clone())
+    }
+
     /// Create a CompositeHealthCheck in the specified project in the given region
     /// using the parameters that are included in the request.
     pub fn insert(&self) -> super::builder::region_composite_health_checks::Insert {
@@ -10759,6 +10952,12 @@ impl RegionDisks {
     /// performed only on selected fields included as part of update-mask.
     pub fn update(&self) -> super::builder::region_disks::Update {
         super::builder::region_disks::Update::new(self.inner.clone())
+    }
+
+    /// Rotates the customer-managed
+    /// encryption key to the latest version for the specified persistent disk.
+    pub fn update_kms_key(&self) -> super::builder::region_disks::UpdateKmsKey {
+        super::builder::region_disks::UpdateKmsKey::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
@@ -11368,6 +11567,12 @@ impl RegionHealthSources {
     /// Returns the specified HealthSource resource in the given region.
     pub fn get(&self) -> super::builder::region_health_sources::Get {
         super::builder::region_health_sources::Get::new(self.inner.clone())
+    }
+
+    /// Gets the most recent health check results for this
+    /// regional HealthSource.
+    pub fn get_health(&self) -> super::builder::region_health_sources::GetHealth {
+        super::builder::region_health_sources::GetHealth::new(self.inner.clone())
     }
 
     /// Create a HealthSource in the specified project in the given region
@@ -16302,6 +16507,12 @@ impl Snapshots {
     /// Returns permissions that a caller has on the specified resource.
     pub fn test_iam_permissions(&self) -> super::builder::snapshots::TestIamPermissions {
         super::builder::snapshots::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Rotates the customer-managed
+    /// encryption key to the latest version for the specified snapshot.
+    pub fn update_kms_key(&self) -> super::builder::snapshots::UpdateKmsKey {
+        super::builder::snapshots::UpdateKmsKey::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.

@@ -781,6 +781,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BackendRule {
             __disable_auth,
             __protocol,
             __overrides_by_request_protocol,
+            __load_balancing_policy,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -821,6 +822,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BackendRule {
                             "overrides_by_request_protocol" => {
                                 Ok(__FieldTag::__overrides_by_request_protocol)
                             }
+                            "loadBalancingPolicy" => Ok(__FieldTag::__load_balancing_policy),
+                            "load_balancing_policy" => Ok(__FieldTag::__load_balancing_policy),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -995,6 +998,16 @@ impl<'de> serde::de::Deserialize<'de> for super::BackendRule {
                                         crate::model::BackendRule,
                                     >,
                                 >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__load_balancing_policy => {
+                            if !fields.insert(__FieldTag::__load_balancing_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for load_balancing_policy",
+                                ));
+                            }
+                            result.load_balancing_policy = map
+                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -1917,6 +1930,7 @@ impl<'de> serde::de::Deserialize<'de> for super::PhpSettings {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __common,
+            __library_package,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1938,6 +1952,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PhpSettings {
                         use std::string::ToString;
                         match value {
                             "common" => Ok(__FieldTag::__common),
+                            "libraryPackage" => Ok(__FieldTag::__library_package),
+                            "library_package" => Ok(__FieldTag::__library_package),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1971,6 +1987,16 @@ impl<'de> serde::de::Deserialize<'de> for super::PhpSettings {
                             }
                             result.common = map.next_value::<std::option::Option<crate::model::CommonLanguageSettings>>()?
                                 ;
+                        }
+                        __FieldTag::__library_package => {
+                            if !fields.insert(__FieldTag::__library_package) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for library_package",
+                                ));
+                            }
+                            result.library_package = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2610,6 +2636,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MethodSettings {
             __selector,
             __long_running,
             __auto_populated_fields,
+            __batching,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2635,6 +2662,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MethodSettings {
                             "long_running" => Ok(__FieldTag::__long_running),
                             "autoPopulatedFields" => Ok(__FieldTag::__auto_populated_fields),
                             "auto_populated_fields" => Ok(__FieldTag::__auto_populated_fields),
+                            "batching" => Ok(__FieldTag::__batching),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2686,6 +2714,15 @@ impl<'de> serde::de::Deserialize<'de> for super::MethodSettings {
                                 ));
                             }
                             result.auto_populated_fields = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__batching => {
+                            if !fields.insert(__FieldTag::__batching) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for batching",
+                                ));
+                            }
+                            result.batching = map.next_value::<std::option::Option<crate::model::BatchingConfigProto>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2907,6 +2944,443 @@ impl<'de> serde::de::Deserialize<'de> for super::SelectiveGapicGeneration {
                             }
                             result.generate_omitted_as_internal = map
                                 .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BatchingConfigProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __thresholds,
+            __batch_descriptor,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BatchingConfigProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "thresholds" => Ok(__FieldTag::__thresholds),
+                            "batchDescriptor" => Ok(__FieldTag::__batch_descriptor),
+                            "batch_descriptor" => Ok(__FieldTag::__batch_descriptor),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BatchingConfigProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BatchingConfigProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__thresholds => {
+                            if !fields.insert(__FieldTag::__thresholds) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for thresholds",
+                                ));
+                            }
+                            result.thresholds = map.next_value::<std::option::Option<crate::model::BatchingSettingsProto>>()?
+                                ;
+                        }
+                        __FieldTag::__batch_descriptor => {
+                            if !fields.insert(__FieldTag::__batch_descriptor) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for batch_descriptor",
+                                ));
+                            }
+                            result.batch_descriptor = map.next_value::<std::option::Option<crate::model::BatchingDescriptorProto>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BatchingSettingsProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __element_count_threshold,
+            __request_byte_threshold,
+            __delay_threshold,
+            __element_count_limit,
+            __request_byte_limit,
+            __flow_control_element_limit,
+            __flow_control_byte_limit,
+            __flow_control_limit_exceeded_behavior,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BatchingSettingsProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "elementCountThreshold" => Ok(__FieldTag::__element_count_threshold),
+                            "element_count_threshold" => Ok(__FieldTag::__element_count_threshold),
+                            "requestByteThreshold" => Ok(__FieldTag::__request_byte_threshold),
+                            "request_byte_threshold" => Ok(__FieldTag::__request_byte_threshold),
+                            "delayThreshold" => Ok(__FieldTag::__delay_threshold),
+                            "delay_threshold" => Ok(__FieldTag::__delay_threshold),
+                            "elementCountLimit" => Ok(__FieldTag::__element_count_limit),
+                            "element_count_limit" => Ok(__FieldTag::__element_count_limit),
+                            "requestByteLimit" => Ok(__FieldTag::__request_byte_limit),
+                            "request_byte_limit" => Ok(__FieldTag::__request_byte_limit),
+                            "flowControlElementLimit" => {
+                                Ok(__FieldTag::__flow_control_element_limit)
+                            }
+                            "flow_control_element_limit" => {
+                                Ok(__FieldTag::__flow_control_element_limit)
+                            }
+                            "flowControlByteLimit" => Ok(__FieldTag::__flow_control_byte_limit),
+                            "flow_control_byte_limit" => Ok(__FieldTag::__flow_control_byte_limit),
+                            "flowControlLimitExceededBehavior" => {
+                                Ok(__FieldTag::__flow_control_limit_exceeded_behavior)
+                            }
+                            "flow_control_limit_exceeded_behavior" => {
+                                Ok(__FieldTag::__flow_control_limit_exceeded_behavior)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BatchingSettingsProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BatchingSettingsProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__element_count_threshold => {
+                            if !fields.insert(__FieldTag::__element_count_threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for element_count_threshold",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.element_count_threshold =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__request_byte_threshold => {
+                            if !fields.insert(__FieldTag::__request_byte_threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_byte_threshold",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.request_byte_threshold =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__delay_threshold => {
+                            if !fields.insert(__FieldTag::__delay_threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for delay_threshold",
+                                ));
+                            }
+                            result.delay_threshold =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__element_count_limit => {
+                            if !fields.insert(__FieldTag::__element_count_limit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for element_count_limit",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.element_count_limit =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__request_byte_limit => {
+                            if !fields.insert(__FieldTag::__request_byte_limit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_byte_limit",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.request_byte_limit =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__flow_control_element_limit => {
+                            if !fields.insert(__FieldTag::__flow_control_element_limit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for flow_control_element_limit",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.flow_control_element_limit =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__flow_control_byte_limit => {
+                            if !fields.insert(__FieldTag::__flow_control_byte_limit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for flow_control_byte_limit",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.flow_control_byte_limit =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__flow_control_limit_exceeded_behavior => {
+                            if !fields.insert(__FieldTag::__flow_control_limit_exceeded_behavior) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for flow_control_limit_exceeded_behavior",
+                                ));
+                            }
+                            result.flow_control_limit_exceeded_behavior = map
+                                .next_value::<std::option::Option<
+                                    crate::model::FlowControlLimitExceededBehaviorProto,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BatchingDescriptorProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __batched_field,
+            __discriminator_fields,
+            __subresponse_field,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BatchingDescriptorProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "batchedField" => Ok(__FieldTag::__batched_field),
+                            "batched_field" => Ok(__FieldTag::__batched_field),
+                            "discriminatorFields" => Ok(__FieldTag::__discriminator_fields),
+                            "discriminator_fields" => Ok(__FieldTag::__discriminator_fields),
+                            "subresponseField" => Ok(__FieldTag::__subresponse_field),
+                            "subresponse_field" => Ok(__FieldTag::__subresponse_field),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BatchingDescriptorProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BatchingDescriptorProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__batched_field => {
+                            if !fields.insert(__FieldTag::__batched_field) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for batched_field",
+                                ));
+                            }
+                            result.batched_field = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__discriminator_fields => {
+                            if !fields.insert(__FieldTag::__discriminator_fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for discriminator_fields",
+                                ));
+                            }
+                            result.discriminator_fields = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__subresponse_field => {
+                            if !fields.insert(__FieldTag::__subresponse_field) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for subresponse_field",
+                                ));
+                            }
+                            result.subresponse_field = map
+                                .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

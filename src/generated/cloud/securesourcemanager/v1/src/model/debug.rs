@@ -62,6 +62,21 @@ impl std::fmt::Debug for super::instance::PrivateConfig {
         debug_struct.field("http_service_attachment", &self.http_service_attachment);
         debug_struct.field("ssh_service_attachment", &self.ssh_service_attachment);
         debug_struct.field("psc_allowed_projects", &self.psc_allowed_projects);
+        debug_struct.field("custom_host_config", &self.custom_host_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::instance::private_config::CustomHostConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomHostConfig");
+        debug_struct.field("html", &self.html);
+        debug_struct.field("api", &self.api);
+        debug_struct.field("git_ssh", &self.git_ssh);
+        debug_struct.field("git_http", &self.git_http);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -170,6 +185,10 @@ impl std::fmt::Debug for super::BranchRule {
         debug_struct.field("require_pull_request", &self.require_pull_request);
         debug_struct.field("minimum_reviews_count", &self.minimum_reviews_count);
         debug_struct.field("minimum_approvals_count", &self.minimum_approvals_count);
+        debug_struct.field(
+            "require_code_owner_approval",
+            &self.require_code_owner_approval,
+        );
         debug_struct.field("require_comments_resolved", &self.require_comments_resolved);
         debug_struct.field("allow_stale_reviews", &self.allow_stale_reviews);
         debug_struct.field("require_linear_history", &self.require_linear_history);
@@ -393,6 +412,7 @@ impl std::fmt::Debug for super::DeleteInstanceRequest {
         let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

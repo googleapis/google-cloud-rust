@@ -109,6 +109,9 @@ impl serde::ser::Serialize for super::Document {
         if self.chunked_document.is_some() {
             state.serialize_entry("chunkedDocument", &self.chunked_document)?;
         }
+        if !self.blob_assets.is_empty() {
+            state.serialize_entry("blobAssets", &self.blob_assets)?;
+        }
         if self.entity_validation_output.is_some() {
             state.serialize_entry("entityValidationOutput", &self.entity_validation_output)?;
         }
@@ -1624,6 +1627,28 @@ impl serde::ser::Serialize for super::document::TextChange {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::document::Annotations {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::document::DocumentLayout {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1663,6 +1688,9 @@ impl serde::ser::Serialize for super::document::document_layout::DocumentLayoutB
         }
         if let Some(value) = self.list_block() {
             state.serialize_entry("listBlock", value)?;
+        }
+        if let Some(value) = self.image_block() {
+            state.serialize_entry("imageBlock", value)?;
         }
         if !self.block_id.is_empty() {
             state.serialize_entry("blockId", &self.block_id)?;
@@ -1748,6 +1776,9 @@ impl serde::ser::Serialize
         if !self.blocks.is_empty() {
             state.serialize_entry("blocks", &self.blocks)?;
         }
+        if self.annotations.is_some() {
+            state.serialize_entry("annotations", &self.annotations)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1777,6 +1808,9 @@ impl serde::ser::Serialize
         }
         if !self.caption.is_empty() {
             state.serialize_entry("caption", &self.caption)?;
+        }
+        if self.annotations.is_some() {
+            state.serialize_entry("annotations", &self.annotations)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1911,6 +1945,45 @@ impl serde::ser::Serialize
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize
+    for super::document::document_layout::document_layout_block::LayoutImageBlock
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.blob_asset_id() {
+            state.serialize_entry("blobAssetId", value)?;
+        }
+        if let Some(value) = self.gcs_uri() {
+            state.serialize_entry("gcsUri", value)?;
+        }
+        if let Some(value) = self.data_uri() {
+            state.serialize_entry("dataUri", value)?;
+        }
+        if !self.mime_type.is_empty() {
+            state.serialize_entry("mimeType", &self.mime_type)?;
+        }
+        if !self.image_text.is_empty() {
+            state.serialize_entry("imageText", &self.image_text)?;
+        }
+        if self.annotations.is_some() {
+            state.serialize_entry("annotations", &self.annotations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::document::ChunkedDocument {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1959,6 +2032,9 @@ impl serde::ser::Serialize for super::document::chunked_document::Chunk {
         }
         if !self.page_footers.is_empty() {
             state.serialize_entry("pageFooters", &self.page_footers)?;
+        }
+        if !self.chunk_fields.is_empty() {
+            state.serialize_entry("chunkFields", &self.chunk_fields)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2052,6 +2128,121 @@ impl serde::ser::Serialize for super::document::chunked_document::chunk::ChunkPa
         }
         if self.page_span.is_some() {
             state.serialize_entry("pageSpan", &self.page_span)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::document::chunked_document::chunk::ImageChunkField {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.blob_asset_id() {
+            state.serialize_entry("blobAssetId", value)?;
+        }
+        if let Some(value) = self.gcs_uri() {
+            state.serialize_entry("gcsUri", value)?;
+        }
+        if let Some(value) = self.data_uri() {
+            state.serialize_entry("dataUri", value)?;
+        }
+        if self.annotations.is_some() {
+            state.serialize_entry("annotations", &self.annotations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::document::chunked_document::chunk::TableChunkField {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.annotations.is_some() {
+            state.serialize_entry("annotations", &self.annotations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::document::chunked_document::chunk::ChunkField {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.image_chunk_field() {
+            state.serialize_entry("imageChunkField", value)?;
+        }
+        if let Some(value) = self.table_chunk_field() {
+            state.serialize_entry("tableChunkField", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::document::BlobAsset {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.asset_id.is_empty() {
+            state.serialize_entry("assetId", &self.asset_id)?;
+        }
+        if !self.content.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("content", &__With(&self.content))?;
+        }
+        if !self.mime_type.is_empty() {
+            state.serialize_entry("mimeType", &self.mime_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

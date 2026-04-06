@@ -54,7 +54,7 @@
 //!     "private_key_id": "test-private-key-id",
 //!     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
 //!     "project_id": "test-project-id",
-//!     "universe_domain": "test-universe-domain",
+//!     "universe_domain": "googleapis.com",
 //! });
 //! let credentials: Credentials = Builder::new(service_account_key)
 //!     .with_quota_project_id("my-quota-project")
@@ -196,7 +196,7 @@ impl AccessSpecifier {
 ///     "private_key_id": "test-private-key-id",
 ///     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
 ///     "project_id": "test-project-id",
-///     "universe_domain": "test-universe-domain",
+///     "universe_domain": "googleapis.com",
 /// });
 /// let credentials = Builder::new(key)
 ///     .with_access_specifier(AccessSpecifier::from_audience("https://pubsub.googleapis.com"))
@@ -342,7 +342,7 @@ impl Builder {
     ///     "private_key_id": "test-private-key-id",
     ///     "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
     ///     "project_id": "test-project-id",
-    ///     "universe_domain": "test-universe-domain",
+    ///     "universe_domain": "googleapis.com",
     /// });
     /// let credentials: AccessTokenCredentials = Builder::new(service_account_key)
     ///     .with_quota_project_id("my-quota-project")
@@ -874,7 +874,7 @@ mod tests {
             "private_key_id": "test-private-key-id",
             "private_key": private_key,
             "project_id": "test-project-id",
-            "universe_domain": "test-universe-domain"
+            "universe_domain": "googleapis.com"
         });
 
         let credentials = Builder::new(json_value).build()?;
@@ -904,6 +904,50 @@ mod tests {
         // Validate that the issued at claim is the same for the two tokens. If
         // the 2nd token is not from the cache, its `iat` will be different.
         assert_eq!(first_iat, second_iat);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn universe_domain() -> TestResult {
+        let private_key = PKCS8_PK.clone();
+        // SA key without universe_domain
+        let json_value = json!({
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": private_key,
+            "project_id": "test-project-id",
+        });
+
+        let credentials = Builder::new(json_value).build()?;
+
+        let universe_domain = credentials.universe_domain().await;
+        assert_eq!(universe_domain, None);
+
+        // SA key with universe_domain
+        let json_value = json!({
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": private_key,
+            "project_id": "test-project-id",
+            "universe_domain": "some-universe-domain.com"
+        });
+
+        let credentials = Builder::new(json_value.clone()).build()?;
+
+        let universe_domain = credentials.universe_domain().await;
+        assert_eq!(universe_domain.as_deref(), Some("some-universe-domain.com"));
+
+        let credentials = Builder::new(json_value)
+            .with_universe_domain("other-universe-domain.com")
+            .build()?;
+
+        let universe_domain = credentials.universe_domain().await;
+        assert_eq!(
+            universe_domain.as_deref(),
+            Some("other-universe-domain.com")
+        );
 
         Ok(())
     }
