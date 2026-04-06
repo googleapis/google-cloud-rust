@@ -133,6 +133,17 @@ impl Credentials {
         self.inner.headers(extensions).await
     }
 
+    /// Retrieves the universe domain associated with the credentials, if any.
+    ///
+    /// A "universe" is an isolated Google Cloud environment, such as the public
+    /// cloud or a sovereign/air-gapped deployment (e.g., Google Distributed Cloud).
+    /// The universe domain acts as the base URL for constructing API endpoints
+    /// within that environment.
+    ///
+    /// By default, this returns `None`, which means the default universe domain of
+    /// `googleapis.com`. You should only override this if your application is operating
+    /// within a custom Cloud universe and needs to direct authentication and service
+    /// requests to a different base endpoint.
     pub async fn universe_domain(&self) -> Option<String> {
         self.inner.universe_domain().await
     }
