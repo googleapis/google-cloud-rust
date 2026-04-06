@@ -281,21 +281,6 @@ impl MessageStream {
             fut: self.lease_loop.clone(),
         }
     }
-
-    #[cfg(test)] // TODO(#5024) - remove, in favor of public APIs
-    /// Close the stream, awaiting all pending acks and nacks.
-    ///
-    /// This is a useful method for setting clean test expectations.
-    async fn close(mut self) {
-        // Signal a shutdown
-        self.shutdown.cancel();
-
-        // Close the stream and its keepalive task.
-        self.inner.close();
-
-        // Wait for the lease management task to complete.
-        self.lease_loop.await;
-    }
 }
 
 impl MessageStreamImpl {
@@ -678,7 +663,7 @@ mod tests {
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await;
+        stream.shutdown_token().shutdown().await;
 
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
@@ -735,7 +720,7 @@ mod tests {
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await;
+        stream.shutdown_token().shutdown().await;
 
         // Verify the acks went through.
         while let Some(r) = acks.join_next().await {
@@ -814,7 +799,7 @@ mod tests {
         tokio::time::advance(Duration::from_secs(10)).await;
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await;
+        stream.shutdown_token().shutdown().await;
 
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
@@ -997,7 +982,7 @@ mod tests {
         tokio::time::advance(Duration::from_secs(10)).await;
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await;
+        stream.shutdown_token().shutdown().await;
 
         // Verify at least one lease extension attempt was made.
         let extend_req = extend_rx.try_recv()?;
@@ -1304,7 +1289,7 @@ mod tests {
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await;
+        stream.shutdown_token().shutdown().await;
 
         // Verify the acks went through.
         let mut got = Vec::new();
@@ -1378,7 +1363,7 @@ mod tests {
         assert_eq!(status.message, "fail");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await;
+        stream.shutdown_token().shutdown().await;
 
         // Verify the acks went through.
         let mut got = Vec::new();
@@ -1523,7 +1508,7 @@ mod tests {
         );
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await;
+        stream.shutdown_token().shutdown().await;
 
         Ok(())
     }
@@ -1563,7 +1548,7 @@ mod tests {
         });
 
         // Close the stream, to make sure pending operations complete.
-        stream.close().await;
+        stream.shutdown_token().shutdown().await;
 
         Ok(())
     }
@@ -1618,7 +1603,7 @@ mod tests {
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Wait for the stream to join its background tasks.
-        stream.close().await;
+        stream.shutdown_token().shutdown().await;
 
         Ok(())
     }
