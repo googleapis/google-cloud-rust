@@ -395,6 +395,57 @@ mod tests {
     }
 
     #[cfg(feature = "_internal-grpc-client")]
+    pub(crate) async fn recorded_request_grpc_stub_retry(url: &str) -> Result<String, Error> {
+        use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+        use std::sync::Arc;
+
+        let recorder = RequestRecorder::current().expect("current recorder should be available");
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_rpc_method(TEST_METHOD)
+                .set_url_template(TEST_URL_TEMPLATE)
+                .set_resource_name("//test.googleapis.com/test-only".to_string()),
+        );
+
+        let mut config = crate::options::ClientConfig::default();
+        config.tracing = true;
+        config.retry_policy = Some(Arc::new(AlwaysRetry.with_attempt_limit(3)));
+
+        config.cred = Some(Anonymous::new().build());
+
+        let client = crate::grpc::Client::new(config, url)
+            .await
+            .map_err(|e| Error::io(e.to_string()))?;
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
+        let request = EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+
+        let response: Result<tonic::Response<EchoResponse>, google_cloud_gax::error::Error> =
+            client
+                .execute::<EchoRequest, EchoResponse>(
+                    extensions,
+                    http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+                    request,
+                    google_cloud_gax::options::RequestOptions::default(),
+                    "test-client",
+                    "",
+                )
+                .await;
+
+        response.map(|_| "SUCCESS".to_string())
+    }
+
+    #[cfg(feature = "_internal-grpc-client")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn grpc_client_request() -> anyhow::Result<()> {
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
@@ -481,6 +532,53 @@ mod tests {
                 ("server.address", "example.com"),
                 ("server.port", "443"),
             ],
+        );
+
+        Ok(())
+    }
+
+    #[cfg(feature = "_internal-grpc-client")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn grpc_client_request_retry() -> anyhow::Result<()> {
+        let (endpoint, _server) = grpc_server::start_fixed_responses(vec![
+            Err(tonic::Status::unavailable("try again")),
+            Ok(tonic::Response::new(EchoResponse {
+                message: "success".into(),
+                ..Default::default()
+            })),
+        ])
+        .await?;
+
+        let signals = SignalProviders::new();
+
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(signals.metric_provider.clone()),
+        );
+
+        let (span, pending) = crate::client_request_signals!(
+            metric: metric.clone(),
+            info: TEST_INFO,
+            method: "FakeGrpcClient::some_rust_function_retry",
+            recorded_request_grpc_stub_retry(&endpoint)
+        );
+        let result = pending.await;
+        assert!(result.is_ok(), "{result:?}");
+        drop(span);
+
+        signals.force_flush()?;
+
+        let spans = signals.trace_exporter.get_finished_spans()?;
+
+        // Assert that at least one span has resend_count = 1
+        let retry_span = spans.iter().find(|s| {
+            s.attributes
+                .iter()
+                .any(|kv| kv.key.as_str() == "gcp.grpc.resend_count" && kv.value.to_string() == "1")
+        });
+        assert!(
+            retry_span.is_some(),
+            "expected a span with resend_count=1, spans={spans:#?}"
         );
 
         Ok(())
