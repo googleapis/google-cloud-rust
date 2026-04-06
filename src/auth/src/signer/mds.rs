@@ -73,7 +73,11 @@ impl SigningProvider for MDSSigner {
 
 impl MDSSigner {
     async fn fetch_client_email(&self) -> Result<String> {
-        self.client.email().send().await.map_err(SigningError::transport)
+        self.client
+            .email()
+            .send()
+            .await
+            .map_err(SigningError::transport)
     }
 }
 
