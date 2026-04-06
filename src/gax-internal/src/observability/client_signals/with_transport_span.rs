@@ -108,7 +108,7 @@ mod tests {
         let server = Server::run();
         server.expect(
             Expectation::matching(method_path("GET", "/"))
-                .respond_with(status_code(200).body("OK").header("Content-Length", "2")),
+                .respond_with(status_code(200).insert_header("Content-Length", "2").body("OK")),
         );
         let url = server.url("/").to_string();
 
