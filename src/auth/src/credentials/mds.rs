@@ -109,6 +109,7 @@ where
     universe_domain: OnceLock<Option<String>>,
     token_provider: T,
     mds_client: MDSClient,
+    retry_builder: RetryTokenProviderBuilder,
 }
 
 /// Creates [Credentials] instances backed by the [Metadata Service].
@@ -342,12 +343,14 @@ impl Builder {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let is_access_boundary_enabled = self.is_access_boundary_enabled;
         let mds_client = MDSClient::new(self.endpoint.clone());
+        let retry_builder = self.retry_builder.clone();
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
             universe_domain_override: self.universe_domain.clone(),
             universe_domain: OnceLock::new(),
             token_provider: TokenCache::new(self.build_token_provider()),
             mds_client: mds_client.clone(),
+            retry_builder,
         };
         if !is_access_boundary_enabled {
             return Ok(CredentialsWithAccessBoundary::new_no_op(mdsc));
@@ -412,8 +415,17 @@ where
             return ud.clone();
         }
 
+        let retry_builder = self.retry_builder.clone();
+        let (backoff_policy, retry_throttler, retry_policy) = retry_builder.resolve();
         // No overrides and no cache. Try to fetch from MDS.
-        let response = self.mds_client.universe_domain().await;
+        let response = self
+            .mds_client
+            .universe_domain()
+            .with_backoff_policy(backoff_policy.into())
+            .with_retry_policy(retry_policy.into())
+            .with_retry_throttler(retry_throttler.into())
+            .send()
+            .await;
         let universe_domain = response.ok();
         let _ = self.universe_domain.set(universe_domain.clone());
         universe_domain
@@ -503,6 +515,7 @@ impl TokenProvider for MDSAccessTokenProvider {
     async fn token(&self) -> Result<Token> {
         self.client
             .access_token(self.scopes.clone())
+            .send()
             .await
             .map_err(|e| CredentialsError::new(e.is_transient(), self.error_message(), e))
     }
@@ -655,6 +668,7 @@ mod tests {
             universe_domain_override: None,
             universe_domain: OnceLock::new(),
             mds_client: MDSClient::new(None),
+            retry_builder: RetryTokenProviderBuilder::default(),
         };
 
         let mut extensions = Extensions::new();
@@ -719,6 +733,7 @@ mod tests {
             universe_domain_override: None,
             universe_domain: OnceLock::new(),
             mds_client: MDSClient::new(None),
+            retry_builder: RetryTokenProviderBuilder::default(),
         };
         let result = mdsc.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");

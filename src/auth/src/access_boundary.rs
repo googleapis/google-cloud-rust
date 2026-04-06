@@ -456,7 +456,7 @@ where
         }
 
         if self.url.get().is_none() {
-            let email = self.mds_client.email().await?;
+            let email = self.mds_client.email().send().await?;
 
             // Ignore error if we can't set the client email.
             // Might be due to multiple tasks trying to set value
