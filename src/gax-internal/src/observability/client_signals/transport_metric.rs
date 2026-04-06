@@ -30,7 +30,6 @@ use opentelemetry_semantic_conventions::trace::{
     URL_SCHEME,
 };
 use std::sync::Arc;
-use std::time::Instant;
 
 pub const BOUNDARIES: [f64; 16] = [
     0.0, 0.0001, 0.0005, 0.0010, 0.005, 0.010, 0.050, 0.100, 0.5, 1.0, 5.0, 10.0, 60.0, 300.0,
@@ -106,7 +105,10 @@ impl TransportMetric {
             (GCP_CLIENT_REPO, Some(GCP_CLIENT_REPO_GOOGLEAPIS.into())),
             (GCP_CLIENT_ARTIFACT, Some(snapshot.client_artifact().into())),
             (GCP_SCHEMA_URL, Some(SCHEMA_URL_VALUE.into())),
-            (URL_SCHEME, snapshot.url_scheme().map(|v| v.into())),
+            (
+                URL_SCHEME,
+                snapshot.url_scheme().map(|v| v.to_string().into()),
+            ),
             (
                 HTTP_RESPONSE_BODY_SIZE,
                 snapshot.http_response_body_size().map(|v| v.into()),
@@ -158,7 +160,10 @@ impl TransportMetric {
             (GCP_CLIENT_REPO, Some(GCP_CLIENT_REPO_GOOGLEAPIS.into())),
             (GCP_CLIENT_ARTIFACT, Some(snapshot.client_artifact().into())),
             (GCP_SCHEMA_URL, Some(SCHEMA_URL_VALUE.into())),
-            (URL_SCHEME, snapshot.url_scheme().map(|v| v.into())),
+            (
+                URL_SCHEME,
+                snapshot.url_scheme().map(|v| v.to_string().into()),
+            ),
             (
                 HTTP_RESPONSE_BODY_SIZE,
                 snapshot.http_response_body_size().map(|v| v.into()),

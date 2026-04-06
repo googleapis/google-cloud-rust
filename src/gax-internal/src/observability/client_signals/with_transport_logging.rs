@@ -17,6 +17,7 @@
 //! This is a private module, it is not exposed in the public API.
 
 use super::RequestRecorder;
+use crate::observability::attributes::SCHEMA_URL_VALUE;
 use crate::observability::attributes::keys::*;
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
@@ -86,7 +87,7 @@ where
                     { GCP_CLIENT_VERSION } = snapshot.client_version(),
                     { GCP_CLIENT_REPO } = snapshot.client_repo(),
                     { GCP_CLIENT_ARTIFACT } = snapshot.client_artifact(),
-                    { GCP_SCHEMA_URL } = snapshot.schema_url(),
+                    { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
                     { URL_FULL } = snapshot.sanitized_url(),
                     { ERROR_TYPE } = error_type.as_str(),
                     { HTTP_RESPONSE_STATUS_CODE } = error.http_status_code().map(|v| v as i64),

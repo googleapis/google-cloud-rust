@@ -132,8 +132,9 @@ impl ReqwestClient {
         self.instrumentation = Some(instrumentation);
         #[cfg(google_cloud_unstable_tracing)]
         if self._tracing_enabled {
-            self.transport_metric =
-                Some(crate::observability::TransportMetric::new(instrumentation));
+            self.transport_metric = Some(crate::observability::TransportMetric::new(Some(
+                instrumentation,
+            )));
         }
         self
     }

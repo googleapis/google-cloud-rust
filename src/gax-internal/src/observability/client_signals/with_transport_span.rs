@@ -22,7 +22,6 @@ use crate::observability::attributes::otel_status_codes;
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
 use opentelemetry_semantic_conventions::attribute::HTTP_RESPONSE_STATUS_CODE;
-use opentelemetry_semantic_conventions::trace as otel_trace;
 use opentelemetry_semantic_conventions::trace::{HTTP_RESPONSE_BODY_SIZE, URL_SCHEME};
 use pin_project::pin_project;
 use std::future::Future;

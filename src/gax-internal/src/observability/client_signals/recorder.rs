@@ -212,6 +212,8 @@ impl RequestRecorder {
             http_method: Some(Method::POST),
             http_status_code: None,
             url: Some(path.as_str().to_string()),
+            http_response_body_size: None,
+            url_scheme: None,
         };
         guard.transport_snapshot = Some(snapshot);
     }
