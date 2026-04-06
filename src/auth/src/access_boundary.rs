@@ -1291,9 +1291,12 @@ pub(crate) mod tests {
         let cached_headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(cached_headers.clone());
         assert!(token.is_some(), "{token:?}");
-        
+
         let access_boundary = get_access_boundary_from_headers(cached_headers);
-        assert!(access_boundary.is_none(), "Expected no access boundary header for non-default universe");
+        assert!(
+            access_boundary.is_none(),
+            "Expected no access boundary header for non-default universe"
+        );
 
         Ok(())
     }
@@ -1303,10 +1306,11 @@ pub(crate) mod tests {
     #[cfg(google_cloud_unstable_trusted_boundaries)]
     async fn test_mds_provider_non_default_universe() -> TestResult {
         let mut mock = MockCredentials::new();
-        mock.expect_universe_domain().returning(|| Some("my-universe-domain.com".to_string()));
+        mock.expect_universe_domain()
+            .returning(|| Some("my-universe-domain.com".to_string()));
 
         let mds_client = MDSClient::new(None);
-        
+
         let provider = MDSAccessBoundaryProvider {
             credentials: Arc::new(mock),
             mds_client,
@@ -1315,7 +1319,10 @@ pub(crate) mod tests {
         };
 
         let val = provider.fetch_access_boundary().await?;
-        assert!(val.is_none(), "Expected None for non-default universe domain");
+        assert!(
+            val.is_none(),
+            "Expected None for non-default universe domain"
+        );
 
         Ok(())
     }
