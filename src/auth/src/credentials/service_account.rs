@@ -918,10 +918,7 @@ mod tests {
         let credentials = Builder::new(json_value.clone()).build()?;
 
         let universe_domain = credentials.universe_domain().await;
-        assert_eq!(
-            universe_domain.as_deref(),
-            Some("some-universe-domain.com")
-        );
+        assert_eq!(universe_domain.as_deref(), Some("some-universe-domain.com"));
 
         let credentials = Builder::new(json_value)
             .with_universe_domain("other-universe-domain.com")
