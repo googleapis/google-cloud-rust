@@ -248,6 +248,7 @@ mod tests {
         check_metric_scope(&metrics);
         check_metric_data(
             &metrics,
+            "gcp.client.request.duration",
             1_u64..=1_u64,
             &[
                 ("rpc.system.name", "http"),
@@ -435,6 +436,7 @@ mod tests {
         check_metric_scope(&metrics);
         check_metric_data(
             &metrics,
+            "gcp.client.request.duration",
             1_u64..=1_u64,
             &[
                 ("rpc.system.name", "grpc"),
@@ -582,6 +584,7 @@ mod tests {
     #[track_caller]
     pub fn check_metric_data<R>(
         metrics: &Vec<ResourceMetrics>,
+        expected_name: &str,
         want_count: R,
         want_attributes: &[(&'static str, &str)],
     ) where
@@ -597,7 +600,7 @@ mod tests {
                 "expected a single metric after flattening scopes and resources, metric={metrics:?}"
             ),
         };
-        assert_eq!(actual.name(), "gcp.client.request.duration");
+        assert_eq!(actual.name(), expected_name);
         assert_eq!(actual.unit(), "s");
         let histo = match actual.data() {
             AggregatedMetrics::F64(MetricData::Histogram(h)) => h,

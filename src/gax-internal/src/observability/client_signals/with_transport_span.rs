@@ -108,7 +108,7 @@ mod tests {
         let server = Server::run();
         server.expect(
             Expectation::matching(method_path("GET", "/"))
-                .respond_with(status_code(200).body("OK")),
+                .respond_with(status_code(200).body("OK").header("Content-Length", "2")),
         );
         let url = server.url("/").to_string();
 
@@ -167,10 +167,6 @@ mod tests {
         let providers = SignalProviders::new();
 
         let server = Server::run();
-        server.expect(
-            Expectation::matching(method_path("GET", "/"))
-                .respond_with(status_code(404).body("NOT FOUND")),
-        );
         let url = server.url("/").to_string();
 
         let request = reqwest::Client::new().get(&url).build()?;

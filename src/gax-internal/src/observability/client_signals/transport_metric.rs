@@ -238,6 +238,7 @@ mod tests {
         check_metric_scope(&metrics);
         check_metric_data(
             &metrics,
+            "gcp.client.attempt.duration",
             1_u64..=1_u64,
             &[
                 ("server.address", "example.com"),
