@@ -446,6 +446,57 @@ mod tests {
     }
 
     #[cfg(feature = "_internal-grpc-client")]
+    pub(crate) async fn recorded_request_grpc_stub_success(url: &str) -> Result<String, Error> {
+        let recorder = RequestRecorder::current().expect("current recorder should be available");
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_rpc_method(TEST_METHOD)
+                .set_url_template(TEST_URL_TEMPLATE)
+                .set_resource_name("//test.googleapis.com/test-only".to_string()),
+        );
+
+        use std::sync::Arc;
+        let mut config = crate::options::ClientConfig::default();
+        config.tracing = true;
+        config.retry_policy = Some(Arc::new(google_cloud_gax::retry_policy::NeverRetry));
+
+        config.cred = Some(Anonymous::new().build());
+
+        let client = crate::grpc::Client::new(config, url)
+            .await
+            .map_err(|e| Error::io(e.to_string()))?;
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
+        let request = EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+
+        tokio::time::sleep(TEST_REQUEST_DURATION).await;
+
+        let response: Result<tonic::Response<EchoResponse>, google_cloud_gax::error::Error> =
+            client
+                .execute::<EchoRequest, EchoResponse>(
+                    extensions,
+                    http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+                    request,
+                    google_cloud_gax::options::RequestOptions::default(),
+                    "test-client",
+                    "",
+                )
+                .await;
+
+        response.map(|_| "SUCCESS".to_string())
+    }
+
+    #[cfg(feature = "_internal-grpc-client")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn grpc_client_request() -> anyhow::Result<()> {
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
@@ -579,6 +630,103 @@ mod tests {
         assert!(
             retry_span.is_some(),
             "expected a span with resend_count=1, spans={spans:#?}"
+        );
+
+        Ok(())
+    }
+
+    #[cfg(feature = "_internal-grpc-client")]
+    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    async fn grpc_client_request_success() -> anyhow::Result<()> {
+        let (endpoint, _server) = grpc_server::start_echo_server().await?;
+        let signals = SignalProviders::new();
+
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(signals.metric_provider.clone()),
+        );
+
+        let (span, pending) = crate::client_request_signals!(
+            metric: metric.clone(),
+            info: TEST_INFO,
+            method: "FakeGrpcClient::some_rust_function_success",
+            recorded_request_grpc_stub_success(&endpoint)
+        );
+        let result = pending.await;
+        assert!(result.is_ok(), "{result:?}");
+        drop(span);
+
+        signals.force_flush()?;
+
+        const FULL_METHOD: &str = concat!(
+            env!("CARGO_CRATE_NAME"),
+            "::",
+            "FakeGrpcClient::some_rust_function_success"
+        );
+
+        let metrics = signals.metric_exporter.get_finished_metrics()?;
+        check_metric_scope(&metrics);
+        check_metric_data(
+            &metrics,
+            1_u64..=1_u64,
+            &[
+                ("rpc.system.name", "grpc"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
+                ("rpc.method", TEST_METHOD),
+                ("rpc.response.status_code", "OK"),
+                ("server.address", "example.com"),
+                ("server.port", "443"),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
+            ],
+        );
+
+        // Verify the span exists.
+        let spans = signals.trace_exporter.get_finished_spans()?;
+        let span = spans
+            .iter()
+            .find(|s| s.name.as_ref() == FULL_METHOD)
+            .unwrap_or_else(|| panic!("expected one span named 'client_request', spans={spans:?}"));
+        assert!(matches!(span.status, SpanStatus::Unset), "{span:#?}");
+
+        // Verify span attributes
+        let got = BTreeSet::from_iter(
+            span.attributes
+                .iter()
+                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
+        );
+        let want = BTreeSet::from_iter(
+            [
+                ("rpc.system.name", "grpc"),
+                ("rpc.method", TEST_METHOD),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("server.address", "example.com"),
+                ("server.port", "443"),
+                ("url.full", "/google.test.v1.EchoService/Echo"),
+            ]
+            .map(|(k, v)| (k, v.to_string())),
+        );
+        let missing = want.difference(&got).collect::<Vec<_>>();
+        assert!(
+            missing.is_empty(),
+            "missing span attributes = {missing:?}\nwant = {want:?}\ngot  = {got:?}"
+        );
+
+        // Verify NO logs are recorded for success.
+        let captured = signals.logs_exporter.get_emitted_logs()?;
+        let record = captured
+            .iter()
+            .find(|r| r.record.target().is_some_and(|v| v == TARGET));
+        assert!(
+            record.is_none(),
+            "expected no logs for success, found {record:#?}"
         );
 
         Ok(())
