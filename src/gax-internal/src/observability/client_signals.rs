@@ -396,6 +396,9 @@ mod tests {
 
     #[cfg(feature = "_internal-grpc-client")]
     pub(crate) async fn recorded_request_grpc_stub_retry(url: &str) -> Result<String, Error> {
+        use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+        use std::sync::Arc;
+
         let recorder = RequestRecorder::current().expect("current recorder should be available");
         recorder.on_client_request(
             ClientRequestAttributes::default()
@@ -406,8 +409,7 @@ mod tests {
 
         let mut config = crate::options::ClientConfig::default();
         config.tracing = true;
-        use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-        config.retry_policy = Some(std::sync::Arc::new(AlwaysRetry.with_attempt_limit(3)));
+        config.retry_policy = Some(Arc::new(AlwaysRetry.with_attempt_limit(3)));
 
         config.cred = Some(Anonymous::new().build());
 
@@ -427,8 +429,6 @@ mod tests {
             message: "test message".into(),
             ..Default::default()
         };
-
-        tokio::time::sleep(TEST_REQUEST_DURATION).await;
 
         let response: Result<tonic::Response<EchoResponse>, google_cloud_gax::error::Error> =
             client
@@ -548,7 +548,7 @@ mod tests {
             })),
         ])
         .await?;
-        
+
         let signals = SignalProviders::new();
 
         let metric = DurationMetric::new_with_provider(
@@ -569,14 +569,17 @@ mod tests {
         signals.force_flush()?;
 
         let spans = signals.trace_exporter.get_finished_spans()?;
-        
+
         // Assert that at least one span has resend_count = 1
         let retry_span = spans.iter().find(|s| {
             s.attributes
                 .iter()
                 .any(|kv| kv.key.as_str() == "gcp.grpc.resend_count" && kv.value.to_string() == "1")
         });
-        assert!(retry_span.is_some(), "expected a span with resend_count=1");
+        assert!(
+            retry_span.is_some(),
+            "expected a span with resend_count=1, spans={spans:#?}"
+        );
 
         Ok(())
     }
