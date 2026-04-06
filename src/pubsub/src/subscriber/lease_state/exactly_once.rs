@@ -64,9 +64,11 @@ impl Leases {
 
     /// Process a nack from the application
     pub fn nack(&mut self, ack_id: String) {
-        if self.under_lease.remove(&ack_id).is_some() {
-            self.to_nack.push(ack_id);
-        }
+        let Some(ExactlyOnceInfo { nacking, .. }) = self.under_lease.get_mut(&ack_id) else {
+            return;
+        };
+        *nacking = true;
+        self.to_nack.push(ack_id);
     }
 
     /// If true, an ack or nack batch is full. We need to flush it.
@@ -105,7 +107,9 @@ impl Leases {
             .under_lease
             .iter()
             .filter_map(|(id, info)| {
-                if !info.pending && info.receive_time + max_lease < now {
+                if info.nacking {
+                    None
+                } else if !info.pending && info.receive_time + max_lease < now {
                     expired.push(id.clone());
                     None
                 } else {
@@ -130,14 +134,15 @@ impl Leases {
     /// the application and drains all messages from the lease state.
     ///
     /// Called during shutdown, if configured to `NackImmediately`.
-    pub fn evict_and_drain(mut self) -> (Vec<String>, Vec<Vec<String>>) {
+    pub fn evict_and_drain(self) -> (Vec<String>, Vec<Vec<String>>) {
+        let mut to_nack = Vec::new();
         for (ack_id, info) in self.under_lease {
             let _ = info
                 .result_tx
                 .send(Err(AckError::Shutdown(NACK_SHUTDOWN_ERROR.into())));
-            self.to_nack.push(ack_id);
+            to_nack.push(ack_id);
         }
-        (self.to_ack, super::batch(self.to_nack))
+        (self.to_ack, super::batch(to_nack))
     }
 }
 
@@ -179,6 +184,7 @@ mod tests {
             receive_time: Instant::now(),
             result_tx,
             pending: false,
+            nacking: false,
         }
     }
 
@@ -237,7 +243,7 @@ mod tests {
         leases.nack(test_id(2));
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(3)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3)],
                 to_ack: vec![test_id(1)],
                 to_nack: vec![test_id(2)],
             },
@@ -247,7 +253,7 @@ mod tests {
         leases.add(test_id(4), test_info());
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(3), test_id(4)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3), test_id(4)],
                 to_ack: vec![test_id(1)],
                 to_nack: vec![test_id(2)],
             },
@@ -257,7 +263,7 @@ mod tests {
         leases.ack(test_id(4));
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(3), test_id(4)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3), test_id(4)],
                 to_ack: vec![test_id(1), test_id(4)],
                 to_nack: vec![test_id(2)],
             },
@@ -267,7 +273,7 @@ mod tests {
         leases.nack(test_id(3));
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(4)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3), test_id(4)],
                 to_ack: vec![test_id(1), test_id(4)],
                 to_nack: vec![test_id(2), test_id(3)],
             },
@@ -305,6 +311,7 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(3),
                 result_tx,
                 pending: false,
+                nacking: false,
             },
         );
         assert_eq!(
@@ -413,7 +420,7 @@ mod tests {
         }
         assert_eq!(
             TestLeases {
-                under_lease: test_ids(10..100),
+                under_lease: test_ids(0..100),
                 to_ack: test_ids(10..20),
                 to_nack: test_ids(0..10),
             },
@@ -426,7 +433,7 @@ mod tests {
 
         assert_eq!(
             TestLeases {
-                under_lease: test_ids(10..100),
+                under_lease: test_ids(0..100),
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
@@ -530,6 +537,7 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(3),
                 result_tx,
                 pending: false,
+                nacking: false,
             },
         );
 
@@ -540,6 +548,7 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
                 pending: false,
+                nacking: false,
             },
         );
 
@@ -600,6 +609,7 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
                 pending: true,
+                nacking: false,
             },
         );
 
@@ -610,6 +620,7 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
                 pending: false,
+                nacking: false,
             },
         );
 
@@ -644,6 +655,7 @@ mod tests {
                 // Even pending acks will be evicted, and satisfied with
                 // `Shutdown` errors.
                 pending: true,
+                nacking: false,
             },
         );
         let (result_tx, result_rx2) = channel();
@@ -653,13 +665,14 @@ mod tests {
                 receive_time: Instant::now(),
                 result_tx,
                 pending: false,
+                nacking: false,
             },
         );
         leases.add(test_id(3), test_info());
         leases.nack(test_id(3));
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(2)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3)],
                 to_ack: Vec::new(),
                 to_nack: vec![test_id(3)],
             },

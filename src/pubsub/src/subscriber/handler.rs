@@ -308,6 +308,27 @@ impl ExactlyOnce {
         inner.confirmed_ack().await
     }
 
+    /// Rejects the message associated with this handler and waits for
+    /// confirmation.
+    ///
+    /// ```
+    /// use google_cloud_pubsub::model::Message;
+    /// # use google_cloud_pubsub::subscriber::handler::ExactlyOnce;
+    /// async fn on_message(m: Message, h: ExactlyOnce) {
+    ///   match h.confirmed_nack().await {
+    ///     Ok(()) => println!("Confirmed nack for message={m:?}. The message will be redelivered."),
+    ///     Err(e) => println!("Failed to confirm nack for message={m:?} with error={e:?}"),
+    ///   }
+    /// }
+    /// ```
+    ///
+    /// If the result is an `Ok`, the message is guaranteed to be immediately
+    /// considered for redelivery.
+    pub async fn confirmed_nack(mut self) -> std::result::Result<(), AckError> {
+        let inner = self.inner.take().expect("handler impl is always some");
+        inner.confirmed_nack().await
+    }
+
     #[cfg(test)]
     pub(crate) fn ack_id(&self) -> &str {
         self.inner
@@ -348,6 +369,15 @@ impl ExactlyOnceImpl {
     pub async fn confirmed_ack(self) -> AckResult {
         self.ack_tx
             .send(Action::ExactlyOnceAck(self.ack_id))
+            .map_err(|_| AckError::ShutdownBeforeAck)?;
+        self.result_rx
+            .await
+            .map_err(|e| AckError::Shutdown(e.into()))?
+    }
+
+    pub async fn confirmed_nack(self) -> AckResult {
+        self.ack_tx
+            .send(Action::ExactlyOnceNack(self.ack_id))
             .map_err(|_| AckError::ShutdownBeforeAck)?;
         self.result_rx
             .await

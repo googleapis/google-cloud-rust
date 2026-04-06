@@ -548,6 +548,7 @@ mod tests {
             }
             async fn extend(&self, _ack_ids: Vec<String>) {}
             async fn confirmed_ack(&self, _ack_ids: Vec<String>) {}
+            async fn confirmed_nack(&self, _ack_ids: Vec<String>) {}
         }
         let (_confirmed_tx, confirmed_rx) = unbounded_channel();
         let options = LeaseOptions {
