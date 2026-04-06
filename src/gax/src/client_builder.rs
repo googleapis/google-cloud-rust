@@ -448,7 +448,6 @@ pub mod internal {
         pub disable_follow_redirects: bool,
         pub grpc_subchannel_count: Option<usize>,
         pub grpc_request_buffer_capacity: Option<usize>,
-        pub universe_domain: Option<String>,
         pub grpc_max_header_list_size: Option<u32>,
     }
 
@@ -470,7 +469,6 @@ pub mod internal {
                 disable_follow_redirects: false,
                 grpc_subchannel_count: None,
                 grpc_request_buffer_capacity: None,
-                universe_domain: None,
                 grpc_max_header_list_size: None,
             }
         }
