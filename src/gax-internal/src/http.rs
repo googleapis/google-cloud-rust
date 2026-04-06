@@ -28,6 +28,7 @@ use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
 #[cfg(google_cloud_unstable_tracing)]
 use crate::observability::{HttpResultExt, RequestRecorder, create_http_attempt_span};
+use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
@@ -69,6 +70,7 @@ pub struct ReqwestClient {
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     _tracing_enabled: bool,
+    universe_domain: String,
 }
 
 impl ReqwestClient {
@@ -77,6 +79,12 @@ impl ReqwestClient {
         default_endpoint: &str,
     ) -> ClientBuilderResult<Self> {
         let cred = Self::make_credentials(&config).await?;
+
+        let universe_domain =
+            crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred)
+                .await
+                .map_err(BuilderError::transport)?;
+
         let mut builder = ::reqwest::Client::builder();
         // Force http1 as http2 with not currently supported.
         // TODO(#4298): Remove after adding HTTP2 support.
@@ -88,12 +96,14 @@ impl ReqwestClient {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
-        let host = crate::host::header(config.endpoint.as_deref(), default_endpoint)
-            .map_err(|e| e.client_builder())?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
         let endpoint = config
             .endpoint
-            .unwrap_or_else(|| default_endpoint.to_string());
+            .unwrap_or_else(|| default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain));
+
+        let host = crate::host::header(Some(endpoint.as_ref()), default_endpoint, &universe_domain)
+            .map_err(|e| e.client_builder())?;
+
         Ok(Self {
             inner,
             cred,
@@ -118,6 +128,7 @@ impl ReqwestClient {
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             instrumentation: None,
             _tracing_enabled: tracing_enabled,
+            universe_domain,
         })
     }
 
@@ -215,7 +226,8 @@ impl ReqwestClient {
         url: &str,
         default_endpoint: &str,
     ) -> Result<HttpRequestBuilder> {
-        let host = crate::host::header(Some(url), default_endpoint).map_err(|e| e.gax())?;
+        let host = crate::host::header(Some(url), default_endpoint, &self.universe_domain)
+            .map_err(|e| e.gax())?;
         let builder = self
             .inner
             .request(method, url)
@@ -580,8 +592,23 @@ mod tests {
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider};
+    use google_cloud_auth::errors::CredentialsError;
     use http::{HeaderMap, HeaderValue, Method};
     use test_case::test_case;
+
+    type AuthResult<T> = std::result::Result<T, CredentialsError>;
+    type TestResult = anyhow::Result<()>;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        Credentials {}
+
+        impl CredentialsProvider for Credentials {
+            async fn headers(&self, extensions: Extensions) -> AuthResult<CacheableResource<HeaderMap>>;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+    }
 
     #[tokio::test]
     async fn client_http_error_bytes() -> anyhow::Result<()> {
@@ -745,7 +772,6 @@ mod tests {
     #[test_case(Some("http://test-my-private-ep.p.googleapis.com"), "test.googleapis.com"; "PSC custom endpoint")]
     #[test_case(Some("https://us-central1-test.googleapis.com"), "us-central1-test.googleapis.com"; "locational endpoint")]
     #[test_case(Some("https://test.us-central1.rep.googleapis.com"), "test.us-central1.rep.googleapis.com"; "regional endpoint")]
-    #[test_case(Some("https://test.my-universe-domain.com"), "test.googleapis.com"; "universe domain")]
     #[test_case(Some("localhost:5678"), "test.googleapis.com"; "emulator")]
     #[tokio::test]
     async fn host_from_endpoint(
@@ -762,6 +788,47 @@ mod tests {
         // a `/`. Make sure everything still works.
         let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
         assert_eq!(client.host, expected_host);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn host_from_endpoint_with_universe_domain_success() -> TestResult {
+        let universe_domain = "my-universe-domain.com".to_string();
+        let mut config = ClientConfig::default();
+        config.universe_domain = Some(universe_domain.clone());
+
+        let mut cred = MockCredentials::new();
+        cred.expect_universe_domain()
+            .returning(move || Some(universe_domain.clone()));
+        config.cred = Some(cred.into());
+
+        // test with trailing slash
+        let client = ReqwestClient::new(config.clone(), "https://language.googleapis.com/").await?;
+        assert_eq!(client.universe_domain, "my-universe-domain.com");
+        assert_eq!(client.host, "language.my-universe-domain.com");
+        assert_eq!(client.endpoint, "https://language.my-universe-domain.com/");
+
+        // test without trailing slash
+        let client = ReqwestClient::new(config, "https://language.googleapis.com").await?;
+        assert_eq!(client.universe_domain, "my-universe-domain.com");
+        assert_eq!(client.host, "language.my-universe-domain.com");
+        assert_eq!(client.endpoint, "https://language.my-universe-domain.com");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn host_from_endpoint_with_universe_domain_mismatch_fails() -> TestResult {
+        let mut config = ClientConfig::default();
+        config.universe_domain = Some("custom.com".to_string());
+        config.cred = Some(Anonymous::new().build());
+
+        let err = ReqwestClient::new(config, "https://language.googleapis.com")
+            .await
+            .unwrap_err();
+
+        assert!(err.is_transport(), "{err:?}");
 
         Ok(())
     }

@@ -104,12 +104,19 @@ impl Client {
         >,
     ) -> ClientBuilderResult<Self> {
         let credentials = Self::make_credentials(&config).await?;
+
+        let universe_domain =
+            crate::universe_domain::resolve(config.universe_domain.as_deref(), &credentials)
+                .await
+                .map_err(BuilderError::transport)?;
+
         let tracing_enabled = crate::options::tracing_enabled(&config);
 
         let inner = Self::make_inner(
             &config,
             default_endpoint,
             tracing_enabled,
+            &universe_domain,
             #[cfg(google_cloud_unstable_tracing)]
             instrumentation,
         )
@@ -409,6 +416,7 @@ impl Client {
         config: &crate::options::ClientConfig,
         default_endpoint: &str,
         tracing_enabled: bool,
+        universe_domain: &str,
         #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
             &'static crate::options::InstrumentationClientInfo,
         >,
@@ -417,6 +425,7 @@ impl Client {
         let endpoint = Self::make_endpoint(
             config.endpoint.clone(),
             default_endpoint,
+            universe_domain,
             config.grpc_max_header_list_size,
         )
         .await?;
@@ -462,15 +471,20 @@ impl Client {
     async fn make_endpoint(
         endpoint: Option<String>,
         default_endpoint: &str,
+        universe_domain: &str,
         grpc_max_header_list_size: Option<u32>,
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
-        let origin = crate::host::origin(endpoint.as_deref(), default_endpoint)
+        let origin = crate::host::origin(endpoint.as_deref(), default_endpoint, universe_domain)
             .map_err(|e| e.client_builder())?;
-        let endpoint =
-            Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
-                .map_err(BuilderError::transport)?;
+        let endpoint = Endpoint::from_shared(endpoint.unwrap_or_else(|| {
+            default_endpoint.replace(
+                crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN,
+                universe_domain,
+            )
+        }))
+        .map_err(BuilderError::transport)?;
         let endpoint = if endpoint
             .uri()
             .scheme()
@@ -602,13 +616,46 @@ where
 }
 
 #[cfg(test)]
-#[cfg(google_cloud_unstable_tracing)]
 mod tests {
-    use super::Client;
-    use crate::options::InstrumentationClientInfo;
+    use super::*;
 
+    type TestResult = anyhow::Result<()>;
+
+    #[tokio::test]
+    async fn make_endpoint_with_universe_domain() -> TestResult {
+        let default_endpoint = "https://language.googleapis.com";
+        let universe_domain = "my-universe-domain.com";
+
+        let endpoint = Client::make_endpoint(None, default_endpoint, universe_domain, None).await?;
+
+        assert_eq!(
+            endpoint.uri().to_string(),
+            "https://language.my-universe-domain.com/"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn make_endpoint_with_universe_domain_mismatch() -> TestResult {
+        let mut config = crate::options::ClientConfig::default();
+        config.universe_domain = Some("my-universe-domain.com".to_string());
+        config.cred = Some(google_cloud_auth::credentials::anonymous::Builder::new().build());
+
+        let err = Client::new(config, "https://language.googleapis.com")
+            .await
+            .unwrap_err();
+
+        assert!(err.is_transport(), "{err:?}");
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test(flavor = "multi_thread")]
     async fn test_new_with_instrumentation() {
+        use crate::options::InstrumentationClientInfo;
+
         let config = crate::options::ClientConfig::default();
         static TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
             service_name: "test-service",

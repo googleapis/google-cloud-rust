@@ -15,11 +15,9 @@
 use google_cloud_auth::credentials::Credentials;
 use google_cloud_auth::errors::CredentialsError;
 
-#[allow(dead_code)]
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 const UNIVERSE_DOMAIN_VAR: &str = "GOOGLE_CLOUD_UNIVERSE_DOMAIN";
 
-#[allow(dead_code)]
 pub(crate) async fn resolve(
     universe_domain_client_override: Option<&str>,
     cred: &Credentials,
