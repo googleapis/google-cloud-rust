@@ -22,7 +22,9 @@ use crate::observability::attributes::otel_status_codes;
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
 use opentelemetry_semantic_conventions::attribute::HTTP_RESPONSE_STATUS_CODE;
-use opentelemetry_semantic_conventions::trace::{HTTP_RESPONSE_BODY_SIZE, URL_SCHEME};
+use opentelemetry_semantic_conventions::trace::{
+    ERROR_TYPE, HTTP_REQUEST_RESEND_COUNT, HTTP_RESPONSE_BODY_SIZE, URL_SCHEME,
+};
 use pin_project::pin_project;
 use std::future::Future;
 use std::pin::Pin;
@@ -107,8 +109,11 @@ mod tests {
 
         let server = Server::run();
         server.expect(
-            Expectation::matching(method_path("GET", "/"))
-                .respond_with(status_code(200).insert_header("Content-Length", "2").body("OK")),
+            Expectation::matching(method_path("GET", "/")).respond_with(
+                status_code(200)
+                    .body("OK")
+                    .insert_header("Content-Length", "2"),
+            ),
         );
         let url = server.url("/").to_string();
 
@@ -155,9 +160,9 @@ mod tests {
         );
 
         assert_eq!(record.span_kind, SpanKind::Client);
-        assert!(got.contains(&("http.response.status_code", "200".to_string())));
-        assert!(got.contains(&("http.response.body_size", "2".to_string())));
-        assert!(got.contains(&("url.scheme", "http".to_string())));
+        assert!(got.contains(&(HTTP_RESPONSE_STATUS_CODE, "200".to_string())));
+        assert!(got.contains(&(HTTP_RESPONSE_BODY_SIZE, "2".to_string())));
+        assert!(got.contains(&(URL_SCHEME, "http".to_string())));
 
         Ok(())
     }
@@ -211,8 +216,8 @@ mod tests {
         );
 
         assert_eq!(record.span_kind, SpanKind::Client);
-        assert!(got.contains(&("http.response.status_code", "404".to_string())));
-        assert!(got.contains(&("error.type", "404".to_string())));
+        assert!(got.contains(&(HTTP_RESPONSE_STATUS_CODE, "404".to_string())));
+        assert!(got.contains(&(ERROR_TYPE, "404".to_string())));
 
         Ok(())
     }
@@ -274,7 +279,7 @@ mod tests {
                 .map(|kv| (kv.key.as_str(), kv.value.to_string())),
         );
 
-        assert!(got.contains(&("http.request.resend_count", "1".to_string())));
+        assert!(got.contains(&(HTTP_REQUEST_RESEND_COUNT, "1".to_string())));
 
         Ok(())
     }

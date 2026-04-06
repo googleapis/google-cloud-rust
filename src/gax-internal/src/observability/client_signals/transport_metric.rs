@@ -200,7 +200,7 @@ mod tests {
         service_name: "test-service",
         default_host: "example.com",
     };
-    const DELAY: Duration = Duration::from_millis(123);
+    const DELAY: Duration = crate::observability::client_signals::tests::TEST_REQUEST_DURATION;
 
     #[tokio::test(start_paused = true)]
     async fn record_ok() -> anyhow::Result<()> {
@@ -241,22 +241,23 @@ mod tests {
             "gcp.client.attempt.duration",
             1_u64..=1_u64,
             &[
-                ("server.address", "example.com"),
-                ("server.port", "443"),
-                ("url.domain", "example.com"),
+                (SERVER_ADDRESS, "example.com"),
+                (SERVER_PORT, "443"),
+                (URL_DOMAIN, "example.com"),
                 (
-                    "url.template",
+                    URL_TEMPLATE,
                     "https://example.com/v1/projects/{project}/topics/{topic}",
                 ),
-                ("rpc.method", TEST_METHOD),
-                ("rpc.response.status_code", "OK"),
-                ("gcp.client.service", "test-service"),
-                ("gcp.client.version", "1.2.3"),
-                ("gcp.client.repo", "googleapis/google-cloud-rust"),
-                ("gcp.client.artifact", "test-artifact"),
-                ("gcp.schema.url", SCHEMA_URL_VALUE),
-                ("url.scheme", "https"),
-                ("http.request.resend_count", "1"),
+                (RPC_METHOD, TEST_METHOD),
+                (RPC_SYSTEM_NAME, "http"),
+                (RPC_RESPONSE_STATUS_CODE, "OK"),
+                (GCP_CLIENT_SERVICE, "test-service"),
+                (GCP_CLIENT_VERSION, "1.2.3"),
+                (GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+                (GCP_CLIENT_ARTIFACT, "test-artifact"),
+                (GCP_SCHEMA_URL, SCHEMA_URL_VALUE),
+                (URL_SCHEME, "https"),
+                (HTTP_REQUEST_RESEND_COUNT, "1"),
             ],
         );
 
