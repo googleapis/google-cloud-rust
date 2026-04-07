@@ -194,7 +194,6 @@ impl Client {
         }
     }
 }
-
 #[derive(Clone, Default)]
 struct RetryConfig {
     retry_policy: Option<RetryPolicyArg>,
@@ -351,7 +350,6 @@ impl EmailRequest {
     }
 }
 
-#[derive(Clone)]
 pub(crate) struct UniverseDomainRequest {
     client: Client,
     retry_config: RetryConfig,
@@ -395,7 +393,7 @@ impl UniverseDomainRequest {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::mds::MDS_DEFAULT_URI;
+    use crate::mds::{MDS_DEFAULT_URI, MDS_UNIVERSE_DOMAIN_URI};
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
@@ -541,6 +539,42 @@ mod tests {
 
         let err = client.email().send().await.unwrap_err();
         assert!(err.to_string().contains("failed to fetch email"));
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_universe_domain_success() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(MDS_UNIVERSE_DOMAIN_URI),
+            ])
+            .respond_with(status_code(200).body("my-universe-domain.com")),
+        );
+
+        let domain = client.universe_domain().send().await.unwrap();
+        assert_eq!(domain, "my-universe-domain.com");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_universe_domain_failure() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(MDS_UNIVERSE_DOMAIN_URI),
+            ])
+            .respond_with(status_code(404).body("Not Found")),
+        );
+
+        let err = client.universe_domain().send().await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch universe domain"));
     }
 
     #[test]

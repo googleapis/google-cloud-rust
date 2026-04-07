@@ -60,6 +60,7 @@ default-members = [
 ]
 
 members = [
+  "demos/cloud-run-o11y",
   "guide/samples",
   "src/auth",
   "src/bigquery",
@@ -375,9 +376,11 @@ http-body             = { default-features = false, version = "1" }
 humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.6" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
+markdown              = { default-features = false, version = "1.0" }
 opentelemetry         = { default-features = false, version = "0.31" }
 opentelemetry-proto   = { default-features = false, version = "0.31" }
 opentelemetry_sdk     = { default-features = false, version = "0.31" }
+opentelemetry-http    = { default-features = false, version = "0.31" }
 opentelemetry-otlp    = { default-features = false, version = "0.31" }
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
