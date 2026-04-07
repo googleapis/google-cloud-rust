@@ -14,15 +14,23 @@
 
 mod duration_metric;
 mod recorder;
+mod transport_metric;
 mod with_client_logging;
 mod with_client_metric;
 mod with_client_span;
+mod with_transport_logging;
+mod with_transport_metric;
+mod with_transport_span;
 
 pub use duration_metric::DurationMetric;
 pub use recorder::{ClientRequestAttributes, RequestRecorder};
+pub use transport_metric::TransportMetric;
 pub use with_client_logging::WithClientLogging;
 pub use with_client_metric::WithClientMetric;
 pub use with_client_span::WithClientSpan;
+pub use with_transport_logging::WithTransportLogging;
+pub use with_transport_metric::WithTransportMetric;
+pub use with_transport_span::WithTransportSpan;
 
 /// Creates a [Span] and decorated future for a client request.
 ///
@@ -240,6 +248,7 @@ mod tests {
         check_metric_scope(&metrics);
         check_metric_data(
             &metrics,
+            "gcp.client.request.duration",
             1_u64..=1_u64,
             &[
                 ("rpc.system.name", "http"),
@@ -529,6 +538,7 @@ mod tests {
         check_metric_scope(&metrics);
         check_metric_data(
             &metrics,
+            "gcp.client.request.duration",
             1_u64..=1_u64,
             &[
                 ("rpc.system.name", "grpc"),
@@ -820,6 +830,7 @@ mod tests {
     #[track_caller]
     pub fn check_metric_data<R>(
         metrics: &Vec<ResourceMetrics>,
+        expected_name: &str,
         want_count: R,
         want_attributes: &[(&'static str, &str)],
     ) where
@@ -835,7 +846,7 @@ mod tests {
                 "expected a single metric after flattening scopes and resources, metric={metrics:?}"
             ),
         };
-        assert_eq!(actual.name(), "gcp.client.request.duration");
+        assert_eq!(actual.name(), expected_name);
         assert_eq!(actual.unit(), "s");
         let histo = match actual.data() {
             AggregatedMetrics::F64(MetricData::Histogram(h)) => h,
