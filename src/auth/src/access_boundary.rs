@@ -242,13 +242,13 @@ where
         universe_domain: Option<String>,
     ) -> Self {
         let credentials = Arc::new(credentials);
-        let provider = IAMAccessBoundaryProvider {
-            credentials: credentials.clone(),
-            url: access_boundary_url,
-        };
 
         // Only enable access boundary for default universe domain
         let access_boundary = if is_default_universe_domain(universe_domain) {
+            let provider = IAMAccessBoundaryProvider {
+                credentials: credentials.clone(),
+                url: access_boundary_url,
+            };
             Arc::new(AccessBoundary::new(provider))
         } else {
             Arc::new(AccessBoundary::new_no_op())
@@ -1295,7 +1295,7 @@ pub(crate) mod tests {
         let access_boundary = get_access_boundary_from_headers(cached_headers);
         assert!(
             access_boundary.is_none(),
-            "Expected no access boundary header for non-default universe"
+            "Expected no access boundary header for non-default universe: {access_boundary:?}"
         );
 
         Ok(())
@@ -1321,7 +1321,7 @@ pub(crate) mod tests {
         let val = provider.fetch_access_boundary().await?;
         assert!(
             val.is_none(),
-            "Expected None for non-default universe domain"
+            "Expected None for non-default universe domain: {val:?}"
         );
 
         Ok(())
