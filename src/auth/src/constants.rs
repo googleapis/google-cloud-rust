@@ -28,6 +28,8 @@ pub(crate) const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:acc
 pub(crate) const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 /// SAML2 Token OAuth Token Type
 pub(crate) const SAML2_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:saml2";
+/// ID Token OAuth Token Type
+pub(crate) const ID_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:id_token";
 
 pub(crate) const RETRY_EXHAUSTED_ERROR: &str = "Fetching the token resulted in transient errors. Subsequent calls with this credential might succeed.";
 pub(crate) const TOKEN_FETCH_FAILED_ERROR: &str =
