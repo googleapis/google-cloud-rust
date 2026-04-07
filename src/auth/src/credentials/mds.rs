@@ -865,6 +865,7 @@ mod tests {
         let mdsc = Builder::default()
             .with_scopes(scopes)
             .with_endpoint(format!("http://{}", server.addr()))
+            .without_access_boundary()
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
