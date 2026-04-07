@@ -602,7 +602,12 @@ mod tests {
 
         let err = h.confirmed_nack().await.expect_err("nack should fail");
         assert!(matches!(err, AckError::Shutdown(_)), "{err:?}");
-        assert_eq!(err.source().expect("shutdown errors have a source").to_string(), crate::subscriber::lease_state::NACK_SHUTDOWN_ERROR);
+        assert_eq!(
+            err.source()
+                .expect("shutdown errors have a source")
+                .to_string(),
+            crate::subscriber::lease_state::NACK_SHUTDOWN_ERROR
+        );
 
         Ok(())
     }
