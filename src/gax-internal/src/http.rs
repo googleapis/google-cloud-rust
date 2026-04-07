@@ -71,6 +71,8 @@ pub struct ReqwestClient {
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     _tracing_enabled: bool,
     universe_domain: String,
+    #[cfg(google_cloud_unstable_tracing)]
+    transport_metric: Option<crate::observability::TransportMetric>,
 }
 
 impl ReqwestClient {
@@ -129,6 +131,8 @@ impl ReqwestClient {
             instrumentation: None,
             _tracing_enabled: tracing_enabled,
             universe_domain,
+            #[cfg(google_cloud_unstable_tracing)]
+            transport_metric: None,
         })
     }
 
@@ -137,6 +141,12 @@ impl ReqwestClient {
         instrumentation: &'static crate::options::InstrumentationClientInfo,
     ) -> Self {
         self.instrumentation = Some(instrumentation);
+        #[cfg(google_cloud_unstable_tracing)]
+        if self._tracing_enabled {
+            self.transport_metric = Some(crate::observability::TransportMetric::new(Some(
+                instrumentation,
+            )));
+        }
         self
     }
 
@@ -437,10 +447,15 @@ impl ReqwestClient {
         if let Some(recorder) = RequestRecorder::current() {
             recorder.on_http_request(&request);
         }
-        self.request_attempt_inner(request)
-            .instrument(span.clone())
-            .await
-            .record_http(&span)
+        let pending = self.request_attempt_inner(request);
+        let pending = crate::observability::WithTransportLogging::new(pending);
+        let metric = self
+            .transport_metric
+            .clone()
+            .unwrap_or_else(|| crate::observability::TransportMetric::new(None));
+        let pending =
+            crate::observability::WithTransportMetric::new(metric, pending, attempt_count);
+        crate::observability::WithTransportSpan::new(span, pending).await
     }
 
     #[cfg_attr(not(google_cloud_unstable_tracing), allow(unused_mut))]

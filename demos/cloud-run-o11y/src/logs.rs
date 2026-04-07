@@ -12,11 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub(crate) mod client;
-
-pub(crate) const MDS_DEFAULT_URI: &str = "/computeMetadata/v1/instance/service-accounts/default";
-pub(crate) const MDS_UNIVERSE_DOMAIN_URI: &str = "/computeMetadata/v1/universe/universe-domain";
-pub(crate) const METADATA_FLAVOR_VALUE: &str = "Google";
-pub(crate) const METADATA_FLAVOR: &str = "metadata-flavor";
-pub(crate) const METADATA_ROOT: &str = "http://metadata.google.internal";
-pub(crate) const GCE_METADATA_HOST_ENV_VAR: &str = "GCE_METADATA_HOST";
+pub use integration_tests_o11y::otlp::logs::EventFormatter;

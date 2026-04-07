@@ -245,12 +245,29 @@ mod tests {
             let builder = client
                 .builder(reqwest::Method::GET, "/echo".into())
                 .query(&[("delay_ms", format!("{}", delay.as_millis()))]);
-            let _response = client
-                .execute::<serde_json::Value, serde_json::Value>(
-                    builder,
-                    Some(json!({})),
-                    test_options(&timeout),
-                )
+            let mut test_info =
+                google_cloud_gax_internal::options::InstrumentationClientInfo::default();
+            test_info.service_name = "test.service";
+            test_info.client_version = "1.2.3";
+            test_info.client_artifact = "google-cloud-test";
+            test_info.default_host = "test.googleapis.com";
+
+            let recorder =
+                google_cloud_gax_internal::observability::RequestRecorder::new(test_info);
+            recorder.on_client_request(
+                google_cloud_gax_internal::observability::ClientRequestAttributes::default()
+                    .set_url_template("/echo"),
+            );
+            let _response = recorder
+                .scope(async {
+                    client
+                        .execute::<serde_json::Value, serde_json::Value>(
+                            builder,
+                            Some(json!({})),
+                            test_options(&timeout),
+                        )
+                        .await
+                })
                 .await;
 
             let spans = TestLayer::capture(&guard);

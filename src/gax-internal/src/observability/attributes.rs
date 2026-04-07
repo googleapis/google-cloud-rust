@@ -97,7 +97,7 @@ pub mod keys {
     // macro.
     pub use opentelemetry_semantic_conventions::trace::{
         ERROR_TYPE, HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT, HTTP_RESPONSE_STATUS_CODE,
-        RPC_METHOD, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+        RPC_METHOD, SERVER_ADDRESS, SERVER_PORT, URL_FULL, URL_SCHEME,
     };
 }
 

@@ -134,8 +134,24 @@ mod tests {
             options.set_idempotency(true);
             options
         };
-        let response = client
-            .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
+        let mut test_info =
+            google_cloud_gax_internal::options::InstrumentationClientInfo::default();
+        test_info.service_name = "test.service";
+        test_info.client_version = "1.2.3";
+        test_info.client_artifact = "google-cloud-test";
+        test_info.default_host = "test.googleapis.com";
+
+        let recorder = google_cloud_gax_internal::observability::RequestRecorder::new(test_info);
+        recorder.on_client_request(
+            google_cloud_gax_internal::observability::ClientRequestAttributes::default()
+                .set_url_template("/retry"),
+        );
+        let response = recorder
+            .scope(async {
+                client
+                    .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
+                    .await
+            })
             .await;
         let response = response?.into_body();
         assert_eq!(response, json!({"status": "done"}));
