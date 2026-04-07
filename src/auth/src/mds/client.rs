@@ -14,7 +14,17 @@
 
 use crate::errors::{self, CredentialsError};
 use crate::token::Token;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt};
+use google_cloud_gax::retry_throttler::{
+    AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
+};
 use reqwest::{Client as ReqwestClient, RequestBuilder};
+use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::time::Instant;
 
@@ -105,6 +115,7 @@ impl Client {
     pub(crate) fn universe_domain(&self) -> UniverseDomainRequest {
         UniverseDomainRequest {
             client: self.clone(),
+            retry_config: RetryConfig::default(),
         }
     }
 
@@ -123,6 +134,55 @@ impl Client {
         Ok(response)
     }
 
+    async fn send_with_retry(
+        &self,
+        request: reqwest::RequestBuilder,
+        error_message: &'static str,
+        retry_config: RetryConfig,
+    ) -> crate::Result<reqwest::Response> {
+        let sleep = async |d| tokio::time::sleep(d).await;
+
+        if !retry_config.has_retry_config() {
+            return self.send(request, error_message).await;
+        }
+
+        let (retry_policy, backoff_policy, retry_throttler) = retry_config.build();
+
+        retry_loop(
+            async move |_| {
+                let req = request
+                    .try_clone()
+                    .expect("client libraries only create builders where `try_clone()` succeeds");
+                let response = req
+                    .send()
+                    .await
+                    .map_err(google_cloud_gax::error::Error::io)?;
+
+                let status = response.status();
+                if !status.is_success() {
+                    let err_headers = response.headers().clone();
+                    let err_payload = response.bytes().await.map_err(|e| {
+                        google_cloud_gax::error::Error::transport(err_headers.clone(), e)
+                    })?;
+                    return Err(google_cloud_gax::error::Error::http(
+                        status.as_u16(),
+                        err_headers,
+                        err_payload,
+                    ));
+                }
+
+                Ok(response)
+            },
+            sleep,
+            true, // GET requests are idempotent
+            retry_throttler,
+            retry_policy,
+            backoff_policy,
+        )
+        .await
+        .map_err(|e| errors::CredentialsError::new(false, error_message, e))
+    }
+
     async fn check_response_status(
         response: reqwest::Response,
         error_message: &str,
@@ -133,6 +193,59 @@ impl Client {
         } else {
             Ok(response)
         }
+    }
+}
+#[derive(Clone, Default)]
+struct RetryConfig {
+    retry_policy: Option<RetryPolicyArg>,
+    backoff_policy: Option<BackoffPolicyArg>,
+    retry_throttler: Option<RetryThrottlerArg>,
+}
+
+impl RetryConfig {
+    fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
+        self.retry_policy = Some(retry_policy);
+        self
+    }
+
+    fn with_backoff_policy(mut self, backoff_policy: BackoffPolicyArg) -> Self {
+        self.backoff_policy = Some(backoff_policy);
+        self
+    }
+
+    fn with_retry_throttler(mut self, retry_throttler: RetryThrottlerArg) -> Self {
+        self.retry_throttler = Some(retry_throttler);
+        self
+    }
+
+    fn has_retry_config(&self) -> bool {
+        self.retry_policy.is_some()
+            || self.backoff_policy.is_some()
+            || self.retry_throttler.is_some()
+    }
+
+    fn build(
+        self,
+    ) -> (
+        Arc<dyn RetryPolicy>,
+        Arc<dyn BackoffPolicy>,
+        SharedRetryThrottler,
+    ) {
+        let backoff_policy: Arc<dyn BackoffPolicy> = match self.backoff_policy {
+            Some(p) => p.into(),
+            None => Arc::new(ExponentialBackoff::default()),
+        };
+        let retry_throttler: SharedRetryThrottler = match self.retry_throttler {
+            Some(p) => p.into(),
+            None => Arc::new(Mutex::new(AdaptiveThrottler::default())),
+        };
+
+        let retry_policy = self
+            .retry_policy
+            .unwrap_or_else(|| Aip194Strict.with_time_limit(Duration::from_secs(60)).into())
+            .into();
+
+        (retry_policy, backoff_policy, retry_throttler)
     }
 }
 
@@ -242,16 +355,38 @@ impl EmailRequest {
 #[allow(dead_code)]
 pub(crate) struct UniverseDomainRequest {
     client: Client,
+    retry_config: RetryConfig,
 }
 
 impl UniverseDomainRequest {
+    #[allow(dead_code)]
+    pub(crate) fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
+        self.retry_config = self.retry_config.with_retry_policy(retry_policy);
+        self
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn with_backoff_policy(mut self, backoff_policy: BackoffPolicyArg) -> Self {
+        self.retry_config = self.retry_config.with_backoff_policy(backoff_policy);
+        self
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn with_retry_throttler(mut self, retry_throttler: RetryThrottlerArg) -> Self {
+        self.retry_config = self.retry_config.with_retry_throttler(retry_throttler);
+        self
+    }
+
     #[allow(dead_code)]
     pub(crate) async fn send(self) -> crate::Result<String> {
         let path = super::MDS_UNIVERSE_DOMAIN_URI;
         let request = self.client.get(path);
         let error_message = "failed to fetch universe domain";
 
-        let response = self.client.send(request, error_message).await?;
+        let response = self
+            .client
+            .send_with_retry(request, error_message, self.retry_config)
+            .await?;
 
         let universe_domain = response
             .text()
@@ -266,6 +401,8 @@ impl UniverseDomainRequest {
 mod tests {
     use super::*;
     use crate::mds::{MDS_DEFAULT_URI, MDS_UNIVERSE_DOMAIN_URI};
+    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    use google_cloud_gax::retry_policy::AlwaysRetry;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
@@ -478,5 +615,77 @@ mod tests {
         // Env var should take precedence over constructor argument
         let client = Client::new(Some("http://custom.endpoint".to_string()));
         assert_eq!(client.endpoint, "http://env.priority.host");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_universe_domain_retry_success() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        // First request fails, second succeeds
+        let responses: Vec<Box<dyn Responder>> = vec![
+            Box::new(status_code(500)),
+            Box::new(status_code(200).body("my-universe-domain.com")),
+        ];
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(MDS_UNIVERSE_DOMAIN_URI),
+            ])
+            .times(2)
+            .respond_with(cycle(responses)),
+        );
+
+        let retry_policy = AlwaysRetry.with_attempt_limit(2);
+        let backoff_policy = ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_millis(1))
+            .with_maximum_delay(Duration::from_millis(1))
+            .build()
+            .unwrap();
+
+        let domain = client
+            .universe_domain()
+            .with_retry_policy(retry_policy.into())
+            .with_backoff_policy(backoff_policy.into())
+            .send()
+            .await
+            .unwrap();
+
+        assert_eq!(domain, "my-universe-domain.com");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_universe_domain_retry_failure() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        // All requests fail
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(MDS_UNIVERSE_DOMAIN_URI),
+            ])
+            .times(2)
+            .respond_with(status_code(500)),
+        );
+
+        let retry_policy = AlwaysRetry.with_attempt_limit(2);
+        let backoff_policy = ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_millis(1))
+            .with_maximum_delay(Duration::from_millis(1))
+            .build()
+            .unwrap();
+
+        let err = client
+            .universe_domain()
+            .with_retry_policy(retry_policy.into())
+            .with_backoff_policy(backoff_policy.into())
+            .send()
+            .await
+            .unwrap_err();
+
+        assert!(err.to_string().contains("failed to fetch universe domain"));
     }
 }
