@@ -1605,13 +1605,13 @@ mod tests {
         });
 
         let creds = Builder::new(contents)
-            .with_universe_domain("my-overrided-universe.com")
+            .with_universe_domain("my-overridden-universe.com")
             .build()
             .unwrap();
 
         assert_eq!(
             creds.universe_domain().await,
-            Some("my-overrided-universe.com".to_string())
+            Some("my-overridden-universe.com".to_string())
         );
     }
 
