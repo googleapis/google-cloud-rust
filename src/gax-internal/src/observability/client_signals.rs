@@ -646,7 +646,7 @@ mod tests {
     }
 
     #[cfg(feature = "_internal-grpc-client")]
-    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn grpc_client_request_success() -> anyhow::Result<()> {
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
         let signals = SignalProviders::new();
