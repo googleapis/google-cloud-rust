@@ -108,7 +108,7 @@ impl Client {
         let universe_domain =
             crate::universe_domain::resolve(config.universe_domain.as_deref(), &credentials)
                 .await
-                .map_err(BuilderError::transport)?;
+                .map_err(BuilderError::universe_domain_mismatch)?;
 
         let tracing_enabled = crate::options::tracing_enabled(&config);
 
@@ -646,7 +646,7 @@ mod tests {
             .await
             .unwrap_err();
 
-        assert!(err.is_transport(), "{err:?}");
+        assert!(err.is_universe_domain_mismatch(), "{err:?}");
 
         Ok(())
     }

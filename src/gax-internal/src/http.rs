@@ -85,7 +85,7 @@ impl ReqwestClient {
         let universe_domain =
             crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred)
                 .await
-                .map_err(BuilderError::transport)?;
+                .map_err(BuilderError::universe_domain_mismatch)?;
 
         let mut builder = ::reqwest::Client::builder();
         // Force http1 as http2 with not currently supported.
@@ -843,7 +843,7 @@ mod tests {
             .await
             .unwrap_err();
 
-        assert!(err.is_transport(), "{err:?}");
+        assert!(err.is_universe_domain_mismatch(), "{err:?}");
 
         Ok(())
     }

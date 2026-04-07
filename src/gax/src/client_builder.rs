@@ -94,6 +94,11 @@ impl Error {
         matches!(&self.0, ErrorKind::Transport(_))
     }
 
+    /// If true, the client universe domain does not match the credentials.
+    pub fn is_universe_domain_mismatch(&self) -> bool {
+        matches!(&self.0, ErrorKind::UniverseDomainMismatch(_))
+    }
+
     /// Not part of the public API, subject to change without notice.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn cred<T: Into<BoxError>>(source: T) -> Self {
@@ -105,6 +110,12 @@ impl Error {
     pub fn transport<T: Into<BoxError>>(source: T) -> Self {
         Self(ErrorKind::Transport(source.into()))
     }
+
+    /// Not part of the public API, subject to change without notice.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn universe_domain_mismatch<T: Into<BoxError>>(source: T) -> Self {
+        Self(ErrorKind::UniverseDomainMismatch(source.into()))
+    }
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -113,6 +124,8 @@ enum ErrorKind {
     DefaultCredentials(#[source] BoxError),
     #[error("could not initialize transport client")]
     Transport(#[source] BoxError),
+    #[error("universe domain mismatch")]
+    UniverseDomainMismatch(#[source] BoxError),
 }
 
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
