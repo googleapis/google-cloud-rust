@@ -283,4 +283,51 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test(start_paused = true)]
+    async fn poll_without_recorder() -> anyhow::Result<()> {
+        let providers = SignalProviders::new();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(method_path("GET", "/"))
+                .respond_with(status_code(200).body("OK")),
+        );
+        let url = server.url("/").to_string();
+
+        let request = reqwest::Client::new().get(&url).build()?;
+        let options = RequestOptions::default();
+        let span = create_http_attempt_span(&request, &options, Some(&TEST_INFO), 0);
+
+        let client = reqwest::Client::new();
+        let pending = async move {
+            client
+                .execute(request)
+                .await
+                .map_err(|e| google_cloud_gax::error::Error::io(e.to_string()))
+        };
+
+        let future = WithTransportSpan::new(span.clone(), pending);
+        let result = future.await;
+        assert!(result.is_ok(), "{result:?}");
+
+        drop(span);
+        providers.force_flush()?;
+        let captured = providers.trace_exporter.get_finished_spans()?;
+        let record = match &captured[..] {
+            [record] => record,
+            _ => panic!("expected a single capture: {captured:#?}"),
+        };
+
+        let got = BTreeSet::from_iter(
+            record
+                .attributes
+                .iter()
+                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
+        );
+
+        assert!(!got.contains(&(HTTP_RESPONSE_STATUS_CODE, "200".to_string())));
+
+        Ok(())
+    }
 }

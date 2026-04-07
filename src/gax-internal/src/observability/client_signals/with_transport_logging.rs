@@ -102,3 +102,24 @@ where
         Poll::Ready(output)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test(start_paused = true)]
+    async fn poll_without_recorder() -> anyhow::Result<()> {
+        let pending = async move {
+            let res: Result<reqwest::Response, Error> =
+                Err(google_cloud_gax::error::Error::io("simulated"));
+            res
+        };
+
+        // No recorder in scope
+        let future = WithTransportLogging::new(pending);
+        let result = future.await;
+        assert!(result.is_err(), "{result:?}");
+
+        Ok(())
+    }
+}

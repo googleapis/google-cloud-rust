@@ -263,4 +263,76 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test(start_paused = true)]
+    async fn record_error() -> anyhow::Result<()> {
+        let exporter = InMemoryMetricExporter::default();
+        let provider = SdkMeterProvider::builder()
+            .with_reader(PeriodicReader::builder(exporter.clone()).build())
+            .build();
+        let metric =
+            TransportMetric::new_with_provider(Some(&TEST_INFO), Arc::new(provider.clone()));
+        let recorder = RequestRecorder::new(TEST_INFO);
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_url_template("https://example.com/v1/projects/{project}/topics/{topic}")
+                .set_rpc_method(TEST_METHOD),
+        );
+
+        let request = reqwest::Request::new(
+            reqwest::Method::GET,
+            "https://example.com/v1/projects/p/topics/t".parse()?,
+        );
+
+        recorder.on_http_request(&request);
+        tokio::time::sleep(DELAY).await;
+
+        let err =
+            google_cloud_gax::error::Error::http(404, http::HeaderMap::new(), bytes::Bytes::new());
+
+        let _ = recorder
+            .scope(async {
+                metric.with_recorder_error(&err, 2); // attempt_count = 2
+                Ok(())
+            })
+            .await;
+
+        provider.force_flush()?;
+        let metrics = exporter.get_finished_metrics()?;
+
+        check_metric_scope(&metrics);
+        let found = metrics
+            .iter()
+            .flat_map(|s| s.scope_metrics())
+            .flat_map(|r| r.metrics())
+            .find(|m| m.name() == "gcp.client.attempt.duration");
+        assert!(found.is_some());
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn record_without_recorder() -> anyhow::Result<()> {
+        let exporter = InMemoryMetricExporter::default();
+        let provider = SdkMeterProvider::builder()
+            .with_reader(PeriodicReader::builder(exporter.clone()).build())
+            .build();
+        let metric =
+            TransportMetric::new_with_provider(Some(&TEST_INFO), Arc::new(provider.clone()));
+
+        // No recorder in scope
+        metric.with_recorder_ok(1);
+
+        provider.force_flush()?;
+        let metrics = exporter.get_finished_metrics()?;
+
+        let found = metrics
+            .iter()
+            .flat_map(|s| s.scope_metrics())
+            .flat_map(|r| r.metrics())
+            .any(|m| m.name() == "gcp.client.attempt.duration");
+        assert!(!found);
+
+        Ok(())
+    }
 }
