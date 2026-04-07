@@ -135,13 +135,16 @@ impl Leases {
     ///
     /// Called during shutdown, if configured to `NackImmediately`.
     pub fn evict_and_drain(self) -> (Vec<String>, Vec<Vec<String>>) {
-        let mut to_nack = Vec::new();
-        for (ack_id, info) in self.under_lease {
-            let _ = info
-                .result_tx
-                .send(Err(AckError::Shutdown(NACK_SHUTDOWN_ERROR.into())));
-            to_nack.push(ack_id);
-        }
+        let to_nack = self
+            .under_lease
+            .into_iter()
+            .map(|(ack_id, info)| {
+                let _ = info
+                    .result_tx
+                    .send(Err(AckError::Shutdown(NACK_SHUTDOWN_ERROR.into())));
+                ack_id
+            })
+            .collect();
         (self.to_ack, super::batch(to_nack))
     }
 }
