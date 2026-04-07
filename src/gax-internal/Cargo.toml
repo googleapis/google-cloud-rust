@@ -47,6 +47,7 @@ _internal-http-client = ["_internal-common", "dep:hyper", "dep:reqwest", "dep:se
 # features of reqwest that `google-cloud-auth` does.
 _internal-grpc-client = [
   "_internal-common",
+  "dep:h2",
   "dep:http-body",
   "dep:prost",
   "dep:prost-types",
@@ -95,6 +96,7 @@ _default-rustls-provider = ["google-cloud-auth?/default-rustls-provider", "tonic
 _internal-grpc-server-streaming = []
 
 [dependencies]
+h2                                 = { workspace = true, optional = true }
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
 futures                            = { workspace = true, optional = true }
 lazy_static                        = { workspace = true, optional = true }
