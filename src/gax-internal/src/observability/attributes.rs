@@ -34,6 +34,7 @@ pub mod keys {
     pub const OTEL_STATUS_DESCRIPTION: &str = "otel.status_description";
 
     /// The string representation of the gRPC status code.
+    #[allow(dead_code)]
     pub const GRPC_STATUS: &str = "grpc.status";
 
     /// The Remote Procedure Call (RPC) system.
@@ -105,6 +106,7 @@ pub mod keys {
 /// Value for [keys::OTEL_KIND].
 pub const OTEL_KIND_CLIENT: &str = "Client";
 /// Value for `rpc.system`.
+#[allow(dead_code)]
 pub const RPC_SYSTEM_HTTP: &str = "http";
 /// Value for `rpc.system`.
 #[cfg(feature = "_internal-grpc-client")]
