@@ -83,6 +83,7 @@ pub mod keys {
     /// The number of times this same gRPC request has been resent due to retries.
     ///
     /// 1 for the first retry.
+    #[cfg(feature = "_internal-grpc-client")]
     pub const GCP_GRPC_RESEND_COUNT: &str = "gcp.grpc.resend_count";
     /// The Google Cloud error domain.
     ///
@@ -106,6 +107,7 @@ pub const OTEL_KIND_CLIENT: &str = "Client";
 /// Value for `rpc.system`.
 pub const RPC_SYSTEM_HTTP: &str = "http";
 /// Value for `rpc.system`.
+#[cfg(feature = "_internal-grpc-client")]
 pub const RPC_SYSTEM_GRPC: &str = "grpc";
 /// The GitHub repository hosting the client libraries.
 pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
@@ -120,6 +122,7 @@ pub mod error_type_values {
     /// A client-configured timeout was reached.
     pub const CLIENT_TIMEOUT: &str = "CLIENT_TIMEOUT";
     /// The operation was cancelled by the caller.
+    #[cfg(feature = "_internal-grpc-client")]
     pub const CLIENT_CANCELLED: &str = "CLIENT_CANCELLED";
     /// Failure to establish the network connection (DNS, TCP, TLS).
     pub const CLIENT_CONNECTION_ERROR: &str = "CLIENT_CONNECTION_ERROR";
