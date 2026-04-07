@@ -598,6 +598,7 @@ impl ResultSet {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use crate::client::BeginTransactionOption;
     use crate::client::Spanner;
     use gaxi::grpc::tonic::Response;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
@@ -1708,7 +1709,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut rs = tx.execute_query("SELECT 1").await?;
@@ -1797,7 +1798,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut rs = tx.execute_query("SELECT 1").await?;
@@ -1893,7 +1894,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut rs = tx.execute_query("SELECT 1").await?;
@@ -1965,7 +1966,7 @@ pub(crate) mod tests {
         // Use explicitly deferred Lazy begin transaction!
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let mut rs = tx.execute_query("SELECT 1").await?;
@@ -2069,7 +2070,7 @@ pub(crate) mod tests {
         // Use inline begin transaction
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 

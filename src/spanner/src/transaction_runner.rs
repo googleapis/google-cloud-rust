@@ -15,6 +15,7 @@
 use crate::database_client::DatabaseClient;
 use crate::model::transaction_options::IsolationLevel;
 use crate::model::transaction_options::read_write::ReadLockMode;
+use crate::read_only_transaction::BeginTransactionOption;
 use crate::read_write_transaction::{ReadWriteTransaction, ReadWriteTransactionBuilder};
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, backoff_if_aborted, is_aborted,
@@ -152,16 +153,16 @@ impl TransactionRunnerBuilder {
         self
     }
 
-    /// Sets whether the transaction should be explicitly started using a `BeginTransaction` RPC.
+    /// Sets the option for how to start a transaction.
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::client::{Spanner, BeginTransactionOption};
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
     ///     .read_write_transaction()
-    ///     .with_explicit_begin_transaction(true)
+    ///     .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
     ///     .build()
     ///     .await?;
     /// # Ok(())
@@ -170,7 +171,7 @@ impl TransactionRunnerBuilder {
     ///
     /// By default, the Spanner client will inline the `BeginTransaction` call with the first query
     /// or DML statement in the transaction. This reduces the number of round-trips to Spanner that
-    /// are needed for a transaction. Setting this option to `true` can be beneficial for specific
+    /// are needed for a transaction. Setting this option to `ExplicitBegin` can be beneficial for specific
     /// transaction shapes:
     ///
     /// 1. When the transaction executes multiple parallel queries at the start of the transaction.
@@ -182,9 +183,9 @@ impl TransactionRunnerBuilder {
     ///    will also not start a transaction and return a transaction ID. The transaction will then
     ///    fall back to executing a `BeginTransaction` RPC and retry the first statement.
     ///
-    /// Default is `false` (inline begin).
-    pub fn with_explicit_begin_transaction(mut self, explicit: bool) -> Self {
-        self.builder = self.builder.with_explicit_begin_transaction(explicit);
+    /// Default is `BeginTransactionOption::InlineBegin`.
+    pub fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
+        self.builder = self.builder.with_begin_transaction_option(option);
         self
     }
 
@@ -334,11 +335,11 @@ mod tests {
 
     async fn execute_test_runner(
         mock: spanner_grpc_mock::MockSpanner,
-        explicit_begin: bool,
+        begin_transaction_option: BeginTransactionOption,
     ) -> Result<i64, crate::Error> {
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await
             .unwrap();
@@ -380,18 +381,18 @@ mod tests {
 
     #[tokio::test]
     async fn execute_run_success_explicit() {
-        run_success(true).await;
+        run_success(BeginTransactionOption::ExplicitBegin).await;
     }
 
     #[tokio::test]
     async fn execute_run_success_inline() {
-        run_success(false).await;
+        run_success(BeginTransactionOption::InlineBegin).await;
     }
 
-    async fn run_success(explicit_begin: bool) {
+    async fn run_success(begin_transaction_option: BeginTransactionOption) {
         let mut mock = create_session_mock();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             expect_begin_transaction(&mut mock, 1, vec![1, 2, 3]);
         }
 
@@ -400,7 +401,7 @@ mod tests {
             assert_eq!(req.sql, "UPDATE Users SET active = true");
             assert_eq!(req.seqno, 1);
 
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 let transaction = req
                     .transaction
                     .as_ref()
@@ -415,7 +416,7 @@ mod tests {
             let mut metadata = v1::ResultSetMetadata {
                 ..Default::default()
             };
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 metadata.transaction = Some(v1::Transaction {
                     id: vec![1, 2, 3],
                     ..Default::default()
@@ -443,25 +444,29 @@ mod tests {
             commit_response()
         });
 
-        let res = execute_test_runner(mock, explicit_begin).await.unwrap();
+        let res = execute_test_runner(mock, begin_transaction_option)
+            .await
+            .unwrap();
         assert_eq!(res, 1);
     }
 
     #[tokio::test]
     async fn execute_run_with_aborted_retry_explicit() -> anyhow::Result<()> {
-        run_with_aborted_retry(true).await
+        run_with_aborted_retry(BeginTransactionOption::ExplicitBegin).await
     }
 
     #[tokio::test]
     async fn execute_run_with_aborted_retry_inline() -> anyhow::Result<()> {
-        run_with_aborted_retry(false).await
+        run_with_aborted_retry(BeginTransactionOption::InlineBegin).await
     }
 
-    async fn run_with_aborted_retry(explicit_begin: bool) -> anyhow::Result<()> {
+    async fn run_with_aborted_retry(
+        begin_transaction_option: BeginTransactionOption,
+    ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction()
                 .once()
                 .in_sequence(&mut seq)
@@ -478,7 +483,7 @@ mod tests {
                 });
         }
 
-        if !explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::InlineBegin {
             // Attempt 1: execute_sql fails with Aborted
             mock.expect_execute_sql()
                 .once()
@@ -506,7 +511,7 @@ mod tests {
                 });
         }
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction()
                 .once()
                 .in_sequence(&mut seq)
@@ -535,7 +540,7 @@ mod tests {
             .once()
             .in_sequence(&mut seq)
             .returning(move |req| {
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     let req = req.into_inner();
                     let transaction = req.transaction.as_ref().expect("transaction options required for inline begin");
                     let selector = transaction.selector.as_ref().expect("selector required");
@@ -571,7 +576,7 @@ mod tests {
             .once()
             .returning(|_req| commit_response());
 
-        let res = execute_test_runner(mock, explicit_begin)
+        let res = execute_test_runner(mock, begin_transaction_option)
             .await
             .expect("runner should succeed");
         assert_eq!(res, 5);
@@ -580,19 +585,21 @@ mod tests {
 
     #[tokio::test]
     async fn execute_run_query_with_aborted_retry_explicit() -> anyhow::Result<()> {
-        run_query_with_aborted_retry(true).await
+        run_query_with_aborted_retry(BeginTransactionOption::ExplicitBegin).await
     }
 
     #[tokio::test]
     async fn execute_run_query_with_aborted_retry_inline() -> anyhow::Result<()> {
-        run_query_with_aborted_retry(false).await
+        run_query_with_aborted_retry(BeginTransactionOption::InlineBegin).await
     }
 
-    async fn run_query_with_aborted_retry(explicit_begin: bool) -> anyhow::Result<()> {
+    async fn run_query_with_aborted_retry(
+        begin_transaction_option: BeginTransactionOption,
+    ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction()
                 .once()
                 .in_sequence(&mut seq)
@@ -604,7 +611,7 @@ mod tests {
                 });
         }
 
-        if !explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::InlineBegin {
             // Attempt 1: execute_streaming_sql fails with Aborted
             mock.expect_execute_streaming_sql()
                 .once()
@@ -630,7 +637,7 @@ mod tests {
                 .returning(move |_req| Err(tonic::Status::new(tonic::Code::Aborted, "aborted")));
         }
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction()
                 .once()
                 .in_sequence(&mut seq)
@@ -660,7 +667,7 @@ mod tests {
             .once()
             .in_sequence(&mut seq)
             .returning(move |req| {
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     let req = req.into_inner();
                     let transaction = req
                         .transaction
@@ -699,7 +706,7 @@ mod tests {
                     ..Default::default()
                 };
 
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     rs.metadata.as_mut().unwrap().transaction = Some(v1::Transaction {
                         id: vec![8, 8, 8],
                         ..Default::default()
@@ -717,7 +724,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await?;
 
@@ -738,15 +745,17 @@ mod tests {
 
     #[tokio::test]
     async fn execute_run_query_stream_with_aborted_retry_explicit() -> anyhow::Result<()> {
-        run_query_stream_with_aborted_retry(true).await
+        run_query_stream_with_aborted_retry(BeginTransactionOption::ExplicitBegin).await
     }
 
     #[tokio::test]
     async fn execute_run_query_stream_with_aborted_retry_inline() -> anyhow::Result<()> {
-        run_query_stream_with_aborted_retry(false).await
+        run_query_stream_with_aborted_retry(BeginTransactionOption::InlineBegin).await
     }
 
-    async fn run_query_stream_with_aborted_retry(explicit_begin: bool) -> anyhow::Result<()> {
+    async fn run_query_stream_with_aborted_retry(
+        begin_transaction_option: BeginTransactionOption,
+    ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
 
@@ -754,7 +763,7 @@ mod tests {
         let tx_id_2 = vec![8, 8, 8];
 
         let tx_id_1_c1 = tx_id_1.clone();
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction()
                 .once()
                 .in_sequence(&mut seq)
@@ -772,7 +781,7 @@ mod tests {
             .in_sequence(&mut seq)
             .returning(move |req| {
                 let req = req.into_inner();
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     let transaction = req
                         .transaction
                         .as_ref()
@@ -798,7 +807,7 @@ mod tests {
                     ..Default::default()
                 };
 
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     rs.metadata.as_mut().unwrap().transaction = Some(v1::Transaction {
                         id: tx_id_1_c2.clone(),
                         ..Default::default()
@@ -814,7 +823,7 @@ mod tests {
 
         let tx_id_1_c3 = tx_id_1.clone();
         let tx_id_2_c3 = tx_id_2.clone();
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction()
                 .once()
                 .in_sequence(&mut seq)
@@ -843,7 +852,7 @@ mod tests {
             .in_sequence(&mut seq)
             .returning(move |req| {
                 let req = req.into_inner();
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     let transaction = req
                         .transaction
                         .as_ref()
@@ -876,7 +885,7 @@ mod tests {
                     ..Default::default()
                 };
 
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     rs.metadata.as_mut().unwrap().transaction = Some(v1::Transaction {
                         id: tx_id_2_c4.clone(),
                         ..Default::default()
@@ -894,7 +903,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await?;
 
@@ -919,23 +928,23 @@ mod tests {
 
     #[tokio::test]
     async fn execute_run_with_non_aborted_error_explicit() {
-        run_with_non_aborted_error(true).await;
+        run_with_non_aborted_error(BeginTransactionOption::ExplicitBegin).await;
     }
 
     #[tokio::test]
     async fn execute_run_with_non_aborted_error_inline() {
-        run_with_non_aborted_error(false).await;
+        run_with_non_aborted_error(BeginTransactionOption::InlineBegin).await;
     }
 
-    async fn run_with_non_aborted_error(explicit_begin: bool) {
+    async fn run_with_non_aborted_error(begin_transaction_option: BeginTransactionOption) {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
         }
 
-        if !explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::InlineBegin {
             // First execute_sql fails
             mock.expect_execute_sql()
                 .once()
@@ -999,7 +1008,7 @@ mod tests {
             .once()
             .returning(|_req| Ok(tonic::Response::new(())));
 
-        let res = execute_test_runner(mock, explicit_begin).await;
+        let res = execute_test_runner(mock, begin_transaction_option).await;
 
         assert!(res.is_err());
         let err = res.unwrap_err();
@@ -1015,23 +1024,25 @@ mod tests {
 
     #[tokio::test]
     async fn execute_run_with_non_aborted_error_and_rollback_fails_explicit() {
-        run_with_non_aborted_error_and_rollback_fails(true).await;
+        run_with_non_aborted_error_and_rollback_fails(BeginTransactionOption::ExplicitBegin).await;
     }
 
     #[tokio::test]
     async fn execute_run_with_non_aborted_error_and_rollback_fails_inline() {
-        run_with_non_aborted_error_and_rollback_fails(false).await;
+        run_with_non_aborted_error_and_rollback_fails(BeginTransactionOption::InlineBegin).await;
     }
 
-    async fn run_with_non_aborted_error_and_rollback_fails(explicit_begin: bool) {
+    async fn run_with_non_aborted_error_and_rollback_fails(
+        begin_transaction_option: BeginTransactionOption,
+    ) {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             expect_begin_transaction(&mut mock, 1, vec![9, 9, 9]);
         }
 
-        if !explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::InlineBegin {
             // First execute_sql fails
             mock.expect_execute_sql()
                 .once()
@@ -1095,7 +1106,7 @@ mod tests {
             .once()
             .returning(|_req| Err(tonic::Status::new(tonic::Code::Internal, "rollback failed")));
 
-        let res = execute_test_runner(mock, explicit_begin).await;
+        let res = execute_test_runner(mock, begin_transaction_option).await;
 
         // Verify the user unequivocally receives the PRIMARY original error
         assert!(res.is_err());
@@ -1112,24 +1123,24 @@ mod tests {
 
     #[tokio::test]
     async fn execute_run_commit_aborted_retry_explicit() {
-        run_commit_aborted_retry(true).await;
+        run_commit_aborted_retry(BeginTransactionOption::ExplicitBegin).await;
     }
 
     #[tokio::test]
     async fn execute_run_commit_aborted_retry_inline() {
-        run_commit_aborted_retry(false).await;
+        run_commit_aborted_retry(BeginTransactionOption::InlineBegin).await;
     }
 
-    async fn run_commit_aborted_retry(explicit_begin: bool) {
+    async fn run_commit_aborted_retry(begin_transaction_option: BeginTransactionOption) {
         let mut mock = create_session_mock();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
         }
 
         let mut attempt = 0;
         mock.expect_execute_sql().times(2).returning(move |req| {
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 let req = req.into_inner();
                 let transaction = req
                     .transaction
@@ -1189,25 +1200,27 @@ mod tests {
             }
         });
 
-        let res = execute_test_runner(mock, explicit_begin).await.unwrap();
+        let res = execute_test_runner(mock, begin_transaction_option)
+            .await
+            .unwrap();
         assert_eq!(res, 5);
     }
 
     #[tokio::test]
     async fn execute_run_begin_transaction_fails_explicit() {
-        run_begin_transaction_fails(true).await;
+        run_begin_transaction_fails(BeginTransactionOption::ExplicitBegin).await;
     }
 
     #[tokio::test]
     async fn execute_run_begin_transaction_fails_inline() {
-        run_begin_transaction_fails(false).await;
+        run_begin_transaction_fails(BeginTransactionOption::InlineBegin).await;
     }
 
-    async fn run_begin_transaction_fails(explicit_begin: bool) {
+    async fn run_begin_transaction_fails(begin_transaction_option: BeginTransactionOption) {
         let mut mock = create_session_mock();
         let mut seq = mockall::Sequence::new();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction()
                 .once()
                 .returning(|_req| Err(tonic::Status::new(tonic::Code::Internal, "internal error")));
@@ -1236,7 +1249,7 @@ mod tests {
                 .returning(|_req| Err(tonic::Status::new(tonic::Code::Internal, "internal error")));
         }
 
-        let res = execute_test_runner(mock, explicit_begin).await;
+        let res = execute_test_runner(mock, begin_transaction_option).await;
 
         assert!(res.is_err());
         let err = res.unwrap_err();
@@ -1271,15 +1284,15 @@ mod tests {
 
     #[tokio::test]
     async fn execute_run_batch_dml_aborted_retry_explicit() {
-        run_batch_dml_aborted_retry(true).await;
+        run_batch_dml_aborted_retry(BeginTransactionOption::ExplicitBegin).await;
     }
 
     #[tokio::test]
     async fn execute_run_batch_dml_aborted_retry_inline() {
-        run_batch_dml_aborted_retry(false).await;
+        run_batch_dml_aborted_retry(BeginTransactionOption::InlineBegin).await;
     }
 
-    async fn run_batch_dml_aborted_retry(explicit_begin: bool) {
+    async fn run_batch_dml_aborted_retry(begin_transaction_option: BeginTransactionOption) {
         use crate::batch_dml::BatchDml;
         use crate::statement::Statement;
         use gaxi::grpc::tonic::Code;
@@ -1288,7 +1301,7 @@ mod tests {
 
         let mut mock = create_session_mock();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             expect_begin_transaction(&mut mock, 2, vec![9, 9, 9]);
         }
 
@@ -1297,7 +1310,7 @@ mod tests {
             .once()
             .in_sequence(&mut seq)
             .returning(move |req| {
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     let req = req.into_inner();
                     let selector = req
                         .transaction
@@ -1320,7 +1333,7 @@ mod tests {
                 let mut metadata = v1::ResultSetMetadata {
                     ..Default::default()
                 };
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     metadata.transaction = Some(v1::Transaction {
                         id: vec![9, 9, 9],
                         ..Default::default()
@@ -1344,7 +1357,7 @@ mod tests {
             .once()
             .in_sequence(&mut seq)
             .returning(move |req| {
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     let req = req.into_inner();
                     let selector = req
                         .transaction
@@ -1360,7 +1373,7 @@ mod tests {
                 let mut metadata = v1::ResultSetMetadata {
                     ..Default::default()
                 };
-                if !explicit_begin {
+                if begin_transaction_option == BeginTransactionOption::InlineBegin {
                     metadata.transaction = Some(v1::Transaction {
                         id: vec![9, 9, 9],
                         ..Default::default()
@@ -1387,7 +1400,7 @@ mod tests {
 
         let (db_client, _) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .build()
             .await
             .expect("failed to build TransactionRunner");
@@ -1412,18 +1425,20 @@ mod tests {
 
     #[tokio::test]
     async fn execute_run_with_transaction_tag_explicit() -> anyhow::Result<()> {
-        run_with_transaction_tag(true).await
+        run_with_transaction_tag(BeginTransactionOption::ExplicitBegin).await
     }
 
     #[tokio::test]
     async fn execute_run_with_transaction_tag_inline() -> anyhow::Result<()> {
-        run_with_transaction_tag(false).await
+        run_with_transaction_tag(BeginTransactionOption::InlineBegin).await
     }
 
-    async fn run_with_transaction_tag(explicit_begin: bool) -> anyhow::Result<()> {
+    async fn run_with_transaction_tag(
+        begin_transaction_option: BeginTransactionOption,
+    ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
-        if explicit_begin {
+        if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
             mock.expect_begin_transaction().once().returning(|req| {
                 let req = req.into_inner();
                 // Check if the transaction tag is correctly propagated.
@@ -1450,7 +1465,7 @@ mod tests {
                 "my-test-tag"
             );
 
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 let transaction = req
                     .transaction
                     .as_ref()
@@ -1465,7 +1480,7 @@ mod tests {
             let mut metadata = v1::ResultSetMetadata {
                 ..Default::default()
             };
-            if !explicit_begin {
+            if begin_transaction_option == BeginTransactionOption::InlineBegin {
                 metadata.transaction = Some(v1::Transaction {
                     id: vec![9, 9, 9],
                     ..Default::default()
@@ -1496,7 +1511,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let runner = TransactionRunnerBuilder::new(db_client)
-            .with_explicit_begin_transaction(explicit_begin)
+            .with_begin_transaction_option(begin_transaction_option)
             .with_transaction_tag("my-test-tag")
             .build()
             .await?;

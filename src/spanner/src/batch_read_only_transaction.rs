@@ -15,7 +15,7 @@
 use crate::database_client::DatabaseClient;
 use crate::model::PartitionOptions;
 use crate::read_only_transaction::{
-    MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
+    BeginTransactionOption, MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
 };
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
@@ -44,7 +44,7 @@ impl BatchReadOnlyTransactionBuilder {
     pub(crate) fn new(client: DatabaseClient) -> Self {
         Self {
             inner: MultiUseReadOnlyTransactionBuilder::new(client)
-                .with_explicit_begin_transaction(true),
+                .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin),
         }
     }
 

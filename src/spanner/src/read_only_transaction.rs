@@ -192,6 +192,17 @@ impl SingleUseReadOnlyTransaction {
     }
 }
 
+/// Options for how to start a transaction.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
+#[non_exhaustive]
+pub enum BeginTransactionOption {
+    /// The transaction will be started inlined with the first statement.
+    #[default]
+    InlineBegin,
+    /// The transaction will be started explicitly using a `BeginTransaction` RPC.
+    ExplicitBegin,
+}
+
 /// A builder for [MultiUseReadOnlyTransaction].
 ///
 /// # Example
@@ -210,7 +221,7 @@ impl SingleUseReadOnlyTransaction {
 pub struct MultiUseReadOnlyTransactionBuilder {
     client: DatabaseClient,
     timestamp_bound: Option<TimestampBound>,
-    explicit_begin: bool,
+    begin_transaction_option: BeginTransactionOption,
 }
 
 impl MultiUseReadOnlyTransactionBuilder {
@@ -218,19 +229,19 @@ impl MultiUseReadOnlyTransactionBuilder {
         Self {
             client,
             timestamp_bound: None,
-            explicit_begin: false,
+            begin_transaction_option: BeginTransactionOption::InlineBegin,
         }
     }
 
-    /// Sets whether the transaction should be explicitly started using a `BeginTransaction` RPC.
+    /// Sets the option for how to start a transaction.
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_spanner::client::{Spanner, BeginTransactionOption};
     /// # use google_cloud_spanner::client::Statement;
-    /// # async fn set_explicit_begin(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// # async fn set_begin_option(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// let transaction = db_client.read_only_transaction().with_explicit_begin_transaction(true).build().await?;
+    /// let transaction = db_client.read_only_transaction().with_begin_transaction_option(BeginTransactionOption::ExplicitBegin).build().await?;
     /// let statement = Statement::builder("SELECT * FROM users").build();
     /// let result_set = transaction.execute_query(statement).await?;
     /// # Ok(())
@@ -239,7 +250,7 @@ impl MultiUseReadOnlyTransactionBuilder {
     ///
     /// By default, the Spanner client will inline the `BeginTransaction` call with the first query
     /// in the transaction. This reduces the number of round-trips to Spanner that are needed for a
-    /// transaction. Setting this option to `true` can be beneficial for specific transaction shapes:
+    /// transaction. Setting this option to `ExplicitBegin` can be beneficial for specific transaction shapes:
     ///
     /// 1. When the transaction executes multiple parallel queries at the start of the transaction.
     ///    Only one query can include a `BeginTransaction` option, and all other queries must wait for
@@ -250,9 +261,9 @@ impl MultiUseReadOnlyTransactionBuilder {
     ///    not start a transaction and return a transaction ID. The transaction will then fall back to
     ///    executing a `BeginTransaction` RPC and retry the first query.
     ///
-    /// Default is `false` (inline begin).
-    pub fn with_explicit_begin_transaction(mut self, explicit: bool) -> Self {
-        self.explicit_begin = explicit;
+    /// Default is `BeginTransactionOption::InlineBegin`.
+    pub fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
+        self.begin_transaction_option = option;
         self
     }
 
@@ -277,7 +288,8 @@ impl MultiUseReadOnlyTransactionBuilder {
         &self,
         options: TransactionOptions,
     ) -> crate::Result<ReadContextTransactionSelector> {
-        let response = execute_begin_transaction(&self.client, options).await?;
+        let response =
+            execute_begin_transaction(&self.client, options, /* transaction_tag= */ None).await?;
 
         let transaction_selector = crate::model::TransactionSelector::default().set_id(response.id);
 
@@ -307,12 +319,11 @@ impl MultiUseReadOnlyTransactionBuilder {
         };
         let options = TransactionOptions::default().set_read_only(read_only);
 
-        let selector = if self.explicit_begin {
-            self.begin(options).await?
-        } else {
-            ReadContextTransactionSelector::Lazy(Arc::new(Mutex::new(
-                TransactionState::NotStarted(options),
-            )))
+        let selector = match self.begin_transaction_option {
+            BeginTransactionOption::ExplicitBegin => self.begin(options).await?,
+            BeginTransactionOption::InlineBegin => ReadContextTransactionSelector::Lazy(Arc::new(
+                Mutex::new(TransactionState::NotStarted(options)),
+            )),
         };
 
         Ok(MultiUseReadOnlyTransaction {
@@ -423,13 +434,18 @@ impl MultiUseReadOnlyTransaction {
 }
 
 /// Executes an explicit `BeginTransaction` RPC on Spanner.
-async fn execute_begin_transaction(
+pub(crate) async fn execute_begin_transaction(
     client: &crate::database_client::DatabaseClient,
     options: crate::model::TransactionOptions,
+    transaction_tag: Option<String>,
 ) -> crate::Result<crate::model::Transaction> {
     let request = crate::model::BeginTransactionRequest::default()
         .set_session(client.session.name.clone())
-        .set_options(options);
+        .set_options(options)
+        .set_or_clear_request_options(
+            transaction_tag
+                .map(|tag| crate::model::RequestOptions::default().set_transaction_tag(tag)),
+        );
 
     // TODO(#4972): make request options configurable
     client
@@ -544,27 +560,31 @@ impl ReadContextTransactionSelector {
             }
         };
 
-        let response = match execute_begin_transaction(client, options).await {
-            Ok(r) => r,
-            Err(e) => {
-                let mut guard = lazy.lock().expect("transaction state mutex poisoned");
-                let error = Arc::new(e);
-                *guard = TransactionState::Failed(Arc::clone(&error));
-                // Release the lock and notify all the waiting queries that
-                // the transaction has failed.
-                drop(guard);
-                if let Some(notify) = notify_opt {
-                    notify.notify_waiters();
-                }
+        let response =
+            match execute_begin_transaction(client, options, /* transaction_tag= */ None).await {
+                Ok(r) => r,
+                Err(e) => {
+                    let mut guard = lazy.lock().expect("transaction state mutex poisoned");
+                    let error = Arc::new(e);
+                    *guard = TransactionState::Failed(Arc::clone(&error));
+                    // Release the lock and notify all the waiting queries that
+                    // the transaction has failed.
+                    drop(guard);
+                    if let Some(notify) = notify_opt {
+                        notify.notify_waiters();
+                    }
 
-                let return_error = if let Some(status) = error.status() {
-                    crate::Error::service(status.clone())
-                } else {
-                    crate::error::internal_error(format!("Transaction failed to start: {}", error))
-                };
-                return Err(return_error);
-            }
-        };
+                    let return_error = if let Some(status) = error.status() {
+                        crate::Error::service(status.clone())
+                    } else {
+                        crate::error::internal_error(format!(
+                            "Transaction failed to start: {}",
+                            error
+                        ))
+                    };
+                    return Err(return_error);
+                }
+            };
 
         self.update(response.id, response.read_timestamp)?;
 
@@ -994,7 +1014,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(true)
+            .with_begin_transaction_option(BeginTransactionOption::ExplicitBegin)
             .build()
             .await
             .expect("Failed to start tx");
@@ -1083,7 +1103,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1208,7 +1228,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1267,7 +1287,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1311,7 +1331,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1382,7 +1402,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1470,7 +1490,7 @@ pub(crate) mod tests {
 
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -1555,7 +1575,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -1680,7 +1700,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -1833,7 +1853,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -1937,7 +1957,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2020,7 +2040,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
         let tx = Arc::new(tx);
@@ -2089,7 +2109,7 @@ pub(crate) mod tests {
         // Access internal state for unit testing.
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
@@ -2163,7 +2183,7 @@ pub(crate) mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = db_client
             .read_only_transaction()
-            .with_explicit_begin_transaction(false)
+            .with_begin_transaction_option(BeginTransactionOption::InlineBegin)
             .build()
             .await?;
 
