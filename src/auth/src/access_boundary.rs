@@ -242,17 +242,18 @@ where
         universe_domain: Option<String>,
     ) -> Self {
         let credentials = Arc::new(credentials);
-        let provider = IAMAccessBoundaryProvider {
-            credentials: credentials.clone(),
-            url: access_boundary_url,
-        };
 
         // Only enable access boundary for default universe domain
         let access_boundary = if is_default_universe_domain(universe_domain) {
+            let provider = IAMAccessBoundaryProvider {
+                credentials: credentials.clone(),
+                url: access_boundary_url,
+            };
             Arc::new(AccessBoundary::new(provider))
         } else {
             Arc::new(AccessBoundary::new_no_op())
         };
+
         Self {
             credentials,
             access_boundary,
@@ -1262,6 +1263,67 @@ pub(crate) mod tests {
         client.backoff_policy = Arc::new(test_backoff_policy());
         let val = client.fetch().await?;
         assert_eq!(val.as_deref(), Some("0x123"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
+    async fn test_credentials_with_access_boundary_non_default_universe() -> TestResult {
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().returning(|_extensions| {
+            let headers = HeaderMap::from_iter([(
+                AUTHORIZATION,
+                HeaderValue::from_static("Bearer test-token"),
+            )]);
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: headers,
+            })
+        });
+
+        let creds = CredentialsWithAccessBoundary::new(
+            mock,
+            Some("http://localhost".to_string()),
+            Some("my-universe-domain.com".to_string()),
+        );
+
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(cached_headers.clone());
+        assert!(token.is_some(), "{token:?}");
+
+        let access_boundary = get_access_boundary_from_headers(cached_headers);
+        assert!(
+            access_boundary.is_none(),
+            "Expected no access boundary header for non-default universe: {access_boundary:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    #[cfg(google_cloud_unstable_trusted_boundaries)]
+    async fn test_mds_provider_non_default_universe() -> TestResult {
+        let mut mock = MockCredentials::new();
+        mock.expect_universe_domain()
+            .returning(|| Some("my-universe-domain.com".to_string()));
+
+        let mds_client = MDSClient::new(None);
+
+        let provider = MDSAccessBoundaryProvider {
+            credentials: Arc::new(mock),
+            mds_client,
+            iam_endpoint_override: None,
+            url: OnceLock::new(),
+        };
+
+        let val = provider.fetch_access_boundary().await?;
+        assert!(
+            val.is_none(),
+            "Expected None for non-default universe domain: {val:?}"
+        );
 
         Ok(())
     }

@@ -646,9 +646,10 @@ mod tests {
     }
 
     #[cfg(feature = "_internal-grpc-client")]
-    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    #[tokio::test]
     async fn grpc_client_request_success() -> anyhow::Result<()> {
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
+        tokio::time::pause();
         let signals = SignalProviders::new();
 
         let metric = DurationMetric::new_with_provider(
