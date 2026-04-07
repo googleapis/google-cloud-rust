@@ -15,6 +15,8 @@
 mod at_least_once;
 mod exactly_once;
 
+pub(super) use exactly_once::NACK_SHUTDOWN_ERROR;
+
 use super::handler::AckResult;
 use super::handler::Action;
 use super::leaser::ConfirmedAcks;

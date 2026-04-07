@@ -47,17 +47,15 @@ pub enum PublishError {
     Shutdown,
 }
 
-/// Represents an error that can occur when acknowledging or negatively acknowledging a message.
+/// Represents an error that can occur when acking or nacking a message.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum AckError {
-    /// The message's lease expired before the client could acknowledge it.
+    /// The message's lease expired before the client could ack or nack it.
     ///
-    /// The message has not been acknowledged, and will be redelivered, maybe to
+    /// The message has not been acked, and will be redelivered, maybe to
     /// another client.
-    #[error(
-        "the message's lease has already expired. It was not acknowledged, and will be redelivered."
-    )]
+    #[error("the message's lease has already expired. It was not acked, and will be redelivered.")]
     LeaseExpired,
 
     /// The underlying RPC failed.
@@ -75,13 +73,15 @@ pub enum AckError {
     /// The client did not acknowledge the message. The service will redeliver
     /// message.
     #[error(
-        "shutdown before attempting the operation. The message was not acknowledged, and will be redelivered."
+        "shutdown before attempting the operation. \
+         The message was not acknowledged, and will be redelivered."
     )]
     ShutdownBeforeAck,
 
     /// Error during shutdown.
     ///
-    /// The result of the operation is unknown.
+    /// The result of the operation is unknown. If you attempted to ack
+    /// the message, the service may or may not redeliver it.
     #[error("error during shutdown. The result of the operation is unknown. {0}")]
     Shutdown(#[source] Box<dyn std::error::Error + Send + Sync + 'static>),
 }
