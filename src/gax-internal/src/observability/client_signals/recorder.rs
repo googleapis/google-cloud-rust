@@ -741,4 +741,40 @@ mod tests {
         let snap = recorder.client_snapshot();
         assert_eq!(snap.client_duration(), DURATION, "{snap:?}");
     }
+
+    #[tokio::test(start_paused = true)]
+    async fn transport_duration() -> anyhow::Result<()> {
+        const DURATION: Duration = Duration::from_millis(123456);
+        let recorder = RequestRecorder::new(TEST_INFO);
+
+        let url = reqwest::Url::parse("https://example.com")?;
+        let request = reqwest::Request::new(reqwest::Method::GET, url);
+        recorder.on_http_request(&request);
+
+        tokio::time::sleep(DURATION).await;
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.transport_duration(), Some(DURATION), "{snap:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn http_resend_count() {
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.http_resend_count(), None);
+
+        {
+            let mut guard = recorder.inner.lock().expect("never poisoned");
+            guard.attempt_count = 1;
+        }
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.http_resend_count(), None);
+
+        {
+            let mut guard = recorder.inner.lock().expect("never poisoned");
+            guard.attempt_count = 2;
+        }
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.http_resend_count(), Some(1));
+    }
 }
