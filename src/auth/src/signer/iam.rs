@@ -34,7 +34,7 @@ use std::time::Duration;
 pub(crate) struct IamSigner {
     client_email: String,
     inner: Credentials,
-    endpoint: String,
+    iam_endpoint_override: Option<String>,
     client: Client,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
@@ -52,17 +52,35 @@ struct SignBlobResponse {
 }
 
 impl IamSigner {
-    pub(crate) fn new(client_email: String, inner: Credentials, endpoint: Option<String>) -> Self {
+    pub(crate) fn new(
+        client_email: String,
+        inner: Credentials,
+        iam_endpoint_override: Option<String>,
+    ) -> Self {
         let retry_policy = Aip194Strict.with_time_limit(Duration::from_secs(60));
         let backoff_policy = ExponentialBackoff::default();
         Self {
             client_email,
             inner,
-            endpoint: endpoint.unwrap_or("https://iamcredentials.googleapis.com".to_string()),
+            iam_endpoint_override,
             client: Client::new(),
             retry_policy: Arc::new(retry_policy),
             backoff_policy: Arc::new(backoff_policy),
         }
+    }
+
+    async fn sign_blob_url(&self) -> String {
+        let endpoint = match self.iam_endpoint_override.as_ref() {
+            Some(endpoint) => endpoint.clone(),
+            None => {
+                let universe_domain = crate::universe_domain::resolve(&self.inner).await;
+                format!("https://iamcredentials.{universe_domain}")
+            }
+        };
+        format!(
+            "{}/v1/projects/-/serviceAccounts/{}:signBlob",
+            endpoint, self.client_email
+        )
     }
 }
 
@@ -78,11 +96,7 @@ impl SigningProvider for IamSigner {
         let payload = BASE64_STANDARD.encode(content);
         let body = SignBlobRequest { payload };
 
-        let client_email = self.client_email.clone();
-        let url = format!(
-            "{}/v1/projects/-/serviceAccounts/{client_email}:signBlob",
-            self.endpoint
-        );
+        let url = self.sign_blob_url().await;
         let response = sign_blob_call_with_retry(
             self.inner.clone(),
             self.client.clone(),
@@ -333,6 +347,52 @@ mod tests {
 
         assert_eq!(signature.as_ref(), b"signed_blob");
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_sign_blob_url_with_override() -> TestResult {
+        let mock = MockCredentials::new();
+        let creds = Credentials::from(mock);
+        let signer = IamSigner::new(
+            "test@example.com".to_string(),
+            creds,
+            Some("http://example.com".to_string()),
+        );
+        let url = signer.sign_blob_url().await;
+        assert_eq!(
+            url,
+            "http://example.com/v1/projects/-/serviceAccounts/test@example.com:signBlob"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_sign_blob_url_default_universe() -> TestResult {
+        let mut mock = MockCredentials::new();
+        mock.expect_universe_domain().returning(|| None);
+        let creds = Credentials::from(mock);
+        let signer = IamSigner::new("test@example.com".to_string(), creds, None);
+        let url = signer.sign_blob_url().await;
+        assert_eq!(
+            url,
+            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test@example.com:signBlob"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_sign_blob_url_custom_universe() -> TestResult {
+        let mut mock = MockCredentials::new();
+        mock.expect_universe_domain()
+            .returning(|| Some("my-custom-universe.com".to_string()));
+        let creds = Credentials::from(mock);
+        let signer = IamSigner::new("test@example.com".to_string(), creds, None);
+        let url = signer.sign_blob_url().await;
+        assert_eq!(
+            url,
+            "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test@example.com:signBlob"
+        );
         Ok(())
     }
 
