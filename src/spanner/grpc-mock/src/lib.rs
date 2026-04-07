@@ -65,6 +65,8 @@ pub mod google {
     }
     pub mod spanner {
         pub mod v1 {
+            #![allow(rustdoc::broken_intra_doc_links)]
+            #![allow(rustdoc::bare_urls)]
             include!("generated/protos/google.spanner.v1.rs");
         }
     }

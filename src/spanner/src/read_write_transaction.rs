@@ -102,7 +102,7 @@ impl ReadWriteTransactionBuilder {
     ///    fall back to executing a `BeginTransaction` RPC and retry the first statement.
     ///
     /// Default is `BeginTransactionOption::InlineBegin`.
-    pub fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
+    pub(crate) fn with_begin_transaction_option(mut self, option: BeginTransactionOption) -> Self {
         self.begin_transaction_option = option;
         self
     }

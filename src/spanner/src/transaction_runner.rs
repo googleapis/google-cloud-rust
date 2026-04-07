@@ -336,13 +336,12 @@ mod tests {
     async fn execute_test_runner(
         mock: spanner_grpc_mock::MockSpanner,
         begin_transaction_option: BeginTransactionOption,
-    ) -> Result<i64, crate::Error> {
+    ) -> crate::Result<i64> {
         let (db_client, _server) = setup_db_client(mock).await;
         let runner = TransactionRunnerBuilder::new(db_client)
             .with_begin_transaction_option(begin_transaction_option)
             .build()
-            .await
-            .unwrap();
+            .await?;
         runner
             .run(async |tx| {
                 let count = tx.execute_update("UPDATE Users SET active = true").await?;
@@ -380,16 +379,16 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn execute_run_success_explicit() {
-        run_success(BeginTransactionOption::ExplicitBegin).await;
+    async fn execute_run_success_explicit() -> anyhow::Result<()> {
+        run_success(BeginTransactionOption::ExplicitBegin).await
     }
 
     #[tokio::test]
-    async fn execute_run_success_inline() {
-        run_success(BeginTransactionOption::InlineBegin).await;
+    async fn execute_run_success_inline() -> anyhow::Result<()> {
+        run_success(BeginTransactionOption::InlineBegin).await
     }
 
-    async fn run_success(begin_transaction_option: BeginTransactionOption) {
+    async fn run_success(begin_transaction_option: BeginTransactionOption) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
         if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
@@ -444,10 +443,9 @@ mod tests {
             commit_response()
         });
 
-        let res = execute_test_runner(mock, begin_transaction_option)
-            .await
-            .unwrap();
+        let res = execute_test_runner(mock, begin_transaction_option).await?;
         assert_eq!(res, 1);
+        Ok(())
     }
 
     #[tokio::test]
@@ -1122,16 +1120,18 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn execute_run_commit_aborted_retry_explicit() {
-        run_commit_aborted_retry(BeginTransactionOption::ExplicitBegin).await;
+    async fn execute_run_commit_aborted_retry_explicit() -> anyhow::Result<()> {
+        run_commit_aborted_retry(BeginTransactionOption::ExplicitBegin).await
     }
 
     #[tokio::test]
-    async fn execute_run_commit_aborted_retry_inline() {
-        run_commit_aborted_retry(BeginTransactionOption::InlineBegin).await;
+    async fn execute_run_commit_aborted_retry_inline() -> anyhow::Result<()> {
+        run_commit_aborted_retry(BeginTransactionOption::InlineBegin).await
     }
 
-    async fn run_commit_aborted_retry(begin_transaction_option: BeginTransactionOption) {
+    async fn run_commit_aborted_retry(
+        begin_transaction_option: BeginTransactionOption,
+    ) -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
         if begin_transaction_option == BeginTransactionOption::ExplicitBegin {
@@ -1200,10 +1200,9 @@ mod tests {
             }
         });
 
-        let res = execute_test_runner(mock, begin_transaction_option)
-            .await
-            .unwrap();
+        let res = execute_test_runner(mock, begin_transaction_option).await?;
         assert_eq!(res, 5);
+        Ok(())
     }
 
     #[tokio::test]

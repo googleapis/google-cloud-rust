@@ -1064,7 +1064,12 @@ pub(crate) mod tests {
                 );
 
                 // First call: Should have Selector::Begin
-                match req.transaction.unwrap().selector.unwrap() {
+                match req
+                    .transaction
+                    .expect("missing transaction")
+                    .selector
+                    .expect("missing selector")
+                {
                     mock_v1::transaction_selector::Selector::Begin(_) => {}
                     _ => panic!("Expected Selector::Begin"),
                 }
