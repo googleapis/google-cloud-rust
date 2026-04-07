@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal-grpc-client", google_cloud_unstable_tracing))]
+#[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
     use google_cloud_auth::credentials::Credentials;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
