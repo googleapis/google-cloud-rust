@@ -35,7 +35,6 @@ locals {
   gcb_secret_name = "projects/${var.project}/secrets/github-github-oauthtoken-319d75/versions/latest"
 
   unstable_flags = join(" ", [
-    "--cfg google_cloud_unstable_tracing",
     "--cfg google_cloud_unstable_trust_boundaries",
     "--cfg google_cloud_unstable_storage_bidi",
     "--cfg google_cloud_unstable_grpc_server_streaming"
