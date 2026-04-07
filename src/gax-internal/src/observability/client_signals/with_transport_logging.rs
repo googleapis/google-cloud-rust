@@ -93,8 +93,7 @@ where
                     { HTTP_RESPONSE_STATUS_CODE } = error.http_status_code().map(|v| v as i64),
                     { GCP_ERRORS_DOMAIN } = error_domain,
                     { GCP_ERRORS_METADATA } = error_metadata,
-                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
-                    { URL_SCHEME } = snapshot.url_scheme()
+                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64)
                 );
             }
         }
