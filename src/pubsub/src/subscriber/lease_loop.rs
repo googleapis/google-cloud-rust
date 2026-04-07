@@ -181,7 +181,7 @@ mod tests {
             .returning(|_| ());
         mock.lock()
             .await
-            .expect_nack()
+            .expect_confirmed_nack()
             .times(1)
             .withf(|v| sorted(v) == test_ids(10..20))
             .returning(|_| ());
