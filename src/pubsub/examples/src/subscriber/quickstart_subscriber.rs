@@ -14,24 +14,27 @@
 
 // [START pubsub_quickstart_subscriber]
 use google_cloud_pubsub::client::Subscriber;
-use std::time::{Duration, Instant};
+use std::time::Duration;
 
 pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<()> {
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
     let client = Subscriber::builder().build().await?;
     let mut stream = client.subscribe(subscription_name).build();
 
+    // Terminate the example after 10 seconds.
+    let shutdown_token = stream.shutdown_token();
+    let shutdown = tokio::spawn(async move {
+        tokio::time::sleep(Duration::from_secs(10)).await;
+        shutdown_token.shutdown().await;
+    });
+
     println!("listening for messages...");
 
-    // Terminate the example after 10 seconds. Applications typically process
-    // messages indefinitely in a long-running loop.
-    let deadline = Instant::now() + Duration::from_secs(10);
-
-    while let Ok(Some(item)) = tokio::time::timeout_at(deadline.into(), stream.next()).await {
-        let (message, handler) = item?;
+    while let Some((message, handler)) = stream.next().await.transpose()? {
         println!("received message: {message:?}");
         handler.ack();
     }
+    shutdown.await?;
 
     println!("done listening for messages");
     Ok(())

@@ -94,6 +94,7 @@ impl std::fmt::Debug for super::attribute_context::Request {
         debug_struct.field("protocol", &self.protocol);
         debug_struct.field("reason", &self.reason);
         debug_struct.field("auth", &self.auth);
+        debug_struct.field("origin", &self.origin);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

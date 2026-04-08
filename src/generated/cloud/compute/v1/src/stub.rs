@@ -383,6 +383,17 @@ pub trait BackendBuckets: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::BackendBuckets::aggregated_list].
+    fn aggregated_list(
+        &self,
+        _req: crate::model::backend_buckets::AggregatedListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::BackendBucketAggregatedList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::BackendBuckets::delete].
     fn delete(
         &self,
@@ -441,6 +452,17 @@ pub trait BackendBuckets: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::BackendBucketList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackendBuckets::list_usable].
+    fn list_usable(
+        &self,
+        _req: crate::model::backend_buckets::ListUsableRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::BackendBucketListUsable>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1097,6 +1119,16 @@ pub trait Disks: std::fmt::Debug + Send + Sync {
     fn update(
         &self,
         _req: crate::model::disks::UpdateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Disks::update_kms_key].
+    fn update_kms_key(
+        &self,
+        _req: crate::model::disks::UpdateKmsKeyRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {
@@ -7629,6 +7661,147 @@ pub trait RegionAutoscalers: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::RegionBackendBuckets].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionBackendBuckets`.  In other use-cases, application developers only
+/// use `client::RegionBackendBuckets` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-backend-buckets")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-backend-buckets")))]
+pub trait RegionBackendBuckets: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionBackendBuckets::delete].
+    fn delete(
+        &self,
+        _req: crate::model::region_backend_buckets::DeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionBackendBuckets::get].
+    fn get(
+        &self,
+        _req: crate::model::region_backend_buckets::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::BackendBucket>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionBackendBuckets::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: crate::model::region_backend_buckets::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionBackendBuckets::insert].
+    fn insert(
+        &self,
+        _req: crate::model::region_backend_buckets::InsertRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionBackendBuckets::list].
+    fn list(
+        &self,
+        _req: crate::model::region_backend_buckets::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::BackendBucketList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionBackendBuckets::list_usable].
+    fn list_usable(
+        &self,
+        _req: crate::model::region_backend_buckets::ListUsableRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::BackendBucketListUsable>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionBackendBuckets::patch].
+    fn patch(
+        &self,
+        _req: crate::model::region_backend_buckets::PatchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionBackendBuckets::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: crate::model::region_backend_buckets::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionBackendBuckets::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::region_backend_buckets::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionBackendBuckets::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
 /// Defines the trait used to implement [super::client::RegionBackendServices].
 ///
 /// Application developers may need to implement this trait to mock
@@ -7946,6 +8119,17 @@ pub trait RegionCompositeHealthChecks: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::RegionCompositeHealthChecks::get_health].
+    fn get_health(
+        &self,
+        _req: crate::model::region_composite_health_checks::GetHealthRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::CompositeHealthCheckHealth>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::RegionCompositeHealthChecks::insert].
     fn insert(
         &self,
@@ -8236,6 +8420,16 @@ pub trait RegionDisks: std::fmt::Debug + Send + Sync {
     fn update(
         &self,
         _req: crate::model::region_disks::UpdateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionDisks::update_kms_key].
+    fn update_kms_key(
+        &self,
+        _req: crate::model::region_disks::UpdateKmsKeyRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {
@@ -8680,6 +8874,17 @@ pub trait RegionHealthSources: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::HealthSource>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionHealthSources::get_health].
+    fn get_health(
+        &self,
+        _req: crate::model::region_health_sources::GetHealthRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::HealthSourceHealth>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -12307,6 +12512,16 @@ pub trait Snapshots: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::TestPermissionsResponse>>,
     > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Snapshots::update_kms_key].
+    fn update_kms_key(
+        &self,
+        _req: crate::model::snapshots::UpdateKmsKeyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
         gaxi::unimplemented::unimplemented_stub()
     }
 

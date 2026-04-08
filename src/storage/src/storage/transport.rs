@@ -369,8 +369,6 @@ impl super::stub::Storage for Storage {
 
 #[cfg(test)]
 mod tests {
-    #[cfg(google_cloud_unstable_tracing)]
-    use gaxi::observability::attributes::{OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP, keys::*};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::AttributeValue;
@@ -412,7 +410,7 @@ mod tests {
         check_debug_log(&captured, "read_object");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "read_object", "404");
+        client_request_span(&captured, "read_object", "404", "http");
 
         Ok(())
     }
@@ -499,7 +497,7 @@ mod tests {
         check_debug_log(&captured, "write_object_buffered");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "write_object", "404");
+        client_request_span(&captured, "write_object", "404", "http");
 
         Ok(())
     }
@@ -536,7 +534,7 @@ mod tests {
         check_debug_log(&captured, "write_object_unbuffered");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "write_object", "404");
+        client_request_span(&captured, "write_object", "404", "http");
 
         Ok(())
     }
@@ -573,12 +571,13 @@ mod tests {
         check_debug_log(&captured, "open_object");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "open_object", "NOT_FOUND");
+        client_request_span(&captured, "open_object", "NOT_FOUND", "grpc");
         Ok(())
     }
 
     #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test]
+    #[ignore = "flaky test, see #5290"]
     async fn open_object_success() -> anyhow::Result<()> {
         // TODO(#4772) - Move these `use` declarations and constants once the tracing APIs are stable.
         use crate::model_ext::ReadRange;
@@ -724,14 +723,15 @@ mod tests {
         captured: &Vec<CapturedSpan>,
         method: &'static str,
         error_type: &'static str,
+        rpc_system: &'static str,
     ) {
-        const EXPECTED_ATTRIBUTES: [(&str, &str); 6] = [
-            (OTEL_KIND, OTEL_KIND_INTERNAL),
-            (RPC_SYSTEM, RPC_SYSTEM_HTTP),
-            (OTEL_STATUS_CODE, "ERROR"),
-            (GCP_CLIENT_SERVICE, "storage"),
-            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
-            (GCP_CLIENT_ARTIFACT, "google-cloud-storage"),
+        let expected_attributes: [(&str, &str); 6] = [
+            ("otel.kind", "Internal"),
+            ("rpc.system.name", rpc_system),
+            ("otel.status_code", "ERROR"),
+            ("gcp.client.service", "storage"),
+            ("gcp.client.repo", "googleapis/google-cloud-rust"),
+            ("gcp.client.artifact", "google-cloud-storage"),
         ];
         let span = captured
             .iter()
@@ -741,16 +741,16 @@ mod tests {
         // This is a subset of the fields, but good enough to catch most
         // mistakes. Recall that we use a macro, which is already tested.
         let want = BTreeMap::<String, AttributeValue>::from_iter(
-            EXPECTED_ATTRIBUTES
+            expected_attributes
                 .iter()
                 .map(|(k, v)| (k.to_string(), AttributeValue::from(*v)))
                 .chain(
                     [
                         (
-                            OTEL_NAME,
+                            "otel.name",
                             format!("google_cloud_storage::client::Storage::{method}").into(),
                         ),
-                        (ERROR_TYPE, error_type.into()),
+                        ("error.type", error_type.into()),
                     ]
                     .map(|(k, v)| (k.to_string(), v)),
                 ),

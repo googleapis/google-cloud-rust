@@ -46,6 +46,7 @@ impl std::fmt::Debug for super::Document {
         debug_struct.field("revisions", &self.revisions);
         debug_struct.field("document_layout", &self.document_layout);
         debug_struct.field("chunked_document", &self.chunked_document);
+        debug_struct.field("blob_assets", &self.blob_assets);
         debug_struct.field("entity_validation_output", &self.entity_validation_output);
         debug_struct.field("entities_revisions", &self.entities_revisions);
         debug_struct.field("entities_revision_id", &self.entities_revision_id);
@@ -568,6 +569,17 @@ impl std::fmt::Debug for super::document::TextChange {
     }
 }
 
+impl std::fmt::Debug for super::document::Annotations {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Annotations");
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::document::DocumentLayout {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentLayout");
@@ -611,6 +623,7 @@ impl std::fmt::Debug for super::document::document_layout::document_layout_block
         debug_struct.field("text", &self.text);
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("blocks", &self.blocks);
+        debug_struct.field("annotations", &self.annotations);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -624,6 +637,7 @@ impl std::fmt::Debug for super::document::document_layout::document_layout_block
         debug_struct.field("header_rows", &self.header_rows);
         debug_struct.field("body_rows", &self.body_rows);
         debug_struct.field("caption", &self.caption);
+        debug_struct.field("annotations", &self.annotations);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -678,6 +692,20 @@ impl std::fmt::Debug for super::document::document_layout::document_layout_block
     }
 }
 
+impl std::fmt::Debug for super::document::document_layout::document_layout_block::LayoutImageBlock {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LayoutImageBlock");
+        debug_struct.field("mime_type", &self.mime_type);
+        debug_struct.field("image_text", &self.image_text);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("image_source", &self.image_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::document::ChunkedDocument {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChunkedDocument");
@@ -698,6 +726,7 @@ impl std::fmt::Debug for super::document::chunked_document::Chunk {
         debug_struct.field("page_span", &self.page_span);
         debug_struct.field("page_headers", &self.page_headers);
         debug_struct.field("page_footers", &self.page_footers);
+        debug_struct.field("chunk_fields", &self.chunk_fields);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -734,6 +763,53 @@ impl std::fmt::Debug for super::document::chunked_document::chunk::ChunkPageFoot
         let mut debug_struct = f.debug_struct("ChunkPageFooter");
         debug_struct.field("text", &self.text);
         debug_struct.field("page_span", &self.page_span);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::document::chunked_document::chunk::ImageChunkField {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImageChunkField");
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("image_source", &self.image_source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::document::chunked_document::chunk::TableChunkField {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TableChunkField");
+        debug_struct.field("annotations", &self.annotations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::document::chunked_document::chunk::ChunkField {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChunkField");
+        debug_struct.field("field_type", &self.field_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::document::BlobAsset {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BlobAsset");
+        debug_struct.field("asset_id", &self.asset_id);
+        debug_struct.field("content", &self.content);
+        debug_struct.field("mime_type", &self.mime_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -1637,6 +1637,20 @@ impl super::stub::StorageControl for StorageControl {
                 .set_rpc_method(
                     "google.storage.control.v2.StorageControl/UpdateProjectIntelligenceConfig",
                 );
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.intelligence_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1751,6 +1765,20 @@ impl super::stub::StorageControl for StorageControl {
                 .set_rpc_method(
                     "google.storage.control.v2.StorageControl/UpdateFolderIntelligenceConfig",
                 );
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.intelligence_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1865,6 +1893,20 @@ impl super::stub::StorageControl for StorageControl {
                 .set_rpc_method(
                     "google.storage.control.v2.StorageControl/UpdateOrganizationIntelligenceConfig",
                 );
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.intelligence_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -2261,6 +2303,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.longrunning.Operations/GetOperation");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner

@@ -148,6 +148,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Document {
             __revisions,
             __document_layout,
             __chunked_document,
+            __blob_assets,
             __entity_validation_output,
             __entities_revisions,
             __entities_revision_id,
@@ -193,6 +194,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Document {
                             "document_layout" => Ok(__FieldTag::__document_layout),
                             "chunkedDocument" => Ok(__FieldTag::__chunked_document),
                             "chunked_document" => Ok(__FieldTag::__chunked_document),
+                            "blobAssets" => Ok(__FieldTag::__blob_assets),
+                            "blob_assets" => Ok(__FieldTag::__blob_assets),
                             "entityValidationOutput" => Ok(__FieldTag::__entity_validation_output),
                             "entity_validation_output" => {
                                 Ok(__FieldTag::__entity_validation_output)
@@ -408,6 +411,18 @@ impl<'de> serde::de::Deserialize<'de> for super::Document {
                             }
                             result.chunked_document = map.next_value::<std::option::Option<crate::model::document::ChunkedDocument>>()?
                                 ;
+                        }
+                        __FieldTag::__blob_assets => {
+                            if !fields.insert(__FieldTag::__blob_assets) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for blob_assets",
+                                ));
+                            }
+                            result.blob_assets = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::document::BlobAsset>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__entity_validation_output => {
                             if !fields.insert(__FieldTag::__entity_validation_output) {
@@ -5337,6 +5352,86 @@ impl<'de> serde::de::Deserialize<'de> for super::document::TextChange {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::document::Annotations {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __description,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Annotations")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "description" => Ok(__FieldTag::__description),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::document::Annotations;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Annotations")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::document::DocumentLayout {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -5427,6 +5522,7 @@ impl<'de> serde::de::Deserialize<'de> for super::document::document_layout::Docu
             __text_block,
             __table_block,
             __list_block,
+            __image_block,
             __block_id,
             __page_span,
             __bounding_box,
@@ -5456,6 +5552,8 @@ impl<'de> serde::de::Deserialize<'de> for super::document::document_layout::Docu
                             "table_block" => Ok(__FieldTag::__table_block),
                             "listBlock" => Ok(__FieldTag::__list_block),
                             "list_block" => Ok(__FieldTag::__list_block),
+                            "imageBlock" => Ok(__FieldTag::__image_block),
+                            "image_block" => Ok(__FieldTag::__image_block),
                             "blockId" => Ok(__FieldTag::__block_id),
                             "block_id" => Ok(__FieldTag::__block_id),
                             "pageSpan" => Ok(__FieldTag::__page_span),
@@ -5535,6 +5633,23 @@ impl<'de> serde::de::Deserialize<'de> for super::document::document_layout::Docu
                             result.block = std::option::Option::Some(
                                 crate::model::document::document_layout::document_layout_block::Block::ListBlock(
                                     map.next_value::<std::option::Option<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutListBlock>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__image_block => {
+                            if !fields.insert(__FieldTag::__image_block) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for image_block",
+                                ));
+                            }
+                            if result.block.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `block`, a oneof with full ID .google.cloud.documentai.v1.Document.DocumentLayout.DocumentLayoutBlock.image_block, latest field was imageBlock",
+                                ));
+                            }
+                            result.block = std::option::Option::Some(
+                                crate::model::document::document_layout::document_layout_block::Block::ImageBlock(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutImageBlock>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -5708,6 +5823,7 @@ impl<'de> serde::de::Deserialize<'de>
             __text,
             __type,
             __blocks,
+            __annotations,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5731,6 +5847,7 @@ impl<'de> serde::de::Deserialize<'de>
                             "text" => Ok(__FieldTag::__text),
                             "type" => Ok(__FieldTag::__type),
                             "blocks" => Ok(__FieldTag::__blocks),
+                            "annotations" => Ok(__FieldTag::__annotations),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5784,6 +5901,15 @@ impl<'de> serde::de::Deserialize<'de>
                             }
                             result.blocks = map.next_value::<std::option::Option<std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__annotations => {
+                            if !fields.insert(__FieldTag::__annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotations",
+                                ));
+                            }
+                            result.annotations = map.next_value::<std::option::Option<crate::model::document::Annotations>>()?
+                                ;
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -5812,6 +5938,7 @@ impl<'de> serde::de::Deserialize<'de>
             __header_rows,
             __body_rows,
             __caption,
+            __annotations,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5837,6 +5964,7 @@ impl<'de> serde::de::Deserialize<'de>
                             "bodyRows" => Ok(__FieldTag::__body_rows),
                             "body_rows" => Ok(__FieldTag::__body_rows),
                             "caption" => Ok(__FieldTag::__caption),
+                            "annotations" => Ok(__FieldTag::__annotations),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5887,6 +6015,15 @@ impl<'de> serde::de::Deserialize<'de>
                             result.caption = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__annotations => {
+                            if !fields.insert(__FieldTag::__annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotations",
+                                ));
+                            }
+                            result.annotations = map.next_value::<std::option::Option<crate::model::document::Annotations>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6279,6 +6416,173 @@ impl<'de> serde::de::Deserialize<'de>
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::document::document_layout::document_layout_block::LayoutImageBlock
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __blob_asset_id,
+            __gcs_uri,
+            __data_uri,
+            __mime_type,
+            __image_text,
+            __annotations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LayoutImageBlock")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "blobAssetId" => Ok(__FieldTag::__blob_asset_id),
+                            "blob_asset_id" => Ok(__FieldTag::__blob_asset_id),
+                            "gcsUri" => Ok(__FieldTag::__gcs_uri),
+                            "gcs_uri" => Ok(__FieldTag::__gcs_uri),
+                            "dataUri" => Ok(__FieldTag::__data_uri),
+                            "data_uri" => Ok(__FieldTag::__data_uri),
+                            "mimeType" => Ok(__FieldTag::__mime_type),
+                            "mime_type" => Ok(__FieldTag::__mime_type),
+                            "imageText" => Ok(__FieldTag::__image_text),
+                            "image_text" => Ok(__FieldTag::__image_text),
+                            "annotations" => Ok(__FieldTag::__annotations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::document::document_layout::document_layout_block::LayoutImageBlock;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LayoutImageBlock")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__blob_asset_id => {
+                            if !fields.insert(__FieldTag::__blob_asset_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for blob_asset_id",
+                                ));
+                            }
+                            if result.image_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `image_source`, a oneof with full ID .google.cloud.documentai.v1.Document.DocumentLayout.DocumentLayoutBlock.LayoutImageBlock.blob_asset_id, latest field was blobAssetId",
+                                ));
+                            }
+                            result.image_source = std::option::Option::Some(
+                                crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource::BlobAssetId(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__gcs_uri => {
+                            if !fields.insert(__FieldTag::__gcs_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcs_uri",
+                                ));
+                            }
+                            if result.image_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `image_source`, a oneof with full ID .google.cloud.documentai.v1.Document.DocumentLayout.DocumentLayoutBlock.LayoutImageBlock.gcs_uri, latest field was gcsUri",
+                                ));
+                            }
+                            result.image_source = std::option::Option::Some(
+                                crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource::GcsUri(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__data_uri => {
+                            if !fields.insert(__FieldTag::__data_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_uri",
+                                ));
+                            }
+                            if result.image_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `image_source`, a oneof with full ID .google.cloud.documentai.v1.Document.DocumentLayout.DocumentLayoutBlock.LayoutImageBlock.data_uri, latest field was dataUri",
+                                ));
+                            }
+                            result.image_source = std::option::Option::Some(
+                                crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource::DataUri(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__mime_type => {
+                            if !fields.insert(__FieldTag::__mime_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mime_type",
+                                ));
+                            }
+                            result.mime_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__image_text => {
+                            if !fields.insert(__FieldTag::__image_text) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for image_text",
+                                ));
+                            }
+                            result.image_text = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__annotations => {
+                            if !fields.insert(__FieldTag::__annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotations",
+                                ));
+                            }
+                            result.annotations = map.next_value::<std::option::Option<crate::model::document::Annotations>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::document::ChunkedDocument {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -6376,6 +6680,7 @@ impl<'de> serde::de::Deserialize<'de> for super::document::chunked_document::Chu
             __page_span,
             __page_headers,
             __page_footers,
+            __chunk_fields,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6407,6 +6712,8 @@ impl<'de> serde::de::Deserialize<'de> for super::document::chunked_document::Chu
                             "page_headers" => Ok(__FieldTag::__page_headers),
                             "pageFooters" => Ok(__FieldTag::__page_footers),
                             "page_footers" => Ok(__FieldTag::__page_footers),
+                            "chunkFields" => Ok(__FieldTag::__chunk_fields),
+                            "chunk_fields" => Ok(__FieldTag::__chunk_fields),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6485,6 +6792,20 @@ impl<'de> serde::de::Deserialize<'de> for super::document::chunked_document::Chu
                                 ));
                             }
                             result.page_footers = map.next_value::<std::option::Option<std::vec::Vec<crate::model::document::chunked_document::chunk::ChunkPageFooter>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__chunk_fields => {
+                            if !fields.insert(__FieldTag::__chunk_fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for chunk_fields",
+                                ));
+                            }
+                            result.chunk_fields = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::document::chunked_document::chunk::ChunkField,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6787,6 +7108,451 @@ impl<'de> serde::de::Deserialize<'de>
                             result.page_span = map.next_value::<std::option::Option<
                                 crate::model::document::chunked_document::chunk::ChunkPageSpan,
                             >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::document::chunked_document::chunk::ImageChunkField
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __blob_asset_id,
+            __gcs_uri,
+            __data_uri,
+            __annotations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ImageChunkField")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "blobAssetId" => Ok(__FieldTag::__blob_asset_id),
+                            "blob_asset_id" => Ok(__FieldTag::__blob_asset_id),
+                            "gcsUri" => Ok(__FieldTag::__gcs_uri),
+                            "gcs_uri" => Ok(__FieldTag::__gcs_uri),
+                            "dataUri" => Ok(__FieldTag::__data_uri),
+                            "data_uri" => Ok(__FieldTag::__data_uri),
+                            "annotations" => Ok(__FieldTag::__annotations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::document::chunked_document::chunk::ImageChunkField;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ImageChunkField")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__blob_asset_id => {
+                            if !fields.insert(__FieldTag::__blob_asset_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for blob_asset_id",
+                                ));
+                            }
+                            if result.image_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `image_source`, a oneof with full ID .google.cloud.documentai.v1.Document.ChunkedDocument.Chunk.ImageChunkField.blob_asset_id, latest field was blobAssetId",
+                                ));
+                            }
+                            result.image_source = std::option::Option::Some(
+                                crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource::BlobAssetId(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__gcs_uri => {
+                            if !fields.insert(__FieldTag::__gcs_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcs_uri",
+                                ));
+                            }
+                            if result.image_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `image_source`, a oneof with full ID .google.cloud.documentai.v1.Document.ChunkedDocument.Chunk.ImageChunkField.gcs_uri, latest field was gcsUri",
+                                ));
+                            }
+                            result.image_source = std::option::Option::Some(
+                                crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource::GcsUri(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__data_uri => {
+                            if !fields.insert(__FieldTag::__data_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_uri",
+                                ));
+                            }
+                            if result.image_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `image_source`, a oneof with full ID .google.cloud.documentai.v1.Document.ChunkedDocument.Chunk.ImageChunkField.data_uri, latest field was dataUri",
+                                ));
+                            }
+                            result.image_source = std::option::Option::Some(
+                                crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource::DataUri(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__annotations => {
+                            if !fields.insert(__FieldTag::__annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotations",
+                                ));
+                            }
+                            result.annotations = map.next_value::<std::option::Option<crate::model::document::Annotations>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::document::chunked_document::chunk::TableChunkField
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __annotations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TableChunkField")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "annotations" => Ok(__FieldTag::__annotations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::document::chunked_document::chunk::TableChunkField;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TableChunkField")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__annotations => {
+                            if !fields.insert(__FieldTag::__annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotations",
+                                ));
+                            }
+                            result.annotations = map.next_value::<std::option::Option<crate::model::document::Annotations>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::document::chunked_document::chunk::ChunkField {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __image_chunk_field,
+            __table_chunk_field,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ChunkField")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "imageChunkField" => Ok(__FieldTag::__image_chunk_field),
+                            "image_chunk_field" => Ok(__FieldTag::__image_chunk_field),
+                            "tableChunkField" => Ok(__FieldTag::__table_chunk_field),
+                            "table_chunk_field" => Ok(__FieldTag::__table_chunk_field),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::document::chunked_document::chunk::ChunkField;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ChunkField")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__image_chunk_field => {
+                            if !fields.insert(__FieldTag::__image_chunk_field) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for image_chunk_field",
+                                ));
+                            }
+                            if result.field_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `field_type`, a oneof with full ID .google.cloud.documentai.v1.Document.ChunkedDocument.Chunk.ChunkField.image_chunk_field, latest field was imageChunkField",
+                                ));
+                            }
+                            result.field_type = std::option::Option::Some(
+                                crate::model::document::chunked_document::chunk::chunk_field::FieldType::ImageChunkField(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::document::chunked_document::chunk::ImageChunkField>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__table_chunk_field => {
+                            if !fields.insert(__FieldTag::__table_chunk_field) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for table_chunk_field",
+                                ));
+                            }
+                            if result.field_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `field_type`, a oneof with full ID .google.cloud.documentai.v1.Document.ChunkedDocument.Chunk.ChunkField.table_chunk_field, latest field was tableChunkField",
+                                ));
+                            }
+                            result.field_type = std::option::Option::Some(
+                                crate::model::document::chunked_document::chunk::chunk_field::FieldType::TableChunkField(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::document::chunked_document::chunk::TableChunkField>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::document::BlobAsset {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __asset_id,
+            __content,
+            __mime_type,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BlobAsset")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "assetId" => Ok(__FieldTag::__asset_id),
+                            "asset_id" => Ok(__FieldTag::__asset_id),
+                            "content" => Ok(__FieldTag::__content),
+                            "mimeType" => Ok(__FieldTag::__mime_type),
+                            "mime_type" => Ok(__FieldTag::__mime_type),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::document::BlobAsset;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BlobAsset")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__asset_id => {
+                            if !fields.insert(__FieldTag::__asset_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for asset_id",
+                                ));
+                            }
+                            result.asset_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__content => {
+                            if !fields.insert(__FieldTag::__content) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for content",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.content = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__mime_type => {
+                            if !fields.insert(__FieldTag::__mime_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mime_type",
+                                ));
+                            }
+                            result.mime_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

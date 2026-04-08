@@ -1,0 +1,14 @@
+{
+    "api_id": "ces.googleapis.com",
+    "api_shortname": "ces",
+    "client_documentation": "https://docs.rs/google-cloud-ces-v1/latest",
+    "distribution_name": "google-cloud-ces-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1157150",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "ces",
+    "name_pretty": "Gemini Enterprise for Customer Experience",
+    "product_documentation": "https://docs.cloud.google.com/customer-engagement-ai/conversational-agents/ps",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}

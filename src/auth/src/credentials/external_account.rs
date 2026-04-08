@@ -771,6 +771,7 @@ impl Builder {
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             access_boundary_url,
+            None, // TODO(#3646): pass universe domain from builder
         ))
     }
 }

@@ -766,14 +766,11 @@ pub async fn cleanup_stale_buckets(
     }
 
     println!("cleaning up {} buckets", pending.len());
-    let r: std::result::Result<Vec<_>, _> = futures::future::join_all(pending)
-        .await
-        .into_iter()
-        .collect();
-    r.map_err(anyhow::Error::from)?
-        .into_iter()
-        .zip(names)
-        .for_each(|(r, name)| println!("deleting bucket {name}: {r:?}"));
+    let results = futures::future::join_all(pending).await;
+    let errors = results.into_iter().zip(names).filter(|(r, _)| r.is_err());
+    for (r, name) in errors {
+        println!("error deleting bucket {name}: {r:?}");
+    }
 
     Ok(())
 }

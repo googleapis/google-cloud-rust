@@ -201,6 +201,7 @@ impl std::fmt::Debug for super::field::TtlConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TtlConfig");
         debug_struct.field("state", &self.state);
+        debug_struct.field("expiration_offset", &self.expiration_offset);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -818,6 +819,7 @@ impl std::fmt::Debug for super::field_operation_metadata::TtlConfigDelta {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TtlConfigDelta");
         debug_struct.field("change_type", &self.change_type);
+        debug_struct.field("expiration_offset", &self.expiration_offset);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

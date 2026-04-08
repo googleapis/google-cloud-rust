@@ -95,6 +95,12 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn establish_volume_peering(
+        &self,
+        req: crate::model::EstablishVolumePeeringRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_snapshots(
         &self,
         req: crate::model::ListSnapshotsRequest,
@@ -413,6 +419,30 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn execute_ontap_post(
+        &self,
+        req: crate::model::ExecuteOntapPostRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteOntapPostResponse>>;
+
+    async fn execute_ontap_get(
+        &self,
+        req: crate::model::ExecuteOntapGetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteOntapGetResponse>>;
+
+    async fn execute_ontap_delete(
+        &self,
+        req: crate::model::ExecuteOntapDeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteOntapDeleteResponse>>;
+
+    async fn execute_ontap_patch(
+        &self,
+        req: crate::model::ExecuteOntapPatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteOntapPatchResponse>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -578,6 +608,15 @@ impl<T: super::NetApp> NetApp for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::revert_volume(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn establish_volume_peering(
+        &self,
+        req: crate::model::EstablishVolumePeeringRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::establish_volume_peering(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1055,6 +1094,42 @@ impl<T: super::NetApp> NetApp for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_host_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn execute_ontap_post(
+        &self,
+        req: crate::model::ExecuteOntapPostRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteOntapPostResponse>> {
+        T::execute_ontap_post(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn execute_ontap_get(
+        &self,
+        req: crate::model::ExecuteOntapGetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteOntapGetResponse>> {
+        T::execute_ontap_get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn execute_ontap_delete(
+        &self,
+        req: crate::model::ExecuteOntapDeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteOntapDeleteResponse>> {
+        T::execute_ontap_delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn execute_ontap_patch(
+        &self,
+        req: crate::model::ExecuteOntapPatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteOntapPatchResponse>> {
+        T::execute_ontap_patch(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

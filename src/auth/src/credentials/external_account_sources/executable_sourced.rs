@@ -14,10 +14,10 @@
 
 use crate::{
     Result,
-    constants::{ACCESS_TOKEN_TYPE, JWT_TOKEN_TYPE, SAML2_TOKEN_TYPE},
-    credentials::external_account::ExecutableConfig,
-    credentials::subject_token::{
-        Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
+    constants::{ACCESS_TOKEN_TYPE, ID_TOKEN_TYPE, JWT_TOKEN_TYPE, SAML2_TOKEN_TYPE},
+    credentials::{
+        external_account::ExecutableConfig,
+        subject_token::{Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider},
     },
 };
 use google_cloud_gax::error::CredentialsError;
@@ -213,7 +213,7 @@ impl ExecutableSourcedCredentials {
         }
 
         match res.token_type.as_str() {
-            JWT_TOKEN_TYPE | ACCESS_TOKEN_TYPE => match res.id_token {
+            JWT_TOKEN_TYPE | ACCESS_TOKEN_TYPE | ID_TOKEN_TYPE => match res.id_token {
                 Some(id_token) => Ok(id_token),
                 None => Err(CredentialsError::from_msg(
                     false,
@@ -260,9 +260,13 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[test_case(ACCESS_TOKEN_TYPE, "id_token")]
+    #[test_case(ID_TOKEN_TYPE, "id_token")]
+    #[test_case(JWT_TOKEN_TYPE, "id_token")]
+    #[test_case(SAML2_TOKEN_TYPE, "saml_response")]
     #[serial]
-    async fn read_token_from_command() -> TestResult {
+    #[tokio::test]
+    async fn read_token_from_command(token_type: &str, token_field: &str) -> TestResult {
         let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
         let expiration = SystemTime::now().duration_since(UNIX_EPOCH)?;
         let expiration = expiration + Duration::from_secs(3600);
@@ -271,8 +275,8 @@ mod tests {
             "success": true,
             "version": 1,
             "expiration_time": expiration,
-            "token_type": JWT_TOKEN_TYPE,
-            "id_token":"an_example_token",
+            "token_type": token_type,
+            token_field: "an_example_token",
         })
         .to_string();
         let file = tempfile::NamedTempFile::new().unwrap();
@@ -322,9 +326,13 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[test_case(ACCESS_TOKEN_TYPE, "id_token")]
+    #[test_case(ID_TOKEN_TYPE, "id_token")]
+    #[test_case(JWT_TOKEN_TYPE, "id_token")]
+    #[test_case(SAML2_TOKEN_TYPE, "saml_response")]
     #[parallel]
-    async fn read_valid_token_from_output_file() -> TestResult {
+    #[tokio::test]
+    async fn read_valid_token_from_output_file(token_type: &str, token_field: &str) -> TestResult {
         let expiration = SystemTime::now().duration_since(UNIX_EPOCH)?;
         let expiration = expiration + Duration::from_secs(3600);
         let expiration = expiration.as_secs();
@@ -332,8 +340,8 @@ mod tests {
             "success": true,
             "version": 1,
             "expiration_time": expiration,
-            "token_type": JWT_TOKEN_TYPE,
-            "id_token":"an_example_token",
+            "token_type": token_type,
+            token_field: "an_example_token",
         })
         .to_string();
         let file = tempfile::NamedTempFile::new().unwrap();

@@ -50,6 +50,18 @@ impl std::fmt::Debug for Firestore {
 
 impl Firestore {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if gaxi::options::tracing_enabled(&config) {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
+        };
+        #[cfg(not(google_cloud_unstable_tracing))]
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -85,6 +97,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/GetDocument");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -133,6 +151,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::ListDocumentsResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/ListDocuments");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -176,6 +200,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/UpdateDocument");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -218,6 +248,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/DeleteDocument");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -260,6 +296,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::BeginTransactionResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/BeginTransaction");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -298,6 +340,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::CommitResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/Commit");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -336,6 +384,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/Rollback");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -378,6 +432,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::PartitionQueryResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/PartitionQuery");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -421,6 +481,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::ListCollectionIdsResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/ListCollectionIds");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -463,6 +529,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::BatchWriteResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/BatchWrite");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -511,6 +583,12 @@ impl super::stub::Firestore for Firestore {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.firestore.v1.Firestore/CreateDocument");
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
