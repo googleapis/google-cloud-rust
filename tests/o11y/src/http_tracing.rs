@@ -15,6 +15,7 @@
 use super::Anonymous;
 use crate::mock_collector::MockCollector;
 use crate::otlp::logs::Builder as LoggerProviderBuilder;
+use crate::otlp::metrics::Builder as MeterProviderBuilder;
 use crate::otlp::trace::Builder as TracerProviderBuilder;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
@@ -47,10 +48,17 @@ pub async fn to_otlp() -> anyhow::Result<()> {
 
     // 2. Configure OTel Provider
     let provider = TracerProviderBuilder::new("test-project", "integration-tests")
-        .with_endpoint(otlp_endpoint)
+        .with_endpoint(otlp_endpoint.clone())
         .with_credentials(Anonymous::new().build())
         .build()
         .await?;
+
+    let meter_provider = MeterProviderBuilder::new("test-project", "integration-tests")
+        .with_endpoint(otlp_endpoint.parse::<http::Uri>().expect("Failed to parse URI"))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+    opentelemetry::global::set_meter_provider(meter_provider.clone());
 
     // 3. Install Tracing Subscriber
     let _guard = tracing_subscriber::Registry::default()
@@ -82,6 +90,7 @@ pub async fn to_otlp() -> anyhow::Result<()> {
 
     // 7. Flush Spans
     let _ = provider.force_flush();
+    let _ = meter_provider.force_flush();
 
     // 8. Verify Spans
     let (_metadata, _, request) = mock_collector
@@ -130,6 +139,84 @@ pub async fn to_otlp() -> anyhow::Result<()> {
         Some("googleapis/google-cloud-rust")
     );
     assert!(get_string("gcp.client.version").is_some(), "{attributes:?}");
+
+    // 10. Verify Metrics
+    let metrics_requests = mock_collector.metrics.lock().unwrap();
+    let metric_request = metrics_requests
+        .first()
+        .expect("should have received at least one metrics request")
+        .get_ref();
+
+    let scope_metrics = &metric_request.resource_metrics[0].scope_metrics[0];
+    println!("Scope: {:?}", scope_metrics.scope);
+
+    let scope_attributes: std::collections::HashMap<String, String> = scope_metrics
+        .scope
+        .as_ref()
+        .unwrap()
+        .attributes
+        .iter()
+        .map(|kv| {
+            let value_str = match &kv.value {
+                Some(opentelemetry_proto::tonic::common::v1::AnyValue { value: Some(opentelemetry_proto::tonic::common::v1::any_value::Value::StringValue(s)) }) => s.clone(),
+                _ => String::new(),
+            };
+            (kv.key.clone(), value_str)
+        })
+        .collect();
+
+    assert_eq!(scope_attributes.get("gcp.client.version").map(|s| s.as_str()), Some("1.0.0"));
+    
+    let metrics = &scope_metrics.metrics;
+    println!("Received metrics: {:?}", metrics.iter().map(|m| &m.name).collect::<Vec<_>>());
+    let duration_metric = metrics
+        .iter()
+        .find(|m| m.name == "test.client.duration" || m.name == "gcp.client.request.duration" || m.name == "workload.googleapis.com/gcp.client.request.duration")
+        .expect("Should have found duration metric");
+
+    println!("Metric data: {:?}", duration_metric.data);
+    let histogram = match &duration_metric.data {
+        Some(opentelemetry_proto::tonic::metrics::v1::metric::Data::ExponentialHistogram(h)) => h,
+        _ => panic!("Expected exponential histogram data"),
+    };
+
+    let data_point = histogram
+        .data_points
+        .iter()
+        .find(|dp| {
+            let attrs: std::collections::HashMap<String, _> = dp.attributes.iter().map(|kv| (kv.key.clone(), kv.value.clone().unwrap())).collect();
+            attrs.get("http.response.status_code").and_then(|v| match &v.value {
+                Some(opentelemetry_proto::tonic::common::v1::any_value::Value::IntValue(i)) => Some(*i),
+                _ => None,
+            }) == Some(200)
+        })
+        .expect("Should have found a data point with status 200");
+
+    let metric_attributes: std::collections::HashMap<String, _> = data_point
+        .attributes
+        .iter()
+        .map(|kv| (kv.key.clone(), kv.value.clone().unwrap()))
+        .collect();
+
+    let get_metric_string = |key: &str| -> Option<String> {
+        metric_attributes.get(key).and_then(|v| match &v.value {
+            Some(opentelemetry_proto::tonic::common::v1::any_value::Value::StringValue(s)) => {
+                Some(s.clone())
+            }
+            _ => None,
+        })
+    };
+
+    assert_eq!(get_metric_string("rpc.method").as_deref(), Some("google.showcase.v1beta1.Echo/Echo"));
+    
+    let get_metric_int = |key: &str| -> Option<i64> {
+        metric_attributes.get(key).and_then(|v| match &v.value {
+            Some(opentelemetry_proto::tonic::common::v1::any_value::Value::IntValue(i)) => Some(*i),
+            _ => None,
+        })
+    };
+    
+    assert_eq!(get_metric_int("http.response.status_code"), Some(200));
 
     Ok(())
 }
