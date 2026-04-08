@@ -18,8 +18,9 @@ use super::stub::Stub;
 use crate::RequestOptions;
 use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
+use google_cloud_gax::retry_loop_internal::retry_loop;
 use std::collections::HashMap;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use tokio::sync::mpsc::UnboundedSender;
 
 /// A trait representing leaser actions.
@@ -94,7 +95,7 @@ where
 #[async_trait::async_trait]
 impl<T> Leaser for DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     async fn ack(&self, ack_ids: Vec<String>) {
         let req = AcknowledgeRequest::new()
@@ -137,24 +138,59 @@ where
     /// keep the retry logic in the leaser, while allowing for partial results
     /// to be reported before the entire operation completes.
     async fn confirmed_ack(&self, ack_ids: Vec<String>) {
-        // TODO(#4804): implement retries
-        let req = AcknowledgeRequest::new()
-            .set_subscription(self.subscription.clone())
-            .set_ack_ids(ack_ids.clone());
-        let response = self.inner.acknowledge(req, self.options.clone()).await;
-        let shared_result = response.map(|_| ()).map_err(Arc::new);
-        let confirmed_acks = ack_ids
-            .into_iter()
-            .map(|id| {
-                (
-                    id,
-                    shared_result
-                        .clone()
-                        .map_err(|source| AckError::Rpc { source }),
-                )
-            })
-            .collect();
-        let _ = self.confirmed_tx.send(confirmed_acks);
+        use std::time::Duration;
+
+        let subscription = self.subscription.clone();
+        let stub = self.inner.clone();
+        let options = self.options.clone();
+        let confirmed_acks = Arc::new(Mutex::new(HashMap::<String, AckResult>::new()));
+        let acks = Arc::clone(&confirmed_acks);
+
+        // TODO(#4804): implement inner retry closure to check response metadata.
+        let inner = async move |_remaining_time: Option<Duration>| {
+            let req = AcknowledgeRequest::new()
+                .set_subscription(subscription.clone())
+                .set_ack_ids(ack_ids.clone());
+            let response = stub.clone().acknowledge(req, options.clone()).await;
+            let shared_result = response.map(|_| ()).map_err(Arc::new);
+            // TODO(#4804): examine response metadata and update acks as needed.
+            let confirmed: HashMap<String, AckResult> = ack_ids
+                .clone()
+                .into_iter()
+                .map(|id| {
+                    (
+                        id,
+                        shared_result
+                            .clone()
+                            .map_err(|source| AckError::Rpc { source }),
+                    )
+                })
+                .collect();
+            let mut guard = acks.lock().expect("never poisoned");
+            *guard = confirmed;
+            Ok(())
+        };
+
+        let sleep = async |d| tokio::time::sleep(d).await;
+        // TODO(#4804): update retry_loop configuration and move to retry_policy.
+        let _retry_result = retry_loop(
+            inner,
+            sleep,
+            false,
+            Arc::new(Mutex::new(
+                google_cloud_gax::retry_throttler::AdaptiveThrottler::default(),
+            )),
+            Arc::new(google_cloud_gax::retry_policy::NeverRetry),
+            Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default()),
+        )
+        .await;
+
+        let _ = self.confirmed_tx.send(
+            Arc::into_inner(confirmed_acks)
+                .expect("retry_loop inner closure is dropped")
+                .into_inner()
+                .expect("never poisoned"),
+        );
     }
 }
 
