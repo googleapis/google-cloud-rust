@@ -421,7 +421,7 @@ libraries:
     version: 1.5.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
-    copyright_year: "2025"
+    copyright_year: "2026"
     output: src/bigquery
     skip_release: true
     rust:
