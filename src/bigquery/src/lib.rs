@@ -23,3 +23,51 @@
 //! [BigQuery].
 //!
 //! [bigquery]: https://cloud.google.com/bigquery
+
+pub use google_cloud_gax::Result;
+pub use google_cloud_gax::error::Error;
+
+pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+pub(crate) use google_cloud_gax::options::RequestOptions;
+pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
+pub(crate) use google_cloud_gax::response::Response;
+
+mod proto_schema;
+// TODO(#4832) - remove handwritten code.
+mod status;
+pub(crate) mod model {
+    pub use crate::generated::gapic_storage::model::*;
+}
+
+#[allow(dead_code)]
+pub(crate) mod generated;
+
+//#[allow(dead_code)]
+//pub mod prost_types {
+//    include!("generated/convert/protobuf/convert.rs");
+//}
+
+#[allow(dead_code)]
+pub(crate) mod google {
+    pub mod api {
+        include!("generated/protos/storage/google.api.rs");
+    }
+    pub mod cloud {
+        pub mod bigquery {
+            pub mod storage {
+                pub mod v1 {
+                    #![allow(deprecated)]
+                    include!("generated/protos/storage/google.cloud.bigquery.storage.v1.rs");
+                    include!("generated/convert/storage/convert.rs");
+                }
+            }
+        }
+    }
+    //    pub mod protobuf {
+    //        use prost_types::*;
+    //        include!("generated/convert/protobuf/convert.rs");
+    //    }
+    pub mod rpc {
+        include!("generated/protos/storage/google.rpc.rs");
+    }
+}
