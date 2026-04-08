@@ -26,9 +26,7 @@ use std::sync::Arc;
 /// let tx = db.single_use().build();
 /// let mut rs = tx.execute_query(Statement::builder("SELECT 1 AS Number").build()).await?;
 ///
-/// // Metadata is available after the first `next` call
-/// let _ = rs.next().await.transpose()?;
-/// let metadata = rs.metadata()?;
+/// let metadata = rs.metadata().await?;
 ///
 /// for (name, type_) in metadata.column_names().iter().zip(metadata.column_types().iter()) {
 ///     println!("Column: {} has type: {:?}", name, type_.code());
