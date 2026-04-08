@@ -18,8 +18,12 @@ use super::stub::Stub;
 use crate::RequestOptions;
 use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_policy::NeverRetry;
+use google_cloud_gax::retry_throttler::CircuitBreaker;
 use std::collections::HashMap;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use tokio::sync::mpsc::UnboundedSender;
 
 /// A trait representing leaser actions.
@@ -48,7 +52,7 @@ pub(super) type ConfirmedAcks = HashMap<String, AckResult>;
 
 pub(super) struct DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     inner: Arc<T>,
     confirmed_tx: UnboundedSender<ConfirmedAcks>,
@@ -59,7 +63,7 @@ where
 
 impl<T> Clone for DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     fn clone(&self) -> Self {
         Self {
@@ -74,7 +78,7 @@ where
 
 impl<T> DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     pub(super) fn new(
         inner: Arc<T>,
@@ -96,7 +100,7 @@ where
 #[async_trait::async_trait]
 impl<T> Leaser for DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     async fn ack(&self, ack_ids: Vec<String>) {
         let req = AcknowledgeRequest::new()
@@ -139,7 +143,57 @@ where
     /// keep the retry logic in the leaser, while allowing for partial results
     /// to be reported before the entire operation completes.
     async fn confirmed_ack(&self, ack_ids: Vec<String>) {
-        // TODO(#4804): implement retries
+        let leaser = self.clone();
+        let mut ack_ids = ack_ids;
+
+        let attempt = async move |_| {
+            let ids = std::mem::take(&mut ack_ids);
+            let ack_ids = leaser.confirmed_ack_attempt(ids).await;
+            if ack_ids.is_empty() {
+                Ok(())
+            } else {
+                // Return a synthetic error to indicate that we should retry.
+                Err(crate::Error::timeout("retry me"))
+            }
+        };
+
+        let sleep = async |d| tokio::time::sleep(d).await;
+        let _ = retry_loop(
+            attempt,
+            sleep,
+            true,
+            retry_throttler(&self.options),
+            retry_policy(),
+            backoff_policy(),
+        )
+        .await;
+    }
+}
+
+fn retry_policy() -> Arc<NeverRetry> {
+    Arc::new(NeverRetry)
+}
+
+fn backoff_policy() -> Arc<ExponentialBackoff> {
+    Arc::new(ExponentialBackoff::default())
+}
+
+fn retry_throttler(
+    options: &RequestOptions,
+) -> google_cloud_gax::retry_throttler::SharedRetryThrottler {
+    options.retry_throttler().clone().unwrap_or_else(|| {
+        // Effectively disable throttling. The stub throttles.
+        Arc::new(Mutex::new(
+            CircuitBreaker::new(1000, 0, 0).expect("This is a valid configuration"),
+        ))
+    })
+}
+
+impl<T> DefaultLeaser<T>
+where
+    T: Stub + 'static,
+{
+    async fn confirmed_ack_attempt(&self, ack_ids: Vec<String>) -> Vec<String> {
         let req = AcknowledgeRequest::new()
             .set_subscription(self.subscription.clone())
             .set_ack_ids(ack_ids.clone());
@@ -157,6 +211,10 @@ where
             })
             .collect();
         let _ = self.confirmed_tx.send(confirmed_acks);
+
+        // TODO(#4804): process the results, and return ack IDs that fail with
+        // transient errors here.
+        Vec::new()
     }
 
     async fn confirmed_nack(&self, ack_ids: Vec<String>) {
