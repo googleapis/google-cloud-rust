@@ -173,7 +173,8 @@ where
 
         let sleep = async |d| tokio::time::sleep(d).await;
         // TODO(#4804): update retry_loop configuration and move to retry_policy.
-        let _retry_result = retry_loop(
+        // Result is ignored as inner always return Ok.
+        let _ = retry_loop(
             inner,
             sleep,
             false,
